@@ -1,10 +1,9 @@
 package lotto.view;
 
 import lotto.domain.Lotto;
+import lotto.util.Util;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class View {
     private static Scanner sc = new Scanner(System.in);
@@ -31,5 +30,21 @@ public class View {
         for(Lotto lotto : lottos){
             System.out.println(lotto.toString());
         }
+    }
+
+    public static void printRoundResult(Map<Integer,Integer> resultMap){
+        int totalCount = 0;
+        int totalReward = 0;
+        for (int count : resultMap.values()) {
+            totalCount += count;
+        }
+        System.out.println("당첨 통계");
+        System.out.println("------------------");
+        for(int i=3; i<=6; i++){
+            totalCount += resultMap.getOrDefault(i,0);
+            totalReward += Util.reward.get(i) * resultMap.getOrDefault(i,0);
+            System.out.println(i+"개 일치"+" ("+Util.reward.get(i)+")- "+resultMap.getOrDefault(i,0)+"개");
+        }
+        System.out.println("총 수익률은 "+(float)totalReward/(totalCount*10)+"%입니다.");
     }
 }
