@@ -27,7 +27,7 @@ public class LottoController {
         List<Lotto> lottos = lottoSystem.buyLotto(purchasePrice);
         LottoView.createLottoView(lottos).printView();
 
-        String winningNumbers = IOView.inputToString("지난 주 당첨 번호를 입력해 주세요.", sc);
+        String winningNumbers = IOView.inputToString("지난 주 당첨 번호를 입력해 주세요.(,사용)", sc);
         List<String> parsed = StringParsingUtil.parse(winningNumbers, ",");
         lottoSystem.inputWinningNumber(parsed.stream()
                 .map(Integer::parseInt)

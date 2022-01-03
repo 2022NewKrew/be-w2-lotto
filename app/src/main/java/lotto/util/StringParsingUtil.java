@@ -12,6 +12,7 @@ public class StringParsingUtil {
     public static List<String> parse(String stringList, String split) {
         String[] list = stringList.split(split);
         return Arrays.stream(list)
+                .map(String::trim)
                 .collect(Collectors.toList());
     }
 }
