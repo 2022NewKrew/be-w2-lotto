@@ -1,15 +1,20 @@
 package domain.lottery;
 
 import java.util.List;
+import java.util.Random;
 
 public class Ticket {
-    final List<Integer> numbers;
+    private Numbers numbersObject;
 
     public Ticket(List<Integer> numbers) {
-        this.numbers = numbers;
+        this.numbersObject = new Numbers(numbers);
+    }
+
+    public Ticket(Random random) {
+        this.numbersObject = new Numbers(random);
     }
 
     public List<Integer> getNumbers() {
-        return numbers;
+        return numbersObject.numbers;
     }
 }

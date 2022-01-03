@@ -12,7 +12,7 @@ public class View {
 
     public int getBudgetByPrompt() {
         System.out.println("구입금액을 입력해 주세요.");
-        return scanner.nextInt();
+        return Integer.parseInt(scanner.nextLine());
     }
 
     public void showBoughtTickets(List<Ticket> tickets) {
@@ -20,6 +20,7 @@ public class View {
         for (var ticket : tickets) {
             System.out.println(ticket.getNumbers());
         }
+        System.out.println();
     }
 
     public List<Integer> getResultNumbersByPrompt() {
@@ -35,9 +36,9 @@ public class View {
         System.out.println("당첨 통계");
         System.out.println("---------");
         System.out.println("3개 일치 (" + report.getFourthPrizeValue() + "원)- " + report.getFourthPrizeCount() + "개");
-        System.out.println("3개 일치 (" + report.getThirdPrizeValue() + "원)- " + report.getThirdPrizeCount() + "개");
-        System.out.println("3개 일치 (" + report.getSecondPrizeValue() + "원)- " + report.getSecondPrizeCount() + "개");
-        System.out.println("3개 일치 (" + report.getFirstPrizeValue() + "원)- " + report.getFirstPrizeCount() + "개");
+        System.out.println("4개 일치 (" + report.getThirdPrizeValue() + "원)- " + report.getThirdPrizeCount() + "개");
+        System.out.println("5개 일치 (" + report.getSecondPrizeValue() + "원)- " + report.getSecondPrizeCount() + "개");
+        System.out.println("6개 일치 (" + report.getFirstPrizeValue() + "원)- " + report.getFirstPrizeCount() + "개");
         System.out.println("총 수익률은 " + report.getProfitRateAsPercentage() + "%입니다.");
     }
 }

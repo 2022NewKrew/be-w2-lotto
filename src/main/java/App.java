@@ -9,8 +9,8 @@ import java.util.Random;
 public class App {
     public static void main(String[] args) {
         View view = new View();
-        User user = new User();
         Admin admin = new Admin();
+        User user = new User(admin);
 
         List<Ticket> boughtTickets = user.buyRandomTicketsUnderBudget(view.getBudgetByPrompt(), new Random());
         view.showBoughtTickets(boughtTickets);
