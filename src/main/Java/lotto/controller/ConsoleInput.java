@@ -14,7 +14,7 @@ public class ConsoleInput {
          return lottoPurChaseMoney;
      }
 
-    public static List<Integer> getLastWeekLottoNumbers() {
+    public static List<Integer> getLastWeekLottoNumberList() {
         System.out.println("지난 주 당첨 로또 번호를 입력해주세요.");
         int[] lastWeekLottoNumberArray = Stream.of(sc.next().split(SEPERATOR)).mapToInt(Integer::parseInt).toArray();
         List<Integer> lastWeekLottoNumberList = Arrays.stream(lastWeekLottoNumberArray).boxed().collect(Collectors.toList());

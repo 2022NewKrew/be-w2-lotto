@@ -9,14 +9,16 @@ public class Lotto {
     private static final int END_NUMBER = 45;
     private static final int COUNT_IN_LOTTO_TICKET = 6;
     private static List<Integer> allLottoNumberList;
-    private List<Integer> lottoNumberList;
+    private final List<Integer> lottoNumberList;
 
     public Lotto() {
         allLottoNumberList = IntStream.range(START_NUMBER,END_NUMBER+1).boxed().collect(Collectors.toList());
         Collections.shuffle(allLottoNumberList);
-        lottoNumberList = new ArrayList<>(allLottoNumberList);
-        lottoNumberList = lottoNumberList.subList(0,COUNT_IN_LOTTO_TICKET);
-        lottoNumberList = Collections.unmodifiableList(lottoNumberList);
+        lottoNumberList = Collections.unmodifiableList(new ArrayList<>(allLottoNumberList).subList(0,COUNT_IN_LOTTO_TICKET));
+    }
+
+    public List<Integer> getLottoNumberList() {
+        return lottoNumberList;
     }
 
     @Override
