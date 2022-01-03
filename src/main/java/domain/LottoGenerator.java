@@ -1,9 +1,8 @@
 package domain;
 
-import java.util.LinkedHashSet;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -11,11 +10,15 @@ public class LottoGenerator {
     private static final Random random = new Random();
     private static final int MAXIMUM_VALUE = 44;
 
-    public Lotto createAutoLotto() {
-        Lotto lotto = new Lotto(createAutoLottoNumber());
-//        System.out.println(lotto.getLotto());
-        return lotto;
+    public List<Lotto> createAutoLottos(int purchasedLottoNumbers) {
+        return Stream.generate(this::createAutoLotto)
+                .limit(purchasedLottoNumbers)
+                .collect(Collectors.toList());
     }
+
+    private Lotto createAutoLotto() {
+        return new Lotto(createAutoLottoNumber());
+     }
 
     private List<Integer> createAutoLottoNumber() {
         List<Integer> autoLottoNumber = Stream.generate(() -> random.nextInt(MAXIMUM_VALUE) + 1)
@@ -25,9 +28,8 @@ public class LottoGenerator {
                 .collect(Collectors.toList());
         while (autoLottoNumber.size() < 6) {
             autoLottoNumber.add(random.nextInt(MAXIMUM_VALUE) + 1);
-            autoLottoNumber.stream().sorted();
+            Collections.sort(autoLottoNumber);
         }
-//        autoLottoNumber.stream().sorted();
         return autoLottoNumber;
     }
 }
