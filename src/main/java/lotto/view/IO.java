@@ -16,7 +16,7 @@ public class IO {
     private static final String aBuyNums = "%d개를 구매했습니다.";
     private static final String aResults = "당첨통계\n--------";
     private static final String aResultsPerNum = "%d개 일치 (%d원) - %d개";
-    private static final String aEarnRate = "총 수익률은 d%입니다.";
+    private static final String aEarnRate = "총 수익률은 %d %%입니다.";
 
     private static final int lottoPrice = 1000;
     private static final List<Integer> prices = Arrays.asList(5000, 50000, 1500000, 2000000000);

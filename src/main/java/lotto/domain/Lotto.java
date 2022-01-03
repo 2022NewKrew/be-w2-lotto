@@ -13,10 +13,27 @@ public class Lotto {
     public Lotto(){
     }
 
-    public static List<Integer> getRandLotto() {
+    public List<Integer> getRandLotto() {
         Collections.shuffle(range);
         oneLotto = new ArrayList<>(range.subList(0,6));
         return oneLotto;
+    }
+
+    //helper function for LottoPack.getResults()
+    public int countMatch(List<Integer> nums, List<Integer> prevNums){
+        int cnt = 0;
+        for (int i : prevNums){
+            cnt += countMatchPerNum(nums, i);
+        }
+        return cnt;
+    }
+
+    private int countMatchPerNum(List<Integer> nums, int i){
+        int cnt = 0;
+        if (nums.contains(i)){
+            cnt +=1;
+        }
+        return cnt;
     }
 
 }
