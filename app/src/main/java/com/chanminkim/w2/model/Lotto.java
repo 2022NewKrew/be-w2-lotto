@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Lotto {
+    public final static int LOTTO_PRICE = 1000;
     private static final int LOTTO_NUMBERS_LENGTH_LIMIT = 6;
     private final List<LottoNumber> lottoNumbers;
 
