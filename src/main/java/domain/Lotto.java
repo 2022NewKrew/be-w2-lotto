@@ -9,11 +9,17 @@ public class Lotto {
     private final List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
-        if(numbers.size() != LOTTO_NUMBER_SIZE){
+        if (numbers.size() != LOTTO_NUMBER_SIZE) {
             throw new IllegalArgumentException();
         }
 
         this.numbers = numbers;
+    }
+
+    public Integer getWinningCount(List<Integer> winningNumbers) {
+        return Math.toIntExact(numbers.stream()
+                .filter(winningNumbers::contains)
+                .count());
     }
 
     @Override
