@@ -3,12 +3,11 @@
  */
 package be.w2.lotto;
 
-public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
+import be.w2.lotto.boot.GameStarter;
 
+public class App {
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        GameStarter.getInstance()
+                .start();
     }
 }
