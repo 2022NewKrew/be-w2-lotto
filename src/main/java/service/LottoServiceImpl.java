@@ -24,7 +24,7 @@ public class LottoServiceImpl implements LottoService {
             int purchasePrice = inputPurchasePrice();
             int purchaseCount = calculateLottoCount(purchasePrice);
             List<Lotto> lottos = createLottoList(purchaseCount);
-            lottoRepository.save(lottos); // inMemory dabtabase save
+            lottoRepository.save(lottos); // inMemory database save
             printLottoList(lottos);
             List<Integer> winningNumbers = inputWinningNumbers();
             printWinningStatistics(purchaseCount, lottos, winningNumbers);
@@ -51,6 +51,7 @@ public class LottoServiceImpl implements LottoService {
 
     private int getCountWinning(Lotto lotto, List<Integer> winningNumbers) {
         int count = 0;
+
         for (int number : lotto.getNumbers()) {
             if (winningNumbers.contains(number)) {
                 count++;
@@ -66,9 +67,9 @@ public class LottoServiceImpl implements LottoService {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         String input = bufferedReader.readLine();
 
-        //TODO: 중복체크
         for (String numberString : input.split(",")) {
             int number = Integer.parseInt(numberString.trim());
+            if(result.contains(number)) throw new IllegalArgumentException("중복된 값이 존재 합니다.");
             result.add(number);
         }
 
