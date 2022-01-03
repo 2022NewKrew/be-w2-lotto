@@ -27,12 +27,9 @@ public class LottoDTO {
     }
 
     private void validationStringNumber(String numbers) {
-        String fixedNumbers = numbers.replaceAll(" , ", "")
-                .replaceAll(", ", "")
-                .replaceAll(" ,", "")
-                .replaceAll(",", "")
+        String fixedNumbers = numbers.replaceAll("\\s*,\\s*", "")
                 .trim();
-        if (!fixedNumbers.chars().allMatch(Character::isDigit))
+        if (!fixedNumbers.matches("\\d+"))
             throw new IllegalArgumentException("로또 번호에 숫자가 아닌 문자가 포함되어 있습니다.");
 
         List<Integer> numbersList = Arrays.stream(numbers.split(",")).map(s -> Integer.valueOf(s.trim())).collect(Collectors.toList());
