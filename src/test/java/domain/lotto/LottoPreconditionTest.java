@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("LottoPrecondition 테스트")
 class LottoPreconditionTest {
 
     @DisplayName("올바른 숫자들이 담긴 리스트를 가지고 checkNumbers 메서드를 실행했을 때 예외를 던지지 않는다.")
@@ -29,11 +30,11 @@ class LottoPreconditionTest {
     @DisplayName("올바르지 못한 숫자들이 담긴 리스트를 가지고 checkNumbers 메서드를 실행했을 때 IllegalArgumentException 을 던진다.")
     @ParameterizedTest
     @MethodSource("illegalNumbers")
-    void testIllegalNumbers(List<Integer> legalNumbers) {
+    void testIllegalNumbers(List<Integer> illegalNumbers) {
         //Give
         //When
         //Then
-        assertThatThrownBy(() -> LottoPrecondition.checkNumbers(legalNumbers))
+        assertThatThrownBy(() -> LottoPrecondition.checkNumbers(illegalNumbers))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
