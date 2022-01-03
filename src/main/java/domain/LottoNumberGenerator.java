@@ -13,7 +13,7 @@ public class LottoNumberGenerator {
             numbers.add(generateRandomNumber());
         }
 
-        return new ArrayList<>(numbers);
+        return List.copyOf(numbers);
     }
 
     private static Integer generateRandomNumber() {
