@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class LottoGeneratorTest {
+class AutoLottoGeneratorTest {
     private static final int MIM_LOTTO_NUMBER = 1;
     private static final int MAX_LOTTO_NUMBER = 45;
     private final LottoGenerator lottoGenerator = new AutoLottoGenerator();
