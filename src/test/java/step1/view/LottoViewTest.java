@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class LottoViewTest {
-    @DisplayName("잘못된 금액을 입력했을 때 예외 처리 확인")
+    @DisplayName("잘못된 금액을 입력했을 때 오류 확인")
     @Test
     public void resultWrongInputTestWithOnlyBlanks() {
         String input = "1500\n";
