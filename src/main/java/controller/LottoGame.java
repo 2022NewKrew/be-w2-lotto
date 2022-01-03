@@ -1,11 +1,15 @@
 package controller;
 
+import domain.LottoGenerator;
 import view.InputView;
 
 public class LottoGame {
     public void run() {
         int purchasedLottoNumbers = InputView.inputPurchaseAmount();
-        System.out.println(purchasedLottoNumbers);
+
+        LottoGenerator lottoGenerator = new LottoGenerator();
+        lottoGenerator.createAutoLotto();
+
 
     }
 }
