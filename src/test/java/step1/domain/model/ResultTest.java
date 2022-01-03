@@ -11,21 +11,20 @@ class ResultTest {
     @DisplayName("결과 입력에 빈 칸만 입력 시 오류 확인")
     @Test
     public void resultWrongInputTestWithOnlyBlanks() {
-        String resultsStr = "        ";
-        assertThrows(EmptyInputException.class, () -> new Result(resultsStr));
+        assertThrows(EmptyInputException.class, () -> new Result("        "));
     }
 
     @DisplayName("결과 입력에 ,만 입력 시 오류 확인")
     @Test
     public void resultWrongInputTestWithOnlyCommas() {
-        String resultsStr = ",,,,,";
-        assertThrows(EmptyInputException.class, () -> new Result(resultsStr));
+        assertThrows(EmptyInputException.class, () -> new Result(",,,,,"));
     }
 
-    @DisplayName("결과 입력에 당첨 번호 개수와 다르게 입력 시 오류 확인")
+    @DisplayName("결과 입력에 잘못된 번호를 입력 시 오류 확인")
     @Test
     public void resultWrongInputTestWithDifferentSize() {
-        String resultsStr = "1,2,3,3,23,45\n";
-        assertThrows(DifferentSizeException.class, () -> new Result(resultsStr));
+        assertThrows(DifferentSizeException.class, () -> new Result("1,2,3,3,23,45\n"));
+        assertThrows(DifferentSizeException.class, () -> new Result("23, 24, 25, 26, 27, 28, 29\n"));
+        assertThrows(DifferentSizeException.class, () -> new Result("-1, 5, 2, 3, 5, 1\n"));
     }
 }
