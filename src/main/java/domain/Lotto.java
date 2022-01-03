@@ -8,10 +8,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Lotto {
-    public static final List<Integer> BALLS = Stream.iterate(1, n->n+1)
+    private static final List<Integer> BALLS = Stream.iterate(1, n->n+1)
                                                     .limit(45)
                                                     .collect(Collectors.toList());
-    public final ArrayList<Integer> numbers;
+    private final ArrayList<Integer> numbers;
 
     public Lotto() {
         Collections.shuffle(BALLS);

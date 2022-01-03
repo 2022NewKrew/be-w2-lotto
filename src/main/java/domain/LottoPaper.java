@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class LottoPaper {
-    public static final int LOTTO_PRICE = 1000;
-    public final ArrayList<Lotto> paper = new ArrayList<>();
+    private static final int LOTTO_PRICE = 1000;
+    private final ArrayList<Lotto> paper = new ArrayList<>();
 
     public LottoPaper(long money) {
         int buyMax = (int)money / LOTTO_PRICE;
