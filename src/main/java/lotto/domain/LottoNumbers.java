@@ -41,4 +41,19 @@ public class LottoNumbers {
     public List<LottoNumber> getLottoNumbers() {
         return lottoNumbers;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        LottoNumbers that = (LottoNumbers) o;
+
+        return lottoNumbers.containsAll(that.lottoNumbers);
+    }
+
+    @Override
+    public int hashCode() {
+        return lottoNumbers.hashCode();
+    }
 }
