@@ -32,17 +32,18 @@ public class LottoViewOutput {
         for(int i = 0 ; i < lottoObject.getLottos().size() ; i++){
             printLotto(lottoObject.getLottos().get(i));
         }
+        System.out.print("\n");
     }
 
     public void printWinner(){
         List<LottoWinner> winnerList = lottoObject.getLottoWinner();
 
-        System.out.println("당첨 통계\n---------");
+        System.out.println("\n당첨 통계\n---------");
 
         for(int correctCount = 3 ; correctCount <= LOTTO_LENGTH ; correctCount++){
             System.out.println(correctCount + "개 일치 (" + LOTTO_WINNER_PRIZE.get(correctCount) + "원)- " + winnerList.get(correctCount).getWinner().size() + "개");
         }
-        System.out.println("총 수익률은 " + (getEarning().doubleValue() / getPayment() * 100) + "%입니다.");
+        System.out.println("총 수익률은 " + Long.valueOf((long) (getEarning().doubleValue() / getPayment() * 100)) + "%입니다.");
     }
 
     private Long getPayment(){
