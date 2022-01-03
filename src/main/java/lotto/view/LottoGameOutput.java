@@ -12,8 +12,10 @@ public class LottoGameOutput {
         playerLottoList.getLottoList().forEach(lotto -> System.out.println(lotto.getNumbers()));
     }
 
-    public static void printLottoResults(List<LottoResult> lottoResults) {
+    public static void printLottoResults(List<LottoResult> lottoResults, long rewardRate) {
+        System.out.println("\n당첨 통계\n--------");
         lottoResults.forEach(LottoGameOutput::printOneLottoResult);
+        System.out.println("총 수익률은 " + rewardRate + "%입니다.");
     }
 
     public static void printOneLottoResult(LottoResult lottoResult) {

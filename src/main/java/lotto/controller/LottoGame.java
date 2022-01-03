@@ -36,6 +36,15 @@ public class LottoGame {
 
     private void showResults(){
         List<LottoResult> playerLottoResults = playerLottoList.getLottoResults(winningNumbers);
-        LottoGameOutput.printLottoResults(playerLottoResults);
+        long rewardRate = calculateRewardRate(playerLottoResults);
+        LottoGameOutput.printLottoResults(playerLottoResults, rewardRate);
+    }
+
+    private long calculateRewardRate(List<LottoResult> playerLottoResults){
+        long totalEarnMoney = 0;
+        for (LottoResult playerLottoResult : playerLottoResults) {
+            totalEarnMoney += playerLottoResult.calculateEarnMoney();
+        }
+        return (totalEarnMoney*100 / purchaseAmount);
     }
 }
