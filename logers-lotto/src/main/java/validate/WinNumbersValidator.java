@@ -2,15 +2,14 @@ package validate;
 
 import java.util.List;
 
-public class WinNumbersValidator extends Validator{
+public class WinNumbersValidator extends Validator {
     @Override
-    protected boolean supports(Object param) {
-        if(!(param instanceof List)){
+    protected boolean supports(Object value) {
+        if(!(value instanceof List)){
             return false;
         }
 
-        List<?> list = (List<?>)param;
-        if(!list.stream().allMatch(value -> value instanceof Integer)){
+        if(!(((List<?>) value).stream().allMatch(val -> val instanceof Integer))){
             return false;
         }
 
@@ -18,8 +17,8 @@ public class WinNumbersValidator extends Validator{
     }
 
     @Override
-    protected void validateValue(Object param) throws IllegalArgumentException {
-        List<Integer> numbers = (List<Integer>) param;
+    public void validateValue(Object value) {
+        List<Integer> numbers = (List<Integer>) value;
         for(Integer number : numbers){
             validateOneValue(number);
         }
