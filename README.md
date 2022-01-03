@@ -12,7 +12,19 @@
 - 총 수익률 출력.
 - ![img.png](img.png)
 
-
 ## 구현 내용.
 - ConsoleInput 클래스 내 getLottoPurchaseMoney()에서 로또 금액을 입력
 - LottoBundle에서 getCount() 함수를 통해 구입 금액을 1장의 가격으로 나누어 구매 할 수 있는 수량 계산.
+
+
+# step2
+
+## 요구사항
+- 2등을 위해 추가번호를 하나 더 추첨.
+- 당첨 통계에 2등 추가.
+- enum을 적용하여 프로그래밍 구현.
+- ![img_1.png](img_1.png)
+
+
+## 구현 내용.
+- 
