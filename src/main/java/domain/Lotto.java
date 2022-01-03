@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
@@ -13,5 +14,9 @@ public class Lotto {
 
     public static int getPurchaseQuantity(int amount) {
         return amount / PRICE;
+    }
+
+    public List<Integer> getNumbers() {
+        return Collections.unmodifiableList(numbers);
     }
 }
