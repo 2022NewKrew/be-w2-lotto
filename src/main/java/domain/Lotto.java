@@ -1,19 +1,20 @@
-package com.worldbright.domain;
+package domain;
 
-import com.worldbright.dto.LottoDTO;
-import com.worldbright.view.LottoView;
+import dto.LottoDTO;
+import view.LottoView;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Lotto {
     private final List<LottoDTO> lottoDTOs;
     private final List<LottoView> lottoViews;
 
     public Lotto(int n) {
-        lottoDTOs = IntStream.rangeClosed(0, n).mapToObj(i -> new LottoDTO()).collect(Collectors.toList());
+        lottoDTOs = Stream.generate(LottoDTO::new).limit(n).collect(Collectors.toList());
         lottoViews = lottoDTOs.stream().map(dto -> new LottoView(dto)).collect(Collectors.toList());
     }
 

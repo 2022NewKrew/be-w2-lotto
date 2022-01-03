@@ -1,4 +1,4 @@
-package com.worldbright.dto;
+package dto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ public class LottoDTO {
     private final List<Integer> number;
 
     public LottoDTO() {
-        List<Integer> numberForShuffle = new ArrayList<Integer>(INIT_LOTTO);
+        List<Integer> numberForShuffle = new ArrayList<>(INIT_LOTTO);
         Collections.shuffle(numberForShuffle);
 
         number = numberForShuffle.subList(0, 6);

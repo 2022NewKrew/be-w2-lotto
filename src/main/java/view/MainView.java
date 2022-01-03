@@ -1,6 +1,6 @@
-package com.worldbright.view;
+package view;
 
-import com.worldbright.dto.MainDTO;
+import dto.MainDTO;
 
 import java.util.List;
 

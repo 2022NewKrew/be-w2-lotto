@@ -1,6 +1,6 @@
-package com.worldbright.view;
+package view;
 
-import com.worldbright.dto.LottoDTO;
+import dto.LottoDTO;
 
 import java.util.stream.Collectors;
 
@@ -11,11 +11,10 @@ public class LottoView {
     public LottoView(LottoDTO lottoDTO) {
         this.lottoDTO = lottoDTO;
         this.view = "["
-                + String.join(", ",
-                lottoDTO.getNumber()
+                + lottoDTO.getNumber()
                         .stream()
                         .map(integer -> String.valueOf(integer))
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.joining(", "))
                 + "]";
     }
 

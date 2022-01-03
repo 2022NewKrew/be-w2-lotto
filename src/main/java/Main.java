@@ -1,13 +1,10 @@
-package com.worldbright;
-
-import com.worldbright.dto.LottoDTO;
-import com.worldbright.dto.MainDTO;
-import com.worldbright.view.MainView;
+import dto.LottoDTO;
+import dto.MainDTO;
+import view.MainView;
 
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
         MainDTO mainDTO = new MainDTO();
         MainView mainView = new MainView(mainDTO);

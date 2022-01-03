@@ -1,6 +1,6 @@
-package com.worldbright.dto;
+package dto;
 
-import com.worldbright.domain.Lotto;
+import domain.Lotto;
 
 import java.util.List;
 
