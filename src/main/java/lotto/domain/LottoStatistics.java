@@ -42,4 +42,17 @@ public class LottoStatistics {
     public Map<LottoResult, Integer> getResultMap() {
         return resultMap;
     }
+
+    public int calculateRevenueRate(Money money) {
+        long totalPrice = 0;
+
+        for (Map.Entry<LottoResult, Integer> resultEntry : resultMap.entrySet()) {
+            LottoResult lottoResult = resultEntry.getKey();
+            int count = resultEntry.getValue();
+
+            totalPrice += lottoResult.getReward() * count;
+        }
+
+        return (int) (totalPrice / money.getPrice()) * 100;
+    }
 }

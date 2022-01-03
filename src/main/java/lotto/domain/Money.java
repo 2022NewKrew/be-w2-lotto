@@ -10,6 +10,10 @@ public class Money {
         this.price = price;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
     private boolean isNegative(int price) {
         return price < 0;
     }

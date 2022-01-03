@@ -30,4 +30,8 @@ public enum LottoResult {
         }
         return LottoResult.NONE;
     }
+
+    public long getReward() {
+        return reward;
+    }
 }
