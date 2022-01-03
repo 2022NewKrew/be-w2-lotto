@@ -13,6 +13,6 @@ public class LottoMain {
 
         List<Integer> winningNum = LottoUI.inputWinningNum();
 
-        // 당첨 통계 계산 후 출력
+        LottoUI.outputWinningResult(lottoPaper.winningResult(winningNum), lottoPaper.winRate());
     }
 }

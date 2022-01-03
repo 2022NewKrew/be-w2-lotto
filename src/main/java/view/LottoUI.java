@@ -1,6 +1,7 @@
 package view;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -24,11 +25,6 @@ public class LottoUI {
         return money;
     }
 
-    public static void outputLotto(int count, String lotto){
-        System.out.printf(BUY_RESULT, count);
-        System.out.println(lotto);
-    }
-
     public static List<Integer> inputWinningNum(){
         System.out.println(LAST_WINNING_NUM);
         String input = scanner.nextLine();
@@ -40,5 +36,12 @@ public class LottoUI {
                                 .collect(Collectors.toList());
     }
 
-    // 당첨 통계
+    public static void outputLotto(int count, String lotto){
+        System.out.printf(BUY_RESULT, count);
+        System.out.println(lotto);
+    }
+
+    public static void outputWinningResult(HashMap<Integer, Integer> winningResult, int winRate){
+        System.out.printf(WINNING_RESULT, winningResult.get(3), winningResult.get(4), winningResult.get(5), winningResult.get(6), winRate);
+    }
 }

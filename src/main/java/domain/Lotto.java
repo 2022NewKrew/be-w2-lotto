@@ -25,4 +25,10 @@ public class Lotto {
                 .map(Objects::toString)
                 .collect(Collectors.joining(", "));
     }
+
+    public int sameWithWinningNum(List<Integer> winningNum){
+        return (int) numbers.stream()
+                        .filter(winningNum::contains)
+                        .count();
+    }
 }
