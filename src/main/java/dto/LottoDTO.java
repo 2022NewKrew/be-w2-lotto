@@ -23,7 +23,7 @@ public class LottoDTO {
 
     public LottoDTO(String numbers) {
         validationStringNumber(numbers);
-        
+
         number = Arrays.stream(numbers.split(","))
                         .map(stringInt -> Integer.valueOf(stringInt.trim()))
                         .collect(Collectors.toList());
