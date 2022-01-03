@@ -14,4 +14,8 @@ public class LottoTicket{
     public LottoNumbers getLottoNumbers() {
         return lottoNumbers;
     }
+
+    public boolean contains(LottoNumber number) {
+        return lottoNumbers.contains(number);
+    }
 }

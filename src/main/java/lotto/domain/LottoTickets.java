@@ -1,8 +1,9 @@
 package lotto.domain;
 
+import java.util.Iterator;
 import java.util.List;
 
-public class LottoTickets {
+public class LottoTickets implements Iterable<LottoTicket> {
     private final List<LottoTicket> tickets;
 
     private LottoTickets(List<LottoTicket> tickets) {
@@ -15,5 +16,10 @@ public class LottoTickets {
 
     public int getNumberOfTickets() {
         return tickets.size();
+    }
+
+    @Override
+    public Iterator<LottoTicket> iterator() {
+        return tickets.iterator();
     }
 }
