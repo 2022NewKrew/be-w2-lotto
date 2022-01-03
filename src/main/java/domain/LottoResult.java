@@ -13,36 +13,53 @@ public class LottoResult {
     private int secondPrizeCount;
     private int thirdPrizeCount;
     private int fourthPrizeCount;
+    private int totalEarning;
+    private final double earningRatio;
 
-    public LottoResult(List<Integer> matchedList) {
+    public LottoResult(List<Integer> matchedList, int inputMoney) {
         for (Integer matchedNum : matchedList) {
             updatePrizeCount(matchedNum);
         }
+        earningRatio = (totalEarning / (double) inputMoney) * 100;
     }
 
     private void updatePrizeCount(int matchedNum) {
         switch (matchedNum) {
             case FIRST_PRIZE:
                 firstPrizeCount++;
+                totalEarning += 2000000000;
                 break;
             case SECOND_PRIZE:
                 secondPrizeCount++;
+                totalEarning += 1500000;
                 break;
             case THIRD_PRIZE:
                 thirdPrizeCount++;
+                totalEarning += 50000;
                 break;
             case FOURTH_PRIZE:
                 fourthPrizeCount++;
+                totalEarning += 5000;
         }
     }
 
-    public List<Integer> getLottoResultList() {
-        return List.of(
-                firstPrizeCount,
-                secondPrizeCount,
-                thirdPrizeCount,
-                fourthPrizeCount
-        );
+    public int getFirstPrizeCount() {
+        return firstPrizeCount;
     }
 
+    public int getSecondPrizeCount() {
+        return secondPrizeCount;
+    }
+
+    public int getThirdPrizeCount() {
+        return thirdPrizeCount;
+    }
+
+    public int getFourthPrizeCount() {
+        return fourthPrizeCount;
+    }
+
+    public double getEarningRatio() {
+        return earningRatio;
+    }
 }

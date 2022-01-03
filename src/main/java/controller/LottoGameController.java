@@ -1,6 +1,7 @@
 package controller;
 
 import domain.*;
+import view.LottoRenderer;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,9 +22,10 @@ public class LottoGameController {
         inputPurchaseParam();
         validatePurchaseParam(lottoGameInfo);
         generateLotto(lottoGameInfo);
+        renderLottoList(lottoList);
         inputWinLottoNumbers();
         validateWinLottoNumbers(winLottoNumbers);
-        calcLottoResult(lottoList, winLottoNumbers);
+        calcLottoResult(lottoGameInfo.getInputMoney(), lottoList, winLottoNumbers);
         renderResult(lottoResult);
     }
 
@@ -42,6 +44,10 @@ public class LottoGameController {
         lottoList = LottoGenerator.generate(lottoGameInfo);
     }
 
+    private static void renderLottoList(List<Lotto> lottoList) {
+        LottoRenderer.renderLotto(lottoList);
+    }
+
     private static void inputWinLottoNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         String[] inputLottoNumbers = sc.next().split(INPUT_DELIMITER);
@@ -54,12 +60,13 @@ public class LottoGameController {
         // TODO - implement input validation
     }
 
-    private static void calcLottoResult(List<Lotto> lottoList, List<Integer> winLottoNumbers) {
-        lottoResult = LottoCalculator.calculate(lottoList, winLottoNumbers);
+    private static void calcLottoResult(int inputMoney, List<Lotto> lottoList, List<Integer> winLottoNumbers) {
+        lottoResult = LottoCalculator.calculate(inputMoney, lottoList, winLottoNumbers);
     }
 
     private static void renderResult(LottoResult lottoResult) {
-        // TODO - implement render result
+        LottoRenderer.renderResult(lottoResult);
+        LottoRenderer.renderEarningRatio(lottoResult);
     }
 
 }
