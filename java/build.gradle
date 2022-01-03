@@ -13,6 +13,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.21.0'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.12.0'
 
 }
 
