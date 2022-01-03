@@ -1,5 +1,6 @@
 package lotto.view;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -12,6 +13,20 @@ public class LottoGameView {
     private static final String LOTTO_TICKET_DELIMITER = ", ";
 
     private static final Scanner scanner = new Scanner(System.in);
+
+    public LottoDTO inputWinningNumbers() {
+        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+        String line;
+        while ((line = scanner.nextLine()).isEmpty())
+            ;
+        return convertInputNumbersToLottoDTO(line);
+    }
+
+    private LottoDTO convertInputNumbersToLottoDTO(String inputNumbers) {
+        return new LottoDTO(Arrays.stream(inputNumbers.split(LOTTO_TICKET_DELIMITER))
+            .map(Integer::valueOf)
+            .collect(Collectors.toList()));
+    }
 
     public int inputPurchasePrice() {
         System.out.println("구매금액을 입력해 주세요.");

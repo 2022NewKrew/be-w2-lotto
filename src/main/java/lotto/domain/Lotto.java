@@ -7,11 +7,11 @@ import java.util.stream.IntStream;
 
 public class Lotto {
 
-    private static final int PICK_UP_POSITION = 0;
-    private static final int REPEAT_NUMBER = 6;
-
     public static final int LOTTO_NUMBER_START = 1;
     public static final int LOTTO_NUMBER_END = 45;
+    
+    private static final int PICK_UP_POSITION = 0;
+    private static final int REPEAT_NUMBER = 6;
 
     private final List<Integer> lottoNumbers;
 

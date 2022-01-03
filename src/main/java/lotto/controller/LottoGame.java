@@ -6,6 +6,7 @@ import lotto.domain.Lotto;
 import lotto.domain.LottoMachine;
 import lotto.dto.LottoDTO;
 import lotto.validator.LottoGameInputValidator;
+import lotto.view.LottoGameResultView;
 import lotto.view.LottoGameView;
 
 public class LottoGame {
@@ -28,6 +29,29 @@ public class LottoGame {
 
     public void run() {
         initGame();
+        checkLottoGameResult();
+    }
+    
+    private void checkLottoGameResult() {
+        LottoDTO lottoDTO = null;
+        while (lottoDTO == null) {
+            lottoDTO = inputAndValidateWinningNumbers();
+        }
+        LottoGameResultView lottoGameResultView = new LottoGameResultView(lottoDTO,
+            convertLottoListToLottoDTOList(lottoList));
+
+        lottoGameResultView.printLottoGameResult(purchasePrice);
+    }
+
+    private LottoDTO inputAndValidateWinningNumbers() {
+        try {
+            LottoDTO winningLotto = lottoGameView.inputWinningNumbers();
+            lottoGameInputValidator.winningNumbersValidate(winningLotto);
+            return winningLotto;
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            return null;
+        }
     }
 
     private void initGame() {
