@@ -14,7 +14,7 @@ public class Lotto {
 
     public Lotto(int n) {
         lottoDTOs = Stream.generate(LottoDTO::new).limit(n).collect(Collectors.toList());
-        lottoViews = lottoDTOs.stream().map(dto -> new LottoView(dto)).collect(Collectors.toList());
+        lottoViews = lottoDTOs.stream().map(LottoView::new).collect(Collectors.toList());
     }
 
     public List<LottoView> getLottoViews() {
