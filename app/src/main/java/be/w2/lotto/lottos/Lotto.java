@@ -17,11 +17,7 @@ public class Lotto {
     }
 
     public boolean isContain(int target) {
-        for (int num : numbers) {
-            if (num == target)
-                return true;
-        }
-        return false;
+        return numbers.contains(target);
     }
 
     @Override
