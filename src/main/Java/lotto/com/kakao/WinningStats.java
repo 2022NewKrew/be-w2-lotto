@@ -7,8 +7,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class WinningStats {
-    private final static int START_CORREC_COUNT_BY_PRINT = 3;
+    private final static int START_CORRECT_COUNT_BY_PRINT = 3;
 
+    private enum Winning_price{
+        ZERO(0),ONE(0),TWO(0),THREE(5000),FOUR(50000),FIVE(1500000),FIVE_BONUS(30000000),SIX(2000000000);
+
+        private final long winnigPrice;
+        Winning_price(long winnigPrice) {
+            this.winnigPrice = winnigPrice;
+        }
+        public long getWinnigPrice(){
+            return winnigPrice;
+        }
+    }
     private final static long[] WINNING_PRICE_ARRAY_BY_CORRECT_NUMBER = {0,0,0,5000,50000,1500000,2000000000};
     private final static List<Long> WINNING_PRICE_LIST_BY_CORRECT_NUMBER =  Arrays.stream(WINNING_PRICE_ARRAY_BY_CORRECT_NUMBER).boxed().collect(Collectors.toList());
 
@@ -62,7 +73,7 @@ public class WinningStats {
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
-        for(int i=START_CORREC_COUNT_BY_PRINT;i<correctCountList.size();i++) {
+        for(int i=START_CORRECT_COUNT_BY_PRINT;i<correctCountList.size();i++) {
             stringBuilder.append(i);
             stringBuilder.append("개 일치 (");
             stringBuilder.append(WINNING_PRICE_LIST_BY_CORRECT_NUMBER.get(i));
