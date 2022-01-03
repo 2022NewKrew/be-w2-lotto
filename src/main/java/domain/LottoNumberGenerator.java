@@ -10,13 +10,13 @@ public class LottoNumberGenerator {
         Set<Integer> numbers = new TreeSet<>(); // 정렬하려고 TreeSet 사용했습니다.
 
         while (numbers.size() < LOTTO_NUMBER_SIZE) {
-            numbers.add(getRandomNumber());
+            numbers.add(generateRandomNumber());
         }
 
         return new ArrayList<>(numbers);
     }
 
-    private static Integer getRandomNumber() {
+    private static Integer generateRandomNumber() {
         return (int) (Math.random() * MAX_NUMBER + 1);
     }
 }
