@@ -12,7 +12,7 @@ public class Lotto {
     private List<Integer> lottoNumberList;
 
     public Lotto() {
-        allLottoNumberList = IntStream.range(START_NUMBER,COUNT_IN_LOTTO_TICKET+1).boxed().collect(Collectors.toList());
+        allLottoNumberList = IntStream.range(START_NUMBER,END_NUMBER+1).boxed().collect(Collectors.toList());
         Collections.shuffle(allLottoNumberList);
         lottoNumberList = new ArrayList<>(allLottoNumberList);
         lottoNumberList = lottoNumberList.subList(0,COUNT_IN_LOTTO_TICKET);
