@@ -30,6 +30,7 @@ public class Lotto {
         lottoViewOutput.printAllLottos();
         lottoResult = new LottoNumber(LottoViewInput.lottoInputResult());
         makeTotal();
+        lottoViewOutput.printWinner();
     }
 
     //getter
@@ -37,13 +38,14 @@ public class Lotto {
         return lottos;
     }
 
+    public List<LottoWinner> getLottoWinner() {
+        return lottoWinner;
+    }
+
     private Integer calculateMatchCount(LottoNumber curLotto){
         int resultIdx = 0;
         int curLottoIdx = 0;
         Integer matchCount = 0;
-
-        System.out.println(lottoResult.num.toString());
-        System.out.println(curLotto.num.toString());
 
         while(resultIdx < lottoResult.num.size() && curLottoIdx < curLotto.num.size()){
             if(lottoResult.num.get(resultIdx).equals(curLotto.num.get(curLottoIdx))){
