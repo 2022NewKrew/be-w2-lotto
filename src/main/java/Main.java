@@ -1,5 +1,9 @@
+import domain.LottoController;
+
 public class Main {
+    static LottoController lottoController = new LottoController();
+
     public static void main(String[] args) {
-        System.out.println("Hello World");
+        lottoController.runLotto();
     }
 }
