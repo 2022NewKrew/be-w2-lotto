@@ -6,7 +6,7 @@ import lotto.domain.LottoWinner;
 
 import java.util.List;
 
-import static lotto.domain.LottoSetting.LOTTO_LENGTH;
+import static lotto.domain.LottoSetting.*;
 
 public class LottoViewOutput {
     Lotto lottoObject;
@@ -37,19 +37,26 @@ public class LottoViewOutput {
     public void printWinner(){
         List<LottoWinner> winnerList = lottoObject.getLottoWinner();
 
-//        당첨 통계
-//        ---------
-//                3개 일치 (5000원)- 1개
-//        4개 일치 (50000원)- 0개
-//        5개 일치 (1500000원)- 0개
-//        6개 일치 (2000000000원)- 0개
-//        총 수익률은 30%입니다.
-
         System.out.println("당첨 통계\n---------");
 
         for(int correctCount = 3 ; correctCount <= LOTTO_LENGTH ; correctCount++){
-            System.out.println(correctCount + "개 일치 - " + winnerList.get(correctCount).getWinner().size());
+            System.out.println(correctCount + "개 일치 (" + LOTTO_WINNER_PRIZE.get(correctCount) + "원)- " + winnerList.get(correctCount).getWinner().size() + "개");
+        }
+        System.out.println("총 수익률은 " + (getEarning().doubleValue() / getPayment() * 100) + "%입니다.");
+    }
+
+    public Long getPayment(){
+        return Long.valueOf(lottoObject.getLottos().size() * LOTTO_PRICE) ;
+    }
+
+    public Long getEarning(){
+        Long totalEarning = Long.valueOf(0);
+        List<LottoWinner> winnerList = lottoObject.getLottoWinner();
+
+        for(int correctCount = 0 ; correctCount <= LOTTO_LENGTH ; correctCount++){
+            totalEarning += Long.valueOf(LOTTO_WINNER_PRIZE.get(correctCount)) * winnerList.get(correctCount).getWinner().size();
         }
 
+        return totalEarning;
     }
 }
