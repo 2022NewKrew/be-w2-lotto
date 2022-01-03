@@ -16,7 +16,7 @@ public class Lotto {
         this.numbers = numbers;
     }
 
-    public Integer getWinningCount(List<Integer> winningNumbers) {
+    public int getWinningCount(List<Integer> winningNumbers) {
         return Math.toIntExact(numbers.stream()
                 .filter(winningNumbers::contains)
                 .count());
