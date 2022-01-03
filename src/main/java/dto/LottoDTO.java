@@ -1,9 +1,6 @@
 package dto;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -33,9 +30,14 @@ public class LottoDTO {
         String fixedNumbers = numbers.replaceAll(",", "")
                 .replaceAll(" ", "")
                 .trim();
-        System.out.println(fixedNumbers);
-        if (!fixedNumbers.chars().allMatch(Character::isDigit) || numbers.split(",").length > 6)
-            throw new IllegalArgumentException("로또 번호가 유효하지 않습니다.");
+        List<Integer> numbersList = Arrays.stream(numbers.split(",")).map(s -> Integer.valueOf(s.trim())).collect(Collectors.toList());
+        Set<Integer> numbersUnique = new HashSet<>(numbersList);
+        if (!fixedNumbers.chars().allMatch(Character::isDigit))
+            throw new IllegalArgumentException("로또 번호에 숫자가 아닌 문자가 포함되어 있습니다.");
+        if (numbersList.size() != 6)
+            throw new IllegalArgumentException("로또 번호가 6개가 아닙니다.");
+        if (numbersUnique.size() != 6)
+            throw new IllegalArgumentException("로또 번호에 중복이 있습니다.");
     }
 
     public List<Integer> getNumber() {
