@@ -4,8 +4,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class LottoSet {
-    // 일급 컬렉션
+
     private List<Lotto> lottos;
+    private Lotto winningLotto;
 
     public LottoSet(final int lottoSetSize) {
         initLottos(lottoSetSize);
@@ -31,7 +32,13 @@ public class LottoSet {
         return picked;
     }
 
-    public Map<Integer, Integer> getStatistic(Lotto winningLotto) {
+    public void setWinningLotto(List<Integer> numbers) {
+        winningLotto = new Lotto(numbers);
+    }
+
+    public Map<Integer, Integer> getStatistic() {
+        // 당첨 통계 (n개 일치하는 로또가 k개이다...) 를 구하는 메소드
+
         Map<Integer, Integer> statistic = new HashMap<>();
 
         for (Lotto lotto : lottos) {
@@ -43,7 +50,7 @@ public class LottoSet {
 
     private int getCorrectNumCount(Lotto winningLotto, Lotto lotto) {
         return (int) winningLotto.getNumbers().stream()
-                .map(number -> lotto.getNumbers().contains(number))
+                .map(lotto.getNumbers()::contains)
                 .filter(c -> c)
                 .count();
     }

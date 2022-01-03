@@ -1,7 +1,5 @@
 package com.yapark97.lottoapplication.service;
 
-import com.yapark97.lottoapplication.domain.Lotto;
-import com.yapark97.lottoapplication.domain.LottoConst;
 import com.yapark97.lottoapplication.domain.LottoSet;
 import com.yapark97.lottoapplication.view.LottoInput;
 import com.yapark97.lottoapplication.view.LottoOutput;
@@ -25,24 +23,26 @@ public class LottoService {
     public void run() {
         initLottoSet();
         showLottoSet();
-        playLotto();
+        setWinnintLotto();
+        showStatistic();
     }
 
     private void initLottoSet() {
-        lottoSet = new LottoSet(lottoInput.takeLottoSetNumInput());
+        int lottoSetNum = lottoInput.takeLottoSetNumInput();
+
+        lottoSet = new LottoSet(lottoSetNum);
     }
 
     private void showLottoSet() {
         lottoOutput.printLottoSetInfo(lottoSet);
     }
 
-    private void playLotto() {
-        Lotto winningLotto = createWinnintLotto();
-        lottoOutput.printStatistic(lottoSet.getStatistic(winningLotto));
+    private void setWinnintLotto() {
+        List<Integer> winningNumbers = lottoInput.takeWinningNumbersInput();
+        lottoSet.setWinningLotto(winningNumbers);
     }
 
-    private Lotto createWinnintLotto() {
-        List<Integer> winningNumbers = lottoInput.takeWinningNumbersInput();
-        return new Lotto(winningNumbers);
+    private void showStatistic() {
+        lottoOutput.printStatistic(lottoSet.getStatistic());
     }
 }

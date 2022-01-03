@@ -8,17 +8,10 @@ public class Lotto {
 
     public Lotto(List<Integer> numbers) {
         this.numbers = numbers;
-
-        //validate
-        validateNumbers(numbers);
     }
 
     public List<Integer> getNumbers() {
         return numbers;
-    }
-
-    private void validateNumbers(List<Integer> numbers) {
-
     }
 
     @Override
