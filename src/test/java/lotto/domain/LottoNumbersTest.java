@@ -9,7 +9,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
-public class LottoTicketTest {
+public class LottoNumbersTest {
 
     @DisplayName("중복 숫자를 포함하지 않는 6개의 로또 번호로 로또 티켓 생성 테스트")
     @Test
@@ -19,7 +19,7 @@ public class LottoTicketTest {
             lottoNumbers.add(LottoNumber.from(i));
         }
 
-        LottoTicket lottoTicket = LottoTicket.from(lottoNumbers);
+        LottoNumbers lottoTicket = LottoNumbers.from(lottoNumbers);
 
         assertThat(lottoTicket.getLottoNumbers()).isEqualTo(lottoNumbers);
     }
@@ -34,7 +34,7 @@ public class LottoTicketTest {
         }
 
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> LottoTicket.from(lottoNumbers))
+                .isThrownBy(() -> LottoNumbers.from(lottoNumbers))
                 .withMessage("로또 번호에는 중복이 없어야 합니다.");
     }
 
@@ -47,7 +47,7 @@ public class LottoTicketTest {
         }
 
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> LottoTicket.from(lottoNumbers))
+                .isThrownBy(() -> LottoNumbers.from(lottoNumbers))
                 .withMessage("로또 번호는 6개여야 합니다.");
     }
 
@@ -60,7 +60,7 @@ public class LottoTicketTest {
         }
 
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> LottoTicket.from(lottoNumbers))
+                .isThrownBy(() -> LottoNumbers.from(lottoNumbers))
                 .withMessage("로또 번호는 6개여야 합니다.");
     }
 }
