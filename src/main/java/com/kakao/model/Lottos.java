@@ -1,0 +1,62 @@
+package com.kakao.model;
+
+import com.kakao.data.LottoData;
+import com.kakao.exception.MoneyRangeException;
+import com.kakao.exception.PickedNumbersFormatException;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Lottos {
+
+    private List<Lotto> lottoList;
+
+    // 생성자
+    public Lottos(final int moneyToBuyLottos) throws MoneyRangeException {
+        checkMoneyRange(moneyToBuyLottos);
+
+        int numberOfLotto = moneyToBuyLottos/LottoData.PRICE_OF_LOTTO;
+        this.lottoList = getNewLottos(numberOfLotto);
+    }
+
+    // 유효성 검사
+    private void checkMoneyRange(final int moneyToBuyLottos) throws MoneyRangeException {
+        if(moneyToBuyLottos < LottoData.MIN_PRICE_RANGE ) {
+            throw new MoneyRangeException();
+        }
+    }
+
+    // 로또용지들 생성함수
+    private List<Lotto> getNewLottos(int numberOfLottos) {
+        List<Lotto> lottoList = new ArrayList<>();
+        for(int i=0; i<numberOfLottos; i++){
+            lottoList.add(getNewLotto());
+        }
+        return lottoList;
+    }
+    private Lotto getNewLotto() {
+        Lotto newLotto = null;
+        while(newLotto == null) {
+            newLotto = generateLotto();
+        }
+        return newLotto;
+    }
+
+    // 로또 생성
+    private Lotto generateLotto() {
+        Lotto newLotto = null;
+        try {
+            newLotto = new Lotto(LottoData.generatePickedNumber());
+        } catch (PickedNumbersFormatException e) {
+            e.printStackTrace();
+        } finally {
+            return newLotto;
+        }}
+
+
+    // getter
+    public List<Lotto> getLottoList() {
+        return lottoList;
+    }
+}
