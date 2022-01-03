@@ -2,6 +2,7 @@ package controller;
 
 import domain.*;
 import view.InputView;
+import view.ResultView;
 
 public class LottoController {
     public void run() {
