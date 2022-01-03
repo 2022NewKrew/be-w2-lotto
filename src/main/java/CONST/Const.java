@@ -13,8 +13,11 @@ public class Const {
     public static final String INPUT_SIX_DISTINCT_NUMBER = "1~45의 서로 다른 수 6개를 입력해 주세요.";
 
     // PrintManager
+    public static final String SHOW_RESULT = "당첨 통계\n---------";
     public static final String CORRECT_THREE = "3개 일치 (5,000원)- ";
     public static final String CORRECT_FOUR = "4개 일치 (50,000원)- ";
     public static final String CORRECT_FIVE = "5개 일치 (1,500,000원)- ";
     public static final String CORRECT_SIX = "6개 일치 (2,000,000,000원)- ";
+    public static final String WIN_RATE_HEAD = "총 수익률은 ";
+    public static final String WIN_RATE_TAIL = "%입니다.";
 }

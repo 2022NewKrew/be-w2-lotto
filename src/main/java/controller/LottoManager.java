@@ -22,5 +22,7 @@ public class LottoManager {
 
         // 로또 결과 확인
         PrintManager.printResult(lottos.checkResult(winningNumber));
+        // 로또 수익률 확인
+        PrintManager.printWinRate(lottos.checkWinRate(lottos.checkResult(winningNumber)));
     }
 }
