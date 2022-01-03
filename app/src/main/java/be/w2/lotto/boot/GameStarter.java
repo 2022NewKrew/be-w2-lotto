@@ -25,7 +25,7 @@ public class GameStarter {
         return INSTANCE;
     }
 
-    private View view = View.getInstance();
+    private final View view = View.getInstance();
 
     public void start() {
         int purchaseAmount = view.inputIntWithMessage(GameMessage.INPUT_PURCHASE_AMOUNT);

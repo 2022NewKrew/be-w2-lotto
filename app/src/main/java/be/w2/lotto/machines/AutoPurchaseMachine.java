@@ -22,15 +22,15 @@ public class AutoPurchaseMachine extends PurchaseMachine {
     }
 
     private List<Integer> getListOfRandomNumber(int length) {
-        List<Integer> oneToNinetyNine = getListOfOneToNinetyNine();
+        List<Integer> oneToNinetyNine = getListOfMinToMaxNumOfLotto();
         Collections.shuffle(oneToNinetyNine);
         List<Integer> numbers = oneToNinetyNine.subList(0, Lotto.LENGTH);
         return numbers;
     }
 
-    private List<Integer> getListOfOneToNinetyNine() {
-        List<Integer> numbers = new ArrayList<>(100);
-        for (int i = 1; i < 100; i++) {
+    private List<Integer> getListOfMinToMaxNumOfLotto() {
+        List<Integer> numbers = new ArrayList<>();
+        for (int i = Lotto.MIN_NUM_IN_LOTTO; i <= Lotto.MAX_NUM_IN_LOTTO; i++) {
             numbers.add(i);
         }
         return numbers;
