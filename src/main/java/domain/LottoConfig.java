@@ -9,7 +9,7 @@ public class LottoConfig {
 	private static final int MAX = 45;
 	private static final int PRICE = 1000;
 
-	public static final int PICK = 7;
+	public static final int PICK = 6;
 
 	public static final List<Integer> allLottoNumberList =
 		IntStream.rangeClosed(MIN, MAX)

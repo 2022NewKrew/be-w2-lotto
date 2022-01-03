@@ -23,6 +23,8 @@ public class LottoController {
 		Map<LottoWinningRank, Integer> rankMap = lottoService.calculateLottoRank(lottoList, winningLotto);
 		lottoService.printLottoStatistics(rankMap);
 
-		System.out.println("총 수익률은 " + lottoService.calculatePurchase(purchaseAmount, rankMap) + "%입니다.");
+		System.out.println("총 수익률은 "
+			+ String.format("%.2f", lottoService.calculatePurchase(purchaseAmount, rankMap))
+			+ "%입니다.");
 	}
 }

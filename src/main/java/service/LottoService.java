@@ -88,7 +88,7 @@ public class LottoService {
 		int winningAmount = 0;
 
 		for (LottoWinningRank rank : LottoWinningRank.getValidLottoWinningRankList()) {
-			winningAmount = rank.getReward() * rankMap.get(rank);
+			winningAmount += rank.getReward() * rankMap.get(rank);
 		}
 
 		return (double)winningAmount / (double)purchaseAmount * 100.0;
