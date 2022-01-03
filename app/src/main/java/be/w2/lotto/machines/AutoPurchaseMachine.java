@@ -30,7 +30,7 @@ public class AutoPurchaseMachine extends PurchaseMachine {
 
     private List<Integer> getListOfOneToNinetyNine() {
         List<Integer> numbers = new ArrayList<>(100);
-        for(int i = 1; i<100;i++) {
+        for (int i = 1; i < 100; i++) {
             numbers.add(i);
         }
         return numbers;

@@ -19,7 +19,7 @@ public class ResultMaker {
     }
 
     public static ResultMaker getInstance() {
-        if(INSTANCE == null)
+        if (INSTANCE == null)
             INSTANCE = new ResultMaker();
         return INSTANCE;
     }

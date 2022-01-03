@@ -1,10 +1,6 @@
 package be.w2.lotto.result;
 
-import be.w2.lotto.exceptions.RewardForCorrectNotFoundException;
-import be.w2.lotto.messages.ErrorMessage;
-
 import java.util.EnumMap;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -31,8 +27,8 @@ public class Result {
     }
 
     private Optional<RewardForCorrect> getRewordForCorrctByHowManyCorrect(int howManyCorrect) {
-        for(RewardForCorrect rewardForCorrect : RewardForCorrect.values()) {
-            if(rewardForCorrect.getHowManyCorrect() == howManyCorrect)
+        for (RewardForCorrect rewardForCorrect : RewardForCorrect.values()) {
+            if (rewardForCorrect.getHowManyCorrect() == howManyCorrect)
                 return Optional.of(rewardForCorrect);
         }
         return Optional.empty();

@@ -9,7 +9,7 @@ public class ResultCalculator {
 
     public static Result getResultOfGame(List<Lotto> myLottos, LastWinningLotto lastWinningLotto) {
         Result result = new Result();
-        for(Lotto myLotto: myLottos) {
+        for (Lotto myLotto : myLottos) {
             int howManyCorrect = lastWinningLotto.getHowManyCorrect(myLotto);
             result.add(howManyCorrect);
         }

@@ -6,7 +6,7 @@ public class LottoService {
 
     public static String getStringOfLottos(List<Lotto> lottos) {
         StringBuilder sb = new StringBuilder();
-        for(Lotto lotto: lottos) {
+        for (Lotto lotto : lottos) {
             sb.append(lotto)
                     .append("\n");
         }

@@ -18,7 +18,7 @@ public class WinningStatMaker {
         StringBuilder sb = new StringBuilder();
         sb.append(OPEN_WORD);
         Map<RewardForCorrect, Integer> winningStat = result.getStat();
-        for(RewardForCorrect rewardForCorrect: winningStat.keySet()) {
+        for (RewardForCorrect rewardForCorrect : winningStat.keySet()) {
             writeHowManyCorrect(sb, rewardForCorrect, winningStat.get(rewardForCorrect));
         }
         writeYield(sb);

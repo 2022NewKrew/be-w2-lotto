@@ -27,8 +27,8 @@ public class LastWinningLotto extends Lotto {
 
     public int getHowManyCorrect(Lotto myLotto) {
         int howManyCorrect = 0;
-        for(int number: numbers) {
-            if(myLotto.isContain(number)) howManyCorrect++;
+        for (int number : numbers) {
+            if (myLotto.isContain(number)) howManyCorrect++;
         }
         return howManyCorrect;
     }
