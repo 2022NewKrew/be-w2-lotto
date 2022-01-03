@@ -15,7 +15,7 @@ public class InputController {
         scanner = new Scanner(System.in);
     }
 
-    public int getPurchaseAmount() {
+    public int getPurchasePrice() {
         try {
             System.out.println("구입금액을 입력해주세요.");
 

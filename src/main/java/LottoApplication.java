@@ -5,7 +5,7 @@ public class LottoApplication {
         try {
             InputController inputController = new InputController();
 
-            inputController.getPurchaseAmount();
+            inputController.getPurchasePrice();
             inputController.getLottoNumbers();
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
