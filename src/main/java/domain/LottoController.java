@@ -11,12 +11,15 @@ public class LottoController {
     private OutputView outputView = new OutputView();
 
     private int purchaseAmount;
+    private List<Integer> winningNumbers = new ArrayList<>();
     private final List<Lotto> allLotto = new ArrayList<>();
 
     public void runLotto() {
         getPurchaseAmount();
         buyLotto();
         printAllLotto();
+        getLastWeekWinningNumbers();
+        printWinningStats();
     }
 
     private void getPurchaseAmount() {
@@ -35,5 +38,13 @@ public class LottoController {
 
     private void printAllLotto() {
         outputView.printAllLotto(allLotto);
+    }
+
+    private void getLastWeekWinningNumbers() {
+        winningNumbers = inputView.getWinningNumbers();
+    }
+
+    private void printWinningStats() {
+        outputView.printWinningStats(allLotto, winningNumbers);
     }
 }
