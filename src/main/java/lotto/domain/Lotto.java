@@ -25,6 +25,8 @@ public class Lotto {
             newLotto.add(i);
         }
         Collections.shuffle(newLotto);
-        return new LottoNumber(newLotto.subList(0, LOTTO_LENGTH - 1));
+        newLotto = newLotto.subList(0, LOTTO_LENGTH - 1);
+        newLotto.sort(Integer::compareTo);
+        return new LottoNumber( newLotto );
     }
 }
