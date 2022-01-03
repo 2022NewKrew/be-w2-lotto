@@ -10,23 +10,28 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class LottoTicketTest {
 
-    @DisplayName("랜덤으로 로또 티켓 생성")
+    @DisplayName("로또 티켓 생성 테스트")
     @Test
     void create() {
         List<LottoNumber> numbers = new ArrayList<>();
         for (int i = 1; i <= 6; i++) {
             numbers.add(LottoNumber.from(i));
         }
-
-        LottoTicket lottoTicket = new LottoTicket() {
-            @Override
-            public LottoNumbers generateLottoNumbers() {
-                return LottoNumbers.from(numbers);
-            }
-        };
-
         LottoNumbers lottoNumbers = LottoNumbers.from(numbers);
 
+        LottoTicket lottoTicket = new LottoTicket(lottoNumbers);
+
         assertThat(lottoTicket.getLottoNumbers()).isEqualTo(lottoNumbers);
+    }
+
+    @DisplayName("랜덤 로또 티켓 생성 테스트")
+    @Test
+    void issue() {
+        LottoNumbersGenerator lottoNumbersGenerator = new RandomLottoNumberGenerator();
+
+        LottoTicket lottoTicket = LottoTicket.issue(lottoNumbersGenerator);
+        LottoNumbers lottoNumbers = lottoTicket.getLottoNumbers();
+
+        assertThat(lottoNumbers.getLottoNumbers()).hasSize(6);
     }
 }
