@@ -40,7 +40,7 @@ public class Lotto {
     }
 
 
-    public void addLottos(Integer lottoCount){
+    private void addLottos(Integer lottoCount){
         for(int i = 0 ; i < lottoCount ; i++){
             lottos.add(createRandomLotto()); //lottoCount만큼 랜덤으로 로또를 생성
         }
@@ -61,7 +61,7 @@ public class Lotto {
         return matchCount;
     }
 
-    void makeTotal(){
+    private void makeTotal(){
         //init lottoWinner Objects
         lottoWinner = new ArrayList<>();
 

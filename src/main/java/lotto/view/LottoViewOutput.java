@@ -45,11 +45,11 @@ public class LottoViewOutput {
         System.out.println("총 수익률은 " + (getEarning().doubleValue() / getPayment() * 100) + "%입니다.");
     }
 
-    public Long getPayment(){
+    private Long getPayment(){
         return Long.valueOf(lottoObject.getLottos().size() * LOTTO_PRICE) ;
     }
 
-    public Long getEarning(){
+    private Long getEarning(){
         Long totalEarning = Long.valueOf(0);
         List<LottoWinner> winnerList = lottoObject.getLottoWinner();
 
