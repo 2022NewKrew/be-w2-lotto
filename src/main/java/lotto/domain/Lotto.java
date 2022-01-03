@@ -23,6 +23,7 @@ public class Lotto {
             lottos.add(createLotto());
         }
         lottoViewOutput.printLottoCount();
+        lottoViewOutput.printAllLottos();
     }
 
     //getter
@@ -38,7 +39,7 @@ public class Lotto {
             newLotto.add(i);
         }
         Collections.shuffle(newLotto);
-        newLotto = newLotto.subList(0, LOTTO_LENGTH - 1);
+        newLotto = newLotto.subList(0, LOTTO_LENGTH);
         newLotto.sort(Integer::compareTo);
         return new LottoNumber( newLotto );
     }
