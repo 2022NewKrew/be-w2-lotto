@@ -1,4 +1,4 @@
-package lotto.controller;
+package lotto.service;
 
 import lotto.domain.LottoTicket;
 import lotto.domain.PrizeType;
@@ -11,11 +11,9 @@ public class LottoMachine {
 
     public static List<LottoTicket> createLottoTickets(int purchaseCount) {
         List<LottoTicket> lottoTickets = new ArrayList<>();
-
         for (int i = 0; i < purchaseCount; i++) {
             lottoTickets.add(new LottoTicket());
         }
-
         return lottoTickets;
     }
 

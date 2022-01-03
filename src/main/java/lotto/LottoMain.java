@@ -1,7 +1,9 @@
 package lotto;
 
+import lotto.controller.LottoApplication;
+
 public class LottoMain {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        LottoApplication.run();
     }
 }
