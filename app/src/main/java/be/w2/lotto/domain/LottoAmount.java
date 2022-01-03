@@ -18,8 +18,8 @@ public class LottoAmount {
         return this.purchaseAmount / LOTTO_TICKET_PRICE;
     }
 
-    private static void validatePurchaseAmount(int amount) {
-        if (amount < LOTTO_AMOUNT_LOWERBOUND) {
+    private static void validatePurchaseAmount(int amount) throws IllegalArgumentException {
+        if (amount <= LOTTO_AMOUNT_LOWERBOUND) {
             throw new IllegalArgumentException("로또 구매금액은 최소 0 이상 가능합니다.");
         }
     }

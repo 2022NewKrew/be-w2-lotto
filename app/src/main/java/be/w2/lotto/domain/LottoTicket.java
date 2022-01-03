@@ -25,15 +25,17 @@ public class LottoTicket {
         return new LottoTicket(lottoNumbers);
     }
 
+    public List<LottoNumber> getLottoNumbers() {
+        return this.lottoNumbers;
+    }
+
     private static List<LottoNumber> generateLottoNumbers() {
         Collections.shuffle(entireLottoNumbers);
         return entireLottoNumbers
-                .stream()
-                .limit(LOTTO_SIZE)
+                .stream().limit(LOTTO_SIZE)
                 .sorted()
                 .collect(Collectors.toList())
-                .stream()
-                .map(LottoNumber::from)
+                .stream().map(LottoNumber::from)
                 .collect(Collectors.toList());
     }
 

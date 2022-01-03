@@ -3,17 +3,21 @@ package be.w2.lotto.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LottoGame {
+public class LottoTickets {
     private final List<LottoTicket> lottoTickets;
 
-    private LottoGame(List<LottoTicket> lottoTickets) {
+    private LottoTickets(List<LottoTicket> lottoTickets) {
         this.lottoTickets = lottoTickets;
     }
 
-    public static LottoGame valueOf(int lottoPurchaseAmountInput) {
+    public static LottoTickets valueOf(int lottoPurchaseAmountInput) {
         int lottoAmount = getLottoAmount(lottoPurchaseAmountInput);
         List<LottoTicket> lottoTickets = createLottoTickets(lottoAmount);
-        return new LottoGame(lottoTickets);
+        return new LottoTickets(lottoTickets);
+    }
+
+    public List<LottoTicket> getLottoTickets() {
+        return this.lottoTickets;
     }
 
     private static int getLottoAmount(int lottoPurchaseAmountInput) {

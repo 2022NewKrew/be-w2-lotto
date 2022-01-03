@@ -11,6 +11,10 @@ public class LottoNumber {
         return new LottoNumber(lottoNumber);
     }
 
+    public int getLottoNumber() {
+        return this.lottoNumber;
+    }
+
     public static final int LOTTO_NUMBER_LOWERBOUND = 1;
     public static final int LOTTO_NUMBER_UPPERBOUND = 45;
 }

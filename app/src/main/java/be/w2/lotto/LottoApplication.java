@@ -3,15 +3,25 @@
  */
 package be.w2.lotto;
 
-import be.w2.lotto.domain.LottoGame;
+import be.w2.lotto.domain.LottoTickets;
+import be.w2.lotto.domain.WinningLottoTicket;
+import be.w2.lotto.dto.LottoTicketsDto;
+import be.w2.lotto.view.InputView;
+import be.w2.lotto.view.OutputView;
 
-import static be.w2.lotto.view.View.inputPurchaseAmount;
+import static be.w2.lotto.view.InputView.inputPurchaseAmount;
 
 public class LottoApplication {
 
     public static void main(String[] args) {
         int purchaseAmount = inputPurchaseAmount();
-        LottoGame lottoGame = LottoGame.valueOf(purchaseAmount);
+        LottoTickets lottoTickets = LottoTickets.valueOf(purchaseAmount);
+        LottoTicketsDto lottoTicketsDto = LottoTicketsDto.from(lottoTickets);
+
+        OutputView.outputLottoAmounts(lottoTicketsDto.getLottoTicketAmount());
+        OutputView.outputLottoTickets(lottoTicketsDto.getLottoTickets());
+        String winningNumbers = InputView.inputWiningNumbers();
+        WinningLottoTicket winningLottoTicket = WinningLottoTicket.valueOf(winningNumbers);
 
     }
 }
