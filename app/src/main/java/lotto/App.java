@@ -3,9 +3,16 @@
  */
 package lotto;
 
+import lotto.controller.LottoController;
+
+import java.util.Scanner;
+
 public class App {
 
     public static void main(String[] args) {
-
+        try (Scanner sc = new Scanner(System.in)) {
+            LottoController lottoController = new LottoController(sc);
+            lottoController.lottoStart();
+        }
     }
 }
