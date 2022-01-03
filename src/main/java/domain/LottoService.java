@@ -52,10 +52,8 @@ public class LottoService {
         lottos.stream()
                 .map(lotto -> lotto.getWinningCount(winningNumbers))
                 .filter(count -> count >= MINIMUM_MATCH_COUNT)
-                .forEach(count -> {
-                    winningResult.put(count, winningResult.get(count) + 1);
-                });
+                .forEach(count -> winningResult.put(count, winningResult.get(count) + 1));
 
-        return winningResult;
+        return Collections.unmodifiableMap(winningResult);
     }
 }
