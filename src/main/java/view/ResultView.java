@@ -10,7 +10,7 @@ public class ResultView {
     private static final String MESSAGE_WON_CLOSE_PARENTHESES = "원)- ";
     private static final String MESSAGE_COUNT = "개";
     private static final String MESSAGE_TOTAL_PROFITS = "총 수익률은 ";
-    private static final String MESSAGE_IS = "입니다.";
+    private static final String MESSAGE_IS = "%입니다.";
 
     private ResultView() {}
 
