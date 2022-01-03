@@ -1,6 +1,9 @@
 package view;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class LottoUI {
     public static final String HOW_MONEY = "구입금액을 입력해 주세요.";
@@ -11,7 +14,14 @@ public class LottoUI {
 
     public static long inputMoney(){
         System.out.println(HOW_MONEY);
-        return scanner.nextLong();
+        long money;
+        try {
+            String input = scanner.nextLine();
+            money = Long.parseLong(input);
+        } catch (Exception e) {
+            money = 0;
+        }
+        return money;
     }
 
     public static void outputLotto(int count, String lotto){
@@ -19,8 +29,16 @@ public class LottoUI {
         System.out.println(lotto);
     }
 
-    // 지난 주 당첨 번호
+    public static List<Integer> inputWinningNum(){
+        System.out.println(LAST_WINNING_NUM);
+        String input = scanner.nextLine();
+
+        String replace = input.replace(" ", "");
+
+        return Arrays.stream(replace.split(","))
+                                .map(Integer::parseInt)
+                                .collect(Collectors.toList());
+    }
 
     // 당첨 통계
-
 }

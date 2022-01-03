@@ -14,6 +14,7 @@ public class LottoPaper {
         }
     }
 
+    @Override
     public String toString(){
         return paper.stream()
                 .map(Lotto::toString)
