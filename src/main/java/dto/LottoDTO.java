@@ -27,15 +27,19 @@ public class LottoDTO {
     }
 
     private void validationStringNumber(String numbers) {
-        String fixedNumbers = numbers.replaceAll(",", "")
-                .replaceAll(" ", "")
+        String fixedNumbers = numbers.replaceAll(" , ", "")
+                .replaceAll(", ", "")
+                .replaceAll(" ,", "")
+                .replaceAll(",", "")
                 .trim();
-        List<Integer> numbersList = Arrays.stream(numbers.split(",")).map(s -> Integer.valueOf(s.trim())).collect(Collectors.toList());
-        Set<Integer> numbersUnique = new HashSet<>(numbersList);
         if (!fixedNumbers.chars().allMatch(Character::isDigit))
             throw new IllegalArgumentException("로또 번호에 숫자가 아닌 문자가 포함되어 있습니다.");
+
+        List<Integer> numbersList = Arrays.stream(numbers.split(",")).map(s -> Integer.valueOf(s.trim())).collect(Collectors.toList());
         if (numbersList.size() != 6)
             throw new IllegalArgumentException("로또 번호가 6개가 아닙니다.");
+
+        Set<Integer> numbersUnique = new HashSet<>(numbersList);
         if (numbersUnique.size() != 6)
             throw new IllegalArgumentException("로또 번호에 중복이 있습니다.");
     }
