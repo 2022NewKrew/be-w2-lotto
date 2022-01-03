@@ -25,8 +25,6 @@ public class InputManager {
                 pass = checkWinningNumber(winningNumber);
             } catch (NumberFormatException e) {
                 System.out.println(Const.INPUT_INTEGER);
-                // Flush Buffer
-                scanner.nextLine();
             }
         } while (!pass);
         return winningNumber;
@@ -36,11 +34,11 @@ public class InputManager {
         boolean passRange = winningNumber
                 .stream()
                 .allMatch(n -> n > 0 && n < 46);
-        boolean passLength = winningNumber.size() == 6;
+        boolean passLength = winningNumber.stream().distinct().count() == 6;
         if (passRange && passLength) {
             return true;
         }
-        System.out.println(Const.INPUT_SIX_NUMBER);
+        System.out.println(Const.INPUT_SIX_DISTINCT_NUMBER);
         return false;
     }
 
@@ -51,9 +49,13 @@ public class InputManager {
             System.out.println(Const.INPUT_BUY_PRICE);
             try {
                 inputIntPrice = scanner.nextInt();
+                // Flush Buffer
+                scanner.nextLine();
                 pass = isPositiveNumber(inputIntPrice);
             } catch (InputMismatchException e) {
                 System.out.println(Const.INPUT_INTEGER);
+                // Flush Buffer
+                scanner.nextLine();
             }
         } while (!pass);
         return inputIntPrice;
