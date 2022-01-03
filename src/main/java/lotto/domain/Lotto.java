@@ -46,24 +46,13 @@ public class Lotto {
     private Integer calculateMatchCount(LottoNumber curLotto){
         int resultIdx = 0;
         int curLottoIdx = 0;
-        Integer matchCount = 0;
+        int matchCount = 0;
 
         while(resultIdx < lottoResult.num.size() && curLottoIdx < curLotto.num.size()){
             if(lottoResult.num.get(resultIdx).equals(curLotto.num.get(curLottoIdx))){
-                resultIdx++;
-                curLottoIdx++;
-                matchCount++;
-                continue;
+                resultIdx++; curLottoIdx++; matchCount++; continue;
             }
-            if(lottoResult.num.get(resultIdx) < curLotto.num.get(curLottoIdx)){
-                resultIdx++;
-                continue;
-            }
-
-            if(lottoResult.num.get(resultIdx) > curLotto.num.get(curLottoIdx)){
-                curLottoIdx++;
-                continue;
-            }
+            int garbageVariable = ((lottoResult.num.get(resultIdx) < curLotto.num.get(curLottoIdx)) ? resultIdx++ : curLottoIdx++ ) ;
         }
         return matchCount;
     }
@@ -91,7 +80,7 @@ public class Lotto {
     }
 
     private LottoNumber createLotto(){
-        //make only once
+        //initialize only once
         if(lottoElement == null){
             lottoElement = new ArrayList<>();
             initLottoElement();
