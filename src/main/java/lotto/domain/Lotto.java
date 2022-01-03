@@ -16,6 +16,7 @@ public class Lotto {
     private List<LottoNumber> lottos;
     private LottoViewOutput lottoViewOutput;
     private List<LottoWinner> lottoWinner;
+    private List<Integer> lottoElement;
 
     public Lotto(Integer payment){
         lottos = new ArrayList<>();
@@ -68,13 +69,14 @@ public class Lotto {
     }
 
     void makeTotal(){
+        //init lottoWinner Objects
         lottoWinner = new ArrayList<>();
 
         for(int i = 0 ; i <= LOTTO_LENGTH ; i++){
             lottoWinner.add(new LottoWinner());
         }
 
-        //calc
+        //add win numbers to lottoWinner
         for(int i = 0 ; i < lottos.size() ; i++){
             LottoNumber curLotto = lottos.get(i);
             lottoWinner.get(calculateMatchCount(curLotto)).addLottoNumber(curLotto);
@@ -82,14 +84,21 @@ public class Lotto {
 
     }
 
+    private void initLottoElement(){
+        for(int i = 1 ; i <= LOTTO_NUMBER_RANGE ; i++){
+            lottoElement.add(i);
+        }
+    }
 
     private LottoNumber createLotto(){
-        List<Integer> newLotto = new ArrayList<>();
-        for(int i = 1 ; i <= LOTTO_NUMBER_RANGE ; i++){
-            newLotto.add(i);
+        //make only once
+        if(lottoElement == null){
+            lottoElement = new ArrayList<>();
+            initLottoElement();
         }
-        Collections.shuffle(newLotto);
-        newLotto = newLotto.subList(0, LOTTO_LENGTH);
+
+        Collections.shuffle(lottoElement);
+        List<Integer> newLotto = lottoElement.subList(0, LOTTO_LENGTH);
         newLotto.sort(Integer::compareTo);
         return new LottoNumber( newLotto );
     }
