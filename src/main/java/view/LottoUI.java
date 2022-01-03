@@ -13,7 +13,7 @@ public class LottoUI {
     private static final String WINNING_RESULT = "당첨 통계\n---------\n3개 일치 (5000원)- %d개\n4개 일치 (50000원)- %d개\n5개 일치 (1500000원)- %d개\n6개 일치 (2000000000원)- %d개\n총 수익률은 %d%%입니다.";
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static long inputMoney(){
+    public static long inputMoney() {
         System.out.println(HOW_MONEY);
         long money;
         try {
@@ -25,23 +25,23 @@ public class LottoUI {
         return money;
     }
 
-    public static List<Integer> inputWinningNum(){
+    public static List<Integer> inputWinningNum() {
         System.out.println(LAST_WINNING_NUM);
         String input = scanner.nextLine();
 
         String replace = input.replace(" ", "");
 
         return Arrays.stream(replace.split(","))
-                                .map(Integer::parseInt)
-                                .collect(Collectors.toList());
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
     }
 
-    public static void outputLotto(int count, String lotto){
+    public static void outputLotto(int count, String lotto) {
         System.out.printf(BUY_RESULT, count);
         System.out.println(lotto);
     }
 
-    public static void outputWinningResult(HashMap<Integer, Integer> winningResult, int winRate){
+    public static void outputWinningResult(HashMap<Integer, Integer> winningResult, int winRate) {
         System.out.printf(WINNING_RESULT, winningResult.get(3), winningResult.get(4), winningResult.get(5), winningResult.get(6), winRate);
     }
 }

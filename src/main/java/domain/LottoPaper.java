@@ -16,34 +16,34 @@ public class LottoPaper {
     private final HashMap<Integer, Integer> sameToCnt = new HashMap<>();
 
     public LottoPaper(long money) {
-        int buyMax = (int)money / LOTTO_PRICE;
-        for(int buy=0; buy<buyMax; buy++){
+        int buyMax = (int) money / LOTTO_PRICE;
+        for (int buy = 0; buy < buyMax; buy++) {
             paper.add(new Lotto());
         }
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return paper.stream()
                 .map(Lotto::toString)
                 .collect(Collectors.joining("]\n[", "[", "]"));
     }
 
-    public int countLotto(){
+    public int countLotto() {
         return paper.size();
     }
 
-    public HashMap<Integer, Integer> winningResult(List<Integer> winningNum){
+    public HashMap<Integer, Integer> winningResult(List<Integer> winningNum) {
         int sameNum;
-        IntStream.range(0,7).forEach(num -> sameToCnt.put(num,0));
-        for(Lotto lotto : paper){
+        IntStream.range(0, 7).forEach(num -> sameToCnt.put(num, 0));
+        for (Lotto lotto : paper) {
             sameNum = lotto.sameWithWinningNum(winningNum);
-            sameToCnt.put(sameNum, sameToCnt.get(sameNum)+1);
+            sameToCnt.put(sameNum, sameToCnt.get(sameNum) + 1);
         }
         return sameToCnt;
     }
 
-    public int winRate(){
+    public int winRate() {
         long useCost = (long) paper.size() * LOTTO_PRICE;
         long winCost = 0;
         winCost += sameToCnt.get(3) * WINNING_PRICE_4th;
