@@ -1,8 +1,6 @@
 package domain;
 
-import java.util.Collections;
-
-public enum MatchNumber {
+public enum LottoMatchNumber {
     THREE(3),
     FOUR(4),
     FIVE(5),
@@ -10,11 +8,11 @@ public enum MatchNumber {
 
     private final Integer value;
 
-    MatchNumber(Integer value) {
+    LottoMatchNumber(Integer value) {
         this.value = value;
     }
 
     public Integer getValue() {
         return value;
     }
-}
+    }

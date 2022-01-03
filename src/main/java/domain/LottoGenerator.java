@@ -10,10 +10,11 @@ public class LottoGenerator {
     private static final Random random = new Random();
     private static final int MAXIMUM_VALUE = 44;
 
-    public List<Lotto> createAutoLottos(int purchasedLottoNumbers) {
-        return Stream.generate(this::createAutoLotto)
+    public LottoRepository createAutoLottos(int purchasedLottoNumbers) {
+        List<Lotto> autuLottos = Stream.generate(this::createAutoLotto)
                 .limit(purchasedLottoNumbers)
                 .collect(Collectors.toList());
+        return new LottoRepository(autuLottos);
     }
 
     private Lotto createAutoLotto() {

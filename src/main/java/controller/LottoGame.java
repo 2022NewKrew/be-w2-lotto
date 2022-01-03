@@ -2,6 +2,7 @@ package controller;
 
 import domain.Lotto;
 import domain.LottoGenerator;
+import domain.LottoRepository;
 import service.LottoGameService;
 import view.InputView;
 import view.OutputView;
@@ -13,11 +14,10 @@ public class LottoGame {
         int purchasedLottoNumbers = InputView.inputPurchaseAmount();
 
         LottoGenerator lottoGenerator = new LottoGenerator();
-        List<Lotto> autuLottos = lottoGenerator.createAutoLottos(purchasedLottoNumbers);
+        LottoRepository autuLottos = lottoGenerator.createAutoLottos(purchasedLottoNumbers);
 
         OutputView.printAutuLottos(autuLottos);
         List<Integer> inputLastWeekWinNumber = InputView.inputLastWeekWinNumber();
-        System.out.println(inputLastWeekWinNumber);
 
         LottoGameService.createResult(autuLottos, inputLastWeekWinNumber);
 
