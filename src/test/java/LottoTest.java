@@ -1,0 +1,2 @@
+public class LottoTest {
+}
