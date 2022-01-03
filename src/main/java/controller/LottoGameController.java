@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 
 public class LottoGameController {
 
+    private static final String INPUT_DELIMITER = ",";
+
     private static final Scanner sc = new Scanner(System.in);
     private static LottoGameInfo lottoGameInfo;
     private static List<Lotto> lottoList;
@@ -43,7 +45,7 @@ public class LottoGameController {
 
     private static void inputWinLottoNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        String[] inputLottoNumbers = sc.next().split(",");
+        String[] inputLottoNumbers = sc.next().split(INPUT_DELIMITER);
         winLottoNumbers = Arrays.stream(inputLottoNumbers)
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());

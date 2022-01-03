@@ -6,12 +6,14 @@ import java.util.Random;
 
 public class LottoGenerator {
 
+    private static final int MAX_LOTTO_NUMBER = 45;
+    private static final int MAX_LOTTO_COUNT = 6;
     private static final Random random = new Random(System.currentTimeMillis());
 
     public static List<Lotto> generate(LottoGameInfo lottoGameInfo) {
         List<Lotto> lottoList = new ArrayList<>();
 
-        for (int currentLotto = 0; currentLotto < lottoGameInfo.getNumOfPurchasedQuantity(); currentLotto++) {
+        for (int currentLotto = 0; currentLotto < lottoGameInfo.getPurchasedQuantity(); currentLotto++) {
             Lotto lotto = createNewLotto();
             lottoList.add(lotto);
         }
@@ -21,7 +23,7 @@ public class LottoGenerator {
     private static Lotto createNewLotto() {
         List<Integer> numbers = new ArrayList<>();
 
-        while (numbers.size() < 6) {
+        while (numbers.size() < MAX_LOTTO_COUNT) {
             addNextLottoNumber(numbers);
         }
         numbers.sort(Integer::compareTo);
@@ -30,7 +32,7 @@ public class LottoGenerator {
     }
 
     private static void addNextLottoNumber(List<Integer> numbers) {
-        int num = random.nextInt(45) + 1;
+        int num = random.nextInt(MAX_LOTTO_NUMBER) + 1;
         if (!numbers.contains(num)) {
             numbers.add(num);
         }
