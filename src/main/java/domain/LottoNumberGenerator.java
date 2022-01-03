@@ -1,0 +1,23 @@
+package domain;
+
+import java.util.*;
+
+public class LottoNumberGenerator {
+    private static final Integer LOTTO_NUMBER_SIZE = 6;
+    private static final Integer MIN_NUMBER = 1;
+    private static final Integer MAX_NUMBER = 45;
+
+    public static List<Integer> generate() {
+        Set<Integer> numbers = new TreeSet<>(); // 정렬하려고 TreeSet 사용했습니다.
+
+        while (numbers.size() < LOTTO_NUMBER_SIZE) {
+            numbers.add(generateRandomNumber());
+        }
+
+        return List.copyOf(numbers);
+    }
+
+    private static Integer generateRandomNumber() {
+        return (int) (Math.random() * MAX_NUMBER + MIN_NUMBER);
+    }
+}
