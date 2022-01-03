@@ -1,5 +1,7 @@
 package validate;
 
+import domain.Lotto;
+
 import java.util.List;
 
 public class WinNumbersValidator extends Validator {
@@ -19,8 +21,16 @@ public class WinNumbersValidator extends Validator {
     @Override
     public void validateValue(Object value) {
         List<Integer> numbers = (List<Integer>) value;
+        validateNumberOfValues(numbers.size());
         for(Integer number : numbers){
             validateOneValue(number);
+        }
+    }
+
+    private void validateNumberOfValues(int numberOfValue){
+        if(numberOfValue != Lotto.NUMBER_OF_WRITE_NUMBER){
+            throw new IllegalArgumentException(
+                    "당첨번호의 갯수는 ".concat(String.valueOf(Lotto.NUMBER_OF_WRITE_NUMBER)).concat("여야 합니다."));
         }
     }
 
