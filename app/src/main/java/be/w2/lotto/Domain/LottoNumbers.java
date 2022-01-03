@@ -3,60 +3,50 @@ package be.w2.lotto.Domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
-public class LottoNumbers {
+public class LottoNumbers implements Iterable<LottoNumber>{
 
-    private static int TICKET_SIZE = 6;
+    private static int NUMBER_AMOUNT = 6;
 
     private List<LottoNumber> lottoNumbers;
 
-    public LottoNumbers() {
+    public LottoNumbers(){
         lottoNumbers = new ArrayList<>();
     }
 
-    public LottoNumbers(List<LottoNumber> lottoNumbers) {
+    public LottoNumbers(List<LottoNumber> lottoNumbers){
         this.lottoNumbers = new ArrayList<>(lottoNumbers);
         Collections.sort(this.lottoNumbers);
     }
 
-    public static LottoNumbers getInstanceByIntList(List<Integer> numbers) throws IllegalArgumentException {
+    public static LottoNumbers getInstanceByIntList(List<Integer> numbers){
         LottoNumbers lottoNumbers = new LottoNumbers();
-        for (int number : numbers) {
-            LottoNumber lottonumber = new LottoNumber(number);
-            isDuplicate(lottoNumbers, lottonumber);
+        for(int number : numbers)
             lottoNumbers.add(new LottoNumber(number));
-        }
         return lottoNumbers;
     }
 
-    private static void isDuplicate(LottoNumbers lottoNumbers, LottoNumber lottoNumber) throws IllegalArgumentException {
-        if (lottoNumbers.contains(lottoNumber))
-            throw new IllegalArgumentException("중복되는 숫자가 존재합니다!");
-    }
-
-    public LottoNumbers getRandomTicketNumbers() {
+    public LottoNumbers getRandomTicketNumbers(){
         Collections.shuffle(lottoNumbers);
-        return new LottoNumbers(lottoNumbers.subList(0, TICKET_SIZE));
+        return new LottoNumbers(lottoNumbers.subList(0, NUMBER_AMOUNT));
     }
 
-    public int calculateTicket(LottoNumbers answers) {
-        int amount = 0;
-        for (LottoNumber lottoNumber : lottoNumbers) {
-            if (answers.contains(lottoNumber)) amount++;
-        }
-        return amount;
-    }
-
-    public void add(LottoNumber lottoNumber) {
+    public void add(LottoNumber lottoNumber){
         lottoNumbers.add(lottoNumber);
     }
 
-    public boolean contains(LottoNumber lottoNumber) {
+    public boolean contains(LottoNumber lottoNumber){
         return lottoNumbers.contains(lottoNumber);
     }
 
-    public String toString() {
+    @Override
+    public Iterator<LottoNumber> iterator() {
+        return lottoNumbers.iterator();
+    }
+
+    public String toString(){
         return lottoNumbers.toString();
     }
 

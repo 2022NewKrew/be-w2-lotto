@@ -12,72 +12,53 @@ public class UserInterface {
 
     private final Scanner scanner;
 
-    public UserInterface() {
+    public UserInterface(){
         scanner = new Scanner(System.in);
     }
 
-    public void printString(String str) {
+    public void printString(String str){
         System.out.println(str);
     }
 
-    public void printStatistics(List<List<String>> statistics) {
+    public void printStatistics(List<List<Integer>> statistics){
         printString("당첨 통계\n----------");
-        for (List<String> statistic : statistics)
-            printString(String.format("%s - %s개", statistic.get(0), statistic.get(1)));
+        for(List<Integer> statistic : statistics)
+            printString(String.format("%d개 일치 (%d원) - %d개", statistic.get(0), statistic.get(1), statistic.get(2)));
     }
 
-    public void queryBuyMoney() {
+    public void queryBuyMoney(){
         printString("구입금액을 입력해주세요");
     }
 
-    public void printBuyAmount(LottoTickets lottoTickets) {
-        printString(String.format("수동으로 %d 장, 자동으로 %d 장울 구입하셨습니다", lottoTickets.getManualAmount(), lottoTickets.getAutoAmount()));
+    public void printBuyAmount(int amount){
+        printString(String.format("%d 개를 구입하셨습니다", amount));
     }
 
-    public void queryAnswerNumber() {
+    public void queryLastNumber(){
         printString("지난 주 당첨 번호를 입력해주세요.");
     }
 
-    public void queryBonusNumber() {
-        printString("보너스 볼을 입력해 주세요.");
-    }
-
-    public void printBenefit(int benefit) {
+    public void printBenefit(int benefit){
         printString(String.format("총 수익률은 %d %%입니다.", benefit));
     }
 
-    public void queryManualAmount() {
-        printString("수동으로 구매할 로또 수를 입력해 주세요.");
-    }
-
-    public void queryManualNumbers() {
-        printString("수동으로 구매할 번호를 입력해 주세요.");
-    }
-
-    public List<List<Integer>> readManualInputs(int manualAmount) {
-        List<List<Integer>> manualInputList = new ArrayList<>();
-        for (int i = 0; i < manualAmount; i++) {
-            manualInputList.add(readIntList());
-        }
-        return manualInputList;
-    }
-
-    public List<Integer> readIntList() {
+    public List<Integer> readIntList(){
         String intListStr = readStr();
         return strToIntList(intListStr);
     }
 
-    public List<Integer> strToIntList(String str) {
+    private List<Integer> strToIntList(String str){
         String[] numStrs = str.split(",");
         List<Integer> nums = new ArrayList<>();
-        for (String numStr : numStrs)
+        for(String numStr : numStrs)
             nums.add(Integer.valueOf(numStr.trim()));
         return nums;
     }
 
     public String readStr() {
         Input<String> target = new Input<>();
-        while (!readStrInput(target)) ;
+        while (!readStrInput(target))
+            flush();
         return target.getValue();
     }
 
@@ -86,6 +67,7 @@ public class UserInterface {
         try {
             input = scanner.nextLine();
             target.setValue(input);
+            flush();
         } catch (InputMismatchException e) {
             System.out.println("문자열을 입력해주세요!");
             return false;
@@ -100,10 +82,10 @@ public class UserInterface {
         return target.getValue();
     }
 
-    public void printTickets(LottoTickets lottoTickets) {
+    public void printTickets(LottoTickets lottoTickets){
         StringBuilder sb = new StringBuilder();
         List<LottoTicket> lottoTicketList = lottoTickets.getLottoTickets();
-        for (LottoTicket lottoTicket : lottoTicketList) {
+        for(LottoTicket lottoTicket : lottoTicketList){
             sb.append(lottoTicket.toString());
             sb.append("\n");
         }
@@ -126,6 +108,7 @@ public class UserInterface {
     private void flush() {
         scanner.nextLine();
     }
+
 
 
 }
