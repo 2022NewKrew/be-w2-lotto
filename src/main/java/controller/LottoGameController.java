@@ -1,8 +1,6 @@
 package controller;
 
-import domain.Lotto;
-import domain.LottoGameInfo;
-import domain.LottoGenerator;
+import domain.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,11 +10,12 @@ import java.util.stream.Collectors;
 public class LottoGameController {
 
     private static final String INPUT_DELIMITER = ",";
-
     private static final Scanner sc = new Scanner(System.in);
+
     private static LottoGameInfo lottoGameInfo;
     private static List<Lotto> lottoList;
     private static List<Integer> winLottoNumbers;
+    private static LottoResult lottoResult;
 
     public static void start() {
         inputPurchaseParam();
@@ -25,7 +24,7 @@ public class LottoGameController {
         inputWinLottoNumbers();
         validateWinLottoNumbers(winLottoNumbers);
         calcLottoResult(lottoList, winLottoNumbers);
-        renderResult();
+        renderResult(lottoResult);
     }
 
     private static void inputPurchaseParam() {
@@ -56,10 +55,10 @@ public class LottoGameController {
     }
 
     private static void calcLottoResult(List<Lotto> lottoList, List<Integer> winLottoNumbers) {
-        // TODO - implement calculation result
+        lottoResult = LottoCalculator.calculate(lottoList, winLottoNumbers);
     }
 
-    private static void renderResult() {
+    private static void renderResult(LottoResult lottoResult) {
         // TODO - implement render result
     }
 
