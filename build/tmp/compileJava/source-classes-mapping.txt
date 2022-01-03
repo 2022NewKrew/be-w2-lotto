@@ -1,0 +1,14 @@
+Main.java
+ Main
+domain/Result.java
+ domain.Result
+domain/Lotto.java
+ domain.Lotto
+domain/LottoRepository.java
+ domain.LottoRepository
+view/PurchaseView.java
+ view.PurchaseView
+view/ResultView.java
+ view.ResultView
+controller/LottoController.java
+ controller.LottoController
