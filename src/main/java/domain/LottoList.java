@@ -1,3 +1,9 @@
+package domain;
+
+import domain.Lotto;
+import domain.LottoConst;
+import domain.LottoGenerator;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,3 +1,8 @@
+import domain.Lotto;
+import domain.LottoList;
+import domain.LottoResult;
+import view.LottoView;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;

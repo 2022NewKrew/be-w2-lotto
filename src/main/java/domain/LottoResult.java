@@ -1,3 +1,9 @@
+package domain;
+
+import domain.Lotto;
+import domain.LottoConst;
+import domain.LottoList;
+
 import java.util.HashMap;
 import java.util.Map;
 

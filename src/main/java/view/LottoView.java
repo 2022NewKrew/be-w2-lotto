@@ -1,3 +1,10 @@
+package view;
+
+import domain.Lotto;
+import domain.LottoConst;
+import domain.LottoList;
+import domain.LottoResult;
+
 import java.util.Map;
 
 public class LottoView {
