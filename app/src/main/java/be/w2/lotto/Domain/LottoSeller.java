@@ -5,11 +5,11 @@ public class LottoSeller {
 
     private final LottoMaker lottoMaker;
 
-    public LottoSeller(LottoMaker lottoMaker) {
+    public LottoSeller(LottoMaker lottoMaker){
         this.lottoMaker = lottoMaker;
     }
 
-    public LottoTickets sell(Money money) {
+    LottoTickets sell(Money money){
         int amount = money.calculateAmount(LottoTicket.PRICE);
         LottoTickets lottoTickets = new LottoTickets(amount, lottoMaker);
         return lottoTickets;
