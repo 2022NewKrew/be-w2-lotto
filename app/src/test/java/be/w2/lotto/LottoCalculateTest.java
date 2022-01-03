@@ -14,7 +14,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class LottoCalculateTest {
 
     UserInterface userInterface;
-    static final String ANSWER_INPUT = "1, 2, 3, 4, 5, 6";
 
     @BeforeEach
     void setUp() {
@@ -40,9 +39,16 @@ public class LottoCalculateTest {
         return testCase;
     }
 
+    List<String> setTestCase2() {
+        List<String> testCase = new ArrayList<>();
+        testCase.add("8, 21, 23, 41, 42, 43");
+        return testCase;
+    }
+
     @Test
     @DisplayName("로또_연산_결과_수익_테스트")
     void test_benefit() {
+        String ANSWER_INPUT = "1, 2, 3, 4, 5, 6";
         List<String> testCase1 = setTestCase1();
         List<LottoTicket> lottoTicketList = new ArrayList<>();
         for (String str : testCase1)
@@ -54,8 +60,24 @@ public class LottoCalculateTest {
     }
 
     @Test
+    @DisplayName("로또_연산_결과_수익_테스트_2")
+    void test_benefit_2() {
+        String ANSWER_INPUT = "8, 21, 23, 41, 42, 43";
+        List<String> testCase2 = setTestCase2();
+        List<LottoTicket> lottoTicketList = new ArrayList<>();
+        for (String str : testCase2)
+            lottoTicketList.add(new LottoTicket(LottoNumbers.getInstanceByIntList(userInterface.strToIntList(str))));
+        LottoTickets lottoTickets = new LottoTickets(lottoTicketList);
+        LottoCalculator lottoCalculator = new LottoCalculator(userInterface.strToIntList(ANSWER_INPUT));
+        int benefit = lottoCalculator.calculateResult(lottoTickets);
+        assertThat(benefit).isEqualTo(2000000000);
+    }
+
+
+    @Test
     @DisplayName("로또_연산_결과_수익률_테스트")
     void test_earningResult() {
+        String ANSWER_INPUT = "1, 2, 3, 4, 5, 6";
         List<String> testCase1 = setTestCase1();
         Money money = new Money(LottoTicket.PRICE * testCase1.size());
         List<LottoTicket> lottoTicketList = new ArrayList<>();
