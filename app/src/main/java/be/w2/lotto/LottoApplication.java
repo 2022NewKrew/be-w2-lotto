@@ -5,7 +5,9 @@ package be.w2.lotto;
 
 import be.w2.lotto.domain.LottoTickets;
 import be.w2.lotto.domain.WinningLottoTicket;
+import be.w2.lotto.domain.WinningResult;
 import be.w2.lotto.dto.LottoTicketsDto;
+import be.w2.lotto.dto.WinningResultDto;
 import be.w2.lotto.view.InputView;
 import be.w2.lotto.view.OutputView;
 
@@ -22,6 +24,8 @@ public class LottoApplication {
         OutputView.outputLottoTickets(lottoTicketsDto.getLottoTickets());
         String winningNumbers = InputView.inputWiningNumbers();
         WinningLottoTicket winningLottoTicket = WinningLottoTicket.valueOf(winningNumbers);
-
+        WinningResult winningResult = WinningResult.valueOf(lottoTickets, winningLottoTicket, purchaseAmount);
+        WinningResultDto winningResultDto = WinningResultDto.from(winningResult);
+        OutputView.outputWinningResult(winningResultDto);
     }
 }
