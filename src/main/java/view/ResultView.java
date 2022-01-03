@@ -2,18 +2,12 @@ package view;
 
 import domain.Lotto;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 public class ResultView {
-    private static final int FOURTH_PRICE = 5000;
-    private static final int THIRD_PRICE = 50000;
-    private static final int SECOND_PRICE = 1500000;
-    private static final int FIRST_PRICE = 2000000000;
-    private static final int FOURTH_MATCH_NUM = 3;
-    private static final int THIRD_MATCH_NUM = 4;
-    private static final int SECOND_MATCH_NUM = 5;
-    private static final int FIRST_MATCH_NUM = 6;
+    private static final List<Long> PRIZES = Arrays.asList(0L, 0L, 0L, 5000L, 50_000L, 1_500_000L, 2_000_000_000L);
 
     public static void printPurchaseResult(List<Lotto> lottos) {
         printLottoCount(lottos);
@@ -48,41 +42,26 @@ public class ResultView {
         return entry.getKey() + "개 일치 " + getFormattedPrice(entry.getKey()) + "- " + entry.getValue() + "개";
     }
 
-    private static String getFormattedPrice(Integer count) {
-        if (count == 3) return "(" + FOURTH_PRICE + "원)";
-        if (count == 4) return "(" + THIRD_PRICE + "원)";
-        if (count == 5) return "(" + SECOND_PRICE + "원)";
-        return "(" + FIRST_PRICE + "원)";
+    private static String getFormattedPrice(int rank) {
+        return "(" + PRIZES.get(rank) + "원)";
     }
 
 
     private static void printROI(Map<Integer, Integer> winningResult, int money) {
-        int earnedMoney = getEarnedMoney(winningResult);
+        long earnedMoney = getEarnedMoney(winningResult);
         System.out.println("총 수익률은 " +  (int)Math.floor(earnedMoney/(money*1.0) * 100) + "% 입니다.");
     }
 
-    private static int getEarnedMoney(Map<Integer, Integer> winningResult) {
+    private static long getEarnedMoney(Map<Integer, Integer> winningResult) {
         return winningResult.entrySet()
                 .stream()
                 .map(entry -> getPrice(entry.getKey(), entry.getValue()))
-                .reduce(0, Integer::sum);
+                .reduce(0L, Long::sum);
     }
 
-    private static int getPrice(int matchNum, int cnt) {
+    private static long getPrice(int rank, int cnt) {
         if(cnt<1) return 0;
 
-        int sum = 0;
-        switch (matchNum) {
-            case FOURTH_MATCH_NUM:
-                sum += FOURTH_PRICE * cnt;
-                break;
-            case THIRD_MATCH_NUM:
-                sum += THIRD_PRICE * cnt;
-            case SECOND_MATCH_NUM:
-                sum += SECOND_PRICE * cnt;
-            case FIRST_MATCH_NUM:
-                sum += FIRST_PRICE * cnt;
-        }
-        return sum;
+        return PRIZES.get(rank)*cnt;
     }
 }
