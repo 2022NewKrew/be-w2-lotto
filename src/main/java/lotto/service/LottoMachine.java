@@ -25,7 +25,7 @@ public class LottoMachine {
         return lottoResultDTO;
     }
 
-    private static LottoResultDTO countLottoResult(LottoResultDTO lottoResultDTO, int matchCount) {
+    private static void countLottoResult(LottoResultDTO lottoResultDTO, int matchCount) {
         if (matchCount == PrizeType.FIRST_PRIZE.getValue()) {
             lottoResultDTO.plusFirstPrizeCount();
         } else if (matchCount == PrizeType.SECOND_PRIZE.getValue()) {
@@ -35,6 +35,5 @@ public class LottoMachine {
         } else if (matchCount == PrizeType.FOURTH_PRIZE.getValue()) {
             lottoResultDTO.plusFourthPrizeCount();
         }
-        return lottoResultDTO;
     }
 }
