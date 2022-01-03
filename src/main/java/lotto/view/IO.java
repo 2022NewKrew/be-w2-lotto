@@ -1,5 +1,7 @@
 package lotto.view;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class IO {
@@ -32,5 +34,11 @@ public class IO {
         int itemCnt = money/lottoPrice;
         System.out.println(String.format(aBuyNums, itemCnt));
         return itemCnt;
+    }
+
+    public void printPurchasedLottos(List<List<Integer>> lottos){
+        for(List<Integer> lotto: lottos){
+            System.out.println(Arrays.toString(lotto.toArray()));
+        }
     }
 }
