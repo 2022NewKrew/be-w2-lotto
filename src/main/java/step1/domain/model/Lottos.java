@@ -1,29 +1,19 @@
 package step1.domain.model;
 
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-import static step1.utils.CommonConstants.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Lottos {
-    private static final List<Integer> AVAIL_LOTTO_NUMS = IntStream
-            .range(START_LOTTO_NUM, END_LOTTO_NUM)
-            .boxed().collect(Collectors.toList());
-
     private final List<Lotto> lottos;
 
     public Lottos(int lottosQuantity) {
         this.lottos = new ArrayList<>();
-        makeLottoNumbers(lottosQuantity);
+        makeLottos(lottosQuantity);
     }
 
-    private void makeLottoNumbers(int lottosQuantity) {
+    private void makeLottos(int lottosQuantity) {
         for (int i = 0; i < lottosQuantity; i++) {
-            Collections.shuffle(AVAIL_LOTTO_NUMS, new Random(System.nanoTime()));
-            List<Integer> chosenLottoNumbers = new ArrayList<>(AVAIL_LOTTO_NUMS.subList(0, RESULT_LOTTO_NUM));
-            Collections.sort(chosenLottoNumbers);
-            lottos.add(new Lotto(chosenLottoNumbers));
+            lottos.add(new Lotto());
         }
     }
 
@@ -31,7 +21,7 @@ public class Lottos {
         return lottos.get(i);
     }
 
-    public int sizeOf() {
+    public int size() {
         return lottos.size();
     }
 

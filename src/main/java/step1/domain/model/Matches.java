@@ -21,10 +21,6 @@ public class Matches {
         initMatches();
     }
 
-    public Matches(Map<Integer, Integer> matches) {
-        this.matches = matches;
-    }
-
     private void initMatches() {
         List<Integer> availCounts = IntStream
                 .range(FIRST_RANK_COUNT, LAST_RANK_COUNT + 1)
@@ -35,8 +31,12 @@ public class Matches {
         }
     }
 
+    public Matches(Map<Integer, Integer> matches) {
+        this.matches = matches;
+    }
+
     public void matchLottosWithResult(Lottos lottos, Result result) {
-        for (int i = 0, size = lottos.sizeOf(); i < size; i++) {
+        for (int i = 0, size = lottos.size(); i < size; i++) {
             addInMatches(result.matchWithLotto(lottos.lottoOf(i)));
         }
     }
@@ -48,7 +48,7 @@ public class Matches {
     }
 
     public int calcEarningsRate(Lottos lottos) {
-        int usedMoney = lottos.sizeOf() * LOTTO_PRICE;
+        int usedMoney = lottos.size() * LOTTO_PRICE;
         return (int) Math.round(((double) calcTotalWinningMoney() / usedMoney) * 100);
     }
 
