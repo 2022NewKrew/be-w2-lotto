@@ -5,7 +5,7 @@ import lotto.domain.WinningResult;
 
 public class WinningResultPrinter {
     public void printWinningResultPrinter(WinningResult winningResult) {
-        System.out.println("당첨 통계\n---------");
+        System.out.println("\n당첨 통계\n---------");
         for (LottoResult result : LottoResult.values()) {
             System.out.println(result.getNumMatchingDigit() + "개 일 (" + result.getReward() + "원) - " + winningResult.getCountOf(result) + "개");
         }
