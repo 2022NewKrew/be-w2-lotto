@@ -35,8 +35,16 @@ public class LottoCliView {
             sb.append(prize.getWinnings());
             sb.append("원)- ");
             sb.append(lottoResult.getCount(prize));
-            sb.append("개\n");
+            sb.append("개");
         });
+        System.out.println(sb);
+    }
+
+    public void printEarningsRate(double rate) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("총 수익률은 ");
+        sb.append(Math.round(rate * 100));
+        sb.append("%입니다.\n");
         System.out.println(sb);
     }
 }

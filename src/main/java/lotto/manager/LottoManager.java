@@ -27,7 +27,7 @@ public class LottoManager {
         return INSTANCE;
     }
 
-    private void purchaseLotto() {
+    private void purchaseLotto(int money) {
         lottoList = new ArrayList<>();
         while (money / 1000 > 0) {
             lottoList.add(new Lotto());
@@ -40,9 +40,10 @@ public class LottoManager {
 
     public void run() {
         money = customScanner.getMoney();
-        purchaseLotto();
+        purchaseLotto(money);
         lottoResult = new LottoResult(customScanner.getWinningNumbers());
         lottoList.forEach(lottoResult::countNumberOfMatches);
         lottoCliView.printLottoResult(lottoResult);
+        lottoCliView.printEarningsRate(lottoResult.getEarningsRate(money));
     }
 }

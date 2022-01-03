@@ -1,5 +1,6 @@
 package lotto.domain.model;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +32,14 @@ public class LottoResult {
         if (prize != null) {
             winningResult.put(prize, winningResult.get(prize) + 1);
         }
+    }
+
+    public double getEarningsRate(int investment) {
+        BigInteger totalPrize = winningResult.entrySet().stream()
+                .filter(item -> item.getValue() > 0)
+                .map(item -> new BigInteger(Integer.toString(item.getKey().getWinnings() * item.getValue())))
+                .reduce(new BigInteger("0"), (total, prize) -> total.add(prize));
+        return totalPrize.doubleValue() / (new BigInteger(Integer.toString(investment))).doubleValue();
     }
 
     public Integer getCount(Prize prize) {
