@@ -1,7 +1,5 @@
 package view;
 
-import dto.LottoDTO;
-
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;

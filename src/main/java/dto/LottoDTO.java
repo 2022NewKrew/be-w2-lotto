@@ -1,5 +1,7 @@
 package dto;
 
+import domain.lotto.Lotto;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -8,6 +10,10 @@ public class LottoDTO {
 
     public LottoDTO(List<Integer> numbers) {
         this.numbers = numbers;
+    }
+
+    public static LottoDTO getLottoDTO(Lotto lotto) {
+        return new LottoDTO(lotto.getNumbers());
     }
 
     public List<Integer> getNumbers() {

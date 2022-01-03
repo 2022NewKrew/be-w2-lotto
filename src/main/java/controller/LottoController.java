@@ -28,6 +28,7 @@ public class LottoController {
         UserOutput.printLotto(getLottoDTOs());
         List<Integer> winningNumbers = UserInput.getWinningLotto();
         setWinningLotto(winningNumbers);
+        UserOutput.printRevenueRate(getTotalEarn() / money);
         UserOutput.printHistory(getResult());
     }
 
@@ -44,7 +45,10 @@ public class LottoController {
     }
 
     public Map<LottoRank, Integer> getResult() {
-        List<LottoRank> lottoRanks = lottos.stream().map(this::matchLotto).collect(Collectors.toList());
+        List<LottoRank> lottoRanks =
+                lottos.stream()
+                        .map(this::matchLotto)
+                        .collect(Collectors.toList());
         Map<LottoRank, Integer> resultMap = new HashMap<>();
         for (LottoRank targetLottoRank : LottoRank.values()) {
             generateResult(resultMap, lottoRanks, targetLottoRank);
@@ -53,8 +57,20 @@ public class LottoController {
         return resultMap;
     }
 
+    public double getTotalEarn(){
+        return
+                getResult()
+                        .entrySet()
+                        .stream()
+                        .mapToDouble(entry->entry.getKey().getReward() * entry.getValue())
+                        .sum();
+    }
+
     public List<LottoDTO> getLottoDTOs() {
-        return lottos.stream().map(lotto -> new LottoDTO(lotto.getNumbers())).collect(Collectors.toList());
+        return
+                lottos.stream()
+                        .map(LottoDTO::getLottoDTO)
+                        .collect(Collectors.toList());
     }
 
     private void buyLotto() {
@@ -98,6 +114,9 @@ public class LottoController {
     }
 
     private int countLottoRank(List<LottoRank> lottoRanks, LottoRank targetLottoRank) {
-        return (int) lottoRanks.stream().filter(lottoRank -> lottoRank == targetLottoRank).count();
+        return
+                (int) lottoRanks.stream()
+                        .filter(lottoRank -> lottoRank == targetLottoRank)
+                        .count();
     }
 }
