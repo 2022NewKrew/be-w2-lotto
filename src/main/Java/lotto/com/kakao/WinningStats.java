@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 public class WinningStats {
     private final static int START_CORREC_COUNT_BY_PRINT = 3;
 
-    private final static int[] WINNING_PRICE_ARRAY_BY_CORRECT_NUMBER = {0,0,0,5000,50000,1500000,2000000000};
-    private final static List<Integer> WINNING_PRICE_LIST_BY_CORRECT_NUMBER =  Arrays.stream(WINNING_PRICE_ARRAY_BY_CORRECT_NUMBER).boxed().collect(Collectors.toList());
+    private final static long[] WINNING_PRICE_ARRAY_BY_CORRECT_NUMBER = {0,0,0,5000,50000,1500000,2000000000};
+    private final static List<Long> WINNING_PRICE_LIST_BY_CORRECT_NUMBER =  Arrays.stream(WINNING_PRICE_ARRAY_BY_CORRECT_NUMBER).boxed().collect(Collectors.toList());
 
     private final LottoBundle lottoBundle;
     private final List<Integer> lastWeekLottoNumberList;
@@ -29,8 +29,8 @@ public class WinningStats {
         return getProfit() * 100 / lottoPurchaseMoney;
     }
 
-    private int getProfit(){
-        int profit = 0;
+    private long getProfit(){
+        long profit = 0;
         for (int i = 0; i < WINNING_PRICE_LIST_BY_CORRECT_NUMBER.size(); i++) {
             profit += WINNING_PRICE_LIST_BY_CORRECT_NUMBER.get(i) * correctCountList.get(i);
         }
@@ -72,7 +72,7 @@ public class WinningStats {
         }
         double profitRatePercent = getProfitRatePercent();
         stringBuilder.append("총 수익률은 ");
-        stringBuilder.append( (int)profitRatePercent);
+        stringBuilder.append( (long)profitRatePercent);
         stringBuilder.append("%입니다.\n");
 
         return stringBuilder.toString();
