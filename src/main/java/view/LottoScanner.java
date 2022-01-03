@@ -1,5 +1,6 @@
 package view;
 
+import domain.Lotto;
 import validator.ScannerValidator;
 
 import java.util.Scanner;
@@ -12,7 +13,7 @@ public class LottoScanner {
         try {
             int purchaseAmount = Integer.parseInt(in.nextLine());
             ScannerValidator.assertValidPurchaseAmount(purchaseAmount);
-            return purchaseAmount;
+            return Lotto.getPurchaseQuantity(purchaseAmount);
         } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
             return getPurchaseQuantity();

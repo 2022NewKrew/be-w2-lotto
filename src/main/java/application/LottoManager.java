@@ -7,7 +7,7 @@ public class LottoManager {
 
     public static void run() {
         int purchaseQuantity = LottoScanner.getPurchaseQuantity();
-        System.out.println(purchaseQuantity);
+        LottoGuidePrinter.alertPurchaseQuantity(purchaseQuantity);
     }
 
 }

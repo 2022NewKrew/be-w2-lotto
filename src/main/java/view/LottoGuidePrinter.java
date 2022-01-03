@@ -6,4 +6,8 @@ public class LottoGuidePrinter {
     public static void requestPurchaseAmountInput() {
         System.out.println(PURCHASE_AMOUNT_REQUEST);
     }
+
+    public static void alertPurchaseQuantity(int quantity) {
+        System.out.println(quantity + "개를 구매했습니다.");
+    }
 }
