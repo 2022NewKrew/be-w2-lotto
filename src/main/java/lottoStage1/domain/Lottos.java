@@ -19,6 +19,19 @@ public class Lottos {
         return new Lottos(price / LOTTO_PRICE);
     }
 
+    public WinningResult getWinningResult(Lotto winningLotto) {
+        WinningResult winningResult = WinningResult.create();
+
+        for (Lotto lotto : lottos) {
+            int matchCount = lotto.match(winningLotto);
+            WinningType type = WinningType.of(matchCount);
+            winningResult.addCount(type);
+        }
+
+        return winningResult;
+    }
+
+
     public List<Lotto> getLottos() {
         return Collections.unmodifiableList(lottos);
     }

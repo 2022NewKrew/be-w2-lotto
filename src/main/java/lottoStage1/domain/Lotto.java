@@ -3,7 +3,7 @@ package lottoStage1.domain;
 import java.util.List;
 
 public class Lotto {
-    private LottoNumbers lottoNumbers;
+    private final LottoNumbers lottoNumbers;
 
     private Lotto() {
         lottoNumbers = LottoNumbers.create();

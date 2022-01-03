@@ -1,5 +1,6 @@
 package lottoStage1.controller;
 
+import lottoStage1.domain.Lotto;
 import lottoStage1.domain.Lottos;
 import lottoStage1.domain.WinningResult;
 import lottoStage1.view.InputView;
@@ -16,9 +17,10 @@ public class LottoGame {
         System.out.println();
 
         String winningNumbers = InputView.inputLastWeekLottoNumber();
-        WinningResult winningResult =
+        Lotto winningLotto = Lotto.of(winningNumbers.split(", "));
+        WinningResult winningResult = lottos.getWinningResult(winningLotto);
         System.out.println();
 
-        ResultView.showStatistics();
+        ResultView.showStatistics(price, winningResult);
     }
 }
