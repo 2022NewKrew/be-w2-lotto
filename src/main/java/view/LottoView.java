@@ -10,12 +10,10 @@ public class LottoView {
 
     public LottoView(LottoDTO lottoDTO) {
         this.lottoDTO = lottoDTO;
-        this.view = "["
-                + lottoDTO.getNumber()
+        this.view = lottoDTO.getNumber()
                 .stream()
                 .map(integer -> String.valueOf(integer))
-                .collect(Collectors.joining(", "))
-                + "]";
+                .collect(Collectors.joining(", ", "[", "]"));
     }
 
     public void printLotto() {
