@@ -14,7 +14,8 @@ import java.util.stream.Collectors;
 public class InputView {
 
     static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    private InputView(){
+
+    private InputView() {
 
     }
 
@@ -32,7 +33,7 @@ public class InputView {
 
     }
 
-    public static int stoi(String input){
+    public static int stoi(String input) {
         return Integer.parseInt(input);
     }
 }

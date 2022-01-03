@@ -19,11 +19,11 @@ public class Main {
         LottoMachine lottoMachine = new LottoMachine();
         List<LottoTicket> lottoTickets = lottoMachine.makeLottoTicket(lottoPrice);
 
-        OutputView.printLottoTickets(lottoTickets,wr);
+        OutputView.printLottoTickets(lottoTickets, wr);
 
         LottoTicket winningTicket = InputView.inputWinningNumber();
-        LottoResult lottoResult = new LottoResult(winningTicket,lottoTickets,lottoPrice.getPrice());
-        OutputView.printLottoResult(lottoResult,wr);
+        LottoResult lottoResult = new LottoResult(winningTicket, lottoTickets, lottoPrice.getPrice());
+        OutputView.printLottoResult(lottoResult, wr);
         wr.close();
     }
 }
