@@ -14,12 +14,14 @@ public class LottoGame {
     private int purchaseAmount;
     private int numberOfLotto;
     private final List<Lotto> lottoList = new ArrayList<>();
+    private List<Integer> winningNumbers = new ArrayList<>();
 
     public void startGame(){
         try (Scanner scanner = new Scanner(System.in)) {
             purchaseAmount = LottoGameInput.inputPurchaseAmount(scanner);
             purchaseLotto();
             LottoGameOutput.printLottoNumbers(numberOfLotto, lottoList);
+            winningNumbers = LottoGameInput.inputWinningNumbers(scanner);
         }
     }
 
