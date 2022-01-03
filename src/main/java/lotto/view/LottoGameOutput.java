@@ -1,13 +1,11 @@
 package lotto.view;
 
-import lotto.domain.Lotto;
-
-import java.util.List;
+import lotto.domain.PlayerLottoList;
 
 public class LottoGameOutput {
 
-    public static void printLottoNumbers(int numberOfLotto, List<Lotto> lottoList) {
+    public static void printLottoNumbers(int numberOfLotto, PlayerLottoList playerLottoList) {
         System.out.println(numberOfLotto + "개를 구매했습니다.");
-        lottoList.forEach(lotto -> System.out.println(lotto.getNumbers()));
+        playerLottoList.getLottoList().forEach(lotto -> System.out.println(lotto.getNumbers()));
     }
 }
