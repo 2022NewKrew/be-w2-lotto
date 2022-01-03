@@ -10,7 +10,7 @@ public class Input<T> {
         return value;
     }
 
-    void setValue(T value){
+    void setValue(T value) {
         this.value = value;
     }
 }
