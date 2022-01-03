@@ -11,6 +11,8 @@ public class Lotto {
     private List<LottoNumber> lottos;
 
     public Lotto(Integer payment){
+        lottos = new ArrayList<>();
+
         Integer lottoCount = (payment / LOTTO_PRICE);
 
         for(int i = 0 ; i < lottoCount ; i++){
