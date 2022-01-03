@@ -2,7 +2,7 @@ package input;
 
 import java.util.Scanner;
 
-public class InputManager {
+public class InputResourceManager {
     public static Scanner scanner = new Scanner(System.in);
 
     public static void close() {
