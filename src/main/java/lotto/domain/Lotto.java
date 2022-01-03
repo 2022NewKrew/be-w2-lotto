@@ -8,13 +8,14 @@ import java.util.stream.IntStream;
 
 public class Lotto {
     private static List<Integer> range = IntStream.range(1, 45).boxed().collect(Collectors.toList());
+    private static List<Integer> oneLotto = new ArrayList<>();
 
     public Lotto(){
     }
 
     public static List<Integer> getRandLotto() {
         Collections.shuffle(range);
-        List<Integer> oneLotto = new ArrayList<>(range.subList(0,6));
+        oneLotto = new ArrayList<>(range.subList(0,6));
         return oneLotto;
     }
 

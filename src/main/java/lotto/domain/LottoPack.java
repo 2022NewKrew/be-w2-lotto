@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import lotto.dto.LottoResults;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,5 +19,10 @@ public class LottoPack {
 
     public List<List<Integer>> getNumList() {
         return lottos;
+    }
+
+    public LottoResults getResults(List<Integer> prevNums) {
+        LottoResults lottoResults = new LottoResults();
+        return lottoResults;
     }
 }

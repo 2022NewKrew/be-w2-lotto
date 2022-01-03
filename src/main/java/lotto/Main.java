@@ -1,11 +1,14 @@
 package lotto;
 
 import lotto.domain.LottoPack;
+import lotto.dto.LottoResults;
 import lotto.view.IO;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
+
     public static void main(String[] args) {
         IO io = new IO();
         int itemCnt = io.start();
@@ -16,5 +19,8 @@ public class Main {
         io.printPurchasedLottos(lottoNums);
 
         List<Integer> prevNums = io.enterPrevNums();
+        LottoResults lottoResults = lottoPack.getResults(prevNums); // -> 추후 test, earnRate, prevNum
+        io.showResults(lottoResults);
+
     }
 }
