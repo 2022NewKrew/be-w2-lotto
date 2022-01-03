@@ -22,11 +22,7 @@ public class Lotto {
         lottos = new ArrayList<>();
         lottoViewOutput = new LottoViewOutput(this);
 
-        Integer lottoCount = (payment / LOTTO_PRICE);
-
-        for(int i = 0 ; i < lottoCount ; i++){
-            lottos.add(createLotto());
-        }
+        addLottos(payment / LOTTO_PRICE);
         lottoViewOutput.printLottoCount();
         lottoViewOutput.printAllLottos();
         lottoResult = new LottoNumber(LottoViewInput.lottoInputResult());
@@ -42,6 +38,14 @@ public class Lotto {
     public List<LottoWinner> getLottoWinner() {
         return lottoWinner;
     }
+
+
+    public void addLottos(Integer lottoCount){
+        for(int i = 0 ; i < lottoCount ; i++){
+            lottos.add(createRandomLotto()); //lottoCount만큼 랜덤으로 로또를 생성
+        }
+    }
+
 
     private Integer calculateMatchCount(LottoNumber curLotto){
         int resultIdx = 0;
@@ -79,7 +83,7 @@ public class Lotto {
         }
     }
 
-    private LottoNumber createLotto(){
+    private LottoNumber createRandomLotto(){
         //initialize only once
         if(lottoElement == null){
             lottoElement = new ArrayList<>();
