@@ -11,7 +11,7 @@ import lotto.view.LottoGameView;
 
 public class LottoGame {
 
-    private static final int TICKET_PRICE = 1000;
+    public static final int TICKET_PRICE = 1000;
 
     private final LottoGameView lottoGameView;
     private final LottoGameInputValidator lottoGameInputValidator;
@@ -31,7 +31,7 @@ public class LottoGame {
         initGame();
         checkLottoGameResult();
     }
-    
+
     private void checkLottoGameResult() {
         LottoDTO lottoDTO = null;
         while (lottoDTO == null) {
@@ -63,7 +63,7 @@ public class LottoGame {
 
     private int inputAndValidatePrice() {
         int purchasePrice = lottoGameView.inputPurchasePrice();
-        return lottoGameInputValidator.purchasePriceValidate(purchasePrice, TICKET_PRICE);
+        return lottoGameInputValidator.purchasePriceValidate(purchasePrice);
     }
 
     private List<LottoDTO> convertLottoListToLottoDTOList(List<Lotto> lottoList) {

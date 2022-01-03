@@ -17,7 +17,7 @@ public class LottoGameResultView {
     private static final int COUNT_FOR_FOURTH_PLACE = 3;
 
     private static final int COUNTED = 1;
-    private static final int NOT_COUNTED = 1;
+    private static final int NOT_COUNTED = 0;
 
     private static final String GAME_RESULT_STRING_FORMAT = "%n당첨 통계%n"
         + "---------%n"
