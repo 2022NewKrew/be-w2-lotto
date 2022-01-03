@@ -19,7 +19,7 @@ public class LottoGame {
         try (Scanner scanner = new Scanner(System.in)) {
             purchaseAmount = LottoGameInput.inputPurchaseAmount(scanner);
             purchaseLotto();
-            LottoGameOutput.printLottoNumbers(purchaseAmount);
+            LottoGameOutput.printLottoNumbers(numberOfLotto, lottoList);
         }
     }
 
