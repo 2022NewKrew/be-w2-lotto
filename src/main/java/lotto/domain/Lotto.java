@@ -1,15 +1,18 @@
 package lotto.domain;
 
+import lotto.view.LottoViewInput;
 import lotto.view.LottoViewOutput;
 
 import java.text.CollationElementIterator;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import static lotto.domain.LottoSetting.*;
 
 public class Lotto {
+    private LottoNumber lottoResult;
     private List<LottoNumber> lottos;
     private LottoViewOutput lottoViewOutput;
 
@@ -24,6 +27,7 @@ public class Lotto {
         }
         lottoViewOutput.printLottoCount();
         lottoViewOutput.printAllLottos();
+        lottoResult = new LottoNumber(LottoViewInput.lottoInputResult());
     }
 
     //getter
@@ -35,7 +39,7 @@ public class Lotto {
 
     private LottoNumber createLotto(){
         List<Integer> newLotto = new ArrayList<>();
-        for(int i = 1 ; i <= 45 ; i++){
+        for(int i = 1 ; i <= LOTTO_NUMBER_RANGE ; i++){
             newLotto.add(i);
         }
         Collections.shuffle(newLotto);
