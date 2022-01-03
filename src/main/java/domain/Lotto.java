@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
-    private List<Integer> lotto;
+    private List<Integer> numbers;
 
     Lotto() {
         setUpRandomLotto();
@@ -13,15 +13,15 @@ public class Lotto {
     private void setUpRandomLotto() {
         List<Integer> allLottoNumbers = new LottoNumbers().getAllLottoNumbers();
         Collections.shuffle(allLottoNumbers);
-        lotto = allLottoNumbers.subList(0,6);
-        Collections.sort(lotto);
+        numbers = allLottoNumbers.subList(0,6);
+        Collections.sort(numbers);
     }
 
-    public List<Integer> getLotto() {
-        return lotto;
+    public List<Integer> getNumbers() {
+        return numbers;
     }
 
     public String toString() {
-        return String.join(", ", lotto.toString());
+        return String.join(", ", numbers.toString());
     }
 }

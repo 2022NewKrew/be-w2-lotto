@@ -4,11 +4,13 @@ import view.InputView;
 import view.OutputView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class LottoController {
     private InputView inputView = new InputView();
     private OutputView outputView = new OutputView();
+    private WinningStats winningStats;
 
     private int purchaseAmount;
     private List<Integer> winningNumbers = new ArrayList<>();
@@ -19,6 +21,7 @@ public class LottoController {
         buyLotto();
         printAllLotto();
         getLastWeekWinningNumbers();
+        calculateWinningStats();
         printWinningStats();
     }
 
@@ -44,7 +47,12 @@ public class LottoController {
         winningNumbers = inputView.getWinningNumbers();
     }
 
+    private void calculateWinningStats() {
+        winningStats = new WinningStats(allLotto, winningNumbers);
+
+    }
+
     private void printWinningStats() {
-        outputView.printWinningStats(allLotto, winningNumbers);
+        outputView.printWinningStats(winningStats.toStringArrayList());
     }
 }

@@ -2,6 +2,7 @@ package view;
 
 import domain.Lotto;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class OutputView {
@@ -12,7 +13,12 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printWinningStats(List<Lotto> allLotto, List<Integer> winningNumbers) {
-
+    public void printWinningStats(List<String> winningStatsStrings) {
+        System.out.println();
+        System.out.println("당첨 통계");
+        System.out.println("---------");
+        for (String winningStatsString : winningStatsStrings) {
+            System.out.println(winningStatsString);
+        }
     }
 }
