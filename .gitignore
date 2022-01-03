@@ -6,3 +6,6 @@
 /target/
 /build/
 .gradle
+.gradle/
+.idea/
+
