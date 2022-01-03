@@ -1,15 +1,14 @@
 package lotto;
 
 import lotto.domain.*;
-import lotto.io.CLIInputManager;
-import lotto.io.CLIOutputManager;
+import lotto.io.*;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static final CLIInputManager im = new CLIInputManager();
-    public static final CLIOutputManager om = new CLIOutputManager();
+    public static final InputManager im = new CLIInputManager();
+    public static final OutputManager om = new CLIOutputManager();
     public static final PurchaseManager pm = new PurchaseManager();
 
     public static void main(String[] args) {
