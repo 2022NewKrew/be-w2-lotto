@@ -17,7 +17,7 @@ public class ScannerValidator {
 
     public static void assertValidLottoNumbers(List<Integer> lottoNumbers) throws IllegalArgumentException{
         if (lottoNumbers.stream().distinct().count()!= lottoNumbers.size()
-        || lottoNumbers.stream().anyMatch(e -> !(e >= MIN_LOTTO_NUMBER && e < MAX_LOTTO_NUMBER)))
+        || lottoNumbers.stream().anyMatch(e -> !(e >= MIN_LOTTO_NUMBER && e <= MAX_LOTTO_NUMBER)))
             throw new IllegalArgumentException(ILLEGAL_LOTTO_NUMBERS_MESSAGE);
     }
 }
