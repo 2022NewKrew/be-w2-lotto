@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class LottoPaper {
     public static final int LOTTO_PRICE = 1000;
@@ -13,4 +14,13 @@ public class LottoPaper {
         }
     }
 
+    public String toString(){
+        return paper.stream()
+                .map(Lotto::toString)
+                .collect(Collectors.joining("]\n[", "[", "]"));
+    }
+
+    public int countLotto(){
+        return paper.size();
+    }
 }

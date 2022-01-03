@@ -3,6 +3,7 @@ package domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -16,5 +17,12 @@ public class Lotto {
         Collections.shuffle(BALLS);
         numbers = new ArrayList<>(BALLS.subList(0,6));
         Collections.sort(numbers);
+    }
+
+    @Override
+    public String toString(){
+        return numbers.stream()
+                .map(Objects::toString)
+                .collect(Collectors.joining(", "));
     }
 }
