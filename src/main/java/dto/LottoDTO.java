@@ -25,16 +25,16 @@ public class LottoDTO {
         validationStringNumber(numbers);
 
         number = Arrays.stream(numbers.split(","))
-                        .map(stringInt -> Integer.valueOf(stringInt.trim()))
-                        .collect(Collectors.toList());
+                .map(stringInt -> Integer.valueOf(stringInt.trim()))
+                .collect(Collectors.toList());
     }
 
     private void validationStringNumber(String numbers) {
-        String fixedNumbers = numbers.replaceAll(",","")
-                                    .replaceAll(" ", "")
-                                    .trim();
+        String fixedNumbers = numbers.replaceAll(",", "")
+                .replaceAll(" ", "")
+                .trim();
         System.out.println(fixedNumbers);
-        if(!fixedNumbers.chars().allMatch(Character::isDigit) || numbers.split(",").length > 6)
+        if (!fixedNumbers.chars().allMatch(Character::isDigit) || numbers.split(",").length > 6)
             throw new IllegalArgumentException("로또 번호가 유효하지 않습니다.");
     }
 

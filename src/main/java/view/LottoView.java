@@ -12,9 +12,9 @@ public class LottoView {
         this.lottoDTO = lottoDTO;
         this.view = "["
                 + lottoDTO.getNumber()
-                        .stream()
-                        .map(integer -> String.valueOf(integer))
-                        .collect(Collectors.joining(", "))
+                .stream()
+                .map(integer -> String.valueOf(integer))
+                .collect(Collectors.joining(", "))
                 + "]";
     }
 
