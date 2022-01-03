@@ -34,22 +34,29 @@ public class ResultView {
         System.out.println("당첨 통계");
         System.out.println("---------");
         winningResult.entrySet()
-                .forEach(entry -> System.out.println(getFormattedResult(entry)));
+                .forEach(entry -> System.out.println(getFormattedLine(entry)));
     }
 
 
-    private static String getFormattedResult(Map.Entry<Integer, Integer> entry) {
-        return entry.getKey() + "개 일치 " + getFormattedPrice(entry.getKey()) + "- " + entry.getValue() + "개";
+    private static String getFormattedLine(Map.Entry<Integer, Integer> entry) {
+
+        return entry.getKey()
+                + "개 일치 "
+                + getFormattedPrice(entry.getKey())
+                + "- "
+                + entry.getValue()
+                + "개";
     }
 
     private static String getFormattedPrice(int rank) {
         return "(" + PRIZES.get(rank) + "원)";
     }
 
-
     private static void printROI(Map<Integer, Integer> winningResult, int money) {
         long earnedMoney = getEarnedMoney(winningResult);
-        System.out.println("총 수익률은 " +  (int)Math.floor(earnedMoney/(money*1.0) * 100) + "% 입니다.");
+        int earnedRate = (int)Math.floor(earnedMoney/(money*1.0) * 100);
+
+        System.out.println("총 수익률은 " + earnedRate + "% 입니다.");
     }
 
     private static long getEarnedMoney(Map<Integer, Integer> winningResult) {
