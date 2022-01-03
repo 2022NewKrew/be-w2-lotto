@@ -5,6 +5,10 @@ import com.kakao.exception.MoneyRangeException;
 import com.kakao.exception.PickedNumbersFormatException;
 
 import java.util.ArrayList;
+<<<<<<< HEAD
+=======
+import java.util.Collections;
+>>>>>>> edb2074 (1일차 중간 PR)
 import java.util.List;
 
 public class Lottos {
@@ -21,7 +25,11 @@ public class Lottos {
 
     // 유효성 검사
     private void checkMoneyRange(final int moneyToBuyLottos) throws MoneyRangeException {
+<<<<<<< HEAD
         if(moneyToBuyLottos < LottoData.PRICE_OF_LOTTO ) {
+=======
+        if(moneyToBuyLottos < LottoData.MIN_PRICE_RANGE ) {
+>>>>>>> edb2074 (1일차 중간 PR)
             throw new MoneyRangeException();
         }
     }
@@ -51,6 +59,7 @@ public class Lottos {
             e.printStackTrace();
         } finally {
             return newLotto;
+<<<<<<< HEAD
         }
     }
 
@@ -70,6 +79,10 @@ public class Lottos {
         int countOfWinningNumber = countOfWinningLottos.get(winningNumber);
         countOfWinningLottos.set(winningNumber, countOfWinningNumber+1);
     }
+=======
+        }}
+
+>>>>>>> edb2074 (1일차 중간 PR)
 
     // getter
     public List<Lotto> getLottoList() {

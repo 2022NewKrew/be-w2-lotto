@@ -1,6 +1,10 @@
 package com.kakao.exception;
 
+<<<<<<< HEAD
 public class PickedNumbersFormatException extends PickedNumberException {
+=======
+public class PickedNumbersFormatException extends Exception {
+>>>>>>> edb2074 (1일차 중간 PR)
     @Override
     public void printStackTrace() {
         super.printStackTrace();

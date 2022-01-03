@@ -1,10 +1,15 @@
 package com.kakao.io;
 
+<<<<<<< HEAD
 import com.kakao.data.MatchBall;
 import com.kakao.data.io.LottoOutputData;
 import com.kakao.model.Lotto;
 import com.kakao.model.LottoWinning;
 import com.kakao.model.LottoWinningReward;
+=======
+import com.kakao.data.io.LottoOutputData;
+import com.kakao.model.Lotto;
+>>>>>>> edb2074 (1일차 중간 PR)
 import com.kakao.model.Lottos;
 
 import java.io.BufferedWriter;
@@ -13,8 +18,11 @@ import java.io.OutputStreamWriter;
 import java.util.List;
 
 class LottoOutput {
+<<<<<<< HEAD
     private LottoOutput() {}
 
+=======
+>>>>>>> edb2074 (1일차 중간 PR)
     private static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
     public static void printString (String str) {
@@ -52,6 +60,7 @@ class LottoOutput {
             sb.append("\n");
         }
     }
+<<<<<<< HEAD
 
     // winning 정보 출력
     public static void printLottoWinning(Integer moneyToBuyLotto, Lottos lottos, LottoWinning lottoWinning){
@@ -107,4 +116,6 @@ class LottoOutput {
 
         return rewardPrice * count;
     }
+=======
+>>>>>>> edb2074 (1일차 중간 PR)
 }

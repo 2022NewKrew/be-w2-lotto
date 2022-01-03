@@ -1,5 +1,6 @@
 package com.kakao.io;
 
+<<<<<<< HEAD
 import com.kakao.exception.PickedNumberException;
 import com.kakao.helper.TextHelper;
 import com.kakao.data.io.LottoInputData;
@@ -14,6 +15,13 @@ import java.util.List;
 class LottoInput {
     private LottoInput() {}
 
+=======
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+class LottoInput {
+>>>>>>> edb2074 (1일차 중간 PR)
     private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     public static Integer inputMoney() {
@@ -22,6 +30,7 @@ class LottoInput {
             money = Integer.parseInt(br.readLine());
         } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
+<<<<<<< HEAD
         }
         return money;
     }
@@ -45,5 +54,10 @@ class LottoInput {
             e.printStackTrace();
         }
         return bonusBallNumber;
+=======
+        } finally { // 반드시 값을 반환
+            return money;
+        }
+>>>>>>> edb2074 (1일차 중간 PR)
     }
 }
