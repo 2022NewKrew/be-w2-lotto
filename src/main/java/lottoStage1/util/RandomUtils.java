@@ -1,4 +1,4 @@
-package lottoStage1;
+package lottoStage1.util;
 
 import java.util.Random;
 

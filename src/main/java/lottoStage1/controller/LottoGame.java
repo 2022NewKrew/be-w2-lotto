@@ -1,6 +1,7 @@
 package lottoStage1.controller;
 
-import lottoStage1.Lottos;
+import lottoStage1.domain.Lottos;
+import lottoStage1.domain.WinningResult;
 import lottoStage1.view.InputView;
 import lottoStage1.view.ResultView;
 
@@ -14,9 +15,10 @@ public class LottoGame {
         ResultView.showAllLottoNumbers(lottos);
         System.out.println();
 
-        String numbers = InputView.inputLastWeekLottoNumber();
+        String winningNumbers = InputView.inputLastWeekLottoNumber();
+        WinningResult winningResult =
         System.out.println();
 
-//        ResultView.showStatistics();
+        ResultView.showStatistics();
     }
 }

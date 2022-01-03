@@ -1,5 +1,7 @@
 package lottoStage1;
 
+import lottoStage1.domain.Lotto;
+import lottoStage1.domain.Lottos;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

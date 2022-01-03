@@ -1,5 +1,6 @@
 package lottoStage1;
 
+import lottoStage1.domain.Number;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 
