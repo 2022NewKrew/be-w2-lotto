@@ -38,6 +38,6 @@ public class View {
         System.out.println("3개 일치 (" + report.getThirdPrizeValue() + "원)- " + report.getThirdPrizeCount() + "개");
         System.out.println("3개 일치 (" + report.getSecondPrizeValue() + "원)- " + report.getSecondPrizeCount() + "개");
         System.out.println("3개 일치 (" + report.getFirstPrizeValue() + "원)- " + report.getFirstPrizeCount() + "개");
-        System.out.println("총 수익률은 " + report.getProfitRate() + "%입니다.");
+        System.out.println("총 수익률은 " + report.getProfitRateAsPercentage() + "%입니다.");
     }
 }
