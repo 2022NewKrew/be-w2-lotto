@@ -15,5 +15,6 @@ public class Main {
             ConsoleOutput.printLottoBundle(lottoBundle);
             List<Integer> lastWeekLottoNumberList = ConsoleInput.getLastWeekLottoNumberList();
             WinningStats winningStats = new WinningStats(lottoBundle,lastWeekLottoNumberList,lottoPurchaseMoney);
+            ConsoleOutput.printWinningStats(winningStats);
     }
 }

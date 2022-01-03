@@ -1,6 +1,7 @@
 package lotto.view;
 
 import lotto.com.kakao.LottoBundle;
+import lotto.com.kakao.WinningStats;
 
 public class ConsoleOutput {
 
@@ -9,5 +10,9 @@ public class ConsoleOutput {
     }
     public static void printLottoBundle(LottoBundle lottoBundle){
         System.out.println(lottoBundle);
+    }
+
+    public static void printWinningStats(WinningStats winningStats){
+        System.out.println(winningStats);
     }
 }
