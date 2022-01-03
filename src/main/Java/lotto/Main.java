@@ -11,5 +11,6 @@ public class Main {
             LottoBundle lottoBundle = new LottoBundle(lottoPurchaseMoney);
 
             ConsoleOutput.printLottoCount(lottoBundle.getCount());
+            ConsoleOutput.printLottoBundle(lottoBundle);
     }
 }
