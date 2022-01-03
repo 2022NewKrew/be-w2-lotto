@@ -53,4 +53,8 @@ public class Person {
     public List<Integer> getLottoWinnings() {
         return LOTTO_WINNINGS;
     }
+
+    public List<Lotto> getLottoList(){
+        return lottoList;
+    }
 }
