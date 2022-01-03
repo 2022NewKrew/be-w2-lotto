@@ -15,6 +15,7 @@ public class Lotto {
     private LottoNumber lottoResult;
     private List<LottoNumber> lottos;
     private LottoViewOutput lottoViewOutput;
+    private List<LottoWinner> lottoWinner;
 
     public Lotto(Integer payment){
         lottos = new ArrayList<>();
@@ -28,6 +29,7 @@ public class Lotto {
         lottoViewOutput.printLottoCount();
         lottoViewOutput.printAllLottos();
         lottoResult = new LottoNumber(LottoViewInput.lottoInputResult());
+        makeTotal();
     }
 
     //getter
@@ -35,6 +37,48 @@ public class Lotto {
         return lottos;
     }
 
+    private Integer calculateMatchCount(LottoNumber curLotto){
+        int resultIdx = 0;
+        int curLottoIdx = 0;
+        Integer matchCount = 0;
+
+        System.out.println(lottoResult.num.toString());
+        System.out.println(curLotto.num.toString());
+
+        while(resultIdx < lottoResult.num.size() && curLottoIdx < curLotto.num.size()){
+            if(lottoResult.num.get(resultIdx).equals(curLotto.num.get(curLottoIdx))){
+                resultIdx++;
+                curLottoIdx++;
+                matchCount++;
+                continue;
+            }
+            if(lottoResult.num.get(resultIdx) < curLotto.num.get(curLottoIdx)){
+                resultIdx++;
+                continue;
+            }
+
+            if(lottoResult.num.get(resultIdx) > curLotto.num.get(curLottoIdx)){
+                curLottoIdx++;
+                continue;
+            }
+        }
+        return matchCount;
+    }
+
+    void makeTotal(){
+        lottoWinner = new ArrayList<>();
+
+        for(int i = 0 ; i <= LOTTO_LENGTH ; i++){
+            lottoWinner.add(new LottoWinner());
+        }
+
+        //calc
+        for(int i = 0 ; i < lottos.size() ; i++){
+            LottoNumber curLotto = lottos.get(i);
+            lottoWinner.get(calculateMatchCount(curLotto)).addLottoNumber(curLotto);
+        }
+
+    }
 
 
     private LottoNumber createLotto(){
