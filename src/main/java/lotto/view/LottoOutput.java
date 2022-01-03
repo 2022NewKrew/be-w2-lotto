@@ -1,20 +1,24 @@
 package lotto.view;
 
+import lotto.domain.Lotto;
+
+import java.util.ArrayList;
+
 public class LottoOutput {
     public void printEnterMoney() {
         System.out.println("구입금액을 입력해 주세요.");
     }
 
-    public void printNumberOfLotto() {
-        System.out.println("14개를 구매했습니다.");
+    public void printNumberOfLotto(int count) {
+        System.out.printf("%d개를 구매했습니다.", count);
     }
 
-    public void printLottos() {
-        System.out.println("[8, 21, 23]");
+    public void printLottos(ArrayList<Lotto> lottos) {
+        System.out.println(lottos);
     }
 
     public void printEnterPastWinningLotto() {
-        System.out.println("1, 2, 3, 4, 5, 6");
+        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
     }
 
     public void printWinningStatistic() {

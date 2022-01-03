@@ -9,6 +9,8 @@ public class LottoInput {
 
     public Lotto enterPastWinningLotto() {
         Lotto lotto = new Lotto();
+        String lottoString = "1, 2, 3, 4, 5, 6";
+        lotto.initialize(lottoString);
         return lotto;
     }
 }
