@@ -1,5 +1,7 @@
 package be.w2.lotto.Domain;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,20 +25,20 @@ public class LottoResult {
 
     public int calculateBenefit() {
         int benefit = 0;
-        for (HitCount hitCount : HitCount.values())
-            benefit += (result.get(hitCount.getHitCount()) * hitCount.getPrice());
+        for(HitCount hitCount : HitCount.values())
+            benefit += (result.get(hitCount.getHitCount())*hitCount.getPrice());
         return benefit;
     }
 
-    public List<List<Integer>> getStatistics() {
+    public List<List<Integer>> getStatistics(){
         List<List<Integer>> res = new ArrayList<>();
-        for (HitCount hitCount : HitCount.values()) {
+        for(HitCount hitCount : HitCount.values()){
             res.add(getStatisticsRow(hitCount));
         }
         return res;
     }
 
-    List<Integer> getStatisticsRow(HitCount hitCount) {
+    List<Integer> getStatisticsRow(HitCount hitCount){
         List<Integer> statistics = new ArrayList<>();
         statistics.add(hitCount.getHitCount());
         statistics.add(hitCount.getPrice());

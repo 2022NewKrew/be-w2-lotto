@@ -5,11 +5,11 @@ public class LottoTicket {
     public static int PRICE = 1000;
     private LottoNumbers lottoNumbers;
 
-    public LottoTicket(LottoNumbers lottoNumbers) {
+    public LottoTicket(LottoNumbers lottoNumbers){
         this.lottoNumbers = lottoNumbers;
     }
 
-    public boolean contains(LottoNumber lottoNumber) {
+    public boolean contains(LottoNumber lottoNumber){
         return lottoNumbers.contains(lottoNumber);
     }
 

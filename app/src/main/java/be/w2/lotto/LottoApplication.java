@@ -11,18 +11,18 @@ public class LottoApplication {
     private final UserInterface userInterface;
     private final LottoService lottoService;
 
-    public LottoApplication() {
+    public LottoApplication(){
         this.userInterface = new UserInterface();
         this.lottoService = new LottoService();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
         LottoApplication lottoApplication = new LottoApplication();
         lottoApplication.makeLottoTickets();
         lottoApplication.makeAnswer();
     }
 
-    private void makeLottoTickets() {
+    private void makeLottoTickets(){
         userInterface.queryBuyMoney();
         int moneyInput = userInterface.readInt();
         int amount = lottoService.calculateAmount(moneyInput);
@@ -31,7 +31,7 @@ public class LottoApplication {
         userInterface.printTickets(lottoService.getLottoTickets());
     }
 
-    private void makeAnswer() {
+    private void makeAnswer(){
         userInterface.queryLastNumber();
         List<Integer> nums = userInterface.readIntList();
         int benefit = lottoService.calculateBenefit(nums);
