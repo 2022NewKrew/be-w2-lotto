@@ -24,14 +24,8 @@ public class InputView {
     public static List<Integer> inputLastWeekWinNumber() {
         System.out.println(INPUT_LAST_WEEK_WIN_NUMBER);
         String stringLastWeekWinNumberBeforeDefined = scanner.next();
-        String[] stringLastWeekWinNumberAfterDefined = stringLastWeekWinNumberBeforeDefined.split(",");
-        List<Integer> intLastWeekWinNumber = new ArrayList<>();
-        System.out.println(stringLastWeekWinNumberBeforeDefined);
-        System.out.println(stringLastWeekWinNumberAfterDefined);
-        for (String i : stringLastWeekWinNumberAfterDefined) {
-            intLastWeekWinNumber.add(Integer.valueOf(i));
-            System.out.print(Integer.valueOf(i));
-        }
-        return intLastWeekWinNumber;
+        return Arrays.stream(stringLastWeekWinNumberBeforeDefined.split(","))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
     }
 }

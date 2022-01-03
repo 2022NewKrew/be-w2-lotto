@@ -28,10 +28,10 @@ public class LottoGenerator {
                 .collect(Collectors.toList());
 
         while (autoLottoNumber.size() < 6) {
-            if (autoLottoNumber.contains(random.nextInt(MAXIMUM_VALUE)) {
-                continue;
-            } autoLottoNumber.add(random.nextInt(MAXIMUM_VALUE) + 1);
-            Collections.sort(autoLottoNumber);
+            if (!autoLottoNumber.contains(random.nextInt(MAXIMUM_VALUE))) {
+                autoLottoNumber.add(random.nextInt(MAXIMUM_VALUE) + 1);
+                Collections.sort(autoLottoNumber);
+            }
         }
         return autoLottoNumber;
     }

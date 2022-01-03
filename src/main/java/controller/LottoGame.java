@@ -2,6 +2,7 @@ package controller;
 
 import domain.Lotto;
 import domain.LottoGenerator;
+import service.LottoGameService;
 import view.InputView;
 import view.OutputView;
 
@@ -17,6 +18,8 @@ public class LottoGame {
         OutputView.printAutuLottos(autuLottos);
         List<Integer> inputLastWeekWinNumber = InputView.inputLastWeekWinNumber();
         System.out.println(inputLastWeekWinNumber);
+
+        LottoGameService.createResult(autuLottos, inputLastWeekWinNumber);
 
     }
 }
