@@ -1,7 +1,5 @@
 package lotto.domain.model;
 
-import java.util.Comparator;
-
 public enum Prize {
     DIV4(4, 3, 5000),
     DIV3(3, 4, 50000),
