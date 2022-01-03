@@ -15,7 +15,8 @@ public class LottoGame {
         List<Lotto> autuLottos = lottoGenerator.createAutoLottos(purchasedLottoNumbers);
 
         OutputView.printAutuLottos(autuLottos);
-        InputView.
+        List<Integer> inputLastWeekWinNumber = InputView.inputLastWeekWinNumber();
+        System.out.println(inputLastWeekWinNumber);
 
     }
 }

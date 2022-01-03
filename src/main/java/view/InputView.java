@@ -1,7 +1,10 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class InputView {
     private static final String INPUT_PURCHASE_AMOUNT = "구입금액을 입력해 주세요.";
@@ -18,8 +21,17 @@ public class InputView {
         return purchasedLottoNumbers;
     }
 
-    public static List<Integer> inputLaskWeekWinNumber() {
+    public static List<Integer> inputLastWeekWinNumber() {
         System.out.println(INPUT_LAST_WEEK_WIN_NUMBER);
-
+        String stringLastWeekWinNumberBeforeDefined = scanner.next();
+        String[] stringLastWeekWinNumberAfterDefined = stringLastWeekWinNumberBeforeDefined.split(",");
+        List<Integer> intLastWeekWinNumber = new ArrayList<>();
+        System.out.println(stringLastWeekWinNumberBeforeDefined);
+        System.out.println(stringLastWeekWinNumberAfterDefined);
+        for (String i : stringLastWeekWinNumberAfterDefined) {
+            intLastWeekWinNumber.add(Integer.valueOf(i));
+            System.out.print(Integer.valueOf(i));
+        }
+        return intLastWeekWinNumber;
     }
 }
