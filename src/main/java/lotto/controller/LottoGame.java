@@ -1,5 +1,6 @@
 package lotto.controller;
 
+import lotto.domain.LottoResult;
 import lotto.domain.PlayerLottoList;
 import lotto.view.LottoGameInput;
 import lotto.view.LottoGameOutput;
@@ -22,6 +23,7 @@ public class LottoGame {
             purchaseLotto();
             LottoGameOutput.printLottoNumbers(numberOfLotto, playerLottoList);
             winningNumbers = LottoGameInput.inputWinningNumbers(scanner);
+            showResults();
         }
     }
 
@@ -30,5 +32,10 @@ public class LottoGame {
         for (int i = 0; i < numberOfLotto; i++) {
             playerLottoList.purchaseLotto();
         }
+    }
+
+    private void showResults(){
+        List<LottoResult> playerLottoResults = playerLottoList.getLottoResults(winningNumbers);
+        LottoGameOutput.printLottoResults(playerLottoResults);
     }
 }
