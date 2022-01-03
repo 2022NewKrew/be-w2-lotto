@@ -26,8 +26,11 @@ public class LottoGenerator {
                 .distinct()
                 .sorted()
                 .collect(Collectors.toList());
+
         while (autoLottoNumber.size() < 6) {
-            autoLottoNumber.add(random.nextInt(MAXIMUM_VALUE) + 1);
+            if (autoLottoNumber.contains(random.nextInt(MAXIMUM_VALUE)) {
+                continue;
+            } autoLottoNumber.add(random.nextInt(MAXIMUM_VALUE) + 1);
             Collections.sort(autoLottoNumber);
         }
         return autoLottoNumber;
