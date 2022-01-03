@@ -27,14 +27,15 @@ public class LottoServiceImpl implements LottoService {
             lottoRepository.save(lottos); // inMemory database save
             printLottoList(lottos);
             List<Integer> winningNumbers = inputWinningNumbers();
-            printWinningStatistics(purchaseCount, lottos, winningNumbers);
+            LottoStatistic lottoStatistic = getLottoStatic(purchaseCount, lottos, winningNumbers);
+            printLottoStatic(lottoStatistic);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
 
     }
 
-    private void printWinningStatistics(int purchaseCount, List<Lotto> lottos, List<Integer> winningNumbers) {
+    private LottoStatistic getLottoStatic(int purchaseCount, List<Lotto> lottos, List<Integer> winningNumbers) {
         List<Integer> resultList = new ArrayList<>();
         LottoStatistic lottoStatistic = new LottoStatistic(purchaseCount);
 
@@ -45,8 +46,11 @@ public class LottoServiceImpl implements LottoService {
 
         lottoStatistic.calculateProfitRate();
 
-        System.out.println(lottoStatistic.getLottoStatisticString());
+        return lottoStatistic;
+    }
 
+    private void printLottoStatic(LottoStatistic lottoStatistic) {
+        System.out.println(lottoStatistic.getLottoStatisticString());
     }
 
     private int getCountWinning(Lotto lotto, List<Integer> winningNumbers) {
@@ -69,7 +73,7 @@ public class LottoServiceImpl implements LottoService {
 
         for (String numberString : input.split(",")) {
             int number = Integer.parseInt(numberString.trim());
-            if(result.contains(number)) throw new IllegalArgumentException("중복된 값이 존재 합니다.");
+            if (result.contains(number)) throw new IllegalArgumentException("중복된 값이 존재 합니다.");
             result.add(number);
         }
 
