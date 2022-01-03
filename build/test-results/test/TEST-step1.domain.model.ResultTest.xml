@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="step1.domain.model.ResultTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-01-03T09:45:34" hostname="mylesnah-pc.local" time="0.008">
+  <properties/>
+  <testcase name="결과 입력에 빈 칸만 입력 시 오류 확인" classname="step1.domain.model.ResultTest" time="0.005"/>
+  <testcase name="결과 입력에 ,만 입력 시 오류 확인" classname="step1.domain.model.ResultTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
