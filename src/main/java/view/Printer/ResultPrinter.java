@@ -14,7 +14,7 @@ public class ResultPrinter {
         Arrays.stream(Prize.values())
                 .forEach(prize -> printResultPerPrize(prizes, prize));
 
-        System.out.println(getEarningRatio(prizes, money));
+        System.out.println("총 수익율은 " + getEarningRatio(prizes, money) + "%입니다.");
     }
 
     private static void printResultPerPrize(List<Prize> prizes, Prize prize){
@@ -30,7 +30,7 @@ public class ResultPrinter {
         System.out.println(stringBuilder);
     }
 
-    private static double getEarningRatio(List<Prize> prizes, int money){
+    private static int getEarningRatio(List<Prize> prizes, int money){
         int moneySpent = (int)(money / Lotto.cost) * Lotto.cost;
         if (moneySpent == 0)
             return 0;
@@ -40,6 +40,6 @@ public class ResultPrinter {
                             .map(Prize::getMoney)
                             .reduce(0, Integer::sum);
 
-        return ((double)moneyEarn / moneySpent) * 100 - 100;
+        return (int)(((double)moneyEarn / moneySpent) * 100 - 100);
     }
 }
