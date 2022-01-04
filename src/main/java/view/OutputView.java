@@ -23,11 +23,15 @@ public class OutputView {
         System.out.println("---------");
     }
 
-    public static void printResult(int matchNum, int price, int lineNum) {
-        System.out.printf("%d개 일치 (%d원)- %d개\n", matchNum, price, lineNum);
+    public static void printResult(int matchNum, boolean hasBonus, Long price, int lineNum) {
+        if (hasBonus) {
+            System.out.printf("%d개 일치 (%d원)- %d개\n", matchNum, price, lineNum);
+            return;
+        }
+        System.out.printf("%d개 일치, 보너스 볼 일치 (%d원)- %d개\n", matchNum, price, lineNum);
     }
 
-    public static void printYield(int yield) {
+    public static void printYield(Long yield) {
         System.out.printf("총 수익률은 %d%%입니다.", yield);
     }
 }

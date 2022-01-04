@@ -1,7 +1,6 @@
 import controller.ResultController;
 import controller.StartController;
 import domain.MyLottoLines;
-import view.OutputView;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,6 +8,6 @@ public class Main {
 
         MyLottoLines myLottoLines = sm.getLottoLines();
 
-        ResultController.printResult(myLottoLines.getNumOfLotto(), myLottoLines.checkWinning(sm.getWinningLine()));
+        ResultController.printResult();
     }
 }

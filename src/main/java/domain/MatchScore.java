@@ -58,7 +58,7 @@ public enum MatchScore {
         return BOMB;
     }
 
-    public static List<MatchScore> getObjLst() {
+    public static List<MatchScore> getWinObjLst() {
         List<MatchScore> ret = new ArrayList<MatchScore>(List.of(values()));
         ret.remove(BOMB);
 
