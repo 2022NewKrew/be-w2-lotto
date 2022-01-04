@@ -41,6 +41,6 @@ public class View {
             if(rank == Rank.NONE) continue;
             System.out.println(rank.toString()+" - "+round.findResultMap().getOrDefault(rank, 0)+"개");
         }
-        System.out.println("총 수익률은 "+(float)round.findTotalReward()*100/(round.findLottoCount()*Util.lottoPrice)+"%입니다.");
+        System.out.println("총 수익률은 "+(float)round.findTotalReward()*100/(round.findLottoCount()*Util.LOTTO_PRICE)+"%입니다.");
     }
 }
