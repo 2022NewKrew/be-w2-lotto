@@ -23,6 +23,12 @@ public class Lotto {
         this.numbers = new ArrayList<>(numbers);
     }
 
+    public Lotto(Lotto lotto) {
+        List<Integer> numbers = lotto.getNumbers();
+        validate(numbers);
+        this.numbers = new ArrayList<>(numbers);
+    }
+
     private void validate(List<Integer> numbers) {
         validateSize(numbers);
         validateNumbersBound(numbers);
