@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Arrays;
+
 public enum Rank {
     MISS(0, 0, "3개 미만 일치 (0원)"),
     FOURTH(3, 5_000, "3개 일치 (5000원)"),
@@ -26,26 +28,13 @@ public enum Rank {
     }
 
     public static Rank valueOf(int matchCount) {
-        if (matchCount < 3) {
-            return MISS;
+        if (matchCount < 0) {
+            throw new IllegalArgumentException("당첨 정보가 올바르지 않습니다.");
         }
 
-        if (FIRST.matchCount == matchCount) {
-            return FIRST;
-        }
-
-        if (SECOND.matchCount == matchCount) {
-            return SECOND;
-        }
-
-        if (THIRD.matchCount == matchCount) {
-            return THIRD;
-        }
-
-        if (FOURTH.matchCount == matchCount) {
-            return FOURTH;
-        }
-
-        throw new IllegalArgumentException();
+        return Arrays.stream(Rank.values())
+                .filter((rank) -> rank.matchCount == matchCount)
+                .findFirst()
+                .orElse(MISS);
     }
 }
