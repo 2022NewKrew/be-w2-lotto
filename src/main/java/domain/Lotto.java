@@ -38,12 +38,11 @@ public class Lotto {
         return Arrays.stream(lottoInput.split(",")).map(Integer::parseInt).collect(Collectors.toList());
     }
 
-    public int compareLottoNumbers() {
+    public void compareLottoNumbers() {
         int correctCount = lottoWinningNumbers.stream().filter(lottoNumbers::contains).toArray().length;
-        if (correctCount == 6 || (correctCount == 5 && lottoNumbers.contains(bonusNumber))) {
-            return correctCount + 1;
-        }
-        return correctCount;
+        boolean bonusCorrect = lottoNumbers.contains(bonusNumber);
+
+        Rank.addRankCount(correctCount, bonusCorrect);
     }
 
     public List<Integer> getLottoNumbers(){
