@@ -1,5 +1,7 @@
 package view;
 
+import domain.UIMessage;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -7,14 +9,10 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class LottoUI {
-    private static final String HOW_MONEY = "구입금액을 입력해 주세요.";
-    private static final String BUY_RESULT = "%d개를 구매했습니다.\n";
-    private static final String LAST_WINNING_NUM = "\n지난 주 당첨 번호를 입력해주세요.";
-    private static final String WINNING_RESULT = "당첨 통계\n---------\n3개 일치 (5000원)- %d개\n4개 일치 (50000원)- %d개\n5개 일치 (1500000원)- %d개\n6개 일치 (2000000000원)- %d개\n총 수익률은 %d%%입니다.";
     private static final Scanner scanner = new Scanner(System.in);
 
     public static long inputMoney() {
-        System.out.println(HOW_MONEY);
+        System.out.println(UIMessage.HOW_MONEY.getMessage());
         long money;
         try {
             String input = scanner.nextLine();
@@ -26,7 +24,7 @@ public class LottoUI {
     }
 
     public static List<Integer> inputWinningNum() {
-        System.out.println(LAST_WINNING_NUM);
+        System.out.println(UIMessage.LAST_WINNING_NUM.getMessage());
         String input = scanner.nextLine();
 
         String replace = input.replace(" ", "");
@@ -37,11 +35,11 @@ public class LottoUI {
     }
 
     public static void outputLotto(int count, String lotto) {
-        System.out.printf(BUY_RESULT, count);
+        System.out.printf(UIMessage.BUY_RESULT.getMessage(), count);
         System.out.println(lotto);
     }
 
     public static void outputWinningResult(HashMap<Integer, Integer> winningResult, int winRate) {
-        System.out.printf(WINNING_RESULT, winningResult.get(3), winningResult.get(4), winningResult.get(5), winningResult.get(6), winRate);
+        System.out.printf(UIMessage.WINNING_RESULT.getMessage(), winningResult.get(3), winningResult.get(4), winningResult.get(5), winningResult.get(6), winRate);
     }
 }
