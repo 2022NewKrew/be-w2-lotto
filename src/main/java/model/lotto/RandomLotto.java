@@ -23,6 +23,7 @@ public class RandomLotto extends Lotto {
         Collections.shuffle(lottoNumbers);
         List<Number> targetNumbers = new ArrayList<>(lottoNumbers.subList(0, 6));
         Collections.sort(targetNumbers);
+        LottoPrecondition.checkNumbers(targetNumbers);
         return targetNumbers;
     }
 

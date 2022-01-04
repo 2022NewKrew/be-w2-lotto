@@ -11,7 +11,8 @@ public class Lotto {
 
     protected List<Number> numbers = null;
 
-    protected Lotto() {}
+    protected Lotto() {
+    }
 
     public long countDuplicateNumberWith(Lotto lotto) {
         return numbers

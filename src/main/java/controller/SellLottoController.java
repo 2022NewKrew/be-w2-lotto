@@ -25,7 +25,7 @@ public class SellLottoController {
         return new RandomLotto();
     }
 
-    private static long calculateNumberOfLotto(long money){
+    private static long calculateNumberOfLotto(long money) {
         return money / Lotto.LOTTO_PRICE;
     }
 }
