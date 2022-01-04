@@ -1,36 +1,45 @@
 package lotto.domain;
 
 import lotto.domain.lotto.Lotto;
-import lotto.domain.lotto.RandomLottoStrategy;
+import lotto.domain.lotto.LottoStrategy;
+import lotto.domain.winning.BonusNumber;
 import lotto.domain.winning.WinningNumber;
 import lotto.domain.winning.WinningResult;
-import lotto.dto.WinningResultResponse;
+import lotto.dto.WinningResultOutput;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class LottoSystem {
 
-    private WinningNumber winningNumber;
+    private final static int LOTTO_PRICE = 1000;
+    private final LottoStrategy lottoStrategy;
+
+    public LottoSystem(LottoStrategy lottoStrategy) {
+        this.lottoStrategy = lottoStrategy;
+    }
 
     public List<Lotto> buyLotto(int lottoPrice) {
-        List<Lotto> lottos = new ArrayList<>();
-        for(int i = 0; i < lottoCount(lottoPrice); i++) {
-            lottos.add(Lotto.createLotto(new RandomLottoStrategy()));
-        }
-        return lottos;
+        return IntStream.range(0, lottoCount(lottoPrice))
+                .mapToObj(n -> Lotto.createLotto(lottoStrategy))
+                .collect(Collectors.toList());
     }
 
     private int lottoCount(int lottoPrice) {
-        return lottoPrice/1000;
+        return lottoPrice / LOTTO_PRICE;
     }
 
-    public WinningResultResponse winningResult(List<Lotto> lottos, int lottoPrice) {
-        WinningResult winningResult = new WinningResult(winningNumber);
-        return winningResult.winningResultRequest(lottos, lottoPrice);
+    public WinningResultOutput winningResult(List<Lotto> lotteries, WinningNumber winningNumber, BonusNumber bonusNumber, int lottoPrice) {
+        WinningResult winningResult = new WinningResult(winningNumber, bonusNumber);
+        return winningResult.winningResultRequest(lotteries, lottoPrice);
     }
 
-    public void inputWinningNumber(List<Integer> numbers) {
-        this.winningNumber = new WinningNumber(numbers);
+    public WinningNumber inputWinningNumber(List<Integer> numbers) {
+        return new WinningNumber(numbers);
+    }
+
+    public BonusNumber inputBonusNumber(int number) {
+        return new BonusNumber(number);
     }
 }
