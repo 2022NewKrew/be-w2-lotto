@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Lotto {
     private final List<Integer> numberList;
+    static final int lottoPrice = 1000;
     private static LottoGenerator lottoGenerator = new LottoGenerator();
     Lotto()
     {
