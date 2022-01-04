@@ -34,7 +34,7 @@ public class Result {
         for (Rank rank : resultMap.keySet()) {
             prize += (rank.getPrize() * resultMap.get(rank));
         }
-        return new Result(resultMap, 100.0f * (prize - baseMoney) / baseMoney);
+        return new Result(resultMap, ((float) (100 * (prize - baseMoney))) / baseMoney);
     }
 
     public int getCountOf(Rank rank) {
