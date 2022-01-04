@@ -8,7 +8,8 @@ import java.util.stream.IntStream;
 
 public class LottoGenerator {
     public static final int NUMBER_COUNT = 6;
-    public static final List<Integer> numbers = IntStream.range(1, 46).boxed().collect(Collectors.toList());
+    public static final int LottoInclusiveRangeEnd = 45;
+    public static final List<Integer> numbers = IntStream.rangeClosed(1, LottoInclusiveRangeEnd).boxed().collect(Collectors.toList());
 
     public Lotto generate() {
         List<Integer> clonedNumbers = new ArrayList<>(numbers);
