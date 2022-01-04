@@ -7,31 +7,25 @@ public class LottoService {
     private static final double COST_PER_LOTTO = 1000.0;
 
     private final List<Lotto> lottos = new ArrayList<>();
-    private final Integer money;
 
-    public LottoService(Integer money) {
-        this.money = Optional.ofNullable(money).orElseThrow(IllegalArgumentException::new);
-        validateMoney();
+    public LottoService() {}
 
-        generateLottos();
-    }
-
-    private void validateMoney() {
+    private void validateMoney(int money) {
         if (money < 0) throw new IllegalArgumentException();
     }
 
-    private void generateLottos() {
+    public List<Lotto> buyLottos(int money) {
+        validateMoney(money);
+
         Stream.generate(LottoNumberGenerator::generate)
-                .limit(calcLottoCount())
+                .limit(calcLottoCount(money))
                 .map(Lotto::new)
                 .forEach(lottos::add);
-    }
 
-    private int calcLottoCount() {
-        return (int) Math.floor(money / COST_PER_LOTTO);
-    }
-
-    public List<Lotto> getLottos() {
         return Collections.unmodifiableList(lottos);
+    }
+
+    private int calcLottoCount(int money) {
+        return (int) Math.floor(money / COST_PER_LOTTO);
     }
 }

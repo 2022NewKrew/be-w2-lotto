@@ -1,33 +1,27 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 public class ResultGenerator {
-    private final List<Result> results = new ArrayList<>();
 
-    public ResultGenerator() {
-        init();
-    }
+    public static List<Result> generate(List<Lotto> lottos, List<Integer> winningNumbers, int bonusNum){
+        List<Result> results = new ArrayList<>();
 
-    private void init(){
         for(Rank rank : Rank.values()){
             results.add(new Result(rank));
         }
-    }
 
-    public List<Result> generate(List<Lotto> lottos, List<Integer> winningNumbers, int bonusNum){
         lottos.stream()
                 .map(lotto -> lotto.getRank(winningNumbers, bonusNum))
                 .filter(Objects::nonNull)
-                .forEach(this::addCount);
+                .forEach(rank -> addCount(rank, results));
 
-        return Collections.unmodifiableList(results);
+        return results;
     }
 
-    private void addCount(Rank rank){
+    private static void addCount(Rank rank, List<Result> results){
         for(Result result : results){
             if(result.getRank().equals(rank)){
                 result.plusCount();

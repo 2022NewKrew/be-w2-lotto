@@ -1,22 +1,21 @@
 package view;
 
 import domain.Lotto;
-import domain.Rank;
 import domain.Result;
+import domain.Results;
 
 import java.util.*;
 
 public class ResultView {
-    private static final List<Long> PRIZES = Arrays.asList(0L, 0L, 0L, 5000L, 50_000L, 1_500_000L, 2_000_000_000L);
 
     public static void printPurchaseResult(List<Lotto> lottos) {
         printLottoCount(lottos);
         printLottos(lottos);
     }
 
-    public static void printWinningResult(List<Result> results, int money) {
+    public static void printWinningResult(Results results, int money) {
         printWinningStats(results);
-        printROI(results,money);
+        printROI(results, money);
     }
 
     private static void printLottoCount(List<Lotto> lottos) {
@@ -29,26 +28,26 @@ public class ResultView {
                 .forEach(System.out::println);
     }
 
-    private static void printWinningStats(List<Result> results) {
+    private static void printWinningStats(Results results) {
         System.out.println("");
         System.out.println("당첨 통계");
         System.out.println("---------");
-        List<Result> copiedResults = new ArrayList<>(results);
+        List<Result> copiedResults = new ArrayList<>(results.getResults());
         Collections.reverse(copiedResults);
         copiedResults.forEach(copiedResult -> System.out.println(copiedResult.toString()));
     }
 
-    private static void printROI(List<Result> results, int money) {
+    private static void printROI(Results results, int money) {
         long earnedMoney = getEarnedMoney(results);
-        int earnedRate = (int)Math.floor(earnedMoney/(money*1.0) * 100);
+        int earnedRate = (int) Math.floor(earnedMoney / ((double) money) * 100);
 
         System.out.println("총 수익률은 " + earnedRate + "% 입니다.");
     }
 
-    private static long getEarnedMoney(List<Result> results) {
+    private static long getEarnedMoney(Results results) {
         long sum = 0L;
-        for(Result result : results){
-            sum+= result.getCount() *  (long)result.getRank().getWinningMoney();
+        for (Result result : results.getResults()) {
+            sum += result.getCount() * (long) result.getRank().getWinningMoney();
         }
         return sum;
     }

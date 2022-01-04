@@ -12,17 +12,18 @@ public class LottoMain {
 
     public static void startGame() {
         int money = InputView.getMoney();
-        LottoService lottoService = new LottoService(money);
-        List<Lotto> lottos = lottoService.getLottos();
+
+        LottoService lottoService = new LottoService();
+
+        List<Lotto> lottos = lottoService.buyLottos(money);
 
         ResultView.printPurchaseResult(lottos);
 
         List<Integer> winningNumbers = InputView.getWinningNumbers();
         int bonusNum = InputView.getBounusNum();
-        ResultGenerator resultGenerator = new ResultGenerator();
-        List<Result> results = resultGenerator.generate(lottos, winningNumbers, bonusNum);
+
+        Results results = new Results(lottos, winningNumbers, bonusNum);
 
         ResultView.printWinningResult(results, money);
-
     }
 }
