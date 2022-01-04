@@ -9,7 +9,6 @@ public class Main {
         LottoShop lottoShop = new LottoShop();
 
         Gambler gambler = new Gambler();
-        gambler.setMoneyFromScanner();
 
         lottoShop.sellLottoTicket(gambler);
         lottoShop.setWinnerFromScanner();

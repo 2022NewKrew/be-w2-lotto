@@ -14,13 +14,14 @@ public class LottoShop {
      * {@link Gambler}의 모든 돈으로 로또 구매
      */
     public void sellLottoTicket(Gambler gambler) {
-        int toSell = gambler.getMoney() / PRICE;
-        System.out.printf("%d개를 구매했습니다.%n", toSell);
+        int inputMoney = InputView.getPositiveIntFromScanner("구입 금액을 입력해주세요: ");
+        int sellCount = inputMoney / PRICE;
+        System.out.printf("%d개를 구매했습니다.%n", sellCount);
 
-        for (int i=0; i<toSell; ++i) {
+        for (int i=0; i<sellCount; ++i) {
             Set<Integer> numbers = RandomLottoNumberGenerator.generateRandomLottoNumbers();
             LottoTicket lottoTicket = new LottoTicket(numbers);
-            gambler.buyLottoTicket(lottoTicket, PRICE);
+            gambler.addLottoTicket(lottoTicket);
             System.out.println(lottoTicket);
         }
     }
