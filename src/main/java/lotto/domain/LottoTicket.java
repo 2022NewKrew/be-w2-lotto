@@ -9,11 +9,11 @@ public class LottoTicket {
     private static final int LOTTO_PRICE = 1000;
     private final List<Lotto> lottoList;
 
-    public LottoTicket(Integer purchaseAmount) {
+    public LottoTicket(int purchaseAmount) {
         this.lottoList = Collections.unmodifiableList(makeLotto(calculateLottoCount(purchaseAmount)));
     }
 
-    private List<Lotto> makeLotto(Integer lottoCount) {
+    private List<Lotto> makeLotto(int lottoCount) {
         List<Lotto> lotto = new ArrayList<>();
 
         for (int i = 0; i < lottoCount; i++) {
@@ -39,8 +39,8 @@ public class LottoTicket {
         return LOTTO_PRICE * getLottoCount();
     }
 
-    public LottoWinningResult getLottoWinningResult(List<Integer> winningNumbers) {
-        return new LottoWinningResult(winningNumbers, lottoList);
+    public LottoWinningResult getLottoWinningResult(List<Integer> winningNumbers, int bonusBallNumber) {
+        return new LottoWinningResult(winningNumbers, bonusBallNumber, lottoList);
     }
 
 }

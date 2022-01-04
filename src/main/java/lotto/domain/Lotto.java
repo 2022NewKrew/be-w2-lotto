@@ -40,13 +40,21 @@ public class Lotto {
         return lottoNumbers;
     }
 
-    public LottoWinningRating getWinningRating(List<Integer> winningNumbers) {
+    public LottoWinningRating getWinningRating(List<Integer> winningNumbers, int bonusBallNumber) {
 
         int matchCount = Math.toIntExact(winningNumbers.stream()
                 .filter(lottoNumbers::contains)
                 .count());
 
-        return LottoWinningRating.getWinningRating(matchCount);
+        return LottoWinningRating.getWinningRating(matchCount, hasBonusBall(matchCount, bonusBallNumber));
+    }
+
+    private boolean hasBonusBall(int matchCount, int bonusBallNumber) {
+        if (matchCount != 5) {
+            return false;
+        }
+
+        return lottoNumbers.contains(bonusBallNumber);
     }
 
 }

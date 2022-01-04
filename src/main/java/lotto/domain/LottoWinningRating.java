@@ -3,23 +3,27 @@ package lotto.domain;
 import java.util.Arrays;
 
 public enum LottoWinningRating {
-    FIRST(6, 2_000_000_000),
-    SECOND(5, 1_500_000),
-    THIRD(4, 50_000),
-    FOURTH(3, 5_000),
-    NOTHING(0, 0);
+    FIRST(6, 2_000_000_000, false),
+    SECOND(5, 30_000_000, true),
+    THIRD(5, 1_500_000, false),
+    FOURTH(4, 50_000, false),
+    FIFTH(3, 5_000, false),
+    NOTHING(0, 0, false);
 
     private final int matchCount;
     private final int winningMoney;
+    private final boolean hasBonusBall;
 
-    LottoWinningRating(int matchCount, int winningMoney) {
+    LottoWinningRating(int matchCount, int winningMoney, boolean hasBonusBall) {
         this.matchCount = matchCount;
         this.winningMoney = winningMoney;
+        this.hasBonusBall = hasBonusBall;
     }
 
-    public static LottoWinningRating getWinningRating(int matchCount) {
+    public static LottoWinningRating getWinningRating(int matchCount, boolean hasBonusBall) {
         return Arrays.stream(LottoWinningRating.values())
-                .filter(lottoWinningRating -> lottoWinningRating.getMatchCount() == matchCount)
+                .filter(lottoWinningRating -> lottoWinningRating.isSameMatchCount(matchCount))
+                .filter(lottoWinningRating -> lottoWinningRating.isSameHasBonusBall(hasBonusBall))
                 .findAny()
                 .orElse(LottoWinningRating.NOTHING);
     }
@@ -30,6 +34,14 @@ public enum LottoWinningRating {
 
     public int getWinningMoney() {
         return winningMoney;
+    }
+
+    private boolean isSameMatchCount(int matchCount) {
+        return this.matchCount == matchCount;
+    }
+
+    private boolean isSameHasBonusBall(boolean hasBonusBall) {
+        return this.hasBonusBall == hasBonusBall;
     }
 
 }
