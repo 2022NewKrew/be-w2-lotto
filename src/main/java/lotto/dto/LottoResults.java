@@ -1,22 +1,26 @@
 package lotto.dto;
 
+import lotto.utils.Rank;
+import lotto.utils.RankMap;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class LottoResults {
-    static List<Integer> correctCnts = new ArrayList<>(4);
+    static RankMap rankMap;
     static int earnRate;
 
     public LottoResults() {
     }
 
-    public LottoResults(List<Integer> correctCnts, int earnRate) {
-        this.correctCnts = correctCnts;
+    public LottoResults(RankMap rankMap, int earnRate) {
+        this.rankMap = rankMap;
         this.earnRate = earnRate;
     }
 
-    public List<Integer> getCorrectCnts() {
-        return this.correctCnts;
+    public RankMap getRankMap() {
+        return this.rankMap;
     }
 
     public int getEarnRate() {

@@ -2,11 +2,10 @@ package lotto.view;
 
 import lotto.dto.LottoResults;
 import lotto.dto.MatchNum;
+import lotto.utils.Rank;
+import lotto.utils.RankMap;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class IO {
     private static Scanner scanner = new Scanner(System.in);
@@ -22,7 +21,6 @@ public class IO {
     private static final String aEarnRate = "총 수익률은 %d %%입니다.";
 
     private static final int lottoPrice = 1000;
-    private static final List<Integer> prices = Arrays.asList(5000, 50000, 1500000, 30000000, 2000000000);
 
     public IO() {
     }
@@ -45,8 +43,6 @@ public class IO {
         int amount = scanner.nextInt();
         return amount;
     }
-
-
 
     private int enterBonusNum(){
         System.out.println(qBonusNum);
@@ -76,31 +72,26 @@ public class IO {
         return prevNums;
     }
 
-    // input: 3~6개 일치 순서대로 일치하는 로또 개수(nums)와 그에 해당하는 상금(prices)리스트
     public void showResults(LottoResults lottoResults){
-        List<Integer> correctCnts = lottoResults.getCorrectCnts();
+        RankMap rankMap = lottoResults.getRankMap();
         int earnRate = lottoResults.getEarnRate();
-        showCorrectCnts(correctCnts);
+        showCorrectCnts(rankMap);
         showEarnRate(earnRate);
     }
 
-    private void showCorrectCnts(List<Integer> cnts ){
+    private void showCorrectCnts(RankMap rankMap){
         System.out.println(aResults);
-        for(int i=0; i<cnts.size();i++){
-            showCorrectCntsPerLine(cnts, i);
+        for(Rank rank: rankMap.getKeySet()){
+            showCorrectCntsPerLine(rank, rankMap.getValue(rank));
         }
     }
 
-    private void showCorrectCntsPerLine(List<Integer> cnts, int i){
-        int correctNum = i+3;
-        if (correctNum==6){ //bonus number match
-            System.out.println(String.format(aResultsBonusMatch, 5, prices.get(i), cnts.get(i)));
+    private void showCorrectCntsPerLine(Rank rank, int cnt){
+        if (rank==rank.SECOND){ //bonus number match
+            System.out.println(String.format(aResultsBonusMatch, 5, rank.getWinningMoney(), cnt));
             return;
         }
-        if (correctNum==7){
-            correctNum=6;
-        }
-        System.out.println(String.format(aResultsPerNum, correctNum, prices.get(i), cnts.get(i)));
+        System.out.println(String.format(aResultsPerNum, rank.getCountOfMatch(), rank.getWinningMoney(), cnt));
     }
 
     public void showEarnRate(int rate){
