@@ -23,7 +23,11 @@ public class UserInput {
         try {
             checkInputBuffer();
             System.out.println("지난 주 당첨 번호를 입력해 주세요");
-            return Arrays.stream(scanner.nextLine().split(", ")).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
+            return Arrays
+                    .stream(scanner.nextLine().split(", "))
+                    .mapToInt(Integer::parseInt)
+                    .boxed()
+                    .collect(Collectors.toList());
         } catch (NumberFormatException exception) {
             throw new IllegalArgumentException("[ERROR] 올바른 형식의 당첨번호를 입력해주세요. (당첨번호는 정수를 입력해주세요)");
         }

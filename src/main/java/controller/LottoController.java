@@ -11,9 +11,16 @@ public class LottoController {
 
     public static void run() {
         List<Lotto> lottos = SellLottoController.buyLottos();
-        UserOutput.printLotto(lottos.stream().map(Lotto::getNumbers).collect(Collectors.toList()));
+        UserOutput.printLotto(getLottoNumbers(lottos));
         LottoResult lottoResult = MatchLottoController.matchingResult(lottos);
         UserOutput.printHistory(lottoResult.getResult());
         UserOutput.printRevenueRate(lottoResult.getTotalEarn());
+    }
+
+    private static List<List<Integer>> getLottoNumbers(List<Lotto> lottos){
+        return lottos
+                .stream()
+                .map(Lotto::getNumbers)
+                .collect(Collectors.toList());
     }
 }

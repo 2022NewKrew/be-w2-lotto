@@ -1,10 +1,10 @@
 package model.lotto;
 
+import model.number.Number;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import model.number.Number;
 
 public class LottoPrecondition {
 
