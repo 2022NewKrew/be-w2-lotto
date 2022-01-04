@@ -1,11 +1,11 @@
-package carrot.ez.io;
+package carrot.ez.util;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class ConsoleIOController {
+public class IOUtil {
 
     private static final Scanner sc = new Scanner(System.in);
 
@@ -19,5 +19,10 @@ public class ConsoleIOController {
         return Arrays.stream(sc.nextLine().split(regex))
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
+    }
+
+    public int inputInt(String msg) {
+        System.out.println(msg);
+        return Integer.parseInt(sc.nextLine());
     }
 }
