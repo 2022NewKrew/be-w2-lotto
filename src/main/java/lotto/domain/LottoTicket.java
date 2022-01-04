@@ -10,10 +10,6 @@ public class LottoTicket {
         this.numbers = numbers;
     }
 
-    public Set<Integer> getNumbers() {
-        return numbers;
-    }
-
     public int matchWithWinnerNumber(Set<Integer> winnerNumber) {
         Set<Integer> intersection = new HashSet<>(numbers);
         intersection.retainAll(winnerNumber);
