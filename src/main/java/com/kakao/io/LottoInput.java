@@ -1,5 +1,6 @@
 package com.kakao.io;
 
+import com.kakao.exception.PickedNumberException;
 import com.kakao.helper.TextHelper;
 import com.kakao.data.io.LottoInputData;
 import com.kakao.exception.PickedNumbersFormatException;
@@ -31,9 +32,18 @@ class LottoInput {
             List<String> strList = TextHelper.seperateString(br.readLine(), LottoInputData.REQUEST_SEPERATOR_OF_WINNING);
             List<Integer> winningList = TextHelper.convertListType(strList, Integer::parseInt);
             lottoWinning = new LottoWinning(winningList);
-        } catch (IOException | NumberFormatException | PickedNumbersFormatException e) {
+        } catch (IOException | NumberFormatException | PickedNumberException e) {
             e.printStackTrace();
         }
         return lottoWinning;
+    }
+    public static Integer inputBonusBall() {
+        Integer bonusBallNumber = null;
+        try {
+            bonusBallNumber = Integer.parseInt(br.readLine());
+        } catch (IOException | NumberFormatException e ) {
+            e.printStackTrace();
+        }
+        return bonusBallNumber;
     }
 }

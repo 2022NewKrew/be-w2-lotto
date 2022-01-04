@@ -1,6 +1,6 @@
 package com.kakao.exception;
 
-public class PickedNumbersFormatException extends Exception {
+public class PickedNumbersFormatException extends PickedNumberException {
     @Override
     public void printStackTrace() {
         super.printStackTrace();
