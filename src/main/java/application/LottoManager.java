@@ -25,7 +25,7 @@ public class LottoManager {
     }
 
     private static WinningLotto inputWinnningLotto() {
-        WinningLottoGenerator lottoGenerator = new WinningLottoGenerator();
+        LottoGenerator lottoGenerator = new WinningLottoGenerator();
         return (WinningLotto) lottoGenerator.getLotto();
     }
 }
