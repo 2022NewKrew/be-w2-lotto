@@ -3,7 +3,6 @@ package be.w2.lotto.boot;
 import be.w2.lotto.lottos.Lotto;
 import be.w2.lotto.machines.AutoPurchaseMachine;
 import be.w2.lotto.messages.GameMessage;
-import be.w2.lotto.result.ResultMaker;
 import be.w2.lotto.view.input.Input;
 import be.w2.lotto.view.output.Output;
 

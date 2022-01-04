@@ -1,8 +1,10 @@
-package be.w2.lotto.result;
+package be.w2.lotto.boot;
 
 import be.w2.lotto.cashier.Cashier;
 import be.w2.lotto.lottos.LastWinningLotto;
 import be.w2.lotto.lottos.Lotto;
+import be.w2.lotto.result.Result;
+import be.w2.lotto.result.ResultCalculator;
 import be.w2.lotto.view.input.Input;
 import be.w2.lotto.view.output.Output;
 
