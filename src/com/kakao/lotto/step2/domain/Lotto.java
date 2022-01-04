@@ -34,6 +34,10 @@ public class Lotto {
         return (int)lotto.stream().filter(number -> winningNumbers.contains(number)).count();
     }
 
+    public boolean hasBonusNumber(int bonusNumber) {
+        return lotto.contains(bonusNumber);
+    }
+
     public List<Integer> getLotto() {
         return lotto;
     }

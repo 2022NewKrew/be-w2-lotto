@@ -7,10 +7,10 @@ import com.kakao.lotto.step2.view.LottoPrinter;
 import com.kakao.lotto.step2.view.LottoResultPrinter;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 public class LottoMain {
 
+    private int bonusNumber;
     private int lottoNumber;
     List<Lotto> lottos;
     List<Integer> winningNumbers;
@@ -31,8 +31,12 @@ public class LottoMain {
         winningNumbers = inputLotto.getWinningNumbers();
     }
 
+    public void inputBonusNumber() {
+        bonusNumber = inputLotto.getBonusNumber();
+    }
+
     public void printResult() {
-        LottoResult lottoResult = new LottoResult(lottos, winningNumbers);
+        LottoResult lottoResult = new LottoResult(lottos, winningNumbers, bonusNumber);
         LottoResultPrinter lottoResultPrinter = new LottoResultPrinter(lottoResult);
         lottoResultPrinter.printResults();
         lottoResultPrinter.printProfitRate();
@@ -43,6 +47,7 @@ public class LottoMain {
         lottoMain.inputPrice();
         lottoMain.makeLotto();
         lottoMain.inputWinningNumbers();
+        lottoMain.inputBonusNumber();
         lottoMain.printResult();
     }
 }

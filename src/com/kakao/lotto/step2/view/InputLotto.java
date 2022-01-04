@@ -73,5 +73,28 @@ public class InputLotto {
         }
     }
 
+    private void checkNumber(int number) throws Exception {
+        if(number < 1 || number > 45)
+            throw new Exception("1 ~ 45 사이의 수를 입력하시오");
+    }
+
+    private int inputBonusNumber() throws Exception {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        int bonusNumber = Integer.parseInt(scanner.nextLine());
+        checkNumber(bonusNumber);
+        return bonusNumber;
+    }
+
+    // 구입 금액을 입력받습니다. 정수가 아니거나 음수를 입력받았을 경우 다시 입력받습니다.
+    public int getBonusNumber() {
+        while(true) {
+            try {
+                return inputBonusNumber();
+            } catch (Exception exception) {
+                scanner = new Scanner(System.in);
+                System.out.println("1 ~ 45 범위의 정수를 입력하세요");
+            }
+        }
+    }
 
 }

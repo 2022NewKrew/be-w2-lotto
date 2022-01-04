@@ -1,53 +1,54 @@
 package com.kakao.lotto.step2.domain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class LottoResult {
-
+    
     private int LOTTO_PRICE = 1000;
-    private int THREE_PRIZE = 5000;
-    private int FOUR_PRIZE = 50000;
-    private int FIVE_PRIZE = 1500000;
-    private int SIX_PRIZE = 2000000000;
 
-    // results의 0번 인덱스는 3개 일치하는 로또의 개수, 1번 인덱스는 4개, 2번 인덱스는 5개, 3번 인덱스는 6개 일치하는 로또의 개수입니다.
+    private int bonusNumber;
     private List<Lotto> lottos;
     private List<Integer> winningNumbers;
-    private List<Integer> results = new ArrayList<>(Arrays.asList(0, 0, 0, 0));
+    private Map<Rank, Integer> results = new HashMap<>();
 
-    public LottoResult(List<Lotto> lottos, List<Integer> winningNumbers) {
+    public LottoResult(List<Lotto> lottos, List<Integer> winningNumbers, int bonusNumber) {
         this.lottos = lottos;
         this.winningNumbers = winningNumbers;
+        this.bonusNumber = bonusNumber;
+        initResults();
         makeResults();
     }
 
-    // 각 lotto의 당첨 번호와 일치하는 수에 맞게 5results의 값을 변경해줍니다.
-    private void makeResult(int sameNumber) {
-        int index = sameNumber - 3;
-        if(index < 0)
-            return;
-        results.set(index, results.get(index) + 1);
+    private void initResults() {
+        results.put(Rank.FIRST, 0);
+        results.put(Rank.SECOND, 0);
+        results.put(Rank.SECOND_BONUS, 0);
+        results.put(Rank.THIRD, 0);
+        results.put(Rank.FOURTH, 0);
+    }
+
+    private void makeResult(Rank rank) {
+        if(rank != null)
+            results.put(rank, results.get(rank) + 1);
     }
 
     // lottos의 각각의 lotto를 가지고 results 값을 변경합니다.
     private void makeResults() {
         for(Lotto lotto : lottos) {
-            int sameNumber = lotto.getSameNumber(winningNumbers);
-            makeResult(sameNumber);
+            Rank rank = Rank.valueOf(lotto.getSameNumber(winningNumbers), lotto.hasBonusNumber(bonusNumber));
+            makeResult(rank);
         }
     }
 
     // getter
 
-    public List<Integer> getResults() {
+    public Map<Rank, Integer> getResults() {
         return results;
     }
 
     public int getProfitRate() {
-        int profit = results.get(0) * THREE_PRIZE + results.get(1) * FOUR_PRIZE
-                + results.get(2) * FIVE_PRIZE + results.get(3) * SIX_PRIZE;
+        int profit = Arrays.stream(Rank.values()).map(rank -> rank.getWinningMoney() * results.get(rank))
+                .reduce(0, Integer::sum);
         return (int) ((long)profit * 100 / (lottos.size() * LOTTO_PRICE));
     }
 
