@@ -17,4 +17,9 @@ public class WinningLotto {
     public WinningLotto(Lotto lotto) {
         this.lotto = lotto;
     }
+
+    public Reward matchResult(Lotto targetLotto) {
+        int matchCount = lotto.matchCount(targetLotto);
+        return Reward.valueOf(matchCount);
+    }
 }
