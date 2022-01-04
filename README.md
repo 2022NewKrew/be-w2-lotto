@@ -13,9 +13,6 @@
 * 배열 대신 ArrayList를 사용한다.
 ### TODO
 * ResultManager 구현
-* domain 구현
-  * 여러 줄을 총괄하는 domain과
-  * 한 줄만을 관리하는 domain을 구현해야할 것으로 보임
 * 연결
   * 입력과 출력의 로직적인 부분을 담당하는 새로운 클래스 만들기
   * 플러스 알파
@@ -23,3 +20,6 @@
 * 입력 부분 구현
 * 출력 부문 구현
 * StartManager 구현
+* domain 구현
+  * 여러 줄을 총괄하는 MyLottoLines 구현
+  * 한 줄만을 관리하는 LottoLine 구현

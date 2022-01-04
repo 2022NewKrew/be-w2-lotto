@@ -1,6 +1,8 @@
+import domain.MyLottoLines;
 import manager.StartManager;
-import view.InputView;
 import view.OutputView;
+
+import java.util.List;
 
 public class Main {
     private static final int FIRST = 2000000000;
@@ -11,6 +13,11 @@ public class Main {
     public static void main(String[] args) {
         StartManager sm = new StartManager();
         OutputView.printLottoLine(sm.getWinningLine());
+
+        MyLottoLines myLottoLines = new MyLottoLines(sm.getLottoLines());
+        List<Integer> matchNumLst = myLottoLines.checkWinning(sm.getWinningLine());
+        System.out.println(matchNumLst.toString());
+
         OutputView.printPreResult();
         OutputView.printResult(1, FIRST, 3);
         OutputView.printYield(30);
