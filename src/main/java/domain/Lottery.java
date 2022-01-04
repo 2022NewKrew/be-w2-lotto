@@ -3,10 +3,8 @@ package domain;
 import java.util.List;
 
 public class Lottery {
-    private static final int MIN_MATCHING_POINT = 3;
-    private static final int MAX_MATCHING_POINT = 6;
 
-    private List<Integer> numbers;
+    private final List<Integer> numbers;
 
     public Lottery(List<Integer> numbers) {
         this.numbers = numbers;
@@ -16,14 +14,14 @@ public class Lottery {
         return numbers;
     }
 
-    public int compareNumbers(List<Integer> winningNumbers) {
-        int count = 0;
-        for (Integer number : winningNumbers) {
-            count += numbers.contains(number) ? 1 : 0;
+    public Rank compareNumbers(WinningLottery winningLottery) {
+        int countOfMatch = 0;
+        boolean matchBonus = numbers.contains(winningLottery.getBonusNumber());
+
+        for (Integer number : winningLottery.getWinningNumbers()) {
+            countOfMatch += numbers.contains(number) ? 1 : 0;
         }
-        if (count >= MIN_MATCHING_POINT) {
-            return MAX_MATCHING_POINT - count + 1;
-        }
-        return 0;
+
+        return Rank.valueOf(countOfMatch, matchBonus);
     }
 }
