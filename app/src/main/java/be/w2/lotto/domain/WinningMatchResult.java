@@ -1,54 +1,79 @@
 package be.w2.lotto.domain;
 
+import java.math.BigInteger;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class WinningMatchResult {
     private final int matchedNumber;
-    private final int profit;
+    private final int reward;
+    private final boolean isBonusRound;
     private final int count;
 
-    private WinningMatchResult(int matchedNumber, int profit, int count) {
-        this.matchedNumber = matchedNumber;
-        this.profit = profit;
+    private WinningMatchResult(Reward reward, int count) {
+        this.matchedNumber = reward.getMatchedNumber();
+        this.reward = reward.getReward();
+        this.isBonusRound = reward.isBonus();
         this.count = count;
     }
 
-    public static WinningMatchResult of(int matchedNumber, int profit, LottoTickets lottoTickets, WinningLottoTicket winningLottoTicket) {
-        int count = getCount(matchedNumber, lottoTickets, winningLottoTicket);
-        return new WinningMatchResult(matchedNumber, profit, count);
+    public static WinningMatchResult valueOf(
+            Reward reward,
+            LottoTickets lottoTickets,
+            WinningLottoTicket winningLottoTicket,
+            BonusNumber bonusNumber
+    ) {
+        int count = countMatchingResult(reward, lottoTickets, winningLottoTicket, bonusNumber);
+        return new WinningMatchResult(reward, count);
     }
 
-    public int calculateProfit() {
-        return profit * count;
+    public BigInteger calculateProfit() {
+        BigInteger reward = BigInteger.valueOf(this.reward);
+        BigInteger count = BigInteger.valueOf(this.count);
+        return reward.multiply(count);
     }
 
     public int getMatchedNumber() {
         return matchedNumber;
     }
 
-    public int getProfit() {
-        return profit;
+    public int getReward() {
+        return reward;
     }
 
     public int getCount() {
         return count;
     }
 
-    private static int getCount(int matchedNumber, LottoTickets lottoTickets, WinningLottoTicket winningLottoTicket) {
-        return (int) lottoTickets.getLottoTickets()
-                .stream().filter(lottoTicket -> matchesByMatchedNumber(matchedNumber, lottoTicket, winningLottoTicket))
-                .count();
+    public boolean isBonusRound() {
+        return isBonusRound;
     }
 
-    private static boolean matchesByMatchedNumber(int matchedNumber, LottoTicket lottoTicket, WinningLottoTicket winningLottoTicket) {
-        List<Integer> listedTicket = lottoTicket.getLottoNumbers()
-                .stream().map(LottoNumber::getLottoNumber)
-                .collect(Collectors.toList());
-        List<Integer> listedWinningTicket = winningLottoTicket.getLottoNumbers()
-                .stream().map(LottoNumber::getLottoNumber)
-                .collect(Collectors.toList());
+    private static int countMatchingResult(
+            Reward reward,
+            LottoTickets lottoTickets,
+            WinningLottoTicket winningLottoTicket,
+            BonusNumber bonusNumber
+    ) {
+        return Long.valueOf(lottoTickets.getLottoTickets().stream()
+                .filter(lottoTicket -> matchesByMatchedNumber(reward, lottoTicket, winningLottoTicket, bonusNumber))
+                .count()).intValue();
+    }
+
+    private static boolean matchesByMatchedNumber(
+            Reward reward,
+            LottoTicket lottoTicket,
+            WinningLottoTicket winningLottoTicket,
+            BonusNumber bonusNumber
+    ) {
+        List<Integer> listedTicket = lottoTicket.getLottoNumbers();
+        List<Integer> listedWinningTicket = winningLottoTicket.getLottoNumbers();
+
+        boolean ticketContainsBonus = bonusNumber.isContainedIn(listedTicket);
+        if (reward.isBonus() && !ticketContainsBonus) {
+            return false;
+        }
+
         listedTicket.retainAll(listedWinningTicket);
-        return listedTicket.size() == matchedNumber;
+        return reward.hasSameMatchedNumber(listedTicket.size());
     }
 }

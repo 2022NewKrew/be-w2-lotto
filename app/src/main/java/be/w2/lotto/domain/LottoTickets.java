@@ -10,8 +10,8 @@ public class LottoTickets {
         this.lottoTickets = lottoTickets;
     }
 
-    public static LottoTickets valueOf(int lottoPurchaseAmountInput) {
-        int lottoAmount = getLottoAmount(lottoPurchaseAmountInput);
+    public static LottoTickets valueOf(int lottoPurchaseAmount) {
+        int lottoAmount = getLottoAmount(lottoPurchaseAmount);
         List<LottoTicket> lottoTickets = createLottoTickets(lottoAmount);
         return new LottoTickets(lottoTickets);
     }
@@ -21,15 +21,18 @@ public class LottoTickets {
     }
 
     private static int getLottoAmount(int lottoPurchaseAmountInput) {
-        LottoAmount lottoPurchaseAmount = LottoAmount.from(lottoPurchaseAmountInput);
-        return lottoPurchaseAmount.getLottoAmount();
+        LottoAmount.validatePurchaseAmount(lottoPurchaseAmountInput);
+        return LottoAmount.getLottoAmount(lottoPurchaseAmountInput);
     }
 
     private static List<LottoTicket> createLottoTickets(int lottoAmount) {
         List<LottoTicket> lottoTickets = new ArrayList<>();
         for(int i = 0; i < lottoAmount; i++) {
-            lottoTickets.add(LottoTicket.newInstance());
+            List<LottoNumber> lottoNumbers = LottoNumberGenerator.generateLottoNumbers();
+            lottoTickets.add(LottoTicket.from(lottoNumbers));
         }
         return lottoTickets;
     }
+
+    public static final int LOTTO_TICKET_SIZE = 6;
 }
