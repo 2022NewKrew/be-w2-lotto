@@ -48,22 +48,6 @@ class LottoTest {
         assertTrue(result);
     }
 
-    @Test
-    @DisplayName("toString -> check formatting ( 1, 2, 3, 4, 5, 6)")
-    void testToString_1to6() {
-        //Given
-        List<Integer> numberOfLotto = Arrays.asList(1, 2, 3, 4, 5, 6);
-        Lotto lotto = getInstance(numberOfLotto);
-
-        String expected = "[1, 2, 3, 4, 5, 6]";
-
-        //When
-        String result = lotto.toString();
-
-        //Then
-        assertEquals(expected, result);
-    }
-
     public static Lotto getInstance(List<Integer> numbersOfLotto) {
         return new Lotto(getLottoNumbersBy(numbersOfLotto));
     }
