@@ -9,7 +9,14 @@ public class LottoStatistics {
 
     public LottoStatistics (WinningNumbers winningNumbers, LottoTickets lottoTickets) {
         this.winningNumbers = winningNumbers;
+        initResultMap();
         match(lottoTickets);
+    }
+
+    private void initResultMap() {
+        for (LottoResult lottoResult : LottoResult.values()) {
+            resultMap.put(lottoResult, 0);
+        }
     }
 
     private void match(LottoTickets lottoTickets) {
@@ -20,7 +27,6 @@ public class LottoStatistics {
 
     private void putResult(Map<LottoResult, Integer> resultMap, LottoTicket ticket) {
         int count = 0;
-
         LottoResult result = LottoResult.valueOf(getMatchCount(ticket));
         if (resultMap.get(result) != null) {
             count = resultMap.get(result);
