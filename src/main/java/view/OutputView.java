@@ -1,6 +1,6 @@
 package view;
 
-import DTO.nNumber;
+import DTO.NNumber;
 
 public class OutputView {
     private OutputView() {
@@ -14,7 +14,7 @@ public class OutputView {
         System.out.println("1부터 45까지의 정수 중에서 하나를 입력해주세요.");
     }
 
-    public static void printLottoLine(nNumber lottoLine) {
+    public static void printLottoLine(NNumber lottoLine) {
         System.out.println(lottoLine.getPrintLine());
     }
 

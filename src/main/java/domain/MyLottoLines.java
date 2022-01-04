@@ -1,9 +1,8 @@
 package domain;
 
-import DTO.nNumber;
+import DTO.NNumber;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class MyLottoLines {
@@ -14,23 +13,18 @@ public class MyLottoLines {
     public MyLottoLines() {
     }
 
-    public void addLotto(nNumber numbers) {
+    public void addLotto(NNumber numbers) {
         LottoLine curLottoLine = new LottoLine(numbers);
         lottoLines.add(curLottoLine);
     }
 
-    public List<Integer> checkWinning(nNumber winningNumbers) {
-        List<Integer> matchingLst = new ArrayList<>(Collections.nCopies(NUM_PER_LINE + 1, 0));
-
+    public void checkWinning(NNumber winningNumbers, NNumber bonusNum) {
         for (LottoLine curLottoLine : lottoLines) {
             int matchNum = curLottoLine.checkWinning(winningNumbers);
-            matchingLst.set(matchNum, matchingLst.get(matchNum) + 1);
+            int matchBonusNum = curLottoLine.checkWinning(bonusNum);
+
+            MatchScore ms = MatchScore.findMatchScoreObject(matchNum, matchBonusNum);
+            ms.addNumLotto();
         }
-
-        return matchingLst;
-    }
-
-    public int getNumOfLotto() {
-        return lottoLines.size();
     }
 }

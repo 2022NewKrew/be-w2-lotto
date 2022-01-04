@@ -20,3 +20,4 @@
   * 숫자 6개가 들어가는 nNumber 만 먼저 추가
 * enum Class MatchScore 구현
 * WinningLottoLine에 보너스 볼에 대한 자료구조 추가
+* 보너스 볼을 위한 로직 구현
