@@ -10,7 +10,7 @@ public class Lotto {
         this.numberList = numberList;
     }
 
-    public String numberListToString() {
+    public String printNumberList() {
         return numberList.toString();
     }
 

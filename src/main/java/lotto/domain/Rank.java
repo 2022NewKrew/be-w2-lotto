@@ -1,7 +1,5 @@
 package lotto.domain;
 
-import java.util.Arrays;
-
 public enum Rank {
     FIFTH(3, 5000, 0),
     FOURTH(4, 50000, 0),
