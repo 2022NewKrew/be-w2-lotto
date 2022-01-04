@@ -6,7 +6,6 @@ public class Lotto {
     private final ArrayList<Integer> lottoNumbers;
 
     public Lotto() {
-        Random rand = new Random();
         ArrayList<Integer> balls = new ArrayList<>();
         for (int i = 0; i < 45; i++) {
             balls.add(i);
