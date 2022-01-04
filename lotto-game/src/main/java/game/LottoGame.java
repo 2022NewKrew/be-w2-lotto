@@ -1,6 +1,7 @@
 package game;
 
 import lotto.Lotto;
+import lotto.WinningLotto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ public class LottoGame {
 
     private int asset;
     private List<Lotto> lottos;
-    private Lotto winningLotto;
+    private WinningLotto winningLotto;
 
     private int firstPlaceCount;
     private int secondPlaceCount;
@@ -50,7 +51,7 @@ public class LottoGame {
         System.out.printf("4개 일치 (50000원)- %d개\n",thirdPlaceCount);
         System.out.printf("5개 일치 (1500000원)- %d개\n",secondPlaceCount);
         System.out.printf("6개 일치 (2000000000원)- %d개\n",firstPlaceCount);
-        System.out.println("총 수익률은 " + incomeRate +"%입니다.");
+        System.out.println("총 수익률은 " + incomeRate + "%입니다.");
     }
 
     private int getInput() {
@@ -71,29 +72,30 @@ public class LottoGame {
         System.out.println("지난 주 당첨 번호를 입력해주세요.");
         scanner.nextLine();
         String winningNumbers = scanner.nextLine();
+        int bonusNumber = scanner.nextInt();
 
-        winningLotto = new Lotto(winningNumbers);
+        winningLotto = new WinningLotto(winningNumbers, bonusNumber);
     }
 
     private void confirmWinning() {
         for(Lotto lotto : lottos){
-            int place = winningLotto.compare(lotto);
+            int place = winningLotto.confirmWinning(lotto);
             calculatePlace(place);
         }
     }
 
     private void calculatePlace(int place) {
         switch (place){
-            case 6:
+            case 1:
                 firstPlaceCount++;
                 break;
-            case 5:
+            case 2:
                 secondPlaceCount++;
                 break;
-            case 4:
+            case 3:
                 thirdPlaceCount++;
                 break;
-            case 3:
+            case 4:
                 forthPlaceCount++;
                 break;
             default:

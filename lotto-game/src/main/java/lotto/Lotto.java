@@ -37,15 +37,7 @@ public class Lotto {
         System.out.printf("]\n");
     }
 
-    public int compare(Lotto lotto) {
-        int result = 0;
-        for(int number : numbers){
-            result += lotto.contain(number);
-        }
-        return result;
-    }
-
-    private int contain(int number) {
+    public int contain(int number) {
         if(numbers.contains(number)) return 1;
         return 0;
     }
