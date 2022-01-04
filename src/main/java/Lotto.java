@@ -28,8 +28,7 @@ public class Lotto {
         outputView.printBoughtLotteries(lotteries);
 
         WinningLottery winningLottery = new WinningLottery(inputView.getLotteryNumberList());
-        Result result = new Result(lotteryBoughtPrice);
-        result.add(winningLottery.checkRank(lotteries));
+        Result result = Result.of(lotteryBoughtPrice, lotteries, winningLottery);
 
         outputView.printResult(result);
     }

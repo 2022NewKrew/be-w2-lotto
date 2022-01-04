@@ -1,29 +1,32 @@
 package domain;
 
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
 public class Result {
-    private final long baseMoney;
     private final Map<Rank, Integer> resultMap;
+    private final int yieldPercent;
 
-    public Result(long baseMoney) {
-        this.baseMoney = baseMoney;
-        this.resultMap = new EnumMap<>(Rank.class);
+    private Result(Map<Rank, Integer> resultMap, long yieldPercent) {
+        this.resultMap = Collections.unmodifiableMap(resultMap);
+        this.yieldPercent = (int) yieldPercent;
+    }
+
+    public static Result of(long baseMoney, List<Lottery> lotteries, WinningLottery winningLottery) {
+        Map<Rank, Integer> resultMap = new EnumMap<>(Rank.class);
         for (Rank rank : Rank.values()) {
-            this.resultMap.put(rank, 0);
+            resultMap.put(rank, 0);
         }
-    }
-
-    public void add(List<Rank> ranks) {
-        for (Rank rank : ranks) {
-            this.add(rank);
+        for (Rank rank : winningLottery.checkRank(lotteries)) {
+            resultMap.put(rank, resultMap.get(rank) + 1);
         }
-    }
-
-    public void add(Rank rank) {
-        resultMap.put(rank, resultMap.get(rank) + 1);
+        long prize = 0;
+        for (Rank rank : resultMap.keySet()) {
+            prize += (rank.getPrize() * resultMap.get(rank));
+        }
+        return new Result(resultMap, 100 * prize / baseMoney);
     }
 
     public int getCountOf(Rank rank) {
@@ -31,14 +34,6 @@ public class Result {
     }
 
     public long getYieldPercent() {
-        return 100 * getTotalPrize() / baseMoney;
-    }
-
-    private long getTotalPrize() {
-        long prize = 0;
-        for (Rank rank : resultMap.keySet()) {
-            prize += (rank.getPrize() * resultMap.get(rank));
-        }
-        return prize;
+        return this.yieldPercent;
     }
 }
