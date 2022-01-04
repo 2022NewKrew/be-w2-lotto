@@ -1,20 +1,30 @@
 package domain;
 
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
 public class LottoRankMatch {
-    private static final Map<LottoRank, Integer> lottoResult = null;
+    private static final Map<LottoRank, Integer> lottoResult = new EnumMap<>(LottoRank.class);
+
 
     public static Map<LottoRank, Integer> createLottoRankResult(LottoRepository autoLottos, List<Integer> inputLastWeekWinNumber) {
         for (Lotto autoLotto : autoLottos.getLottos()) {
-            lottoResult.put(createLottoRank(autoLotto, inputLastWeekWinNumber), 0);
+            LottoRank lottoRank = createLottoRank(autoLotto, inputLastWeekWinNumber);
+//            (lottoResult.containsKey(lottoRank) == true) ? lottoResult.put(lottoRank, lottoResult.get(lottoRank) + 1) : lottoResult.put(createLottoRank(autoLotto, inputLastWeekWinNumber), 1));
+            if (lottoResult.containsKey(lottoRank)) {
+                lottoResult.put(lottoRank, lottoResult.get(lottoRank) + 1);
+            } else {
+                lottoResult.put(createLottoRank(autoLotto, inputLastWeekWinNumber), 1);
+            }
         }
+        System.out.println("lottoresult출력한ㅠ");
+        System.out.println(lottoResult);
         return lottoResult;
     }
 
     private static LottoRank createLottoRank(Lotto autoLotto, List<Integer> inputLastWeekWinNumber) {
-        return LottoRank.find(checkMatchedNumbers(autoLotto, inputLastWeekWinNumber));
+        return LottoRank.valueOf(checkMatchedNumbers(autoLotto, inputLastWeekWinNumber));
     }
 
     private static int checkMatchedNumbers(Lotto autoLotto, List<Integer> inputLastWeekWinNumbers) {
@@ -23,12 +33,8 @@ public class LottoRankMatch {
                 .count();
     }
 
-    private static Boolean checkMatchedNumber(Lotto autoLotto, Integer num) {
+    private static Boolean checkMatchedNumber(Lotto autoLotto, Integer inputLastWeekWinNumber) {
         return autoLotto.getLotto().stream()
-                .anyMatch(autoLottoNumber -> checkMatchedNumberIsBoolean(autoLottoNumber, num));
-    }
-
-    private static Boolean checkMatchedNumberIsBoolean(int lottoNumber, int inputNumber) {
-        return lottoNumber == inputNumber;
+                        .anyMatch(autoLottoNumber -> (autoLottoNumber.equals(inputLastWeekWinNumber)));
     }
 }

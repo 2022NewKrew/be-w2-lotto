@@ -1,10 +1,11 @@
 package domain;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public enum LottoRank {
     MISS(0, 0),
+    ONE(1, 0),
+    TWO(2, 0),
     THREE(3, 5_000),
     FOUR(4, 50_000),
     FIFTH(5, 1_500_500),
@@ -23,9 +24,10 @@ public enum LottoRank {
         return countOfMatch;
     }
 
-    public static LottoRank find(int matchedNumber) {
-        return Arrays.stream(values())
+    public static LottoRank valueOf(int matchedNumber) {
+        return Arrays.stream(LottoRank.values())
                 .filter(i -> i.getCountOfMatch() == matchedNumber)
-                .collect(Collectors.toList()).get(0);
+                .findAny()
+                .orElse(MISS);
     }
 }

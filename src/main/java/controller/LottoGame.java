@@ -4,7 +4,6 @@ import domain.LottoMachine;
 import domain.LottoRank;
 import domain.LottoRankMatch;
 import domain.LottoRepository;
-import service.LottoGameService;
 import view.InputView;
 import view.OutputView;
 
@@ -21,8 +20,8 @@ public class LottoGame {
         OutputView.printAutuLottos(autoLottos);
         List<Integer> inputLastWeekWinNumber = InputView.inputLastWeekWinNumber();
 
-        Map<LottoRank, Integer> = LottoRankMatch.createLottoRankResult(autoLottos, inputLastWeekWinNumber);
-//        LottoGameService.createResult(autoLottos, inputLastWeekWinNumber);
+        Map<LottoRank, Integer> lottoRankResult = LottoRankMatch.createLottoRankResult(autoLottos, inputLastWeekWinNumber);
+        System.out.println(lottoRankResult);
 
     }
 }
