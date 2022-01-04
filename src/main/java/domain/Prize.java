@@ -1,6 +1,6 @@
 package domain;
 
-public enum WinningAmount {
+public enum Prize {
     BLANK(0, 0),
     FIFTH(3, 5000),
     FOURTH(4, 50000),
@@ -11,7 +11,7 @@ public enum WinningAmount {
     private final int matchCount;
     private final int money;
 
-    WinningAmount(int matchCount, int money) {
+    Prize(int matchCount, int money) {
         this.matchCount = matchCount;
         this.money = money;
     }
