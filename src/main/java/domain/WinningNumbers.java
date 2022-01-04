@@ -8,6 +8,11 @@ import java.util.stream.Collectors;
 
 public class WinningNumbers {
 
+    private final static String NUMBER_RANGE_ERROR_MESSAGE = "번호는 1이상 45이하이어야 합니다.";
+    private final static String NUMBER_SIZE_ERROR_MESSAGE = "6개의 번호를 입력해주세요.";
+
+    private static final int WINNING_NUMBERS_SIZE = 6;
+
     private final List<WinningNumber> winningNumbers;
     private final WinningNumber bonusNumber;
 
@@ -18,6 +23,8 @@ public class WinningNumbers {
 
     public static WinningNumbers createWinningNumbers(List<Integer> inputWinningNumbers,
         int inputBonusNumber) {
+        validateWinningNumbers(inputWinningNumbers);
+        validateNumber(inputBonusNumber);
         List<WinningNumber> winningNumbers = new ArrayList<>();
         for (int inputWinningNumber : inputWinningNumbers) {
             winningNumbers.add(new WinningNumber(inputWinningNumber));
@@ -26,6 +33,22 @@ public class WinningNumbers {
         WinningNumber bonusNumber = new WinningNumber(inputBonusNumber);
 
         return new WinningNumbers(winningNumbers, bonusNumber);
+    }
+
+    private static void validateWinningNumbers(List<Integer> winningNumbers) {
+        if (winningNumbers.size() != WINNING_NUMBERS_SIZE) {
+            throw new IllegalArgumentException(NUMBER_SIZE_ERROR_MESSAGE);
+        }
+
+        for (int winningNumber : winningNumbers) {
+            validateNumber(winningNumber);
+        }
+    }
+
+    private static void validateNumber(int number) {
+        if (number < 1 || number > 45) {
+            throw new IllegalArgumentException(NUMBER_RANGE_ERROR_MESSAGE);
+        }
     }
 
 
