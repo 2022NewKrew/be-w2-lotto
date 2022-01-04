@@ -11,12 +11,12 @@ public class InputView {
 
     public static int getPurchaseAmount() {
         System.out.println("구입금액을 입력해주세요.");
-        int userInput = 0;
+        int userInput;
         try {
             userInput = Integer.parseInt(sc.nextLine());
         } catch (NumberFormatException e) {
             System.out.println("구입금액은 범위 내의 숫자로 입력해주세요.");
-            getPurchaseAmount();
+            userInput = getPurchaseAmount();
         }
         return userInput;
     }
