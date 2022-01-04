@@ -12,6 +12,7 @@
 App - LottoController  - Domain - Lotto
                                 - LottoRank
                                 - LottoResult
+                                - WinningLotto
                       
                        - View   - LottoView
     
@@ -33,6 +34,9 @@ Lotto
 LottoRank
 - 등수에 따른 금액
 
+WinningLotto
+- 기계가 뽑은 로또
+
 LottoResult
 - 로또 결과 관리 객체
 
@@ -43,4 +47,5 @@ LottoView
 ```
 로또 구입 금액을 입력하면 구입 금액에 해당하는 로또를 발급해야 한다.
 로또 1장의 가격은 1000원이다.
+2등을 위해 추가 번호를 하나 더 추첨한다. 당첨 통계에 2등도 추가해야 한다.
 ```

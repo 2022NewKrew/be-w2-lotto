@@ -6,10 +6,14 @@ public class LottoApplication {
         try {
             InputController inputController = new InputController();
             LottoController lottoController = new LottoController(inputController.getPurchasePrice());
-            lottoController.printPurchaseAmount();
 
-            lottoController.setLottoResult(inputController.getLottoNumbers());
+            lottoController.printPurchaseAmount();
+            lottoController.printLottoNumbers();
+
+            lottoController.setWinningLottoNumbers(inputController.getLottoNumbers());
+            lottoController.setBonusNumber(inputController.getBonusNumber());
             lottoController.generateLottoResult();
+            lottoController.setProfitRate();
 
             lottoController.printResult();
         } catch (RuntimeException e) {

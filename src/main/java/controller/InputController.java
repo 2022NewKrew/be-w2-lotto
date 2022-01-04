@@ -1,6 +1,6 @@
 package controller;
 
-import exception.InputException;
+import exception.InputNumberFormatException;
 
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +20,7 @@ public class InputController {
 
             return Integer.parseInt(scanner.nextLine());
         } catch (NumberFormatException e) {
-            throw InputException.NumberFormatException();
+            throw new InputNumberFormatException("숫자의 형식이 아닙니다.");
         }
     }
 
@@ -32,7 +32,17 @@ public class InputController {
                     .map(Integer::parseInt)
                     .collect(Collectors.toList());
         } catch (NumberFormatException e) {
-            throw InputException.NumberFormatException();
+            throw new InputNumberFormatException("숫자의 형식이 아닙니다.");
+        }
+    }
+
+    public int getBonusNumber() {
+        try {
+            System.out.println("보너스 볼을 입력해 주세요.");
+
+            return Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            throw new InputNumberFormatException("숫자의 형식이 아닙니다.");
         }
     }
 }

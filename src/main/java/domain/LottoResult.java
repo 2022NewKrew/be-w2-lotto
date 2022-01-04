@@ -1,30 +1,26 @@
 package domain;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 public class LottoResult {
-    private List<Integer> numbers;
-    private Map<Integer, Integer> countOfMatches;
+    private Map<LottoRank, Integer> countOfMatches;
     private double profitRate;
 
-    public LottoResult(List<Integer> numbers) {
-        this.numbers = numbers;
+    public LottoResult() {
+        this.countOfMatches = new HashMap<>();
+        this.profitRate = 0.0;
     }
 
     public void setProfitRate(double profitRate) {
         this.profitRate = profitRate;
     }
 
-    public void setCountOfMatches(Map<Integer, Integer> countOfMatches) {
+    public void setCountOfMatches(Map<LottoRank, Integer> countOfMatches) {
         this.countOfMatches = countOfMatches;
     }
 
-    public List<Integer> getNumbers() {
-        return numbers;
-    }
-
-    public Map<Integer, Integer> getCountOfMatches() {
+    public Map<LottoRank, Integer> getCountOfMatches() {
         return countOfMatches;
     }
 
