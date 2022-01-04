@@ -11,7 +11,8 @@ public class WinningNumber {
         this.winningNumbers = numbers;
     }
 
-    public List<Integer> getWinningNumber() {
-        return new ArrayList<>(winningNumbers);
+    public boolean isContainWinningNumber(int num) {
+        return winningNumbers.contains(num);
     }
+
 }
