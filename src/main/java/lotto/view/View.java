@@ -14,9 +14,6 @@ public class View {
     private Scanner scanner = new Scanner(System.in);
 
     private static final String SPLIT_DELIMITER = ", ";
-    private static final String OPEN_STRING = "[";
-    private static final String CLOSE_STRING = "]";
-    private static final String SPLIT_STRING = ",";
 
     public Integer readPurchaseAmountForLotto() {
         System.out.println("구입금액을 입력해 주세요.");
