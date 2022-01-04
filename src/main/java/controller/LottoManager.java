@@ -19,10 +19,12 @@ public class LottoManager {
 
         // 당첨 로또 번호 입력 받음
         List<Integer> winningNumber = InputManager.inputWinningNumber();
+        // 보너스 볼 입력 받음
+        int bonusNumber = InputManager.inputBonusNumber(winningNumber);
 
         // 로또 결과 확인
-        PrintManager.printResult(lottos.checkResult(winningNumber));
+        PrintManager.printResult(lottos.checkResult(winningNumber, bonusNumber));
         // 로또 수익률 확인
-        PrintManager.printWinRate(lottos.checkWinRate(lottos.checkResult(winningNumber)));
+        PrintManager.printWinRate(lottos.checkWinRate(lottos.checkResult(winningNumber, bonusNumber)));
     }
 }

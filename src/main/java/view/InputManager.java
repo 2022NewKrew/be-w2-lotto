@@ -33,7 +33,7 @@ public class InputManager {
     private static boolean checkWinningNumber(List<Integer> winningNumber) {
         boolean passRange = winningNumber
                 .stream()
-                .allMatch(n -> n > 0 && n < 46);
+                .allMatch(n -> n >= Const.LOTTO_START_NUM && n <= Const.LOTTO_END_NUM);
         boolean passLength = winningNumber.stream().distinct().count() == 6;
         if (passRange && passLength) {
             return true;
@@ -61,11 +61,42 @@ public class InputManager {
         return inputIntPrice;
     }
 
+    public static int inputBonusNumber(List<Integer> winningNumber) {
+        boolean pass = false;
+        int inputIntBonusNumber = 0;
+        do {
+            System.out.println(Const.INPUT_BONUS_NUMBER);
+            try {
+                inputIntBonusNumber = scanner.nextInt();
+                // Flush Buffer
+                scanner.nextLine();
+                pass = isLottoBonusNumber(inputIntBonusNumber, winningNumber);
+            } catch (InputMismatchException e) {
+                System.out.println(Const.INPUT_INTEGER);
+                // Flush Buffer
+                scanner.nextLine();
+            }
+        } while (!pass);
+        return inputIntBonusNumber;
+    }
+
+
     private static boolean isPositiveNumber(int inputIntPrice) {
         if (inputIntPrice >= 0) {
             return true;
         }
         System.out.println(Const.INPUT_POSITIVE_INTEGER);
+        return false;
+    }
+
+
+    private static boolean isLottoBonusNumber(int inputIntBonusNumber, List<Integer> winningNumber) {
+        if (inputIntBonusNumber >= Const.LOTTO_START_NUM
+                && inputIntBonusNumber <= Const.LOTTO_END_NUM
+                && !winningNumber.contains(inputIntBonusNumber)) {
+            return true;
+        }
+        System.out.println(Const.INPUT_LOTTO_BONUS_NUMBER);
         return false;
     }
 }
