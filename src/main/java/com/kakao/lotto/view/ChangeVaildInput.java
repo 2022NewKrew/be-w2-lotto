@@ -82,6 +82,7 @@ public class ChangeVaildInput {
     private static int[] createLottoStream() {
         return Arrays.stream(sc.nextLine().split(ConstStringSpace.STRING_SEPERATOR))
                 .filter(tempString -> tempString.length() != 0 && !ConstStringSpace.STRING_SEPERATOR.equals(tempString))
+                .map(String::trim)
                 .filter(ChangeVaildInput::isLottoDigit)
                 .distinct()
                 .sorted()
