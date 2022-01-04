@@ -86,6 +86,7 @@ public class LottoView {
 
     public List<Integer> inputValidIntegerList() throws IllegalArgumentException{
         return inputIntegerStream()
+                .distinct()
                 .map(x -> validateLottoNumber(x))
                 .collect(Collectors.toList());
     }
