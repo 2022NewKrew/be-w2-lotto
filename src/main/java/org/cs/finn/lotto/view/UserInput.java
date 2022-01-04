@@ -65,7 +65,7 @@ public class UserInput {
 
     private LottoNumber getBonusNumber(final LottoNumbers lottoNumbers) {
         System.out.println("보너스 번호를 입력해 주세요. [" + LottoNumber.MIN + " ~ " + LottoNumber.MAX + "]");
-        System.out.println("당첨 번호에서 입력한 번호와 중복된 번호를 입력하면 안됩니다.");
+        System.out.println("당첨 번호에서 입력한 번호들을 제외하고 남은 번호들 중 하나를 입력해주세요.");
 
         LottoNumber lottoNumber = getBonusNumberFromInput();
         while (lottoNumbers.contains(lottoNumber) || lottoNumber.isNone()) {
