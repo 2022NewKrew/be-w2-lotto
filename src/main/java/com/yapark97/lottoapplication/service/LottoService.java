@@ -3,6 +3,7 @@ package com.yapark97.lottoapplication.service;
 import com.yapark97.lottoapplication.domain.lotto.Lotto;
 import com.yapark97.lottoapplication.domain.lotto.LottoConst;
 import com.yapark97.lottoapplication.domain.lotto.LottoSet;
+import com.yapark97.lottoapplication.domain.winningPolicy.BonusBallWinningPolicy;
 import com.yapark97.lottoapplication.domain.winningPolicy.SimpleWinningPolicy;
 import com.yapark97.lottoapplication.domain.winningPolicy.WinningPolicy;
 import com.yapark97.lottoapplication.view.LottoInput;

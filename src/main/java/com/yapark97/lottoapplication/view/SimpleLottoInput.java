@@ -3,6 +3,7 @@ package com.yapark97.lottoapplication.view;
 import com.yapark97.lottoapplication.domain.lotto.LottoConst;
 
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -36,9 +37,9 @@ public class SimpleLottoInput implements LottoInput {
         }
     }
 
-    private int validatePriceValue(int price) throws Exception {
+    private int validatePriceValue(int price) throws InputMismatchException {
         if (price < 1000 || price % LottoConst.LOTTO_PRICE != 0) {
-            throw new Exception("구매 금액 입력 오류");
+            throw new InputMismatchException("구매 금액 입력 오류");
         }
         return price / LottoConst.LOTTO_PRICE;
     }
@@ -60,9 +61,9 @@ public class SimpleLottoInput implements LottoInput {
         }
     }
 
-    private List<Integer> validateWinningNumbersCount(List<Integer> winningNumbers) throws Exception {
+    private List<Integer> validateWinningNumbersCount(List<Integer> winningNumbers) throws InputMismatchException {
         if (winningNumbers.size() != LottoConst.LOTTO_NUMBERS_SIZE) {
-            throw new Exception("당첨 번호 갯수 오류");
+            throw new InputMismatchException("당첨 번호 갯수 오류");
         }
         return winningNumbers;
     }
