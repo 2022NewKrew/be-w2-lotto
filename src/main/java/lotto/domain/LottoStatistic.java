@@ -40,6 +40,9 @@ public class LottoStatistic {
 
     private void calculateProfitPercentage() {
         long profitTotal = 0;
+        for (LottoRank lottoRank : lottoRanks) {
+            profitTotal += winningCountMap.get(lottoRank.getMatch()) * lottoRank.getMoney();
+        }
         long cost = lottoCount * LOTTO_PRICE;
         profitPercentage = (int)((profitTotal - cost) * 100 / cost);
     }
