@@ -8,8 +8,6 @@ import java.util.List;
 public class MyLottoLines {
     private final List<LottoLine> lottoLines = new ArrayList<>();
 
-    private static final int NUM_PER_LINE = 6;
-
     public MyLottoLines() {
     }
 

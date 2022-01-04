@@ -1,7 +1,5 @@
 package domain;
 
-import DTO.NNumber;
-
 import java.util.*;
 
 public class WinningLottoLine {
