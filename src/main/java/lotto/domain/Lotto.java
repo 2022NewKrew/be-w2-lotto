@@ -14,20 +14,12 @@ import static lotto.domain.LottoSetting.*;
 public class Lotto {
     private LottoNumber lottoResult;
     private List<LottoNumber> lottos;
-    private LottoViewOutput lottoViewOutput;
     private List<LottoWinner> lottoWinner;
     private List<Integer> lottoElement;
 
     public Lotto(Integer payment){
         lottos = new ArrayList<>();
-        lottoViewOutput = new LottoViewOutput(this);
-
         addLottos(payment / LOTTO_PRICE);
-        lottoViewOutput.printLottoCount();
-        lottoViewOutput.printAllLottos();
-        lottoResult = new LottoNumber(LottoViewInput.lottoInputResult());
-        makeTotal();
-        lottoViewOutput.printWinner();
     }
 
     //getter
@@ -39,6 +31,9 @@ public class Lotto {
         return lottoWinner;
     }
 
+    public void setLottoResult(LottoNumber lottoResult) {
+        this.lottoResult = lottoResult;
+    }
 
     private void addLottos(Integer lottoCount){
         for(int i = 0 ; i < lottoCount ; i++){
@@ -61,7 +56,7 @@ public class Lotto {
         return matchCount;
     }
 
-    private void makeTotal(){
+    public void makeTotal(){
         //init lottoWinner Objects
         lottoWinner = new ArrayList<>();
 

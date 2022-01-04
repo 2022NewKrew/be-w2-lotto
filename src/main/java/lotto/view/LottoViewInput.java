@@ -14,7 +14,7 @@ public class LottoViewInput {
         return sc.nextInt();
     }
 
-    private static List<Integer> resultToList(String stringAry){
+    static private List<Integer> resultToList(String stringAry){
         List<String> resultListString = new ArrayList<>(Arrays.asList(stringAry.split(",")));
         List<Integer> resultListInteger = new ArrayList<>();
         for(int i = 0 ; i < resultListString.size() ; i++){
