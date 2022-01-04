@@ -1,8 +1,7 @@
-package main.java.controller;
+package controller;
 
-import main.java.model.Lotto;
+import model.Lotto;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class LottoGenerator {

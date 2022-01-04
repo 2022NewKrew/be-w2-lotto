@@ -1,13 +1,34 @@
-package main.java.view;
+package view;
 
-import main.java.controller.LottoGenerator;
-import main.java.model.Lotto;
+import model.Lotto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+enum LottoMessages {
+    FIFTH("3개 일치 (5000원)- "),
+    FORTH("4개 일치 (50000원)- "),
+    THIRD("5개 일치 (1500000원)- "),
+    SECOND("5개 일치, 보너스 볼 일치(30000000원) - "),
+    FIRST("6개 일치 (2000000000원)- ");
+
+    private String message;
+
+    LottoMessages(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+}
+
 public class OutputView {
+    private enum lottoRank {}
+
+    private static int LOTTO_PRICE = 1000;
+    private static int RANK_MAX_COUNT = 5;
 
     private OutputView() {
     }
@@ -23,41 +44,15 @@ public class OutputView {
         System.out.println(lotto.getNumbers());
     }
 
-    public static void printLottoWinningStats(List<Integer> lastWeeksWinningNumber, List<Lotto> lottos) {
-        List<String> rankPrice = new ArrayList<>(Arrays.asList("5000", "50000", "1500000", "2000000000"));
-        List<Integer> ranks = new ArrayList<>(Arrays.asList(0, 0, 0, 0));
-        for (Lotto lotto : lottos) {
-            int idx = compareLottos(lastWeeksWinningNumber, lotto.getNumbers());
-            if (idx < 4) {
-                ranks.set(idx, ranks.get(idx) + 1);
-            }
-        }
+    public static void printLottoWinningStats(List<Integer> rankResults, long totalWinningAmount, int lottoCount) {
+        List<String> rankMessage = new ArrayList<>(Arrays.asList(LottoMessages.FIFTH.getMessage(), LottoMessages.FORTH.getMessage(), LottoMessages.THIRD.getMessage(), LottoMessages.SECOND.getMessage(), LottoMessages.FIRST.getMessage()));
 
         System.out.println("\n당첨 통계\n----------");
-        for (int i = 0; i < ranks.size(); i++) {
-            System.out.println((i + 3) + "개 일치 (" + rankPrice.get(i) + "원)- " + ranks.get(i) + "개");
+        for (int i = 0; i < RANK_MAX_COUNT; i++) {
+            System.out.println((rankMessage.get(i) + rankResults.get(i) + "개"));
         }
-    }
-
-    private static int compareLottos(List<Integer> lastWeeksWinningNumber, List<Integer> curLotto) {
-        int correctNumberCount = 0;
-
-        for (int num : lastWeeksWinningNumber) {
-            if (curLotto.contains(num)) {
-                correctNumberCount++;
-            }
-        }
-
-        if (correctNumberCount == 6) {
-            return 3;
-        } else if (correctNumberCount == 5) {
-            return 2;
-        } else if (correctNumberCount == 4) {
-            return 1;
-        } else if (correctNumberCount == 3) {
-            return 0;
-        }
-
-        return 4;
+        long yield = (totalWinningAmount - LOTTO_PRICE * lottoCount) / (LOTTO_PRICE * lottoCount) * 100;
+        System.out.println("총 수익률은 " + yield + "%입니다.");
     }
 }
+
