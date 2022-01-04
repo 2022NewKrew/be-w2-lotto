@@ -1,90 +1,63 @@
 package lotto.domain;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.LongStream;
 
 import static lotto.constant.Constants.*;
 import static lotto.util.RandomNumberCreator.createRandomNumbers;
-import static lotto.view.InputProcessor.*;
 
 public class Lotto {
 
-    private final List<LottoNumber> purchasedLottoNumberList;
-    private final List<Integer> winningNumbers;
-    private final Map<Integer, Long> lotteryResult;
-    private long profit;
+    private final List<Integer> numbers;
 
-    public Lotto(List<LottoNumber> purchasedLottoNumberList, List<Integer> winningNumbers) {
-        this.purchasedLottoNumberList = purchasedLottoNumberList;
-        this.winningNumbers = winningNumbers;
-        this.lotteryResult = new HashMap<>();
+    public Lotto(List<Integer> numbers) {
+        if(!isValidLottoNumbers(numbers)) {
+            throw new IllegalArgumentException(LOTTO_NUMBERS_INVALID_ERROR_MESSAGE);
+        }
+        this.numbers = numbers;
     }
 
-    public static void run() {
-        List<LottoNumber> purchasedLottoNumberList = purchaseLotto();
-        List<Integer> winningNumbers = inputWinningNumber();
-        Lotto lotto = new Lotto(purchasedLottoNumberList, winningNumbers);
-        System.out.println(lotto);
-        lotto.makeResult();
-        lotto.printResult();
+    public static Lotto createRandomLotto() {
+        List<Integer> randomNumbers = createRandomNumbers();
+        return new Lotto(randomNumbers);
     }
 
-    private void printResult() {
-        StringBuilder sb = new StringBuilder();
-        long earningRate = (long) ( ( (double) this.profit / ( (double) this.purchasedLottoNumberList.size() * PRICE_OF_LOTTO) ) * 100 );
-        sb.append(RESULT_TITLE).append(NEW_LINE);
-        sb.append(PARTITION).append(NEW_LINE);
-        IntStream.rangeClosed(MIN_NUM_TO_WINNING, NUM_OF_WINNING_NUMBERS)
-                .forEach(num -> sb.append(String.format(WINNING_MESSAGE_FORMAT, NUMBER_MATCH.get(num), PRIZE_MONEYS.get(num), this.lotteryResult.get(num))).append(NEW_LINE));
-        sb.append(EARNING_RATE_MSG_LEFT);
-        sb.append(earningRate);
-        sb.append(EARNING_RATE_MSG_RIGHT_FORMAT);
+    private boolean isValidLottoNumbers(List<Integer> numbers) {
+        Set<Integer> numberSet = numbers.stream()
+                .filter(num -> LOTTO_START_NUMBER <= num && num <= LOTTO_END_NUMBER)
+                .collect(Collectors.toSet());
 
-        System.out.println(sb);
+        return numberSet.size() == NUM_OF_WINNING_NUMBERS;
     }
 
-    private void makeResult() {
-        List<Integer> correctResult = this.purchasedLottoNumberList.stream()
-                .map(lottoNumber -> lottoNumber.getResult(this.winningNumbers))
-                .filter(matched -> matched >= MIN_NUM_TO_WINNING)
-                .collect(Collectors.toList());
+    /*
+    현재 로또 번호 안에 당첨 번호가 몇 개 들어있는지 반환하는 메서드
+     */
+    public int getResult(LottoGame lottoGame) {
+        int matched = (int) lottoGame.getWinningNumbers().stream()
+                                                                    .filter(this.numbers::contains)
+                                                                    .count();
 
-        this.profit = 0;
-        IntStream.rangeClosed(MIN_NUM_TO_WINNING, NUM_OF_WINNING_NUMBERS)
-                .forEach(correct -> {
-                    this.lotteryResult.put(correct, this.getNumOfCorrect(correctResult, correct));
-                    this.profit += this.lotteryResult.getOrDefault(correct, 0L) * (long) PRIZE_MONEYS.get(correct);
-                });
+        if(matched == 5) {
+            return matched + this.hitBonusNumber(lottoGame.getBonusNumber());
+        }
+
+        if(matched == 6) {
+            return 7;
+        }
+        return matched;
     }
 
-    private long getNumOfCorrect(List<Integer> correctResult, int correct) {
-        return (int) correctResult.stream()
-                        .filter(num -> num == correct)
-                        .count();
-    }
-
-    private static List<LottoNumber> purchaseLotto() {
-        long purchaseAmount = inputPurchaseAmount();
-        List<LottoNumber> purchasedLottoNumberList = new ArrayList<>();
-
-        LongStream.range(0L, purchaseAmount)
-                .forEach(i -> {
-                    List<Integer> randomNumbers = createRandomNumbers();
-                    LottoNumber newLottoNumber = new LottoNumber(randomNumbers);
-                    purchasedLottoNumberList.add(newLottoNumber);
-                });
-
-        return purchasedLottoNumberList;
+    private int hitBonusNumber(int bonusNumber) {
+        if(this.numbers.contains(bonusNumber)) {
+            return 1;
+        }
+        return 0;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(this.purchasedLottoNumberList.size()).append(PURCHASE_LOTTO_MESSAGE).append("\n");
-        this.purchasedLottoNumberList.forEach(lotto -> sb.append(lotto).append("\n"));
-
-        return sb.toString();
+        return this.numbers.toString();
     }
 }
