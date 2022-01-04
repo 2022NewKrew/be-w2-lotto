@@ -3,6 +3,7 @@ package service;
 import domain.Lotto;
 import domain.LottoPrize;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,13 +21,21 @@ public class LottoService {
     private List<Integer> winningResult;
     private long profit;
 
-    public void buyLottos(int buyPrice) {
-        if (buyPrice < 1000) {
-            throw new IllegalArgumentException("금액이 유효하지 않습니다.");
+    public LottoService() {
+        lottos = new ArrayList<Lotto>();
+    }
+
+    public void registerAutoLottos(int n) {
+        if (n <= 0) {
+            throw new IllegalArgumentException("로또 개수가 유효하지 않습니다.");
         }
-        this.size = buyPrice / 1000;
+        this.size = n;
         this.buyPrice = size * 1000;
-        lottos = Stream.generate(Lotto::new).limit(size).collect(Collectors.toList());
+        lottos.addAll(Stream.generate(Lotto::new).limit(size).collect(Collectors.toList()));
+    }
+
+    public void registerManualLotto(String number) {
+        lottos.add(new Lotto(number));
     }
 
     public void registerWinningLotto(String number) {

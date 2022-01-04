@@ -17,9 +17,17 @@ public class HomeController {
     }
 
     public void run() {
+        int inputBuyPrice, inputSizeManual;
         homeView.printInputBuyView();
-        lottoService.buyLottos(sc.nextInt());
-        homeView.printBuySuccessView();
+        inputBuyPrice = sc.nextInt();
+        homeView.printInputManualSize();
+        inputSizeManual = sc.nextInt();
+        homeView.printInputManualLotto();
+        for (int i = 0; i < inputSizeManual; i++) {
+            lottoService.registerManualLotto(sc.next());
+        }
+        lottoService.registerAutoLottos(inputBuyPrice / 1000 - inputSizeManual);
+        homeView.printBuySuccessView(inputSizeManual);
 
         homeView.printInputWinningNumbersView();
         lottoService.registerWinningLotto(sc.next());

@@ -37,6 +37,7 @@ public class Lotto {
         number = Arrays.stream(numbers.split(","))
                 .map(stringInt -> Integer.valueOf(stringInt.trim()))
                 .collect(Collectors.toList());
+        view = generateView();
     }
 
     private void validationStringNumber(String numbers) {
