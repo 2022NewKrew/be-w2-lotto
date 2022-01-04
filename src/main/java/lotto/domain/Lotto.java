@@ -3,6 +3,7 @@ package lotto.domain;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import lotto.utils.LottoRandomUtils;
 
 public class Lotto {
@@ -54,5 +55,11 @@ public class Lotto {
 
     public List<Integer> getNumbers() {
         return new ArrayList<>(numbers);
+    }
+
+    public int matchCount(Lotto lotto) {
+        Set<Integer> set = new HashSet<>(numbers);
+        set.retainAll(lotto.getNumbers());
+        return set.size();
     }
 }
