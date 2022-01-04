@@ -45,6 +45,6 @@ public class View {
             totalReward += Util.reward.get(i) * resultMap.getOrDefault(i,0);
             System.out.println(i+"개 일치"+" ("+Util.reward.get(i)+")- "+resultMap.getOrDefault(i,0)+"개");
         }
-        System.out.println("총 수익률은 "+(float)totalReward/(totalCount*10)+"%입니다.");
+        System.out.println("총 수익률은 "+(float)totalReward*100/(totalCount*Util.lottoPrice)+"%입니다.");
     }
 }

@@ -17,8 +17,8 @@ public class LottoProcess {
 
     private List<Lotto> generateLottos(int inputMoney){
         List<Lotto> lottos = new ArrayList<Lotto>();
-        for(int i=0; i<inputMoney/1000; i++){
-            lottos.add(new Lotto(Util.generateRandomNumbers(6, 45)));
+        for(int i=0; i<inputMoney/Util.lottoPrice; i++){
+            lottos.add(new Lotto(Util.generateRandomNumbers(Util.lottoNumberCount, Util.lottoMaxNumber)));
         }
         return lottos;
     }
