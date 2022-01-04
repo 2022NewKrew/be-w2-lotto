@@ -11,24 +11,15 @@ public class Lottery {
         this.numbers = numbers;
     }
 
-    public int getNumber(int idx) {
-        if (numbers.size() <= idx) {
-            throw new IndexOutOfBoundsException("index 범위를 초과하였습니다.");
-        }
-        return numbers.get(idx);
-    }
-
     public boolean contains(int number) {
         return numbers.contains(number);
     }
 
     public int getNumOfCorrect(List<Integer> winNums) {
-        int numOfCorrect = 0;
-        for (Integer num : winNums) {
-            numOfCorrect += contains(num) ? 1 : 0;
-        }
-        return numOfCorrect;
+        return winNums.stream()
+                .reduce(0, (total, num) -> contains(num) ? total + 1 : total);
     }
+
     public boolean isCorrectBonus(int bonus) {
         return contains(bonus);
     }

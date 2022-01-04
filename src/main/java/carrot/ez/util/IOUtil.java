@@ -1,11 +1,11 @@
-package carrot.ez.io;
+package carrot.ez.util;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class ConsoleIOController {
+public class IOUtil {
 
     private static final Scanner sc = new Scanner(System.in);
 
