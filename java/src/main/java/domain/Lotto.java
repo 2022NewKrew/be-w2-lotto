@@ -5,12 +5,14 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /*
-** 복권 가격, 당첨금 등 중요 정보를 담는 클래스, 복권 번호 생성 기능 수행
+** 복권 관련 상수 저장, 복권 번호 생성 기능 수행
  */
 public class Lotto {
 
-    private static final int price = 1000;
-    private static final int[] prize = {0, 0, 0, 5000, 50000, 1500000, 2000000000};
+    private static final int TICKET_PRICE = 1000;
+    private static final int NUMBER_COUNT = 6;
+    private static final int MIN_NUMBER = 1;
+    private static final int MAX_NUMBER = 45;
     private List<Integer> numberList;
 
     public Lotto() {
@@ -21,16 +23,36 @@ public class Lotto {
                 .collect(Collectors.toList());
     }
 
-    public Lottery generateLottery() {
+    public List<LottoTicket> generateAllLottoTicket(int money) {
+        List<LottoTicket> tickets = new ArrayList<>();
+
+        int ticketCount = money / TICKET_PRICE;
+        while (ticketCount > 0) {
+            tickets.add(generateLottoTicket());
+            ticketCount--;
+        }
+
+        return tickets;
+    }
+
+    private LottoTicket generateLottoTicket() {
         Collections.shuffle(numberList, new Random());
-        return new Lottery(numberList.subList(0, 6));
+        return new LottoTicket(numberList.subList(0, 6));
     }
 
-    public int getPrice() {
-        return price;
+    public int getTicketPrice() {
+        return TICKET_PRICE;
     }
 
-    public int getPrizeByMatchedNumberCount(int matchedNumberCount) {
-        return prize[matchedNumberCount];
+    public int getNumberCount() {
+        return NUMBER_COUNT;
+    }
+
+    public int getMinNumber() {
+        return MIN_NUMBER;
+    }
+
+    public int getMaxNumber() {
+        return MAX_NUMBER;
     }
 }
