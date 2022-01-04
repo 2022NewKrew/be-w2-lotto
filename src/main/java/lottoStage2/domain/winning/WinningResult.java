@@ -1,4 +1,4 @@
-package lottoStage2.domain;
+package lottoStage2.domain.winning;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

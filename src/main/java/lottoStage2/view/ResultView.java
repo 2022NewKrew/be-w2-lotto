@@ -1,9 +1,9 @@
 package lottoStage2.view;
 
-import lottoStage2.domain.Lotto;
-import lottoStage2.domain.Lottos;
-import lottoStage2.domain.WinningResult;
-import lottoStage2.domain.WinningType;
+import lottoStage2.domain.lotto.Lotto;
+import lottoStage2.domain.lotto.Lottos;
+import lottoStage2.domain.winning.WinningResult;
+import lottoStage2.domain.winning.WinningType;
 
 import java.util.Map;
 import java.util.stream.Collectors;

@@ -1,4 +1,7 @@
-package lottoStage2.domain;
+package lottoStage2.domain.lotto;
+
+import lottoStage2.domain.winning.WinningResult;
+import lottoStage2.domain.winning.WinningType;
 
 import java.util.ArrayList;
 import java.util.Collections;

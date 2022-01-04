@@ -1,4 +1,6 @@
-package lottoStage2.domain;
+package lottoStage2.domain.lotto;
+
+import lottoStage2.domain.vo.Number;
 
 import java.util.List;
 

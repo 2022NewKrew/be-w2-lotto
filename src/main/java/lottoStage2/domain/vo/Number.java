@@ -1,4 +1,4 @@
-package lottoStage2.domain;
+package lottoStage2.domain.vo;
 
 import lottoStage2.util.RandomUtils;
 

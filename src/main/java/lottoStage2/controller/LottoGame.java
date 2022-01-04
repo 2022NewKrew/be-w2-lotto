@@ -1,8 +1,8 @@
 package lottoStage2.controller;
 
-import lottoStage2.domain.Lotto;
-import lottoStage2.domain.Lottos;
-import lottoStage2.domain.WinningResult;
+import lottoStage2.domain.lotto.Lotto;
+import lottoStage2.domain.lotto.Lottos;
+import lottoStage2.domain.winning.WinningResult;
 import lottoStage2.view.InputView;
 import lottoStage2.view.ResultView;
 
