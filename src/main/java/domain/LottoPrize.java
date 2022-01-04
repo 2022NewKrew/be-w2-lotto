@@ -29,6 +29,10 @@ public enum LottoPrize {
         return prizeMoney;
     }
 
+    public boolean getAllowBonusBall() {
+        return allowBonusBall;
+    }
+
     public static LottoPrize getLottoRank(long numberOfMatches, boolean matchesBonusBall) {
         if(numberOfMatches == SECOND_PLACE.numberOfMatches && matchesBonusBall == SECOND_PLACE.allowBonusBall)
             return SECOND_PLACE;

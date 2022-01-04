@@ -70,7 +70,6 @@ public final class LottoService {
     private void printWinningStatistics(int purchaseAmount, List<LottoTicket> purchasedLottoes, LottoTicket lastWeekWinning, int bonusBallNumber) {
         Map<LottoPrize, Long> winningTickets = purchasedLottoes.stream()
                 .collect(groupingBy(purchasedLotto -> LottoPrize.getLottoRank(numberOfSameNumbers(purchasedLotto ,lastWeekWinning), isMatchBonusBall(purchasedLotto, bonusBallNumber)), counting()));
-        winningTickets.remove(LottoPrize.NOTHING);
 
         long sumOfPrize = winningTickets.entrySet().stream()
                 .mapToLong( e -> e.getKey().getPrizeMoney() * e.getValue())

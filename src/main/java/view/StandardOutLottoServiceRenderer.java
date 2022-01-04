@@ -22,21 +22,18 @@ public final class StandardOutLottoServiceRenderer implements LottoServiceRender
     public void displayResults(Map<LottoPrize, Long> winningTickets, double rateOfReturn) {
         System.out.println("당첨 통계");
         System.out.println("------------------------------");
-        Arrays.stream(LottoPrize.values()).forEach( lottoPrize -> displayResult(lottoPrize, winningTickets));
+        Arrays.stream(LottoPrize.values()).filter(e -> e != LottoPrize.NOTHING).forEach(lottoPrize -> displayResult(lottoPrize, winningTickets));
 
         System.out.println("총 수익률은 " + rateOfReturn + "%입니다.");
     }
 
     private void displayResult(LottoPrize lottoPrize, Map<LottoPrize, Long> winningTickets) {
-        long numberOfMatches = lottoPrize.getNumberOfMatches();
-        long prizeMoney = lottoPrize.getPrizeMoney();
         long count = Optional.ofNullable(winningTickets.get(lottoPrize)).orElse(0L);
 
-        if(lottoPrize == LottoPrize.SECOND_PLACE) {
-            System.out.println(numberOfMatches + "개 일치, 보너스 볼 일치(" + prizeMoney + "원)- " + count + "개");
+        System.out.print(lottoPrize.getNumberOfMatches() + "개 일치");
+        if(lottoPrize.getAllowBonusBall()) {
+            System.out.print(", 보너스 볼 일치");
         }
-        else if(lottoPrize != LottoPrize.NOTHING) {
-            System.out.println(numberOfMatches + "개 일치 (" + prizeMoney + "원)- " + count + "개");
-        }
+        System.out.println(" (" + lottoPrize.getPrizeMoney() + "원)- " + count + "개");
     }
 }
