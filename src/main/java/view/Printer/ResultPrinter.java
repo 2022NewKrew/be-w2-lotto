@@ -5,7 +5,6 @@ import domain.Prize;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class ResultPrinter {
     public static void print(List<Prize> prizes, int money) {
@@ -36,7 +35,6 @@ public class ResultPrinter {
             return 0;
 
         int moneyEarn = prizes.stream()
-                .filter(Objects::nonNull)
                 .map(Prize::getMoney)
                 .reduce(0, Integer::sum);
 

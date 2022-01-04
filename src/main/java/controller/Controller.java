@@ -8,6 +8,7 @@ import view.InputOutputManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Controller {
@@ -32,6 +33,7 @@ public class Controller {
         // Prize(결과) 생성
         List<Prize> prizes = lottoList.stream()
                 .map(lotto -> lotto.getResult(winningLotto))
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
         inputOutputManager.printResult(prizes, money);
     }
