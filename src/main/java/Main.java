@@ -1,3 +1,4 @@
+import lotto.controller.LottoController;
 import lotto.domain.component.LottoPrice;
 import lotto.domain.component.LottoTicket;
 import lotto.domain.component.WinningLottoTicket;
@@ -12,19 +13,15 @@ import static lotto.view.OutputView.*;
 
 public class Main {
 
+    private static final LottoController lottoController = new LottoController();
     public static void main(String[] args) throws IOException {
 
-
-        LottoMachine lottoMachine = new LottoMachine();
-
         LottoPrice lottoPrice = inputLottoPrice();
-        List<LottoTicket> lottoTickets = lottoMachine.makeLottoTicket(lottoPrice);
-
+        List<LottoTicket> lottoTickets = lottoController.purchaseLotto(lottoPrice);
         printLottoTickets(lottoTickets);
 
-        WinningLottoTicket winningLottoTicket = new WinningLottoTicket(inputWinningNumber(), inputBonusBall());
-        LottoResult lottoResult = new LottoResult(winningLottoTicket, lottoTickets, lottoPrice.getPrice());
-
+        WinningLottoTicket winningLottoTicket = lottoController.issueWinningLotto(inputWinningNumber(), inputBonusBall());
+        LottoResult lottoResult = lottoController.getLottoResult(winningLottoTicket, lottoTickets, lottoPrice.getPrice());
         printLottoResult(lottoResult);
     }
 }
