@@ -4,7 +4,7 @@ import lotto.domain.lotto.Lotto;
 import lotto.domain.result.LottoResult;
 import lotto.domain.result.LottoResultChecker;
 import lotto.domain.player.PlayerLottoList;
-import lotto.domain.result.WinnerLotto;
+import lotto.domain.result.WinningLotto;
 import lotto.view.LottoGameInput;
 import lotto.view.LottoGameOutput;
 
@@ -16,7 +16,7 @@ public class LottoGame {
     private int numberOfLotto;
     private int bonusNumber;
     private final PlayerLottoList playerLottoList = new PlayerLottoList();
-    private WinnerLotto winnerLotto;
+    private WinningLotto winningLotto;
 
     public void startGame(){
         try (Scanner scanner = new Scanner(System.in)) {
@@ -40,12 +40,12 @@ public class LottoGame {
     }
 
     private void drawLotto(Scanner scanner){
-        winnerLotto = LottoGameInput.inputWinningNumbers(scanner);
+        winningLotto = LottoGameInput.inputWinningNumbers(scanner);
         bonusNumber = LottoGameInput.inputBonusNumber(scanner);
     }
 
     private void showResults(){
-        LottoResultChecker lottoResultChecker = new LottoResultChecker(winnerLotto, bonusNumber);
+        LottoResultChecker lottoResultChecker = new LottoResultChecker(winningLotto, bonusNumber);
         List<LottoResult> playerLottoResults = lottoResultChecker.getLottoResults(playerLottoList);
 
         long rewardRate = calculateRewardRate(playerLottoResults);
@@ -57,6 +57,6 @@ public class LottoGame {
         for (LottoResult playerLottoResult : playerLottoResults) {
             totalEarnMoney += playerLottoResult.calculateEarnMoney();
         }
-        return (totalEarnMoney*100 / purchaseAmount);
+        return ((totalEarnMoney-purchaseAmount)*100 / purchaseAmount);
     }
 }

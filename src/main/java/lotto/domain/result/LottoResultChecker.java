@@ -9,11 +9,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LottoResultChecker {
-    private final WinnerLotto winnerLotto;
+    private final WinningLotto winningLotto;
     private final int bonusNumber;
 
-    public LottoResultChecker(WinnerLotto winnerLotto, int bonusNumber) {
-        this.winnerLotto = winnerLotto;
+    public LottoResultChecker(WinningLotto winnerLotto, int bonusNumber) {
+        this.winningLotto = winnerLotto;
         this.bonusNumber = bonusNumber;
     }
 
@@ -38,7 +38,7 @@ public class LottoResultChecker {
     }
 
     public LottoRank getOneLottoRank(PlayerLotto lotto){
-        Set<Integer> set = Stream.concat(lotto.getNumbers().stream(), winnerLotto.getNumbers().stream()).collect(Collectors.toSet());
+        Set<Integer> set = Stream.concat(lotto.getNumbers().stream(), winningLotto.getNumbers().stream()).collect(Collectors.toSet());
         int matchingCnt = Lotto.LOTTO_NUMBER_COUNT_MAX * 2 - set.size();
         boolean matchingBonusNumber = lotto.getNumbers().contains(bonusNumber);
 

@@ -4,11 +4,11 @@ import lotto.domain.lotto.Lotto;
 
 import java.util.List;
 
-public class WinnerLotto implements Lotto {
+public class WinningLotto implements Lotto {
 
     private final List<Integer> numbers;
 
-    public WinnerLotto(List<Integer> list) {
+    public WinningLotto(List<Integer> list) {
         this.numbers = list;
     }
 

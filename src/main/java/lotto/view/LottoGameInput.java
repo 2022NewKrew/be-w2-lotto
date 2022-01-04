@@ -1,6 +1,6 @@
 package lotto.view;
 
-import lotto.domain.result.WinnerLotto;
+import lotto.domain.result.WinningLotto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,11 +17,11 @@ public class LottoGameInput {
         return purchaseAmount;
     }
 
-    public static WinnerLotto inputWinningNumbers(Scanner scanner){
+    public static WinningLotto inputWinningNumbers(Scanner scanner){
         System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
         String numbers = scanner.nextLine();
 
-        return new WinnerLotto(Arrays.stream(numbers.split(","))
+        return new WinningLotto(Arrays.stream(numbers.split(","))
                 .map(Integer::parseInt)
                 .collect(Collectors.toCollection(ArrayList::new)));
     }
