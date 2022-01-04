@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class Lotto {
 
     public static int MIN_NUM_IN_LOTTO = 1;
-    public static int MAX_NUM_IN_LOTTO = 99;
+    public static int MAX_NUM_IN_LOTTO = 45;
     public static int LENGTH = 6;
 
     protected List<Integer> numbers;
