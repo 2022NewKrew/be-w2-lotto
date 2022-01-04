@@ -6,13 +6,12 @@ import domain.lottery.Ticket;
 
 import java.util.EnumMap;
 import java.util.List;
-import java.util.Random;
 
 public class Admin {
     private final static int DEFAULT_TICKET_PRICE = 1000;
 
-    private int ticketPrice;
-    private NumbersFactory numbersFactory;
+    private final int ticketPrice;
+    private final NumbersFactory numbersFactory;
     private Result result;
 
     public Admin() {
@@ -24,8 +23,8 @@ public class Admin {
         return ticketPrice;
     }
 
-    public Ticket buyRandomTicket(Random random) {
-        return new Ticket(random, numbersFactory);
+    public Ticket buyRandomTicket() {
+        return new Ticket(numbersFactory);
     }
 
     public void setResult(List<Integer> numbers, int bonusBall) {

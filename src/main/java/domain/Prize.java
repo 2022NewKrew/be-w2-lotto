@@ -16,7 +16,7 @@ public enum Prize {
 
     static {
         matchingCountToPrize = new HashMap<>();
-        // Notice that second prize is overwritten by third prize.
+        // Notice that the second prize is overwritten by the third prize.
         // This is kind of tricky, confusing and probably not safe.
         // Need a better approach.
         Arrays.asList(Prize.values()).forEach(prize -> matchingCountToPrize.put(prize.winningMatchingCount, prize));
@@ -24,6 +24,7 @@ public enum Prize {
 
     private final int winningMatchingCount;
     private final int value;
+
     Prize(int winningMatchingCount, int value) {
         this.winningMatchingCount = winningMatchingCount;
         this.value = value;

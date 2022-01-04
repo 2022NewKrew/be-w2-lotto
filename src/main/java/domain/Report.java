@@ -9,6 +9,7 @@ public class Report {
     public Report(int investment, EnumMap<Prize, Integer> prizeCount) {
         this.investment = investment;
         this.prizeCount = prizeCount;
+
         final int[] sum = {0};
         prizeCount.forEach((prize, count) -> sum[0] += prize.getValue() * count);
         prizeSum = sum[0];

@@ -4,7 +4,6 @@ import domain.lottery.Ticket;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class User {
     private final Admin admin;
@@ -25,10 +24,10 @@ public class User {
         return investment;
     }
 
-    public List<Ticket> buyRandomTicketsUnderBudget(int budget, Random random) {
+    public List<Ticket> buyRandomTicketsUnderBudget(int budget) {
         List<Ticket> newTickets = new ArrayList<>();
         while (budget >= admin.getTicketPrice()) {
-            newTickets.add(admin.buyRandomTicket(random));
+            newTickets.add(admin.buyRandomTicket());
             investment += admin.getTicketPrice();
             budget -= admin.getTicketPrice();
         }

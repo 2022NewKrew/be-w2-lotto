@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Result {
     private final List<Integer> numbers;
-    private int bonusBall;
+    private final int bonusBall;
 
     public Result(List<Integer> numbers, NumbersFactory numbersFactory, int bonusBall) {
         if (numbers.contains(bonusBall)) {

@@ -3,7 +3,6 @@ package domain.lottery;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -13,8 +12,8 @@ public class NumbersFactory {
     private static final List<Integer> NUMBERS_DOMAIN = IntStream.rangeClosed(NUMBER_DOMAIN_START, NUMBER_DOMAIN_END).boxed().collect(Collectors.toList());
     private static final int NUMBERS_LENGTH = 6;
 
-    public List<Integer> getRandomNumbers(Random random) {
-        Collections.shuffle(NUMBERS_DOMAIN, random);
+    public List<Integer> getRandomNumbers() {
+        Collections.shuffle(NUMBERS_DOMAIN);
         List<Integer> numbers = new ArrayList<>(NUMBERS_DOMAIN.subList(0, NUMBERS_LENGTH));
         Collections.sort(numbers);
         return numbers;
