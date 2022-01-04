@@ -10,8 +10,8 @@ class LottosTest {
 
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 5, 10})
-    @DisplayName("로또개수만큼 구매가 되어야 한다.")
-    void valueOf(int count) {
+    @DisplayName("주문한 개수만큼 로또가 구매되어야 한다.")
+    void test_CreateLottos_WhenCountIsGiven(int count) {
         // given
 
         // when
