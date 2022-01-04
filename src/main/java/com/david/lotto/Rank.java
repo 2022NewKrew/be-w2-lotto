@@ -1,5 +1,7 @@
 package com.david.lotto;
 
+import java.util.Arrays;
+
 public enum Rank {
     FIRST(6, 2000000000),
     SECOND(5, 30000000),
@@ -17,17 +19,18 @@ public enum Rank {
 
     public static Rank valueOf(int countOfMatch, boolean matchBonus) {
         Rank[] ranks = values();
-        for (Rank rank : ranks) {
-            if (countOfMatch == SECOND.countOfMatch) {
-                return matchBonus ? SECOND : THIRD;
-            }
+        return Arrays.stream(ranks)
+                .filter(rank -> rankMatch(rank, countOfMatch, matchBonus))
+                .findFirst()
+                .orElse(null);
+    }
 
-            if (rank.countOfMatch == countOfMatch) {
-                return rank;
-            }
+    private static boolean rankMatch(Rank rank, int countOfMatch, boolean matchBonus) {
+        boolean match = rank.countOfMatch == countOfMatch;
+        if (rank == SECOND) {
+            return matchBonus && match;
         }
-
-        return null;
+        return match;
     }
 
     public int getCountOfMatch() {
