@@ -5,7 +5,7 @@ import java.util.List;
 
 public class LottoCalculator {
 
-    public static LottoResult calculate(int inputMoney, List<Lotto> lottoList, List<Integer> winLottoNumbers) {
+    public static LottoTotalResult calculate(int inputMoney, List<Lotto> lottoList, List<Integer> winLottoNumbers) {
 
         List<Integer> matchedList = new ArrayList<>();
 
@@ -14,7 +14,7 @@ public class LottoCalculator {
             matchedList.add(numOfMatched);
         }
 
-        return new LottoResult(matchedList, inputMoney);
+        return new LottoTotalResult(matchedList, inputMoney);
     }
 
 }

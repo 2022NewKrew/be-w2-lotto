@@ -16,7 +16,7 @@ public class LottoGameController {
     private static LottoGameInfo lottoGameInfo;
     private static List<Lotto> lottoList;
     private static List<Integer> winLottoNumbers;
-    private static LottoResult lottoResult;
+    private static LottoTotalResult lottoTotalResult;
 
     public static void start() {
         inputPurchaseParam();
@@ -26,7 +26,7 @@ public class LottoGameController {
         inputWinLottoNumbers();
         validateWinLottoNumbers(winLottoNumbers);
         calcLottoResult(lottoGameInfo.getInputMoney(), lottoList, winLottoNumbers);
-        renderResult(lottoResult);
+        renderResult(lottoTotalResult);
     }
 
     private static void inputPurchaseParam() {
@@ -61,12 +61,12 @@ public class LottoGameController {
     }
 
     private static void calcLottoResult(int inputMoney, List<Lotto> lottoList, List<Integer> winLottoNumbers) {
-        lottoResult = LottoCalculator.calculate(inputMoney, lottoList, winLottoNumbers);
+        lottoTotalResult = LottoCalculator.calculate(inputMoney, lottoList, winLottoNumbers);
     }
 
-    private static void renderResult(LottoResult lottoResult) {
-        LottoRenderer.renderResult(lottoResult);
-        LottoRenderer.renderEarningRatio(lottoResult);
+    private static void renderResult(LottoTotalResult lottoTotalResult) {
+        LottoRenderer.renderResult(lottoTotalResult);
+        LottoRenderer.renderEarningRatio(lottoTotalResult);
     }
 
 }

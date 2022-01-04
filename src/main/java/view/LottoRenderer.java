@@ -1,9 +1,11 @@
 package view;
 
 import domain.lotto.Lotto;
-import domain.lotto.LottoResult;
+import domain.lotto.LottoTotalResult;
+import domain.prize.Prize;
 
 import java.util.List;
+import java.util.Map;
 
 public class LottoRenderer {
 
@@ -23,16 +25,17 @@ public class LottoRenderer {
         System.out.println(sb);
     }
 
-    public static void renderResult(LottoResult lottoResult) {
+    public static void renderResult(LottoTotalResult lottoTotalResult) {
+        Map<Prize, Long> totalResultMap = lottoTotalResult.getLottoTotalResultMap();
+        totalResultMap.keySet().stream().sorted(Prize::compareTo);
+
         System.out.println("당첨 통계");
         System.out.println("----------");
-        System.out.println("3개 일치 (5000원)- " + lottoResult.getFourthPrizeCount() + "개");
-        System.out.println("4개 일치 (50000원)- " + lottoResult.getThirdPrizeCount() + "개");
-        System.out.println("5개 일치 (1500000원)- " + lottoResult.getSecondPrizeCount() + "개");
-        System.out.println("6개 일치 (2000000000원)- " + lottoResult.getFirstPrizeCount() + "개");
+        totalResultMap.forEach((k, v) ->
+                System.out.printf("%s개 일치 (%s원)- %s개\n", k.getMatchedNum(), k.getPrizeMoney(), v));
     }
 
-    public static void renderEarningRatio(LottoResult lottoResult) {
-        System.out.println("총 수익률은 " + lottoResult.getEarningRatio() + "%입니다.");
+    public static void renderEarningRatio(LottoTotalResult lottoTotalResult) {
+        System.out.println("총 수익률은 " + lottoTotalResult.getEarningRatio() + "%입니다.");
     }
 }

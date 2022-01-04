@@ -1,65 +1,45 @@
 package domain.lotto;
 
-import java.util.List;
+import domain.prize.Prize;
+
+
+import static domain.prize.Prize.*;
 
 public class LottoResult {
 
-    private static final int FIRST_PRIZE = 6;
-    private static final int SECOND_PRIZE = 5;
-    private static final int THIRD_PRIZE = 4;
-    private static final int FOURTH_PRIZE = 3;
+    private Prize lottoPrize;
 
-    private int firstPrizeCount;
-    private int secondPrizeCount;
-    private int thirdPrizeCount;
-    private int fourthPrizeCount;
-    private int totalEarning;
-    private final double earningRatio;
-
-    public LottoResult(List<Integer> matchedList, int inputMoney) {
-        for (Integer matchedNum : matchedList) {
-            updatePrizeCount(matchedNum);
-        }
-        earningRatio = (totalEarning / (double) inputMoney) * 100;
-    }
-
-    private void updatePrizeCount(int matchedNum) {
+    public LottoResult(int matchedNum) {
         switch (matchedNum) {
-            case FIRST_PRIZE:
-                firstPrizeCount++;
-                totalEarning += 2000000000;
+            case FIRST_PRIZE_COUNT:
+                lottoPrize = FIRST_PRIZE;
                 break;
-            case SECOND_PRIZE:
-                secondPrizeCount++;
-                totalEarning += 1500000;
+            case SECOND_PRIZE_COUNT:
+                lottoPrize = SECOND_PRIZE;
                 break;
-            case THIRD_PRIZE:
-                thirdPrizeCount++;
-                totalEarning += 50000;
+            case THIRD_PRIZE_COUNT:
+                lottoPrize = THIRD_PRIZE;
                 break;
-            case FOURTH_PRIZE:
-                fourthPrizeCount++;
-                totalEarning += 5000;
+            case FOURTH_PRIZE_COUNT:
+                lottoPrize = FOURTH_PRIZE;
+                break;
+            case FIFTH_PRIZE_COUNT:
+                lottoPrize = FIFTH_PRIZE;
+                break;
+            default:
+                lottoPrize = NO_PRIZE;
         }
     }
 
-    public int getFirstPrizeCount() {
-        return firstPrizeCount;
+    public Prize getPrizeType() {
+        return lottoPrize;
     }
 
-    public int getSecondPrizeCount() {
-        return secondPrizeCount;
+    public int getPrizeMoney() {
+        return lottoPrize.getPrizeMoney();
     }
 
-    public int getThirdPrizeCount() {
-        return thirdPrizeCount;
-    }
-
-    public int getFourthPrizeCount() {
-        return fourthPrizeCount;
-    }
-
-    public double getEarningRatio() {
-        return earningRatio;
+    public int getMatchedNum() {
+        return lottoPrize.getMatchedNum();
     }
 }
