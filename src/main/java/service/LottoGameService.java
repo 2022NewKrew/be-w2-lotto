@@ -18,18 +18,9 @@ public class LottoGameService {
     }
 
     public static int checkNum(Lotto autoLotto, List<Integer> inputLastWeekWinNumbers) {
-//        int matchedNum = 0;
         return (int) inputLastWeekWinNumbers.stream()
                 .filter(inputLastWeekWinNumber -> checkLotto(autoLotto, inputLastWeekWinNumber))
                 .count();
-
-//        for (Integer num : inputLastWeekWinNumbers) {
-//            if (checkLotto(autoLotto, num)) {
-//                matchedNum++;
-//            }
-//        }
-//        System.out.println(matchedNum);
-//        return matchedNum;
     }
 
         public static Boolean checkLotto(Lotto autoLotto, Integer num) {
