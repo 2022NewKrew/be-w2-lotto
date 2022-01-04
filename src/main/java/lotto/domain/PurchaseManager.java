@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PurchaseManager {
@@ -9,6 +10,6 @@ public class PurchaseManager {
         for (int i = 0; i < pi.getNumOfPurchase(); i++) {
             result.add(new Lotto());
         }
-        return result;
+        return Collections.unmodifiableList(result);
     }
 }
