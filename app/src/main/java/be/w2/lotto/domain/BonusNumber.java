@@ -16,15 +16,15 @@ public class BonusNumber {
         return new BonusNumber(bonusNumber);
     }
 
+    public boolean isContainedIn(List<Integer> listedTicket) {
+        return listedTicket.contains(this.number);
+    }
+
     private static void validateBonusNumber(int bonusNumber, WinningLottoTicket winningLottoTicket)
             throws IllegalArgumentException
     {
         if (winningLottoTicket.contains(bonusNumber)) {
             throw new IllegalArgumentException(BONUS_NUMBER_DUPLICATION_NOT_ALLOWED_EXCEPTION);
         }
-    }
-
-    public boolean isContainedIn(List<Integer> listedTicket) {
-        return listedTicket.contains(this.number);
     }
 }

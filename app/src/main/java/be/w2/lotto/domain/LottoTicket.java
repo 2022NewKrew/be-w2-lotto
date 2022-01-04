@@ -27,11 +27,6 @@ public class LottoTicket {
         return new LottoTicket(lottoNumbers);
     }
 
-    private static final List<Integer> entireLottoNumbers = IntStream
-            .rangeClosed(LOTTO_NUMBER_LOWERBOUND, LOTTO_NUMBER_UPPERBOUND)
-            .boxed()
-            .collect(Collectors.toList());
-
     private static List<LottoNumber> generateLottoNumbers() {
         Collections.shuffle(entireLottoNumbers);
         return entireLottoNumbers.stream()
@@ -41,6 +36,11 @@ public class LottoTicket {
                 .map(LottoNumber::from)
                 .collect(Collectors.toList());
     }
+
+    private static final List<Integer> entireLottoNumbers = IntStream
+            .rangeClosed(LOTTO_NUMBER_LOWERBOUND, LOTTO_NUMBER_UPPERBOUND)
+            .boxed()
+            .collect(Collectors.toList());
 
     public static final int LOTTO_TICKET_PRICE = 1000;
 }

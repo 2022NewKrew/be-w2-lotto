@@ -9,21 +9,21 @@ public class WinningMatchResult {
     private final boolean isBonusRound;
     private final int count;
 
-    private WinningMatchResult(RewardRule rewardRule, int count) {
-        this.matchedNumber = rewardRule.getMatchedNumber();
-        this.reward = rewardRule.getReward();
-        this.isBonusRound = rewardRule.isBonus();
+    private WinningMatchResult(Reward reward, int count) {
+        this.matchedNumber = reward.getMatchedNumber();
+        this.reward = reward.getReward();
+        this.isBonusRound = reward.isBonus();
         this.count = count;
     }
 
     public static WinningMatchResult valueOf(
-            RewardRule rewardRule,
+            Reward reward,
             LottoTickets lottoTickets,
             WinningLottoTicket winningLottoTicket,
             BonusNumber bonusNumber
     ) {
-        int count = countMatching(rewardRule, lottoTickets, winningLottoTicket, bonusNumber);
-        return new WinningMatchResult(rewardRule, count);
+        int count = countMatching(reward, lottoTickets, winningLottoTicket, bonusNumber);
+        return new WinningMatchResult(reward, count);
     }
 
     public BigInteger calculateProfit() {
@@ -47,18 +47,18 @@ public class WinningMatchResult {
     }
 
     private static int countMatching(
-            RewardRule rewardRule,
+            Reward reward,
             LottoTickets lottoTickets,
             WinningLottoTicket winningLottoTicket,
             BonusNumber bonusNumber
     ) {
         return (int) lottoTickets.getLottoTickets().stream()
-                .filter(lottoTicket -> matchesByMatchedNumber(rewardRule, lottoTicket, winningLottoTicket, bonusNumber))
+                .filter(lottoTicket -> matchesByMatchedNumber(reward, lottoTicket, winningLottoTicket, bonusNumber))
                 .count();
     }
 
     private static boolean matchesByMatchedNumber(
-            RewardRule matchedNumber,
+            Reward reward,
             LottoTicket lottoTicket,
             WinningLottoTicket winningLottoTicket,
             BonusNumber bonusNumber
@@ -69,10 +69,10 @@ public class WinningMatchResult {
         boolean ticketContainsBonus = bonusNumber.isContainedIn(listedTicket);
         listedTicket.retainAll(listedWinningTicket);
 
-        if (matchedNumber.isBonus() && !ticketContainsBonus) {
+        if (reward.isBonus() && !ticketContainsBonus) {
             return false;
         }
 
-        return matchedNumber.hasSameMatchedNumber(listedTicket.size());
+        return reward.hasSameMatchedNumber(listedTicket.size());
     }
 }
