@@ -21,7 +21,7 @@ public class Lotto {
         return Prize.BLANK;
     }
 
-    public boolean hasBonusNumber(Winning winning) {
+    private boolean hasBonusNumber(Winning winning) {
         return numbers.contains(winning.getBonusNumber());
     }
 
