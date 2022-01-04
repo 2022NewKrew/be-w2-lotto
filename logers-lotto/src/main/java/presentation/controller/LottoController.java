@@ -7,8 +7,8 @@ import dto.input.PurchaseDto;
 import dto.input.WinningNumbersDto;
 import dto.output.PurchaseResultDto;
 import dto.output.RewardResultDto;
-import factory.LottoOrderFactory;
-import factory.WinningNumberFactory;
+import domain.factory.LottoOrderFactory;
+import domain.factory.WinningNumberFactory;
 import presentation.view.output.ErrorOutputView;
 import presentation.view.output.OutputView;
 import presentation.view.output.PurchaseOutputView;
@@ -41,9 +41,10 @@ public class LottoController {
 
     private OutputView getLottoResultView(WinningNumbersDto winningNumbersDto){
         LottoOrder lottoOrder = LottoOrderFactory.getInstance().orElseThrow();
-        WinningNumbers winningNumbers = WinningNumberFactory.getInstance(winningNumbersDto.getWinningNumbers()).orElseThrow();
-        RewardResult rewardResult = lottoOrder.getResult(winningNumbers);
+        WinningNumbers winningNumbers = WinningNumberFactory.getInstance(
+                winningNumbersDto.getWinningNumbers(), winningNumbersDto.getBonusNumbers()).orElseThrow();
 
+        RewardResult rewardResult = lottoOrder.getResult(winningNumbers);
         RewardResultDto rewardResultDto = new RewardResultDto(rewardResult.getMatchedToCount(), rewardResult.getProfitPercent());
         return new ResultOutputView(rewardResultDto);
     }

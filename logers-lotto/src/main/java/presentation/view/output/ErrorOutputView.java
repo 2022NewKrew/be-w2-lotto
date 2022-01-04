@@ -7,10 +7,9 @@ public class ErrorOutputView implements OutputView{
         this.runtimeException = runtimeException;
     }
 
-
     @Override
     public void print() {
         System.out.println(runtimeException.getMessage());
-        System.out.println("다시 입력해주세요.");
+        System.out.println("다시 프로그램을 실행하세요.");
     }
 }

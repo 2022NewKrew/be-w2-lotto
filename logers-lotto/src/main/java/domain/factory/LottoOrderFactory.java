@@ -1,4 +1,4 @@
-package factory;
+package domain.factory;
 
 import domain.Lotto;
 import domain.LottoOrder;
