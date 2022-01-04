@@ -27,4 +27,11 @@ public class ConsoleInputView implements InputView {
 
         return LottoNumbers.from(numbers);
     }
+
+    public LottoNumber getBonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        int bonusNumber = new Scanner(System.in).nextInt();
+
+        return LottoNumber.from(bonusNumber);
+    }
 }

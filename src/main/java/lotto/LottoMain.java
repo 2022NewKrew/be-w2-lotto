@@ -19,7 +19,9 @@ public class LottoMain {
         LottoTickets lottoTickets = LottoMachine.issue(inputMoney, lottoNumbersGenerator);
         outputView.printLottoTickets(lottoTickets);
 
-        WinningNumbers winningNumbers = WinningNumbers.from(inputView.getWinningNumbers());
+        LottoNumbers lottoNumbers = inputView.getWinningNumbers();
+        LottoNumber bonusNumber = inputView.getBonusNumber();
+        WinningNumbers winningNumbers = WinningNumbers.from(lottoNumbers, bonusNumber);
         LottoStatistics lottoStatistics = new LottoStatistics(winningNumbers, lottoTickets);
         outputView.printLottoStatistics(inputMoney, lottoStatistics);
     }
