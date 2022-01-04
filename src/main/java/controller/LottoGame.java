@@ -9,9 +9,8 @@ import view.ResultView;
 import java.util.List;
 import java.util.Map;
 
-public class GameManager {
+public class LottoGame {
     public static void start() {
-        // TODO - 함수 정리
         int purchaseAmount = InputView.inputPurchaseAmount();
         List<Lotto> lottoList = LottoMachine.buySeveralLotto(purchaseAmount);
         User user = new User(lottoList, purchaseAmount);
