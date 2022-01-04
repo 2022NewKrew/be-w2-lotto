@@ -6,9 +6,11 @@ public enum Sentence {
     BONUS_BALL_REQUEST("보너스 볼을 입력해 주세요."),
 
     INPUT_ERROR("잘못 입력하셨습니다."),
+    PLEASE_INPUT_NUMBERS("숫자만 입력해 주세요."),
     PLEASE_INPUT_POSITIVE_NUMBER("양의 정수만 입력해 주세요."),
-    PLEASE_INPUT_LOTTO_NUMBER("로또 번호 내에서 입력해 주세요."),
-    PLEASE_INPUT_NUMBER_UNIQUE("번호 중복없이 입력해 주세요."),
+    PLEASE_INPUT_WITHIN_LOTTO_NUMBER("로또 번호 내에서 입력해 주세요."),
+
+    ERROR_INAPPROPRIATE_LOTTO_NUMBER("ERROR : 적절하지 않은 로또 번호"),
 
     COMMA(","),
     NEWLINE(System.lineSeparator()),

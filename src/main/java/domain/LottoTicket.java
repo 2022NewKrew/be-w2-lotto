@@ -7,10 +7,6 @@ public final class LottoTicket {
 
     private final List<Integer> numbers;
 
-    public LottoTicket() {
-        this.numbers = Collections.unmodifiableList(LottoGenerator.getLottoTicket());
-    }
-
     public LottoTicket(List<Integer> numbers) {
         this.numbers = Collections.unmodifiableList(numbers);
     }

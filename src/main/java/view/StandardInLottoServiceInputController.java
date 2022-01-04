@@ -19,44 +19,43 @@ public final class StandardInLottoServiceInputController implements LottoService
     }
 
     @Override
-    public int getPurchaseAmount() throws InputMismatchException, IllegalArgumentException {
+    public int getPurchaseAmount() {
         System.out.println(PURCHASE_AMOUNT_REQUEST.getString());
-        int amount = scan.nextInt();
-        scan.nextLine();
+        try {
+            int amount = scan.nextInt();
+            scan.nextLine();
 
-        if(!ConditionCheck.isPositiveInteger(amount)) {
-            throw new IllegalArgumentException(INPUT_ERROR.getString() + NEWLINE.getString() + PLEASE_INPUT_POSITIVE_NUMBER.getString());
+            return amount;
+        } catch (InputMismatchException e) {
+            System.out.println(INPUT_ERROR.getString());
+            return getPurchaseAmount();
         }
-
-        return amount;
     }
 
     @Override
-    public List<Integer> getLastWeekWinningNumber() throws IllegalArgumentException {
+    public List<Integer> getLastWeekWinningNumber() {
         System.out.println(LAST_WEEK_WINNING_NUMBER_REQUEST.getString());
-        List<Integer> numbers = Arrays.stream(scan.nextLine().replaceAll(" ","").split(COMMA.getString())).map(Integer::valueOf).collect(Collectors.toList());
-
-        if(!numbers.stream().allMatch(ConditionCheck::isLottoNumber)) {
-            throw new IllegalArgumentException(INPUT_ERROR.getString() + NEWLINE.getString() + PLEASE_INPUT_LOTTO_NUMBER.getString());
+        try {
+            return Arrays.stream(scan.nextLine().replaceAll(" ", "").split(COMMA.getString()))
+                    .map(Integer::valueOf).collect(Collectors.toUnmodifiableList());
+        } catch (IllegalArgumentException e) {
+            System.out.println(INPUT_ERROR.getString());
+            System.out.println(PLEASE_INPUT_NUMBERS.getString());
+            return getLastWeekWinningNumber();
         }
-
-        if(!ConditionCheck.isDistinctNumbers(numbers)) {
-            throw new IllegalArgumentException(INPUT_ERROR.getString() + NEWLINE.getString() + PLEASE_INPUT_NUMBER_UNIQUE.getString());
-        }
-
-        return numbers;
     }
 
     @Override
-    public int getBonusBallNumber() throws InputMismatchException, IllegalArgumentException {
+    public int getBonusBallNumber() {
         System.out.println(BONUS_BALL_REQUEST.getString());
-        int number = scan.nextInt();
-        scan.nextLine();
+        try {
+            int number = scan.nextInt();
+            scan.nextLine();
 
-        if(!ConditionCheck.isLottoNumber(number)) {
-            throw new IllegalArgumentException(INPUT_ERROR.getString() + NEWLINE.getString() + PLEASE_INPUT_LOTTO_NUMBER.getString());
+            return number;
+        } catch (InputMismatchException e) {
+            System.out.println(INPUT_ERROR.getString());
+            return getPurchaseAmount();
         }
-
-        return number;
     }
 }

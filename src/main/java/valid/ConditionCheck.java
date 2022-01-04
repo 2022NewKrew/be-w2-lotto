@@ -19,20 +19,29 @@ public final class ConditionCheck {
     }
 
     /**+
-     * 인자 값이 가능한 로또 번호인지 판단하는 메소드입니다.
+     * 인자 값이 로또 만들기에 적합한 수인지 판단하는 메소드입니다.
+     * @param numbers
+     * @return 로또 만들기에 적합하면 true, 아니면 false
+     */
+    public static boolean isValidLottoNumber(List<Integer> numbers) {
+        return numbers.stream().allMatch(ConditionCheck::isLottoNumber) && isDistinctLottoNumbers(numbers);
+    }
+
+    /**+
+     * 인자 값이 로또번호 범위 내에 있는지 판단하는 메소드입니다.
      * @param number
-     * @return 인자 값이 로또 번호로 가능하면 true, 아니면 false
+     * @return 로또 번호 범위 내에 있으면 true, 아니면 false
      */
     public static boolean isLottoNumber(int number) {
         return MIN_LOTTO_NUMBER.getValue() <= number && number <= MAX_LOTTO_NUMBER.getValue();
     }
 
     /**+
-     * 인자 값에 중복 값이 없는지 판단하는 메소드입니다.
+     * 인자의 개수가 중복없이 필요한 로또 번호 개수만큼 있는지 판단하는 메소드입니다.
      * @param numbers
-     * @return 인자 값에 중복값이 없으면 true, 아니면 false
+     * @return 중복없이 필요한 로또 번호 개수만큼 있으면 true, 아니면 false
      */
-    public static boolean isDistinctNumbers(List<Integer> numbers) {
+    public static boolean isDistinctLottoNumbers(List<Integer> numbers) {
         Set<Integer> nums = new HashSet<>(numbers);
         return nums.size() == NUMBER_OF_LOTTO_NUMBERS.getValue();
     }
