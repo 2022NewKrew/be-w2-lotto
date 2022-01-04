@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 public class WinningLotto {
@@ -15,7 +16,7 @@ public class WinningLotto {
 
     private void assertValidBalls(List<Ball> balls) throws IllegalArgumentException {
         if ((balls.size() != NUMBER)
-                || balls.stream().map(Ball::getNumber).distinct().count() != balls.size()) {
+                || new HashSet<>(balls).size() != balls.size()) {
             throw new IllegalArgumentException(ILLEGAL_BALLS_NUMBER);
         }
     }
