@@ -29,7 +29,10 @@ public enum LottoResult {
     }
 
     private boolean isEqual(int numOfMatchings, boolean bonusMatching) {
-        return this.numOfMatchingDigits == numOfMatchings && this.bonusMatching == bonusMatching;
+        if (numOfMatchings == BONUS.getNumOfMatchingDigits()) {
+            return this.numOfMatchingDigits == numOfMatchings && this.bonusMatching == bonusMatching;
+        }
+        return this.numOfMatchingDigits == numOfMatchings;
     }
 
     public int getNumOfMatchingDigits() {
