@@ -25,6 +25,7 @@ public class LottoIO {
             lottosToBuy = new Lottos(moneyToBuyLottos);
         } catch (MoneyRangeException e) {
             e.printStackTrace();
+<<<<<<< HEAD
         }
         return lottosToBuy;
     }
@@ -70,6 +71,10 @@ public class LottoIO {
         return money;
 >>>>>>> edb2074 (1일차 중간 PR)
 =======
+=======
+        }
+        return lottosToBuy;
+>>>>>>> 7df44b8 (- return 구문 finally 밖으로 이동)
     }
 
     // 당첨 정보 입력 및 생성

@@ -43,6 +43,7 @@ class LottoInput {
         } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
 <<<<<<< HEAD
+<<<<<<< HEAD
         }
         return money;
     }
@@ -71,6 +72,10 @@ class LottoInput {
             return money;
         }
 >>>>>>> edb2074 (1일차 중간 PR)
+=======
+        }
+        return money;
+>>>>>>> 7df44b8 (- return 구문 finally 밖으로 이동)
     }
 
     public static LottoWinning inputWinning() {
@@ -81,8 +86,7 @@ class LottoInput {
             lottoWinning = new LottoWinning(winningList);
         } catch (IOException | NumberFormatException | PickedNumbersFormatException e) {
             e.printStackTrace();
-        } finally {
-            return lottoWinning;
         }
+        return lottoWinning;
     }
 }
