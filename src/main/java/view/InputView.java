@@ -11,6 +11,7 @@ public class InputView {
     private static final String DELIMITER_COMMA = ",";
     private static final Scanner scanner = new Scanner(System.in);
     private static final String MESSAGE_LOTTO_MANUAL_COUNT = "수동으로 구매할 로또 수를 입력해 주세요.";
+    private static final String MESSAGE_LOTTO_MANUAL_NUMBERS = "수동으로 구매할 번호를 입력해 주세요.";
     private static final String ILLEGAL_LOTTO = "로또는 6개의 서로 다른 숫자로 만들어져야 합니다";
     private static final String MESSAGE_CHECK_NUMERIC = "구매할 로또 수는 0이상의 정수여야 합니다.";
     private static final String NUMERIC_REGEX = "^[0-9]+$";
@@ -34,6 +35,13 @@ public class InputView {
     public static String enterBonusNumber() {
         System.out.println(MESSAGE_BONUS_NUMBER);
         return scanner.nextLine().trim();
+    }
+
+    public static void messageLottoManualCount(long lottoManualCount) {
+        if (lottoManualCount > 0) {
+            System.out.println();
+            System.out.println(MESSAGE_LOTTO_MANUAL_NUMBERS);
+        }
     }
 
     public static long enterLottoManualCount() {
