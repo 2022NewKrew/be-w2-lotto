@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,11 +7,10 @@ public class LottoRankMatch {
     private static final Map<LottoRank, Integer> lottoResult = null;
 
     public static Map<LottoRank, Integer> createLottoRankResult(LottoRepository autoLottos, List<Integer> inputLastWeekWinNumber) {
-//        lottoResult.put(new HashMap<LottoRank, Integer>());
         for (Lotto autoLotto : autoLottos.getLottos()) {
-            lottoResult.put(createLottoRank(autoLotto, inputLastWeekWinNumber))
+            lottoResult.put(createLottoRank(autoLotto, inputLastWeekWinNumber), 0);
         }
-        autoLottos.getLottos().stream().filter(autoLotto -> )
+        return lottoResult;
     }
 
     private static LottoRank createLottoRank(Lotto autoLotto, List<Integer> inputLastWeekWinNumber) {

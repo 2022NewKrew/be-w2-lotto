@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class LottoGenerator {
+public class LottoMachine {
     private static final Random random = new Random();
     private static final int MAXIMUM_VALUE = 46;
     private static final int MINIMUM_VALUE = 1;

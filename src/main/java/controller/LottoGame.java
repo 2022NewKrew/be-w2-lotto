@@ -1,6 +1,6 @@
 package controller;
 
-import domain.LottoGenerator;
+import domain.LottoMachine;
 import domain.LottoRank;
 import domain.LottoRankMatch;
 import domain.LottoRepository;
@@ -15,8 +15,8 @@ public class LottoGame {
     public void run() {
         int purchasedLottoNumbers = InputView.inputPurchaseAmount();
 
-        LottoGenerator lottoGenerator = new LottoGenerator();
-        LottoRepository autoLottos = lottoGenerator.createAutoLottos(purchasedLottoNumbers);
+        LottoMachine lottoMachine = new LottoMachine();
+        LottoRepository autoLottos = lottoMachine.createAutoLottos(purchasedLottoNumbers);
 
         OutputView.printAutuLottos(autoLottos);
         List<Integer> inputLastWeekWinNumber = InputView.inputLastWeekWinNumber();
