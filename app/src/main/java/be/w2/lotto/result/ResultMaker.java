@@ -3,9 +3,8 @@ package be.w2.lotto.result;
 import be.w2.lotto.cashier.Cashier;
 import be.w2.lotto.lottos.LastWinningLotto;
 import be.w2.lotto.lottos.Lotto;
-import be.w2.lotto.messages.GameMessage;
-import be.w2.lotto.view.Output;
-import be.w2.lotto.view.View;
+import be.w2.lotto.view.input.Input;
+import be.w2.lotto.view.output.Output;
 
 import java.util.List;
 
@@ -25,7 +24,6 @@ public final class ResultMaker {
         return INSTANCE;
     }
 
-    private View view = View.getInstance();
     private LastWinningLotto lastWinningLotto;
 
     public void proceedBy(List<Lotto> purchaseLotto) {
@@ -36,8 +34,7 @@ public final class ResultMaker {
     }
 
     private void inputLastWinningLotto() {
-        String lastWinningNumbers = view.inputStringWithMessage(GameMessage.INPUT_LAST_WINNING_NUMBER);
-        this.lastWinningLotto = LastWinningLotto.of(lastWinningNumbers);
+        this.lastWinningLotto = Input.inputLastWinningLotto();
     }
 
     private Result getResult(List<Lotto> purchaseLotto) {
@@ -49,6 +46,6 @@ public final class ResultMaker {
     }
 
     private void outputResult(Result result, int investment) {
-        view.output(Output.getOutputOfResult(result, investment));
+        Output.OutputResult(result, investment);
     }
 }

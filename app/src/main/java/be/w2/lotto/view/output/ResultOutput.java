@@ -1,4 +1,4 @@
-package be.w2.lotto.view;
+package be.w2.lotto.view.output;
 
 import be.w2.lotto.result.Result;
 import be.w2.lotto.result.RewardForCorrect;

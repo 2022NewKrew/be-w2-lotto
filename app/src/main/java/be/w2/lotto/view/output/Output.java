@@ -1,4 +1,4 @@
-package be.w2.lotto.view;
+package be.w2.lotto.view.output;
 
 import be.w2.lotto.lottos.Lotto;
 import be.w2.lotto.result.Result;
@@ -17,8 +17,8 @@ public final class Output {
      *
      * @param lottos 구매한 로또들
      */
-    public static String getOutputOfLottos(List<Lotto> lottos) {
-        return LottoOutput.getOutput(lottos);
+    public static void outputLottos(List<Lotto> lottos) {
+        output(LottoOutput.getOutput(lottos));
     }
 
     /**
@@ -29,7 +29,11 @@ public final class Output {
      * @param result     내 당첨 횟수
      * @param investment 투자금
      */
-    public static String getOutputOfResult(Result result, int investment) {
-        return ResultOutput.getOutput(result, investment);
+    public static void OutputResult(Result result, int investment) {
+        output(ResultOutput.getOutput(result, investment));
+    }
+
+    public static void output(String str) {
+        System.out.println(str);
     }
 }

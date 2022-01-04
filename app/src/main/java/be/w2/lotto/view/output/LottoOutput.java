@@ -1,4 +1,4 @@
-package be.w2.lotto.view;
+package be.w2.lotto.view.output;
 
 import be.w2.lotto.lottos.Lotto;
 import be.w2.lotto.lottos.LottoNumber;

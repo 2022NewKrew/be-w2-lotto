@@ -4,8 +4,8 @@ import be.w2.lotto.lottos.Lotto;
 import be.w2.lotto.machines.AutoPurchaseMachine;
 import be.w2.lotto.messages.GameMessage;
 import be.w2.lotto.result.ResultMaker;
-import be.w2.lotto.view.Output;
-import be.w2.lotto.view.View;
+import be.w2.lotto.view.input.Input;
+import be.w2.lotto.view.output.Output;
 
 import java.util.List;
 
@@ -25,8 +25,6 @@ public final class GameStarter {
         return INSTANCE;
     }
 
-    private final View view = View.getInstance();
-
     public void start() {
         int purchaseAmount = inputPurchaseAmount();
         List<Lotto> lottos = purchase(purchaseAmount);
@@ -36,7 +34,7 @@ public final class GameStarter {
     }
 
     private int inputPurchaseAmount() {
-        return view.inputIntWithMessage(GameMessage.INPUT_PURCHASE_AMOUNT);
+        return Input.inputIntWithMessage(GameMessage.INPUT_PURCHASE_AMOUNT);
     }
 
     private List<Lotto> purchase(int purchaseAmount) {
@@ -45,6 +43,6 @@ public final class GameStarter {
     }
 
     private void outputLottos(List<Lotto> lottos) {
-        view.output(Output.getOutputOfLottos(lottos));
+        Output.outputLottos(lottos);
     }
 }
