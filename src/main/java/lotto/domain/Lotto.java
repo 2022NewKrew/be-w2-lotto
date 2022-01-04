@@ -30,6 +30,20 @@ public class Lotto {
         return lottoWinner;
     }
 
+    public Long getPayment(){
+        return Long.valueOf(lottos.size() * LOTTO_PRICE) ;
+    }
+
+    public Long getEarning(){
+        Long totalEarning = Long.valueOf(0);
+
+        for(int correctCount = 0 ; correctCount <= LOTTO_LENGTH ; correctCount++){
+            totalEarning += Long.valueOf(LOTTO_WINNER_PRIZE.get(correctCount)) * lottoWinner.get(correctCount).getWinner().size();
+        }
+
+        return totalEarning;
+    }
+
     public void setLottoResult(LottoNumber lottoResult) {
         this.lottoResult = lottoResult;
     }
@@ -89,4 +103,6 @@ public class Lotto {
         newLotto.sort(Integer::compareTo);
         return new LottoNumber( newLotto );
     }
+
+
 }

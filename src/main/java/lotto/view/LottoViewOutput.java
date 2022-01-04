@@ -43,21 +43,6 @@ public class LottoViewOutput {
         for(int correctCount = 3 ; correctCount <= LOTTO_LENGTH ; correctCount++){
             System.out.println(correctCount + "개 일치 (" + LOTTO_WINNER_PRIZE.get(correctCount) + "원)- " + winnerList.get(correctCount).getWinner().size() + "개");
         }
-        System.out.println("총 수익률은 " + Long.valueOf((long) (getEarning().doubleValue() / getPayment() * 100)) + "%입니다.");
-    }
-
-    private Long getPayment(){
-        return Long.valueOf(lottoObject.getLottos().size() * LOTTO_PRICE) ;
-    }
-
-    private Long getEarning(){
-        Long totalEarning = Long.valueOf(0);
-        List<LottoWinner> winnerList = lottoObject.getLottoWinner();
-
-        for(int correctCount = 0 ; correctCount <= LOTTO_LENGTH ; correctCount++){
-            totalEarning += Long.valueOf(LOTTO_WINNER_PRIZE.get(correctCount)) * winnerList.get(correctCount).getWinner().size();
-        }
-
-        return totalEarning;
+        System.out.println("총 수익률은 " + Long.valueOf((long) (lottoObject.getEarning().doubleValue() / lottoObject.getPayment() * 100)) + "%입니다.");
     }
 }
