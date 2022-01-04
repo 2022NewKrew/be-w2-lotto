@@ -2,7 +2,7 @@ package controller;
 
 import domain.Lotto;
 import domain.LottoMachine;
-import domain.ResultCalculator;
+import domain.LottoResult;
 import view.InputView;
 import view.ResultView;
 
@@ -18,7 +18,7 @@ public class LottoGame {
         ResultView.printLottoList(lottoList);
 
         List<Integer> lastWeekWinningNumbers = InputView.inputLastWeekWinningNumber();
-        ResultView.printLottoResult(ResultCalculator.calculateLottoResult(lastWeekWinningNumbers));
-        ResultView.printRateOfReturn(ResultCalculator.calculateRateOfReturn(lastWeekWinningNumbers));
+        ResultView.printLottoResult(LottoResult.calculateLottoResult(lastWeekWinningNumbers));
+        ResultView.printRateOfReturn(LottoResult.calculateRateOfReturn(lastWeekWinningNumbers));
     }
 }

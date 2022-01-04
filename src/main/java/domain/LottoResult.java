@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ResultCalculator {
+public class LottoResult {
     public static Map<Integer, Integer> calculateLottoResult(List<Integer> lastWeekWinningNumbers) {
         Map<Integer, Integer> lottoResult = new HashMap<>();
         // TODO - 당첨 개수 계산
