@@ -24,7 +24,7 @@ public class LottoView {
         }
         System.out.println(result);
     }
-
+  
     public void showResult(){
         System.out.println("당첨 통계\n---------");
         Rank.showAllRank();

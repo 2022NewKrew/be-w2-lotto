@@ -8,6 +8,7 @@ public class LottoGame {
 
     private int inputPrice;
     private String lottoWinningNumbers;
+
     private int bonusNumber;
     private Person person;
     private LottoView lottoView;
