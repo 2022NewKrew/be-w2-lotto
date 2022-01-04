@@ -3,23 +3,20 @@ package com.meg.w2lotto.domain;
 import com.meg.w2lotto.view.InputView;
 import com.meg.w2lotto.view.OutputView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class LottoGame {
 
-    private int purchaseAmount;
+    private int purchaseMoney;
     private List<Lotto> lottos;
-    private List<Integer> correctCounts;
     private List<Integer> correctNumbers;
-    private final List<Integer> prizes = Arrays.asList(0, 0, 0, 5000, 50000, 1500000, 2000000000);
+    private int bonusBall;
+    private final Map<Prize, Integer> correctCountsWithPrize = new HashMap<>();
 
     public LottoGame() {
     }
 
-    public void start() {
+    public final void start() {
 
         generateLottos();
         showLottos();
@@ -28,41 +25,47 @@ public class LottoGame {
 
     }
 
-    private void generateLottos() {
-        purchaseAmount = InputView.askPurchaseAmount();
-        lottos = new ArrayList<>(purchaseAmount / Lotto.COST);
-        System.out.println(purchaseAmount / Lotto.COST);
-        for (int i = 0; i < purchaseAmount / Lotto.COST; i++) {
-            lottos.add(new Lotto());
+    private final void generateLottos() {
+        purchaseMoney = InputView.askPurchaseAmount();
+        lottos = new ArrayList<>(purchaseMoney / Lotto.COST);
+        for (int i = 0; i < purchaseMoney / Lotto.COST; i++) {
+            lottos.add(LottoFactory.createAutoLotto());
         }
         OutputView.printPurchaseMessage(lottos.size());
     }
 
-    private void showLottos() {
+    private final void showLottos() {
         for (int i = 0; i < lottos.size(); i++) {
             OutputView.printLottoNumber(lottos.get(i).getNumbers());
         }
     }
 
-    private void generateCorrectNumbers() {
-        correctNumbers = InputView.askLastLottoNumber();
+    private final void generateCorrectNumbers() {
+        correctNumbers = InputView.askLastLottoNumbers();
+        bonusBall = InputView.askBonusBallNumber();
     }
 
-    private void showResult() {
+    private final void showResult() {
         calculateCorrectCounts();
-        OutputView.printResult(prizes, correctCounts);
+        OutputView.printResult(correctCountsWithPrize);
         OutputView.printRateOfReturn(calculateRateOfReturn());
     }
 
-    private void calculateCorrectCounts() {
-        correctCounts = new ArrayList<>(Collections.nCopies(Lotto.NUMCOUNT + 1, 0));
+    private final void calculateCorrectCounts() {
+        setCorrectCountsWithPrize();
         for (Lotto lotto : lottos) {
-            int cnt = getCorrectCountsOfLotto(lotto);
-            correctCounts.set(cnt, correctCounts.get(cnt) + 1);
+            Prize prize = Prize.valueOf(getCorrectCountsOfLotto(lotto), containBonusBall(lotto));
+            addUpCorrectCount(prize);
         }
     }
 
-    private int getCorrectCountsOfLotto(Lotto lotto) {
+    private final void setCorrectCountsWithPrize() {
+        for (Prize prize : Prize.values()) {
+            correctCountsWithPrize.put(prize, 0);
+        }
+    }
+
+    private final int getCorrectCountsOfLotto(Lotto lotto) {
         int cnt = 0;
         for (int lnum : correctNumbers) {
             if (lotto.contains(lnum)) cnt += 1;
@@ -70,12 +73,23 @@ public class LottoGame {
         return cnt;
     }
 
-    private int calculateRateOfReturn() {
-        int totalReturn = 0;
-        for (int i = 3; i <= Lotto.NUMCOUNT; i++) {
-            totalReturn += (prizes.get(i) * correctCounts.get(i));
+    private final boolean containBonusBall(Lotto lotto) {
+        return lotto.contains(bonusBall);
+    }
+
+    private final void addUpCorrectCount(Prize prize) {
+        if (prize != null) {
+            correctCountsWithPrize.put(prize, correctCountsWithPrize.get(prize) + 1);
         }
-        return totalReturn / purchaseAmount * 100;
+    }
+
+    private final int calculateRateOfReturn() {
+        int totalReturn = 0;
+        for (Map.Entry<Prize, Integer> entry : correctCountsWithPrize.entrySet()) {
+            totalReturn += (entry.getKey().getWinningMoney() * entry.getValue());
+        }
+        System.out.println(totalReturn);
+        return (totalReturn-purchaseMoney) / purchaseMoney * 100;
     }
 
 }

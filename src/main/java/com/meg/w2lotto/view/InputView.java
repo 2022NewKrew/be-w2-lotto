@@ -8,21 +8,26 @@ public class InputView {
 
     private static final Scanner sc = new Scanner(System.in);
 
-    public static int askPurchaseAmount() {
+    public static final int askPurchaseAmount() {
         System.out.println("구입금액을 입력해주세요.");
         return sc.nextInt();
     }
 
-    public static List<Integer> askLastLottoNumber() {
+    public static final List<Integer> askLastLottoNumbers() {
         System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
         return StrListToIntList(List.of(sc.next().split(",")));
     }
 
-    private static List<Integer> StrListToIntList(List<String> input) {
+    private static final List<Integer> StrListToIntList(List<String> input) {
         List<Integer> list = new ArrayList<>();
         for (String c : input) {
-            list.add(Integer.parseInt(c));
+            list.add(Integer.parseInt(c.strip()));
         }
         return list;
+    }
+
+    public static final int askBonusBallNumber() {
+        System.out.println("\n보너스 볼을 입력해 주세요.");
+        return sc.nextInt();
     }
 }
