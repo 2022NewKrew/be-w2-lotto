@@ -1,24 +1,25 @@
 package lotto.step1.view.consoleView;
 
-import lotto.step1.controller.ConsoleLottoController;
+import lotto.step1.controller.LottoController;
 import lotto.step1.dto.request.LottoPurchaseSheetDTO;
 import lotto.step1.dto.response.PurchasedLottoDTO;
 import lotto.step1.exception.ConsoleInputCountExceededException;
+import lotto.step1.util.consoleInput.InputConsole;
 import lotto.step1.util.consoleInput.PurchaseAmountInputConsole;
 
 public class PurchaseLottoView implements ConsoleView {
-    private final ConsoleLottoController consoleLottoController;
-    private final PurchaseAmountInputConsole purchaseAmountInputConsole = new PurchaseAmountInputConsole();
+    private final LottoController lottoController;
+    private final InputConsole<Integer> purchaseAmountInputConsole = new PurchaseAmountInputConsole();
 
-    protected PurchaseLottoView(ConsoleLottoController consoleLottoController) {
-        this.consoleLottoController = consoleLottoController;
+    public PurchaseLottoView(LottoController lottoController) {
+        this.lottoController = lottoController;
     }
 
     @Override
     public void print() throws ConsoleInputCountExceededException {
         final LottoPurchaseSheetDTO lottoPurchaseSheet = inputLottoPurchaseSheet();
 
-        final PurchasedLottoDTO purchasedLotto = consoleLottoController.purchase(lottoPurchaseSheet);
+        final PurchasedLottoDTO purchasedLotto = lottoController.purchase(lottoPurchaseSheet);
 
         saveLottoIdFromConsoleTempMemory(purchasedLotto);
 

@@ -19,7 +19,7 @@ public interface InputConsole<T> {
     }
 
     private T read(int count) throws ConsoleInputCountExceededException {
-        System.out.printf("%s %d/%d%n", getMsg(), count, THRESHOLD);
+        System.out.printf("%s (오입력 횟수 : %d/%d)%n", getMsg(), count, THRESHOLD);
 
         try {
             checkThresholdAndThrowException(count);

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LottoGenerator {
-    private final List<Integer> totalLottoNumbers;
+    protected final List<Integer> totalLottoNumbers;
 
     public LottoGenerator() {
         final int minNumber = 1;
@@ -21,22 +21,28 @@ public class LottoGenerator {
     }
 
     public Lotto generate(LottoPurchaseSheetDTO lottoPurchaseSheetDTO) {
-        final int PRICE = 1000;
-        final int count = lottoPurchaseSheetDTO.getPurchaseAmount() / PRICE;
-
-        final List<LottoNumbers> purchasedLottoNumbersList = IntStream.range(0, count)
-                .mapToObj(i -> generateNumbers())
-                .collect(Collectors.toList());
-
+        final List<LottoNumbers> purchasedLottoNumbersList = generateLottoNumbersList(lottoPurchaseSheetDTO);
         return new Lotto(purchasedLottoNumbersList);
     }
 
-    private LottoNumbers generateNumbers() {
+    protected List<LottoNumbers> generateLottoNumbersList(LottoPurchaseSheetDTO lottoPurchaseSheetDTO) {
+        final int PRICE = 1000;
+        final int count = lottoPurchaseSheetDTO.getPurchaseAmount() / PRICE;
+
+        return IntStream.range(0, count)
+                .mapToObj(i -> generateLottoNumbers())
+                .collect(Collectors.toList());
+    }
+
+    protected LottoNumbers generateLottoNumbers() {
+        final List<Integer> randomNumbers = generateRandomNumbers();
+        return new LottoNumbers(randomNumbers);
+    }
+
+    protected List<Integer> generateRandomNumbers() {
         final int maxNumbers = 6;
 
         Collections.shuffle(totalLottoNumbers);
-        final List<Integer> pickedLottoNumbers = new ArrayList<>(totalLottoNumbers.subList(0, maxNumbers));
-
-        return new LottoNumbers(pickedLottoNumbers);
+        return new ArrayList<>(totalLottoNumbers.subList(0, maxNumbers));
     }
 }

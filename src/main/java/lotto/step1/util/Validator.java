@@ -12,7 +12,7 @@ public interface Validator<T> {
             throw new CustomFormatException("1에서 45의 숫자만 입력해주세요");
     };
 
-    Validator<Void> EMPTY_VALIDATOR = value -> {
+    Validator EMPTY_VALIDATOR = value -> {
     };
 
     Validator<Integer> GREATER_THAN_1000 = value -> {

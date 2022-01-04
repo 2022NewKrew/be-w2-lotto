@@ -1,6 +1,6 @@
 package lotto.step1.controller;
 
-import lotto.step1.dto.request.LastWeekWinningNumbersDTO;
+import lotto.step1.dto.request.ConfirmTheWinDTO;
 import lotto.step1.dto.response.LottoResultsDTO;
 import lotto.step1.dto.response.PurchasedLottoDTO;
 import lotto.step1.dto.request.LottoPurchaseSheetDTO;
@@ -11,9 +11,19 @@ import lotto.step1.repository.LottoRepository;
 
 import java.util.List;
 
-public class ConsoleLottoController {
-    private final LottoGenerator lottoGenerator = new LottoGenerator();
-    private final LottoRepository lottoRepository = new LottoRepository();
+public class LottoController {
+    protected final LottoGenerator lottoGenerator;
+    protected final LottoRepository lottoRepository;
+
+    public LottoController() {
+        this.lottoGenerator = new LottoGenerator();
+        this.lottoRepository = new LottoRepository();
+    }
+
+    protected LottoController(LottoGenerator lottoGenerator) {
+        this.lottoGenerator = lottoGenerator;
+        this.lottoRepository = new LottoRepository();
+    }
 
     public PurchasedLottoDTO purchase(LottoPurchaseSheetDTO lottoPurchaseSheetDTO) {
         final Lotto lotto = lottoGenerator.generate(lottoPurchaseSheetDTO);
@@ -23,8 +33,8 @@ public class ConsoleLottoController {
         return PurchasedLottoDTO.of(lotto);
     }
 
-    public LottoResultsDTO confirmTheWin(long lottoId, LastWeekWinningNumbersDTO lastWeekWinningNumbersDTO) {
-        final List<Integer> lastWeekWinningNumbers = lastWeekWinningNumbersDTO.getLastWeekWinningNumbers();
+    public LottoResultsDTO confirmTheWin(long lottoId, ConfirmTheWinDTO confirmTheWinDTO) {
+        final List<Integer> lastWeekWinningNumbers = confirmTheWinDTO.getLastWeekWinningNumbers();
 
         final Lotto lotto = lottoRepository.findById(lottoId)
                 .orElseThrow(NotFoundEntityException::new);

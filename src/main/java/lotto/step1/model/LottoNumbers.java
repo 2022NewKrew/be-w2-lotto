@@ -5,8 +5,8 @@ import java.util.stream.Collectors;
 
 
 public class LottoNumbers extends BaseEntity {
-    private final List<Integer> numbers;
-    private LottoResult result;
+    protected final List<Integer> numbers;
+    protected LottoResult result;
 
     protected LottoNumbers(List<Integer> numbers) {
         this.numbers = numbers;
