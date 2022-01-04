@@ -2,7 +2,7 @@ package service;
 
 import domain.Lotto;
 import domain.LottoAuto;
-import dto.LottoStatistic;
+import domain.LottoStatistic;
 import repository.LottoRepository;
 
 import java.io.BufferedReader;
