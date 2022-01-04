@@ -6,7 +6,8 @@ import java.util.stream.Stream;
 public class LottoService {
     private static final double COST_PER_LOTTO = 1000.0;
 
-    public LottoService() {}
+    public LottoService() {
+    }
 
     private void validateMoney(int money) {
         if (money < 0) throw new IllegalArgumentException();
