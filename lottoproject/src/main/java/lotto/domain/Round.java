@@ -1,30 +1,37 @@
 package lotto.domain;
 
+import lotto.util.Rank;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Round {
-    private final List<Lotto> lottos;
-    private final List<Integer> resultNumbers;
-    private final Map<Integer,Integer> resultMap;
+    private final Lottos lottos;
+    private final Map<Rank,Integer> resultMap;
 
-    public Round(List<Lotto> lottos, List<Integer> resultNumbers){
-        this.lottos = lottos;
-        this.resultNumbers = resultNumbers;
-        this.resultMap = findResultMap(lottos, resultNumbers);
-    };
+    public Round(List<Lotto> lottos, List<Integer> resultNumbers, int bonusNumber){
+        this.lottos = new Lottos(lottos);
+        this.resultMap = findResultMap(resultNumbers, bonusNumber);
+    }
 
-    private Map<Integer,Integer> findResultMap(List<Lotto> lottos, List<Integer> resultNumbers){
-        Map<Integer,Integer> resultMap = new HashMap<Integer,Integer>();
-        for(Lotto lotto : lottos){
-            int matchNumberCount = lotto.findMatchNumberCount(resultNumbers);
-            resultMap.put(matchNumberCount, resultMap.getOrDefault(matchNumberCount, 0)+1);
-        }
+    private Map<Rank,Integer> findResultMap(List<Integer> resultNumbers, int bonusNumber){
+        return lottos.findResultMap(resultNumbers, bonusNumber);
+    }
+
+    public Map<Rank,Integer> findResultMap(){
         return resultMap;
     }
 
-    public Map<Integer,Integer> findResultMap(){
-        return resultMap;
+    public int findLottoCount(){
+        return lottos.findSize();
+    }
+
+    public int findTotalReward(){
+        int totalReward = 0;
+        for (Map.Entry<Rank, Integer> rank : resultMap.entrySet()) {
+            totalReward += rank.getKey().getWinningMoney() * rank.getValue();
+        }
+        return totalReward;
     }
 }
