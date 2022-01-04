@@ -3,7 +3,7 @@
  */
 package lotto;
 
-import lotto.controller.LottoBuyer;
+import lotto.domain.LottoBuyer;
 
 public class LottoApp {
     public static void main(String[] args) {

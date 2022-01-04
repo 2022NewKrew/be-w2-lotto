@@ -1,6 +1,4 @@
-package lotto.controller;
-
-import lotto.model.Lotto;
+package lotto.domain;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package lotto.model;
+package lotto.domain;
 
 public enum LottoPrize {
     FIRST_PLACE(2_000_000_000, "6개 일치"),

@@ -1,7 +1,5 @@
-package lotto.controller;
+package lotto.domain;
 
-import lotto.model.Lotto;
-import lotto.model.LottoPrize;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
