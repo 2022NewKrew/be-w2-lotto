@@ -1,11 +1,19 @@
 package lotto.domain;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class RandomLottoNumberGenerator implements LottoNumbersGenerator {
     private static final int MIN_VALUE = 1;
     private static final int MAX_VALUE = 45;
     private static final int LOTTO_NUMBER_COUNT = 6;
+
+    private static List<Integer> numbers = new ArrayList<>();
+
+    static {
+        IntStream.range(MIN_VALUE, MAX_VALUE + 1)
+                .forEach(i -> numbers.add(i));
+    }
 
     public LottoNumbers generateLottoNumbers() {
         Set<LottoNumber> lottoNumbers = new HashSet<>();
@@ -19,13 +27,7 @@ public class RandomLottoNumberGenerator implements LottoNumbersGenerator {
     }
 
     private List<Integer> generateRandomNumbers() {
-        List<Integer> numbers = new ArrayList<>();
-
-        for (int i = MIN_VALUE; i <= MAX_VALUE; i++) {
-            numbers.add(i);
-        }
         Collections.shuffle(numbers);
-
         return numbers.subList(0, LOTTO_NUMBER_COUNT);
     }
 }
