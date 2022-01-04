@@ -1,7 +1,5 @@
 package view;
 
-import valid.ConditionCheck;
-
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
