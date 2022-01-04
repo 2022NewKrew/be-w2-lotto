@@ -2,10 +2,9 @@ package service;
 
 import domain.Lotto;
 import domain.Number;
-
 import java.util.ArrayList;
 import java.util.Collections;
-
+import static utils.Symbol.LOTTO_SIZE;
 import static utils.Symbol.MAX_LOTTO_RANGE;
 
 public class AutomaticGenerator implements LottoGenerator {
@@ -21,6 +20,8 @@ public class AutomaticGenerator implements LottoGenerator {
 
     public Lotto generate(){
         Collections.shuffle(numberList);
-        return new Lotto(new ArrayList<Number>(numberList.subList(0,6)));
+        ArrayList<Number> subNumberList = new ArrayList<Number>(numberList.subList(0,LOTTO_SIZE));
+        Collections.sort(subNumberList);
+        return new Lotto(subNumberList);
     }
 }
