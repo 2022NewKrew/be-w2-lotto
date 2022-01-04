@@ -7,12 +7,12 @@ public class LottoNumber implements Comparable<LottoNumber> {
     public static final int MIN_NUM_IN_LOTTO = 1;
     public static final int MAX_NUM_IN_LOTTO = 45;
 
-    private static final LottoNumber[] instances;
+    private static final LottoNumber[] INSTANCES;
 
     static {
-        instances = new LottoNumber[MAX_NUM_IN_LOTTO + 1];
+        INSTANCES = new LottoNumber[MAX_NUM_IN_LOTTO + 1];
         for (int i = MIN_NUM_IN_LOTTO; i <= MAX_NUM_IN_LOTTO; i++) {
-            instances[i] = new LottoNumber(i);
+            INSTANCES[i] = new LottoNumber(i);
         }
     }
 
@@ -29,7 +29,7 @@ public class LottoNumber implements Comparable<LottoNumber> {
     public static LottoNumber of(int number) {
         if (isNotInRangeOfLottoNumber(number))
             throw new NonValidLottoNumberException(ErrorMessage.NON_VALID_LOTTO_NUMBER);
-        return instances[number];
+        return INSTANCES[number];
     }
 
     private static boolean isNotInRangeOfLottoNumber(int num) {
