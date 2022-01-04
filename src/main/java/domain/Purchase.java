@@ -24,14 +24,12 @@ public class Purchase {
     }
 
     public Tickets buyRandomTicketsUnderBudget(int budget) {
-        Tickets newTickets = new Tickets();
         while (budget >= ticketPrice) {
-            newTickets.add(new Ticket(numbersFactory.getRandomNumbers()));
+            tickets.add(new Ticket(numbersFactory.getRandomNumbers()));
             investment += ticketPrice;
             budget -= ticketPrice;
         }
-        tickets.add(newTickets);
-        return newTickets;
+        return tickets;
     }
 
     public void setResult(List<Integer> numbers, int bonusBall) {

@@ -1,7 +1,5 @@
 package domain.lottery;
 
-import domain.Prize;
-
 import java.util.List;
 
 public class Result {
@@ -16,10 +14,6 @@ public class Result {
         // bonusBall의 값 범위 검증 추가해야 됨
         this.numbers = numbers;
         this.bonusBall = bonusBall;
-    }
-
-    public Prize getTicketPrize(Ticket ticket) {
-        return Prize.getPrize(this, ticket);
     }
 
     public int getMatchingCountOf(Ticket ticket) {

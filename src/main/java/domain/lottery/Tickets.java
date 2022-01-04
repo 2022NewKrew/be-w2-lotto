@@ -3,9 +3,11 @@ package domain.lottery;
 import domain.Prize;
 
 import java.util.ArrayList;
-import java.util.EnumMap;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Tickets {
     private final List<Ticket> tickets;
@@ -21,25 +23,17 @@ public class Tickets {
     public Map<Prize, Integer> getPrizeCount(Result result) {
         Map<Prize, Integer> prizeCount = createInitializedPrizeCount();
         for (var ticket : tickets) {
-            Prize ticketPrize = result.getTicketPrize(ticket);
+            Prize ticketPrize = Prize.getPrize(result, ticket);
             prizeCount.put(ticketPrize, prizeCount.get(ticketPrize) + 1);
         }
         return prizeCount;
     }
 
     private Map<Prize, Integer> createInitializedPrizeCount() {
-        EnumMap<Prize, Integer> prizeCount = new EnumMap<>(Prize.class);
-        for (var prize : Prize.values()) {
-            prizeCount.put(prize, 0);
-        }
-        return prizeCount;
+        return Arrays.stream(Prize.values()).collect(Collectors.toMap(Function.identity(), prize -> Integer.valueOf(0)));
     }
 
     public void add(Ticket ticket) {
         tickets.add(ticket);
-    }
-
-    public void add(Tickets tickets) {
-        this.tickets.addAll(tickets.tickets);
     }
 }
