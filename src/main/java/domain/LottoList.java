@@ -13,15 +13,21 @@ public class LottoList {
     public LottoList() {
         lottoList = new ArrayList<>();
         lottoGenerator = new LottoGenerator();
+        lottoPrice = 0;
     }
 
-    public void createLottoList(int lottoPrice){
-        this.lottoPrice = lottoPrice;
+    public void createAutoLottoList(int lottoPrice){
+        this.lottoPrice += lottoPrice;
         int quantity = lottoPrice / ONE_LOTTO_PRICE;
 
         for(int i=0; i<quantity; i++){
             lottoList.add(lottoGenerator.createLotto());
         }
+    }
+
+    public void createManualLottoList(Lotto lotto){
+        lottoPrice += ONE_LOTTO_PRICE;
+        lottoList.add(lotto);
     }
 
     public List<Lotto> getLottoList(){

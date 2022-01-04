@@ -15,7 +15,7 @@ public class LottoController {
         LottoList lottoList = new LottoList();
         LottoView lottoView = new LottoView();
 
-        lottoList.createLottoList(inputPrice());
+        lottoList.createAutoLottoList(inputPrice());
         lottoView.printLottoList(lottoList);
 
         Lotto resultLottoNumber = inputResultLotto();
