@@ -10,17 +10,15 @@ import java.util.stream.Collectors;
 
 public final class StandardInLottoServiceInputController implements LottoServiceInputController {
 
-    private final LottoServiceRenderer renderer;
     private final Scanner scan;
 
-    public StandardInLottoServiceInputController(LottoServiceRenderer renderer) {
-        this.renderer = renderer;
+    public StandardInLottoServiceInputController() {
         this.scan = new Scanner(System.in);
     }
 
     @Override
     public int getPurchaseAmount() throws InputMismatchException, IllegalArgumentException {
-        renderer.displaySentence("구입금액을 입력해 주세요.");
+        System.out.println("구입금액을 입력해 주세요.");
         int amount = scan.nextInt();
         scan.nextLine();
 
@@ -33,7 +31,7 @@ public final class StandardInLottoServiceInputController implements LottoService
 
     @Override
     public List<Integer> getLastWeekWinningNumber() throws InputMismatchException, IllegalArgumentException {
-        renderer.displaySentence("지난 주 당첨 번호를 입력해 주세요.");
+        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         List<Integer> numbers = Arrays.stream(scan.nextLine().split(",")).map(Integer::valueOf).collect(Collectors.toList());
 
         if(!numbers.stream().allMatch(ConditionCheck::isLottoNumber)) {
