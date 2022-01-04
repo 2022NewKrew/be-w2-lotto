@@ -8,7 +8,7 @@ import static lotto.domain.RandomLottoNumberGenerator.NUMBERS_TO_PICK;
 public class InputView {
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static int getPositiveIntFromScanner(String prompt) {
+    public int getPositiveIntFromScanner(String prompt) {
         System.out.print(prompt);
 
         int input;
@@ -20,7 +20,7 @@ public class InputView {
         return input;
     }
 
-    public static Set<Integer> getWinnerNumbersFromScanner(String prompt) {
+    public Set<Integer> getWinnerNumbersFromScanner(String prompt) {
         System.out.println(prompt);
         Set<Integer> result = new HashSet<>();
         String input;

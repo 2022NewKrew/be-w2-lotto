@@ -1,7 +1,5 @@
 package lotto.domain;
 
-import lotto.view.InputView;
-
 import java.util.*;
 
 public class LottoShop {
@@ -10,30 +8,23 @@ public class LottoShop {
 
     private Set<Integer> winnerNumber = new HashSet<>();
 
+    public Set<Integer> getWinnerNumber() {
+        return Collections.unmodifiableSet(winnerNumber);
+    }
+
+    public void setWinnerNumber(Set<Integer> winnerNumber) {
+        this.winnerNumber = winnerNumber;
+    }
+
     /**
-     * {@link Gambler}의 모든 돈으로 로또 구매
+     * {@link Gambler}의 돈으로 로또 구매
      */
-    public void sellLottoTicket(Gambler gambler) {
-        int inputMoney = InputView.getPositiveIntFromScanner("구입 금액을 입력해주세요: ");
-        int sellCount = inputMoney / PRICE;
-        System.out.printf("%d개를 구매했습니다.%n", sellCount);
+    public void sellLottoTicket(Gambler gambler, int moneyToBuy) {
+        int sellCount = moneyToBuy / PRICE;
 
         for (int i=0; i<sellCount; ++i) {
             Set<Integer> numbers = RandomLottoNumberGenerator.generateRandomLottoNumbers();
-            LottoTicket lottoTicket = new LottoTicket(numbers);
-            gambler.addLottoTicket(lottoTicket);
-            System.out.println(lottoTicket);
+            gambler.addLottoTicket(new LottoTicket(numbers));
         }
-    }
-
-    /**
-     * {@link Scanner}에서 당첨번호 받아와 등록
-     */
-    public void setWinnerNumberFromScanner() {
-        winnerNumber = InputView.getWinnerNumbersFromScanner("지난 주 당첨 번호를 입력해주세요: ");
-    }
-
-    public Set<Integer> getWinnerNumber() {
-        return Collections.unmodifiableSet(winnerNumber);
     }
 }
