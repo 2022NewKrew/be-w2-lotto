@@ -1,4 +1,6 @@
-package lotto;
+package lotto.controller;
+
+import lotto.model.Lotto;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,10 +16,6 @@ public class LottoMachine {
 
     public static Lotto generateLotto() {
         Collections.shuffle(numbers);
-        return new Lotto(getSubListFromNumbers());
-    }
-
-    private static List<Integer> getSubListFromNumbers() {
-        return new ArrayList(numbers.subList(0, LOTTO_LENGTH));
+        return new Lotto(new ArrayList(numbers.subList(0, LOTTO_LENGTH)));
     }
 }

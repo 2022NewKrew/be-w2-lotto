@@ -1,4 +1,4 @@
-package lotto;
+package lotto.model;
 
 public enum LottoPrize {
     FIRST_PLACE(2_000_000_000, "6개 일치"),
@@ -19,8 +19,8 @@ public enum LottoPrize {
             case 3: return FIFTH_PLACE;
             case 4: return FOURTH_PLACE;
             case 5: return THIRD_PLACE;
-            case 6: return SECOND_PLACE;
-            case 7: return FIRST_PLACE; // 보너스볼 없이 6개 일치
+            case 6: return SECOND_PLACE;// 보너스볼 포함 6개 일치
+            case 7: return FIRST_PLACE; // 보너스볼 제외 6개 일치
             default: return null;
         }
     }

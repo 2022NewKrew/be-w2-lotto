@@ -1,14 +1,17 @@
-package lotto;
+package lotto.view;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
 
-public class Input {
+public class InputView {
     private static final String MSG_INPUT_MONEY = "구매금액을 입력해 주세요.";
     private static final String MSG_INPUT_WINNING_NUMBERS = "지난주 당첨 번호를 입력해 주세요.";
     private static final String MSG_INPUT_BONUS = "보너스 볼을 입력해 주세요.";
     private static Scanner scanner;
+
+    private InputView() {
+    }
 
     public static void openScanner() {
         scanner = new Scanner(System.in);

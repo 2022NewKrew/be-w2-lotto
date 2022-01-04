@@ -1,9 +1,16 @@
-package lotto;
+package lotto.view;
+
+import lotto.model.Lotto;
+import lotto.model.LottoPrize;
 
 import java.util.List;
 import java.util.Map;
 
 public class OutputView {
+
+    private OutputView() {
+    }
+
     public static void printCountLotto(int countLotto) {
         System.out.println(countLotto + "개를 구매했습니다.");
     }

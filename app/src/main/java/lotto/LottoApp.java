@@ -3,7 +3,9 @@
  */
 package lotto;
 
-public class App {
+import lotto.controller.LottoBuyer;
+
+public class LottoApp {
     public static void main(String[] args) {
         LottoBuyer lottoBuyer = new LottoBuyer();
         lottoBuyer.start();
