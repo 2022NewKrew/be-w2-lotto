@@ -17,18 +17,19 @@ public class ResultManager {
     private static final int NO_MATCH = 0;
     private static final int START_MATCH_NUM = 3;
 
-    private ResultManager() {}
+    private ResultManager() {
+    }
 
     public static void printResult(int numLines, List<Integer> resultList) {
         int totalWinning = 0;
         List<Integer> priceLst = new ArrayList<>(Arrays.asList(NO_MATCH, SIXTH, FIFTH, FORTH, THIRD, SECOND, FIRST));
 
         OutputView.printPreResult();
-        for (int i=START_MATCH_NUM; i<=NUM_PER_LINE; i++) {
+        for (int i = START_MATCH_NUM; i <= NUM_PER_LINE; i++) {
             OutputView.printResult(i, priceLst.get(i), resultList.get(i));
             totalWinning += priceLst.get(i) * resultList.get(i);
         }
 
-        OutputView.printYield(totalWinning/(numLines * 1000)*100);
+        OutputView.printYield(totalWinning / (numLines * 1000) * 100);
     }
 }
