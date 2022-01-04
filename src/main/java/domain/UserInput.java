@@ -18,7 +18,15 @@ public class UserInput {
         }
         return result;
     }
-
+    public static int getBonusWinningInput() {
+        int result = -1;
+        System.out.println("보너스 볼을 입력해 주세요.");
+        while (!sc.hasNextInt() || ((result = sc.nextInt()) > END_NUMBER) || result < START_NUMBER) {
+            System.out.println("1~45 사이의 당첨 번호를 입력해주세요.");
+            sc.next();
+        }
+        return result;
+    }
     public static List getWinningInput() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         List<Integer> arrayList;

@@ -22,9 +22,13 @@ public class Player {
     {
         return lottoList.stream()
                 .map(t -> t.countMatchNumber(winningNumber))
-                .filter(s -> s > 0)
                 .collect(Collectors.toList());
     }
-
+    public List<Boolean> matchingBonusLotto(Integer bonusNumber)
+    {
+        return lottoList.stream()
+                .map(t -> t.countBonusNumber(bonusNumber))
+                .collect(Collectors.toList());
+    }
 
 }

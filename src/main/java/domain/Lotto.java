@@ -14,4 +14,7 @@ public class Lotto {
     public int countMatchNumber(List<Integer> winningNumber) {
         return (int) numberList.stream().filter(t -> winningNumber.contains(t)).count();
     }
+    public Boolean countBonusNumber(Integer bonusNumber) {
+        return numberList.contains(bonusNumber);
+    }
 }

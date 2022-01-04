@@ -1,50 +1,50 @@
-import domain.Lotto;
-import domain.Matching;
-import domain.Player;
-import domain.UserInput;
+import domain.*;
 import view.LottoView;
 import view.MatchingView;
 import view.PlayerView;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class main {
     private static Player player;
+    private static int payPrice;
     private static PlayerView playerView = new PlayerView();
     private static LottoView lottoView = new LottoView();
     private static Matching matching = new Matching();
-    private static List<Integer> winningNumber;
-    public static void main(String[] args) {
+    private static MatchingView matchingView = new MatchingView();
 
-        player = new Player(UserInput.getPayPriceInput());
+    public static void main(String[] args) {
+        player = new Player(payPrice = UserInput.getPayPriceInput());
         printLottoList();
         printLottoSize();
         addMatchingLotto();
-
-        MatchingView matchingView = new MatchingView(matching, player);
-        matchingView.PrintMatchResult();
+        printMatchingResult();
     }
-    private static void printLottoList()
-    {
+
+    private static void printLottoList() {
         List<Lotto> lottoList = player.getLottoList();
-        for(Lotto lotto : lottoList)
-        {
-            List<Integer> numberList = lotto.getNumberList();
-            String lottoNumber = numberList.stream().map(v -> v.toString()).collect(Collectors.joining(","));
-            lottoView.printLottoNumber(lottoNumber);
+        for (Lotto lotto : lottoList) {
+            lottoView.printLottoNumber(lotto.getNumberList());
         }
     }
+
     private static void printLottoSize() {
         playerView.PrintLottoSize(player.getLottoList().size());
     }
-    private static void addMatchingLotto()
-    {
-        winningNumber= UserInput.getWinningInput();
+
+    private static void addMatchingLotto() {
+        List<Integer> winningNumber = UserInput.getWinningInput();
+        Integer bonusNumber = UserInput.getBonusWinningInput();
         List<Integer> matchingLottos = player.matchingLotto(winningNumber);
-        for(Integer num : matchingLottos)
-        {
-            matching.addMatchMap(num);
+        List<Boolean> matchingBonusLottos = player.matchingBonusLotto(bonusNumber);
+        for (int i = 0; i < matchingLottos.size(); i++) {
+            Prize prize = Prize.getPrize(matchingLottos.get(i), matchingBonusLottos.get(i));
+            matching.addMatchingMap(prize);
         }
+    }
+
+    private static void printMatchingResult() {
+        EnumMap<Prize, Long> matchingMap = matching.getMatchingMap();
+        matchingView.PrintMatchResult(matchingMap, payPrice);
     }
 }
