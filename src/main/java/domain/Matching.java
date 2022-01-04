@@ -5,24 +5,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Matching {
-    private final List<Integer> winningNumber;
+
     private HashMap<Integer,Integer> matchMap = new HashMap<>();
     private int totalMatchMoney = 0;
 
-    public Matching(List winningNumber) {
-        this.winningNumber = winningNumber;
-    }
-
-    public void matchPlayer(Player player) {
-        final List<Lotto> lottoList = player.getLottoList();
-
-        for(Lotto lotto : lottoList)
-        {
-            addMatchMap(winningNumber.stream().filter(t -> lotto.getNumberList().contains(t)).
-                    collect(Collectors.toList()).size());
-            // Player의 lottoList에서 각 lotto마다 winningNumber와 맞은 개수를 구함.
-        }
-    }
     public void addMatchMap(int key)
     {
         addMatchMoney(key);

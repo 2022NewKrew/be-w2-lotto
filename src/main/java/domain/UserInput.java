@@ -4,7 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-
+import static domain.Lotto.END_NUMBER;
+import static domain.Lotto.START_NUMBER;
 public class UserInput {
     private static final Scanner sc = new Scanner(System.in);
 
@@ -30,7 +31,7 @@ public class UserInput {
         return arrayList;
     }
     private static boolean isCorrectWinningList(List<Integer> arrayList) {
-        if(arrayList.stream().filter(player -> (player > 45) || (player < 1)).count() >0)
+        if(arrayList.stream().filter(player -> (player > END_NUMBER) || (player < START_NUMBER)).count() >0)
         {
             System.out.println("1~45 사이의 당첨 번호를 입력해주세요.");
             return false;
