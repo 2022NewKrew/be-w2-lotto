@@ -17,13 +17,9 @@ class LottoTest {
     @Test
     void getLottoNumbers() {
         Lotto lotto = new Lotto();
-        ArrayList<Integer> lottoNumbers = lotto.getLottoNumbers();
+        ArrayList<LottoBall> lottoNumbers = lotto.getLottoNumbers();
         System.out.println(lottoNumbers);
         assertThat(lottoNumbers.size()).isEqualTo(6);
-        for(var lottoNumber: lottoNumbers) {
-            assertThat(lottoNumber).isGreaterThanOrEqualTo(0);
-            assertThat(lottoNumber).isLessThanOrEqualTo(45);
-        }
     }
 
     @Test
@@ -32,8 +28,8 @@ class LottoTest {
 
     @Test
     void countMatch() {
-        WinningLotto winningLotto = new WinningLotto(Arrays.asList(1,2,3,4,5,6));
-        Lotto lotto2 = new Lotto(Arrays.asList(1,2,3,7,8,9));
+        WinningLotto winningLotto = new WinningLotto(Arrays.asList(LottoBall.B1,LottoBall.B2,LottoBall.B3,LottoBall.B4,LottoBall.B5,LottoBall.B6));
+        Lotto lotto2 = new Lotto(Arrays.asList(LottoBall.B1,LottoBall.B2,LottoBall.B3,LottoBall.B7,LottoBall.B8,LottoBall.B9));
         assertThat(winningLotto.countMatch(lotto2)).isEqualTo(3);
     }
 }

@@ -1,6 +1,7 @@
 package view;
 
 import lotto.Lotto;
+import lotto.LottoBall;
 import lotto.LottoMachine;
 import lotto.WinningLotto;
 
@@ -41,9 +42,9 @@ public class PrintLotto {
         return new WinningLotto(splitNumbers(in.next()));
     }
 
-    private static List<Integer> splitNumbers(String numStr) {
+    private static List<LottoBall> splitNumbers(String numStr) {
         final List<String> inputs = new ArrayList<>(Arrays.asList(numStr.split(",")));
-        return inputs.stream().map(x -> Integer.parseInt(x.trim())).collect(Collectors.toList());
+        return inputs.stream().map(x -> LottoBall.values()[Integer.parseInt(x.trim())-1]).collect(Collectors.toList());
     }
 
     private static void printLottoResult(int money, List<Integer> matchCounts) {
