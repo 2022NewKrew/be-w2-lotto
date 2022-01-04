@@ -22,7 +22,7 @@ public class LottoTotalResult {
     }
 
     private double calculateEarningRatio(int inputMoney) {
-        return (totalEarning / (double) inputMoney) * 100;
+        return (totalEarning - inputMoney) / (double) inputMoney * 100;
     }
 
     public double getEarningRatio() {
