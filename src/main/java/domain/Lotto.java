@@ -1,7 +1,9 @@
 package domain;
 
 import constant.Constants;
+import domain.lottonumber.LottoNumber;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Lotto {
@@ -28,6 +30,7 @@ public class Lotto {
 
     public void checkLottoResult(List<LottoNumber> winningNumbers) {
         lottoResults = new LottoResults();
+        //스트림 그룹바이?
         for (LottoTicket lottoTicket : lottoTickets) {
             match(winningNumbers, lottoTicket);
         }
@@ -42,18 +45,18 @@ public class Lotto {
         System.out.println("3개 일치 (5000원)- " + lottoResults.getCountBy(LottoResult.FIFTH) + "개");
         System.out.println("4개 일치 (50000원)- " + lottoResults.getCountBy(LottoResult.FOURTH) + "개");
         System.out.println("5개 일치 (1500000원)- " + lottoResults.getCountBy(LottoResult.THIRD) + "개");
+        System.out.println("5개 일치, 보너스 볼 일치 (30000000원)- " + lottoResults.getCountBy(LottoResult.SECOND) + "개");
         System.out.println("6개 일치 (2000000000원)- " + lottoResults.getCountBy(LottoResult.FIRST) + "개");
     }
 
     private void printYield() {
-        System.out.println("총 수익률은 " + (getEarnedMoney() / getPrice()) * 100 + "%입니다.");
+        System.out.println("총 수익률은 " + (getEarnedMoney() - getPrice()) / getPrice() * 100 + "%입니다.");
     }
 
     public long getEarnedMoney() {
-        return lottoResults.getCountBy(LottoResult.FIFTH) * LottoResult.FIFTH.getPrizeMoney()
-                + lottoResults.getCountBy(LottoResult.FOURTH) * LottoResult.FOURTH.getPrizeMoney()
-                + lottoResults.getCountBy(LottoResult.THIRD) * LottoResult.THIRD.getPrizeMoney()
-                + lottoResults.getCountBy(LottoResult.FIRST) * LottoResult.FIRST.getPrizeMoney();
+        return Arrays.stream(LottoResult.values())
+                .mapToLong(lottoResult -> lottoResults.getCountBy(lottoResult) * lottoResult.getPrizeMoney())
+                .sum();
     }
 
     public long getPrice() {
@@ -61,8 +64,8 @@ public class Lotto {
     }
 
     private void match(List<LottoNumber> winningNumbers, LottoTicket lottoTicket) {
-        int numberOfMatchedNumber = lottoTicket.getNumberOfMatchedNumber(winningNumbers);
-        LottoResult.getLottoResultType(numberOfMatchedNumber).ifPresent(lottoResults::addLottoResult);
+        LottoMatchResultDto lottoMatchResultDto = lottoTicket.getNumberOfMatchedNumber(winningNumbers);
+        LottoResult.getLottoResultType(lottoMatchResultDto).ifPresent(lottoResults::addLottoResult);
     }
 
 }
