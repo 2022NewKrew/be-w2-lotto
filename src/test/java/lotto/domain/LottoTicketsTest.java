@@ -4,7 +4,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,7 +15,7 @@ class LottoTicketsTest {
     @DisplayName("로또 티켓 10개 생성 테스트")
     @Test
     public void create() {
-        List<LottoNumber> numbers = new ArrayList<>();
+        Set<LottoNumber> numbers = new HashSet<>();
         for (int i = 1; i <= 6; i++) {
             numbers.add(LottoNumber.from(i));
         }
