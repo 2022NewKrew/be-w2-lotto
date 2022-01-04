@@ -11,30 +11,40 @@ import java.util.List;
  * Time: 오후 6:12
  */
 public class LottoBundle {
-    private final Integer lottoAmount;
+    private final Integer lottoCount;
+    private final Integer manualLottoCount;
     private final List<Lotto> lottos;
-    private final Integer bonusBall;
 
-    public LottoBundle(Integer lottoAmount, Integer bonusBall) {
-        this.lottoAmount = lottoAmount;
-        this.bonusBall = bonusBall;
+    public LottoBundle(Integer lottoCount, Integer manualLottoCount) {
+        this.lottoCount = lottoCount;
+        this.manualLottoCount = manualLottoCount;
 
         lottos = new ArrayList<>();
-        for (int i = 0; i < lottoAmount; i++) {
+        generateLottos(lottoCount, manualLottoCount);
+    }
+
+    private void generateLottos(Integer lottoCount, Integer manualLottoCount) {
+        LottoPrinter.printManualLotto();
+        for (int i = 0; i < manualLottoCount; i++) {
+            List<Integer> manualLottoNumbers = LottoGenerator.generateManualLotto();
+            lottos.add(new Lotto(manualLottoNumbers));
+        }
+
+        for (int i = 0; i < lottoCount - manualLottoCount; i++) {
             lottos.add(new Lotto(LottoGenerator.generateLotto()));
         }
+    }
+
+    public Integer getLottoCount() {
+        return lottoCount;
     }
 
     public List<Lotto> getLottos() {
         return lottos;
     }
 
-    public Integer getBonusBall() {
-        return bonusBall;
-    }
-
     public void printLottos() {
-        LottoPrinter.printLottoAmount(lottoAmount);
+        LottoPrinter.printLottoAmount(manualLottoCount, lottoCount - manualLottoCount);
         lottos.forEach(System.out::println);
     }
 }

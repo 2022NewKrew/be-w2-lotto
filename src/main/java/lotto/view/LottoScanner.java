@@ -37,4 +37,17 @@ public class LottoScanner {
         System.out.println(Constants.INPUT_BONUS_BALL_MESSAGE);
         return Integer.parseInt(scanner.nextLine());
     }
+
+    public static Integer getManualLottoCount() {
+        System.out.println(Constants.INPUT_MANUAL_LOTTO_COUNT_MESSAGE);
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public static List<Integer> getManualLottoNumber() {
+        String manualLottoNumbers = scanner.nextLine();
+
+        return Arrays.stream(manualLottoNumbers.split(Constants.INPUT_LAST_WEEK_DELIMITER))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
+    }
 }

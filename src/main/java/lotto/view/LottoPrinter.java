@@ -13,8 +13,12 @@ public class LottoPrinter {
         // instance 생성 제한
     }
 
-    public static void printLottoAmount(Integer lottoAmount) {
-        System.out.println(String.format(Constants.PRINT_PURCHASE_LOTTO_FORMAT, lottoAmount));
+    public static void printLottoAmount(Integer manualLottoCount, Integer autoLottoCount) {
+        System.out.println(String.format(Constants.PRINT_PURCHASE_LOTTO_FORMAT, manualLottoCount, autoLottoCount));
+    }
+
+    public static void printManualLotto() {
+        System.out.println(Constants.INPUT_MANUAL_LOTTO_MESSAGE);
     }
 
     public static void printLottoStatisticsTitle() {

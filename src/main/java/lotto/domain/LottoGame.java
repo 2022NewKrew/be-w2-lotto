@@ -1,9 +1,11 @@
 package lotto.domain;
 
 import lotto.view.LottoPrinter;
-import lotto.view.LottoScanner;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by melodist
@@ -11,14 +13,10 @@ import java.util.*;
  * Time: 오후 5:06
  */
 public class LottoGame {
-    private final LottoBundle lottoBundle;
-    private final List<Integer> lastWeekWinningNumbers;
     private final Map<Rank, Integer> statistics;
     private long winningAmount;
 
-    public LottoGame(LottoBundle lottoBundle) {
-        this.lottoBundle = lottoBundle;
-        lastWeekWinningNumbers = LottoScanner.getLastWeekWinningNumbers();
+    public LottoGame() {
         statistics = new HashMap<>();
         winningAmount = 0;
     }
@@ -32,24 +30,19 @@ public class LottoGame {
         }
     }
 
-    public void printStatistics(Integer purchaseAmount) {
-        calculateWinningAmount();
+    public void createLottoResult(LottoBundle lottoBundle, WinningLotto winningLotto) {
+        for (Lotto lotto : lottoBundle.getLottos()) {
+            Rank rank = winningLotto.matchLotto(lotto);
+
+            if (rank != null) {
+                statistics.put(rank, statistics.getOrDefault(rank, 0) + 1);
+            }
+        }
+    }
+
+    public void printStatistics(LottoBundle lottoBundle) {
         LottoPrinter.printLottoStatisticsTitle();
-        LottoPrinter.printLottoYield(winningAmount, purchaseAmount);
-    }
-
-    public void playLottoGame() {
-        for(Lotto lotto : lottoBundle.getLottos()) {
-            playLotto(lotto);
-        }
-    }
-
-    private void playLotto(Lotto lotto) {
-        Integer winningNumberCount = lotto.matchLottoWithLastWeek(lastWeekWinningNumbers);
-        boolean matchBonus = lotto.matchBonusBall(lottoBundle.getBonusBall());
-        Rank rank = Rank.valueOf(winningNumberCount, matchBonus);
-        if (rank != null) {
-            statistics.put(rank, statistics.getOrDefault(rank, 0) + 1);
-        }
+        calculateWinningAmount();
+        LottoPrinter.printLottoYield(winningAmount, lottoBundle.getLottoCount() * Constants.LOTTO_PRICE);
     }
 }
