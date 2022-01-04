@@ -11,8 +11,8 @@ public class Lottery {
         this.lotteryNumbers = Collections.unmodifiableSet(new TreeSet<>(lotteryNumbers));
     }
 
-    public void printLottery() {
-        System.out.println(lotteryNumbers);
+    public Set<Integer> getLotteryNumbers() {
+        return lotteryNumbers;
     }
 
     public int calculateMatchCount(WinningLottery winningLottery) {

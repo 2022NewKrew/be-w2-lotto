@@ -13,7 +13,7 @@ public class ConsoleOutputView implements OutputView {
         System.out.printf("%d개를 구매하였습니다.\n", lotteryList.size());
 
         for (Lottery lottery : lotteryList) {
-            lottery.printLottery();
+            System.out.println(lottery.getLotteryNumbers());
         }
     }
 
