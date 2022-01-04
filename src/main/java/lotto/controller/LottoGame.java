@@ -14,6 +14,7 @@ public class LottoGame {
 
     private int purchaseAmount;
     private int numberOfLotto;
+    private int bonusNumber;
     private final PlayerLottoList playerLottoList = new PlayerLottoList();
     private List<Integer> winningNumbers = new ArrayList<>();
 
@@ -23,6 +24,7 @@ public class LottoGame {
             purchaseLotto();
             LottoGameOutput.printLottoNumbers(numberOfLotto, playerLottoList);
             winningNumbers = LottoGameInput.inputWinningNumbers(scanner);
+            bonusNumber = LottoGameInput.inputBonusNumber(scanner);
             showResults();
         }
     }
