@@ -4,15 +4,17 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import static CONST.Const.*;
+
 public class Lotto {
     private static final Random random = new Random();
     private final List<Integer> lotto;
 
     public Lotto() {
         this.lotto = random
-                .ints(1, 46)
+                .ints(LOTTO_START_NUM, LOTTO_END_NUM + 1)
                 .distinct()
-                .limit(6)
+                .limit(LOTTO_SELECT_NUM)
                 .sorted()
                 .boxed()
                 .collect(Collectors.toList());
@@ -32,8 +34,8 @@ public class Lotto {
                 .stream()
                 .filter(lotto::contains)
                 .count();
-        if (correctCount == 5 & lotto.contains(bonusNumber)) {
-            return 7;
+        if (correctCount == LOTTO_FIVE_WIN & lotto.contains(bonusNumber)) {
+            return LOTTO_FIVE_BONUS_WIN;
         }
         return correctCount;
     }

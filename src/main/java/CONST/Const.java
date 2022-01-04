@@ -23,4 +23,20 @@ public class Const {
     public static final String CORRECT_SIX = "6개 일치 (2,000,000,000원)- ";
     public static final String WIN_RATE_HEAD = "총 수익률은 ";
     public static final String WIN_RATE_TAIL = "%입니다.";
+
+    // Lotto
+    public static final int LOTTO_START_NUM = 1;
+    public static final int LOTTO_END_NUM = 45;
+    public static final int LOTTO_PRICE = 1000;
+    public static final int LOTTO_SELECT_NUM = 6;
+    public static final int LOTTO_THREE_WIN = 3;
+    public static final int LOTTO_FOUR_WIN = 4;
+    public static final int LOTTO_FIVE_WIN = 5;
+    public static final int LOTTO_FIVE_BONUS_WIN = 7;
+    public static final int LOTTO_SIX_WIN = 6;
+    public static final int LOTTO_THREE_WIN_PRICE = 5000;
+    public static final int LOTTO_FOUR_WIN_PRICE = 50000;
+    public static final int LOTTO_FIVE_WIN_PRICE = 1500000;
+    public static final int LOTTO_FIVE_BONUS_WIN_PRICE = 30000000;
+    public static final int LOTTO_SIX_WIN_PRICE = 2000000000;
 }

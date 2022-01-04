@@ -33,7 +33,7 @@ public class InputManager {
     private static boolean checkWinningNumber(List<Integer> winningNumber) {
         boolean passRange = winningNumber
                 .stream()
-                .allMatch(n -> n > 0 && n < 46);
+                .allMatch(n -> n >= Const.LOTTO_START_NUM && n <= Const.LOTTO_END_NUM);
         boolean passLength = winningNumber.stream().distinct().count() == 6;
         if (passRange && passLength) {
             return true;
@@ -89,7 +89,9 @@ public class InputManager {
     }
 
     private static boolean isLottoBonusNumber(int inputIntBonusNumber, List<Integer> winningNumber) {
-        if (inputIntBonusNumber > 0 && inputIntBonusNumber < 46 && !winningNumber.contains(inputIntBonusNumber)) {
+        if (inputIntBonusNumber >= Const.LOTTO_START_NUM
+                && inputIntBonusNumber <= Const.LOTTO_END_NUM
+                && !winningNumber.contains(inputIntBonusNumber)) {
             return true;
         }
         System.out.println(Const.INPUT_LOTTO_BONUS_NUMBER);
