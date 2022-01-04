@@ -30,11 +30,11 @@ public class LottoTicket {
     }
 
     private boolean isValidNumber(int number) {
-        return number >= 1 && number <= LottoTicket.MAX_NUMBER;
+        return number >= MIN_NUMBER && number <= MAX_NUMBER;
     }
 
     private boolean isValidSizeOfNumbers(List<Integer> numbers) {
-        return numbers.size() == LottoTicket.LENGTH_OF_NUMBERS;
+        return numbers.size() == LENGTH_OF_NUMBERS;
     }
 
     public int countEqualNumbers(List<Integer> winningNumbers) {

@@ -18,7 +18,7 @@ public enum LottoRank {
     }
 
     public static LottoRank parseResult(int count, boolean isMatchBonusNumber) {
-        if (count == 5) {
+        if (count == SECOND.countOfMatches) {
             return isMatchBonusNumber ? SECOND : THIRD;
         }
         return Arrays.stream(values())
