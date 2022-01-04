@@ -16,14 +16,10 @@ public class Result {
     }
 
     public int getMatchingCountOf(Ticket ticket) {
-        int matchingCount = 0;
-        for (var ticketNumber : ticket.getNumbers()) {
-            matchingCount += numbers.contains(ticketNumber) ? 1 : 0;
-        }
-        return matchingCount;
+        return (int) numbers.stream().filter(number -> ticket.contains(number)).count();
     }
 
     public boolean isBonusBallMatched(Ticket ticket) {
-        return ticket.getNumbers().contains(this.bonusBall);
+        return ticket.contains(this.bonusBall);
     }
 }
