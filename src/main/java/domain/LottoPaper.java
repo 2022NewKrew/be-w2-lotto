@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,13 +10,17 @@ import java.util.stream.IntStream;
 public class LottoPaper {
     private static final int LOTTO_PRICE = 1000;
     private final ArrayList<Lotto> paper = new ArrayList<>();
-    private final HashMap<Integer, Integer> sameToCnt = new HashMap<>();
+    private final HashMap<Rank, Integer> rankToCnt = new HashMap<>();
+    private static final HashMap<Integer, Rank> cntToRank = new HashMap<>();
 
     public LottoPaper(long money) {
         int buyMax = (int) money / LOTTO_PRICE;
-        for (int buy = 0; buy < buyMax; buy++) {
-            paper.add(new Lotto());
-        }
+        IntStream.range(0, buyMax)
+                .forEach(buy -> paper.add(new Lotto()));
+
+        Arrays.stream(Rank.values())
+                .filter(rank -> rank != Rank.SECOND)
+                .forEach(rank -> cntToRank.put(rank.getCountOfMatch(), rank));
     }
 
     @Override
@@ -29,23 +34,34 @@ public class LottoPaper {
         return paper.size();
     }
 
-    public HashMap<Integer, Integer> winningResult(List<Integer> winningNum, int bonusNum) {
-        int sameNum;
-        IntStream.range(0, 7).forEach(num -> sameToCnt.put(num, 0));
+    public HashMap<Rank, Integer> winningResult(List<Integer> winningNum, int bonusNum) {
+        Arrays.stream(Rank.values()).forEach(rank -> rankToCnt.put(rank, 0));
+        Rank rank;
         for (Lotto lotto : paper) {
-            sameNum = lotto.sameWithWinningNum(winningNum);
-            sameToCnt.put(sameNum, sameToCnt.get(sameNum) + 1);
+            rank = cntToRank.get(lotto.sameWithWinningNum(winningNum));
+            if (rank != null) {
+                rankToCnt.put(rank, rankToCnt.get(rank) + 1);
+            }
         }
-        return sameToCnt;
+        bonusCheck(winningNum, bonusNum);
+
+        return rankToCnt;
+    }
+
+    private void bonusCheck(List<Integer> winningNum, int bonusNum) {
+        int sameBonus = (int) paper.stream()
+                .filter(lotto -> lotto.sameWithWinningNum(winningNum) == 5)
+                .filter(lotto -> lotto.containBonusNum(bonusNum))
+                .count();
+        rankToCnt.put(Rank.SECOND, rankToCnt.get(Rank.SECOND) + sameBonus);
+        rankToCnt.put(Rank.THIRD, rankToCnt.get(Rank.THIRD) - sameBonus);
     }
 
     public int winRate() {
         long useCost = (long) paper.size() * LOTTO_PRICE;
-        long winCost = 0;
-        winCost += sameToCnt.get(Rank.FIFTH.getCountOfMatch()) * Rank.FIFTH.getWinningMoney();
-        winCost += sameToCnt.get(Rank.FOURTH.getCountOfMatch()) * Rank.FOURTH.getWinningMoney();
-        winCost += sameToCnt.get(Rank.THIRD.getCountOfMatch()) * Rank.THIRD.getWinningMoney();
-        winCost += sameToCnt.get(Rank.FIRST.getCountOfMatch()) * Rank.FIRST.getWinningMoney();
+        long winCost = Arrays.stream(Rank.values())
+                .mapToLong(rank -> rankToCnt.get(rank) * rank.getWinningMoney())
+                .sum();
         return (int) (winCost * 100 / useCost);
     }
 }

@@ -31,4 +31,8 @@ public class Lotto {
                 .filter(winningNum::contains)
                 .count();
     }
+
+    public boolean containBonusNum(int bonusNum) {
+        return numbers.contains(bonusNum);
+    }
 }

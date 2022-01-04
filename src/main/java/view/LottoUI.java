@@ -26,8 +26,8 @@ public class LottoUI {
 
     public static List<Integer> inputWinningNum() {
         System.out.println(UIMessage.LAST_WINNING_NUM.getMessage());
-        String input = scanner.nextLine();
 
+        String input = scanner.nextLine();
         String replace = input.replace(" ", "");
 
         return Arrays.stream(replace.split(","))
@@ -52,19 +52,18 @@ public class LottoUI {
         System.out.println(lotto);
     }
 
-    public static void outputWinningResult(HashMap<Integer, Integer> winningResult) {
+    public static void outputWinningResult(HashMap<Rank, Integer> winningResult) {
         StringBuilder result = new StringBuilder();
-        result.append("\n당첨 통계\n");
-        result.append("---------\n");
+        result.append("\n당첨 통계\n---------\n");
         Arrays.stream(Rank.values()).forEach(rank -> {
             result.append(rank.getCountOfMatch());
-            result.append("개 일치 (");
+            result.append(rank != Rank.SECOND ? "개 일치 (" : "개 일치, 보너스 볼 일치(");
             result.append(rank.getWinningMoney());
             result.append("원)- ");
-            result.append(winningResult.get(rank.getCountOfMatch()));
-            result.append("개");
+            result.append(winningResult.get(rank));
+            result.append("개\n");
         });
-        System.out.println(result);
+        System.out.print(result);
     }
 
     public static void outputWinRate(int winRate) {
