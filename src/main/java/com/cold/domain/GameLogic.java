@@ -1,82 +1,110 @@
 package com.cold.domain;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
 import lombok.Getter;
 
 @Getter
 public class GameLogic {
-  private String INVALID_LAST_WINNING_NUMS_RANGE = "지난 주 당첨 번호 범위 오류";
-  private String INVALID_LAST_WINNING_NUMS_COUNT = "지난 주 당첨 번호 갯수 오류";
 
-  List<Integer> lastWinningNums;
-  Map<Integer, Integer> result;
+    private Integer PRICE_PER_TICKET = 1000;
+    private Integer MIN_WINNING_MATCHES = 3;
+    private Integer CHECK_BONUS_BALL_MATCHES_COUNT = 5;
+    private Integer MAX_WINNING_MATCHES = 7;
+    private Integer MAP_BONUS_MATCH_KEY = 7;
 
-  public void parseLastWinningNums(String lastWinningNumsString) throws Exception{
-    lastWinningNums = new ArrayList<>();
+    public Map<Integer, Integer> result;
+    private double profitRate;
 
-    for(String num : lastWinningNumsString.split(",")){
-      num.trim();
-      lastWinningNums.add(Integer.parseInt(num));
+    private void initResult() {
+        result = new HashMap<>() {
+            {
+                put(3, 0);
+                put(4, 0);
+                put(5, 0);
+                put(6, 0);
+                put(7, 0);
+            }
+        };
     }
-    validateLastWinningNums();
-  }
 
-  public void calculateResult(WholeTickets wholeTickets){
-    initResult();
-    for(SingleTicket ticket : wholeTickets.getTickets()){
-      checkEachTicket(ticket);
+    public void setProfitRate(int purchaseCount) {
+        double spentMoney = purchaseCount * PRICE_PER_TICKET;
+        double earnedMoney = calculateProfit();
+        profitRate = calculateProfitRate(spentMoney, earnedMoney);
     }
-  }
 
-  private void initResult(){
-    result = new HashMap<>(){
-      {
-        put(3,0);
-        put(4,0);
-        put(5,0);
-        put(6,0);
-      }
-    };
-  }
-
-  private void checkEachTicket(SingleTicket ticket){
-    int cnt = 0;
-    for(Integer num : ticket.getNumbers()){
-      cnt += checkEachNum(num);
+    private double calculateProfitRate(double spentMoney, double earnedMoney) {
+        return (earnedMoney - spentMoney) * 100 / spentMoney;
     }
-    insertIntoResult(cnt);
-  }
 
-  private void insertIntoResult(int cnt){
-    if(cnt>2 && cnt<7){
-      result.put(cnt,result.get(cnt)+1);
+    private int calculateProfit() {
+        int sum = 0;
+        for (Integer key : result.keySet()) {
+            sum += checkEachCase(key);
+        }
+        return sum;
     }
-  }
 
-  private int checkEachNum(Integer num){
-    return lastWinningNums.contains(num) ? 1 : 0;
-  }
-
-  private void validateLastWinningNums() throws Exception {
-    validateCount();
-    for(Integer num : lastWinningNums){
-      validateRange(num);
+    private int checkEachCase(Integer key) {
+        if (result.get(key) != 0) {
+            return getWinningReward(key);
+        }
+        return 0;
     }
-  }
 
-  private void validateRange(Integer num) throws Exception{
-    if(num <1 || num >45){
-      throw new Exception(INVALID_LAST_WINNING_NUMS_RANGE);
+    private int getWinningReward(Integer key) {
+        return Prices.values()[key - 3].getWinningReward();
     }
-  }
 
-  public void validateCount() throws Exception{
-    if(lastWinningNums.size() != 6){
-      throw new Exception(INVALID_LAST_WINNING_NUMS_COUNT);
+    public void setResult(WholeTickets wholeTickets, WinningLotto winningLotto) {
+        initResult();
+        checkWholeTickets(wholeTickets, winningLotto);
     }
-  }
+
+    private void checkWholeTickets(WholeTickets wholeTickets, WinningLotto winningLotto) {
+        for (SingleTicket ticket : wholeTickets.getTickets()) {
+            checkEachTicket(ticket, winningLotto);
+        }
+    }
+
+    private void checkEachTicket(SingleTicket ticket, WinningLotto winningLotto) {
+        int cnt = countMatches(ticket, winningLotto);
+        insertIntoResult(cnt);
+    }
+
+    private int countMatches(SingleTicket ticket, WinningLotto winningLotto) {
+        int cnt = countNormalMatches(ticket, winningLotto);
+        if (cnt == CHECK_BONUS_BALL_MATCHES_COUNT) {
+            return checkBonusMatch(ticket, winningLotto, cnt);
+        }
+        return cnt;
+    }
+
+    private int checkBonusMatch(SingleTicket ticket, WinningLotto winningLotto, int cnt) {
+        if (ticket.getNumbers().contains(winningLotto.getBonusBall())) {
+            return MAP_BONUS_MATCH_KEY;
+        }
+        return cnt;
+    }
+
+    private int countNormalMatches(SingleTicket ticket, WinningLotto winningLotto) {
+        int cnt = 0;
+        for (Integer num : ticket.getNumbers()) {
+            cnt += checkEachNum(num, winningLotto);
+        }
+        return cnt;
+    }
+
+    private void insertIntoResult(int cnt) {
+        if (cnt >= MIN_WINNING_MATCHES && cnt <= MAX_WINNING_MATCHES) {
+            result.put(cnt, result.get(cnt) + 1);
+        }
+    }
+
+    private int checkEachNum(Integer num, WinningLotto winningLotto) {
+        return winningLotto.getLastWinningNums().contains(num) ? 1 : 0;
+    }
 }
 
