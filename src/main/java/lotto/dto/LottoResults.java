@@ -11,9 +11,6 @@ public class LottoResults {
     RankMap rankMap;
     int earnRate;
 
-    public LottoResults() {
-    }
-
     public LottoResults(RankMap rankMap, int earnRate) {
         this.rankMap = rankMap;
         this.earnRate = earnRate;

@@ -10,16 +10,12 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Lotto {
-    private static List<Integer> range = IntStream.range(1, 45).boxed().collect(Collectors.toList());
-    private List<Integer> oneLotto = new ArrayList<>();
-
-    public Lotto(){
-    }
+    private static final List<Integer> range = IntStream.range(1, 45).boxed().collect(Collectors.toList());
 
     public List<Integer> getRandLotto() {
         Collections.shuffle(range);
-        this.oneLotto = new ArrayList<>(range.subList(0,6));
-        return this.oneLotto;
+        List<Integer> oneLotto = new ArrayList<>(range.subList(0,6));
+        return oneLotto;
     }
 
     //helper function for LottoPack.getResults()

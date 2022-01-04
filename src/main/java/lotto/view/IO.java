@@ -22,47 +22,44 @@ public class IO {
 
     private static final int lottoPrice = 1000;
 
-    public IO() {
-    }
-
-    public int start(){
+    public static int start(){
         int amount = enterPurchaseAmount();
         int itemCnt = printAndGetAmount(amount);
         return itemCnt;
     }
 
-    public MatchNum enterMatchNums(){
+    public static MatchNum enterMatchNums(){
         List<Integer> prevNums = enterPrevNums();
         int bonusNum = enterBonusNum();
         MatchNum matchNum = new MatchNum(prevNums, bonusNum);
         return matchNum;
     }
 
-    private int enterPurchaseAmount(){
+    private static int enterPurchaseAmount(){
         System.out.println(qPrice);
         int amount = scanner.nextInt();
         return amount;
     }
 
-    private int enterBonusNum(){
+    private static int enterBonusNum(){
         System.out.println(qBonusNum);
         int num = scanner.nextInt();
         return num;
     }
 
-    private int printAndGetAmount(int money){
+    private static int printAndGetAmount(int money){
         int itemCnt = money/lottoPrice;
         System.out.println(String.format(aBuyNums, itemCnt));
         return itemCnt;
     }
 
-    public void printPurchasedLottos(List<List<Integer>> lottos){
+    public static void printPurchasedLottos(List<List<Integer>> lottos){
         for(List<Integer> lotto: lottos){
             System.out.println(Arrays.toString(lotto.toArray()));
         }
     }
 
-    public List<Integer> enterPrevNums(){
+    public static List<Integer> enterPrevNums(){
         System.out.println(qPrevNums);
         List<Integer> prevNums = new ArrayList<Integer>();
 
@@ -72,14 +69,14 @@ public class IO {
         return prevNums;
     }
 
-    public void showResults(LottoResults lottoResults){
+    public static void showResults(LottoResults lottoResults){
         RankMap rankMap = lottoResults.getRankMap();
         int earnRate = lottoResults.getEarnRate();
         showCorrectCnts(rankMap);
         showEarnRate(earnRate);
     }
 
-    private void showCorrectCnts(RankMap rankMap){
+    private static void showCorrectCnts(RankMap rankMap){
         System.out.println(aResults);
         for(Rank rank: rankMap.getKeySet()){
             showCorrectCntsPerLine(rank, rankMap.getValue(rank));
@@ -88,7 +85,7 @@ public class IO {
 
 
 
-    private void showCorrectCntsPerLine(Rank rank, int cnt){
+    private static void showCorrectCntsPerLine(Rank rank, int cnt){
         if (rank==rank.SECOND){ //bonus number match
             System.out.println(String.format(aResultsBonusMatch, 5, rank.getWinningMoney(), cnt));
             return;
@@ -96,7 +93,7 @@ public class IO {
         System.out.println(String.format(aResultsPerNum, rank.getCountOfMatch(), rank.getWinningMoney(), cnt));
     }
 
-    public void showEarnRate(int rate){
+    public static void showEarnRate(int rate){
         System.out.println(String.format(aEarnRate, rate));
     }
 }

@@ -33,7 +33,6 @@ public class LottoPack {
         for(List<Integer> nums : this.lottos){
             Rank rank = lotto.countMatch(nums, matchNum);
             rankMap.addCnt(rank);
-            System.out.println(rankMap);
         }
         int earnRate = this.getEarnRate(rankMap);
         LottoResults lottoResults = new LottoResults(rankMap, earnRate);

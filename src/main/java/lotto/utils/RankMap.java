@@ -13,10 +13,6 @@ public class RankMap {
             rankMap.put(rank, 0);
         }
     }
-    public static Map<Rank,Integer> getRankMap(){
-        return rankMap;
-    }
-
     public static Set<Rank> getKeySet() {
         return rankMap.keySet();
     }

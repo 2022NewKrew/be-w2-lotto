@@ -8,20 +8,21 @@ import lotto.view.IO;
 import java.util.Arrays;
 import java.util.List;
 
-public class Main {
+//멤버 클래스에서 바깥 인스턴스에 접근할 일이 없다면 무조건 static을 붙여서 정적 멤버 클래스로 만들자.
 
+public class Main {
     public static void main(String[] args) {
-        IO io = new IO();
-        int itemCnt = io.start();
+
+        int itemCnt = IO.start();
 
         LottoPack lottoPack = new LottoPack(itemCnt);
         List<List<Integer>> lottoNums = lottoPack.getNumList();
 
-        io.printPurchasedLottos(lottoNums);
+        IO.printPurchasedLottos(lottoNums);
 
-        MatchNum matchNum = io.enterMatchNums();
+        MatchNum matchNum =IO.enterMatchNums();
         LottoResults lottoResults = lottoPack.getResults(matchNum); // -> 추후 test, earnRate, prevNum
-        io.showResults(lottoResults);
+        IO.showResults(lottoResults);
 
     }
 }
