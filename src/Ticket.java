@@ -8,21 +8,21 @@ import java.util.stream.IntStream;
 public class Ticket {
     private static final int NUM_OF_LOTTO_NUMBERS = 6;
     private static final List<Integer> LOTTO_NUMBERS = IntStream.range(1, 45).boxed().collect(Collectors.toList());
-    protected List<Integer> ticket = new ArrayList<>();
+    protected List<Integer> selectedNumbers = new ArrayList<>();
 
     Ticket() {
         List<Integer> lottoNumbers = LOTTO_NUMBERS;
         Collections.shuffle(lottoNumbers);
         for (int i = 0; i < NUM_OF_LOTTO_NUMBERS; i++) {
-            this.ticket.add(lottoNumbers.get(i));
-            Collections.sort(this.ticket);
+            this.selectedNumbers.add(lottoNumbers.get(i));
+            Collections.sort(this.selectedNumbers);
         }
     }
 
 
 
-    public List<Integer> getTicket() {
-        return this.ticket;
+    public List<Integer> getSelectedNumbers() {
+        return this.selectedNumbers;
     }
     public static int getLength() { return NUM_OF_LOTTO_NUMBERS; }
 }

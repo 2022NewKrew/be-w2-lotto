@@ -14,7 +14,7 @@ public class LotteryPrinter {
         return scanner.nextLine();
     }
 
-    public int inputInt() {
+    private int inputInt() {
         return Integer.parseInt(scanner.nextLine());
     }
 

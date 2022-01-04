@@ -4,6 +4,7 @@ import java.util.List;
 
 public class LotteryRound {
     private static final int PRICE_OF_LOTTO = 1000;
+    private final boolean MATCH_SUCCESS = true;
     private static final List<Integer> REWARDS = Arrays.asList(0, 0, 0, 5000, 50000, 1500000, 2000000000);
 
     private int purchased;
@@ -38,7 +39,7 @@ public class LotteryRound {
 
     private void showLottos() {
         for (Ticket lotto : tickets) {
-            lotteryPrinter.print(lotto.getTicket());
+            lotteryPrinter.print(lotto.getSelectedNumbers());
         }
     }
 
@@ -51,7 +52,7 @@ public class LotteryRound {
     private void matchCountForSingleTicket(Ticket lotto) {
         int totalMatch = 0;
         for (int i = 0; i < Ticket.getLength(); i++) {
-            totalMatch += numOfMatch(lotto.getTicket().get(i));
+            totalMatch += isMatched(lotto.getSelectedNumbers().get(i)).compareTo(MATCH_SUCCESS);
         }
         if (totalMatch >= 3) {
             this.numberOfWinnings.set(totalMatch, this.numberOfWinnings.get(totalMatch) + 1);
@@ -59,11 +60,11 @@ public class LotteryRound {
         }
     }
 
-    private int numOfMatch(int number) {
-        if (winningTicket.getTicket().contains(number)) {
-            return 1;
+    private Boolean isMatched(int number) {
+        if (winningTicket.getSelectedNumbers().contains(number)) {
+            return true;
         }
-        return 0;
+        return false;
     }
 
     public static List<Integer> getRewards() { return REWARDS; }
