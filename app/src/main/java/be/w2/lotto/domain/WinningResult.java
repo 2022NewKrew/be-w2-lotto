@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static be.w2.lotto.common.exception.ExceptionMessages.DIVIDE_BY_ZERO_EXCEPTION;
+
 public class WinningResult {
     private final List<WinningMatchResult> winningMatchResults;
     private final int profitRate;
@@ -36,7 +38,12 @@ public class WinningResult {
                 .stream().map(WinningMatchResult::calculateProfit)
                 .mapToInt(i -> i)
                 .sum();
-        return profitSum * DIVIDE_PERCENTAGE / purchaseAmount;
+
+        if (purchaseAmount == 0) {
+            throw new ArithmeticException(DIVIDE_BY_ZERO_EXCEPTION);
+        }
+        
+        return profitSum * MULTIPLY_BY_PERCENTAGE / purchaseAmount;
     }
 
     private static List<WinningMatchResult> getWinningMatchResult(
@@ -62,5 +69,5 @@ public class WinningResult {
             6, 2000000000
     );
 
-    private static final int DIVIDE_PERCENTAGE = 100;
+    private static final int MULTIPLY_BY_PERCENTAGE = 100;
 }

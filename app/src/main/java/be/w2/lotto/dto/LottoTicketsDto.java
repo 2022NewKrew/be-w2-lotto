@@ -1,7 +1,6 @@
 package be.w2.lotto.dto;
 
 import be.w2.lotto.domain.LottoTickets;
-import be.w2.lotto.domain.LottoNumber;
 import be.w2.lotto.domain.LottoTicket;
 
 import java.util.List;
@@ -25,13 +24,7 @@ public class LottoTicketsDto {
 
     private static List<List<Integer>> toListedLottoTickets(LottoTickets lottoTickets) {
         return lottoTickets.getLottoTickets()
-                .stream().map(LottoTicket::getLottoNumbers).collect(Collectors.toList())
-                .stream().map(LottoTicketsDto::toLottoNumber).collect(Collectors.toList())
-                ;
-    }
-
-    private static List<Integer> toLottoNumber(List<LottoNumber> lottoNumbers) {
-        return lottoNumbers.stream().map(LottoNumber::getLottoNumber)
+                .stream().map(LottoTicket::getLottoNumbers)
                 .collect(Collectors.toList());
     }
 }

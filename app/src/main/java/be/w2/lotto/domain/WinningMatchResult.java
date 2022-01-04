@@ -1,7 +1,6 @@
 package be.w2.lotto.domain;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class WinningMatchResult {
     private final int matchedNumber;
@@ -20,7 +19,7 @@ public class WinningMatchResult {
             LottoTickets lottoTickets,
             WinningLottoTicket winningLottoTicket
     ) {
-        int count = getCount(matchedNumber, lottoTickets, winningLottoTicket);
+        int count = countMatching(matchedNumber, lottoTickets, winningLottoTicket);
         return new WinningMatchResult(matchedNumber, profit, count);
     }
 
@@ -40,7 +39,7 @@ public class WinningMatchResult {
         return count;
     }
 
-    private static int getCount(int matchedNumber, LottoTickets lottoTickets, WinningLottoTicket winningLottoTicket) {
+    private static int countMatching(int matchedNumber, LottoTickets lottoTickets, WinningLottoTicket winningLottoTicket) {
         return (int) lottoTickets.getLottoTickets()
                 .stream().filter(lottoTicket -> matchesByMatchedNumber(matchedNumber, lottoTicket, winningLottoTicket))
                 .count();
@@ -51,13 +50,8 @@ public class WinningMatchResult {
             LottoTicket lottoTicket,
             WinningLottoTicket winningLottoTicket
     ) {
-        List<Integer> listedTicket = lottoTicket.getLottoNumbers()
-                .stream().map(LottoNumber::getLottoNumber)
-                .collect(Collectors.toList());
-
-        List<Integer> listedWinningTicket = winningLottoTicket.getLottoNumbers()
-                .stream().map(LottoNumber::getLottoNumber)
-                .collect(Collectors.toList());
+        List<Integer> listedTicket = lottoTicket.getLottoNumbers();
+        List<Integer> listedWinningTicket = winningLottoTicket.getLottoNumbers();
 
         listedTicket.retainAll(listedWinningTicket);
         return listedTicket.size() == matchedNumber;

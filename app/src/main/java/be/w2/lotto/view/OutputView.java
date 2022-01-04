@@ -11,6 +11,7 @@ public class OutputView {
 
     public static void outputLottoTickets(List<List<Integer>> lottoTickets) {
         lottoTickets.forEach(System.out::println);
+        System.out.println();
     }
 
     public static void outputWinningResult(WinningResultDto winningResultDto) {

@@ -32,4 +32,6 @@ public class LottoTickets {
         }
         return lottoTickets;
     }
+
+    public static final int LOTTO_TICKET_SIZE = 6;
 }

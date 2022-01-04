@@ -10,10 +10,11 @@ import be.w2.lotto.dto.InputPurchaseAmountDto;
 import be.w2.lotto.dto.LottoTicketsDto;
 import be.w2.lotto.dto.WinningResultDto;
 import be.w2.lotto.view.InputView;
-import be.w2.lotto.view.OutputView;
 
+import static be.w2.lotto.common.util.Parser.parseInputNumbers;
 import static be.w2.lotto.view.ErrorView.throwErrorMessage;
-import static be.w2.lotto.view.InputView.inputPurchaseAmount;
+import static be.w2.lotto.view.InputView.*;
+import static be.w2.lotto.view.OutputView.*;
 
 public class LottoApplication {
 
@@ -22,13 +23,17 @@ public class LottoApplication {
         LottoTickets lottoTickets = inputPurchaseAmountDto.lottoTickets;
         int purchaseAmount = inputPurchaseAmountDto.purchaseAmount;
         LottoTicketsDto lottoTicketsDto = LottoTicketsDto.from(lottoTickets);
-        OutputView.outputLottoAmounts(lottoTicketsDto.getLottoTicketAmount());
-        OutputView.outputLottoTickets(lottoTicketsDto.lottoTickets);
+
+        outputLottoAmounts(lottoTicketsDto.getLottoTicketAmount());
+        outputLottoTickets(lottoTicketsDto.lottoTickets);
+        emptyBuffer();
 
         WinningLottoTicket winningLottoTicket = inputWinningNumbers();
         WinningResult winningResult = WinningResult.valueOf(lottoTickets, winningLottoTicket, purchaseAmount);
+        int bonusNumber = inputBonusNumbers();
+
         WinningResultDto winningResultDto = WinningResultDto.from(winningResult);
-        OutputView.outputWinningResult(winningResultDto);
+        outputWinningResult(winningResultDto);
     }
 
     private static InputPurchaseAmountDto inputPurchaseAmountDto() {
@@ -46,7 +51,7 @@ public class LottoApplication {
         while (true) {
             try {
                 String winningNumbers = InputView.inputWinningNumbers();
-                return WinningLottoTicket.valueOf(winningNumbers);
+                return WinningLottoTicket.valueOf(parseInputNumbers(winningNumbers));
             } catch (IllegalArgumentException e) {
                 throwErrorMessage(e);
             }
