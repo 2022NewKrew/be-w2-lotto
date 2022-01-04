@@ -7,7 +7,6 @@
 * enum 적용할것.
 
 ### TODO
-* Result Manager에 enum 적용하기.
 * private 생성자에 AssertionError 적용
 * TestCode...
 
@@ -20,3 +19,4 @@
 * DTO 추가
   * 숫자 6개가 들어가는 nNumber 만 먼저 추가
 * enum Class MatchScore 구현
+* WinningLottoLine에 보너스 볼에 대한 자료구조 추가

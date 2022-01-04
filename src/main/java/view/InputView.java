@@ -27,4 +27,9 @@ public class InputView {
         String WinNumbers = sc.next();
         return new ArrayList<>(Arrays.asList(WinNumbers.split(SEPARATOR)));
     }
+
+    public static int getBonus() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return sc.nextInt();
+    }
 }

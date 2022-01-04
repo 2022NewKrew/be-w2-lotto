@@ -6,6 +6,7 @@ import java.util.List;
 
 public class WinningLottoLine {
     private static List<Integer> lottoLine;
+    private int bonus;
 
     private static final int MIN_NUM = 1;
     private static final int MAX_NUM = 45;
@@ -29,6 +30,18 @@ public class WinningLottoLine {
         }
 
         return null;
+    }
+
+    public boolean setBonus(int bonus) {
+        if (bonus >= MIN_NUM && bonus <= MAX_NUM) {
+            this.bonus = bonus;
+            return true;
+        }
+        return false;
+    }
+
+    public int getBonus() {
+        return bonus;
     }
 
     public List<Integer> getLottoLine() {

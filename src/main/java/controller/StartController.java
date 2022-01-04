@@ -19,6 +19,8 @@ public class StartController {
             OutputView.printWinningInputError();
             makeWinningLine();
         }
+
+        setBonus();
     }
 
     public MyLottoLines getLottoLines() {
@@ -52,5 +54,13 @@ public class StartController {
         }
 
         winningLine = WinningLottoLine.makeWinningLine(strLine);
+    }
+
+    private void setBonus() {
+        boolean isValid = winningLine.setBonus(InputView.getBonus());
+        while (!isValid) {
+            OutputView.printBonusInputError();
+            isValid = winningLine.setBonus(InputView.getBonus());
+        }
     }
 }
