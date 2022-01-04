@@ -54,6 +54,7 @@ public class SimpleLottoInput implements LottoInput {
         try {
             return validateWinningNumbersCount(Arrays.stream(input.split(", "))
                     .map(Integer::parseInt)
+                    .map(this::validateNumberRange)
                     .collect(Collectors.toList()));
         } catch (Exception e) {
             System.err.println("당첨 번호를 정확히 입력하세요.");
@@ -61,10 +62,29 @@ public class SimpleLottoInput implements LottoInput {
         }
     }
 
+    private int validateNumberRange(int number) {
+        if (number < 1 || number > LottoConst.MAX_LOTTO_NUMBER) {
+            throw new InputMismatchException("번호가 범위를 벗어남");
+        }
+        return number;
+    }
+
     private List<Integer> validateWinningNumbersCount(List<Integer> winningNumbers) throws InputMismatchException {
         if (winningNumbers.size() != LottoConst.LOTTO_NUMBERS_SIZE) {
             throw new InputMismatchException("당첨 번호 갯수 오류");
         }
         return winningNumbers;
+    }
+
+    @Override
+    public int takeBonusBallInput() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        String input = sc.nextLine();
+        try {
+            return validateNumberRange(Integer.parseInt(input));
+        } catch (Exception e) {
+            System.err.println("보너스 볼을 정확히 입력하세요 (1~" + LottoConst.MAX_LOTTO_NUMBER + ")");
+            return takeLottoSetNumInput();
+        }
     }
 }

@@ -9,4 +9,6 @@ public final class LottoConst {
 
     public static final List<Integer> WINNING_CONDITION = List.of(3, 4, 5, 6);
     public static final List<Integer> WINNING_PRIZE = List.of(5000, 50000, 1500000, 2000000000);
+    public static final int BONUS_BALL_WINNING_CONDITION = 5;
+    public static final int BONUS_BALL_WINNING_PRIZE = 30000000;
 }

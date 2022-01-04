@@ -11,10 +11,7 @@ import com.yapark97.lottoapplication.view.LottoOutput;
 import com.yapark97.lottoapplication.view.SimpleLottoInput;
 import com.yapark97.lottoapplication.view.SimpleLottoOutput;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LottoService {
     private final LottoInput lottoInput;
@@ -22,7 +19,7 @@ public class LottoService {
 
     private LottoSet lottoSet;
     private Lotto winningLotto;
-    private List<WinningPolicy> winningPolicies;
+    private Set<WinningPolicy> winningPolicies;
 
     public LottoService() {
         // Standart input/output 사용한 view 클래스
@@ -35,6 +32,7 @@ public class LottoService {
         initWinningPolicy();
         showLottoSet();
         initWinnintLotto();
+        addBonusBallWinningPolicy();
         showStatistic();
     }
 
@@ -45,7 +43,7 @@ public class LottoService {
     }
 
     private void initWinningPolicy() {
-        winningPolicies = new ArrayList<>();
+        winningPolicies = new TreeSet<>(); // 상금 순서로 정렬된 set
 
         for (int i=0; i< LottoConst.WINNING_CONDITION.size(); i++) {
             winningPolicies.add(new SimpleWinningPolicy(LottoConst.WINNING_CONDITION.get(i), LottoConst.WINNING_PRIZE.get(i)));
@@ -59,6 +57,11 @@ public class LottoService {
     private void initWinnintLotto() {
         List<Integer> winningNumbers = lottoInput.takeWinningNumbersInput();
         winningLotto = new Lotto(winningNumbers);
+    }
+
+    private void addBonusBallWinningPolicy() {
+        int bonusBall = lottoInput.takeBonusBallInput();
+        winningPolicies.add(new BonusBallWinningPolicy(bonusBall, LottoConst.BONUS_BALL_WINNING_CONDITION, LottoConst.BONUS_BALL_WINNING_PRIZE));
     }
 
     private void showStatistic() {

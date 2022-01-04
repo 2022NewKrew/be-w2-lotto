@@ -3,7 +3,6 @@ package com.yapark97.lottoapplication.domain.lotto;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class LottoSet {
     private List<Lotto> lottos;
@@ -23,8 +22,8 @@ public class LottoSet {
         List<Integer> numberPool = IntStream.rangeClosed(1, LottoConst.MAX_LOTTO_NUMBER)
                 .boxed()
                 .collect(Collectors.toList());
+        Collections.shuffle(numberPool);
         List<Integer> picked = numberPool.subList(0, LottoConst.LOTTO_NUMBERS_SIZE);
-
         Collections.sort(picked);
         return picked;
     }

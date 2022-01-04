@@ -31,4 +31,9 @@ public class SimpleWinningPolicy implements WinningPolicy{
     public String toString() {
         return winningCondition + "개 일치 (" + winningPrize + "원)";
     }
+
+    @Override
+    public int compareTo(WinningPolicy o) {
+        return winningPrize - o.getWinningPrize();
+    }
 }
