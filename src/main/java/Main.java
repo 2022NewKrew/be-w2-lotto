@@ -1,6 +1,6 @@
-import domain.MyLottoLines;
 import controller.ResultController;
 import controller.StartController;
+import domain.MyLottoLines;
 import view.OutputView;
 
 public class Main {

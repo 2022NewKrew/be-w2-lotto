@@ -1,18 +1,16 @@
 package controller;
 
 import domain.WinningLottoLine;
+import domain.nNumber;
 import view.InputView;
 import view.OutputView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class StartController {
     private final List<List<Integer>> lottoLines = new ArrayList<>();
     private WinningLottoLine winningLine = null;
-
-    private final int NUM_PER_LINE = 6;
 
     public StartController() {
         makeLottoLines();
@@ -44,20 +42,11 @@ public class StartController {
         }
 
         for (int i = 0; i < numLotto; i++) {
-            lottoLines.add(makeLottoLine());
-            OutputView.printLottoLine(lottoLines.get((i)));
+            nNumber curLine = nNumber.makeRandomNumbers();
+
+            lottoLines.add(curLine.getNumbers());
+            OutputView.printLottoLine(lottoLines.get(i));
         }
-    }
-
-    private List<Integer> makeLottoLine() {
-        List<Integer> lottoLst = new ArrayList<>();
-
-        for (int i = 0; i < NUM_PER_LINE; i++) {
-            lottoLst.add(findNewNumber(lottoLst));
-        }
-
-        Collections.sort(lottoLst);
-        return lottoLst;
     }
 
     private void makeWinningLine() {
@@ -69,14 +58,5 @@ public class StartController {
         }
 
         winningLine = WinningLottoLine.makeWinningLine(strLine);
-    }
-
-    private int findNewNumber(List<Integer> lottoLine) {
-        int newNum = (int) (Math.random() * 45) + 1;
-        while (lottoLine.contains(newNum)) {
-            newNum = (int) (Math.random() * 45) + 1;
-        }
-
-        return newNum;
     }
 }
