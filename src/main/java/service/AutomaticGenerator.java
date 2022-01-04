@@ -2,10 +2,8 @@ package service;
 
 import domain.Lotto;
 import domain.Number;
-
 import java.util.ArrayList;
 import java.util.Collections;
-
 import static utils.Symbol.LOTTO_SIZE;
 import static utils.Symbol.MAX_LOTTO_RANGE;
 

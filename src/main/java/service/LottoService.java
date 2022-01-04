@@ -1,9 +1,7 @@
 package service;
 
 import domain.Lotto;
-
 import java.util.ArrayList;
-
 import static utils.Symbol.LOTTO_PRICE;
 
 public class LottoService {

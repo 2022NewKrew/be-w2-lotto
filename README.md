@@ -20,10 +20,12 @@
 ### todo
 1. inputview의 getNumberList() stream써서 깔끔하게 고쳐보기
 2. InputView의 getWinningLotto 의존성 생각해보기
-3. getWinningLotto generate부분도
 
 
 # step2
-- [ ] 당첨 통계 로직 부분 완성하기
-- [ ] 의존성 지키게 수정
-- [ ] 테스트 코드 작성
+- [x] step2 기능 구현 완료
+- [x] enum클래스 사용하여 당첨 통계 로직 부분 완성하기
+- [x] 로직구현 되는 부분 테스트 코드 작성
+
+### 회고
+- 팀원들간의 코드리뷰중 한 팀원이 Arraylist를 stream으로 다루어 코드를 깔끔하게 작성한 것을 보았습니다. 시간이 남으면 이 부분을 수정해 보아야겠습니다.

@@ -1,18 +1,55 @@
 package service;
 
+import domain.Number;
 import domain.Lotto;
+import domain.Result;
 import domain.WinningLotto;
-
+import enums.Rank;
 import java.util.ArrayList;
+import static utils.Symbol.LOTTO_PRICE;
 
 public class ResultService {
-    private ArrayList<Lotto> lottoList = new ArrayList<>();
-    private WinningLotto winningLotto;
+    ArrayList<Result> results;
 
-    public ResultService(ArrayList<Lotto> lottoList, WinningLotto winningLotto){
-        this.lottoList = lottoList;
-        this.winningLotto = winningLotto;
+    public ResultService(){
+        results = new ArrayList<>();
     }
 
+    public void generateResult(ArrayList<Lotto> lottoList, WinningLotto winningLotto){
+        for(Lotto lotto : lottoList){
+            int count = lotto.getHitCount(winningLotto.getLotto());
+            Number bonusNumber = winningLotto.getBonusNumber();
+            Boolean isBonus = (lotto.isHit(bonusNumber) != 0);
+            results.add(new Result(count, isBonus));
+        }
+    }
 
+    public int getCountRank(Rank rank){
+        int count = 0;
+        for(Result result : results){
+            Rank resultRank = result.getHitRank();
+            count += isSameRank(resultRank, rank);
+        }
+        return count;
+    }
+
+    public int isSameRank(Rank a, Rank b){
+        int sameCount = (a.equals(b))? 1 : 0;
+        return sameCount;
+    }
+
+    public int getProfit(){
+        int sum = 0;
+        for(Result result : results){
+            Rank rank = result.getHitRank();
+            sum += rank.getWinningMoney();
+        }
+        return sum;
+    }
+
+    public int getProfitRate(){
+        int inputMoney = results.size() * LOTTO_PRICE;
+        double profitRate = (double)getProfit() / inputMoney * 100;
+        return (int)profitRate;
+    }
 }
