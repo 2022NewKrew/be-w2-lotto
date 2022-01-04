@@ -18,4 +18,8 @@ public enum MatchBall {
     MatchBall(int countOfMatchNumber, int rewardPrice, boolean useBonusBall) {
         this.lottoWinningReward = new LottoWinningReward(countOfMatchNumber, rewardPrice, useBonusBall);
     }
+
+    public LottoWinningReward getLottoWinningReward(){
+        return lottoWinningReward;
+    }
 }

@@ -1,6 +1,6 @@
 package com.kakao.io;
 
-import com.kakao.data.LottoWinningData;
+import com.kakao.data.MatchBall;
 import com.kakao.data.io.LottoOutputData;
 import com.kakao.model.Lotto;
 import com.kakao.model.LottoWinning;
@@ -74,12 +74,13 @@ class LottoOutput {
     // 당첨 결과 출력
     private static List<Integer> appendWinningResult(StringBuilder sb, Lottos lottos, LottoWinning lottoWinning) {
         List<Integer> countOfWinningLottos = lottos.matchLottosAreWinning(lottoWinning);
-        for(LottoWinningReward winningReward: LottoWinningData.lottoWinningRewards){
-            sb.append(appendEachWinningResult(winningReward, countOfWinningLottos));
+        for(MatchBall matchBall: MatchBall.values()){
+            sb.append(appendEachWinningResult(matchBall, countOfWinningLottos));
         }
         return countOfWinningLottos;
     }
-    private static String appendEachWinningResult(LottoWinningReward winningReward, List<Integer> countOfWinningLottos) {
+    private static String appendEachWinningResult(MatchBall matchBall, List<Integer> countOfWinningLottos) {
+        LottoWinningReward winningReward = matchBall.getLottoWinningReward();
         int countOfMatchNumber = winningReward.getCountOfMatchNumber();
         int rewardPrice = winningReward.getRewardPrice();
         int count = countOfWinningLottos.get(countOfMatchNumber);
@@ -90,15 +91,20 @@ class LottoOutput {
     // 이득 비율 출력
     private static String appendYieldRate(Integer moneyToBuyLotto, List<Integer> countOfWinningLottos) {
         int sumOfReward = 0 ;
-        for(LottoWinningReward winningReward: LottoWinningData.lottoWinningRewards) {
-            int countOfMatchNumber = winningReward.getCountOfMatchNumber();
-            int rewardPrice = winningReward.getRewardPrice();
-            int count = countOfWinningLottos.get(countOfMatchNumber);
-
-            sumOfReward += rewardPrice * count;
+        for(MatchBall matchBall: MatchBall.values()) {
+            sumOfReward += sumOfWinningReward(matchBall, countOfWinningLottos);
         }
 
-        int yeildRate = sumOfReward * 100 / moneyToBuyLotto;
+        int yeildRate = (sumOfReward - moneyToBuyLotto) * 100 / moneyToBuyLotto;
         return String.format(LottoOutputData.RESULT_FORMAT_OF_YIELD_RATE, yeildRate);
+    }
+    private static int sumOfWinningReward(MatchBall matchBall, List<Integer> countOfWinningLottos) {
+        LottoWinningReward winningReward = matchBall.getLottoWinningReward();
+
+        int countOfMatchNumber = winningReward.getCountOfMatchNumber();
+        int rewardPrice = winningReward.getRewardPrice();
+        int count = countOfWinningLottos.get(countOfMatchNumber);
+
+        return rewardPrice * count;
     }
 }
