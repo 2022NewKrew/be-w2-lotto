@@ -15,14 +15,6 @@ public enum LottoWinningRating {
         this.winningMoney = winningMoney;
     }
 
-    public Integer getMatchCount() {
-        return matchCount;
-    }
-
-    public Integer getWinningMoney() {
-        return winningMoney;
-    }
-
     public static LottoWinningRating getWinningRating(Integer matchCount) {
         if (matchCount.equals(FIRST.matchCount)) {
             return FIRST;
@@ -43,5 +35,12 @@ public enum LottoWinningRating {
         return NOTHING;
     }
 
+    public Integer getMatchCount() {
+        return matchCount;
+    }
+
+    public Integer getWinningMoney() {
+        return winningMoney;
+    }
 
 }

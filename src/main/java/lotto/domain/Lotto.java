@@ -6,9 +6,9 @@ import java.util.List;
 
 public class Lotto {
 
-    private final List<Integer> lottoNumbers;
     public static final Integer NUMBER_OF_WINNING_NUMBERS = 6;
     public static final Integer MAX_SIZE_OF_LOTTO = 45;
+    private final List<Integer> lottoNumbers;
 
     public Lotto() {
         this.lottoNumbers = Collections.unmodifiableList(makeLottoNumbers());
