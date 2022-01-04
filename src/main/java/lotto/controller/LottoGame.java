@@ -1,5 +1,6 @@
 package lotto.controller;
 
+import lotto.domain.lotto.Lotto;
 import lotto.domain.result.LottoResult;
 import lotto.domain.result.LottoResultChecker;
 import lotto.domain.player.PlayerLottoList;
@@ -11,8 +12,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class LottoGame {
-    private final int LOTTO_PRICE = 1000;
-
     private int purchaseAmount;
     private int numberOfLotto;
     private int bonusNumber;
@@ -34,7 +33,7 @@ public class LottoGame {
     }
 
     private void purchaseLotto() {
-        numberOfLotto = purchaseAmount / LOTTO_PRICE;
+        numberOfLotto = purchaseAmount / Lotto.LOTTO_PRICE;
         for (int i = 0; i < numberOfLotto; i++) {
             playerLottoList.purchaseLotto();
         }
