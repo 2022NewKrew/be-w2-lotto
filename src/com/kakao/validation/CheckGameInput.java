@@ -1,5 +1,7 @@
 package com.kakao.validation;
 
+import com.kakao.domain.WinningLotto;
+
 import java.util.*;
 
 public class CheckGameInput {
@@ -14,7 +16,6 @@ public class CheckGameInput {
             Collections.sort(lotto);
             return lotto;
         } catch (RuntimeException e) {
-            System.out.println("1 ~ 45 사이의 숫자를 중복없이 입력해 주세요.");
             throw new RuntimeException();
         }
     }
@@ -36,8 +37,9 @@ public class CheckGameInput {
         return lotto;
     }
 
-    private void checkNumValidation(int num) {
+    public void checkNumValidation(int num) {
         if (num < 1 || num > 45) {
+            System.out.println("1 ~ 45 사이의 번호를 입력해 주세요.");
             throw new RuntimeException();
         }
     }
@@ -45,6 +47,7 @@ public class CheckGameInput {
     private void checkNumOverlap(List<Integer> lotto) {
         Set<Integer> lottoSet = new HashSet<>(lotto);
         if (lottoSet.size() != LOTTO_NUM_CNT) {
+            System.out.println("중복된 번호가 존재합니다.");
             throw new RuntimeException();
         }
     }
@@ -52,6 +55,13 @@ public class CheckGameInput {
     public void checkLottoCnt(int totalLottoCnt, int lottoCnt) {
         if (totalLottoCnt < lottoCnt) {
             System.out.printf("최대 %d개를 구입하실 수 있습니다.\n", totalLottoCnt);
+            throw new RuntimeException();
+        }
+    }
+
+    public void checkBonusNum(List<Integer> winningLotto, int bonusNum) {
+        if (winningLotto.contains(bonusNum)) {
+            System.out.println("이미 존재하는 당첨 번호입니다.");
             throw new RuntimeException();
         }
     }

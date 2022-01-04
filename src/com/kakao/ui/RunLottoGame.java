@@ -11,10 +11,11 @@ public class RunLottoGame {
     public static GameOutput gameOutput = new GameOutput();
 
     public static void main(String[] args) {
-        List<Lotto> lottos = gameInput.inputMoney();
+        int money = gameInput.inputMoney();
+        List<Lotto> lottos = gameInput.buyLottos(money);
         gameOutput.printLottos(lottos);
 
         WinningLotto winningLotto = gameInput.inputWinningLotto();
-        gameOutput.printResult(lottos, winningLotto);
+        gameOutput.printResult(money, lottos, winningLotto);
     }
 }

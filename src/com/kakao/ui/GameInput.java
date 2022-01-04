@@ -12,18 +12,11 @@ public class GameInput {
     private final Scanner sc = new Scanner(System.in);
     private final List<Lotto> lottos = new ArrayList<>();
 
-    private int money;
-    private int totalLottoCnt;
-
-    public int getMoney() { return money; }
-
-    public List<Lotto> inputMoney() {
+    public int inputMoney() {
         try {
             System.out.println("구입금액을 입력해 주세요.");
-            money = Integer.parseInt(sc.nextLine());
-            totalLottoCnt = money / 1000;
-            buyLottos(totalLottoCnt);
-            return lottos;
+            int money = Integer.parseInt(sc.nextLine());
+            return money;
         } catch (RuntimeException e) {
             return inputMoney();
         }
@@ -34,26 +27,46 @@ public class GameInput {
             System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
             String[] input = sc.nextLine().split(",");
             List<Integer> winningLotto = checkGameInput.checkLottoInput(input);
-            return new WinningLotto(winningLotto);
+            int bonusNum = inputBonusNum(winningLotto);
+            return new WinningLotto(winningLotto, bonusNum);
         } catch (RuntimeException e) {
             return inputWinningLotto();
         }
     }
 
-    private void buyLottos(int totalLottoCnt) {
+    private int inputBonusNum(List<Integer> winningLotto) {
         try {
-            System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
-            int customLottoCnt = Integer.parseInt(sc.nextLine());
-            int autoLottoCnt = totalLottoCnt - customLottoCnt;
-            checkGameInput.checkLottoCnt(totalLottoCnt, customLottoCnt);
-            buyCustomLotto();
-            buyAutoLotto(autoLottoCnt);
+            System.out.println("보너스 볼을 입력해 주세요.");
+            int bonusNum = Integer.parseInt(sc.nextLine());
+            checkGameInput.checkNumValidation(bonusNum);
+            checkGameInput.checkBonusNum(winningLotto, bonusNum);
+            return bonusNum;
         } catch (RuntimeException e) {
-            buyLottos(totalLottoCnt);
+            return inputBonusNum(winningLotto);
         }
     }
 
-    private void buyCustomLotto() {
+    private int inputCustomLottoCnt(int totalLottoCnt) {
+        try {
+            System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+            int customLottoCnt = Integer.parseInt(sc.nextLine());
+            checkGameInput.checkLottoCnt(totalLottoCnt, customLottoCnt);
+            return customLottoCnt;
+        } catch (RuntimeException e) {
+            return inputCustomLottoCnt(totalLottoCnt);
+        }
+    }
+
+    public List<Lotto> buyLottos(int money) {
+        int totalLottoCnt = money / 1000;
+        int customLottoCnt = inputCustomLottoCnt(totalLottoCnt);
+        int autoLottoCnt = totalLottoCnt - customLottoCnt;
+        buyCustomLotto(customLottoCnt);
+        buyAutoLotto(autoLottoCnt);
+        return lottos;
+    }
+
+    private void buyCustomLotto(int lottoCnt) {
 
     }
 

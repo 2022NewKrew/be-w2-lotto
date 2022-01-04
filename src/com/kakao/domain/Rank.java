@@ -14,33 +14,23 @@ public enum Rank {
 
     public int getWinningMoney() { return winningMoney; }
 
-    private Rank(int cntOfMatch, int winningMoney) {
+    Rank(int cntOfMatch, int winningMoney) {
         this.cntOfMatch = cntOfMatch;
         this.winningMoney = winningMoney;
     }
 
-    public static Rank valueOf(int cntOfMatch) {
+    public static Rank valueOf(int cntOfMatch, boolean matchBonus) {
         Rank[] ranks = values();
         for (Rank rank : ranks) {
+            if (cntOfMatch == SECOND.cntOfMatch) {
+                return matchBonus ? SECOND : THRID;
+            }
+
             if (rank.cntOfMatch == cntOfMatch) {
                 return rank;
             }
         }
+
         return null;
     }
-
-//    public static Rank valueOf(int cntOfMatch, boolean matchBonus) {
-//        Rank[] ranks = values();
-//        for (Rank rank : ranks) {
-//            if (cntOfMatch == SECOND.cntOfMatch) {
-//                return matchBonus ? SECOND : THRID;
-//            }
-//
-//            if (rank.cntOfMatch == cntOfMatch) {
-//                return rank;
-//            }
-//        }
-//
-//        return null;
-//    }
 }
