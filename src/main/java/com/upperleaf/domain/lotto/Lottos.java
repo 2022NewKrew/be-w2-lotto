@@ -1,4 +1,4 @@
-package com.upperleaf.domain;
+package com.upperleaf.domain.lotto;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,23 +15,24 @@ public class Lottos {
     /**
      * 로또 리스트를 생성하는 정적 메서드
      * @param amount 로또 리스트에서 로또의 개수
+     * @param lottoCreateStrategy 로또 생성 전략
      * @return 로또 리스트를 표현하는 Lottos 객체
      */
-    public static Lottos createLottos(long amount) {
+    public static Lottos createLottos(long amount, LottoCreateStrategy lottoCreateStrategy) {
         List<Lotto> lottos = LongStream.range(0, amount)
-                .mapToObj(idx -> Lotto.createRandomLotto())
+                .mapToObj(idx -> lottoCreateStrategy.createLotto())
                 .collect(Collectors.toUnmodifiableList());
         return new Lottos(lottos);
     }
 
     /**
-     * 로또와 당첨번호를 비교하여, 순서대로 당첨번호와 일치하는 개수를 반환하는 함수.
-     * @param winningNumbers 당첨번호
-     * @return 로또와 당첨번호간 일치하는 숫자 개수
+     * 로또와 당첨번호를 비교하여, 당첨등수 반환
+     * @param winningNumber 당첨번호
+     * @return 로또등수 리스트
      */
-    public List<Long> matchWinningNumber(List<Integer> winningNumbers) {
+    public List<LottoRanking> matchWinningNumber(LottoWinningNumber winningNumber) {
         return lottoList.stream()
-                .map(lotto -> lotto.match(winningNumbers))
+                .map(lotto -> lotto.match(winningNumber))
                 .collect(Collectors.toList());
     }
 

@@ -1,7 +1,7 @@
 package com.upperleaf.view;
 
 import com.upperleaf.domain.LottoPaymentInfo;
-import com.upperleaf.domain.LottoWinningNumber;
+import com.upperleaf.domain.lotto.LottoWinningNumber;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +29,11 @@ public class LottoInput {
     public LottoWinningNumber inputWinningNumber() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         String winningNumbers = sc.nextLine();
-        return new LottoWinningNumber(splitAndConvertToInt(winningNumbers));
+
+        System.out.println("보너스 볼을 입력해 주세요.");
+        String winningBonusNumbers = sc.nextLine();
+
+        return new LottoWinningNumber(splitAndConvertToInt(winningNumbers), Integer.parseInt(winningBonusNumbers));
     }
 
     private List<Integer> splitAndConvertToInt(String numbers) {
