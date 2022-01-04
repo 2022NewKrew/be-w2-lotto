@@ -41,9 +41,9 @@ public class Lottos {
                 .map(lotto -> lotto.checkNumber(winningNumber, bonusNum)).filter(l -> l.equals(correctNum)).count();
     }
 
-    public long checkWinRate(HashMap<Integer, Integer> checkResult) {
-        long buyPrice = 1000 * lottos.size();
-        long winPrice = 0;
+    public double checkWinRate(HashMap<Integer, Integer> checkResult) {
+        double buyPrice = 1000 * lottos.size();
+        double winPrice = 0;
         winPrice += checkResult.get(3) * 5000;
         winPrice += checkResult.get(4) * 50000;
         winPrice += checkResult.get(5) * 1500000;

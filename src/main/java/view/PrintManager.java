@@ -2,6 +2,7 @@ package view;
 
 import CONST.Const;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 
 public class PrintManager {
@@ -22,9 +23,10 @@ public class PrintManager {
         System.out.println(resultString);
     }
 
-    public static void printWinRate(long winRate) {
+    public static void printWinRate(double winRate) {
         StringBuilder winRateString = new StringBuilder();
-        winRateString.append(Const.WIN_RATE_HEAD).append(winRate).append(Const.WIN_RATE_TAIL);
+        DecimalFormat form = new DecimalFormat("#.##");
+        winRateString.append(Const.WIN_RATE_HEAD).append(form.format(winRate)).append(Const.WIN_RATE_TAIL);
         System.out.println(winRateString);
     }
 }
