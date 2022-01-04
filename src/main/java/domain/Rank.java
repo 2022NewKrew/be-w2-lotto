@@ -37,21 +37,4 @@ public enum Rank {
 
         return null;
     }
-
-    private static Rank getRank(Rank rank, int countOfMatch, boolean matchBonus){
-        if(countOfMatch == SECOND.countOfMatch){
-            return checkBonus(matchBonus);
-        }
-
-        if(rank.countOfMatch == countOfMatch){
-            return rank;
-        }
-        return null;
-    }
-
-    private static Rank checkBonus(boolean matchBonus){
-        if(matchBonus) return SECOND;
-        return THIRD;
-    }
-
 }
