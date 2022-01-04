@@ -22,6 +22,7 @@ class LottoMachineTest {
     void countLottoMatch() {
         List<Lotto> lottos = Arrays.asList(new Lotto(Arrays.asList(LottoBall.B1,LottoBall.B2,LottoBall.B3,LottoBall.B4,LottoBall.B5,LottoBall.B6)),
                 new Lotto(Arrays.asList(LottoBall.B1,LottoBall.B2,LottoBall.B3,LottoBall.B4,LottoBall.B5,LottoBall.B7)),
+                new Lotto(Arrays.asList(LottoBall.B1,LottoBall.B2,LottoBall.B3,LottoBall.B4,LottoBall.B5,LottoBall.B8)),
                 new Lotto(Arrays.asList(LottoBall.B1,LottoBall.B2,LottoBall.B3,LottoBall.B4,LottoBall.B7,LottoBall.B8)),
                 new Lotto(Arrays.asList(LottoBall.B1,LottoBall.B2,LottoBall.B3,LottoBall.B7,LottoBall.B8,LottoBall.B9)),
                 new Lotto(Arrays.asList(LottoBall.B1,LottoBall.B2,LottoBall.B7,LottoBall.B8,LottoBall.B9,LottoBall.B10)),
@@ -29,8 +30,8 @@ class LottoMachineTest {
                 new Lotto(Arrays.asList(LottoBall.B7,LottoBall.B8,LottoBall.B9,LottoBall.B10,LottoBall.B11,LottoBall.B12))
         );
         LottoMachine lottoMachine = new LottoMachine(lottos);
-        List<Integer> result = lottoMachine.countLottoMatch(new WinningLotto(Arrays.asList(LottoBall.B1,LottoBall.B2,LottoBall.B3,LottoBall.B4,LottoBall.B5,LottoBall.B6)));
-        assertThat(result).isEqualTo(Arrays.asList(1,1,1,1,1,1,1));
+        List<Integer> result = lottoMachine.getLottoMatchResults(new WinningLotto(Arrays.asList(LottoBall.B1,LottoBall.B2,LottoBall.B3,LottoBall.B4,LottoBall.B5,LottoBall.B6), LottoBall.B7));
+        assertThat(result).isEqualTo(Arrays.asList(1,1,1,1,1));
 
     }
 }

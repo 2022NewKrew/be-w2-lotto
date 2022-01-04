@@ -19,8 +19,8 @@ public class PrintLotto {
         lottoMachine.buyLotto(money);
         printLottos(lottoMachine.getLottos());
         WinningLotto winLotto = getWinLotto();
-        List<Integer> matchCounts = lottoMachine.countLottoMatch(winLotto);
-        printLottoResult(money, matchCounts);
+        List<Integer> result = lottoMachine.getLottoMatchResults(winLotto);
+        printLottoResult(money, result);
     }
 
     private static int getMoney() {
@@ -32,14 +32,17 @@ public class PrintLotto {
     private static void printLottos(List<Lotto> lottos) {
         System.out.println(lottos.size() + "개를 구매했습니다.");
         for(Lotto lotto: lottos) {
-            System.out.println(lotto.getLottoNumbers());
+            System.out.println(lotto.getLottoNumbers().stream().map(x -> x.ordinal() + 1).collect(Collectors.toList()));
         }
     }
 
     private static WinningLotto getWinLotto() {
         Scanner in = new Scanner(System.in).useDelimiter("\n");
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        return new WinningLotto(splitNumbers(in.next()));
+        List<LottoBall> winningNumbers = splitNumbers(in.next());
+        System.out.println("보너스 볼을 입력해 주세요.");
+        LottoBall bonusBall = LottoBall.values()[in.nextInt()-1];
+        return new WinningLotto(winningNumbers, bonusBall);
     }
 
     private static List<LottoBall> splitNumbers(String numStr) {
@@ -50,17 +53,19 @@ public class PrintLotto {
     private static void printLottoResult(int money, List<Integer> matchCounts) {
         System.out.println("당첨 통계");
         System.out.println("----------");
-        System.out.println("3개 일치 (5000원)- " + matchCounts.get(3) + "개");
-        System.out.println("4개 일치 (50000원)- " + matchCounts.get(4) + "개");
-        System.out.println("5개 일치 (1500000원)- " + matchCounts.get(5) + "개");
-        System.out.println("6개 일치 (2000000000원)- " + matchCounts.get(6) + "개");
-        System.out.println("총 수익률은 " + calcProfit(matchCounts) / money + "%입니다.");
+        System.out.println("3개 일치 (5000원)- " + matchCounts.get(4) + "개");
+        System.out.println("4개 일치 (50000원)- " + matchCounts.get(3) + "개");
+        System.out.println("5개 일치 (1500000원)- " + matchCounts.get(2) + "개");
+        System.out.println("5개 일치, 보너스 볼 일치(1500000원)- " + matchCounts.get(1) + "개");
+        System.out.println("6개 일치 (2000000000원)- " + matchCounts.get(0) + "개");
+        System.out.println("총 수익률은 " + calcProfit(matchCounts) * 100 / money + "%입니다.");
     }
 
     private static int calcProfit(List<Integer> matchCounts) {
-        return matchCounts.get(3) * 5000
-                + matchCounts.get(4) * 50000
-                + matchCounts.get(5) * 1500000
-                + matchCounts.get(6) * 200000000;
+        return matchCounts.get(4) * 5000
+                + matchCounts.get(3) * 50000
+                + matchCounts.get(2) * 1500000
+                + matchCounts.get(1) * 30000000
+                + matchCounts.get(0) * 200000000;
     }
 }
