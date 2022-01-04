@@ -1,15 +1,10 @@
-import view.LottoMachine;
+import domain.LottoController;
+import view.LottoView;
 
 public class App {
 
-    private LottoMachine lottoMachine;
-
-    public App() {
-        lottoMachine = new LottoMachine();
-    }
-
     public static void main(String[] args) {
-        App app = new App();
-        app.lottoMachine.run();
+        LottoController lottoController = new LottoController();
+        lottoController.run();
     }
 }
