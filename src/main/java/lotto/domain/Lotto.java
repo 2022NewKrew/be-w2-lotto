@@ -4,17 +4,14 @@ import lotto.view.LottoViewInput;
 import lotto.view.LottoViewOutput;
 
 import java.text.CollationElementIterator;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static lotto.domain.LottoSetting.*;
 
 public class Lotto {
     private LottoResult lottoResult;
     private List<LottoNumber> lottos;
-    private List<LottoWinner> lottoWinner;
+    private Map<Rank, List<LottoNumber>> lottoWinner;
     private List<Integer> lottoElement;
 
     public Lotto(){
@@ -26,7 +23,7 @@ public class Lotto {
         return lottos;
     }
 
-    public List<LottoWinner> getLottoWinner() {
+    public Map<Rank, List<LottoNumber>> getLottoWinner() {
         return lottoWinner;
     }
 
@@ -37,8 +34,8 @@ public class Lotto {
     public Long getEarning(){
         Long totalEarning = Long.valueOf(0);
 
-        for(int correctCount = 0 ; correctCount <= LOTTO_LENGTH ; correctCount++){
-            totalEarning += Long.valueOf(Rank.getRankByCount(correctCount, false).getWinningMoney()) * lottoWinner.get(correctCount).getWinner().size();
+        for(Rank rank : List.of(Rank.values())){
+            totalEarning += rank.getWinningMoney() * lottoWinner.get(rank).size();
         }
 
         return totalEarning;
@@ -71,18 +68,23 @@ public class Lotto {
         return matchCount;
     }
 
-    public void makeTotal(){
+    private void initLottoWinner(){
         //init lottoWinner Objects
-        lottoWinner = new ArrayList<>();
-
-        for(int i = 0 ; i <= LOTTO_LENGTH ; i++){
-            lottoWinner.add(new LottoWinner());
+        lottoWinner = new HashMap<>();
+        for(Rank rank : List.of(Rank.values())){
+            lottoWinner.put(rank, new ArrayList<LottoNumber>());
         }
+    }
+
+    public void makeTotal(){
+        //initialize Hashmap to lottoWinner.
+        initLottoWinner();
 
         //add win numbers to lottoWinner
         for(int i = 0 ; i < lottos.size() ; i++){
             LottoNumber curLotto = lottos.get(i);
-            lottoWinner.get(calculateMatchCount(curLotto)).addLottoNumber(curLotto);
+            Rank lottoRank = Rank.getRankByCount(calculateMatchCount(curLotto), curLotto.num.contains(lottoResult.getBonusNumber()));
+            lottoWinner.get(lottoRank).add(curLotto);
         }
 
     }

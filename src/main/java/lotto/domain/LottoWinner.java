@@ -5,7 +5,7 @@ import java.util.List;
 
 import static lotto.domain.LottoSetting.LOTTO_LENGTH;
 
-public class LottoWinner {
+public class LottoWinner { //삭제예정
     List<LottoNumber> winner;
 
     public LottoWinner(){

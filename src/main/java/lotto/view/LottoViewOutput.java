@@ -5,7 +5,9 @@ import lotto.domain.LottoNumber;
 import lotto.domain.LottoWinner;
 import lotto.domain.Rank;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static lotto.domain.LottoSetting.*;
 
@@ -37,13 +39,19 @@ public class LottoViewOutput {
     }
 
     public void printWinner(){
-        List<LottoWinner> winnerList = lottoObject.getLottoWinner();
+        Map<Rank, List<LottoNumber>> winnerMap = lottoObject.getLottoWinner();
 
         System.out.println("\n당첨 통계\n---------");
 
-        for(int correctCount = 3 ; correctCount <= LOTTO_LENGTH ; correctCount++){
-            System.out.println(correctCount + "개 일치 " + Rank.getRankByCount(correctCount, false).getWinningMessage() + " - " + winnerList.get(correctCount).getWinner().size() + "개");
+        List<Rank> ranks = List.of(Rank.values());
+        for(int i = ranks.size() - 1 ; i >= 0 ; i--){
+            Rank rank = ranks.get(i);
+            if(rank.getCountOfMatch() < Rank.FOURTH.getCountOfMatch()){
+                continue;
+            }
+            System.out.println(rank.getCountOfMatch() + "개 일치 " + rank.getWinningMessage() + " - " + winnerMap.get(rank).size() + "개");
         }
+
         System.out.println("총 수익률은 " + Long.valueOf((long) (lottoObject.getEarning().doubleValue() / lottoObject.getPayment() * 100)) + "%입니다.");
     }
 }
