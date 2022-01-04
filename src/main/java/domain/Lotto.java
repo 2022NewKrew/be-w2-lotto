@@ -12,7 +12,7 @@ public class Lotto {
     private static final int NUM_OF_DRAWS = 6;
     private final ArrayList<Integer> numbers;
 
-    private Lotto(ArrayList<Integer> numbers) {
+    public Lotto(ArrayList<Integer> numbers) {
         this.numbers = numbers;
     }
 
