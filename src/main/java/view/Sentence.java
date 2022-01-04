@@ -2,6 +2,8 @@ package view;
 
 public enum Sentence {
     PURCHASE_AMOUNT_REQUEST("구입금액을 입력해 주세요"),
+    NUMBER_OF_MANUAL_PURCHASE_REQUEST("수동으로 구매할 로또 수를 입력해 주세요."),
+    MANUAL_LOTTO_NUMBER_REQUEST("수동으로 구매할 번호를 입력해 주세요."),
     LAST_WEEK_WINNING_NUMBER_REQUEST("지난 주 당첨 번호를 입력해 주세요."),
     BONUS_BALL_REQUEST("보너스 볼을 입력해 주세요."),
 
