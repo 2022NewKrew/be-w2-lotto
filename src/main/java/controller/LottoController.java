@@ -2,6 +2,7 @@ package controller;
 
 import domain.Lotto;
 import domain.LottoResult;
+import exception.LottoPurchasePriceException;
 import view.LottoView;
 
 import java.util.*;
@@ -19,6 +20,7 @@ public class LottoController {
     private LottoView lottoView;
 
     public LottoController(int purchasePrice) {
+        validatePurchasePrice(purchasePrice);
         this.purchasePrice = purchasePrice;
         this.purchaseAmount = purchasePrice / LOTTO_PRICE;
         this.lottoList = generateLottoList();
@@ -81,5 +83,11 @@ public class LottoController {
 
     public void printResult() {
         lottoView.printLottoStatistics(lottoResult);
+    }
+
+    public void validatePurchasePrice(int purchasePrice) {
+        if (purchasePrice < LOTTO_PRICE) {
+            throw new LottoPurchasePriceException("1000원 이상으로 구입하여야 합니다.");
+        }
     }
 }
