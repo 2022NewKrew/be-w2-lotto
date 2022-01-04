@@ -20,7 +20,7 @@ public class LottoResultManager {
 
     public MatchScore getScore() {
         for (Lotto lotto: userLottoList) {
-            int matchCount = winningLotto.compareTo(lotto);
+            int matchCount = winningLotto.checkNumberOfWinning(lotto);
             reflectScore(matchCount);
         }
         return matchScore;
