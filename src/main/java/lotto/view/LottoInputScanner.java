@@ -14,33 +14,41 @@ public class LottoInputScanner {
     public long getPurchaseAmount() throws IllegalArgumentException {
         System.out.println("구입금액을 입력해 주세요.");
         long purchaseAmount = Long.parseLong(sc.nextLine());
-        if (!checker.checkPositiveLong(purchaseAmount) || !checker.checkAmountUnit(purchaseAmount)) {
-            throw new IllegalArgumentException("금액을 확인해주십시오.(lotto는 1000원 단위로 구매 가능합니다.)");
+        if (!checker.checkPositiveNumber(purchaseAmount) || !checker.checkAmountUnit(purchaseAmount)) {
+            throw new IllegalArgumentException();
         }
         return purchaseAmount;
     }
 
-    public List<Integer> getWinningDigits() throws IllegalArgumentException {
-        System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
+    public int getNumManualLottos() throws IllegalArgumentException {
+        System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
+        int numManualLottos = Integer.parseInt(sc.nextLine());
+
+        if (!checker.checkPositiveNumber(numManualLottos)) {
+            throw new IllegalArgumentException();
+        }
+        return numManualLottos;
+    }
+
+    public List<Integer> getDigits(String msg) throws IllegalArgumentException {
+        System.out.print(msg);
         List<Integer> winningDigitList = Arrays.stream(sc.nextLine().split(SEPARATOR))
                 .map(s -> Integer.parseInt(s.trim()))
                 .collect(Collectors.toList());
 
         if (!checker.checkDigitsInLotto(winningDigitList) || !checker.checkDuplication(winningDigitList) || !checker.checkNumOfDigits(winningDigitList)) {
-            throw new IllegalArgumentException("당첨 번호는 1~45사이의 숫자 6개로 중복없이 입력바랍니다.");
+            throw new IllegalArgumentException();
         }
-
         return winningDigitList;
     }
 
-    public int getWinningBonusDigit(List<Integer> winningDigitList) {
+    public int getWinningBonusDigit(List<Integer> winningDigitList) throws IllegalArgumentException {
         System.out.println("보너스 볼을 입력해 주세요.");
         int bonus = sc.nextInt();
 
         if (!checker.checkDigit(bonus) || !checker.checkDuplication(winningDigitList, bonus)) {
-            throw new IllegalArgumentException("보너스 숫자는 1~45 사이의 값이며 당첨 번호와 중복될 수 없습니다.");
+            throw new IllegalArgumentException();
         }
-
         return bonus;
     }
 }
