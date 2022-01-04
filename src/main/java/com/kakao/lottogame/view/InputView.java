@@ -1,8 +1,9 @@
 package com.kakao.lottogame.view;
 
 import com.kakao.lottogame.domain.Lotto;
+import com.kakao.lottogame.domain.LottoNumber;
 import com.kakao.lottogame.domain.Money;
-import com.kakao.lottogame.domain.Number;
+import com.kakao.lottogame.domain.WinningLotto;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -21,21 +22,25 @@ public class InputView {
         return Money.of(value);
     }
 
-    public Lotto inputWinningLotto() {
+    public WinningLotto inputWinningLotto() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         String line = removeSpace(scanner.nextLine());
-        List<Number> numbers = extractNumbers(line);
-        return Lotto.of(numbers);
+        List<LottoNumber> lottoNumbers = extractNumbers(line);
+
+        System.out.println("보너스 볼을 입력해주세요.");
+        int bonusNumber = Integer.parseInt(scanner.nextLine());
+        return WinningLotto.of(Lotto.of(lottoNumbers), LottoNumber.of(bonusNumber));
     }
 
     private String removeSpace(String line) {
         return line.replaceAll(SPACE, BLANK);
     }
 
-    private List<Number> extractNumbers(String line) {
+    private List<LottoNumber> extractNumbers(String line) {
         return Arrays.stream(line.split(DELIMITER))
+            .distinct()
             .mapToInt(Integer::parseInt)
-            .mapToObj(Number::of)
+            .mapToObj(LottoNumber::of)
             .collect(Collectors.toList());
     }
 }

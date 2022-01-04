@@ -1,19 +1,19 @@
 package com.kakao.lottogame.domain;
 
-public class Number {
+public class LottoNumber {
 
     public static final int MIN_VALUE = 1;
     public static final int MAX_VALUE = 45;
 
     private final int value;
 
-    private Number(int value) {
+    private LottoNumber(int value) {
         validate(value);
         this.value = value;
     }
 
-    public static Number of(int value) {
-        return new Number(value);
+    public static LottoNumber of(int value) {
+        return new LottoNumber(value);
     }
 
     private void validate(int value) {
@@ -35,9 +35,9 @@ public class Number {
             return false;
         }
 
-        Number number = (Number) o;
+        LottoNumber lottoNumber = (LottoNumber) o;
 
-        return getValue() == number.getValue();
+        return getValue() == lottoNumber.getValue();
     }
 
     @Override

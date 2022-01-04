@@ -11,31 +11,31 @@ public class Lotto {
     public static final int SIZE = 6;
     public static final Money PRICE = Money.of(1_000);
 
-    private final List<Number> numbers;
+    private final List<LottoNumber> lottoNumbers;
 
-    private Lotto(List<Number> numbers) {
-        validate(numbers);
-        this.numbers = Collections.unmodifiableList(numbers);
+    private Lotto(List<LottoNumber> lottoNumbers) {
+        validate(lottoNumbers);
+        this.lottoNumbers = Collections.unmodifiableList(lottoNumbers);
     }
 
-    public static Lotto of(List<Number> numbers) {
-        return new Lotto(numbers);
+    public static Lotto of(List<LottoNumber> lottoNumbers) {
+        return new Lotto(lottoNumbers);
     }
 
-    private void validate(List<Number> numbers) {
-        if (numbers.size() != SIZE) {
+    private void validate(List<LottoNumber> lottoNumbers) {
+        if (lottoNumbers.size() != SIZE) {
             throw new IllegalArgumentException("로또 번호는 총 6개입니다.");
         }
     }
 
-    public List<Number> getNumbers() {
-        return numbers;
+    public int compare(Lotto lotto) {
+        Set<LottoNumber> intersectSet = new HashSet<>(lottoNumbers);
+        intersectSet.retainAll(lotto.lottoNumbers);
+        return intersectSet.size();
     }
 
-    public int compare(Lotto lotto) {
-        Set<Number> intersectSet = new HashSet<>(numbers);
-        intersectSet.retainAll(lotto.numbers);
-        return intersectSet.size();
+    public boolean contains(LottoNumber lottoNumber) {
+        return lottoNumbers.contains(lottoNumber);
     }
 
     @Override
@@ -49,17 +49,17 @@ public class Lotto {
 
         Lotto lotto = (Lotto) o;
 
-        return getNumbers().equals(lotto.getNumbers());
+        return lottoNumbers.equals(lotto.lottoNumbers);
     }
 
     @Override
     public int hashCode() {
-        return getNumbers().hashCode();
+        return lottoNumbers.hashCode();
     }
 
     @Override
     public String toString() {
         final String SEPARATOR = ", ";
-        return "[" + StringUtils.join(this.numbers, SEPARATOR) + "]";
+        return "[" + StringUtils.join(this.lottoNumbers, SEPARATOR) + "]";
     }
 }

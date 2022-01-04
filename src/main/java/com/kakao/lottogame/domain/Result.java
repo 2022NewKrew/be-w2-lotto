@@ -1,33 +1,55 @@
 package com.kakao.lottogame.domain;
 
+import java.util.Arrays;
 import java.util.EnumMap;
-import java.util.Map;
+import java.util.List;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 public class Result {
 
-    private final EnumMap<Reward, Integer> result;
+    private final EnumMap<Rank, Integer> board;
 
-    public Result() {
-        result = new EnumMap<>(Reward.class);
-        for (Reward reward : Reward.values()) {
-            result.put(reward, 0);
+    private Result() {
+        board = new EnumMap<>(Rank.class);
+        for (Rank rank : Rank.values()) {
+            board.put(rank, 0);
         }
     }
 
-    public void add(Reward reward) {
-        result.put(reward, result.get(reward) + 1);
-    }
-
-    public Map<Reward, Integer> getResult() {
+    public static Result from(List<Rank> ranks) {
+        Result result = new Result();
+        ranks.forEach(result::add);
         return result;
     }
 
-    public long getProfit(Money money) {
+    private void add(Rank rank) {
+        board.computeIfPresent(rank, (k, v) -> v + 1);
+    }
+
+    public List<Entry<Rank, Integer>> getBoardWithout(Rank... ranks) {
+        return board.entrySet()
+            .stream()
+            .filter(entry -> Arrays.stream(ranks).noneMatch(rank -> rank.equals(entry.getKey())))
+            .collect(Collectors.toList());
+    }
+
+    public int getCountOf(Rank rank) {
+        return board.get(rank);
+    }
+
+    public long calculateProfitRate(Money money) {
+        System.out.println(money.getValue());
+        return (calculateProfit() - money.getValue()) * 100 / money.getValue();
+    }
+
+    private long calculateProfit() {
         long total = 0L;
-        for (Entry<Reward, Integer> entry : result.entrySet()) {
-            total += (long) entry.getKey().getValue().getValue() * result.get(entry.getKey());
+        for (Entry<Rank, Integer> entry : board.entrySet()) {
+            Rank rank = entry.getKey();
+            long count = entry.getValue();
+            total += rank.getRewardValue() * count;
         }
-        return total * 100 / money.getValue();
+        return total;
     }
 }

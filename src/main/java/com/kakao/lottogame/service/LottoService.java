@@ -2,30 +2,37 @@ package com.kakao.lottogame.service;
 
 import com.kakao.lottogame.domain.Lotto;
 import com.kakao.lottogame.domain.Money;
+import com.kakao.lottogame.domain.Rank;
 import com.kakao.lottogame.domain.Result;
-import com.kakao.lottogame.domain.Reward;
-import java.util.ArrayList;
+import com.kakao.lottogame.domain.WinningLotto;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class LottoService {
 
-    private final LottoGenerator lottoGenerator = new RandomLottoGenerator();
+    private final LottoGenerator lottoGenerator;
 
-    public List<Lotto> buyLottosFor(Money money) {
-        List<Lotto> lottos = new ArrayList<>();
-        int amount = money.buy(Lotto.PRICE);
-        for (int i = 0; i < amount; i++) {
-            lottos.add(lottoGenerator.generate());
-        }
-        return lottos;
+    public LottoService() {
+        lottoGenerator = new RandomLottoGenerator();
     }
 
-    public Result check(List<Lotto> lottos, Lotto winningLotto) {
-        Result result = new Result();
-        for (Lotto lotto : lottos) {
-            int match = lotto.compare(winningLotto);
-            result.add(Reward.of(match));
-        }
-        return result;
+    public LottoService(long seed) {
+        lottoGenerator = new RandomLottoGenerator(seed);
+    }
+
+    public List<Lotto> buyLottosFor(Money money) {
+        int amount = money.buy(Lotto.PRICE);
+        return Stream.generate(lottoGenerator::generate)
+            .limit(amount)
+            .collect(Collectors.toList());
+    }
+
+    public Result collate(List<Lotto> lottos, WinningLotto winningLotto) {
+        List<Rank> ranks = lottos.stream()
+            .map(winningLotto::compare)
+            .map(Rank::of)
+            .collect(Collectors.toList());
+        return Result.from(ranks);
     }
 }
