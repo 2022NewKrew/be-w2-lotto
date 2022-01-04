@@ -7,6 +7,7 @@ import java.util.*;
 public class LottoResult {
     private List<Integer> winningLottoNumbers = new ArrayList<>();
     private HashMap<Rank, Integer> matchMap = new HashMap<>();
+    private LottoCheck lc;
     private int value;
     private int profitRate;
     private int bonusNum;
@@ -27,7 +28,8 @@ public class LottoResult {
             winningLottoNumbers = readWinningLottoNumbers();
             askBonusWinningLottoNumber();
             bonusNum = readBonusWinningLottoNumber();
-            checkWinningLottoNumbers(COUNT_OF_LOTTO_NUMBER, MAX_OF_LOTTO_NUMBER);
+            lc = new LottoCheck(winningLottoNumbers, bonusNum, COUNT_OF_LOTTO_NUMBER, MAX_OF_LOTTO_NUMBER);
+            lc.checkWinningLottoNumbers();
         } catch (Exception e) {
             System.out.println("잘못된 당첨 번호입니다! 다시 입력해주세요.");
             inputWinningLottoNumbers(COUNT_OF_LOTTO_NUMBER, MAX_OF_LOTTO_NUMBER);
@@ -49,37 +51,7 @@ public class LottoResult {
         return winningLottoNumbers;
     }
 
-    private void checkWinningLottoNumbers(final int COUNT_OF_LOTTO_NUMBER, final int MAX_OF_LOTTO_NUMBER)
-            throws IllegalArgumentException {
-        checkNumList(COUNT_OF_LOTTO_NUMBER, MAX_OF_LOTTO_NUMBER);
-        checkBonusNum(MAX_OF_LOTTO_NUMBER);
-    }
 
-    private void checkNumList(final int COUNT_OF_LOTTO_NUMBER, final int MAX_OF_LOTTO_NUMBER)
-            throws IllegalArgumentException {
-        if (winningLottoNumbers.size() != winningLottoNumbers.stream().distinct().count()) {
-            throw new IllegalArgumentException("중복된 로또 당첨 번호입니다!");
-        }
-        if (winningLottoNumbers.size() != COUNT_OF_LOTTO_NUMBER) {
-            throw new IllegalArgumentException("잘못된 개수의 로또 당첨 번호입니다!");
-        }
-        for (Integer winningNum : winningLottoNumbers) {
-            checkNumRange(winningNum, MAX_OF_LOTTO_NUMBER);
-        }
-    }
-
-    private void checkBonusNum(final int MAX_OF_LOTTO_NUMBER) throws IllegalArgumentException {
-        if (winningLottoNumbers.contains(bonusNum)) {
-            throw new IllegalArgumentException("중복된 로또 당첨 번호입니다!");
-        }
-        checkNumRange(bonusNum, MAX_OF_LOTTO_NUMBER);
-    }
-
-    private void checkNumRange(Integer num, final int MAX_OF_LOTTO_NUMBER) throws IllegalArgumentException {
-        if (bonusNum < 1 || bonusNum > MAX_OF_LOTTO_NUMBER) {
-            throw new IllegalArgumentException("잘못된 범위의 로또 당첨 번호입니다!");
-        }
-    }
 
     private void askBonusWinningLottoNumber() {
         System.out.println("보너스 볼을 입력해 주세요.");
