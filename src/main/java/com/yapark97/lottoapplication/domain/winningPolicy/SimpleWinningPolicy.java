@@ -13,6 +13,11 @@ public class SimpleWinningPolicy implements WinningPolicy{
     }
 
     @Override
+    public int getWinningPrize() {
+        return winningPrize;
+    }
+
+    @Override
     public boolean isWon(Lotto lotto, Lotto winningLotto) {
         int count = (int) winningLotto.getNumbers().stream()
                 .map(lotto.getNumbers()::contains)

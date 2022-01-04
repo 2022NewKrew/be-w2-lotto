@@ -7,5 +7,8 @@ import java.util.Map;
 
 public interface LottoOutput {
     void printLottoSetInfo(LottoSet lottoSet);
+
     void printStatistic(Map<WinningPolicy, Integer> statistic);
+
+    void printProfitRate(double profitRate);
 }

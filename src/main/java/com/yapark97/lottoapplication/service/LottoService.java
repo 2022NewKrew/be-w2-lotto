@@ -70,5 +70,22 @@ public class LottoService {
             statistic.put(winningPolicy, count);
         }
         lottoOutput.printStatistic(statistic);
+        showProfitRate(statistic);
+    }
+
+    private void showProfitRate(Map<WinningPolicy, Integer> statistic) {
+        int profit = 0;
+
+        for (WinningPolicy winningPolicy : winningPolicies) {
+            profit += winningPolicy.getWinningPrize() * statistic.get(winningPolicy);
+        }
+        lottoOutput.printProfitRate(getProfitRate(profit));
+    }
+
+    private double getProfitRate(int profit) {
+        double price = lottoSet.getLottoSetSize() * 1000;
+        double profitRate = (profit - price) / price * 100;
+
+        return Math.round(profitRate * 100) / 100.0;
     }
 }

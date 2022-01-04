@@ -28,4 +28,9 @@ public class SimpleLottoOutput implements LottoOutput{
             System.out.println( winningPolicy + "- " + statistic.get(winningPolicy) + "개");
         }
     }
+
+    @Override
+    public void printProfitRate(double profitRate) {
+        System.out.println("총 수익률은 " + profitRate + "%입니다.");
+    }
 }

@@ -4,5 +4,6 @@ import java.util.List;
 
 public interface LottoInput {
     int takeLottoSetNumInput();
+
     List<Integer> takeWinningNumbersInput();
 }

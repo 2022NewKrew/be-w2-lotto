@@ -4,10 +4,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class LottoSet {
-
+    private final int lottoSetSize;
     private List<Lotto> lottos;
 
     public LottoSet(final int lottoSetSize) {
+        this.lottoSetSize = lottoSetSize;
         initLottos(lottoSetSize);
     }
 
@@ -29,6 +30,10 @@ public class LottoSet {
         picked = numberPool.subList(0, LottoConst.LOTTO_NUMBERS_SIZE); // 6개 뽑기
         Collections.sort(picked);
         return picked;
+    }
+
+    public int getLottoSetSize() {
+        return lottoSetSize;
     }
 
     public List<Lotto> getLottos() {
