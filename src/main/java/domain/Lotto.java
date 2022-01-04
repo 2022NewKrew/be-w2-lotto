@@ -13,6 +13,7 @@ public class Lotto {
     private static final int LOTTO_LENGTH = 6;
 
     private static List<Integer> lottoWinningNumbers;
+    private static int bonusNumber;
 
     private final List<Integer> lottoNumbers;
 
@@ -28,16 +29,20 @@ public class Lotto {
         return list;
     }
 
-    public static void setLottoWinningNumbers(String lottoInput){
+    public static void setLottoWinningNumbers(String lottoInput, int bonusNumber) {
         Lotto.lottoWinningNumbers = splitLottoNumbers(lottoInput);
+        Lotto.bonusNumber = bonusNumber;
     }
 
     private static List<Integer> splitLottoNumbers(String lottoInput) {
         return Arrays.stream(lottoInput.split(",")).map(Integer::parseInt).collect(Collectors.toList());
     }
 
-    public int compareLottoNumbers(){
-        this.correctCount = lottoWinningNumbers.stream().filter(lottoNumbers::contains).toArray().length;
+    public int compareLottoNumbers() {
+        int correctCount = lottoWinningNumbers.stream().filter(lottoNumbers::contains).toArray().length;
+        if (correctCount == 6 || (correctCount == 5 && lottoNumbers.contains(bonusNumber))) {
+            return correctCount + 1;
+        }
         return correctCount;
     }
 
