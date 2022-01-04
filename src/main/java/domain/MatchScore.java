@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MatchResult {
+public class MatchScore {
     public static final Map<Integer, Long> PRICES = Map.of(3, 5000L, 4, 50000L, 5, 1500000L, 6, 2000000000L);
     private static final List<Integer> RESULTS = List.of(3, 4, 5, 6);
     private final Map<Integer, Integer> count;
 
-    public MatchResult() {
+    public MatchScore() {
         count = new HashMap<>();
         for (int e : RESULTS) {
             count.put(e, 0);

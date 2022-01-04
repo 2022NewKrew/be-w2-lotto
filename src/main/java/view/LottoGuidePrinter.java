@@ -1,7 +1,7 @@
 package view;
 
 import domain.Lotto;
-import domain.MatchResult;
+import domain.MatchScore;
 
 import java.util.List;
 import java.util.Map;
@@ -44,11 +44,11 @@ public class LottoGuidePrinter {
         System.out.println(WINNING_LOTTO_REQUEST);
     }
 
-    public static void printLottoResult(int purchaseAmount, MatchResult matchResult) {
+    public static void printLottoResult(int purchaseAmount, MatchScore matchScore) {
         System.out.println(WINNING_STATISTICS);
-        for (Map.Entry<Integer, Integer> e : matchResult.getCount().entrySet()) {
-            System.out.printf(MATCH_COUNT, e.getKey(), MatchResult.PRICES.get(e.getKey()), e.getValue());
+        for (Map.Entry<Integer, Integer> e : matchScore.getCount().entrySet()) {
+            System.out.printf(MATCH_COUNT, e.getKey(), MatchScore.PRICES.get(e.getKey()), e.getValue());
         }
-        System.out.printf(TOTAL_RETURN, (matchResult.getTotalPrice() / ((double)purchaseAmount)) * 100);
+        System.out.printf(TOTAL_RETURN, (matchScore.getTotalPrice() / ((double)purchaseAmount)) * 100);
     }
 }
