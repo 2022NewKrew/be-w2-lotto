@@ -2,11 +2,9 @@ package lotto;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 import lotto.domain.LottoMoney;
 import lotto.domain.LottoResult;
 import lotto.domain.Lottos;
-import lotto.domain.Reward;
 import lotto.domain.WinningLotto;
 
 public class LottoController {
@@ -35,8 +33,7 @@ public class LottoController {
 
     public LottoResult result(List<Integer> winningNumbers) {
         WinningLotto winningLotto = new WinningLotto(winningNumbers);
-        Map<Reward, Integer> rewardIntegerMap = lottos.matchCounts(winningLotto);
-        return new LottoResult(rewardIntegerMap);
+        return lottos.matchCounts(winningLotto);
     }
 
     public BigDecimal profit(BigDecimal totalReward) {

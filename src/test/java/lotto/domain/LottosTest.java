@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -37,10 +36,10 @@ class LottosTest {
         WinningLotto winningLotto = new WinningLotto(List.of(1, 2, 3, 4, 5, 6));
 
         // when
-        Map<Reward, Integer> rewardCounter = lottos.matchCounts(winningLotto);
+        LottoResult lottoResult = lottos.matchCounts(winningLotto);
 
         // then
-        assertThat(rewardCounter).containsEntry(item.getReward(), item.getRewardCount());
+        assertThat(lottoResult.get(item.getReward())).isEqualTo(item.getRewardCount());
     }
 
     private List<Lotto> getLottoList() {

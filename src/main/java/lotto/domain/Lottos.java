@@ -25,13 +25,13 @@ public class Lottos {
         return new ArrayList<>(lottos);
     }
 
-    public Map<Reward, Integer> matchCounts(WinningLotto winningLotto) {
+    public LottoResult matchCounts(WinningLotto winningLotto) {
         final Map<Reward, Integer> rewardCounter = new EnumMap<>(Reward.class);
         for (Lotto lotto : lottos) {
             Reward reward = winningLotto.matchResult(lotto);
             int count = rewardCounter.getOrDefault(reward, 0);
             rewardCounter.put(reward, count + 1);
         }
-        return rewardCounter;
+        return new LottoResult(rewardCounter);
     }
 }
