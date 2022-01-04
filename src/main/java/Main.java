@@ -1,3 +1,4 @@
+import manager.StartManager;
 import view.InputView;
 import view.OutputView;
 
@@ -8,8 +9,8 @@ public class Main {
     private static final int FORTH = 5000;
 
     public static void main(String[] args) {
-        int a = InputView.getNumLotto();
-        OutputView.printLottoLine(InputView.getWinNumber());
+        StartManager sm = new StartManager();
+        OutputView.printLottoLine(sm.getWinningLine());
         OutputView.printPreResult();
         OutputView.printResult(1, FIRST, 3);
         OutputView.printYield(30);

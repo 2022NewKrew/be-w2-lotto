@@ -12,7 +12,7 @@
 * method가 한 가지 일만 하도록 최대한 작게 만들어라.
 * 배열 대신 ArrayList를 사용한다.
 ### TODO
-* 각각을 위한 DTO 구현
+* ResultManager 구현
 * domain 구현
   * 여러 줄을 총괄하는 domain과
   * 한 줄만을 관리하는 domain을 구현해야할 것으로 보임
@@ -22,3 +22,4 @@
 ### DONE
 * 입력 부분 구현
 * 출력 부문 구현
+* StartManager 구현
