@@ -2,7 +2,6 @@ package com.kakaocorp.lotto.model;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -38,18 +37,5 @@ public class LottoTicket {
                 .sorted()
                 .toArray();
         return Arrays.toString(array);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LottoTicket that = (LottoTicket) o;
-        return Objects.equals(numbers, that.numbers);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(numbers);
     }
 }
