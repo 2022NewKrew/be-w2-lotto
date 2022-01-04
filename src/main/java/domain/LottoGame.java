@@ -8,10 +8,11 @@ public class LottoGame {
 
     private int inputPrice;
     private String lottoWinningNumbers;
+    private int bonusNumber;
     private Person person;
     private LottoView lottoView;
 
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     public LottoGame(){
         consoleInputPrice();
@@ -19,7 +20,8 @@ public class LottoGame {
         lottoView.showLotto();
 
         consoleInputLottoWinningNumbers();
-        Lotto.setLottoWinningNumbers(lottoWinningNumbers);
+        consoleInputBonusNumber();
+        Lotto.setLottoWinningNumbers(lottoWinningNumbers, bonusNumber);
 
         person.setLottoResult();
         lottoView.showResult();
@@ -28,6 +30,12 @@ public class LottoGame {
     private void init(){
         person = new Person(inputPrice);
         lottoView = new LottoView(person);
+    }
+
+    private void consoleInputBonusNumber(){
+        System.out.println("보너스 볼을 입력해 주세요.");
+        this.bonusNumber = scanner.nextInt();
+        scanner.close();
     }
 
     private void consoleInputLottoWinningNumbers() {
