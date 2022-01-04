@@ -5,10 +5,8 @@ import lotto.constant.WinningType;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.LongStream;
 
 import static lotto.constant.Constants.*;
-import static lotto.view.IOView.*;
 
 public class LottoGame {
 
@@ -25,20 +23,7 @@ public class LottoGame {
         this.lotteryResult = new HashMap<>();
     }
 
-    public static void run() {
-        long purchaseAmount = inputPurchaseAmount();
-        List<Lotto> purchasedLottoList = purchaseLotto(purchaseAmount);
-        printLottoList(purchasedLottoList, purchaseAmount);
-
-        List<Integer> winningNumbers = inputWinningNumber();
-        int bonusNumber = inputBonusNumber();
-        LottoGame lottoGame = new LottoGame(purchasedLottoList, winningNumbers, bonusNumber);
-        lottoGame.makeResult();
-
-        printLottoResult(lottoGame);
-    }
-
-    private void makeResult() {
+    public void makeResult() {
         List<Integer> correctResult = this.purchasedLottoList.stream()
                                                                         .map(lotto -> lotto.getResult(this))
                                                                         .filter(matched -> matched >= MIN_MATCHING_NUM_TO_WINNING)
@@ -62,25 +47,6 @@ public class LottoGame {
                                         .count();
     }
 
-    private static List<Lotto> purchaseLotto(long purchaseAmount) {
-        List<Lotto> randomLottoList = purchaseRandomLotto(purchaseAmount);
-
-        return new ArrayList<>(randomLottoList);
-    }
-
-
-
-    private static List<Lotto> purchaseRandomLotto(long purchaseAmount) {
-        List<Lotto> lottoList = new ArrayList<>();
-        LongStream.range(0L, purchaseAmount)
-                .forEach(i -> {
-                    Lotto newLotto = Lotto.createRandomLotto();
-                    lottoList.add(newLotto);
-                });
-
-        return lottoList;
-    }
-
     public List<Integer> getWinningNumbers() {
         return this.winningNumbers;
     }
@@ -94,10 +60,10 @@ public class LottoGame {
     }
 
     public double getEarningRate() {
-        long purchaseMoney = this.purchasedLottoList.size() * (long) PRICE_OF_LOTTO;
+        long purchaseMoney = (long) this.purchasedLottoList.size() * PRICE_OF_LOTTO;
         long gain = profit - purchaseMoney;
 
-        double earningRate = (double) purchaseMoney / gain;
+        double earningRate = (double) gain / purchaseMoney;
 
         return earningRate * 100;
     }

@@ -1,6 +1,5 @@
 package lotto.util;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +20,7 @@ public class RandomNumberCreator {
 
         return ALL_OF_NUMBERS.stream()
                     .limit(NUM_OF_WINNING_NUMBERS)
+                    .sorted()
                     .collect(Collectors.toList());
     }
 }

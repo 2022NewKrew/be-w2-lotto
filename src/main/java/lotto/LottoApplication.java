@@ -1,6 +1,6 @@
 package lotto;
 
-import static lotto.domain.LottoGame.run;
+import static lotto.domain.LottoGameManager.run;
 
 public class LottoApplication {
 
