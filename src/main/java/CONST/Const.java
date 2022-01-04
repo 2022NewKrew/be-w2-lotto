@@ -12,7 +12,7 @@ public class Const {
     public static final String INPUT_POSITIVE_INTEGER = "양의 정수를 입력해 주세요.";
     public static final String INPUT_SIX_DISTINCT_NUMBER = "1~45의 서로 다른 수 6개를 입력해 주세요.";
     public static final String INPUT_BONUS_NUMBER = "보너스 볼을 입력해 주세요.";
-    public static final String INPUT_LOTTO_NUMBER = "1~45사이의 숫자를 입력해 주세요.";
+    public static final String INPUT_LOTTO_BONUS_NUMBER = "1~45사이의 당첨번호와 겹치지 않는 숫자를 입력해 주세요.";
 
     // PrintManager
     public static final String SHOW_RESULT = "당첨 통계\n---------";

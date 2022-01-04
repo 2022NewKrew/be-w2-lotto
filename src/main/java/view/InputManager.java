@@ -61,7 +61,7 @@ public class InputManager {
         return inputIntPrice;
     }
 
-    public static int inputBonusNumber() {
+    public static int inputBonusNumber(List<Integer> winningNumber) {
         boolean pass = false;
         int inputIntBonusNumber = 0;
         do {
@@ -70,7 +70,7 @@ public class InputManager {
                 inputIntBonusNumber = scanner.nextInt();
                 // Flush Buffer
                 scanner.nextLine();
-                pass = isLottoNumber(inputIntBonusNumber);
+                pass = isLottoBonusNumber(inputIntBonusNumber, winningNumber);
             } catch (InputMismatchException e) {
                 System.out.println(Const.INPUT_INTEGER);
                 // Flush Buffer
@@ -88,11 +88,11 @@ public class InputManager {
         return false;
     }
 
-    private static boolean isLottoNumber(int inputIntBonusNumber) {
-        if (inputIntBonusNumber > 0 && inputIntBonusNumber < 46) {
+    private static boolean isLottoBonusNumber(int inputIntBonusNumber, List<Integer> winningNumber) {
+        if (inputIntBonusNumber > 0 && inputIntBonusNumber < 46 && !winningNumber.contains(inputIntBonusNumber)) {
             return true;
         }
-        System.out.println(Const.INPUT_LOTTO_NUMBER);
+        System.out.println(Const.INPUT_LOTTO_BONUS_NUMBER);
         return false;
     }
 }
