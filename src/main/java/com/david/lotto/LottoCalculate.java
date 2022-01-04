@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 
 public class LottoCalculate {
 
-    private final Map<Rank, Integer> totalCount = new LinkedHashMap<>();
-    private double revenue;
+    private static final Map<Rank, Integer> totalCount = new LinkedHashMap<>();
+    private static double revenue;
 
     public LottoCalculate() {
         totalCount.put(Rank.FIFTH, 0);
