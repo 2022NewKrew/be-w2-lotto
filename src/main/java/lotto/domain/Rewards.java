@@ -4,34 +4,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Rewards {
-    public static final Map<Integer, Integer> PRIZE = new HashMap<>() {{
-        put(3, 5000);
-        put(4, 50000);
-        put(5, 1500000);
-        put(6, 2000000000);
-    }};
 
-    private Map<Integer, Integer> matchCounts;
+    private Map<Rank, Integer> rankCounts;
 
     public Rewards() {
-        this.matchCounts = new HashMap<>();
-        for (Integer numMatch : PRIZE.keySet()){
-            matchCounts.put(numMatch, 0);
+        this.rankCounts = new HashMap<>();
+        for (Rank rank : Rank.values()) {
+            rankCounts.put(rank, 0);
         }
     }
 
-    public void addMatch(int numMatch) {
-        if (!PRIZE.containsKey(numMatch)){
-            return;
-        }
+    public void addReward(int numMatch, boolean matchBonus) {
+        Rank rank = Rank.valueOf(numMatch, matchBonus);
 
-        this.matchCounts.put(numMatch, this.matchCounts.get(numMatch) + 1);
+        if (rank != null) {
+            this.rankCounts.put(rank, this.rankCounts.get(rank) + 1);
+        }
     }
 
     public int getTotalReward() {
         int totalReward = 0;
-        for (Integer numMatch : matchCounts.keySet()) {
-            totalReward += this.matchCounts.get(numMatch) * PRIZE.get(numMatch);
+        for (Rank rank : rankCounts.keySet()) {
+            totalReward += this.rankCounts.get(rank) * rank.getWinningMoney();
         }
         return totalReward;
     }
@@ -40,12 +34,10 @@ public class Rewards {
         StringBuilder builder = new StringBuilder();
         builder.append("당첨 통계\n");
         builder.append("---------\n");
-        for (Integer numMatch : PRIZE.keySet()) {
-            builder.append(numMatch + "개 일치 ");
-            builder.append("(");
-            builder.append(PRIZE.get(numMatch));
-            builder.append(")- ");
-            builder.append(matchCounts.get(numMatch));
+        for (Rank rank : Rank.values()) {
+            builder.append(rank.toString());
+            builder.append(" - ");
+            builder.append(rankCounts.get(rank));
             builder.append("개\n");
         }
         return builder.toString();
