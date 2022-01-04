@@ -2,6 +2,7 @@ package lotto;
 
 import lotto.domain.LottoPack;
 import lotto.dto.LottoResults;
+import lotto.dto.MatchNum;
 import lotto.view.IO;
 
 import java.util.Arrays;
@@ -18,8 +19,8 @@ public class Main {
 
         io.printPurchasedLottos(lottoNums);
 
-        List<Integer> prevNums = io.enterPrevNums();
-        LottoResults lottoResults = lottoPack.getResults(prevNums); // -> 추후 test, earnRate, prevNum
+        MatchNum matchNum = io.enterMatchNums();
+        LottoResults lottoResults = lottoPack.getResults(matchNum); // -> 추후 test, earnRate, prevNum
         io.showResults(lottoResults);
 
     }
