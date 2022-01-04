@@ -3,9 +3,7 @@ package domain;
 import view.LottoServiceInputController;
 import view.LottoServiceRenderer;
 
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -27,7 +25,8 @@ public final class LottoService {
         final int purchaseAmount = getPurchaseAmount();
         final List<LottoTicket> purchasedLottoes = purchaseLottoes(purchaseAmount / LOTTO_PRICE.getValue());
         final LottoTicket lastWeekWinning = getLastWeekWinningNumber();
-        printWinningStatistics(purchaseAmount, purchasedLottoes, lastWeekWinning);
+        final int bonusBallNumber = getBonusBallNumber();
+        printWinningStatistics(purchaseAmount, purchasedLottoes, lastWeekWinning, bonusBallNumber);
     }
 
     private int getPurchaseAmount() {
@@ -64,11 +63,31 @@ public final class LottoService {
         }
     }
 
-    private void printWinningStatistics(int purchaseAmount, List<LottoTicket> purchasedLottoes, LottoTicket lastWeekWinning) {
-        Map<Long, Long> winningTickets = purchasedLottoes.stream()
-                .collect(groupingBy(winningTicket -> numberOfSameNumbers(winningTicket ,lastWeekWinning), counting()));
+    private int getBonusBallNumber() {
+        try {
+            return inputController.getBonusBallNumber();
+        } catch (InputMismatchException e) {
+            renderer.displaySentence("잘못 입력하셨습니다.");
+            return getBonusBallNumber();
+        } catch (IllegalArgumentException e) {
+            renderer.displaySentence(e.getMessage());
+            return getBonusBallNumber();
+        }
+    }
 
-        renderer.displayResults(winningTickets, purchaseAmount);
+    private void printWinningStatistics(int purchaseAmount, List<LottoTicket> purchasedLottoes, LottoTicket lastWeekWinning, int bonusBallNumber) {
+        Map<LottoPrize, Long> winningTickets = purchasedLottoes.stream()
+                .collect(groupingBy(purchasedLotto -> LottoPrize.getLottoRank(numberOfSameNumbers(purchasedLotto ,lastWeekWinning), isMatchBonusBall(purchasedLotto, bonusBallNumber)), counting()));
+
+        long sumOfPrize = winningTickets.entrySet().stream()
+                .mapToLong( e -> e.getKey().getPrizeMoney() * e.getValue())
+                .sum();
+
+        renderer.displayResults(winningTickets, sumOfPrize == 0L ? 0.0 : (double)(sumOfPrize - purchaseAmount) / purchaseAmount);
+    }
+
+    private boolean isMatchBonusBall(LottoTicket lottoTicket, int bonusBallNumber) {
+        return lottoTicket.getLottoNumbers().contains(bonusBallNumber);
     }
 
     private long numberOfSameNumbers(LottoTicket lottoTicket, LottoTicket lastWeekWinning) {
