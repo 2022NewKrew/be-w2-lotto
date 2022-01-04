@@ -1,9 +1,9 @@
 package view;
 
 import domain.entity.Lotto;
+import domain.entity.LottoPolicy;
 
 import java.util.List;
-import java.util.Map;
 
 public class PrintManager {
     public static void printNumOfPurchasedLotto(int purchasedAmount){
@@ -14,14 +14,11 @@ public class PrintManager {
             System.out.println(lotto.toString());
         }
     }
-    public static void printRewards(Map<Integer, Integer> lottoRewards, Map<Integer, Integer> rewardsForMe) {
+    public static void printRewards(List<String> rewardsList) {
         System.out.println("당첨 통계");
         System.out.println("---------");
-
-        for (int matchedNum : lottoRewards.keySet()) {
-            int money = lottoRewards.get(matchedNum);
-            int result = rewardsForMe.get(matchedNum);
-            System.out.printf("%d개 일치 (%d원)- %d개\n", matchedNum, money, result);
+        for (String reward : rewardsList) {
+            System.out.println(reward);
         }
     }
     public static void printReturnRate(int returnRate) {

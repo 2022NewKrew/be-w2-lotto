@@ -7,6 +7,8 @@ import view.PrintManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import static domain.Const.PRICE_OF_LOTTO;
+
 public class PurchaseManager {
     public List<Lotto> purchase() {
 
@@ -20,7 +22,7 @@ public class PurchaseManager {
     }
 
     public int purchaseAmount(int spentMoney) {
-        return spentMoney / 1000;
+        return spentMoney / PRICE_OF_LOTTO;
     }
     public List<Lotto> purchaseLottos(int purchasedLotto) {
         List<Lotto> lottoList = new ArrayList<>();

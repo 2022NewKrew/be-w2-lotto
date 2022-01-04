@@ -1,17 +1,26 @@
 package domain.entity;
 
+import domain.Const;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
-    private List<Integer> lottoNumbers;
+    private final List<Integer> lottoNumbers;
 
     public Lotto() {
-        List<Integer> numbers = new ArrayList<>();
-        for(int i=1; i<46; i++) numbers.add(i);
-        Collections.shuffle(numbers);
-        lottoNumbers = numbers.subList(0, 5);
+        List<Integer> numbers = getRandomNums();
+        lottoNumbers = numbers.subList(0, Const.NUM_OF_LOTTO_NUMS);
+    }
+
+    private List<Integer> getRandomNums() {
+        List<Integer> result = new ArrayList<>();
+        for(int i=1; i<46; i++) {
+            result.add(i);
+        }
+        Collections.shuffle(result);
+        return result;
     }
 
     public List<Integer> getLottoNumbers() {

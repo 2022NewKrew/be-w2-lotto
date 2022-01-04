@@ -3,6 +3,7 @@ package domain.controller;
 import domain.ResultManager;
 import domain.entity.Lotto;
 import domain.PurchaseManager;
+import domain.entity.WinningLotto;
 import view.InputManager;
 
 import java.util.*;
@@ -12,9 +13,9 @@ public class LottoController {
         PurchaseManager purchaseManager = new PurchaseManager();
         List<Lotto> purchasedLottoList = purchaseManager.purchase();
 
-        List<Integer> winningNums = InputManager.inputWinningNums();
+        WinningLotto winningLotto = new WinningLotto();
 
-        ResultManager resultManager = new ResultManager(winningNums, purchasedLottoList);
+        ResultManager resultManager = new ResultManager(winningLotto, purchasedLottoList);
         resultManager.getResult();
     }
 
