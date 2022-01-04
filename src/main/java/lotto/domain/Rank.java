@@ -17,21 +17,6 @@ public enum Rank {
         this.winnerCount = winnerCount;
     }
 
-    public int getPrizeAmount() {
-        return prizeAmount;
-    }
-
-    public void addWinnerCount() {
-        winnerCount++;
-    }
-
-    public String getResultString() {
-        if (this == Rank.SECOND) {
-            return String.format("%s개 일치, 보너스 볼 일치(%s원)- %s개", matchingNumber, prizeAmount, winnerCount);
-        }
-        return String.format("%s개 일치 (%s원)- %s개", matchingNumber, prizeAmount, winnerCount);
-    }
-
     public static Rank valueOf(int matchingNumber, boolean hasBonusNumber) {
         if (matchingNumber == 5 && hasBonusNumber) {
             return Rank.SECOND;
@@ -42,6 +27,29 @@ public enum Rank {
             }
         }
         return null;
+    }
+
+    public static String printStatistics() {
+        StringBuilder sb = new StringBuilder();
+        for (Rank rank : Rank.values()) {
+            sb.append(rank.getResultString());
+        }
+        return sb.toString();
+    }
+
+    private String getResultString() {
+        if (this == Rank.SECOND) {
+            return String.format("%s개 일치, 보너스 볼 일치(%s원)- %s개", matchingNumber, prizeAmount, winnerCount);
+        }
+        return String.format("%s개 일치 (%s원)- %s개", matchingNumber, prizeAmount, winnerCount);
+    }
+
+    public int getPrizeAmount() {
+        return prizeAmount;
+    }
+
+    public void addWinnerCount() {
+        winnerCount++;
     }
 }
 

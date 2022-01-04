@@ -11,13 +11,10 @@ public class OutputView {
         System.out.println(stringLottos);
     }
 
-    public static void printLottoResults(int earningRate) {
+    public static void printLottoResults(int earningRate, String rankString) {
         System.out.println("당첨 통계");
         System.out.println("---------");
-        for (Rank rank : Rank.values()) {
-            System.out.println(rank.getResultString());
-        }
-
+        System.out.println(rankString);
         System.out.printf("총 수익률은 %s%%입니다.", earningRate);
     }
 }

@@ -1,6 +1,7 @@
 package lotto.controller;
 
 import lotto.domain.Lottos;
+import lotto.domain.Rank;
 import lotto.domain.issue.IssuePolicy;
 import lotto.domain.issue.RandomIssuePolicy;
 import lotto.view.InputView;
@@ -33,6 +34,6 @@ public class LottoController {
         List<Integer> winningNumberList = InputView.getWinningNumberList();
         int bonusNumber = InputView.getBonusNumber();
         lottos.checkLottoList(winningNumberList, bonusNumber);
-        OutputView.printLottoResults(lottos.getEarningRate());
+        OutputView.printLottoResults(lottos.getEarningRate(), Rank.printStatistics());
     }
 }
