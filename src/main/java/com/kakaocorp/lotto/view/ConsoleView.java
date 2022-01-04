@@ -16,16 +16,24 @@ public class ConsoleView {
         printPurchaseList(lottoList);
 
         // 당첨 통계
-        printResult(lottoGameConsoleController.result(lottoList));
+        printResults(lottoGameConsoleController.result(lottoList));
     }
 
-    private void printResult(ResultResponse resultResponse) {
+    private void printResults(ResultResponse resultResponse) {
         System.out.println("당첨 통계\n---------");
-        List<Integer> result = resultResponse.getResult();
-        for (int i = 3; i < result.size(); i++) {
-            System.out.println(i + "개 일치 (" + ResultResponse.winningMoneyList.get(i) + "원)- " + result.get(i) + "개");
+        List<Integer> results = resultResponse.getResults();
+        for (int i = 3; i < results.size()-1; i++) {
+            printResult(results, i);
         }
-        System.out.println("총 수익률은 " + resultResponse.getRateOfReturn() + "%입니다.");
+        System.out.println("총 수익률은 " + String.format("%.2f", resultResponse.getRateOfReturn()) + "%입니다.");
+    }
+
+    private void printResult(List<Integer> results, int i) {
+        System.out.println(i + "개 일치 (" + ResultResponse.winningMoneyList.get(i) + "원)- " + results.get(i) + "개");
+
+        if (i == 5) {
+            System.out.println("5개 일치, 보너스 볼 일치(" + ResultResponse.winningMoneyList.get(7) + "원)- " + results.get(7) + "개");
+        }
     }
 
     private void printPurchaseList(List<Lotto> purchaseList) {

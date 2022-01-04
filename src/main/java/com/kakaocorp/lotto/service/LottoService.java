@@ -34,30 +34,37 @@ public class LottoService {
 
         List<Integer> scores = score(winningLotto, lottoList);
 
-        int winningMoney = IntStream.range(0, 7).map(i -> scores.get(i) * ResultResponse.winningMoneyList.get(i)).sum();
+        int winningMoney = IntStream.range(0, 8).map(i -> scores.get(i) * ResultResponse.winningMoneyList.get(i)).sum();
         int investMoney = lottoList.size() * 1000;
-        resultResponse.setRateOfReturn((winningMoney - investMoney) * 100 / investMoney);
+        resultResponse.setRateOfReturn((winningMoney - investMoney) / investMoney * 100);
 
-        resultResponse.setResult(scores);
+        resultResponse.setResults(scores);
 
         return resultResponse;
     }
 
     private List<Integer> score(WinningLotto winningLotto, List<Lotto> lottoList) {
-        List<Integer> result = new ArrayList<>(Collections.nCopies(7, 0));
+        // index 0~6에는 index 만큼 일치하는 로또의 갯수가 담겨 있고, index 7에는 5개 일치 + 보너스 볼 일치인 로또의 갯수가 담겨 있다
+        List<Integer> results = new ArrayList<>(Collections.nCopies(8, 0));
 
         for (Lotto lotto : lottoList) {
             int num = match(winningLotto, lotto);
-            result.set(num, result.get(num) + 1);
+            results.set(num, results.get(num) + 1);
         }
 
-        return result;
+        return results;
     }
 
     private int match(WinningLotto winningLotto, Lotto lotto) {
-        Set<Integer> targetA = new HashSet<>(winningLotto.getNumbers());
-        Set<Integer> targetB = new HashSet<>(lotto.getNumbers());
+        Set<Integer> targetA = new HashSet<>(lotto.getNumbers());
+        Set<Integer> targetB = new HashSet<>(winningLotto.getNumbers());
         targetA.retainAll(targetB);
-        return targetA.size();
+        int matchNumber = targetA.size();
+
+        if (matchNumber == 5 && lotto.getNumbers().contains(winningLotto.getBonusBall())) {
+            return 7;
+        }
+
+        return matchNumber;
     }
 }

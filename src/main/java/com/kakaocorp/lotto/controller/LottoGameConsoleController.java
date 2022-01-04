@@ -17,11 +17,14 @@ public class LottoGameConsoleController {
 
     public List<Lotto> purchase() {
         int orderPrice = ioController.inputInt("구입금액을 입력해 주세요.");
+
         return lottoService.buy(orderPrice);
     }
 
     public ResultResponse result(List<Lotto> lottoList) {
         List<Integer> winningNumbers = ioController.inputNumbers("지난 주 당첨 번호를 입력해 주세요.");
-        return lottoService.result(new WinningLotto(winningNumbers), lottoList);
+        int bonusBall = ioController.inputInt("보너스 볼을 입력해 주세요.");
+
+        return lottoService.result(new WinningLotto(winningNumbers, bonusBall), lottoList);
     }
 }
