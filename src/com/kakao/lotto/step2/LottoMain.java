@@ -7,6 +7,7 @@ import com.kakao.lotto.step2.view.LottoPrinter;
 import com.kakao.lotto.step2.view.LottoResultPrinter;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 public class LottoMain {
 

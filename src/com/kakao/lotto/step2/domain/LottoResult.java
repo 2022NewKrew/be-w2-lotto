@@ -23,7 +23,7 @@ public class LottoResult {
         makeResults();
     }
 
-    // 각 lotto의 당첨 번호와 일치하는 수에 맞게 results의 값을 변경해줍니다.
+    // 각 lotto의 당첨 번호와 일치하는 수에 맞게 5results의 값을 변경해줍니다.
     private void makeResult(int sameNumber) {
         int index = sameNumber - 3;
         if(index < 0)

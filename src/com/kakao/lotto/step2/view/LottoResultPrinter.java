@@ -6,12 +6,6 @@ import java.util.List;
 
 public class LottoResultPrinter {
 
-    private int LOTTO_PRICE = 1000;
-    private int THREE_PRIZE = 5000;
-    private int FOUR_PRIZE = 50000;
-    private int FIVE_PRIZE = 1500000;
-    private int SIX_PRIZE = 2000000000;
-
     private int profitRate;
     private List<Integer> results;
 

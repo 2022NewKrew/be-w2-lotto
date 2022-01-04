@@ -3,11 +3,13 @@ package com.kakao.lotto.step2.domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Lotto {
 
     private int LOTTO_NUMBER = 6;
-    private static List<Integer> lottoNumbers = new ArrayList<>();
+    private static List<Integer> lottoNumbers = Stream.iterate(1, number -> number + 1).limit(45).collect(Collectors.toList());
 
     private List<Integer> lotto = new ArrayList<>();
 
@@ -15,17 +17,9 @@ public class Lotto {
         makeRandomLotto();
     }
 
-    static {
-        for(int i = 1; i <= 45; i++)
-            lottoNumbers.add(i);
-    }
-
     // lottoNumber 만큼의 Lotto를 랜덤하게 만들어 lottos List를 만들어줍니다.
     public static List<Lotto> makeLottos(int lottoNumber) {
-        List<Lotto> lottos = new ArrayList<>();
-        for(int i = 0; i < lottoNumber; i++)
-            lottos.add(new Lotto());
-        return lottos;
+        return Stream.generate(() -> new Lotto()).limit(lottoNumber).collect(Collectors.toList());
     }
 
     // 랜덤하게 하나의 로또를 만들어줍니다
@@ -35,20 +29,9 @@ public class Lotto {
         Collections.sort(lotto);
     }
 
-    // lotto에 해당 number가 포함되어있는지 확인해줍니다.
-    private int isContain(int number) {
-        if(lotto.contains(number))
-            return 1;
-        return 0;
-    }
-
     // lotto의 숫자들 중 당첨 번호와 몇 개가 일치하는지 리턴해줍니다.
     public int getSameNumber(List<Integer> winningNumbers) {
-        int sameNumber = 0;
-        for(int i = 0; i < LOTTO_NUMBER; i++) {
-            sameNumber += isContain(winningNumbers.get(i));
-        }
-        return sameNumber;
+        return (int)lotto.stream().filter(number -> winningNumbers.contains(number)).count();
     }
 
     public List<Integer> getLotto() {

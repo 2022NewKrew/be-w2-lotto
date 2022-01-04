@@ -8,8 +8,7 @@ public class LottoPrinter {
 
     // lotto들을 출력해줍니다.
     public void printLottos(List<Lotto> lottos) {
-        for(int i = 0; i < lottos.size(); i++)
-            System.out.println(lottos.get(i).getLotto());
+        lottos.forEach(lotto -> System.out.println(lotto.getLotto()));
     }
 
     // 구매한 로또의 개수를 출력해줍니다.

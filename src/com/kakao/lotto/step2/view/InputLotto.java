@@ -1,6 +1,8 @@
 package com.kakao.lotto.step2.view;
 
 import java.util.*;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class InputLotto {
 
@@ -15,9 +17,8 @@ public class InputLotto {
 
     private int inputPrice() throws Exception {
         System.out.println("구입 금액을 입력해주세요.");
-        int price = scanner.nextInt();
+        int price = Integer.parseInt(scanner.nextLine());
         checkNegative(price);
-        scanner.nextLine();
         return price;
     }
 
@@ -33,7 +34,7 @@ public class InputLotto {
         }
     }
 
-    private void checkSize(List<String> winningNumbers) throws Exception {
+    private void checkSize(List<Integer> winningNumbers) throws Exception {
         if(winningNumbers.size() != 6)
             throw new Exception("6개의 번호를 입력해주세요");
     }
@@ -44,29 +45,17 @@ public class InputLotto {
             throw new Exception("중복 요소가 있습니다.");
     }
 
-    private void checkNumber(int number) throws Exception {
-        if(number < 1 || number > 45)
-            throw new Exception("1에서 45 사이의 숫자를 입력하세요");
-    }
-
     private void checkNumbers(List<Integer> winningNumbers) throws Exception {
-        for(int i = 0; i < winningNumbers.size(); i++) {
-            checkNumber(winningNumbers.get(i));
-        }
-    }
-
-    private List<Integer> stringToIntList(List<String> stringWinningNumbers) {
-        List<Integer> winningNumbers = new ArrayList<>();
-        for(int i = 0; i < stringWinningNumbers.size(); i++)
-            winningNumbers.add(Integer.valueOf(stringWinningNumbers.get(i)));
-        return winningNumbers;
+        if((int)winningNumbers.stream().filter(number -> number > 0 && number <= 45).count()
+                != winningNumbers.size())
+            throw new Exception("1에서 45 사이의 숫자를 입력하세요");
     }
 
     private List<Integer> inputWinningNumbers() throws Exception {
         System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
-        List<String> stringWinningNumbers = new ArrayList<>(Arrays.asList(scanner.nextLine().split(", ")));
-        checkSize(stringWinningNumbers);
-        List<Integer> winningNumbers = stringToIntList(stringWinningNumbers);
+        List<Integer> winningNumbers = Pattern.compile(", ").splitAsStream(scanner.nextLine())
+                .map(string -> Integer.valueOf(string)).collect(Collectors.toList());
+        checkSize(winningNumbers);
         checkDuplicate(winningNumbers);
         checkNumbers(winningNumbers);
         Collections.sort(winningNumbers);
