@@ -23,6 +23,8 @@ public class HomeController {
 
         homeView.printInputWinningNumbersView();
         lottoService.registerWinningLotto(sc.next());
+        homeView.printInputBonusBall();
+        lottoService.registerBonusBall(sc.nextInt());
         homeView.printResults();
     }
 }

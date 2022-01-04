@@ -1,6 +1,7 @@
 package view;
 
 import domain.Lotto;
+import domain.LottoPrize;
 import service.LottoService;
 
 import java.util.List;
@@ -20,6 +21,10 @@ public class HomeView {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
     }
 
+    public void printInputBonusBall() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+    }
+
     public void printBuySuccessView() {
         System.out.println(lottoService.getSize() + "개를 구매했습니다.");
         printLottos();
@@ -34,8 +39,13 @@ public class HomeView {
     public void printResults() {
         List<Integer> results = lottoService.getWinningResult();
         System.out.println("당첨 통계 =====");
-        for (int i = 3; i <= 6; i++) {
-            System.out.printf("%d개 일치 (%d원)- %d개%n", i, LottoService.WINNING_MONEY[i], results.get(i));
+        for (int i = 5; i >= 1; i--) {
+            System.out.printf("%d등. %d개 일치 %s(%d원)- %d개%n"
+                    , i
+                    , LottoPrize.getWithRanking(i).getMatchingNum()
+                    , (i == 2) ? "보너스 볼 일치" : ""
+                    , LottoPrize.PRICES[i]
+                    , results.get(i));
         }
         System.out.printf("총 수익률은 %d%%입니다.%n", (int) (lottoService.getProfit() / (double) lottoService.getBuyPrice() * 100.0));
     }

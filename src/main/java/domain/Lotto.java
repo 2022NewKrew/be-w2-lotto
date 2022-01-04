@@ -2,10 +2,11 @@ package domain;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+
+import static service.LottoService.INIT_LOTTO;
 
 public class Lotto {
-    private static final List<Integer> INIT_LOTTO = IntStream.range(1, 46).boxed().collect(Collectors.toList());
+
     private final List<Integer> number;
     private String view;
 
@@ -50,6 +51,10 @@ public class Lotto {
         Set<Integer> numbersUnique = new HashSet<>(numbersList);
         if (numbersUnique.size() != 6)
             throw new IllegalArgumentException("로또 번호에 중복이 있습니다.");
+    }
+
+    public boolean isNumberExist(int num) {
+        return number.contains(num);
     }
 
     public List<Integer> getNumber() {
