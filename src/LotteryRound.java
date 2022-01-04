@@ -14,7 +14,11 @@ public class LotteryRound {
     private List<Integer> numberOfWinnings = Arrays.asList(0, 0, 0, 0, 0, 0, 0);
     private long revenue;
 
-    private LotteryPrinter lotteryPrinter = new LotteryPrinter();
+    private LotteryPrinter lotteryPrinter;
+
+    public LotteryRound(LotteryPrinter lotteryPrinter) {
+        this.lotteryPrinter = lotteryPrinter;
+    }
 
     public void purchaseTickets() {
         this.revenue = 0;
@@ -61,10 +65,7 @@ public class LotteryRound {
     }
 
     private Boolean isMatched(int number) {
-        if (winningTicket.getSelectedNumbers().contains(number)) {
-            return true;
-        }
-        return false;
+        return winningTicket.getSelectedNumbers().contains(number);
     }
 
     public static List<Integer> getRewards() { return REWARDS; }
