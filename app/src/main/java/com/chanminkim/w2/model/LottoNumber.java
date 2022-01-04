@@ -8,17 +8,17 @@ import java.util.Objects;
 public class LottoNumber {
     public static final Range<Integer> LOTTO_NUMBER_RANGE = Range.closed(1, 45);
 
-    private final int lottoNumber;
+    private final int value;
 
-    public LottoNumber(int lottoNumber) {
-        if (!LOTTO_NUMBER_RANGE.contains(lottoNumber)) {
-            throw new InvalidLottoNumberException(lottoNumber);
+    public LottoNumber(int value) {
+        if (!LOTTO_NUMBER_RANGE.contains(value)) {
+            throw new InvalidLottoNumberException(value);
         }
-        this.lottoNumber = lottoNumber;
+        this.value = value;
     }
 
-    public int getLottoNumber() {
-        return lottoNumber;
+    public int getValue() {
+        return value;
     }
 
     @Override
@@ -26,16 +26,16 @@ public class LottoNumber {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LottoNumber that = (LottoNumber) o;
-        return lottoNumber == that.lottoNumber;
+        return value == that.value;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(lottoNumber);
+        return Objects.hash(value);
     }
 
     @Override
     public String toString() {
-        return String.valueOf(lottoNumber);
+        return String.valueOf(value);
     }
 }
