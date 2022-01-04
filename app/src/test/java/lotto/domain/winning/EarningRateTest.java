@@ -13,11 +13,12 @@ public class EarningRateTest {
     @DisplayName("수익률 계산이 일치하는지 확인하는 테스트")
     void earningRateCorrectTest() {
         //given
-        Map<Integer, Integer> winningResult = new HashMap<>();
-        winningResult.put(3, 1);
-        winningResult.put(4, 0);
-        winningResult.put(5, 0);
-        winningResult.put(6, 0);
+        Map<String, Long> winningResult = new HashMap<>();
+        winningResult.put("FIRST", 0L);
+        winningResult.put("SECOND", 0L);
+        winningResult.put("THIRD", 0L);
+        winningResult.put("FOURTH", 0L);
+        winningResult.put("FIFTH", 1L);
         int lottoPrice = 14000;
         int expected = 35;
 
