@@ -1,5 +1,4 @@
-import domain.Lotto;
-import domain.LottoService;
+import domain.*;
 import view.InputView;
 import view.ResultView;
 
@@ -19,8 +18,11 @@ public class LottoMain {
         ResultView.printPurchaseResult(lottos);
 
         List<Integer> winningNumbers = InputView.getWinningNumbers();
-        Map<Integer, Integer> winningResult = lottoService.getWinningResult(winningNumbers);
+        int bonusNum = InputView.getBounusNum();
+        ResultGenerator resultGenerator = new ResultGenerator();
+        List<Result> results = resultGenerator.generate(lottos, winningNumbers, bonusNum);
 
-        ResultView.printWinningResult(winningResult, money);
+        ResultView.printWinningResult(results, money);
+
     }
 }

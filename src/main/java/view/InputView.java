@@ -24,7 +24,7 @@ public class InputView {
                 .collect(Collectors.toUnmodifiableList());
     }
 
-    public static int getBounus(){
+    public static int getBounusNum(){
         System.out.println("보너스 볼을 입력해 주세요.");
 
         return scanner.nextInt();
