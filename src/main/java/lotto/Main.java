@@ -11,7 +11,7 @@ public class Main {
         Gambler gambler = new Gambler();
 
         lottoShop.sellLottoTicket(gambler);
-        lottoShop.setWinnerFromScanner();
+        lottoShop.setWinnerNumberFromScanner();
 
         LottoPrinter printer = new LottoPrinter();
         printer.PrintLottoMatchingResult(lottoShop, gambler);

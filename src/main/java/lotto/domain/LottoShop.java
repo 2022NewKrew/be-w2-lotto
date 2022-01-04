@@ -29,7 +29,7 @@ public class LottoShop {
     /**
      * {@link Scanner}에서 당첨번호 받아와 등록
      */
-    public void setWinnerFromScanner() {
+    public void setWinnerNumberFromScanner() {
         winnerNumber = InputView.getWinnerNumbersFromScanner("지난 주 당첨 번호를 입력해주세요: ");
     }
 
