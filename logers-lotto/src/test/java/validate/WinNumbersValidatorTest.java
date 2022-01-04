@@ -40,7 +40,6 @@ class WinNumbersValidatorTest {
         );
     }
 
-    @ParameterizedTest
     @DisplayName("당첨 번호의 갯수가 6개지 않으면 실패")
     @MethodSource("listSizeNotEqualTo6")
     void testFailedWhenListSizeNotEqualto6(List<Integer> numbers){
