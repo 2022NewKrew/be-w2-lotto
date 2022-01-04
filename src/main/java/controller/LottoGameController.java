@@ -15,7 +15,7 @@ public class LottoGameController {
 
     private static LottoGameInfo lottoGameInfo;
     private static List<Lotto> lottoList;
-    private static List<Integer> winLottoNumbers;
+    private static Lotto winLotto;
     private static int bonusLottoNumber;
     private static LottoTotalResult lottoTotalResult;
 
@@ -42,7 +42,7 @@ public class LottoGameController {
     }
 
     private static void generateLotto() {
-        lottoList = LottoGenerator.generate(lottoGameInfo);
+        lottoList = LottoGenerator.generateAllLotto(lottoGameInfo);
     }
 
     private static void renderLottoList() {
@@ -52,9 +52,7 @@ public class LottoGameController {
     private static void inputWinLottoNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         String[] inputLottoNumbers = sc.next().split(INPUT_DELIMITER);
-        winLottoNumbers = Arrays.stream(inputLottoNumbers)
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
+        winLotto = LottoGenerator.generateOneLotto(inputLottoNumbers);
         System.out.println("보너스 볼을 입력해 주세요.");
         bonusLottoNumber = sc.nextInt();
     }
@@ -64,7 +62,7 @@ public class LottoGameController {
     }
 
     private static void calcLottoResult(int inputMoney) {
-        lottoTotalResult = LottoCalculator.calculate(inputMoney, lottoList, winLottoNumbers, bonusLottoNumber);
+        lottoTotalResult = LottoCalculator.calculate(inputMoney, lottoList, winLotto, bonusLottoNumber);
     }
 
     private static void renderResult() {

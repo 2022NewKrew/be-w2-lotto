@@ -12,14 +12,14 @@ public class Lotto {
         this.matchedNum = null;
     }
 
-    public int getNumOfMatched(List<Integer> winLottoNumbers) {
+    public int getNumOfMatched(Lotto winLotto) {
         if (matchedNum != null) {
             return matchedNum;
         }
 
         matchedNum = 0;
         for (Integer number : numbers) {
-            plusIfMatched(number, winLottoNumbers);
+            plusIfMatched(number, winLotto);
         }
         return matchedNum;
     }
@@ -28,8 +28,8 @@ public class Lotto {
         return numbers.contains(bonusLottoNumber);
     }
 
-    private void plusIfMatched(int number, List<Integer> winLottoNumbers) {
-        if (winLottoNumbers.contains(number)) {
+    private void plusIfMatched(int number, Lotto winLotto) {
+        if (winLotto.numbers.contains(number)) {
             matchedNum++;
         }
     }
