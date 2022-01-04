@@ -38,6 +38,10 @@ public class View {
         System.out.println("4개 일치 (" + Prize.THIRD.getValue() + "원)- " + report.prizeCount.get(Prize.THIRD) + "개");
         System.out.println("5개 일치 (" + Prize.SECOND.getValue() + "원)- " + report.prizeCount.get(Prize.SECOND) + "개");
         System.out.println("6개 일치 (" + Prize.FIRST.getValue() + "원)- " + report.prizeCount.get(Prize.FIRST) + "개");
-        System.out.println("총 수익률은 " + report.getProfitRateAsPercentage() + "%입니다.");
+        System.out.println("총 수익률은 " + toPercentage(report.getProfitRate(),2) + "입니다.");
+    }
+
+    private static String toPercentage(double rate, int numOfDigits){
+        return String.format("%." + numOfDigits + "f", rate * 100) + "%";
     }
 }

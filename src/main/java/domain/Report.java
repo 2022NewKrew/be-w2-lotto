@@ -14,7 +14,7 @@ public class Report {
         prizeSum = sum[0];
     }
 
-    public int getProfitRateAsPercentage() {
-        return 100 * (prizeSum - investment) / investment;
+    public double getProfitRate() {
+        return (double) (prizeSum - investment) / investment;
     }
 }
