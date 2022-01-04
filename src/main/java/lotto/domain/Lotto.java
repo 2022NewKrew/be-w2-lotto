@@ -17,6 +17,14 @@ public class Lotto {
         random = new Random();
     }
 
+    public static int calculateEqualCount(Lotto userLotto, Lotto pastWinningLotto) {
+        int count = 0;
+        for (int number : userLotto.getLottoNumbers()) {
+            count = pastWinningLotto.getLottoNumbers().contains(number) ? count + 1 : count;
+        }
+        return count;
+    }
+
     public void generateRandomLotto() {
         lottoNumbers.clear();
         for (int i = 0; i < LOTTO_LENGTH; i++) {
@@ -26,9 +34,7 @@ public class Lotto {
 
     @Override
     public java.lang.String toString() {
-        return "Lotto{" +
-                "lottoNumbers=" + lottoNumbers +
-                '}';
+        return lottoNumbers.toString();
     }
 
     public void initialize(String originalLottoString) {
@@ -37,5 +43,9 @@ public class Lotto {
         for (String lottoString : lottoStrings) {
             lottoNumbers.add(Integer.parseInt(lottoString));
         }
+    }
+
+    public ArrayList<Integer> getLottoNumbers() {
+        return lottoNumbers;
     }
 }
