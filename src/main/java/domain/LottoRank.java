@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Arrays;
+
 public enum LottoRank {
     MISS(0, 0),
     THREE(3, 5_000),
@@ -14,5 +16,14 @@ public enum LottoRank {
     LottoRank(int countOfMatch, int money) {
         this.countOfMatch = countOfMatch;
         this.money = money;
+    }
+
+    public int getCountOfMatch() {
+        return countOfMatch;
+    }
+
+    public static LottoRank find(int matchedNumber) {
+        return Arrays.stream(values())
+                .filter(matchedNumber -> LottoRank.valueOf(matchedNumber))
     }
 }
