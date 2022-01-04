@@ -25,7 +25,8 @@ public class Input {
     public static final List<Integer> getLastWinningNumbers() {
         List<Integer> lastWinningNumbers = new ArrayList<>(6);
         System.out.println(MSG_INPUT_WINNING_NUMBERS);
-        for(String s : scanner.next().split(",")) {
+        scanner.nextLine();
+        for(String s : scanner.nextLine().replaceAll(" ", "").split(",")) {
             lastWinningNumbers.add(Integer.parseInt(s));
         }
         return lastWinningNumbers;
