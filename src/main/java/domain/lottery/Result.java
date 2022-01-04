@@ -3,7 +3,7 @@ package domain.lottery;
 import java.util.List;
 
 public class Result {
-    private List<Integer> numbers;
+    private final List<Integer> numbers;
 
     public Result(List<Integer> numbers, NumbersFactory numbersFactory) {
         this.numbers = numbersFactory.getValidatedNumbers(numbers);

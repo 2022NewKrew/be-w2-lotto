@@ -1,9 +1,11 @@
 package view;
 
+import domain.Prize;
 import domain.Report;
 import domain.lottery.Ticket;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,19 +26,18 @@ public class View {
     public List<Integer> getResultNumbersByPrompt() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         List<Integer> numbers = new ArrayList<>();
-        for (var numberString : scanner.nextLine().split(",")) {
-            numbers.add(Integer.parseInt(numberString.strip()));
-        }
+        Arrays.asList(scanner.nextLine().split(",")).forEach(numberString -> numbers.add(Integer.parseInt(numberString.strip())));
+        System.out.println();
         return numbers;
     }
 
     public void showReport(Report report) {
         System.out.println("당첨 통계");
         System.out.println("---------");
-        System.out.println("3개 일치 (" + report.getFourthPrizeValue() + "원)- " + report.getFourthPrizeCount() + "개");
-        System.out.println("4개 일치 (" + report.getThirdPrizeValue() + "원)- " + report.getThirdPrizeCount() + "개");
-        System.out.println("5개 일치 (" + report.getSecondPrizeValue() + "원)- " + report.getSecondPrizeCount() + "개");
-        System.out.println("6개 일치 (" + report.getFirstPrizeValue() + "원)- " + report.getFirstPrizeCount() + "개");
+        System.out.println("3개 일치 (" + Prize.FOURTH.getValue() + "원)- " + report.prizeCount.get(Prize.FOURTH) + "개");
+        System.out.println("4개 일치 (" + Prize.THIRD.getValue() + "원)- " + report.prizeCount.get(Prize.THIRD) + "개");
+        System.out.println("5개 일치 (" + Prize.SECOND.getValue() + "원)- " + report.prizeCount.get(Prize.SECOND) + "개");
+        System.out.println("6개 일치 (" + Prize.FIRST.getValue() + "원)- " + report.prizeCount.get(Prize.FIRST) + "개");
         System.out.println("총 수익률은 " + report.getProfitRateAsPercentage() + "%입니다.");
     }
 }
