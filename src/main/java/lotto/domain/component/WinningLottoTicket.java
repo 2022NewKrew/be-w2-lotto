@@ -1,4 +1,4 @@
-package lotto.domain.lottocomponent;
+package lotto.domain.component;
 
 public class WinningLottoTicket {
     private LottoTicket winningTicket;

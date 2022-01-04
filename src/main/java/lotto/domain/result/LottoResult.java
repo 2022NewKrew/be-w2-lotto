@@ -1,8 +1,8 @@
 package lotto.domain.result;
 
-import lotto.domain.lottocomponent.WinningLottoTicket;
-import lotto.domain.lottocomponent.LottoNumber;
-import lotto.domain.lottocomponent.LottoTicket;
+import lotto.domain.component.WinningLottoTicket;
+import lotto.domain.component.LottoNumber;
+import lotto.domain.component.LottoTicket;
 
 import java.util.HashMap;
 import java.util.List;

@@ -2,9 +2,8 @@ package lotto.view;
 
 import lotto.domain.result.LottoResult;
 import lotto.domain.result.LottoResultType;
-import lotto.domain.lottocomponent.LottoTicket;
+import lotto.domain.component.LottoTicket;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.List;
 
@@ -15,23 +14,24 @@ public class OutputView {
     private OutputView() {
     }
 
-    public static void printLottoTickets(List<LottoTicket> tickets, BufferedWriter wr) throws IOException {
-        printLottoTicketTitle(tickets.size(), wr);
+    public static void printLottoTickets(List<LottoTicket> tickets) throws IOException {
+        printLottoTicketTitle(tickets.size());
         for (LottoTicket ticket : tickets) {
-            printLottoTicketNumbers(ticket, wr);
+            printLottoTicketNumbers(ticket);
         }
+        printFlush();
     }
 
-    public static void printLottoResult(LottoResult lottoResult, BufferedWriter wr) throws IOException {
+    public static void printLottoResult(LottoResult lottoResult) throws IOException {
         int lottoProfit = 0;
-        printResultTitle(wr);
+        printResultTitle();
         for (LottoResultType resultType : LottoResultType.values()) {
             int matchCount = lottoResult.getMatchResult().get(resultType);
-            printEachLottoResultType(resultType, matchCount, wr);
+            printEachLottoResultType(resultType, matchCount);
             lottoProfit += resultType.getMoney() * matchCount;
         }
-        printLottoProfit(lottoResult.getPurchasePrice(), lottoProfit, wr);
-        wr.flush();
+        printLottoProfit(lottoResult.getPurchasePrice(), lottoProfit);
+        printFlush();
     }
 
 }
