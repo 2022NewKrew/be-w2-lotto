@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/be-w2-lotto.iml" filepath="$PROJECT_DIR$/.idea/be-w2-lotto.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/be-w2-lotto.main.iml" filepath="$PROJECT_DIR$/.idea/modules/be-w2-lotto.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/be-w2-lotto.test.iml" filepath="$PROJECT_DIR$/.idea/modules/be-w2-lotto.test.iml" />
     </modules>
   </component>
 </project>

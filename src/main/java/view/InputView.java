@@ -1,4 +1,4 @@
-package main.java.view;
+package view;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,5 +27,10 @@ public class InputView {
         }
 
         return newNumbers;
+    }
+
+    public static int readBonusNumber(){
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return scanner.nextInt();
     }
 }

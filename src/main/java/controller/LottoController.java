@@ -1,8 +1,8 @@
-package main.java.controller;
+package controller;
 
-import main.java.model.Lotto;
-import main.java.view.InputView;
-import main.java.view.OutputView;
+import model.Lotto;
+import view.InputView;
+import view.OutputView;
 
 import java.util.List;
 
@@ -16,6 +16,12 @@ public class LottoController {
         OutputView.printLottos(lottos);
 
         List<Integer> lastWeeksWinningNumber = InputView.readLastWeeksWinningNumber();
-        OutputView.printLottoWinningStats(lastWeeksWinningNumber, lottos);
+        int bonusNumber = InputView.readBonusNumber();
+
+        List<Integer> rankResults = LottoHandler.getRankResults(lastWeeksWinningNumber, bonusNumber, lottos);
+        long totalWinningAmount = LottoHandler.getTotalWinningAmount(rankResults);
+
+        // 당첨 통계 출력
+        OutputView.printLottoWinningStats(rankResults, totalWinningAmount, lottos.size());
     }
 }

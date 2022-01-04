@@ -1,4 +1,4 @@
-import main.java.controller.LottoController;
+import controller.LottoController;
 
 public class Main {
 
