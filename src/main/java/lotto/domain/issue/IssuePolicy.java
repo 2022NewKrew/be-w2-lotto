@@ -6,6 +6,7 @@ public interface IssuePolicy {
 
     int START = 1;
     int END = 45;
+    int NUMBER_COUNT = 6;
 
     /**
      * 복권을 발급.

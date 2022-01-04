@@ -16,7 +16,7 @@ public class RandomIssuePolicy implements IssuePolicy {
     @Override
     public Lotto issue() {
         Collections.shuffle(numberList);
-        List<Integer> tempNumberList = new ArrayList<>(numberList.subList(0, 6));
+        List<Integer> tempNumberList = new ArrayList<>(numberList.subList(0, NUMBER_COUNT));
         Collections.sort(tempNumberList);
         return new Lotto(tempNumberList);
     }
