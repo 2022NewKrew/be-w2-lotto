@@ -29,5 +29,4 @@ public class Number implements Comparable<Number> {
     public boolean isSame(Number targetNum) {
         return value == targetNum.getValue();
     }
-
 }

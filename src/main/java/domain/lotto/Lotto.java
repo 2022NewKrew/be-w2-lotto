@@ -28,5 +28,4 @@ public class Lotto {
     public int compareLottoWithBonus(Number bonusNumber) {
         return lottoNumber.compareBonusNumber(bonusNumber);
     }
-
 }

@@ -12,7 +12,6 @@ public class Buyer {
     private Price earningPrice; //로또를 통해 번 돈
     private Yield yield; //수익률
 
-
     public Buyer(int price) {
         buyingPrice = new Price(price);
         buyingLottos = new ArrayList<>();

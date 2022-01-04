@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 import static domain.result.Winning.*;
 
 public class LottoService {
@@ -30,6 +31,7 @@ public class LottoService {
 
     public LottoService() {
         hittingTable = new ArrayList<>(Collections.nCopies(LOWEST_RANK + 1, 0));
+
         inputView = InputView.getInstance();
         outputView = OutputView.getInstance();
     }
