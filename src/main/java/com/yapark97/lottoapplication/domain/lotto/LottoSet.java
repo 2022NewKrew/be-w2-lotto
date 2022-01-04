@@ -42,5 +42,4 @@ public class LottoSet {
                 .map(Lotto::toString)
                 .collect(Collectors.joining("\n"));
     }
-
 }
