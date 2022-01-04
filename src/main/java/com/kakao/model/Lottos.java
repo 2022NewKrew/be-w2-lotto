@@ -5,7 +5,6 @@ import com.kakao.exception.MoneyRangeException;
 import com.kakao.exception.PickedNumbersFormatException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Lottos {
@@ -52,8 +51,25 @@ public class Lottos {
             e.printStackTrace();
         } finally {
             return newLotto;
-        }}
+        }
+    }
 
+    // 로또의 당첨 등수 확인
+    public List<Integer> matchLottosAreWinning(LottoWinning lottoWinning) {
+        List<Integer> countOfWinningLottos = new ArrayList<>();
+        for(int i=0; i<=LottoData.NUMBER_OF_PICK; i++) {
+            countOfWinningLottos.add(0);
+        }
+        for(Lotto lotto: this.lottoList) {
+            int winningNumber = lotto.matchNumberIsWinning(lottoWinning);
+            updateCountOfWinningLottos(countOfWinningLottos, winningNumber);
+        }
+        return countOfWinningLottos;
+    }
+    private void updateCountOfWinningLottos(List<Integer> countOfWinningLottos, int winningNumber) {
+        int countOfWinningNumber = countOfWinningLottos.get(winningNumber);
+        countOfWinningLottos.set(winningNumber, countOfWinningNumber+1);
+    }
 
     // getter
     public List<Lotto> getLottoList() {
