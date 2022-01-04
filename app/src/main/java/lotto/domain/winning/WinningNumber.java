@@ -1,6 +1,5 @@
 package lotto.domain.winning;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class WinningNumber {

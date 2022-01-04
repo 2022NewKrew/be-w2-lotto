@@ -34,8 +34,8 @@ public class LottoController {
         List<String> parsed = StringParsingUtil.parse(winningNumbers, ",");
         WinningNumber winningNumber = lottoSystem.inputWinningNumber(
                 parsed.stream()
-                    .map(Integer::parseInt)
-                    .collect(Collectors.toList())
+                        .map(Integer::parseInt)
+                        .collect(Collectors.toList())
         );
         int bonusNumberInput = IOView.inputToInt("보너스 볼을 입력해 주세요.", sc);
         BonusNumber bonusNumber = lottoSystem.inputBonusNumber(bonusNumberInput);
