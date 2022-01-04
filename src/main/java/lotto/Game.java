@@ -1,6 +1,7 @@
 package lotto;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Game {
     private int numTickets;
@@ -67,26 +68,27 @@ public class Game {
         bonusNumber = scanner.nextInt();
     }
 
-    private void getMatches() {
-        for (Ticket ticket: ticketList) {
-            int matches = 0;
-            List<Integer> ticketNumber = ticket.getTicketNumbers();
-            for (int number : winningNumber) {
-                if (ticketNumber.contains(number))
-                    matches++;
-            }
-            if (matches == 5 && ticketNumber.contains(bonusNumber)) {
-                gameBoard.put(bonusKey, gameBoard.getOrDefault(bonusKey, 0)+1);
-                continue;
-            }
-            if (matches == 6) {
-                gameBoard.put(1, gameBoard.getOrDefault(1, 0)+1);
-                continue;
-            }
-            if (matches >= 3) {
-                gameBoard.put(8-matches, gameBoard.getOrDefault(8-matches, 0)+1);
-            }
 
+    private void addGameBoardEntry(int matches, List<Integer> ticketNumber) {
+        if (matches == 5 && ticketNumber.contains(bonusNumber)) {
+            gameBoard.put(bonusKey, gameBoard.getOrDefault(bonusKey, 0)+1);
+            return;
+        }
+        if (matches == 6) {
+            gameBoard.put(1, gameBoard.getOrDefault(1, 0)+1);
+            return;
+        }
+        if (matches >= 3) {
+            gameBoard.put(8-matches, gameBoard.getOrDefault(8-matches, 0)+1);
+        }
+
+    }
+
+    private void getGameBoard() {
+        for (Ticket ticket: ticketList) {
+            List<Integer> ticketNumber = ticket.getTicketNumbers();
+            int matches = ticketNumber.stream().distinct().filter(winningNumber::contains).collect(Collectors.toSet()).size();
+            addGameBoardEntry(matches, ticketNumber);
         }
     }
 
@@ -94,7 +96,7 @@ public class Game {
         getTickets();
         getWinningNumber();
         getBonusNumber();
-        getMatches();
+        getGameBoard();
         printResult();
     }
 }
