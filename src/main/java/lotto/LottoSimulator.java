@@ -24,7 +24,8 @@ public class LottoSimulator {
 
         PurchasedLotto purchasedLotto = new PurchasedLotto(lottoSimulator.purchaseLotto());
         lottoSimulator.printPurchase(purchasedLotto);
-        Lotto winningLotto = new Lotto(new WinningInfoScanner().getWinningInfo());
+        WinningInfoScanner winningInfoScanner = new WinningInfoScanner();
+        WinningLotto winningLotto = new WinningLotto(winningInfoScanner.getWinningDigits(), winningInfoScanner.getWinningBonusDigit());
         WinningResult winningResult = new WinningResult(purchasedLotto.getPurchasedResult(winningLotto));
         double yield = lottoSimulator.getSimulationYield(winningResult);
         lottoSimulator.printWinning(winningResult, yield);

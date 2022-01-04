@@ -7,7 +7,11 @@ public class WinningResultPrinter {
     public void printWinningResultPrinter(WinningResult winningResult) {
         System.out.println("\n당첨 통계\n---------");
         for (LottoResult result : LottoResult.values()) {
-            System.out.println(result.getNumMatchingDigit() + "개 일 (" + result.getReward() + "원) - " + winningResult.getCountOf(result) + "개");
+            StringBuilder resultStr = new StringBuilder();
+            System.out.println(resultStr.append(result.getNumMatchingDigit()).append("개 일치")
+                    .append(result.equals(LottoResult.BONUS) ? ", 보너스 볼 일치" : " ")
+                    .append("(").append(result.getReward()).append("원) - ")
+                    .append(winningResult.getCountOf(result)).append("개"));
         }
     }
 

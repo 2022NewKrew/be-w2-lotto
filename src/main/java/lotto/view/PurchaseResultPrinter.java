@@ -21,6 +21,7 @@ public class PurchaseResultPrinter {
     private void printLotto(@NotNull Lotto lotto) {
         System.out.println(lotto.getDigits()
                 .stream()
+                .sorted()
                 .map(digit -> Integer.toString(digit))
                 .collect(Collectors.joining(SEPARATOR + SPACE, PREFIX, SUFFIX)));
     }

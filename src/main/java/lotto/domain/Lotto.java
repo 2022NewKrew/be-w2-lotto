@@ -14,9 +14,13 @@ public class Lotto {
         return Collections.unmodifiableList(digits);
     }
 
-    public int getNumMatchingDigits(Lotto winningLotto) {
+    public int getNumMatchingDigits(WinningLotto winningLotto) {
         return (int) digits.stream()
                 .filter(digit -> winningLotto.getDigits().contains(digit))
                 .count();
+    }
+
+    public boolean isContainBonus(WinningLotto winningLotto) {
+        return digits.contains(winningLotto.getBonusDigit());
     }
 }
