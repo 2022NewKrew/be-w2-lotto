@@ -1,16 +1,16 @@
 package be.w2.lotto.domain;
 
-import java.util.ArrayList;
+import java.math.BigInteger;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 import static be.w2.lotto.common.exception.ExceptionMessages.DIVIDE_BY_ZERO_EXCEPTION;
 
 public class WinningResult {
     private final List<WinningMatchResult> winningMatchResults;
-    private final int profitRate;
+    private final BigInteger profitRate;
 
-    private WinningResult(List<WinningMatchResult> winningMatchResults, int profitRate) {
+    private WinningResult(List<WinningMatchResult> winningMatchResults, BigInteger profitRate) {
         this.winningMatchResults = winningMatchResults;
         this.profitRate = profitRate;
     }
@@ -18,14 +18,15 @@ public class WinningResult {
     public static WinningResult valueOf(
             LottoTickets lottoTickets,
             WinningLottoTicket winningLottoTicket,
-            int purchaseAmount
+            int purchaseAmount,
+            BonusNumber bonusNumber
     ) {
-        List<WinningMatchResult> winningMatchResults = getWinningMatchResult(lottoTickets, winningLottoTicket);
-        int profitRate = calculateProfitRate(winningMatchResults, purchaseAmount);
+        List<WinningMatchResult> winningMatchResults = getWinningMatchResult(lottoTickets, winningLottoTicket, bonusNumber);
+        BigInteger profitRate = calculateProfitRate(winningMatchResults, purchaseAmount);
         return new WinningResult(winningMatchResults, profitRate);
     }
 
-    public int getProfitRate() {
+    public BigInteger getProfitRate() {
         return profitRate;
     }
 
@@ -33,41 +34,39 @@ public class WinningResult {
         return winningMatchResults;
     }
 
-    private static int calculateProfitRate(List<WinningMatchResult> winningMatchResults, int purchaseAmount) {
-        int profitSum = winningMatchResults
-                .stream().map(WinningMatchResult::calculateProfit)
-                .mapToInt(i -> i)
-                .sum();
+    private static BigInteger calculateProfitRate(List<WinningMatchResult> winningMatchResults, int purchaseAmount) {
+        BigInteger profitSum = winningMatchResults.stream()
+                .map(WinningMatchResult::calculateProfit)
+                .reduce(BigInteger::add).get();
 
         if (purchaseAmount == 0) {
             throw new ArithmeticException(DIVIDE_BY_ZERO_EXCEPTION);
         }
         
-        return profitSum * MULTIPLY_BY_PERCENTAGE / purchaseAmount;
+        return profitSum.multiply(MULTIPLY_BY_PERCENTAGE).divide(BigInteger.valueOf(purchaseAmount));
     }
 
     private static List<WinningMatchResult> getWinningMatchResult(
             LottoTickets lottoTickets,
-            WinningLottoTicket winningLottoTicket
+            WinningLottoTicket winningLottoTicket,
+            BonusNumber bonusNumber
     ) {
-        List<WinningMatchResult> winningMatchResults = new ArrayList<>();
-        for(Map.Entry<Integer, Integer> entry: winningProfitMapped.entrySet()) {
-            winningMatchResults.add(WinningMatchResult.of(
-                    entry.getKey(),
-                    entry.getValue(),
-                    lottoTickets,
-                    winningLottoTicket
-            ));
-        }
-        return winningMatchResults;
+        return rewardRules.stream()
+                .map(rewardRule -> WinningMatchResult.valueOf(
+                        rewardRule,
+                        lottoTickets,
+                        winningLottoTicket,
+                        bonusNumber
+                )).collect(Collectors.toList());
     }
 
-    private static final Map<Integer, Integer> winningProfitMapped = Map.of(
-            3, 5000,
-            4, 50000,
-            5, 1500000,
-            6, 2000000000
+    private static final List<RewardRule> rewardRules = List.of(
+            RewardRule.valueOf(3, false, 5000),
+            RewardRule.valueOf(4, false, 50000),
+            RewardRule.valueOf(5, false, 1500000),
+            RewardRule.valueOf(5, true, 30000000),
+            RewardRule.valueOf(6, false, 2000000000)
     );
 
-    private static final int MULTIPLY_BY_PERCENTAGE = 100;
+    private static final BigInteger MULTIPLY_BY_PERCENTAGE = BigInteger.valueOf(100);
 }

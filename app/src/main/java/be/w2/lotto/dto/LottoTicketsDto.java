@@ -23,8 +23,8 @@ public class LottoTicketsDto {
     }
 
     private static List<List<Integer>> toListedLottoTickets(LottoTickets lottoTickets) {
-        return lottoTickets.getLottoTickets()
-                .stream().map(LottoTicket::getLottoNumbers)
+        return lottoTickets.getLottoTickets().stream()
+                .map(LottoTicket::getLottoNumbers)
                 .collect(Collectors.toList());
     }
 }

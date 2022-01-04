@@ -17,8 +17,8 @@ public class LottoTicket {
     }
 
     public List<Integer> getLottoNumbers() {
-        return this.lottoNumbers
-                .stream().map(LottoNumber::getNumber)
+        return this.lottoNumbers.stream()
+                .map(LottoNumber::getNumber)
                 .collect(Collectors.toList());
     }
 
@@ -34,11 +34,11 @@ public class LottoTicket {
 
     private static List<LottoNumber> generateLottoNumbers() {
         Collections.shuffle(entireLottoNumbers);
-        return entireLottoNumbers
-                .stream().limit(LOTTO_TICKET_SIZE)
+        return entireLottoNumbers.stream()
+                .limit(LOTTO_TICKET_SIZE)
                 .sorted()
-                .collect(Collectors.toList())
-                .stream().map(LottoNumber::from)
+                .collect(Collectors.toList()).stream()
+                .map(LottoNumber::from)
                 .collect(Collectors.toList());
     }
 

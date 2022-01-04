@@ -4,20 +4,14 @@ import be.w2.lotto.domain.WinningMatchResult;
 
 public class WinningMatchResultDto {
     public final int matchedNumber;
-    public final int profit;
+    public final int reward;
     public final int count;
+    public final boolean isBonusRound;
 
-    private WinningMatchResultDto(int matchedNumber, int profit, int count) {
-        this.matchedNumber = matchedNumber;
-        this.profit = profit;
-        this.count = count;
-    }
-
-    public static WinningMatchResultDto from(WinningMatchResult winningMatchResult) {
-        return new WinningMatchResultDto(
-                winningMatchResult.getMatchedNumber(),
-                winningMatchResult.getProfit(),
-                winningMatchResult.getCount()
-        );
+    public WinningMatchResultDto(WinningMatchResult winningMatchResult) {
+        this.matchedNumber = winningMatchResult.getMatchedNumber();
+        this.reward = winningMatchResult.getReward();
+        this.count = winningMatchResult.getCount();
+        this.isBonusRound = winningMatchResult.isBonusRound();
     }
 }

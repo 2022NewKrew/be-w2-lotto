@@ -18,7 +18,11 @@ public class OutputView {
         System.out.println("\n당첨 통계");
         System.out.println("---------");
         winningResultDto.winningMatchResultDtos.forEach(
-                dto -> System.out.println(dto.matchedNumber + "개 일치 (" + dto.profit + "원)- " + dto.count + "개")
+                dto -> {
+                    System.out.print(dto.matchedNumber + "개 일치");
+                    if (dto.isBonusRound) System.out.print(", 보너스 볼 일치");
+                    System.out.println("(" + dto.reward + "원);- " + dto.count + "개");
+                }
         );
         System.out.println("총 수익률은 " + winningResultDto.profitRate +"%입니다.");
     }

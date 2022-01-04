@@ -3,6 +3,7 @@
  */
 package be.w2.lotto;
 
+import be.w2.lotto.domain.BonusNumber;
 import be.w2.lotto.domain.LottoTickets;
 import be.w2.lotto.domain.WinningLottoTicket;
 import be.w2.lotto.domain.WinningResult;
@@ -29,8 +30,8 @@ public class LottoApplication {
         emptyBuffer();
 
         WinningLottoTicket winningLottoTicket = inputWinningNumbers();
-        WinningResult winningResult = WinningResult.valueOf(lottoTickets, winningLottoTicket, purchaseAmount);
-        int bonusNumber = inputBonusNumbers();
+        BonusNumber bonusNumber = inputBonusNumber(winningLottoTicket);
+        WinningResult winningResult = WinningResult.valueOf(lottoTickets, winningLottoTicket, purchaseAmount, bonusNumber);
 
         WinningResultDto winningResultDto = WinningResultDto.from(winningResult);
         outputWinningResult(winningResultDto);
@@ -46,12 +47,22 @@ public class LottoApplication {
             }
         }
     }
-
     private static WinningLottoTicket inputWinningNumbers() {
         while (true) {
             try {
                 String winningNumbers = InputView.inputWinningNumbers();
                 return WinningLottoTicket.valueOf(parseInputNumbers(winningNumbers));
+            } catch (IllegalArgumentException e) {
+                throwErrorMessage(e);
+            }
+        }
+    }
+
+    private static BonusNumber inputBonusNumber(WinningLottoTicket winningLottoTicket) {
+        while (true) {
+            try {
+                int bonusNumber = inputBonusNumbers();
+                return BonusNumber.valueOf(bonusNumber, winningLottoTicket);
             } catch (IllegalArgumentException e) {
                 throwErrorMessage(e);
             }
