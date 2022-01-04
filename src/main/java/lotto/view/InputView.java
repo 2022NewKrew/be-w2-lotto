@@ -1,24 +1,28 @@
 package lotto.view;
 
+import lotto.domain.InputViewMessage;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public final class InputView {
-    private static final String INPUT_TOTAL_PRICE = "구입금액을 입력해 주세요.";
-    private static final String INPUT_LAST_WEEK_NUMBERS = "지난 주 당첨 번호를 입력해 주세요.";
-
     private static final BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 
     private InputView() { }
 
-    public static int inputpurchasePrice() throws IOException {
-        System.out.println(INPUT_TOTAL_PRICE);
+    public static int inputPurchasePrice() throws IOException {
+        System.out.println(InputViewMessage.INPUT_TOTAL_PRICE.getMessage());
         return Integer.parseInt(input.readLine());
     }
 
-    public static String inputLastWeekNumbers() throws IOException {
-        System.out.println(INPUT_LAST_WEEK_NUMBERS);
+    public static String inputWinningLottoNumbers() throws IOException {
+        System.out.println(InputViewMessage.INPUT_LAST_WEEK_NUMBERS.getMessage());
         return input.readLine();
+    }
+
+    public static int inputBonusBall() throws IOException {
+        System.out.println(InputViewMessage.INPUT_BONUS_BALL.getMessage());
+        return Integer.parseInt(input.readLine());
     }
 }

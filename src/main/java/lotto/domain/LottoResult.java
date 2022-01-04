@@ -6,51 +6,52 @@ import java.util.Map;
 import java.util.Optional;
 
 public class LottoResult {
-    private static final int MIN_MATCH_NUM = 3;
-    private static final int[] MATCH_COUNT_PRICE = {5000, 50000, 1500000, 2000000000};
+    private static final int MIN_MATCH_NUMBER = 3;
 
-    private long totalRateOfReturn;
-    private Map<Integer, Integer> matchCounts;
+    private double totalRateOfReturn;
+    private Map<Long, Integer> matchCounts;
 
-    public LottoResult(int purchasePrice, Lotto lastWeekLotto, PurchaseLotto purchaseLotto) {
+    public LottoResult(int purchasePrice, WinningLotto winningLotto, PurchaseLotto purchaseLotto) {
         this.matchCounts = new HashMap<>();
 
-        initMatchCount(lastWeekLotto, purchaseLotto);
+        initMatchCount(winningLotto, purchaseLotto);
         this.totalRateOfReturn = calculateTotalProfit(purchasePrice);
     }
 
-    private void initMatchCount(Lotto lastWeekLotto, PurchaseLotto purchaseLotto) {
-        List<Lotto> lottos = purchaseLotto.getLottos();
-        List<Integer> lastWeekLottoNumbers = lastWeekLotto.getLottoNumbers();
+    private void initMatchCount(WinningLotto winningLotto, PurchaseLotto purchaseLottos) {
+        List<Lotto> lottos = purchaseLottos.getLottos();
 
         for (Lotto lotto : lottos) {
-            int matchCount = lotto.getMatchNumberCount(lastWeekLottoNumbers);
+            int matchCount = winningLotto.getMatchNumberCount(lotto.getLottoNumbers());
             updateMatchCount(matchCount);
         }
     }
 
     private void updateMatchCount(int matchCount) {
-        if (matchCount < MIN_MATCH_NUM) {
+        if (matchCount < MIN_MATCH_NUMBER) {
             return;
         }
 
-        final int index = matchCount - MIN_MATCH_NUM;
-        matchCounts.put(MATCH_COUNT_PRICE[index], getMatchCount(index) + 1);
+        final int index = matchCount - MIN_MATCH_NUMBER;
+        final Rank[] ranks = Rank.values();
+
+        matchCounts.put(ranks[index].getWinningMoney(), getMatchCount(ranks[index]) + 1);
     }
 
-    public long calculateTotalProfit(int purchasePrice) {
-        int totalProfit = matchCounts.entrySet().stream()
-                .mapToInt(index -> index.getKey() * index.getValue())
+    public int getMatchCount(Rank rank) {
+        return Optional.ofNullable(matchCounts.get(rank.getWinningMoney())).orElse(0);
+    }
+
+    private double calculateTotalProfit(int purchasePrice) {
+        long totalProfit = matchCounts.entrySet().stream()
+                .mapToLong(index -> index.getKey() * index.getValue())
                 .sum();
 
-        return (totalProfit * 100L) / purchasePrice;
+        long totalPrice = totalProfit - purchasePrice;
+        return (totalPrice / (double)purchasePrice) * 100.0;
     }
 
-    public int getMatchCount(int index) {
-        return Optional.ofNullable(matchCounts.get(MATCH_COUNT_PRICE[index])).orElse(0);
-    }
-
-    public long getTotalRateOfReturn() {
+    public double getTotalRateOfReturn() {
         return totalRateOfReturn;
     }
 }
