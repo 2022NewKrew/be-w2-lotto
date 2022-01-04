@@ -53,4 +53,5 @@ class LottoGameTest {
         Mockito.verify(view).readPurchaseAmountForLotto();
 
     }
+
 }

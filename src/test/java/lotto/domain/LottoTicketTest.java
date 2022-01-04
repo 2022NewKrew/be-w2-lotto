@@ -79,4 +79,5 @@ class LottoTicketTest {
         //Then
         Assertions.assertTrue(lottoWinningResult.getLottoWinningCount(LottoWinningRating.FOURTH) <= 14);
     }
+
 }

@@ -48,4 +48,5 @@ public class Lotto {
 
         return LottoWinningRating.getWinningRating(matchCount);
     }
+
 }

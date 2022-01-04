@@ -23,4 +23,5 @@ public class LottoGame {
         view.printLottoWinningResult(lottoWinningResult);
         view.printYield(lottoWinningResult.getYield(lotto.getWholeLottoPrice()));
     }
+
 }

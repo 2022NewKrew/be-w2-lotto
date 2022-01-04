@@ -42,4 +42,5 @@ public class LottoWinningResult {
     public Set<LottoWinningRating> keySet() {
         return lottoWinningResults.keySet();
     }
+
 }

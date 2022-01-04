@@ -205,4 +205,5 @@ class LottoWinningRatingTest {
         // Then
         Assertions.assertEquals(LottoWinningRating.NOTHING, result);
     }
+
 }

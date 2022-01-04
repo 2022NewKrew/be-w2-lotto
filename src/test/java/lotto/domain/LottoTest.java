@@ -60,4 +60,5 @@ class LottoTest {
         // Then
         Assertions.assertTrue(resultCompareList.contains(winningRating));
     }
+
 }

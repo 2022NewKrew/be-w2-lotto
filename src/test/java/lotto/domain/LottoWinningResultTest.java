@@ -31,4 +31,5 @@ class LottoWinningResultTest {
         // Then
         Assertions.assertTrue(lottoWinningResult.getLottoWinningCount(LottoWinningRating.FOURTH) <= 1);
     }
+
 }
