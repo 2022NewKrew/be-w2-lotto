@@ -13,6 +13,6 @@ public class ConsoleOutput {
     }
 
     public static void printWinningStats(WinningStats winningStats){
-        System.out.println(winningStats);
+        System.out.println(winningStats.printWinningStats());
     }
 }

@@ -6,29 +6,6 @@ import java.util.List;
 public class WinningStats {
     private final static int START_CORRECT_COUNT_BY_PRINT = 3;
 
-    public enum WinningPrice {
-
-        THREE(5000), FOUR(50000), FIVE(1500000), SIX(2000000000);
-
-        private final long price;
-        private int lottoCount;
-        private final int index;
-
-        WinningPrice(long price) {
-            this.price = price;
-            lottoCount = 0;
-            index = START_CORRECT_COUNT_BY_PRINT + ordinal();
-        }
-
-        private long calculateProfit() {
-            return lottoCount * price;
-        }
-
-        private void addCount() {
-            lottoCount += 1;
-        }
-    }
-
     private final List<WinningPrice> winningPriceList;
     private final LottoBundle lottoBundle;
     private final List<Integer> lastWeekLottoNumberList;
@@ -94,20 +71,16 @@ public class WinningStats {
         return 0;
     }
 
-    @Override
-    public String toString() {
+    public String printWinningStats() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (WinningPrice winningPrice : winningPriceList) {
-            stringBuilder.append(winningPrice.index);
-            stringBuilder.append("개 일치 (");
-            stringBuilder.append(winningPrice.price);
-            stringBuilder.append("원)- ");
-            stringBuilder.append(winningPrice.lottoCount);
-            stringBuilder.append("개\n");
-        }
         double profitRatePercent = getProfitRatePercent();
+
+        for (WinningPrice winningPrice : winningPriceList) {
+            stringBuilder.append(winningPrice.printWinningPrice());
+        }
+
         stringBuilder.append("총 수익률은 ");
-        stringBuilder.append((long) profitRatePercent);
+        stringBuilder.append((long)profitRatePercent);
         stringBuilder.append("%입니다.\n");
 
         return stringBuilder.toString();
