@@ -2,7 +2,6 @@ package domain.lotto;
 
 import domain.prize.Prize;
 
-
 import static domain.prize.Prize.*;
 
 public class LottoResult {

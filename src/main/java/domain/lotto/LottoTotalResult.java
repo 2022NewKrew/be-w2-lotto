@@ -10,8 +10,8 @@ import static java.util.stream.Collectors.*;
 public class LottoTotalResult {
 
     private final List<LottoResult> lottoResults;
-    private int totalEarning;
     private final double earningRatio;
+    private int totalEarning;
 
     public LottoTotalResult(List<LottoResult> lottoResults, int inputMoney) {
         this.lottoResults = lottoResults;
@@ -36,7 +36,6 @@ public class LottoTotalResult {
         for (Prize prize : List.of(FIRST_PRIZE, SECOND_PRIZE, THIRD_PRIZE, FOURTH_PRIZE, FIFTH_PRIZE)) {
             totalResultMap.putIfAbsent(prize, 0L);
         }
-
         TreeMap<Prize, Long> totalResultTreeMap = new TreeMap<>(totalResultMap);
         return totalResultTreeMap.descendingMap();
     }

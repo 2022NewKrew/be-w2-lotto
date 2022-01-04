@@ -13,7 +13,6 @@ public class LottoRenderer {
 
     public static void renderLotto(List<Lotto> lottoList) {
         StringBuilder sb = new StringBuilder();
-
         sb.append(lottoList.size());
         sb.append("개를 구매했습니다.");
         sb.append(NEW_LINE);
@@ -44,4 +43,5 @@ public class LottoRenderer {
     public static void renderEarningRatio(LottoTotalResult lottoTotalResult) {
         System.out.println("총 수익률은 " + lottoTotalResult.getEarningRatio() + "%입니다.");
     }
+
 }
