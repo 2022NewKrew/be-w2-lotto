@@ -3,9 +3,9 @@ package lotto.util;
 import java.util.*;
 
 public class Util {
-    public static final int lottoPrice = 1000;
-    public static final int lottoNumberCount = 6;
-    public static final int lottoMaxNumber = 45;
+    public static final int LOTTO_PRICE = 1000;
+    public static final int LOTTO_NUMBER_COUNT = 6;
+    public static final int LOTTO_MAX_NUMBER = 45;
 
     public static List<Integer> generateRandomNumbers(int count, int maxNumber){
         List<Integer> numbers = new ArrayList<Integer>();

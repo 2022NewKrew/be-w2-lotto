@@ -18,8 +18,8 @@ public class LottoProcess {
 
     private List<Lotto> generateLottos(int inputMoney){
         List<Lotto> lottos = new ArrayList<>();
-        for(int i=0; i<inputMoney/Util.lottoPrice; i++){
-            lottos.add(new Lotto(Util.generateRandomNumbers(Util.lottoNumberCount, Util.lottoMaxNumber)));
+        for(int i=0; i<inputMoney/Util.LOTTO_PRICE; i++){
+            lottos.add(new Lotto(Util.generateRandomNumbers(Util.LOTTO_NUMBER_COUNT, Util.LOTTO_MAX_NUMBER)));
         }
         return lottos;
     }
