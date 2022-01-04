@@ -2,9 +2,13 @@ package com.kakao.io;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.kakao.exception.PickedNumberException;
 =======
 >>>>>>> 4f43f8b (1차 Commit)
+=======
+import com.kakao.exception.PickedNumberException;
+>>>>>>> 2e87083 (- 로또 번호의 유효성 검사 추가)
 import com.kakao.helper.TextHelper;
 import com.kakao.data.io.LottoInputData;
 import com.kakao.exception.PickedNumbersFormatException;
@@ -55,6 +59,7 @@ class LottoInput {
             List<Integer> winningList = TextHelper.convertListType(strList, Integer::parseInt);
             lottoWinning = new LottoWinning(winningList);
         } catch (IOException | NumberFormatException | PickedNumberException e) {
+<<<<<<< HEAD
             e.printStackTrace();
         }
         return lottoWinning;
@@ -85,8 +90,19 @@ class LottoInput {
             List<Integer> winningList = TextHelper.convertListType(strList, Integer::parseInt);
             lottoWinning = new LottoWinning(winningList);
         } catch (IOException | NumberFormatException | PickedNumbersFormatException e) {
+=======
+>>>>>>> 2e87083 (- 로또 번호의 유효성 검사 추가)
             e.printStackTrace();
         }
         return lottoWinning;
+    }
+    public static Integer inputBonusBall() {
+        Integer bonusBallNumber = null;
+        try {
+            bonusBallNumber = Integer.parseInt(br.readLine());
+        } catch (IOException | NumberFormatException e ) {
+            e.printStackTrace();
+        }
+        return bonusBallNumber;
     }
 }
