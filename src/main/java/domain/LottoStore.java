@@ -24,10 +24,9 @@ public class LottoStore {
 
     private static Lotto createLotto() {
         Collections.shuffle(allLottoNumbers);
-        Lotto lotto = new Lotto(allLottoNumbers.stream()
+        return new Lotto(allLottoNumbers.stream()
                 .limit(LOTTO_SIZE)
                 .collect(Collectors.toList()));
-        return lotto;
     }
 
     public static Lottos purchase(Money money) {
