@@ -6,26 +6,19 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LotteryFactory {
-    private static final int LOTTERY_NUMBER_START = 1;
-    private static final int LOTTERY_NUMBER_END = 45;
-    private static final int LOTTERY_NUMBER_COUNT = 6;
-
-    private static final int LOTTERY_UNIT_PRICE = 1000;
-
     private static final Random random = new Random();
 
-    public static List<Lottery> buildLotteries(long count) {
-        return Stream.generate(LotteryFactory::buildSingleLottery)
-                .limit(count / LOTTERY_UNIT_PRICE)
+    public static List<Lottery> buildLotteries(long price, Rule rule) {
+        return Stream.generate(() -> buildSingleLottery(rule))
+                .limit(price / rule.getLotteryUnitPrice())
                 .collect(Collectors.toList());
     }
 
-    public static Lottery buildSingleLottery() {
-        return new Lottery(random.ints(LOTTERY_NUMBER_START, LOTTERY_NUMBER_END + 1)
+    private static Lottery buildSingleLottery(Rule rule) {
+        return new Lottery(random.ints(rule.getLotteryNumberStart(), rule.getLotteryNumberEnd() + 1)
                 .distinct()
-                .limit(LOTTERY_NUMBER_COUNT)
-                .sorted()
+                .limit(rule.getLotteryNumberCount())
                 .boxed()
-                .collect(Collectors.toUnmodifiableList()));
+                .collect(Collectors.toSet()));
     }
 }

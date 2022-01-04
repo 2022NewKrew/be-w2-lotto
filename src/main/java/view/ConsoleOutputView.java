@@ -4,6 +4,7 @@ import domain.Lottery;
 import domain.Rank;
 import domain.Result;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class ConsoleOutputView implements OutputView {
@@ -13,17 +14,15 @@ public class ConsoleOutputView implements OutputView {
         System.out.printf("%d개를 구매하였습니다.\n", lotteryList.size());
 
         for (Lottery lottery : lotteryList) {
-            lottery.printLottery();
+            System.out.println(lottery.getLotteryNumbers());
         }
     }
 
     @Override
     public void printResult(Result result) {
-        for (Rank key : Rank.values()) {
-            if (key == Rank.MISS) continue;
-
-            System.out.printf("%s- %d개\n",key.getDescription(), result.getCountOf(key));
-        }
-        System.out.printf("총 수익률은 %d%%입니다.\n", result.getYieldPercent());
+        System.out.println("당첨 통계\n---------");
+        Arrays.stream(Rank.values()).filter((rank) -> rank != Rank.MISS)
+                .forEach((rank) -> System.out.printf("%s- %d개\n",rank.getDescription(), result.getCountOf(rank)));
+        System.out.printf("총 수익률은 %.2f%%입니다.\n", result.getYieldPercent());
     }
 }

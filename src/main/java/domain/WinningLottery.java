@@ -1,34 +1,32 @@
 package domain;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class WinningLottery {
     private final Set<Integer> drawnNumbers;
+    private final int bonusNumber;
 
-    public WinningLottery(List<Integer> drawnNumber) {
-        this.drawnNumbers = Set.copyOf(drawnNumber);
+    public WinningLottery(Set<Integer> drawnNumber, int bonusNumber) {
+        this.drawnNumbers = Collections.unmodifiableSet(drawnNumber);
+        this.bonusNumber = bonusNumber;
     }
 
     public List<Rank> checkRank(List<Lottery> lotteries) {
-        List<Rank> ranks = new ArrayList<>();
-        for (Lottery lottery : lotteries) {
-            ranks.add(this.checkRank(lottery));
+        if (lotteries == null) {
+            throw new IllegalArgumentException("로또 목록 정보가 올바르지 않습니다.");
         }
-        return ranks;
+
+        return lotteries.stream()
+                .map(this::checkRank)
+                .collect(Collectors.toList());
     }
 
-    public Rank checkRank(Lottery lottery) {
-        int matchCount = 0;
-        matchCount = lottery.calculateMatchCount(this);
-        return Rank.valueOf(matchCount);
-    }
-
-    public int contains(Integer lotteryNumber) {
-        if (drawnNumbers.contains(lotteryNumber)) {
-            return 1;
-        }
-        else return 0;
+    private Rank checkRank(Lottery lottery) {
+        int matchCount = lottery.calculateMatchCount(this.drawnNumbers);
+        boolean bonusMatched = lottery.contains(this.bonusNumber);
+        return Rank.valueOf(matchCount, bonusMatched);
     }
 }
