@@ -1,37 +1,31 @@
 package lotto.domain;
 
-import lotto.view.InputView;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Gambler {
-    private int money;
     private final List<LottoTicket> tickets = new ArrayList<>();
-
-    public Gambler() {
-        this(0);
-    }
-
-    public Gambler(int money) {
-        this.money = money;
-    }
-
-    public int getMoney() {
-        return money;
-    }
 
     public List<LottoTicket> getTickets() {
         return Collections.unmodifiableList(tickets);
     }
 
-    public void buyLottoTicket(LottoTicket lottoTicket, int lottoTicketPrice) {
-        money -= lottoTicketPrice;
+    public void addLottoTicket(LottoTicket lottoTicket) {
         tickets.add(lottoTicket);
     }
 
-    public void setMoneyFromScanner() {
-        money = InputView.getPositiveIntFromScanner("구입금액을 입력해주세요: ");
+    /**
+     * @param winnerNumber 1등 번호
+     * @param bonusBall 보너스 숫자
+     * @return
+     * <pre>{@code
+     *     Map<Prize, 횟수>
+     * }</pre>
+     */
+    public Map<Prize, Long> getMatchingResult(Set<Integer> winnerNumber, int bonusBall) {
+        return tickets.stream()
+                .map(ticket -> ticket.matchWithWinnerNumber(winnerNumber, bonusBall))
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 }
