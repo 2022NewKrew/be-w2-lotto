@@ -4,7 +4,6 @@ import domain.Lotto;
 import domain.LottoRepository;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,22 +17,28 @@ public class LottoGameService {
         return result;
     }
 
-    public static int checkNum(Lotto autoLotto, List<Integer> inputLastWeekWinNumber) {
-        int matchedNum = 0;
-        for (Integer num : inputLastWeekWinNumber) {
-            if (checkLotto(autoLotto, num)) {
-                matchedNum++;
-            }
-        }
-        System.out.println(matchedNum);
-        return matchedNum;
+    public static int checkNum(Lotto autoLotto, List<Integer> inputLastWeekWinNumbers) {
+//        int matchedNum = 0;
+        return (int) inputLastWeekWinNumbers.stream()
+                .filter(inputLastWeekWinNumber -> checkLotto(autoLotto, inputLastWeekWinNumber))
+                .count();
+
+//        for (Integer num : inputLastWeekWinNumbers) {
+//            if (checkLotto(autoLotto, num)) {
+//                matchedNum++;
+//            }
+//        }
+//        System.out.println(matchedNum);
+//        return matchedNum;
     }
 
         public static Boolean checkLotto(Lotto autoLotto, Integer num) {
         boolean count = false;
+
         for (int lottoIndex = 0; lottoIndex < autoLotto.getLotto().size(); lottoIndex++) {
             if (Objects.equals(num, autoLotto.getLotto().get(lottoIndex))) {
                 count = true;
+                break;
             }
         }
         return count;
