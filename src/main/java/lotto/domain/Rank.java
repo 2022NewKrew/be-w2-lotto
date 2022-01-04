@@ -39,9 +39,9 @@ public enum Rank {
 
     private String getResultString() {
         if (this == Rank.SECOND) {
-            return String.format("%s개 일치, 보너스 볼 일치(%s원)- %s개", matchingNumber, prizeAmount, winnerCount);
+            return String.format("%s개 일치, 보너스 볼 일치(%s원)- %s개%n", matchingNumber, prizeAmount, winnerCount);
         }
-        return String.format("%s개 일치 (%s원)- %s개", matchingNumber, prizeAmount, winnerCount);
+        return String.format("%s개 일치 (%s원)- %s개%n", matchingNumber, prizeAmount, winnerCount);
     }
 
     public int getPrizeAmount() {
