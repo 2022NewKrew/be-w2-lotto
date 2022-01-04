@@ -1,11 +1,11 @@
 package view;
 
+import domain.LottoPrize;
 import domain.LottoTicket;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
-
-import static domain.Lotto.*;
 
 public final class StandardOutLottoServiceRenderer implements LottoServiceRenderer {
     @Override
@@ -19,22 +19,24 @@ public final class StandardOutLottoServiceRenderer implements LottoServiceRender
     }
 
     @Override
-    public void displayResults(Map<Long, Long> winningTickets, int purchaseAmount) {
-        long MAX = (long) NUMBER_OF_LOTTO_NUMBERS.getValue();
-
+    public void displayResults(Map<LottoPrize, Long> winningTickets, double rateOfReturn) {
         System.out.println("당첨 통계");
         System.out.println("------------------------------");
+        Arrays.stream(LottoPrize.values()).forEach( lottoPrize -> displayResult(lottoPrize, winningTickets));
 
-        long profit = getProfit(MAX-3, FOURTH_PLACE.getValue(), Optional.ofNullable(winningTickets.get(MAX-3)).orElse(0L));
-        profit += getProfit(MAX-2, THIRD_PLACE.getValue(), Optional.ofNullable(winningTickets.get(MAX-2)).orElse(0L));
-        profit += getProfit(MAX-1, SECOND_PLACE.getValue(), Optional.ofNullable(winningTickets.get(MAX-1)).orElse(0L));
-        profit += getProfit(MAX, FIRST_PLACE.getValue(), Optional.ofNullable(winningTickets.get(MAX)).orElse(0L));
-
-        System.out.println("총 수익률은 " + profit * 100 / purchaseAmount + "%입니다.");
+        System.out.println("총 수익률은 " + rateOfReturn + "%입니다.");
     }
 
-    private long getProfit(long count, long value, long numOfSame) {
-        System.out.println(count + "개 일치 (" + value + "원)- " + numOfSame + "개");
-        return value * numOfSame;
+    private void displayResult(LottoPrize lottoPrize, Map<LottoPrize, Long> winningTickets) {
+        long numberOfMatches = lottoPrize.getNumberOfMatches();
+        long prizeMoney = lottoPrize.getPrizeMoney();
+        long count = Optional.ofNullable(winningTickets.get(lottoPrize)).orElse(0L);
+
+        if(lottoPrize == LottoPrize.SECOND_PLACE) {
+            System.out.println(numberOfMatches + "개 일치, 보너스 볼 일치(" + prizeMoney + "원)- " + count + "개");
+        }
+        else if(lottoPrize != LottoPrize.NOTHING) {
+            System.out.println(numberOfMatches + "개 일치 (" + prizeMoney + "원)- " + count + "개");
+        }
     }
 }
