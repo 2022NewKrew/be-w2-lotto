@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 public class LottoController {
-    private static final int MAX_TRIAL_COUNT = 3;
     private static final int PRICE_OF_LOTTERY = 1000;
 
     private final InputView inputView = new InputView();
@@ -28,21 +27,8 @@ public class LottoController {
         }
     }
 
-    private int inputAmountOfPurchase() {
-        return inputAmountOfPurchase(0);
-    }
-
-    private int inputAmountOfPurchase(int trialCount) {
-        if (trialCount >= MAX_TRIAL_COUNT) {
-            throw new RuntimeException(MAX_TRIAL_COUNT + "회 이상 잘못 입력하여 게임을 종료합니다.");
-        }
-
-        try {
-            return inputView.inputAmountForPurchase();
-        } catch (InvalidInputFormatException e) {
-            outputView.printErrorMessage(e);
-            return inputAmountOfPurchase(trialCount + 1);
-        }
+    private int inputAmountOfPurchase() throws InvalidInputFormatException {
+        return inputView.inputAmountForPurchase();
     }
 
     private List<LottoTicket> purchaseLotteries(int amount) {
