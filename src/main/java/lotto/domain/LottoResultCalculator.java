@@ -33,9 +33,9 @@ public class LottoResultCalculator {
                 .collect(Collectors.toList());
     }
 
-    public int calculateEarningRate(Map<LottoRank, Integer> resultCounts, int totalAmount) {
-        long sum = calculateSum(resultCounts);
-        return (int) sum * 100 / totalAmount;
+    public int calculateEarningRate(Map<LottoRank, Integer> resultCounts, int original) {
+        long earning = calculateSum(resultCounts);
+        return (int) (earning - original) * 100 / original;
     }
 
     private long calculateSum(Map<LottoRank, Integer> resultCounts) {
