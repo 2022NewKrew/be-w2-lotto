@@ -1,7 +1,7 @@
 package com.kakao.lottogame.service;
 
 import com.kakao.lottogame.domain.Lotto;
-import com.kakao.lottogame.domain.Number;
+import com.kakao.lottogame.domain.LottoNumber;
 import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
@@ -15,10 +15,11 @@ public class RandomLottoGenerator implements LottoGenerator {
 
     @Override
     public Lotto generate() {
-        List<Number> numbers = random.ints(Number.MIN_VALUE, Number.MAX_VALUE + 1)
+        List<LottoNumber> lottoNumbers = random.ints(LottoNumber.MIN_VALUE,
+                LottoNumber.MAX_VALUE + 1)
             .distinct().limit(Lotto.SIZE).sorted()
-            .mapToObj(Number::of)
+            .mapToObj(LottoNumber::of)
             .collect(Collectors.toList());
-        return Lotto.of(numbers);
+        return Lotto.of(lottoNumbers);
     }
 }

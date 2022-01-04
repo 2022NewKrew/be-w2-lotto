@@ -1,33 +1,40 @@
 package com.kakao.lottogame.domain;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 public class Result {
 
-    private final EnumMap<Reward, Integer> result;
+    private final EnumMap<Rank, Integer> board;
 
-    public Result() {
-        result = new EnumMap<>(Reward.class);
-        for (Reward reward : Reward.values()) {
-            result.put(reward, 0);
+    private Result() {
+        board = new EnumMap<>(Rank.class);
+        for (Rank rank : Rank.values()) {
+            board.put(rank, 0);
         }
     }
 
-    public void add(Reward reward) {
-        result.put(reward, result.get(reward) + 1);
-    }
-
-    public Map<Reward, Integer> getResult() {
+    public static Result from(List<Rank> ranks) {
+        Result result = new Result();
+        ranks.forEach(result::add);
         return result;
     }
 
-    public long getProfit(Money money) {
+    public void add(Rank rank) {
+        board.put(rank, board.get(rank) + 1);
+    }
+
+    public Map<Rank, Integer> getBoard() {
+        return board;
+    }
+
+    public long calculateProfit(Money money) {
         long total = 0L;
-        for (Entry<Reward, Integer> entry : result.entrySet()) {
-            total += (long) entry.getKey().getValue().getValue() * result.get(entry.getKey());
+        for (Entry<Rank, Integer> entry : board.entrySet()) {
+            total += (long) entry.getKey().getReward().getValue() * board.get(entry.getKey());
         }
-        return total * 100 / money.getValue();
+        return total * 100L / money.getValue();
     }
 }

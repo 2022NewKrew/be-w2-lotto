@@ -7,33 +7,33 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public enum Reward {
+public enum Rank {
     NONE(0, Money.of(0)),
     FOURTH(3, Money.of(5_000)),
     THIRD(4, Money.of(50_000)),
     SECOND(5, Money.of(1_500_000)),
     FIRST(6, Money.of(2_000_000_000));
 
-    private static final Map<Integer, Reward> map = Collections.unmodifiableMap(Stream.of(values())
-        .collect(Collectors.toMap(Reward::getMatch, Function.identity())));
+    private static final Map<Integer, Rank> map = Collections.unmodifiableMap(Stream.of(values())
+        .collect(Collectors.toMap(Rank::getMatch, Function.identity())));
 
     private final int match;
-    private final Money value;
+    private final Money reward;
 
-    Reward(int match, Money value) {
+    Rank(int match, Money reward) {
         this.match = match;
-        this.value = value;
+        this.reward = reward;
     }
 
-    public static Reward of(int match) {
-        return Optional.ofNullable(map.get(match)).orElse(Reward.NONE);
+    public static Rank of(int match) {
+        return Optional.ofNullable(map.get(match)).orElse(Rank.NONE);
     }
 
     public int getMatch() {
         return match;
     }
 
-    public Money getValue() {
-        return value;
+    public Money getReward() {
+        return reward;
     }
 }

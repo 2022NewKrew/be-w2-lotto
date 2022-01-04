@@ -17,18 +17,18 @@ class LottoTest {
     @ParameterizedTest
     @ValueSource(ints = {4, 7})
     void constructor_NotSix_exception(int size) {
-        List<Number> numbers = new Random().ints(1, 46).distinct().limit(size).sorted()
-            .mapToObj(Number::of).collect(Collectors.toList());
-        assertThatThrownBy(() -> Lotto.of(numbers)).hasMessage("로또 번호는 총 6개입니다.");
+        List<LottoNumber> lottoNumbers = new Random().ints(1, 46).distinct().limit(size).sorted()
+            .mapToObj(LottoNumber::of).collect(Collectors.toList());
+        assertThatThrownBy(() -> Lotto.of(lottoNumbers)).hasMessage("로또 번호는 총 6개입니다.");
     }
 
     @DisplayName("로또 번호가 6개이면 로또를 정상적으로 생성할 수 있다.")
     @Test
     void constructor_Six_Success() {
         final int size = 6;
-        List<Number> numbers = new Random().ints(1, 46).distinct().limit(size).sorted()
-            .mapToObj(Number::of).collect(Collectors.toList());
-        assertThat(Lotto.of(numbers).getNumbers()).hasSize(size);
-        System.out.println(Lotto.of(numbers));
+        List<LottoNumber> lottoNumbers = new Random().ints(1, 46).distinct().limit(size).sorted()
+            .mapToObj(LottoNumber::of).collect(Collectors.toList());
+        assertThat(Lotto.of(lottoNumbers).getNumbers()).hasSize(size);
+        System.out.println(Lotto.of(lottoNumbers));
     }
 }
