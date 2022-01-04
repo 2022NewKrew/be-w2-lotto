@@ -2,24 +2,23 @@ package controller;
 
 import domain.Lotto;
 import domain.LottoMachine;
-import domain.User;
+import domain.ResultCalculator;
 import view.InputView;
 import view.ResultView;
 
 import java.util.List;
-import java.util.Map;
 
 public class LottoGame {
-    public static void start() {
-        int purchaseAmount = InputView.inputPurchaseAmount();
-        List<Lotto> lottoList = LottoMachine.buySeveralLotto(purchaseAmount);
-        User user = new User(lottoList, purchaseAmount);
+    private List<Lotto> lottoList;
+    private int purchaseAmount;
+
+    public void start() {
+        purchaseAmount = InputView.inputPurchaseAmount();
+        lottoList = LottoMachine.buySeveralLotto(purchaseAmount);
         ResultView.printLottoList(lottoList);
 
         List<Integer> lastWeekWinningNumbers = InputView.inputLastWeekWinningNumber();
-        Map<Integer, Integer> lottoResult = user.calculateLottoResult(lastWeekWinningNumbers);
-        double rateOfReturn = user.calculateRateOfReturn(lastWeekWinningNumbers);
-        ResultView.printLottoResult(lottoResult);
-        ResultView.printRateOfReturn(rateOfReturn);
+        ResultView.printLottoResult(ResultCalculator.calculateLottoResult(lastWeekWinningNumbers));
+        ResultView.printRateOfReturn(ResultCalculator.calculateRateOfReturn(lastWeekWinningNumbers));
     }
 }
