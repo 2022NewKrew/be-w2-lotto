@@ -1,10 +1,10 @@
-package lotto.controller;
+package lotto.view;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ConsoleInput {
+public class ConsoleInputView {
     private static final String SEPERATOR = ",";
     private static Scanner sc = new Scanner(System.in);
 

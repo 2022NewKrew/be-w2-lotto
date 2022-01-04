@@ -2,19 +2,19 @@ package lotto;
 
 import lotto.com.kakao.LottoBundle;
 import lotto.com.kakao.WinningStats;
-import lotto.controller.ConsoleInput;
-import lotto.view.ConsoleOutput;
+import lotto.view.ConsoleInputView;
+import lotto.view.ConsoleOutputView;
 
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-            int lottoPurchaseMoney = ConsoleInput.getLottoPurchaseMoney();
+            int lottoPurchaseMoney = ConsoleInputView.getLottoPurchaseMoney();
             LottoBundle lottoBundle = new LottoBundle(lottoPurchaseMoney);
-            ConsoleOutput.printLottoCount(lottoBundle.getCount());
-            ConsoleOutput.printLottoBundle(lottoBundle);
-            List<Integer> lastWeekLottoNumberList = ConsoleInput.getLastWeekLottoNumberList();
+            ConsoleOutputView.printLottoCount(lottoBundle.getCount());
+            ConsoleOutputView.printLottoBundle(lottoBundle);
+            List<Integer> lastWeekLottoNumberList = ConsoleInputView.getLastWeekLottoNumberList();
             WinningStats winningStats = new WinningStats(lottoBundle,lastWeekLottoNumberList,lottoPurchaseMoney);
-            ConsoleOutput.printWinningStats(winningStats);
+            ConsoleOutputView.printWinningStats(winningStats);
     }
 }
