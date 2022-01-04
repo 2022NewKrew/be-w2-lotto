@@ -6,8 +6,7 @@ import java.util.*;
 
 public class LottoResult {
     private List<Integer> winningLottoNumbers = new ArrayList<>();
-    private HashMap<Rank, Integer> matchMap = new HashMap<>();
-    private LottoCheck lc;
+    private final HashMap<Rank, Integer> matchMap = new HashMap<>();
     private int value;
     private int profitRate;
     private int bonusNum;
@@ -28,7 +27,7 @@ public class LottoResult {
             winningLottoNumbers = readWinningLottoNumbers();
             askBonusWinningLottoNumber();
             bonusNum = readBonusWinningLottoNumber();
-            lc = new LottoCheck(winningLottoNumbers, bonusNum, COUNT_OF_LOTTO_NUMBER, MAX_OF_LOTTO_NUMBER);
+            LottoCheck lc = new LottoCheck(winningLottoNumbers, bonusNum, COUNT_OF_LOTTO_NUMBER, MAX_OF_LOTTO_NUMBER);
             lc.checkWinningLottoNumbers();
         } catch (Exception e) {
             System.out.println("잘못된 당첨 번호입니다! 다시 입력해주세요.");
@@ -51,13 +50,11 @@ public class LottoResult {
         return winningLottoNumbers;
     }
 
-
-
     private void askBonusWinningLottoNumber() {
         System.out.println("보너스 볼을 입력해 주세요.");
     }
 
-    private int readBonusWinningLottoNumber() {
+    private int readBonusWinningLottoNumber() throws RuntimeException{
         Scanner sc = new Scanner(System.in);
         return sc.nextInt();
     }

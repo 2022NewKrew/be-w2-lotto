@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class LottoNumbers {
-    List<Integer> lottoNumbers;
+    private List<Integer> lottoNumbers;
 
     LottoNumbers(int maxOfNum, int cntOfNum) {
         ArrayList<Integer> randomNumList;

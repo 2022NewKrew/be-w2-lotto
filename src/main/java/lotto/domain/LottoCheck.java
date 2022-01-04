@@ -47,7 +47,7 @@ public class LottoCheck {
 
     private void checkNumDuplication(int num) throws IllegalArgumentException{
         if (numbers.contains(num)) {
-            throw new IllegalArgumentException("중복된 로또 당첨 번호입니다!");
+            throw new IllegalArgumentException("중복된 보너스 로또 당첨 번호입니다!");
         }
     }
 
