@@ -16,6 +16,7 @@ public class OutputView {
     }
 
     public static void printLottoTickets(List<LottoTicket> tickets, BufferedWriter wr) throws IOException {
+        printLottoTicketTitle(tickets.size(), wr);
         for (LottoTicket ticket : tickets) {
             printLottoTicketNumbers(ticket, wr);
         }

@@ -16,6 +16,10 @@ public class OutputPrinter {
 
     }
 
+    public static void printLottoTicketTitle(int countOfLottoTicket, BufferedWriter wr) throws IOException {
+        wr.append(countOfLottoTicket + "개를 구매했습니다.\n");
+    }
+
     public static void printLottoTicketNumbers(LottoTicket lottoTicket, BufferedWriter wr) throws IOException {
         wr.append(LEFT_BRACKET +
                 lottoTicket.getLottoNumbers().stream()
@@ -31,9 +35,8 @@ public class OutputPrinter {
     }
 
     public static void printEachLottoResultType(LottoResultType resultType, int matchingCount, BufferedWriter wr) throws IOException {
-        wr.append(resultType.getMatchingNumberCount() + "개 일치 (" +
-                resultType.getMoney()
-                + ") - " + matchingCount + "개\n");
+        wr.append(String.format(resultType.getFormatStrOfResult(),
+                resultType.getMatchingNumberCount(), resultType.getMoney(), matchingCount));
     }
 
     public static void printLottoProfit(int purchasePrice, int lottoProfit, BufferedWriter wr) throws IOException {
