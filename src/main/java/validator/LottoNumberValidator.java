@@ -2,6 +2,7 @@ package validator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import constants.LottoRule;
@@ -10,7 +11,15 @@ public class LottoNumberValidator implements ValidatorInterface{
     @Override
     public boolean validateData(String input) {
         List<String> numbers = new ArrayList<>(Arrays.asList(input.split(",")));
-        return checkAmount(numbers) && checkValidNumbers(numbers);
+
+        return checkDuplicate(numbers) && checkAmount(numbers) && checkValidNumbers(numbers);
+    }
+
+    private boolean checkDuplicate(List<String> numbers){
+        boolean freq = numbers.stream()
+                .noneMatch(number -> Collections.frequency(numbers, number) > 1);
+        if(!freq) { System.out.println("중복되는 값이 있습니다."); }
+        return freq;
     }
 
     private boolean checkAmount(List<String> numbers){

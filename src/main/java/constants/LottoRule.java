@@ -9,7 +9,8 @@ public class LottoRule {
 
     public static final int FIRST = 6;
     public static final int SECOND = 5;
-    public static final int THIRD = 4;
-    public static final int FOURTH = 3;
+    public static final int THIRD = 5;
+    public static final int FOURTH = 4;
+    public static final int FIFTH = 3;
     public static final int FAIL = 2;
 }

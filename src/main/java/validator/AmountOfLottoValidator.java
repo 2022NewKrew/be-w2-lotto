@@ -2,12 +2,12 @@ package validator;
 
 import constants.LottoRule;
 
-public class AmountOfLottoValidator implements ValidatorInterface{
+public class AmountOfLottoValidator extends IntegerValidator implements ValidatorInterface{
     public AmountOfLottoValidator() { }
 
     @Override
     public boolean validateData(String input) {
-        if(!isInteger(input)){
+        if(isNumeric(input)){
             System.out.println("정수로 입력해주세요.");
             return false;
         }
@@ -18,12 +18,8 @@ public class AmountOfLottoValidator implements ValidatorInterface{
         return true;
     }
 
-    private boolean isInteger(String input){
-        return input.matches(LottoRule.IS_NUMERIC);
-    }
-
     private boolean dividableByThousand(String input){
         int intInput = Integer.parseInt(input);
-        return (intInput > 1000 && intInput % LottoRule.PRICE_PER_LOTTO == 0);
+        return (intInput >= 1000 && intInput % LottoRule.PRICE_PER_LOTTO == 0);
     }
 }
