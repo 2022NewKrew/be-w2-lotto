@@ -5,7 +5,7 @@ import lotto.domain.LottoPaper;
 import java.util.List;
 import java.util.Map;
 
-public class viewLotto {
+public class ViewLotto {
 
     public static void printLotto(List<LottoPaper> lottoPapers){
         for(LottoPaper lp : lottoPapers){

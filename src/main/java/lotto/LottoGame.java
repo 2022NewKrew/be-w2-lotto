@@ -4,7 +4,7 @@ package lotto;
 import lotto.domain.LottoGenerator;
 import lotto.domain.LottoInput;
 import lotto.domain.LottoPaper;
-import lotto.view.viewLotto;
+import lotto.view.ViewLotto;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -35,13 +35,13 @@ public class LottoGame {
         lg.generateLotto();
         lottoPapers = lg.getLottoPapers();
 
-        viewLotto.printLotto(lottoPapers);
+        ViewLotto.printLotto(lottoPapers);
         preWeekNumber = LottoInput.postPurchase();
         Collections.sort(preWeekNumber);
 
         searchResult();
-        viewLotto.printResult(LOTTO_PRIZE, rank);
-        viewLotto.printPriceRatio(calculatePrize(LottoInput.getInputPrice()));
+        ViewLotto.printResult(LOTTO_PRIZE, rank);
+        ViewLotto.printPriceRatio(calculatePrize(LottoInput.getInputPrice()));
     }
 
     private void searchResult(){
