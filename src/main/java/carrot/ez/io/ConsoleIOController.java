@@ -20,4 +20,9 @@ public class ConsoleIOController {
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
+
+    public int inputInt(String msg) {
+        System.out.println(msg);
+        return Integer.parseInt(sc.nextLine());
+    }
 }

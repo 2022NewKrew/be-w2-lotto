@@ -29,6 +29,9 @@ public class Lottery {
         }
         return numOfCorrect;
     }
+    public boolean isCorrectBonus(int bonus) {
+        return contains(bonus);
+    }
 
     @Override
     public String toString() {

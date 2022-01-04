@@ -33,7 +33,8 @@ public class LottoStarter {
 
     private static void checkWiningLotteries(User user) {
         List<Integer> wins = io.inputSplitInt("지난 주 당첨 번호를 입력해 주세요.", "\\s*[,]\\s*");
-        user.checkWinningLotteries(wins);
+        int bonus = io.inputInt("보너스 볼을 입력해주세요.");
+        user.checkWinningLotteries(wins, bonus);
     }
 
     private static void printWiningResults(User user) {
