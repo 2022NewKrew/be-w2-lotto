@@ -29,7 +29,7 @@ class LottoMachineTest {
                 new Lotto(Arrays.asList(7,8,9,10,11,12))
         );
         LottoMachine lottoMachine = new LottoMachine(lottos);
-        List<Integer> result = lottoMachine.countLottoMatch(new Lotto(Arrays.asList(1,2,3,4,5,6)));
+        List<Integer> result = lottoMachine.countLottoMatch(new WinningLotto(Arrays.asList(1,2,3,4,5,6)));
         assertThat(result).isEqualTo(Arrays.asList(1,1,1,1,1,1,1));
 
     }

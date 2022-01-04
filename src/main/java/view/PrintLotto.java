@@ -2,6 +2,7 @@ package view;
 
 import lotto.Lotto;
 import lotto.LottoMachine;
+import lotto.WinningLotto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +17,7 @@ public class PrintLotto {
         LottoMachine lottoMachine = new LottoMachine();
         lottoMachine.buyLotto(money);
         printLottos(lottoMachine.getLottos());
-        Lotto winLotto = getWinLotto();
+        WinningLotto winLotto = getWinLotto();
         List<Integer> matchCounts = lottoMachine.countLottoMatch(winLotto);
         printLottoResult(money, matchCounts);
     }
@@ -34,10 +35,10 @@ public class PrintLotto {
         }
     }
 
-    private static Lotto getWinLotto() {
+    private static WinningLotto getWinLotto() {
         Scanner in = new Scanner(System.in).useDelimiter("\n");
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        return new Lotto(splitNumbers(in.next()));
+        return new WinningLotto(splitNumbers(in.next()));
     }
 
     private static List<Integer> splitNumbers(String numStr) {

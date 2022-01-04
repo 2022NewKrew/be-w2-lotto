@@ -26,7 +26,7 @@ public class LottoMachine {
         return lottos;
     }
 
-    public List<Integer> countLottoMatch(Lotto winLotto) {
+    public List<Integer> countLottoMatch(WinningLotto winLotto) {
         List<Integer> match = new ArrayList<>(Arrays.asList(0,0,0,0,0,0,0));
         for(Lotto lotto: lottos) {
             int count = winLotto.countMatch(lotto);

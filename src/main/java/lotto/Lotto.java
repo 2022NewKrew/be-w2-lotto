@@ -3,7 +3,7 @@ package lotto;
 import java.util.*;
 
 public class Lotto {
-    private final ArrayList<Integer> lottoNumbers;
+    protected ArrayList<Integer> lottoNumbers;
 
     public Lotto() {
         ArrayList<Integer> balls = new ArrayList<>();
@@ -22,16 +22,6 @@ public class Lotto {
 
     public ArrayList<Integer> getLottoNumbers() {
         return lottoNumbers;
-    }
-
-    public int countMatch(Lotto lotto) {
-        int count = 0;
-        for (int number: lotto.lottoNumbers) {
-            if(lottoNumbers.contains(number)) {
-                count++;
-            }
-        }
-        return count;
     }
 
     public String toString() {
