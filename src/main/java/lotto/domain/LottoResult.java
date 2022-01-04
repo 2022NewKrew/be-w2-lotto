@@ -11,23 +11,23 @@ public class LottoResult {
     private final Map<Rank, Integer> countOfRank;
     private final int lottoProfit;
 
-    public LottoResult(List<Lotto> lottoList, List<Integer> winningNumbers) {
+    public LottoResult(List<Lotto> lottoList, WinningLotto winningLotto) {
         countOfRank = new HashMap<>();
-        initCountOfRank(lottoList, winningNumbers);
+        initCountOfRank(lottoList, winningLotto);
         lottoProfit = calculateProfit();
     }
 
-    private void initCountOfRank(List<Lotto> lottoList, List<Integer> winningNumbers) {
+    private void initCountOfRank(List<Lotto> lottoList, WinningLotto winningLotto) {
         lottoList.forEach(lotto -> {
-            int matchCount = lotto.countMatchedNumber(winningNumbers);
-            plusCountOfRank(matchCount);
+            LottoMatchResult lottoMatchResult = lotto.countMatchedNumber(winningLotto);
+            plusCountOfRank(lottoMatchResult);
         });
     }
 
-    private void plusCountOfRank(int matchCount) {
-        if (matchCount < MIN_MATCH_COUNT.getValue())
+    private void plusCountOfRank(LottoMatchResult lottoMatchResult) {
+        if (lottoMatchResult.getCount() < MIN_MATCH_COUNT.getValue())
             return;
-        Rank rank = Rank.valueOf(matchCount);
+        Rank rank = Rank.valueOf(lottoMatchResult);
         countOfRank.put(rank, getCountOfRank(rank) + 1);
     }
 

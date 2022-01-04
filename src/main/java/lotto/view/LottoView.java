@@ -3,6 +3,9 @@ package lotto.view;
 import lotto.domain.Lotto;
 import lotto.domain.LottoResult;
 import lotto.domain.Rank;
+import lotto.domain.WinningLotto;
+import lotto.domain.generator.AutoLotto;
+import lotto.domain.generator.LottoGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +23,15 @@ public class LottoView {
     public LottoView(int purchaseMoney) {
         this.purchaseMoney = purchaseMoney;
         lottoNum = purchaseMoney / PRICE_OF_LOTTO.getValue();
-        lottoList = new ArrayList<>(lottoNum);
+
+        lottoList = new ArrayList<>();
+        generateAutoNumbers();
+    }
+
+    private void generateAutoNumbers() {
+        LottoGenerator lottoGenerator = new AutoLotto();
         IntStream.range(0, lottoNum)
-                .forEach(lotto -> lottoList.add(new Lotto()));
+                .forEach(lotto -> lottoList.add(new Lotto(lottoGenerator.generateNumbers(null))));
     }
 
     public String printPurchasedLotto() {
@@ -34,23 +43,27 @@ public class LottoView {
         return sb.toString();
     }
 
-    public String printLottoResult(List<Integer> winningNumbers) {
-        LottoResult lottoResult = new LottoResult(lottoList, winningNumbers);
+    public String printLottoResult(WinningLotto winningLotto) {
+        LottoResult lottoResult = new LottoResult(lottoList, winningLotto);
 
         StringBuilder sb = new StringBuilder();
         sb.append("당첨 통계").append(NEW_LINE).append("---------").append(NEW_LINE);
         for (Rank rank : Rank.values()) {
-            sb.append(LottoRankFormat(rank.getCountOfMatch(), rank.getWinningMoney(), lottoResult.getCountOfRank(rank))).append(NEW_LINE);
+            sb.append(LottoRankFormat(rank, lottoResult.getCountOfRank(rank))).append(NEW_LINE);
         }
         sb.append("총 수익률은 ").append(profitRate(lottoResult.getLottoProfit())).append("%입니다.");
         return sb.toString();
     }
 
-    private String LottoRankFormat(int countOfMatch, int winningMoney, int countOfRank) {
-        return String.format("%d개 일치 (%d원)- %d개", countOfMatch, winningMoney, countOfRank);
+    private String LottoRankFormat(Rank rank, int countOfRank) {
+        String bonusString = "";
+        if (rank == Rank.SECOND) {
+            bonusString = ", 보너스 볼 일치";
+        }
+        return String.format("%d개 일치%s (%d원)- %d개", rank.getCountOfMatch(), bonusString, rank.getWinningMoney(), countOfRank);
     }
 
     private long profitRate(int profit) {
-        return profit * 100L / purchaseMoney;
+        return (profit - purchaseMoney) * 100L / purchaseMoney;
     }
 }

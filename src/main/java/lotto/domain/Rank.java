@@ -3,9 +3,10 @@ package lotto.domain;
 import java.util.Arrays;
 
 public enum Rank {
-    FOURTH(3, 5000),
-    THIRD(4, 50000),
-    SECOND(5, 1500000),
+    FIFTH(3, 5000),
+    FOURTH(4, 50000),
+    THIRD(5, 1500000),
+    SECOND(5, 30000000),
     FIRST(6, 2000000000);
 
     private final int countOfMatch;
@@ -16,7 +17,11 @@ public enum Rank {
         this.winningMoney = winningMoney;
     }
 
-    public static Rank valueOf(int countOfMatch) {
+    public static Rank valueOf(LottoMatchResult lottoMatchResult) {
+        int countOfMatch = lottoMatchResult.getCount();
+        if (countOfMatch == SECOND.countOfMatch) {
+            return lottoMatchResult.isBonusBall() ? SECOND : THIRD;
+        }
         return Arrays.stream(values())
                 .filter(rank -> rank.countOfMatch == countOfMatch)
                 .findFirst().orElse(null);
