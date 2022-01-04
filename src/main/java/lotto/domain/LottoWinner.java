@@ -8,12 +8,12 @@ import static lotto.domain.LottoSetting.LOTTO_LENGTH;
 public class LottoWinner {
     List<LottoNumber> winner;
 
-    public List<LottoNumber> getWinner() {
-        return winner;
-    }
-
     public LottoWinner(){
         winner = new ArrayList<>();
+    }
+
+    public List<LottoNumber> getWinner() {
+        return winner;
     }
 
     public void addLottoNumber(LottoNumber lottoNumber){

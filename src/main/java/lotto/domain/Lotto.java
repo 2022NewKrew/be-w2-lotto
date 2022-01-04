@@ -17,9 +17,8 @@ public class Lotto {
     private List<LottoWinner> lottoWinner;
     private List<Integer> lottoElement;
 
-    public Lotto(Integer payment){
+    public Lotto(){
         lottos = new ArrayList<>();
-        addLottos(payment / LOTTO_PRICE);
     }
 
     //getter
@@ -35,7 +34,7 @@ public class Lotto {
         this.lottoResult = lottoResult;
     }
 
-    private void addLottos(Integer lottoCount){
+    public void addRandomLottos(Integer lottoCount){
         for(int i = 0 ; i < lottoCount ; i++){
             lottos.add(createRandomLotto()); //lottoCount만큼 랜덤으로 로또를 생성
         }
