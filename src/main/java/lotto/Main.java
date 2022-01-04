@@ -23,7 +23,7 @@ public class Main {
         int bonusBall = getBonusBall(inputView, winnerNumber);
 
         LottoPrinter printer = new LottoPrinter();
-        printer.PrintLottoMatchingResult(lottoShop, gambler, bonusBall);
+        printer.printLottoResult(lottoShop, gambler, bonusBall);
     }
 
     private static void purchaseLotto(LottoShop lottoShop, InputView inputView, Gambler gambler) {
