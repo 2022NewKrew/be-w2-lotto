@@ -1,6 +1,7 @@
 package lotto.controller;
 
 import lotto.domain.*;
+import lotto.exception.InvalidInputFormatException;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
@@ -14,23 +15,31 @@ public class LottoController {
 
     public void start() {
         try {
-            int totalAmount = inputView.inputAmountForPurchase();
-            List<LottoTicket> tickets = purchaseLotteries(totalAmount);
-            outputView.printLotteries(tickets);
-            int bonusNumber = inputView.inputBonusNumber();
+            List<LottoTicket> tickets = purchaseLottoTickets();
             List<Integer> winningNumbers = inputView.inputWinningNumbers();
-            calculateAndPrintResult(tickets, winningNumbers);
+            int bonusNumber = inputView.inputBonusNumber();
+            validateBonusNumber(bonusNumber, winningNumbers);
+            calculateAndPrintResult(tickets, winningNumbers, bonusNumber);
         } catch (Exception e) {
             outputView.printErrorMessage(e);
         }
     }
 
-    private List<LottoTicket> purchaseLotteries(int amount) {
-        return factory.createRandomLottoTickets(amount / LottoTicket.PRICE);
+    private List<LottoTicket> purchaseLottoTickets() throws InvalidInputFormatException {
+        int amount = inputView.inputAmountForPurchase();
+        List<LottoTicket> tickets = factory.createRandomLottoTickets(amount / LottoTicket.PRICE);
+        outputView.printLotteries(tickets);
+        return tickets;
     }
 
-    private void calculateAndPrintResult(List<LottoTicket> tickets, List<Integer> winningNumbers) {
-        LottoResultCalculator calculator = new LottoResultCalculator(winningNumbers);
+    private void validateBonusNumber(int bonusNumber, List<Integer> winningNumbers) throws Exception {
+        if (winningNumbers.contains(bonusNumber)) {
+            throw new Exception("입력한 보너스 숫자가 당첨 번호에 포함되어 있습니다.");
+        }
+    }
+
+    private void calculateAndPrintResult(List<LottoTicket> tickets, List<Integer> winningNumbers, int bonusNumber) {
+        LottoResultCalculator calculator = new LottoResultCalculator(winningNumbers, bonusNumber);
         Map<LottoRank, Integer> resultCounts = calculator.getLottoResultCounts(tickets);
         int earnRate = calculator.calculateEarningRate(resultCounts, tickets.size() * LottoTicket.PRICE);
         outputView.printResult(resultCounts, earnRate);

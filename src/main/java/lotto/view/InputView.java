@@ -63,7 +63,7 @@ public class InputView {
     }
 
     private void validateWinningNumbers(List<Integer> winningNumbers) throws InvalidInputFormatException {
-        if (isValidSizeOfNumbers(winningNumbers)) {
+        if (!isValidSizeOfNumbers(winningNumbers)) {
             throw new InvalidInputFormatException("중복된 숫자를 포함하고 있거나 입력한 문자 리스트의 길이가 잘못 되었습니다.");
         }
 

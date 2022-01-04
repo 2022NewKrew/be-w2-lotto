@@ -10,23 +10,28 @@ import static org.assertj.core.api.Assertions.*;
 
 class LottoRankCalculatorTest {
 
-    @DisplayName("당첨 번호를 주었을 때, 로또 티켓들에 대한 결과를 테스트 한다.")
+    @DisplayName("당첨 결과 통계 테스트")
     @Test
     void getLottoResults() {
-        LottoResultCalculator simulator = new LottoResultCalculator(List.of(1, 2, 3, 4, 5, 6));
+        LottoResultCalculator simulator = new LottoResultCalculator(List.of(1, 2, 3, 4, 5, 6), 7);
         List<LottoTicket> tickets = List.of(
-                new LottoTicket(List.of(1, 2, 3, 4, 5, 6)),
-                new LottoTicket(List.of(1, 2, 3, 4, 5, 6)),
-                new LottoTicket(List.of(1, 2, 3, 4, 5, 7)),
-                new LottoTicket(List.of(1, 2, 3, 43, 44, 45))
-        );
+                new LottoTicket(List.of(1, 3, 4, 5, 44, 45)), // 4등
+                new LottoTicket(List.of(1, 2, 3, 4, 5, 6)), // 1등
+                new LottoTicket(List.of(1, 2, 3, 4, 5, 6)), // 1등
+                new LottoTicket(List.of(1, 2, 3, 4, 5, 7)), // 2등
+                new LottoTicket(List.of(1, 2, 3, 43, 44, 45)), // 5등
+                new LottoTicket(List.of(1, 3, 4, 5, 7, 8)), // 4등
+                new LottoTicket(List.of(1, 2, 3, 4, 8, 9)), // 4등
+                new LottoTicket(List.of(7, 8, 9, 10, 11, 12)) // 꽝
+                );
 
         Map<LottoRank, Integer> lottoResult = simulator.getLottoResultCounts(tickets);
 
         assertThat(lottoResult.get(LottoRank.FIRST)).isEqualTo(2);
         assertThat(lottoResult.get(LottoRank.SECOND)).isEqualTo(1);
-        assertThat(lottoResult.get(LottoRank.THIRD)).isEqualTo(null);
-        assertThat(lottoResult.get(LottoRank.FOURTH)).isEqualTo(1);
+        assertThat(lottoResult.get(LottoRank.THIRD)).isEqualTo(0);
+        assertThat(lottoResult.get(LottoRank.FOURTH)).isEqualTo(3);
+        assertThat(lottoResult.get(LottoRank.FIFTH)).isEqualTo(1);
     }
 
 }

@@ -22,7 +22,7 @@ public class OutputView {
         System.out.println("당첨 통계");
         System.out.println("---------");
         for (LottoRank result : LottoRank.values()) {
-            System.out.printf("%d개 일치 (%d원)- %d개\n", result.getCountOfMatches(), result.getWinningMoney(), resultCounts.get(result));
+            System.out.printf("%s - %d개\n", result.toString(), resultCounts.get(result));
         }
         System.out.printf("총 수익률은 %d%%입니다.", earnRate);
     }
