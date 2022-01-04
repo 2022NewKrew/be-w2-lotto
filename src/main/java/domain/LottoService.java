@@ -6,8 +6,6 @@ import java.util.stream.Stream;
 public class LottoService {
     private static final double COST_PER_LOTTO = 1000.0;
 
-    private final List<Lotto> lottos = new ArrayList<>();
-
     public LottoService() {}
 
     private void validateMoney(int money) {
@@ -16,6 +14,8 @@ public class LottoService {
 
     public List<Lotto> buyLottos(int money) {
         validateMoney(money);
+
+        List<Lotto> lottos = new ArrayList<>();
 
         Stream.generate(LottoNumberGenerator::generate)
                 .limit(calcLottoCount(money))
