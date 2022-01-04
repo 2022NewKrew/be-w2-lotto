@@ -25,7 +25,7 @@ public class OutputView {
         int lottoProfit = 0;
         printResultTitle(wr);
         for (LottoResultType resultType : LottoResultType.values()) {
-            Integer matchCount = lottoResult.getMatchResult().get(lottoResult);
+            int matchCount = lottoResult.getMatchResult().get(resultType);
             printEachLottoResultType(resultType, matchCount, wr);
             lottoProfit += resultType.getMoney() * matchCount;
         }
