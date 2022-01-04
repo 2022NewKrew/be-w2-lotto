@@ -1,5 +1,6 @@
 package domain;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
@@ -8,7 +9,7 @@ public class Lotto {
     Lotto(List<Integer> numbers) {
         if (numbers == null)
             throw new IllegalArgumentException();
-        this.numbers = numbers;
+        this.numbers = Collections.unmodifiableList(numbers);
     }
 
     public Integer checkMatchCount(List<Integer> winningNumbers) {
