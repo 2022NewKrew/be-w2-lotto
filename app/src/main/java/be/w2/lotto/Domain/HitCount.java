@@ -1,5 +1,6 @@
 package be.w2.lotto.Domain;
 
+
 public enum HitCount {
 
     THREE(3, 5000, false, "3개 일치 (5000원)"),
