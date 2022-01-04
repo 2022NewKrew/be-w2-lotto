@@ -32,7 +32,7 @@ final class LottoInput {
 
     private static String[] getStringsOfNumberFrom(String input) {
         String[] stringsOfNumber = input.split(",", Lotto.LENGTH);
-        if(stringsOfNumber.length != Lotto.LENGTH) {
+        if (stringsOfNumber.length != Lotto.LENGTH) {
             throw new BadInputException(ErrorMessage.BAD_INPUT_FOR_LAST_WINNING_LOTTO);
         }
         return stringsOfNumber;
