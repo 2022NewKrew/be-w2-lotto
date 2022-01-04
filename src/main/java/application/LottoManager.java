@@ -1,5 +1,6 @@
 package application;
 
+import domain.Ball;
 import domain.Lotto;
 import domain.MatchScore;
 import domain.WinningLotto;
@@ -32,7 +33,7 @@ public class LottoManager {
     }
 
     private static WinningLotto inputWinnningLotto() {
-        LottoGenerator lottoGenerator = new WinningLottoGenerator();
-        return (WinningLotto) lottoGenerator.getLotto();
+        List<Ball> winningLottoNumbers = LottoScanner.getWinningLottoNumbers();
+        return new WinningLotto(winningLottoNumbers);
     }
 }
