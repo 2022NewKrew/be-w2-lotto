@@ -26,10 +26,19 @@ public class LottoSimulator {
     }
 
     private void start() {
-        long purchaseAmount = lottoInputScanner.getPurchaseAmount();
+        long purchaseAmount = getPurchaseAmount();
         PurchasedLotto purchasedLotto = purchaseLotto(purchaseAmount);
         WinningLotto winningLotto = getWinningInfo();
         printWinningStat(purchaseAmount, purchasedLotto, winningLotto);
+    }
+
+    private long getPurchaseAmount() {
+        try {
+            return lottoInputScanner.getPurchaseAmount();
+        } catch (IllegalArgumentException iae) {
+            System.out.println(iae.getMessage());
+            return getPurchaseAmount();
+        }
     }
 
     @Contract("_ -> new")
@@ -42,7 +51,27 @@ public class LottoSimulator {
 
     @Contract(" -> new")
     private @NotNull WinningLotto getWinningInfo() {
-        return new WinningLotto(lottoInputScanner.getWinningDigits(), lottoInputScanner.getWinningBonusDigit());
+        List<Integer> winningDigitList = getWinningDigitList();
+        int bonusDigit = getBonusDigit(winningDigitList);
+        return new WinningLotto(winningDigitList, bonusDigit);
+    }
+
+    private List<Integer> getWinningDigitList() {
+        try {
+            return lottoInputScanner.getWinningDigits();
+        } catch (IllegalArgumentException iae) {
+            System.out.println(iae.getMessage());
+            return getWinningDigitList();
+        }
+    }
+
+    private int getBonusDigit(List<Integer> winningDigitList) {
+        try {
+            return lottoInputScanner.getWinningBonusDigit(winningDigitList);
+        } catch (IllegalArgumentException iae) {
+            System.out.println(iae.getMessage());
+            return getBonusDigit(winningDigitList);
+        }
     }
 
     private double getSimulationYield(long purchaseAmount, @NotNull WinningResult winningResult) {

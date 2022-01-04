@@ -8,22 +8,39 @@ import java.util.stream.Collectors;
 import static lotto.LottoSimulator.SEPARATOR;
 
 public class LottoInputScanner {
-    Scanner sc = new Scanner(System.in);
+    private final ValidationChecker checker = new ValidationChecker();
+    private final Scanner sc = new Scanner(System.in);
 
-    public long getPurchaseAmount() {
+    public long getPurchaseAmount() throws IllegalArgumentException {
         System.out.println("구입금액을 입력해 주세요.");
-        return Long.parseLong(sc.nextLine());
+        long purchaseAmount = Long.parseLong(sc.nextLine());
+        if (!checker.checkPositiveLong(purchaseAmount) || !checker.checkAmountUnit(purchaseAmount)) {
+            throw new IllegalArgumentException("금액을 확인해주십시오.(lotto는 1000원 단위로 구매 가능합니다.)");
+        }
+        return purchaseAmount;
     }
 
-    public List<Integer> getWinningDigits() {
+    public List<Integer> getWinningDigits() throws IllegalArgumentException {
         System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
-        return Arrays.stream(sc.nextLine().split(SEPARATOR))
+        List<Integer> winningDigitList = Arrays.stream(sc.nextLine().split(SEPARATOR))
                 .map(s -> Integer.parseInt(s.trim()))
                 .collect(Collectors.toList());
+
+        if (!checker.checkDigitsInLotto(winningDigitList) || !checker.checkDuplication(winningDigitList) || !checker.checkNumOfDigits(winningDigitList)) {
+            throw new IllegalArgumentException("당첨 번호는 1~45사이의 숫자 6개로 중복없이 입력바랍니다.");
+        }
+
+        return winningDigitList;
     }
 
-    public int getWinningBonusDigit() {
+    public int getWinningBonusDigit(List<Integer> winningDigitList) {
         System.out.println("보너스 볼을 입력해 주세요.");
-        return sc.nextInt();
+        int bonus = sc.nextInt();
+
+        if (!checker.checkDigit(bonus) || !checker.checkDuplication(winningDigitList, bonus)) {
+            throw new IllegalArgumentException("보너스 숫자는 1~45 사이의 값이며 당첨 번호와 중복될 수 없습니다.");
+        }
+
+        return bonus;
     }
 }
