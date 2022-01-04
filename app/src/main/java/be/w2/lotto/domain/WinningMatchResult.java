@@ -14,7 +14,12 @@ public class WinningMatchResult {
         this.count = count;
     }
 
-    public static WinningMatchResult of(int matchedNumber, int profit, LottoTickets lottoTickets, WinningLottoTicket winningLottoTicket) {
+    public static WinningMatchResult of(
+            int matchedNumber,
+            int profit,
+            LottoTickets lottoTickets,
+            WinningLottoTicket winningLottoTicket
+    ) {
         int count = getCount(matchedNumber, lottoTickets, winningLottoTicket);
         return new WinningMatchResult(matchedNumber, profit, count);
     }
@@ -41,13 +46,19 @@ public class WinningMatchResult {
                 .count();
     }
 
-    private static boolean matchesByMatchedNumber(int matchedNumber, LottoTicket lottoTicket, WinningLottoTicket winningLottoTicket) {
+    private static boolean matchesByMatchedNumber(
+            int matchedNumber,
+            LottoTicket lottoTicket,
+            WinningLottoTicket winningLottoTicket
+    ) {
         List<Integer> listedTicket = lottoTicket.getLottoNumbers()
                 .stream().map(LottoNumber::getLottoNumber)
                 .collect(Collectors.toList());
+
         List<Integer> listedWinningTicket = winningLottoTicket.getLottoNumbers()
                 .stream().map(LottoNumber::getLottoNumber)
                 .collect(Collectors.toList());
+
         listedTicket.retainAll(listedWinningTicket);
         return listedTicket.size() == matchedNumber;
     }

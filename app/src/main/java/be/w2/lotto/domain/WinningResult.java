@@ -13,7 +13,11 @@ public class WinningResult {
         this.profitRate = profitRate;
     }
 
-    public static WinningResult valueOf(LottoTickets lottoTickets, WinningLottoTicket winningLottoTicket, int purchaseAmount) {
+    public static WinningResult valueOf(
+            LottoTickets lottoTickets,
+            WinningLottoTicket winningLottoTicket,
+            int purchaseAmount
+    ) {
         List<WinningMatchResult> winningMatchResults = getWinningMatchResult(lottoTickets, winningLottoTicket);
         int profitRate = calculateProfitRate(winningMatchResults, purchaseAmount);
         return new WinningResult(winningMatchResults, profitRate);
@@ -28,19 +32,30 @@ public class WinningResult {
     }
 
     private static int calculateProfitRate(List<WinningMatchResult> winningMatchResults, int purchaseAmount) {
-        int profitSum = winningMatchResults.stream().map(WinningMatchResult::calculateProfit).mapToInt(i -> i).sum();
+        int profitSum = winningMatchResults
+                .stream().map(WinningMatchResult::calculateProfit)
+                .mapToInt(i -> i)
+                .sum();
         return profitSum * DIVIDE_PERCENTAGE / purchaseAmount;
     }
 
-    private static List<WinningMatchResult> getWinningMatchResult(LottoTickets lottoTickets, WinningLottoTicket winningLottoTicket) {
+    private static List<WinningMatchResult> getWinningMatchResult(
+            LottoTickets lottoTickets,
+            WinningLottoTicket winningLottoTicket
+    ) {
         List<WinningMatchResult> winningMatchResults = new ArrayList<>();
-        for(Map.Entry<Integer, Integer> entry: WINNING_PROFIT_MAP.entrySet()) {
-            winningMatchResults.add(WinningMatchResult.of(entry.getKey(), entry.getValue(), lottoTickets, winningLottoTicket));
+        for(Map.Entry<Integer, Integer> entry: winningProfitMapped.entrySet()) {
+            winningMatchResults.add(WinningMatchResult.of(
+                    entry.getKey(),
+                    entry.getValue(),
+                    lottoTickets,
+                    winningLottoTicket
+            ));
         }
         return winningMatchResults;
     }
 
-    private static final Map<Integer, Integer> WINNING_PROFIT_MAP = Map.of(
+    private static final Map<Integer, Integer> winningProfitMapped = Map.of(
             3, 5000,
             4, 50000,
             5, 1500000,
