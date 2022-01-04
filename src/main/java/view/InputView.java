@@ -23,4 +23,10 @@ public class InputView {
                 .map(Integer::parseInt)
                 .collect(Collectors.toUnmodifiableList());
     }
+
+    public static int getBounus(){
+        System.out.println("보너스 볼을 입력해 주세요.");
+
+        return scanner.nextInt();
+    }
 }
