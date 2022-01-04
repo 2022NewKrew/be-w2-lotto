@@ -38,7 +38,7 @@ public class Lotto {
         Long totalEarning = Long.valueOf(0);
 
         for(int correctCount = 0 ; correctCount <= LOTTO_LENGTH ; correctCount++){
-            totalEarning += Long.valueOf(LOTTO_WINNER_PRIZE.get(correctCount)) * lottoWinner.get(correctCount).getWinner().size();
+            totalEarning += Long.valueOf(Rank.getRankByCount(correctCount, false).getWinningMoney()) * lottoWinner.get(correctCount).getWinner().size();
         }
 
         return totalEarning;

@@ -3,6 +3,7 @@ package lotto.view;
 import lotto.domain.Lotto;
 import lotto.domain.LottoNumber;
 import lotto.domain.LottoWinner;
+import lotto.domain.Rank;
 
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class LottoViewOutput {
         System.out.println("\n당첨 통계\n---------");
 
         for(int correctCount = 3 ; correctCount <= LOTTO_LENGTH ; correctCount++){
-            System.out.println(correctCount + "개 일치 (" + LOTTO_WINNER_PRIZE.get(correctCount) + "원)- " + winnerList.get(correctCount).getWinner().size() + "개");
+            System.out.println(correctCount + "개 일치 " + Rank.getRankByCount(correctCount, false).getWinningMessage() + " - " + winnerList.get(correctCount).getWinner().size() + "개");
         }
         System.out.println("총 수익률은 " + Long.valueOf((long) (lottoObject.getEarning().doubleValue() / lottoObject.getPayment() * 100)) + "%입니다.");
     }
