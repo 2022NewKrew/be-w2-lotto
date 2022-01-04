@@ -22,7 +22,7 @@ public class Result {
         return result;
     }
 
-    public void add(Rank rank) {
+    private void add(Rank rank) {
         board.put(rank, board.get(rank) + 1);
     }
 

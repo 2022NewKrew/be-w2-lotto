@@ -29,6 +29,5 @@ class LottoTest {
         List<LottoNumber> lottoNumbers = new Random().ints(1, 46).distinct().limit(size).sorted()
             .mapToObj(LottoNumber::of).collect(Collectors.toList());
         assertThat(Lotto.of(lottoNumbers).getNumbers()).hasSize(size);
-        System.out.println(Lotto.of(lottoNumbers));
     }
 }

@@ -10,7 +10,15 @@ import java.util.stream.Stream;
 
 public class LottoService {
 
-    private final LottoGenerator lottoGenerator = new RandomLottoGenerator();
+    private final LottoGenerator lottoGenerator;
+
+    public LottoService() {
+        lottoGenerator = new RandomLottoGenerator();
+    }
+
+    public LottoService(long seed) {
+        lottoGenerator = new RandomLottoGenerator(seed);
+    }
 
     public List<Lotto> buyLottosFor(Money money) {
         int amount = money.buy(Lotto.PRICE);
@@ -19,7 +27,7 @@ public class LottoService {
             .collect(Collectors.toList());
     }
 
-    public Result check(List<Lotto> lottos, Lotto winningLotto) {
+    public Result collate(List<Lotto> lottos, Lotto winningLotto) {
         List<Rank> ranks = lottos.stream()
             .map(lotto -> lotto.compare(winningLotto))
             .map(Rank::of)

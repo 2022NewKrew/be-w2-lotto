@@ -19,7 +19,7 @@ public class LottoGame {
         List<Lotto> lottos = lottoService.buyLottosFor(money);
         outputView.printLottos(lottos);
         Lotto winningLotto = inputView.inputWinningLotto();
-        Result result = lottoService.check(lottos, winningLotto);
+        Result result = lottoService.collate(lottos, winningLotto);
         outputView.printResult(result, money);
     }
 }

@@ -2,16 +2,21 @@ package com.kakao.lottogame.service;
 
 import com.kakao.lottogame.domain.Lotto;
 import com.kakao.lottogame.domain.LottoNumber;
-import java.security.SecureRandom;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
 public class RandomLottoGenerator implements LottoGenerator {
 
-    private static final Random random = new SecureRandom();
+    private final Random random;
 
-    public RandomLottoGenerator() {}
+    public RandomLottoGenerator() {
+        random = new Random();
+    }
+
+    public RandomLottoGenerator(long seed) {
+        random = new Random(seed);
+    }
 
     @Override
     public Lotto generate() {
