@@ -9,12 +9,12 @@ public class LottoNumber {
         this.number = lottoNumber;
     }
 
-    public static LottoNumber from(Integer lottoNumber) {
+    public static LottoNumber from(int lottoNumber) {
         validate(lottoNumber);
         return new LottoNumber(lottoNumber);
     }
 
-    private static void validate(Integer lottoNumber) throws IllegalArgumentException {
+    private static void validate(int lottoNumber) throws IllegalArgumentException {
         if (lottoNumber < LOTTO_NUMBER_LOWERBOUND || lottoNumber > LOTTO_NUMBER_UPPERBOUND) {
             throw new IllegalArgumentException(INVALID_NUMBER_RANGE_EXCEPTION);
         }
