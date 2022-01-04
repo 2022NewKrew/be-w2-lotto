@@ -1,7 +1,8 @@
 package model;
 
-import model.datastructure.LottoNumber;
-import model.datastructure.LottoNumbersContainer;
+import domain.lotto.LottoNumber;
+import dto.LottoNumberContainerDTO;
+import dto.LottoNumberDTO;
 
 public interface Repository {
 
@@ -9,7 +10,8 @@ public interface Repository {
 
     int size(Long userId) throws Exception;
 
-    int save(Long userId, LottoNumber lottoNumber);
+    void save(Long userId, LottoNumberDTO lottoNumberDTO) throws Exception;
+    void save(Long userId, LottoNumberContainerDTO lottoNumberContainerDTO) throws Exception;
 
     LottoNumber get(Long userId, int i) throws Exception;
 }

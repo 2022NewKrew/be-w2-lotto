@@ -1,7 +1,9 @@
 package model;
 
-import model.datastructure.LottoNumber;
-import model.datastructure.LottoNumbersContainer;
+import domain.lotto.LottoNumber;
+import domain.lotto.LottoNumbersContainer;
+import dto.LottoNumberContainerDTO;
+import dto.LottoNumberDTO;
 
 import java.util.HashMap;
 
@@ -21,12 +23,15 @@ public class MemoryRepository implements Repository {
     }
 
     @Override
-    public int save(Long userId, LottoNumber lottoNumber) {
-        if (!memoryDatabase.containsKey(userId)) {
-            memoryDatabase.put(userId, new LottoNumbersContainer());
+    public void save(Long userId, LottoNumberDTO lottoNumberDTO) throws Exception{
+        memoryDatabase.get(userId).add(new LottoNumber(lottoNumberDTO.getArrayListInteger()));
+    }
+
+    @Override
+    public void save(Long userId, LottoNumberContainerDTO lottoNumberContainerDTO) throws Exception {
+        for (LottoNumberDTO lottoNumber : lottoNumberContainerDTO.getLottoNumbers()) {
+            save(userId, lottoNumber);
         }
-        memoryDatabase.get(userId).add(lottoNumber);
-        return memoryDatabase.get(userId).size() - 1;
     }
 
     @Override
