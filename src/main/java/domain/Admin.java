@@ -28,14 +28,14 @@ public class Admin {
         return new Ticket(random, numbersFactory);
     }
 
-    public void setResult(List<Integer> numbers) {
-        this.result = new Result(numbers, numbersFactory);
+    public void setResult(List<Integer> numbers, int bonusBall) {
+        this.result = new Result(numbers, numbersFactory, bonusBall);
     }
 
     public Report getReportFor(User user) {
         EnumMap<Prize, Integer> prizeCount = createInitializedPrizeCount();
         for (var ticket : user.getTickets()) {
-            Prize ticketPrize = Prize.getPrizeByMatchingCount(result.getMatchingCountOf(ticket));
+            Prize ticketPrize = Prize.getPrizeByMatchingCountAndIsBonusBallMatched(result.getMatchingCountOf(ticket), result.isBonusBallMatched(ticket));
             prizeCount.put(ticketPrize, prizeCount.get(ticketPrize) + 1);
         }
         return new Report(user.getInvestment(), prizeCount);

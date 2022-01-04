@@ -32,7 +32,7 @@ public class NumbersFactory {
 
     private void validateNumberDomain(int number) {
         if (!NUMBERS_DOMAIN.contains(number)) {
-            throw new IllegalArgumentException("Number " + number + " is out of Number domain.");
+            throw new IllegalArgumentException("숫자 " + number + " 는 당첨 번호 범위 밖입니다.");
         }
     }
 }

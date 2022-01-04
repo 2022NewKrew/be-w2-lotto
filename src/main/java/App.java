@@ -15,7 +15,7 @@ public class App {
         List<Ticket> boughtTickets = user.buyRandomTicketsUnderBudget(view.getBudgetByPrompt(), new Random());
         view.showBoughtTickets(boughtTickets);
 
-        admin.setResult(view.getResultNumbersByPrompt());
+        admin.setResult(view.getResultNumbersByPrompt(), view.getResultBonusBallByPrompt());
 
         view.showReport(admin.getReportFor(user));
     }
