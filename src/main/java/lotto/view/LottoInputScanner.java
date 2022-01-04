@@ -20,14 +20,14 @@ public class LottoInputScanner {
         return purchaseAmount;
     }
 
-    public int getNumManualLottos() throws IllegalArgumentException {
+    public int getNumOfManualLottos() throws IllegalArgumentException {
         System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
-        int numManualLottos = Integer.parseInt(sc.nextLine());
+        int numOfManualLottos = Integer.parseInt(sc.nextLine());
 
-        if (!checker.checkPositiveNumber(numManualLottos)) {
+        if (!checker.checkPositiveNumber(numOfManualLottos)) {
             throw new IllegalArgumentException();
         }
-        return numManualLottos;
+        return numOfManualLottos;
     }
 
     public List<Integer> getDigits(String msg) throws IllegalArgumentException {

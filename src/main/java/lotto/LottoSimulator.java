@@ -48,20 +48,20 @@ public class LottoSimulator {
     }
 
     private List<Lotto> getManualLotto() {
-        int numManualLotto = getNumManualLotto();
+        int numOfManualLotto = getNumOfManualLotto();
         List<Lotto> manualLottoList = new ArrayList<>();
-        for (int i = 0; i < numManualLotto; i++) {
+        for (int i = 0; i < numOfManualLotto; i++) {
             manualLottoList.add(new Lotto(getDigitList(i == 0 ? "\n수동으로 구매할 번호를 입력해 주세요.\n" : "")));
         }
         return new ArrayList<>(manualLottoList);
     }
 
-    private int getNumManualLotto() {
+    private int getNumOfManualLotto() {
         try {
-            return lottoInputScanner.getNumManualLottos();
+            return lottoInputScanner.getNumOfManualLottos();
         } catch (IllegalArgumentException iae) {
             System.out.println("구매할 로또 수는 0이상 정수여야 합니다.");
-            return getNumManualLotto();
+            return getNumOfManualLotto();
         }
     }
 
@@ -77,11 +77,11 @@ public class LottoSimulator {
     private @NotNull PurchasedLotto purchaseLotto(long purchaseAmount, List<Lotto> manualLottoList) {
         LottoAutoGenerator lottoAutoGenerator = new LottoAutoGenerator();
         List<Lotto> purchasedLottoList = new ArrayList<>(manualLottoList);
-        int numManualLottos = manualLottoList.size();
-        long purchaseAutoAmount = purchaseAmount - ((long) numManualLottos * LOTTO_PRICE);
+        int numOfManualLottos = manualLottoList.size();
+        long purchaseAutoAmount = purchaseAmount - ((long) numOfManualLottos * LOTTO_PRICE);
 
         purchasedLottoList.addAll(lottoAutoGenerator.getRandomLottos(purchaseAutoAmount / LOTTO_PRICE));
-        lottoOutputPrinter.printPurchaseResult(numManualLottos, purchasedLottoList);
+        lottoOutputPrinter.printPurchaseResult(numOfManualLottos, purchasedLottoList);
 
         return new PurchasedLotto(purchasedLottoList);
     }

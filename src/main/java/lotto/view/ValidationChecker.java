@@ -9,7 +9,7 @@ import static lotto.LottoSimulator.LOTTO_PRICE;
 import static lotto.domain.LottoAutoGenerator.*;
 
 public class ValidationChecker {
-    public static final int NUM_DIGITS_IN_LOTTO = 6;
+    public static final int NUM_OF_DIGITS_IN_LOTTO = 6;
 
     public boolean checkPositiveNumber(int num) {
         return num >= 0;
@@ -44,6 +44,6 @@ public class ValidationChecker {
     }
 
     public boolean checkNumOfDigits(List<Integer> digitList) {
-        return digitList.size() == NUM_DIGITS_IN_LOTTO;
+        return digitList.size() == NUM_OF_DIGITS_IN_LOTTO;
     }
 }

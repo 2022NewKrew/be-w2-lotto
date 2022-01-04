@@ -13,7 +13,7 @@ public class PurchasedLotto {
 
     public List<LottoResult> getPurchasedResult(WinningLotto winningLotto) {
         return lottoList.stream()
-                .map(lotto -> LottoResult.getResult(lotto.getNumMatchingDigits(winningLotto), lotto.isContainBonus(winningLotto)))
+                .map(lotto -> LottoResult.getResult(lotto.getNumOfMatchingDigits(winningLotto), lotto.isContainBonus(winningLotto)))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .collect(Collectors.toList());

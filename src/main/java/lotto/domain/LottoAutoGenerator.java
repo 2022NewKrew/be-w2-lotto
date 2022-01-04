@@ -12,11 +12,11 @@ import java.util.stream.Stream;
 public class LottoAutoGenerator {
     public static final int MIN_DIGIT = 1;
     public static final int MAX_DIGIT = 45;
-    public static final int NUM_DIGITS = 6;
+    public static final int NUM_OF_DIGITS = 6;
 
-    public List<Lotto> getRandomLottos(long numLottos) {
+    public List<Lotto> getRandomLottos(long numOfLottos) {
         return Stream.generate(() -> new Lotto(getRandomDigits()))
-                .limit(numLottos)
+                .limit(numOfLottos)
                 .collect(Collectors.toList());
     }
 
@@ -25,6 +25,6 @@ public class LottoAutoGenerator {
                 .boxed()
                 .collect(Collectors.toList());
         Collections.shuffle(randomDigits);
-        return new ArrayList<>(randomDigits.subList(0, NUM_DIGITS));
+        return new ArrayList<>(randomDigits.subList(0, NUM_OF_DIGITS));
     }
 }

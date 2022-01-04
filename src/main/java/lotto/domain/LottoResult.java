@@ -12,28 +12,28 @@ public enum LottoResult {
     BONUS(5, true, 30000000),
     SIX(6, false, 2000000000);
 
-    private final int numMatchingDigit;
+    private final int numOfMatchingDigits;
     private final boolean bonusMatching;
     private final long reward;
 
-    LottoResult(int numMatchingDigit, boolean bonusMatching, long reward) {
-        this.numMatchingDigit = numMatchingDigit;
+    LottoResult(int numOfMatchingDigits, boolean bonusMatching, long reward) {
+        this.numOfMatchingDigits = numOfMatchingDigits;
         this.bonusMatching = bonusMatching;
         this.reward = reward;
     }
 
-    public static @NotNull Optional<LottoResult> getResult(int numMatchings, boolean bonusMatching) {
+    public static @NotNull Optional<LottoResult> getResult(int numOfMatchings, boolean bonusMatching) {
         return Arrays.stream(LottoResult.values())
-                .filter(result -> result.isEqual(numMatchings, bonusMatching))
+                .filter(result -> result.isEqual(numOfMatchings, bonusMatching))
                 .findAny();
     }
 
-    private boolean isEqual(int numMatchings, boolean bonusMatching) {
-        return this.numMatchingDigit == numMatchings && this.bonusMatching == bonusMatching;
+    private boolean isEqual(int numOfMatchings, boolean bonusMatching) {
+        return this.numOfMatchingDigits == numOfMatchings && this.bonusMatching == bonusMatching;
     }
 
-    public int getNumMatchingDigit() {
-        return numMatchingDigit;
+    public int getNumOfMatchingDigits() {
+        return numOfMatchingDigits;
     }
 
     public long getReward() {

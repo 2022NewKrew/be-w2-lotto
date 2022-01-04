@@ -14,7 +14,7 @@ public class Lotto {
         return Collections.unmodifiableList(digits);
     }
 
-    public int getNumMatchingDigits(WinningLotto winningLotto) {
+    public int getNumOfMatchingDigits(WinningLotto winningLotto) {
         return (int) digits.stream()
                 .filter(digit -> winningLotto.getDigits().contains(digit))
                 .count();
