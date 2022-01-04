@@ -1,13 +1,17 @@
 package view;
 
+import domain.Rule;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class ConsoleInputView implements InputView {
     private final Scanner scanner;
+    private final Rule lotteryRule;
 
-    public ConsoleInputView() {
+    public ConsoleInputView(Rule lotteryRule) {
         scanner = new Scanner(System.in);
+        this.lotteryRule = lotteryRule;
     }
 
     @Override
@@ -47,19 +51,19 @@ public class ConsoleInputView implements InputView {
     }
 
     private void validateLotteryBuyPrice(int value) throws InputMismatchException {
-        if (value <= 0 || value % LOTTERY_UNIT_PRICE != 0) {
+        if (value <= 0 || value % lotteryRule.getLotteryUnitPrice() != 0) {
             throw new InputMismatchException();
         }
     }
 
     private void validateResult(int value) throws InputMismatchException {
-        if (value <= 0 || value > 45) {
+        if (value < lotteryRule.getLotteryNumberStart() || value > lotteryRule.getLotteryNumberEnd()) {
             throw new InputMismatchException();
         }
     }
 
     private void validateResultList(List<Integer> resultList) throws InputMismatchException {
-        if (resultList.size() != 6) {
+        if (resultList.size() != lotteryRule.getLotteryNumberCount()) {
             throw new InputMismatchException();
         }
     }

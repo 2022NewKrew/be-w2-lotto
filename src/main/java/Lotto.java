@@ -1,7 +1,4 @@
-import domain.Lottery;
-import domain.LotteryFactory;
-import domain.Result;
-import domain.WinningLottery;
+import domain.*;
 import view.ConsoleInputView;
 import view.ConsoleOutputView;
 import view.InputView;
@@ -10,12 +7,24 @@ import view.OutputView;
 import java.util.List;
 
 public class Lotto {
+    private static final int LOTTERY_NUMBER_START = 1;
+    private static final int LOTTERY_NUMBER_END = 45;
+    private static final int LOTTERY_NUMBER_COUNT = 6;
+
+    private static final int LOTTERY_UNIT_PRICE = 1000;
+
     public static void main(String[] args) {
-        InputView inputView = new ConsoleInputView();
+        Rule lotteryRule = new Rule.Builder()
+                .lotteryNumberStart(LOTTERY_NUMBER_START)
+                .lotteryNumberEnd(LOTTERY_NUMBER_END)
+                .lotteryNumberCount(LOTTERY_NUMBER_COUNT)
+                .lotteryUnitPrice(LOTTERY_UNIT_PRICE)
+                .build();
+        InputView inputView = new ConsoleInputView(lotteryRule);
         OutputView outputView = new ConsoleOutputView();
 
         long lotteryBoughtPrice = inputView.getLotteryBoughtPrice();
-        List<Lottery> lotteries = LotteryFactory.buildLotteries(lotteryBoughtPrice);
+        List<Lottery> lotteries = LotteryFactory.buildLotteries(lotteryBoughtPrice, lotteryRule);
         outputView.printBoughtLotteries(lotteries);
 
         WinningLottery winningLottery = new WinningLottery(inputView.getResult());
