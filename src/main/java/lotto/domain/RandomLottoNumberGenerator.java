@@ -1,8 +1,6 @@
 package lotto.domain;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class RandomLottoNumberGenerator implements LottoNumbersGenerator {
     private static final int MIN_VALUE = 1;
@@ -10,7 +8,7 @@ public class RandomLottoNumberGenerator implements LottoNumbersGenerator {
     private static final int LOTTO_NUMBER_COUNT = 6;
 
     public LottoNumbers generateLottoNumbers() {
-        List<LottoNumber> lottoNumbers = new ArrayList<>();
+        Set<LottoNumber> lottoNumbers = new HashSet<>();
 
         List<Integer> randomNumbers = generateRandomNumbers();
         for (int randomNumber : randomNumbers) {

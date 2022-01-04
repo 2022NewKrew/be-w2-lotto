@@ -2,8 +2,8 @@ package lotto.view;
 
 import lotto.domain.*;
 
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ConsoleOutputView implements OutputView {
     private static final String LOTTO_TICKET_START_DELIMITER = "[";
@@ -27,7 +27,7 @@ public class ConsoleOutputView implements OutputView {
     private void printLottoNumbers(LottoNumbers lottoNumbers) {
         StringBuilder stringBuilder = new StringBuilder(LOTTO_TICKET_START_DELIMITER);
 
-        List<LottoNumber> numbers = lottoNumbers.getLottoNumbers();
+        Set<LottoNumber> numbers = lottoNumbers.getLottoNumbers();
         for (LottoNumber number : numbers) {
             stringBuilder.append(number.getNumber())
                     .append(LOTTO_NUMBER_SPLIT_DELIMITER);

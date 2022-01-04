@@ -3,9 +3,9 @@ package lotto.view;
 import lotto.domain.LottoNumber;
 import lotto.domain.LottoNumbers;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class ConsoleInputView implements InputView {
     private static final String LOTTO_NUMBER_SPLIT_DELIMITER = ", ";
@@ -18,7 +18,7 @@ public class ConsoleInputView implements InputView {
 
     public LottoNumbers getWinningNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        List<LottoNumber> numbers = new ArrayList<>();
+        Set<LottoNumber> numbers = new HashSet<>();
         String[] numberStrings = new Scanner(System.in).nextLine().split(LOTTO_NUMBER_SPLIT_DELIMITER);
 
         for (String string : numberStrings) {
