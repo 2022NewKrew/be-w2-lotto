@@ -1,27 +1,17 @@
 package lotto.view;
 
 import lotto.domain.Rank;
-import lotto.domain.Lotto;
-
-import java.util.List;
 
 public class OutputView {
 
-    private static final String NEWLINE = System.lineSeparator();
-
     private OutputView() {}
 
-    public static void printLottos(List<Lotto> lottoList) {
-        System.out.println(lottoList.size() + "개를 구매했습니다.");
-        StringBuilder sb = new StringBuilder();
-        for (Lotto lotto : lottoList) {
-            sb.append(lotto.numberListToString());
-            sb.append(NEWLINE);
-        }
-        System.out.println(sb);
+    public static void printLottos(int size, String stringLottos) {
+        System.out.println(size + "개를 구매했습니다.");
+        System.out.println(stringLottos);
     }
 
-    public static void printLottoResults(double earningRate) {
+    public static void printLottoResults(int earningRate) {
         System.out.println("당첨 통계");
         System.out.println("---------");
         for (Rank rank : Rank.values()) {

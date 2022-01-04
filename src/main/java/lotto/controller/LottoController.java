@@ -1,7 +1,6 @@
 package lotto.controller;
 
-import lotto.domain.Lotto;
-import lotto.domain.LottoMachine;
+import lotto.domain.Lottos;
 import lotto.domain.issue.IssuePolicy;
 import lotto.domain.issue.RandomIssuePolicy;
 import lotto.view.InputView;
@@ -11,11 +10,10 @@ import java.util.List;
 
 public class LottoController {
 
-    private final LottoMachine lottoMachine;
-    private List<Lotto> lottoList;
+    private final Lottos lottos;
 
     public LottoController() {
-        this.lottoMachine = new LottoMachine();
+        this.lottos = new Lottos();
     }
 
     /**
@@ -24,10 +22,17 @@ public class LottoController {
     public void buyLotto() {
         int purchaseAmount = InputView.getPurchaseAmount();
         IssuePolicy issuePolicy = new RandomIssuePolicy();
-        lottoList = lottoMachine.purchaseLotto(purchaseAmount, issuePolicy);
-        OutputView.printLottos(lottoList);
+        lottos.addLotto(purchaseAmount, issuePolicy);
+        OutputView.printLottos(lottos.size(), lottos.toString());
     }
 
+    /**
+     * 당첨번호, 보너스볼을 입력받고, 복권 리스트의 당첨 여부를 확인하고, 수익률을 계산하고, 당첨 통계를 출력.
+     */
     public void checkLotto() {
+        List<Integer> winningNumberList = InputView.getWinningNumberList();
+        int bonusNumber = InputView.getBonusNumber();
+        lottos.checkLottoList(winningNumberList, bonusNumber);
+        OutputView.printLottoResults(lottos.getEarningRate());
     }
 }
