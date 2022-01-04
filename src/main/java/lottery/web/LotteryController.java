@@ -19,7 +19,7 @@ public class LotteryController {
     }
 
     public LotteryResultDto match(LotteryWinningNumberDto winningNumberDto) {
-
+        System.out.println(winningNumberDto.getClass().getName());
         return lotteryService.match(winningNumberDto);
 
     }
