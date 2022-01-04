@@ -3,6 +3,7 @@ package be.w2.lotto.Domain;
 import java.util.List;
 
 public class LottoService {
+
     private LottoSeller lottoSeller;
     private LottoTickets lottoTickets;
     private LottoCalculator lottoCalculator;
@@ -22,13 +23,13 @@ public class LottoService {
         this.lottoTickets = lottoSeller.sell(money);
     }
 
-    public int calculateBenefit(List<Integer> answers) {
-        this.lottoCalculator = new LottoCalculator(answers);
+    public int calculateBenefit(List<Integer> answers, int bonusNumber) {
+        this.lottoCalculator = new LottoCalculator(answers, bonusNumber);
         int benefit = lottoCalculator.calculateResult(lottoTickets);
         return money.calEarningRate(benefit);
     }
 
-    public List<List<Integer>> getStatistics() {
+    public List<List<String>> getStatistics() {
         return lottoCalculator.getStatistics();
     }
 
