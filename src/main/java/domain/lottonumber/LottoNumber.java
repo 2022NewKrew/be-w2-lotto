@@ -1,8 +1,8 @@
-package domain;
+package domain.lottonumber;
 
 import java.util.Objects;
 
-public class LottoNumber {
+public abstract class LottoNumber {
 
     private final int lottoNumber;
 
@@ -13,7 +13,6 @@ public class LottoNumber {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
         LottoNumber that = (LottoNumber) o;
         return lottoNumber == that.lottoNumber;
     }
@@ -27,4 +26,7 @@ public class LottoNumber {
     public String toString() {
         return String.valueOf(lottoNumber);
     }
+
+    public abstract boolean isBonusNumber();
+
 }

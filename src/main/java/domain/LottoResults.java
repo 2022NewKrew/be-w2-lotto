@@ -20,10 +20,6 @@ public class LottoResults {
     }
 
     public long getCountBy(LottoResult lottoResult) {
-        if (!lottoResults.containsKey(lottoResult)) {
-            return 0;
-        }
-
-        return lottoResults.get(lottoResult);
+        return lottoResults.getOrDefault(lottoResult, 0);
     }
 }

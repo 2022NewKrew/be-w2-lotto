@@ -1,6 +1,9 @@
 package domain;
 
+import domain.lottonumber.LottoNumber;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LottoTicket {
 
@@ -10,10 +13,13 @@ public class LottoTicket {
         lottoNumbers = lottoNumber;
     }
 
-    public int getNumberOfMatchedNumber(List<LottoNumber> winningNumbers) {
-        return (int) lottoNumbers.stream()
-                .filter(winningNumbers::contains)
-                .count();
+    public LottoMatchResultDto getNumberOfMatchedNumber(List<LottoNumber> winningNumbers) {
+        List<LottoNumber> matchedNumbers = winningNumbers.stream()
+                .filter(lottoNumbers::contains)
+                .collect(Collectors.toList());
+
+        return new LottoMatchResultDto(matchedNumbers);
+
     }
 
     public void print() {

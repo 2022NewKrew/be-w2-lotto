@@ -1,5 +1,7 @@
 import domain.Lotto;
-import domain.LottoNumber;
+import domain.lottonumber.BasicNumber;
+import domain.lottonumber.BonusNumber;
+import domain.lottonumber.LottoNumber;
 import domain.LottoShop;
 import service.LottoGenerator;
 
@@ -14,8 +16,7 @@ public class LottoApp {
     private static final LottoShop lottoShop = new LottoShop(new LottoGenerator());
 
     public static void main(String[] args) {
-        int money = inputMoney();
-        Lotto lotto = lottoShop.sell(money);
+        Lotto lotto = lottoShop.sell(inputMoney());
         lotto.print();
         lotto.checkLottoResult(inputWinningNumbers());
         printLottoResult(lotto);
@@ -28,11 +29,22 @@ public class LottoApp {
     }
 
     private static List<LottoNumber> inputWinningNumbers() {
+        List<LottoNumber> winningNumbers = inputWinningBasicNumbers();
+        winningNumbers.add(inputWinningBonusNumber());
+        return winningNumbers;
+    }
+
+    private static List<LottoNumber> inputWinningBasicNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         return Stream.of(sc.nextLine().split(","))
                 .map(Integer::parseInt)
-                .map(LottoNumber::new)
-                .collect(Collectors.toUnmodifiableList());
+                .map(BasicNumber::new)
+                .collect(Collectors.toList());
+    }
+
+    private static LottoNumber inputWinningBonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return new BonusNumber(Integer.parseInt(sc.nextLine()));
     }
 
     private static void printLottoResult(Lotto lotto) {

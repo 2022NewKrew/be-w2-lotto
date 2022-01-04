@@ -2,7 +2,8 @@ package service;
 
 import constant.Constants;
 import domain.Lotto;
-import domain.LottoNumber;
+import domain.lottonumber.BasicNumber;
+import domain.lottonumber.LottoNumber;
 import domain.LottoTicket;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class LottoGenerator {
 
     private void initialize() {
         for (int i = 1; i <= 45; i++) {
-            lottoNumbers.add(new LottoNumber(i));
+            lottoNumbers.add(new BasicNumber(i));
         }
     }
 
