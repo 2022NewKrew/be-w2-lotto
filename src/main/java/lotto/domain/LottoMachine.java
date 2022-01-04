@@ -1,10 +1,10 @@
 package lotto.domain;
 
+import lotto.domain.issue.IssuePolicy;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class LottoMachine {
@@ -15,18 +15,10 @@ public class LottoMachine {
     private List<Integer> winningNumberList;
     private int bonusNumber;
     private final List<Lotto> lottoList = new ArrayList<>();
-    private final List<Integer> numberList = new ArrayList<>();
 
-    public LottoMachine() {
-        for (int i = 1; i <= 45; i++) {
-            numberList.add(i);
-        }
-    }
+    public LottoMachine() {}
 
     public void start() {
-        this.purchaseAmount = InputView.getPurchaseAmount();
-        purchaseLotto();
-        OutputView.printLottos(lottoList);
         this.winningNumberList = InputView.getWinningNumberList();
         this.bonusNumber = InputView.getBonusNumber();
         checkLottoList();
@@ -34,14 +26,19 @@ public class LottoMachine {
         OutputView.printLottoResults(earningRate);
     }
 
-    private void purchaseLotto() {
+    /**
+     * 구매금액과 발행정책을 입력받아 복권의 리스트를 반환.
+     * @param purchaseAmount 구매금액
+     * @param issuePolicy 발행정책
+     * @return lottoList 복권의 리스트
+     */
+    public List<Lotto> purchaseLotto(int purchaseAmount, IssuePolicy issuePolicy) {
         int lottoCount = purchaseAmount / LOTTO_PRICE;
+        List<Lotto> lottoList = new ArrayList<>();
         for (int i = 0; i < lottoCount; i++) {
-            Collections.shuffle(numberList);
-            List<Integer> tempNumberList = new ArrayList<>(numberList.subList(0, 6));
-            Collections.sort(tempNumberList);
-            lottoList.add(new Lotto(tempNumberList));
+            lottoList.add(issuePolicy.issue());
         }
+        return lottoList;
     }
 
     private void checkLottoList() {
