@@ -20,12 +20,16 @@ public class Controller {
     public void run(){
         int money = inputOutputManager.getMoney();
 
+        // Lotto 생성
         List<Lotto> lottoList = buyLottoWithMoney(money);
         inputOutputManager.printLottoList(lottoList);
 
+        // WinningLotto 생성
         List<Integer> winningSequence = inputOutputManager.getWinningSequence();
-        WinningLotto winningLotto = new WinningLotto(winningSequence);
+        int bonusNumber = inputOutputManager.getBonusNumber();
+        WinningLotto winningLotto = new WinningLotto(winningSequence, bonusNumber);
 
+        // Prize(결과) 생성
         List<Prize> prizes = lottoList.stream()
                                 .map(lotto -> lotto.getResult(winningLotto))
                                 .collect(Collectors.toList());

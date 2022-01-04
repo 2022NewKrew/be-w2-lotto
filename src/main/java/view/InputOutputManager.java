@@ -12,6 +12,9 @@ public class InputOutputManager {
     public int getMoney(){
         return PositiveIntScanner.getPositiveInt("구입 금액을 입력해주세요.");
     }
+    public int getBonusNumber(){
+        return PositiveIntScanner.getPositiveInt("보너스 볼을 입력해주세요.");
+    }
 
     public void printLottoList(List<Lotto> lottoList) {
         int lottoCount = lottoList.size();

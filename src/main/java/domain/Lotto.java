@@ -18,6 +18,8 @@ public class Lotto {
         int correctNum = (int) lottoSequence.stream()
                 .filter(lottoNumber -> winningLotto.getLottoSequence().contains(lottoNumber))
                 .count();
-        return Prize.createPrize(correctNum);
+        boolean isBonus = lottoSequence.contains(winningLotto.getBonusNumber());
+
+        return Prize.createPrize(correctNum, isBonus);
     }
 }

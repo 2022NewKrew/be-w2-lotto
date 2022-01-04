@@ -18,10 +18,16 @@ public class ResultPrinter {
     }
 
     private static void printResultPerPrize(List<Prize> prizes, Prize prize){
-        int prizeNum = (int) prizes.stream()
-                                .filter(prize_ -> prize_ == prize)
-                                .count();
-        System.out.println(prize.getCorrectAmount() + "개 일치 (" + prize.getMoney() + "원)- " + prizeNum + "개");
+        int prizeCount = (int) prizes.stream().filter(prize_ -> prize_ == prize).count();
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(prize.getCorrectAmount()).append("개 일치");
+
+        if(prize == Prize.SECOND_BONUS)
+            stringBuilder.append(", 보너 볼 일치");
+
+        stringBuilder.append(" (").append(prize.getMoney()).append("원)- ").append(prizeCount).append("개");
+        System.out.println(stringBuilder);
     }
 
     private static double getEarningRatio(List<Prize> prizes, int money){
