@@ -1,6 +1,6 @@
 package controller;
 
-import domain.*;
+import domain.lotto.*;
 import view.LottoRenderer;
 
 import java.util.Arrays;
