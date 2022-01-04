@@ -17,5 +17,15 @@ public interface InputConsole<T> {
         }
     }
 
+    default T readWithoutMSG(Scanner sc) {
+        try {
+            final String inputStr = sc.nextLine();
+            return convert(inputStr);
+        } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
+            return readWithoutMSG(sc);
+        }
+    }
+
     T convert(String inputStr);
 }

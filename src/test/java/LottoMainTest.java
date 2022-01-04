@@ -7,9 +7,6 @@ import view.output.OutputView;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class LottoMainTest {
     private final InputView inputView = new PriceInputView();
@@ -17,7 +14,7 @@ class LottoMainTest {
 
     @Test
     public void start(){
-        String input = "50000\n6,7,8,10,15,23\n16";
+        String input = "50000\n3\n3,7,8,10,15,23\n3,4,8,11,15,23\n3,7,8,11,15,23\n3,7,8,11,15,23\n4\n";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
