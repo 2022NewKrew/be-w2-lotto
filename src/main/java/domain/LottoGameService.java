@@ -1,13 +1,15 @@
-package domain.service;
+package domain;
 
-import domain.entity.LottoTicket;
-import domain.entity.LottoTickets;
+import common.model.LottoRank;
+import controller.dto.WinningResult;
+import domain.LottoTicket;
+import domain.LottoTickets;
 import domain.model.*;
-import view.dto.WinningResultResponse;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class LottoGameService {
 
@@ -42,12 +44,23 @@ public class LottoGameService {
     }
 
     /**
-     * 당첨된 복권을 확인하고, View에서 보여줄 데이터를 만들어 리턴한다.
+     * 당첨된 복권을 확인하고, 결과를 리턴한다.
      */
-    public WinningResultResponse checkWinningLotto(LottoTickets lottoTickets, LottoTicket winningTicket) {
-        WinningResult winningResult = lottoTickets.getMatchingCountAndProfit(winningTicket);
-        int purchaseAmount = lottoTickets.getSize() * LOTTO_PRICE;
-        return new WinningResultResponse(winningResult.getCountMap(), (double)winningResult.getProfit() / (double)purchaseAmount);
+    public WinningResult checkWinningLotto(LottoTickets lottoTickets, WinningLottoTicket winningTicket) {
+        Map<LottoRank, Integer> countMap = lottoTickets.getCountMapByRank(winningTicket);
+        return new WinningResult(countMap, calculateProfitRatio(countMap, lottoTickets.getSize()));
     }
-    
+
+    private Integer calculateProfitRatio(Map<LottoRank, Integer> countMap, Integer countOfTicket) {
+        Long profit = calculateProfit(countMap);
+        Long purchaseAmount = Long.valueOf(countOfTicket * LOTTO_PRICE);
+        return Long.valueOf(((profit / purchaseAmount) * 100L)).intValue();
+    }
+
+    private Long calculateProfit(Map<LottoRank, Integer> countMap) {
+        return countMap.entrySet().stream()
+                .mapToLong((entry) -> entry.getValue() * entry.getKey().getWinnings())
+                .sum();
+    }
+
 }
