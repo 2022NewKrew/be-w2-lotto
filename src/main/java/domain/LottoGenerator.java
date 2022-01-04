@@ -6,18 +6,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import static domain.Lotto.END_NUMBER;
+import static domain.Lotto.START_NUMBER;
 
 public class LottoGenerator {
-    private static List<Integer> shuffleNumbers;
+    private static List<Integer> shuffleNumbers = IntStream.rangeClosed(START_NUMBER, END_NUMBER).boxed().collect(Collectors.toList());
 
-    LottoGenerator() {
-        this.shuffleNumbers = new ArrayList<Integer>();
-        for (int i = 1; i <= 45; i++) {
-            shuffleNumbers.add(i);
-        }
-    }
-
-    public List<Integer> getLottoNumbers() {
+    public static List<Integer> getLottoNumbers() {
         Collections.shuffle(shuffleNumbers);
         List<Integer> lottoNums = new ArrayList<Integer>();
         for (int i = 0; i < 6; i++) {

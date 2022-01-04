@@ -6,17 +6,9 @@ import domain.Player;
 import java.util.List;
 
 public class PlayerView {
-    private final Player player;
-    public PlayerView(Player player) {
-        this.player = player;
-    }
-    public void PrintPlayerLottoList()
+
+    public void PrintLottoSize(int lottoSize)
     {
-        System.out.println(player.getPrice()/1000 + "개를 구매했습니다.");
-        List<Lotto> lottoList = player.getLottoList();
-        for(Lotto lotto : lottoList)
-        {
-            LottoView.printLotto(lotto);
-        }
+        System.out.println(lottoSize + "개를 구매했습니다.");
     }
 }
