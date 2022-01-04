@@ -26,7 +26,7 @@ public final class ConditionCheck {
      * @return 인자 값이 로또 번호로 가능하면 true, 아니면 false
      */
     public static boolean isLottoNumber(int number) {
-        return ZERO.getValue() < number && number < MAX_LOTTO_NUMBER.getValue();
+        return ZERO.getValue() < number && number <= MAX_LOTTO_NUMBER.getValue();
     }
 
     /**+
