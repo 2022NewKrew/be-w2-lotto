@@ -1,10 +1,9 @@
 package lotto;
 
 import lotto.domain.*;
-import lotto.view.PurchaseInfoScanner;
-import lotto.view.PurchaseResultPrinter;
-import lotto.view.WinningInfoScanner;
-import lotto.view.WinningResultPrinter;
+import lotto.view.LottoInputScanner;
+import lotto.view.LottoOutputPrinter;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -13,42 +12,48 @@ public class LottoSimulator {
     public static final int LOTTO_PRICE = 1000;
     public static final String SEPARATOR = ",";
 
-    private final long purchaseAmount;
+    private final LottoInputScanner lottoInputScanner;
+    private final LottoOutputPrinter lottoOutputPrinter;
 
-    public LottoSimulator(long purchaseAmount) {
-        this.purchaseAmount = purchaseAmount;
+    public LottoSimulator(LottoInputScanner lottoInputScanner, LottoOutputPrinter lottoOutputPrinter) {
+        this.lottoInputScanner = lottoInputScanner;
+        this.lottoOutputPrinter = lottoOutputPrinter;
     }
 
     public static void main(String[] args) {
-        LottoSimulator lottoSimulator = new LottoSimulator(new PurchaseInfoScanner().getPurchaseAmount());
-
-        PurchasedLotto purchasedLotto = new PurchasedLotto(lottoSimulator.purchaseLotto());
-        lottoSimulator.printPurchase(purchasedLotto);
-        WinningInfoScanner winningInfoScanner = new WinningInfoScanner();
-        WinningLotto winningLotto = new WinningLotto(winningInfoScanner.getWinningDigits(), winningInfoScanner.getWinningBonusDigit());
-        WinningResult winningResult = new WinningResult(purchasedLotto.getPurchasedResult(winningLotto));
-        double yield = lottoSimulator.getSimulationYield(winningResult);
-        lottoSimulator.printWinning(winningResult, yield);
+        LottoSimulator lottoSimulator = new LottoSimulator(new LottoInputScanner(), new LottoOutputPrinter());
+        lottoSimulator.start();
     }
 
-    private List<Lotto> purchaseLotto() {
+    private void start() {
+        long purchaseAmount = lottoInputScanner.getPurchaseAmount();
+        PurchasedLotto purchasedLotto = purchaseLotto(purchaseAmount);
+        WinningLotto winningLotto = getWinningInfo();
+        printWinningStat(purchaseAmount, purchasedLotto, winningLotto);
+    }
+
+    @Contract("_ -> new")
+    private @NotNull PurchasedLotto purchaseLotto(long purchaseAmount) {
         LottoAutoGenerator lottoAutoGenerator = new LottoAutoGenerator();
-        return lottoAutoGenerator.getRandomLottos(purchaseAmount / LOTTO_PRICE);
+        List<Lotto> purchasedLottoList = lottoAutoGenerator.getRandomLottos(purchaseAmount / LOTTO_PRICE);
+        lottoOutputPrinter.printPurchaseResult(purchasedLottoList);
+        return new PurchasedLotto(purchasedLottoList);
     }
 
-    private void printPurchase(PurchasedLotto purchasedLotto) {
-        PurchaseResultPrinter purchaseResultPrinter = new PurchaseResultPrinter();
-        purchaseResultPrinter.printPurchaseResult(purchasedLotto);
+    @Contract(" -> new")
+    private @NotNull WinningLotto getWinningInfo() {
+        return new WinningLotto(lottoInputScanner.getWinningDigits(), lottoInputScanner.getWinningBonusDigit());
     }
 
-    private double getSimulationYield(@NotNull WinningResult winningResult) {
+    private double getSimulationYield(long purchaseAmount, @NotNull WinningResult winningResult) {
         long totalReward = winningResult.getWinningResult().stream().mapToLong(LottoResult::getReward).sum();
-        return (double) (totalReward - this.purchaseAmount) / this.purchaseAmount * 100;
+        return (double) (totalReward - purchaseAmount) / purchaseAmount * 100;
     }
 
-    private void printWinning(WinningResult winningResult, double yield) {
-        WinningResultPrinter winningResultPrinter = new WinningResultPrinter();
-        winningResultPrinter.printWinningResultPrinter(winningResult);
-        winningResultPrinter.printWinningYield(yield);
+    private void printWinningStat(long purchaseAmount, @NotNull PurchasedLotto purchasedLotto, WinningLotto winningLotto) {
+        WinningResult winningResult = new WinningResult(purchasedLotto.getPurchasedResult(winningLotto));
+        double yield = getSimulationYield(purchaseAmount, winningResult);
+        lottoOutputPrinter.printWinningResultPrinter(winningResult);
+        lottoOutputPrinter.printWinningYield(yield);
     }
 }

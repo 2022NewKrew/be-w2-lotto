@@ -2,6 +2,7 @@ package lotto.domain;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +25,6 @@ public class LottoAutoGenerator {
                 .boxed()
                 .collect(Collectors.toList());
         Collections.shuffle(randomDigits);
-        return randomDigits.subList(0, NUM_DIGITS);
+        return new ArrayList<>(randomDigits.subList(0, NUM_DIGITS));
     }
 }
