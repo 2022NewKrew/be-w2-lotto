@@ -11,7 +11,7 @@ public class LottoMain {
     private final InputView inputView = new PriceInputView();
     private final OutputView outputView = new LottoOutputView();
 
-    public void start(){
+    public void start() {
         Long lottoBundleId = inputView.inputPrice();
         outputView.showPurchasedLottoBundle(lottoBundleId);
         LastWeekWinningNumberDTO lastWeekWinningNumberDTO = inputView.inputWinningNumbers();

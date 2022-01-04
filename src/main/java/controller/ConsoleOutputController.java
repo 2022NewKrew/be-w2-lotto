@@ -7,7 +7,7 @@ import service.LottoService;
 
 import java.util.List;
 
-public class ConsoleOutputController implements OutputController{
+public class ConsoleOutputController implements OutputController {
     private final LottoService lottoService = new AutoLottoService();
 
     @Override

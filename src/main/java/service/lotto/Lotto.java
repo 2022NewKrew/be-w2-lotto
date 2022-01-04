@@ -36,7 +36,7 @@ public class Lotto {
     }
 
     private void checkSecondPlace(int bonusBall) {
-        if (result.equals(LottoResult.FIRST_PLACE) && lotto.contains(bonusBall)){
+        if (result.equals(LottoResult.FIRST_PLACE) && lotto.contains(bonusBall)) {
             result = LottoResult.SECOND_PLACE;
         }
     }

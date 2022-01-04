@@ -7,7 +7,7 @@ import dto.LottoResultDTO;
 
 import java.util.List;
 
-public class LottoOutputView implements OutputView{
+public class LottoOutputView implements OutputView {
     private final OutputController outputController = new ConsoleOutputController();
 
     @Override

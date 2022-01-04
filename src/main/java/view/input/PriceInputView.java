@@ -25,7 +25,7 @@ public class PriceInputView implements InputView {
         final int autoLottoQuantity = money / LottoValueObject.LOTTO_PRICE - manualLottoQuantity;
 
         List<List<Integer>> manualLottoNumber = new ArrayList<>();
-        for (int i = 0; i < manualLottoQuantity; i++){
+        for (int i = 0; i < manualLottoQuantity; i++) {
             manualLottoNumber.add(positiveNumberListInputConsole.readWithoutMSG(ResourceManager.SCANNER));
         }
         return consoleInputController.purchaseLotto(new PurchasingSheetDTO(autoLottoQuantity, manualLottoQuantity, manualLottoNumber));
