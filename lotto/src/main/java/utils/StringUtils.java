@@ -21,5 +21,4 @@ public final class StringUtils {
     return splitByDelimiter(str, DEFAULT_DELIMITER);
   }
 
-
 }

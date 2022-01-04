@@ -1,13 +1,12 @@
-package domain.lotto;
+package utils;
 
+import domain.lotto.Lotto;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-public class LottoUtils {
+public final class LottoUtils {
 
   private static final List<Integer> LOTTO_CONST = new ArrayList<>(List.of(
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
@@ -19,7 +18,7 @@ public class LottoUtils {
 
 
   public static int getMaxPurchaseQuantity(int amount) {
-    return amount / 1000;
+    return amount / Lotto.LOTTO_PRICE;
   }
 
 
@@ -30,6 +29,5 @@ public class LottoUtils {
         .sorted()
         .collect(Collectors.toList());
   }
-
 
 }

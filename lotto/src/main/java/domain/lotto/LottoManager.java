@@ -1,6 +1,9 @@
 package domain.lotto;
 
+import domain.lottery.LotteryMachine;
+import domain.statistics.Statistics;
 import java.io.IOException;
+import utils.LottoUtils;
 import view.read.BufferedInputReader;
 import view.read.InputReader;
 import view.write.BufferedOutputWriter;
@@ -17,16 +20,19 @@ public class LottoManager {
   private final InputReader reader;
   private final OutputWriter writer;
   private final LottoWallet wallet;
+  private final LotteryMachine lotteryMachine;
 
   public LottoManager() {
     this.reader = BufferedInputReader.create();
     this.writer = BufferedOutputWriter.create();
     this.wallet = LottoWallet.createEmpty();
+    this.lotteryMachine = LotteryMachine.createEmpty();
   }
 
 
   public void run() throws IOException {
     buyLotto();
+    reportBuyingInformation();
     setLastWinningNumber();
     reportWinningStatistics();
   }
@@ -36,7 +42,6 @@ public class LottoManager {
     int purchaseAmount = reader.getPurchaseAmount();
     int quantity = LottoUtils.getMaxPurchaseQuantity(purchaseAmount);
     wallet.addLotto(quantity);
-    reportBuyingInformation();
   }
 
 
@@ -45,13 +50,14 @@ public class LottoManager {
   }
 
 
-  private void setLastWinningNumber() {
-
+  private void setLastWinningNumber() throws IOException {
+    lotteryMachine.setCurrentWinningLotto(reader);
   }
 
 
-  private void reportWinningStatistics() {
-
+  private void reportWinningStatistics() throws IOException {
+    Statistics statistics = Statistics.of(lotteryMachine.getCurrentWinningLotto(), wallet);
+    writer.write(statistics);
   }
 
 
