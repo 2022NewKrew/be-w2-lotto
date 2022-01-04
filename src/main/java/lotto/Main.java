@@ -11,6 +11,7 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
+        // TODO: 메소드 분리
         LottoShop lottoShop = new LottoShop();
         InputView inputView = new InputView();
         Gambler gambler = new Gambler();
@@ -24,8 +25,12 @@ public class Main {
 
         Set<Integer> winnerNumber = inputView.getWinnerNumbersFromScanner("당첨 번호를 입력해주세요: ");
         lottoShop.setWinnerNumber(winnerNumber);
+        int bonusBall;
+        do {
+            bonusBall = inputView.getPositiveIntFromScanner("보너스 볼을 입력해주세요: ");
+        } while (winnerNumber.contains(bonusBall));
 
         LottoPrinter printer = new LottoPrinter();
-        printer.PrintLottoMatchingResult(lottoShop, gambler);
+        printer.PrintLottoMatchingResult(lottoShop, gambler, bonusBall);
     }
 }

@@ -10,10 +10,14 @@ public class LottoTicket {
         this.numbers = numbers;
     }
 
-    public int matchWithWinnerNumber(Set<Integer> winnerNumber) {
+    public Prize matchWithWinnerNumber(Set<Integer> winnerNumber, int bonusBall) {
         Set<Integer> intersection = new HashSet<>(numbers);
         intersection.retainAll(winnerNumber);
-        return intersection.size();
+
+        int matchedCount = intersection.size();
+        boolean bonusBallMatched = numbers.contains(bonusBall);
+
+        return Prize.getPrize(matchedCount, bonusBallMatched);
     }
 
     @Override

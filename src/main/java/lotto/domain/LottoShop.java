@@ -4,7 +4,6 @@ import java.util.*;
 
 public class LottoShop {
     public static final int PRICE = 1000;
-    public static final List<Long> PRIZES = Arrays.asList(0L, 0L, 0L, 5000L, 50_000L, 1_500_000L, 2_000_000_000L);
 
     private Set<Integer> winnerNumber = new HashSet<>();
 
