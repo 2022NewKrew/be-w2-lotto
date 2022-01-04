@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class LottoResult {
-
     Map<LottoRank, Long> result = new HashMap<>();
     Lotto winningLotto;
 

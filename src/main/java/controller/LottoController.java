@@ -17,7 +17,7 @@ public class LottoController {
         UserOutput.printRevenueRate(lottoResult.getTotalEarn());
     }
 
-    private static List<List<Integer>> getLottoNumbers(List<Lotto> lottos){
+    private static List<List<Integer>> getLottoNumbers(List<Lotto> lottos) {
         return lottos
                 .stream()
                 .map(Lotto::getNumbers)

@@ -3,7 +3,6 @@ package model.number;
 import java.util.Objects;
 
 public class Number implements Comparable<Number> {
-
     public static int START_NUMBER = 1;
     public static int FINAL_NUMBER = 45;
 
