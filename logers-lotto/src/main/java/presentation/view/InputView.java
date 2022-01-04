@@ -1,4 +1,4 @@
-package view;
+package presentation.view;
 
 import domain.LottoOrder;
 import domain.WinningNumber;

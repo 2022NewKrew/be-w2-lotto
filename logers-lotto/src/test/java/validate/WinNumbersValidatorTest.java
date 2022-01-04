@@ -35,8 +35,8 @@ class WinNumbersValidatorTest {
     private static Stream<Arguments> listHasNumberNotBetween1and45(){
         return Stream.of(
                 Arguments.of(List.of(-1, 1, 22, 30, 44, 45)),
-                Arguments.of(List.of(0, 1, 33, 45)),
-                Arguments.of(List.of(1, 33, 45, 46))
+                Arguments.of(List.of(0, 1, 33, 34, 44, 45)),
+                Arguments.of(List.of(1, 3, 33, 45, 46, 47))
         );
     }
 

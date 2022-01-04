@@ -1,16 +1,16 @@
-import domain.LottoOrder;
-import domain.Result;
-import domain.WinningNumber;
 import dto.InputResultDto;
 import factory.ValidatorServiceFactory;
+import presentation.controller.LottoController;
 import validate.ValidatorService;
-import view.InputView;
-import view.OutputView;
+import presentation.view.InputView;
+import presentation.view.OutputView;
 
 import java.util.Optional;
 import java.util.Scanner;
 
 public class LottoDriver {
+    private static final LottoController lottoController = new LottoController();
+
     public static void main(String[] args) {
         try(Scanner scanner = new Scanner(System.in)){
             startLotto(scanner, ValidatorServiceFactory.getInstance());
@@ -24,11 +24,7 @@ public class LottoDriver {
             return;
         }
 
-        LottoOrder lottoOrder = inputResultDto.get().getLottoOrder();
-        WinningNumber winningNumber = inputResultDto.get().getWinningNumber();
-
-        Result result = lottoOrder.getResult(winningNumber);
-
-        OutputView.showResult(result);
+        OutputView outputView = lottoController.getLottoResult(inputResultDto.get());
+        outputView.showResult();
     }
 }
