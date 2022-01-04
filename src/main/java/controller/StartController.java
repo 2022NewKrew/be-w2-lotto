@@ -1,4 +1,4 @@
-package manager;
+package controller;
 
 import view.InputView;
 import view.OutputView;
@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class StartManager {
+public class StartController {
     private final List<List<Integer>> lottoLines = new ArrayList<>();
     private List<Integer> winningLine;
 
     private static final int NUM_PER_LINE = 6;
 
-    public StartManager() {
+    public StartController() {
         makeLottoLines();
         makeWinningLine();
     }

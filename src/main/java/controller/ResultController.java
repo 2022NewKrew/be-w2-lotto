@@ -1,4 +1,4 @@
-package manager;
+package controller;
 
 import view.OutputView;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ResultManager {
+public class ResultController {
     private static final int NUM_PER_LINE = 6;
     private static final int FIRST = 2000000000;
     private static final int SECOND = 1500000;
@@ -17,7 +17,7 @@ public class ResultManager {
     private static final int NO_MATCH = 0;
     private static final int START_MATCH_NUM = 3;
 
-    private ResultManager() {
+    private ResultController() {
     }
 
     public static void printResult(int numLines, List<Integer> resultList) {
