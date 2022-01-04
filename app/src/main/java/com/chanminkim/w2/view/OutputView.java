@@ -1,9 +1,9 @@
 package com.chanminkim.w2.view;
 
 import com.chanminkim.w2.model.Lotto;
-import com.chanminkim.w2.model.LottoNumber;
+import com.chanminkim.w2.model.WinningState;
+import com.chanminkim.w2.model.WinningStatistics;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,55 +14,24 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printWinningStatistics(List<Lotto> lottoList, Lotto winningLotto) {
-        Map<Integer, Integer> countMap = initCountMap();
-        for (Lotto lotto : lottoList) {
-            int matchedCount = matchLotto(lotto, winningLotto);
-            countMap.put(matchedCount, countMap.get(matchedCount) + 1);
-        }
-
+    public void printWinningStatistics(WinningStatistics statistics) {
         System.out.println();
         System.out.println("당첨 통계");
         System.out.println("---------");
-        printMatchedList(countMap);
-        printEarningPercentage(lottoList, countMap);
+        printMatchedList(statistics);
+        System.out.printf("총 수익률은 %.2f%% 입니다.%n", statistics.calculateEarningPercentage());
     }
 
-    private void printEarningPercentage(List<Lotto> lottoList, Map<Integer, Integer> countMap) {
-        int lotteryWinnings = calculateLotteryWinnings(countMap);
-        double earningPercentage = lotteryWinnings / (double) (Lotto.LOTTO_PRICE * lottoList.size()) * 100;
-        System.out.printf("총 수익률은 %.2f%% 입니다.%n", earningPercentage);
-    }
-
-    private void printMatchedList(Map<Integer, Integer> countMap) {
-        System.out.printf("3개 일치 (5000원) - %d개%n", countMap.get(3));
-        System.out.printf("4개 일치 (50000원) - %d개%n", countMap.get(4));
-        System.out.printf("5개 일치 (1500000원) - %d개%n", countMap.get(5));
-        System.out.printf("6개 일치 (2000000000원) - %d개%n", countMap.get(6));
-    }
-
-    private int calculateLotteryWinnings(Map<Integer, Integer> countMap) {
-        return countMap.get(3) * 5000
-                + countMap.get(4) * 50000
-                + countMap.get(5) * 1500000
-                + countMap.get(6) * 2000000000;
-    }
-
-    private Map<Integer, Integer> initCountMap() {
-        Map<Integer, Integer> countMap = new HashMap<>();
-        for (int i = 0; i < LottoNumber.LOTTO_NUMBER_RANGE.upperEndpoint(); i++) {
-            countMap.put(i, 0);
+    private void printMatchedList(WinningStatistics statistics) {
+        for (Map.Entry<WinningState, Integer> entry : statistics.getCountMap().entrySet()) {
+            WinningState state = entry.getKey();
+            int count = entry.getValue();
+            String bonusString = ", 보너스 볼 일치";
+            System.out.printf("%d개 일치%s(%d원) - %d개%n",
+                    state.getMatchedCount(),
+                    state.isCountingBonus() ? bonusString : "",
+                    state.getPrizeMoney(),
+                    count);
         }
-        return countMap;
-    }
-
-    private int matchLotto(Lotto lotto, Lotto winningLotto) {
-        int count = 0;
-        for (int i = 0; i < lotto.getLottoNumbers().size(); i++) {
-            if (lotto.getLottoNumbers().get(i).equals(winningLotto.getLottoNumbers().get(i))) {
-                count++;
-            }
-        }
-        return count;
     }
 }
