@@ -47,6 +47,14 @@ class PriceInput extends SingleInput {
 }
 
 
+class BonusNumberInput extends SingleInput {
+    public BonusNumberInput(){
+        System.out.println("보너스 볼을 입력해 주세요.");
+        input = sc.nextInt();
+    }
+}
+
+
 class WinningInput extends MultipleInput {
 
     WinningInput(){

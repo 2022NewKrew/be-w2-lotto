@@ -7,25 +7,25 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 
-public class LottoPaper {
+public class LottoNumber {
     private static final List<Integer> allNumbers =
             IntStream.rangeClosed(1, 45)
                     .boxed()
                     .collect(Collectors.toList());
     private static final int SIZE_OF_NUMBERS = 6;
-    private List<Integer> paper;
+    private List<Integer> numbers;
 
 
-    public LottoPaper(){
-        generatePaper();
+    public LottoNumber(){
+        generateNumbers();
     }
 
 
-    private void generatePaper(){
+    private void generateNumbers(){
         Collections.shuffle(allNumbers);
-        paper =  new ArrayList<>(allNumbers.subList(0, SIZE_OF_NUMBERS));
-        Collections.sort(paper);
+        numbers =  new ArrayList<>(allNumbers.subList(0, SIZE_OF_NUMBERS));
+        Collections.sort(numbers);
     }
 
-    public List<Integer> getPaper() {return paper;}
+    public List<Integer> getNumbers() {return numbers;}
 }

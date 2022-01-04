@@ -13,8 +13,13 @@ public class LottoInput {
 
     public static List<Integer> postPurchase(){
         WinningInput wi = new WinningInput();
-        System.out.println();
         return wi.getInput();
+    }
+
+    public static int getBonusNumber(){
+        BonusNumberInput bni = new BonusNumberInput();
+        System.out.println();
+        return bni.getInput();
     }
 
     public static int getInputPrice(){
