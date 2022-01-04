@@ -1,36 +1,47 @@
 package input;
-
-import input.dto.InputInfo;
-import lotto.LottoInfo;
+import lotto.LottoConfig;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CommandLineInputView implements InputView {
-
     @Override
-    public InputInfo inputBuyInfo() {
+    public int inputBuyTicketAmount() {
         System.out.println("구입 금액을 입력해주세요.");
         int ticketAmount = getPurchaseAmount();
         System.out.println(ticketAmount + "개를 구매했습니다.");
 
-        return new InputInfo(ticketAmount);
+        return ticketAmount;
     }
 
     @Override
-    public void inputTargetNum(InputInfo inputInfo) {
-        System.out.println("지난주 당첨 번호를 입력해주세요.");
-        List<String> strings = Arrays.asList(InputResourceManager.scanner.nextLine()
-                                                .trim().replaceAll(" ", "").split(","));
-        List<Integer> target = strings.stream().map(Integer::parseInt).collect(Collectors.toList());
-        Validator.checkTargetNum(target);
-        inputInfo.setTarget(target);
+    public List<Integer> inputLottoNum() {
+        List<Integer> lottoNum = Arrays.asList(InputResourceManager.nextLine()
+                        .trim().replaceAll(" ", "").split(","))
+                        .stream().map(Integer::parseInt).collect(Collectors.toList());
+        Validator.checkLottoNum(lottoNum);
+        return lottoNum;
+    }
+
+    @Override
+    public int inputBonusNum(List<Integer> targetNums) {
+        System.out.println("보너스 볼 번호를 입력해주세요");
+        int bonus = Integer.parseInt(InputResourceManager.nextLine());
+        Validator.checkBonus(bonus, targetNums);
+        return bonus;
+    }
+
+    @Override
+    public int inputAmoundOfSelf(int buyAmount) {
+        int selfAmount = InputResourceManager.nextInt();
+        Validator.checkSelfAmount(buyAmount, selfAmount);
+        return selfAmount;
     }
 
     private int getPurchaseAmount() {
-        int purchaseFee = Integer.parseInt(InputResourceManager.scanner.nextLine());
+        int purchaseFee = Integer.parseInt(InputResourceManager.nextLine());
         Validator.checkPurchaseMoney(purchaseFee);
-        return purchaseFee / LottoInfo.LOTTO_TICKET_PRICE;
+        return purchaseFee / LottoConfig.LOTTO_TICKET_PRICE;
     }
 }

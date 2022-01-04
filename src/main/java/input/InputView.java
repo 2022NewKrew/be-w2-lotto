@@ -1,8 +1,10 @@
 package input;
 
-import input.dto.InputInfo;
+import java.util.List;
 
 public interface InputView {
-    public InputInfo inputBuyInfo();
-    public void inputTargetNum(InputInfo inputInfo);
+    public int inputBuyTicketAmount();
+    public List<Integer> inputLottoNum();
+    public int inputBonusNum(List<Integer> targetNums);
+    public int inputAmoundOfSelf(int buyAmount);
 }

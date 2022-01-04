@@ -1,6 +1,7 @@
 package input;
 
 import input.dto.InputInfo;
+import lotto.domain.WinningLotto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -22,10 +23,10 @@ class CommandLineInputViewTest {
         // when
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(str.getBytes());
         System.setIn(byteArrayInputStream);
-        InputInfo input = commandLineInputView.inputBuyInfo();
+        int amount = commandLineInputView.inputBuyTicketAmount();
 
         // then
-        assertEquals(14, input.getAmountOfTicket());
+        assertEquals(14, amount);
     }
 
     @Test
@@ -39,10 +40,11 @@ class CommandLineInputViewTest {
         // when
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(str.getBytes());
         System.setIn(byteArrayInputStream);
-        commandLineInputView.inputTargetNum(inputInfo);
+        List<Integer> integers = commandLineInputView.inputLottoNum();
+        WinningLotto winningLotto = new WinningLotto(integers, 7);
 
         // then
-        assertEquals(true, inputInfo.getTarget() instanceof List);
+        assertEquals(true, winningLotto.getNumbers() instanceof List);
     }
 
 }

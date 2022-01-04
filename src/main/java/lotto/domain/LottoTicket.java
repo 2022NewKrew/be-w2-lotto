@@ -1,20 +1,28 @@
 package lotto.domain;
 
+import input.Validator;
+import lotto.LottoConfig;
+
 import java.util.List;
 
-public class LottoTicket {
-    private List<Integer> numbers;
+public class LottoTicket extends Lotto {
+
+    private LottoResult result;
 
     public LottoTicket(List<Integer> numbers) {
-        this.numbers = numbers;
-    }
-
-    public List<Integer> getNumbers() {
-        return numbers;
+        super(numbers);
     }
 
     @Override
-    public String toString() {
-        return numbers.toString();
+    protected void checkLottoNum(List<Integer> numbers) {
+        Validator.checkLottoNum(numbers);
+    }
+
+    protected void setResult(LottoResult result) {
+        this.result = result;
+    }
+
+    public LottoResult getResult() {
+        return result;
     }
 }
