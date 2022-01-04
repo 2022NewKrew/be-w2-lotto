@@ -23,7 +23,7 @@ public class Lotto {
         return result.getPrizeMoney();
     }
 
-    public void confirmTheWin(List<Integer> winningNumbers) {
+    public void confirmTheWin(List<Integer> winningNumbers, int bonusBall) {
         if (result != LottoResult.UNIDENTIFIED)
             return;
 
@@ -32,6 +32,13 @@ public class Lotto {
                         .filter(lotto::contains)
                         .count()
         );
+        checkSecondPlace(bonusBall);
+    }
+
+    private void checkSecondPlace(int bonusBall) {
+        if (result.equals(LottoResult.FIRST_PLACE) && lotto.contains(bonusBall)){
+            result = LottoResult.SECOND_PLACE;
+        }
     }
 
     @Override

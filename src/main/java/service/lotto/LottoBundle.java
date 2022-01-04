@@ -24,8 +24,8 @@ public class LottoBundle {
         return lottoBundle;
     }
 
-    public void confirmTheWin(List<Integer> winningNumbers) {
-        lottoBundle.forEach(lotto -> lotto.confirmTheWin(winningNumbers));
+    public void confirmTheWin(List<Integer> winningNumbers, int bonusBall) {
+        lottoBundle.forEach(lotto -> lotto.confirmTheWin(winningNumbers, bonusBall));
     }
 
     public int getPrizeMoney() {

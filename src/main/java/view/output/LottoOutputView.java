@@ -2,6 +2,7 @@ package view.output;
 
 import controller.ConsoleOutputController;
 import controller.OutputController;
+import dto.LastWeekWinningNumberDTO;
 import dto.LottoResultDTO;
 
 import java.util.List;
@@ -16,8 +17,8 @@ public class LottoOutputView implements OutputView{
     }
 
     @Override
-    public void showPurchasedLottoResults(List<Integer> winningNumbers, Long lottoBundleId) {
-        LottoResultDTO lottoResultDTO = outputController.showPurchasedLottoResults(winningNumbers, lottoBundleId);
+    public void showPurchasedLottoResults(LastWeekWinningNumberDTO lastWeekWinningNumberDTO, Long lottoBundleId) {
+        LottoResultDTO lottoResultDTO = outputController.showPurchasedLottoResults(lastWeekWinningNumberDTO, lottoBundleId);
         System.out.println(lottoResultDTO);
     }
 }

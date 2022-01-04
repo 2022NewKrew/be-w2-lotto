@@ -1,3 +1,4 @@
+import dto.LastWeekWinningNumberDTO;
 import org.junit.jupiter.api.Test;
 import view.input.InputView;
 import view.input.PriceInputView;
@@ -16,14 +17,14 @@ class LottoMainTest {
 
     @Test
     public void start(){
-        String input = "500000\n6,7,8,10,15,23";
+        String input = "50000\n6,7,8,10,15,23\n16";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
         Long lottoBundleId = inputView.inputPrice();
         outputView.showPurchasedLottoBundle(lottoBundleId);
-        List<Integer> winningNumbers = inputView.inputWinningNumbers();
-        outputView.showPurchasedLottoResults(winningNumbers, lottoBundleId);
+        LastWeekWinningNumberDTO lastWeekWinningNumberDTO = inputView.inputWinningNumbers();
+        outputView.showPurchasedLottoResults(lastWeekWinningNumberDTO, lottoBundleId);
     }
 
 }

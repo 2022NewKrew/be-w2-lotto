@@ -1,5 +1,6 @@
 package service;
 
+import dto.LastWeekWinningNumberDTO;
 import dto.LottoResultDTO;
 
 import java.util.List;
@@ -9,5 +10,5 @@ public interface LottoService {
 
     String getPurchasedLottoBundleString(Long lottoBundleId);
 
-    LottoResultDTO getLottoResultDTO(List<Integer> winningNumbers, Long lottoBundleId);
+    LottoResultDTO getLottoResultDTO(LastWeekWinningNumberDTO winningNumbers, Long lottoBundleId);
 }

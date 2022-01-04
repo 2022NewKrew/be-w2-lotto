@@ -1,14 +1,11 @@
 package service;
 
+import dto.LastWeekWinningNumberDTO;
 import dto.LottoResultDTO;
 import repository.LottoRepository;
 import repository.Repository;
 import service.lotto.LottoBundle;
-import service.lotto.LottoResult;
 import service.lotto.LottoStore;
-
-import java.util.List;
-import java.util.Map;
 
 public class AutoLottoService implements LottoService {
     private final Repository repository = new LottoRepository();
@@ -27,9 +24,9 @@ public class AutoLottoService implements LottoService {
     }
 
     @Override
-    public LottoResultDTO getLottoResultDTO(List<Integer> winningNumbers, Long lottoBundleId) {
+    public LottoResultDTO getLottoResultDTO(LastWeekWinningNumberDTO lastWeekWinningNumberDTO, Long lottoBundleId) {
         LottoBundle lottoBundle = repository.getLottoBundle(lottoBundleId);
-        lottoBundle.confirmTheWin(winningNumbers);
+        lottoBundle.confirmTheWin(lastWeekWinningNumberDTO.getLastWeekWinningNumber(), lastWeekWinningNumberDTO.getBonusNumber());
         return LottoResultDTO.of(lottoBundle);
     }
 }

@@ -1,6 +1,7 @@
 package view.input;
 
 import controller.ConsoleInputController;
+import dto.LastWeekWinningNumberDTO;
 import service.LottoValueObject;
 import view.util.ResourceManager;
 import view.util.input.InputConsole;
@@ -24,7 +25,10 @@ public class PriceInputView implements InputView {
     }
 
     @Override
-    public List<Integer> inputWinningNumbers() {
-        return positiveNumberListInputConsole.read("지난 주 당첨 번호를 입력해 주세요.", ResourceManager.SCANNER);
+    public LastWeekWinningNumberDTO inputWinningNumbers() {
+        List<Integer> lastWeekWinningNumber = positiveNumberListInputConsole.read("지난 주 당첨 번호를 입력해 주세요.", ResourceManager.SCANNER);
+        Integer bonusNumber = positiveNumberInputConsole.read("보너스 볼을 입력해 주세요.", ResourceManager.SCANNER);
+        lastWeekWinningNumber.add(bonusNumber);
+        return new LastWeekWinningNumberDTO(lastWeekWinningNumber, bonusNumber);
     }
 }
