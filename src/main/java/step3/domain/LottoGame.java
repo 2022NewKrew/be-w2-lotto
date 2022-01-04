@@ -9,28 +9,35 @@ import step3.view.LottoView;
 import java.util.List;
 
 public class LottoGame {
+    private int manualLottosQuantity;
+    private int autoLottosQuantity;
     private LottoView lottoView;
 
     public void start() {
-        int manualLottosQuantity = makeLottoView();
-        lottoView.printLottos(manualLottosQuantity);
+        insertQuantities();
+        initLottoView();
+        printInfosWithResult();
+    }
+
+    private void insertQuantities() {
+        int lottosQuantity = LottoView.askMoneyForBuyLottos();
+        this.manualLottosQuantity = LottoView.askManualLottosQuantity(lottosQuantity);
+        this.autoLottosQuantity = lottosQuantity - manualLottosQuantity;
+    }
+
+    private void initLottoView() {
+        List<Lotto> manualLottos = LottoView.askManualLottos(this.manualLottosQuantity);
+        Lottos lottos = new Lottos(manualLottos, this.autoLottosQuantity);
+        this.lottoView = new LottoView(lottos);
+    }
+
+    private void printInfosWithResult() {
+        lottoView.printLottos(this.manualLottosQuantity);
 
         Result result = lottoView.askResult();
         BonusNumber bonusNumber = lottoView.askBonusNumber(result);
 
         lottoView.printMatches(result, bonusNumber);
         lottoView.printEarningRate();
-    }
-
-    private int makeLottoView() {
-        int lottosQuantity = LottoView.askMoneyForBuyLottos();
-        int manualLottosQuantity = LottoView.askManualLottosQuantity(lottosQuantity);
-        int autoLottosQuantity = lottosQuantity - manualLottosQuantity;
-
-        List<Lotto> manualLottos = LottoView.askManualLottos(manualLottosQuantity);
-        Lottos lottos = new Lottos(manualLottos, autoLottosQuantity);
-        this.lottoView = new LottoView(lottos);
-
-        return manualLottosQuantity;
     }
 }
