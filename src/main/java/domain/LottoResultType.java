@@ -11,16 +11,16 @@ public enum LottoResultType {
     SIX_MATCH(6, 2000000000);
 
     public static final int MIN_MATCH_NUMBER_COUNT = 3;
-    private final int matchNumberCount;
+    private final int matchingNumberCount;
     private final int money;
 
-    LottoResultType(int matchNumberCount, int money) {
-        this.matchNumberCount = matchNumberCount;
+    LottoResultType(int matchingNumberCount, int money) {
+        this.matchingNumberCount = matchingNumberCount;
         this.money = money;
     }
 
-    public int getMatchNumberCount() {
-        return matchNumberCount;
+    public int getMatchingNumberCount() {
+        return matchingNumberCount;
     }
 
     public int getMoney() {
@@ -29,7 +29,7 @@ public enum LottoResultType {
 
     public static LottoResultType getLottoResultType(int matchNumberCount) {
         return Arrays.stream(LottoResultType.values())
-                .filter(lottoResultType -> lottoResultType.getMatchNumberCount() == matchNumberCount)
+                .filter(lottoResultType -> lottoResultType.getMatchingNumberCount() == matchNumberCount)
                 .collect(Collectors.toList())
                 .get(0);
     }

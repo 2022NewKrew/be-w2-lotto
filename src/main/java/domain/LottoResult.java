@@ -8,7 +8,7 @@ public class LottoResult {
 
     private final int ZERO = 0;
     private final int purchasePrice;
-    private final Map<LottoResultType, Integer> matchResult = new HashMap<>();
+    private final Map<LottoResultType, Integer> matchingResult = new HashMap<>();
 
 
     public LottoResult(LottoTicket winningTicket, List<LottoTicket> lottoTickets, int purchasePrice) {
@@ -22,18 +22,18 @@ public class LottoResult {
     }
 
     public Map<LottoResultType, Integer> getMatchResult() {
-        return matchResult;
+        return matchingResult;
     }
 
     private void initialize() {
         for (LottoResultType resultType : LottoResultType.values()) {
-            matchResult.put(resultType, ZERO);
+            matchingResult.put(resultType, ZERO);
         }
     }
 
     private void increaseMatchingCount(int countOfMatchingNumber) {
         LottoResultType resultType = LottoResultType.getLottoResultType(countOfMatchingNumber);
-        matchResult.computeIfPresent(resultType, (type, number) -> number + 1);
+        matchingResult.computeIfPresent(resultType, (type, number) -> number + 1);
     }
 
     private void compareLottoNumber(LottoTicket winningTicket, List<LottoTicket> lottoTickets) {
@@ -45,10 +45,10 @@ public class LottoResult {
         }
     }
 
-    private int compareWinningNumber(LottoTicket winningTicket, LottoTicket lottoTickets) {
-        return (int) lottoTickets.getTickets()
+    private int compareWinningNumber(LottoTicket winningTicket, LottoTicket lottoTicket) {
+        return (int) lottoTicket.getLottoNumbers()
                 .stream()
-                .filter(lottoNumber -> winningTicket.getTickets().contains(lottoNumber))
+                .filter(lottoNumber -> winningTicket.getLottoNumbers().contains(lottoNumber))
                 .count();
     }
 }

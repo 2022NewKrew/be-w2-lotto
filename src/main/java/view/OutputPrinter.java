@@ -18,7 +18,7 @@ public class OutputPrinter {
 
     public static void printLottoTicketNumbers(LottoTicket lottoTicket, BufferedWriter wr) throws IOException {
         wr.append(LEFT_BRACKET +
-                lottoTicket.getTickets().stream()
+                lottoTicket.getLottoNumbers().stream()
                         .map(lottoNumber -> Integer.toString(lottoNumber.getNumber()))
                         .collect(Collectors.joining(","))
                 + RIGHT_BRACKET + "\n");
@@ -30,10 +30,10 @@ public class OutputPrinter {
         wr.append("------------\n");
     }
 
-    public static void printEachLottoResultType(LottoResultType resultType, int matchCount, BufferedWriter wr) throws IOException {
-        wr.append(resultType.getMatchNumberCount() + "개 일치 (" +
+    public static void printEachLottoResultType(LottoResultType resultType, int matchingCount, BufferedWriter wr) throws IOException {
+        wr.append(resultType.getMatchingNumberCount() + "개 일치 (" +
                 resultType.getMoney()
-                + ") - " + matchCount + "개\n");
+                + ") - " + matchingCount + "개\n");
     }
 
     public static void printLottoProfit(int purchasePrice, int lottoProfit, BufferedWriter wr) throws IOException {
