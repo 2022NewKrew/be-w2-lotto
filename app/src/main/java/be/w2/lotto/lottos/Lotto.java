@@ -6,17 +6,15 @@ import java.util.stream.Collectors;
 
 public class Lotto {
 
-    public static int MIN_NUM_IN_LOTTO = 1;
-    public static int MAX_NUM_IN_LOTTO = 45;
     public static int LENGTH = 6;
 
-    protected List<Integer> numbers;
+    protected List<LottoNumber> numbers;
 
-    public Lotto(List<Integer> numbers) {
+    public Lotto(List<LottoNumber> numbers) {
         this.numbers = Collections.unmodifiableList(numbers);
     }
 
-    public boolean isContain(int target) {
+    public boolean isContain(LottoNumber target) {
         return numbers.contains(target);
     }
 
@@ -35,7 +33,7 @@ public class Lotto {
 
     private void writeContentsTo(StringBuilder sb) {
         List<String> stringOfNumbers = numbers.stream()
-                .map(num -> String.valueOf(num))
+                .map(num -> num.toString())
                 .collect(Collectors.toList());
         sb.append(String.join(", ", stringOfNumbers));
     }

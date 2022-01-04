@@ -1,6 +1,7 @@
 package be.w2.lotto.machines;
 
 import be.w2.lotto.lottos.Lotto;
+import be.w2.lotto.lottos.LottoNumber;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +19,8 @@ public class AutoPurchaseMachine extends PurchaseMachine {
     private Lotto createLottoRandomly() {
         List<Integer> randomNumbers = getListOfRandomNumber(Lotto.LENGTH);
         Collections.sort(randomNumbers);
-        return new Lotto(randomNumbers);
+        List<LottoNumber> lottoNumbers = getLottoNumbersBy(randomNumbers);
+        return new Lotto(lottoNumbers);
     }
 
     private List<Integer> getListOfRandomNumber(int length) {
@@ -30,9 +32,17 @@ public class AutoPurchaseMachine extends PurchaseMachine {
 
     private List<Integer> getListOfMinToMaxNumOfLotto() {
         List<Integer> numbers = new ArrayList<>();
-        for (int i = Lotto.MIN_NUM_IN_LOTTO; i <= Lotto.MAX_NUM_IN_LOTTO; i++) {
+        for (int i = LottoNumber.MIN_NUM_IN_LOTTO; i <= LottoNumber.MAX_NUM_IN_LOTTO; i++) {
             numbers.add(i);
         }
         return numbers;
+    }
+
+    private List<LottoNumber> getLottoNumbersBy(List<Integer> numbers) {
+        List<LottoNumber> lottoNumbers = new ArrayList<>();
+        for(Integer number: numbers) {
+            lottoNumbers.add(LottoNumber.of(number));
+        }
+        return lottoNumbers;
     }
 }
