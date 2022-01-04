@@ -22,12 +22,14 @@ public class WinningMatchResult {
             WinningLottoTicket winningLottoTicket,
             BonusNumber bonusNumber
     ) {
-        int count = countMatching(reward, lottoTickets, winningLottoTicket, bonusNumber);
+        int count = countMatchingResult(reward, lottoTickets, winningLottoTicket, bonusNumber);
         return new WinningMatchResult(reward, count);
     }
 
     public BigInteger calculateProfit() {
-        return BigInteger.valueOf(reward).multiply(BigInteger.valueOf(count));
+        BigInteger reward = BigInteger.valueOf(this.reward);
+        BigInteger count = BigInteger.valueOf(this.count);
+        return reward.multiply(count);
     }
 
     public int getMatchedNumber() {
@@ -46,15 +48,15 @@ public class WinningMatchResult {
         return isBonusRound;
     }
 
-    private static int countMatching(
+    private static int countMatchingResult(
             Reward reward,
             LottoTickets lottoTickets,
             WinningLottoTicket winningLottoTicket,
             BonusNumber bonusNumber
     ) {
-        return (int) lottoTickets.getLottoTickets().stream()
+        return Long.valueOf(lottoTickets.getLottoTickets().stream()
                 .filter(lottoTicket -> matchesByMatchedNumber(reward, lottoTicket, winningLottoTicket, bonusNumber))
-                .count();
+                .count()).intValue();
     }
 
     private static boolean matchesByMatchedNumber(
@@ -67,12 +69,11 @@ public class WinningMatchResult {
         List<Integer> listedWinningTicket = winningLottoTicket.getLottoNumbers();
 
         boolean ticketContainsBonus = bonusNumber.isContainedIn(listedTicket);
-        listedTicket.retainAll(listedWinningTicket);
-
         if (reward.isBonus() && !ticketContainsBonus) {
             return false;
         }
 
+        listedTicket.retainAll(listedWinningTicket);
         return reward.hasSameMatchedNumber(listedTicket.size());
     }
 }

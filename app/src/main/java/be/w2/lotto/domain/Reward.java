@@ -1,5 +1,6 @@
 package be.w2.lotto.domain;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 public enum Reward {
@@ -15,9 +16,9 @@ public enum Reward {
         this.reward = reward;
     }
 
-    public final int matchedNumber;
-    public final boolean isBonus;
-    public final int reward;
+    private final int matchedNumber;
+    private final boolean isBonus;
+    private final int reward;
 
     public static Stream<Reward> stream() {
         return Stream.of(Reward.values());

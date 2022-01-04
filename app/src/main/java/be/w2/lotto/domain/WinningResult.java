@@ -35,7 +35,9 @@ public class WinningResult {
         return winningMatchResults;
     }
 
-    private static BigInteger calculateProfitRate(List<WinningMatchResult> winningMatchResults, int purchaseAmount) {
+    private static BigInteger calculateProfitRate(List<WinningMatchResult> winningMatchResults, int purchaseAmount)
+            throws NoSuchElementException, ArithmeticException
+    {
         BigInteger profitSum = winningMatchResults.stream()
                 .map(WinningMatchResult::calculateProfit)
                 .reduce(BigInteger::add).orElseThrow(NoSuchElementException::new);
@@ -52,14 +54,14 @@ public class WinningResult {
             WinningLottoTicket winningLottoTicket,
             BonusNumber bonusNumber
     ) {
-
         return Reward.stream()
                 .map(reward -> WinningMatchResult.valueOf(
                         reward,
                         lottoTickets,
                         winningLottoTicket,
                         bonusNumber
-                )).collect(Collectors.toList());
+                ))
+                .collect(Collectors.toList());
     }
 
     private static final BigInteger MULTIPLY_BY_PERCENTAGE = BigInteger.valueOf(100);
