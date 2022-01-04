@@ -20,10 +20,10 @@ public class UserInterface {
         System.out.println(str);
     }
 
-    public void printStatistics(List<List<Integer>> statistics) {
+    public void printStatistics(List<List<String>> statistics) {
         printString("당첨 통계\n----------");
-        for (List<Integer> statistic : statistics)
-            printString(String.format("%d개 일치 (%d원) - %d개", statistic.get(0), statistic.get(1), statistic.get(2)));
+        for (List<String> statistic : statistics)
+            printString(String.format("%s - %s개", statistic.get(0), statistic.get(1)));
     }
 
     public void queryBuyMoney() {
@@ -36,6 +36,10 @@ public class UserInterface {
 
     public void queryLastNumber() {
         printString("지난 주 당첨 번호를 입력해주세요.");
+    }
+
+    public void queryBonusNumber(){
+        printString("보너스 볼을 입력해 주세요.");
     }
 
     public void printBenefit(int benefit) {

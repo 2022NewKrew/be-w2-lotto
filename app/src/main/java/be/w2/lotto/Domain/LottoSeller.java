@@ -9,7 +9,7 @@ public class LottoSeller {
         this.lottoMaker = lottoMaker;
     }
 
-    LottoTickets sell(Money money) {
+    public LottoTickets sell(Money money) {
         int amount = money.calculateAmount(LottoTicket.PRICE);
         LottoTickets lottoTickets = new LottoTickets(amount, lottoMaker);
         return lottoTickets;
