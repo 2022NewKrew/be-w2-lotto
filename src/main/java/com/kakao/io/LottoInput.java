@@ -1,12 +1,16 @@
 package com.kakao.io;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.kakao.exception.PickedNumberException;
+=======
+>>>>>>> 4f43f8b (1차 Commit)
 import com.kakao.helper.TextHelper;
 import com.kakao.data.io.LottoInputData;
 import com.kakao.exception.PickedNumbersFormatException;
 import com.kakao.model.LottoWinning;
 
+<<<<<<< HEAD
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -16,12 +20,20 @@ class LottoInput {
     private LottoInput() {}
 
 =======
+=======
+>>>>>>> 4f43f8b (1차 Commit)
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.List;
 
 class LottoInput {
+<<<<<<< HEAD
 >>>>>>> edb2074 (1일차 중간 PR)
+=======
+    private LottoInput() {}
+
+>>>>>>> 4f43f8b (1차 Commit)
     private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
     public static Integer inputMoney() {
@@ -59,5 +71,18 @@ class LottoInput {
             return money;
         }
 >>>>>>> edb2074 (1일차 중간 PR)
+    }
+
+    public static LottoWinning inputWinning() {
+        LottoWinning lottoWinning = null;
+        try {
+            List<String> strList = TextHelper.seperateString(br.readLine(), LottoInputData.REQUEST_SEPERATOR_OF_WINNING);
+            List<Integer> winningList = TextHelper.convertListType(strList, Integer::parseInt);
+            lottoWinning = new LottoWinning(winningList);
+        } catch (IOException | NumberFormatException | PickedNumbersFormatException e) {
+            e.printStackTrace();
+        } finally {
+            return lottoWinning;
+        }
     }
 }

@@ -6,9 +6,12 @@ import com.kakao.exception.PickedNumbersFormatException;
 
 import java.util.ArrayList;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import java.util.Collections;
 >>>>>>> edb2074 (1일차 중간 PR)
+=======
+>>>>>>> 4f43f8b (1차 Commit)
 import java.util.List;
 
 public class Lottos {
@@ -60,6 +63,7 @@ public class Lottos {
         } finally {
             return newLotto;
 <<<<<<< HEAD
+<<<<<<< HEAD
         }
     }
 
@@ -83,6 +87,27 @@ public class Lottos {
         }}
 
 >>>>>>> edb2074 (1일차 중간 PR)
+=======
+        }
+    }
+
+    // 로또의 당첨 등수 확인
+    public List<Integer> matchLottosAreWinning(LottoWinning lottoWinning) {
+        List<Integer> countOfWinningLottos = new ArrayList<>();
+        for(int i=0; i<=LottoData.NUMBER_OF_PICK; i++) {
+            countOfWinningLottos.add(0);
+        }
+        for(Lotto lotto: this.lottoList) {
+            int winningNumber = lotto.matchNumberIsWinning(lottoWinning);
+            updateCountOfWinningLottos(countOfWinningLottos, winningNumber);
+        }
+        return countOfWinningLottos;
+    }
+    private void updateCountOfWinningLottos(List<Integer> countOfWinningLottos, int winningNumber) {
+        int countOfWinningNumber = countOfWinningLottos.get(winningNumber);
+        countOfWinningLottos.set(winningNumber, countOfWinningNumber+1);
+    }
+>>>>>>> 4f43f8b (1차 Commit)
 
     // getter
     public List<Lotto> getLottoList() {

@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Lotto {
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     private List<Integer> pickedNumbersOfLotto;
 
@@ -18,14 +19,22 @@ public class Lotto {
     private void checkFormatOfPickedNumbers(List<Integer> pickedNumbersOfLotto) throws PickedNumbersFormatException {
 =======
     // innerClass
+=======
+
+>>>>>>> 4f43f8b (1차 Commit)
     private List<Integer> pickedNumbersOfLotto;
+
     Lotto(List<Integer> pickedNumbersOfLotto) throws PickedNumbersFormatException {
-        checkFormatOfOPickedNumbers(pickedNumbersOfLotto);
+        checkFormatOfPickedNumbers(pickedNumbersOfLotto);
         this.pickedNumbersOfLotto = pickedNumbersOfLotto;
     }
 
+<<<<<<< HEAD
     private void checkFormatOfOPickedNumbers(List<Integer> pickedNumbersOfLotto) throws PickedNumbersFormatException {
 >>>>>>> edb2074 (1일차 중간 PR)
+=======
+    private void checkFormatOfPickedNumbers(List<Integer> pickedNumbersOfLotto) throws PickedNumbersFormatException {
+>>>>>>> 4f43f8b (1차 Commit)
         if(pickedNumbersOfLotto == null || pickedNumbersOfLotto.size() != LottoData.NUMBER_OF_PICK) {
             // 데이터가 안들어오거나, 크기가 불일치하면 에러
             throw new PickedNumbersFormatException();
@@ -33,6 +42,9 @@ public class Lotto {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4f43f8b (1차 Commit)
     // 당첨여부 확인
     public int matchNumberIsWinning(LottoWinning lottoWinning) {
         // 당첨번호, 매치여부를 확인할 숫자
@@ -49,8 +61,11 @@ public class Lotto {
         return matchCount;
     }
 
+<<<<<<< HEAD
 =======
 >>>>>>> edb2074 (1일차 중간 PR)
+=======
+>>>>>>> 4f43f8b (1차 Commit)
     private final String TO_STRING_OPENER = "[";
     private final String TO_STRING_CLOSER = "]";
     private final String TO_STRING_SEPARATOR = ",";

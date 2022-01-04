@@ -11,11 +11,16 @@ import java.util.stream.Stream;
 
 public class LottoData {
 <<<<<<< HEAD
+<<<<<<< HEAD
     private LottoData(){}
 
     public static final int PRICE_OF_LOTTO = 1000; // 가격
     public static final int NUMBER_OF_PICK = 6; // 선택할 숫자의 갯수
 =======
+=======
+    private LottoData(){}
+
+>>>>>>> 4f43f8b (1차 Commit)
     public static final int PRICE_OF_LOTTO = 1000; // 가격
     public static final int NUMBER_OF_PICK = 6; // 선택할 숫자의 갯수
     public static final int MIN_PRICE_RANGE = 0; // 최소 허용가격

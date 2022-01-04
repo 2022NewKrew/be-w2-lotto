@@ -1,15 +1,22 @@
 package com.kakao.io;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.kakao.data.MatchBall;
+=======
+import com.kakao.data.LottoWinningData;
+>>>>>>> 4f43f8b (1차 Commit)
 import com.kakao.data.io.LottoOutputData;
 import com.kakao.model.Lotto;
 import com.kakao.model.LottoWinning;
 import com.kakao.model.LottoWinningReward;
+<<<<<<< HEAD
 =======
 import com.kakao.data.io.LottoOutputData;
 import com.kakao.model.Lotto;
 >>>>>>> edb2074 (1일차 중간 PR)
+=======
+>>>>>>> 4f43f8b (1차 Commit)
 import com.kakao.model.Lottos;
 
 import java.io.BufferedWriter;
@@ -19,10 +26,15 @@ import java.util.List;
 
 class LottoOutput {
 <<<<<<< HEAD
+<<<<<<< HEAD
     private LottoOutput() {}
 
 =======
 >>>>>>> edb2074 (1일차 중간 PR)
+=======
+    private LottoOutput() {}
+
+>>>>>>> 4f43f8b (1차 Commit)
     private static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
     public static void printString (String str) {
@@ -61,6 +73,9 @@ class LottoOutput {
         }
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4f43f8b (1차 Commit)
 
     // winning 정보 출력
     public static void printLottoWinning(Integer moneyToBuyLotto, Lottos lottos, LottoWinning lottoWinning){
@@ -83,6 +98,7 @@ class LottoOutput {
     // 당첨 결과 출력
     private static List<Integer> appendWinningResult(StringBuilder sb, Lottos lottos, LottoWinning lottoWinning) {
         List<Integer> countOfWinningLottos = lottos.matchLottosAreWinning(lottoWinning);
+<<<<<<< HEAD
         for(MatchBall matchBall: MatchBall.values()){
             sb.append(appendEachWinningResult(matchBall, countOfWinningLottos));
         }
@@ -90,6 +106,14 @@ class LottoOutput {
     }
     private static String appendEachWinningResult(MatchBall matchBall, List<Integer> countOfWinningLottos) {
         LottoWinningReward winningReward = matchBall.getLottoWinningReward();
+=======
+        for(LottoWinningReward winningReward: LottoWinningData.lottoWinningRewards){
+            sb.append(appendEachWinningResult(winningReward, countOfWinningLottos));
+        }
+        return countOfWinningLottos;
+    }
+    private static String appendEachWinningResult(LottoWinningReward winningReward, List<Integer> countOfWinningLottos) {
+>>>>>>> 4f43f8b (1차 Commit)
         int countOfMatchNumber = winningReward.getCountOfMatchNumber();
         int rewardPrice = winningReward.getRewardPrice();
         int count = countOfWinningLottos.get(countOfMatchNumber);
@@ -100,6 +124,7 @@ class LottoOutput {
     // 이득 비율 출력
     private static String appendYieldRate(Integer moneyToBuyLotto, List<Integer> countOfWinningLottos) {
         int sumOfReward = 0 ;
+<<<<<<< HEAD
         for(MatchBall matchBall: MatchBall.values()) {
             sumOfReward += sumOfWinningReward(matchBall, countOfWinningLottos);
         }
@@ -118,4 +143,17 @@ class LottoOutput {
     }
 =======
 >>>>>>> edb2074 (1일차 중간 PR)
+=======
+        for(LottoWinningReward winningReward: LottoWinningData.lottoWinningRewards) {
+            int countOfMatchNumber = winningReward.getCountOfMatchNumber();
+            int rewardPrice = winningReward.getRewardPrice();
+            int count = countOfWinningLottos.get(countOfMatchNumber);
+
+            sumOfReward += rewardPrice * count;
+        }
+
+        int yeildRate = sumOfReward * 100 / moneyToBuyLotto;
+        return String.format(LottoOutputData.RESULT_FORMAT_OF_YIELD_RATE, yeildRate);
+    }
+>>>>>>> 4f43f8b (1차 Commit)
 }
