@@ -6,6 +6,7 @@ import lotto.domain.LottoStatistic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class LottoOutput {
     LottoRank[] lottoRanks;
@@ -35,7 +36,7 @@ public class LottoOutput {
     public void printWinningStatistic(LottoStatistic lottoStatistic) {
         System.out.println("당첨 통계");
         System.out.println("---------");
-        HashMap<Integer, Long> winningCountMap = lottoStatistic.getWinningCountMap();
+        Map<Integer, Long> winningCountMap = lottoStatistic.getWinningCountMap();
         for (LottoRank lottoRank : lottoRanks) {
             System.out.printf("%d개 일치 (%d원)- %d개\n", lottoRank.getMatch(), lottoRank.getMoney(), winningCountMap.get(lottoRank.getMatch()));
         }

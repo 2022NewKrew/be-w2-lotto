@@ -4,6 +4,8 @@ import lotto.constant.LottoRank;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static lotto.constant.LottoConstant.LOTTO_PRICE;
 
@@ -11,8 +13,8 @@ public class LottoStatistic {
     int lottoCount;
     int profitPercentage;
 
-    HashMap<Integer, Long> winningCountMap;
-    ArrayList<Lotto> userLottos;
+    Map<Integer, Long> winningCountMap;
+    List<Lotto> userLottos;
     Lotto pastWinningLotto;
     LottoRank[] lottoRanks;
 
@@ -24,7 +26,7 @@ public class LottoStatistic {
         }
     }
 
-    public void initialize(ArrayList<Lotto> userLottos, Lotto pastWinningLotto) {
+    public void initialize(List<Lotto> userLottos, Lotto pastWinningLotto) {
         this.lottoCount = userLottos.size();
         this.userLottos = userLottos;
         this.pastWinningLotto = pastWinningLotto;
@@ -42,7 +44,7 @@ public class LottoStatistic {
         profitPercentage = (int)((profitTotal - cost) * 100 / cost);
     }
 
-    public HashMap<Integer, Long> getWinningCountMap() {
+    public Map<Integer, Long> getWinningCountMap() {
         return winningCountMap;
     }
 

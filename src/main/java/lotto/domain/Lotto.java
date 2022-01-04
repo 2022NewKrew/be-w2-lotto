@@ -2,6 +2,7 @@ package lotto.domain;
 
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -9,7 +10,7 @@ import static lotto.constant.LottoConstant.LOTTO_LENGTH;
 import static lotto.constant.LottoConstant.LOTTO_MAX_NUM;
 
 public class Lotto {
-    ArrayList<Integer> lottoNumbers;
+    List<Integer> lottoNumbers;
     Random random;
 
     public Lotto() {
@@ -38,14 +39,14 @@ public class Lotto {
     }
 
     public void initialize(String originalLottoString) {
-        ArrayList<String> lottoStrings = new ArrayList<String>(Arrays.asList(originalLottoString.replace(" ", "").split(",")));
+        List<String> lottoStrings = new ArrayList<String>(Arrays.asList(originalLottoString.replace(" ", "").split(",")));
 //        System.out.println(lottoStrings);
         for (String lottoString : lottoStrings) {
             lottoNumbers.add(Integer.parseInt(lottoString));
         }
     }
 
-    public ArrayList<Integer> getLottoNumbers() {
+    public List<Integer> getLottoNumbers() {
         return lottoNumbers;
     }
 }
