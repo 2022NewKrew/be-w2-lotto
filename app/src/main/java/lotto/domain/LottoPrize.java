@@ -9,6 +9,7 @@ public enum LottoPrize {
 
     private final int reward;
     private final String msg;
+
     LottoPrize(int reward, String msg) {
         this.reward = reward;
         this.msg = msg;

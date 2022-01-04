@@ -21,11 +21,10 @@ public class OutputView {
         }
     }
 
-    public static void printResult(Map<Integer, Integer> result) {
+    public static void printResult(Map<LottoPrize, Integer> result) {
         System.out.println("당첨 통계\n-------");
-        for(Integer key : result.keySet()) {
-            LottoPrize lottoPrize = LottoPrize.of(key);
-            System.out.println(lottoPrize.getMessage() + " (" + lottoPrize.getReward()+ "원)- " + result.get(key) + "개");
+        for(LottoPrize lottoPrize : result.keySet()) {
+            System.out.println(lottoPrize.getMessage() + " (" + lottoPrize.getReward()+ "원)- " + result.get(lottoPrize) + "개");
         }
     }
 

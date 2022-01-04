@@ -15,12 +15,12 @@ import java.util.Map;
 public class LottoBuyer {
     private static final int LOTTO_PRICE = 1000;
     private final List<Lotto> lottoList = new ArrayList<>();                // 구매한 로또 리스트
-    private final Map<Integer, Integer> result = new HashMap<>(Map.of(      // key : 맞은 개수, value : 일치하는 숫자가 key개인 로또 개수
-            3,0,
-            4,0,
-            5,0,
-            6,0,
-            7,0
+    private final Map<LottoPrize, Integer> result = new HashMap<>(Map.of(      // key : 맞은 개수, value : 일치하는 숫자가 key개인 로또 개수
+            LottoPrize.FIFTH_PLACE,0,
+            LottoPrize.FOURTH_PLACE,0,
+            LottoPrize.THIRD_PLACE,0,
+            LottoPrize.SECOND_PLACE,0,
+            LottoPrize.FIRST_PLACE,0
     ));
     private int purchaseAmount; // 구매 금액
 
@@ -64,13 +64,13 @@ public class LottoBuyer {
 
     private void putResult(final int matchCount) {
         if(matchCount < 3) return;
-        result.put(matchCount, result.get(matchCount) + 1);
+        result.put(LottoPrize.of(matchCount), result.get(LottoPrize.of(matchCount)) + 1);
     }
 
     private int totalReward() {
         int totalReward = 0;
-        for(Integer key : result.keySet()){
-            totalReward += result.get(key) * LottoPrize.of(key).getReward();
+        for(LottoPrize lottoPrize : result.keySet()){
+            totalReward += result.get(lottoPrize) * lottoPrize.getReward();
         }
         return totalReward;
     }
