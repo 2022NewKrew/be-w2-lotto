@@ -21,6 +21,10 @@ public class Buyer {
         return buyingLottos;
     }
 
+    public Price getEarningPrice() {
+        return earningPrice;
+    }
+
     public Yield getYield() {
         return yield;
     }
@@ -31,11 +35,11 @@ public class Buyer {
     }
 
     //로또를 통해 번 돈 계산
-    public void calculateEarningPrice(List<Integer> hittingTable, int minHittingCnt, int maxHittingCnt) {
+    public void calculateEarningPrice(List<Integer> hittingTable, int highestRank, int lowestRank) {
         int totalPrice = 0;
 
-        for (int i = minHittingCnt; i <= maxHittingCnt; i++) {
-            int priceOfHitting = Winning.priceOfHitting(i);
+        for (int i = highestRank; i <= lowestRank; i++) {
+            int priceOfHitting = Winning.priceOfRank(i);
 
             totalPrice += priceOfHitting * hittingTable.get(i);
         }
@@ -45,7 +49,7 @@ public class Buyer {
 
     //슈익률 계산
     public void calculateYied() {
-        double result = (double) earningPrice.getPrice() / (double) buyingPrice.getPrice() * 100;
+        double result = (double) earningPrice.getValue() / (double) buyingPrice.getValue() * 100;
         yield = new Yield((int) result);
     }
 

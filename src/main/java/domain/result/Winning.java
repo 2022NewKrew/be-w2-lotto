@@ -1,41 +1,70 @@
 package domain.result;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public enum Winning {
-    FIRST_WINNING(6, 2000000000), //1등
-    SECOND_WINNING(5, 1500000), //2등
-    THIRD_WINNING(4, 50000), //3등
-    FOURTH_WINNING(3, 5000), //4등
-    FIFTH_WINNING(2, 0), //5등
-    SIXTH_WINNING(1, 0), //6등
-    SEVENTH_WINNING(0, 0); //7등
+    FIRST_WINNING(1, 6, 0, 2_000_000_000),
+    SECOND_WINNING(2, 5, 1, 1_500_000),
+    THIRD_WINNING(3, 5, 0, 1_500_000),
+    FOURTH_WINNING(4, 4, 0, 50_000),
+    FIFTH_WINNING(5, 3, 0, 5_000),
+    SIXTH_WINNING(6, 2, 0, 0),
+    SEVENTH_WINNING(7, 1, 0, 0),
+    EIGHTH_WINNING(8, 0, 0, 0);
 
-    private static final Map<Integer, Integer> HITTING_PRICE;
+    private static final Map<Integer, Integer> RANK_PRICE;
+    private static final Map<Integer, Integer> RANK_HITTING;
 
     static {
-        HITTING_PRICE = new HashMap<>();
+        RANK_PRICE = new HashMap<>();
+        RANK_HITTING = new HashMap<>();
 
-        for(Winning e : values()) {
-            HITTING_PRICE.put(e.hittingCnt, e.winningPrice);
+        for (Winning e : values()) {
+            RANK_PRICE.put(e.rank, e.winningPrice);
+            RANK_HITTING.put(e.rank, e.hittingCnt);
         }
     }
 
+    private final int rank;
     private final int hittingCnt;
+    private final int bonusCnt;
     private final int winningPrice;
 
-
-    Winning(int hittingCnt, int winningPrice) {
+    Winning(int rank, int hittingCnt, int bonusCnt, int winningPrice) {
+        this.rank = rank;
         this.hittingCnt = hittingCnt;
+        this.bonusCnt = bonusCnt;
         this.winningPrice = winningPrice;
     }
 
-    public static int priceOfHitting(int hittingCnt) {
-        return HITTING_PRICE.get(hittingCnt);
+    public static int priceOfRank(int rank) {
+        return RANK_PRICE.get(rank);
     }
 
-    public int getHittingCnt() {
-        return hittingCnt;
+    public static int hittingCntOfRank(int rank) {
+        return RANK_HITTING.get(rank);
     }
+
+    public static int rankOfHitting(int hittingCnt, int bonusCnt) {
+        int rank = Arrays.stream(values())
+                .filter(e -> e.hittingCnt == hittingCnt)
+                .map(e -> e.rank)
+                .findFirst()
+                .get();
+        if (rank == THIRD_WINNING.rank && bonusCnt == 1) {
+            return SECOND_WINNING.rank;
+        }
+
+        if (rank > SIXTH_WINNING.rank) {
+            return SIXTH_WINNING.rank;
+        }
+        return rank;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
 }

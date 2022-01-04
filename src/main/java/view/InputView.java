@@ -28,6 +28,14 @@ public class InputView {
         return price;
     }
 
+    public int inputBonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        int bonusNumber = scanner.nextInt();
+        scanner.nextLine(); //버퍼 비우기
+
+        return bonusNumber;
+    }
+
     public List<Integer> inputLastWinningNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         String str = scanner.nextLine();

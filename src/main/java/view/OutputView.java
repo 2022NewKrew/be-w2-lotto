@@ -2,12 +2,9 @@ package view;
 
 import domain.buyer.Yield;
 import domain.lotto.Lotto;
-import domain.lotto.Number;
-import domain.result.Result;
 import domain.result.Winning;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class OutputView {
     public static class LazyHolder {
@@ -23,34 +20,34 @@ public class OutputView {
 
     public void showLottoNumbers(List<Lotto> lottos) {
         lottos.stream()
-                .map(this::convertLottoNumber)
+                .map(Lotto::lottoNumberToString)
                 .forEach(System.out::println);
     }
 
-    public String convertLottoNumber(Lotto lotto) {
-        return lotto.getLottoNumbers()
-                .stream()
-                .map(Number::getNumber)
-                .map(n -> Integer.toString(n))
-                .collect(Collectors.joining(", ", "[", "]"));
+    public void completeBuying(int cnt) {
+        System.out.println(cnt + "개를 구매했습니다.");
     }
 
     public void showTotalHitting(List<Integer> hittingTable, int startIdx, int endIdx, Yield yield) {
         System.out.println("당첨 통계");
         System.out.println("----------");
-        for (int i = startIdx; i <= endIdx; i++) {
-            System.out.print(i + "개 일치 ");
-            System.out.print("(" + Winning.priceOfHitting(i) + "원)");
-            System.out.println("- " + hittingTable.get(i) + "개");
+        for (int i = startIdx; i >= endIdx; i--) {
+            showRankPriceInfo(i, hittingTable.get(i));
         }
         showYield(yield);
     }
 
-    public void showYield(Yield yield) {
-        System.out.println("총 수익률은 " + yield.getYield() + "%입니다.");
+    private void showRankPriceInfo(int rank, int cnt) {
+        int hittingCnt = Winning.hittingCntOfRank(rank);
+        int price = Winning.priceOfRank(rank);
+
+        System.out.println(hittingCnt + "개 일치" +
+                (rank == 2 ? ",보너스 볼 일치" : " ") +
+                "(" + price + "원)" +
+                "- " + cnt + "개");
     }
 
-    public void completeBuying(int cnt) {
-        System.out.println(cnt + "개를 구매했습니다.");
+    private void showYield(Yield yield) {
+        System.out.println("총 수익률은 " + yield.getPercent() + "%입니다.");
     }
 }
