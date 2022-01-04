@@ -7,9 +7,11 @@ import java.util.stream.Collectors;
 
 public class WinningLottery {
     private final Set<Integer> drawnNumbers;
+    private int bonusNumber;
 
-    public WinningLottery(Set<Integer> drawnNumber) {
+    public WinningLottery(Set<Integer> drawnNumber, int bonusNumber) {
         this.drawnNumbers = Collections.unmodifiableSet(drawnNumber);
+        this.bonusNumber = bonusNumber;
     }
 
     public List<Rank> checkRank(List<Lottery> lotteries) {
@@ -20,6 +22,7 @@ public class WinningLottery {
 
     public Rank checkRank(Lottery lottery) {
         int matchCount = lottery.calculateMatchCount(this.drawnNumbers);
-        return Rank.valueOf(matchCount);
+        boolean bonusMatched = lottery.contains(this.bonusNumber);
+        return Rank.valueOf(matchCount, bonusMatched);
     }
 }

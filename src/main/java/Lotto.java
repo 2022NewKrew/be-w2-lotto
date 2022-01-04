@@ -5,6 +5,7 @@ import view.InputView;
 import view.OutputView;
 
 import java.util.List;
+import java.util.Set;
 
 public class Lotto {
     private static final int LOTTERY_NUMBER_START = 1;
@@ -27,7 +28,9 @@ public class Lotto {
         List<Lottery> lotteries = LotteryFactory.buildLotteries(lotteryBoughtPrice, lotteryRule);
         outputView.printBoughtLotteries(lotteries);
 
-        WinningLottery winningLottery = new WinningLottery(inputView.getLotteryNumberList());
+        Set<Integer> winningLotteryNumberSet = inputView.getLotteryNumberList();
+        int winningLotteryBonusNumber = inputView.getBonusNumber();
+        WinningLottery winningLottery = new WinningLottery(winningLotteryNumberSet, winningLotteryBonusNumber);
         Result result = Result.of(lotteryBoughtPrice, lotteries, winningLottery);
 
         outputView.printResult(result);

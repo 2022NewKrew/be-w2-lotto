@@ -54,6 +54,25 @@ public class ConsoleInputView implements InputView {
         return lotteryNumberSet;
     }
 
+    @Override
+    public int getBonusNumber() {
+        int bonusNumber = 0;
+
+        System.out.println("보너스 볼을 압력해주세요.");
+        try {
+            String resultString = scanner.nextLine();
+            bonusNumber = Integer.parseInt(resultString);
+            this.validateLotteryNumber(bonusNumber);
+        } catch (IllegalArgumentException exception) {
+            System.err.println(exception.getMessage());
+        } catch (NoSuchElementException | IllegalStateException exception) {
+            System.err.println("입력을 처리할 수 없습니다.");
+            System.exit(1);
+        }
+
+        return bonusNumber;
+    }
+
     private void validateLotteryBuyPrice(int value) throws IllegalArgumentException {
         if (value <= 0 || value % lotteryRule.getLotteryUnitPrice() != 0) {
             throw new IllegalArgumentException(String.format("%d원 단위의 양수만 입력 가능합니다.", lotteryRule.getLotteryUnitPrice()));

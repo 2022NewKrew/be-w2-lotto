@@ -6,4 +6,6 @@ public interface InputView {
     long getLotteryBoughtPrice();
 
     Set<Integer> getLotteryNumberList();
+
+    int getBonusNumber();
 }

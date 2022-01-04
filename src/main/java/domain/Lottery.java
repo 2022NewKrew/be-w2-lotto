@@ -20,4 +20,8 @@ public class Lottery {
         lotteryNumbers.retainAll(drawnNumbers);
         return lotteryNumbers.size();
     }
+
+    public boolean contains(int number) {
+        return lotteryNumbers.contains(number);
+    }
 }
