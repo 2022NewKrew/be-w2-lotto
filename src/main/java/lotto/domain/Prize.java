@@ -3,14 +3,14 @@ package lotto.domain;
 import java.util.Arrays;
 
 public enum Prize {
-    FIRST(2_000_000_000L, 6),
-    SECOND(30_000_000L, 5, true),
-    THIRD(1_500_000L, 5),
-    FOURTH(50_000L, 4),
-    FIFTH(5_000L, 3),
-    SIXTH(0L, 2),
-    SEVENTH(0L, 1),
     NOTHING(0L, 0),
+    SEVENTH(0L, 1),
+    SIXTH(0L, 2),
+    FIFTH(5_000L, 3),
+    FOURTH(50_000L, 4),
+    THIRD(1_500_000L, 5),
+    SECOND(30_000_000L, 5, true),
+    FIRST(2_000_000_000L, 6),
     ;
 
     private final long money;

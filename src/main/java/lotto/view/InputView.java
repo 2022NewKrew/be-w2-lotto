@@ -21,7 +21,7 @@ public class InputView {
     }
 
     public Set<Integer> getWinnerNumbersFromScanner(String prompt) {
-        System.out.println(prompt);
+        System.out.print(prompt);
         Set<Integer> result = new HashSet<>();
         String input;
         while (result.size() < NUMBERS_TO_PICK) {

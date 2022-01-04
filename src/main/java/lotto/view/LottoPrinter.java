@@ -5,6 +5,7 @@ import lotto.domain.LottoShop;
 import lotto.domain.LottoTicket;
 import lotto.domain.Prize;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -28,11 +29,10 @@ public class LottoPrinter {
         System.out.println();
         System.out.println("당첨 통계");
         System.out.println("--------------");
-        long prizeMoneySum = 0L;
-        for (var entry: matchingResult.entrySet()) {
-            Prize prize = entry.getKey();
-            Long occurrence = entry.getValue();
 
+        long prizeMoneySum = 0L;
+        for (Prize prize : Prize.values()) {
+            Long occurrence = matchingResult.getOrDefault(prize, 0L);
             prizeMoneySum += occurrence * prize.getMoney();
             System.out.printf("%s - %d개%n", prize, occurrence);
         }

@@ -23,6 +23,7 @@ public class Main {
         System.out.printf("로또 %d장을 구매했습니다.%n", purchasedTickets.size());
         purchasedTickets.forEach(System.out::println);
 
+        System.out.println();
         Set<Integer> winnerNumber = inputView.getWinnerNumbersFromScanner("당첨 번호를 입력해주세요: ");
         lottoShop.setWinnerNumber(winnerNumber);
         int bonusBall;
