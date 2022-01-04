@@ -3,9 +3,6 @@ package com.kakaocorp.lotto.ui;
 import com.kakaocorp.lotto.model.LottoResult;
 import com.kakaocorp.lotto.model.LottoTicket;
 
-import java.util.List;
-import java.util.Map;
-
 public abstract class LottoView {
 
     protected LottoPresenter presenter;
@@ -15,7 +12,10 @@ public abstract class LottoView {
     }
 
     public abstract void showPaymentPrompt(LottoContext context);
-    public abstract void printLottos(List<LottoTicket> tickets);
+    public abstract void printTicketHeader(int size);
+    public abstract void printTicket(LottoTicket tickets);
     public abstract void showWinningNumbersPrompt(LottoContext context);
-    public abstract void printResults(List<Map.Entry<LottoResult, Integer>> results, int profit);
+    public abstract void printResultHeader();
+    public abstract void printResult(LottoResult result, int count);
+    public abstract void printProfit(int profit);
 }

@@ -7,11 +7,8 @@ import com.kakaocorp.lotto.model.LottoRecord;
 import com.kakaocorp.lotto.model.LottoResult;
 import com.kakaocorp.lotto.model.LottoTicket;
 
-import java.util.AbstractMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class LottoPresenter {
 
@@ -44,22 +41,28 @@ public class LottoPresenter {
         context.setPayment(payment);
         context.setTickets(tickets);
 
-        view.printLottos(tickets);
+        view.printTicketHeader(tickets.size());
+        for (LottoTicket ticket : tickets) {
+            view.printTicket(ticket);
+        }
         view.showWinningNumbersPrompt(context);
     }
 
     public void onWinningNumbersInput(LottoContext context, List<Integer> winningNumbers, int bonusNumber) {
         LottoRecord record = new LottoRecord(Set.copyOf(winningNumbers), bonusNumber);
-        Map<LottoResult, Integer> results = counter.getResults(context.getTickets(), record);
-        float profit = calculator.calculate(context.getPayment(), results);
-        List<Map.Entry<LottoResult, Integer>> ordered = orderResults(results);
-        view.printResults(ordered, ((int) (profit * 100)));
+        for (LottoTicket ticket : context.getTickets()) {
+            counter.count(ticket, record);
+        }
+        float profit = calculator.calculate(context.getPayment(), counter.getTotalGain());
+        view.printResultHeader();
+        counter.forEachOrdered(LottoResult.VALUE_COMPARATOR_ASC, this::printResult);
+        view.printProfit(((int) (profit * 100)));
     }
 
-    private List<Map.Entry<LottoResult, Integer>> orderResults(Map<LottoResult, Integer> results) {
-        return LottoResult.orderWinsByRankAsc()
-                .stream()
-                .map(x -> new AbstractMap.SimpleEntry<>(x, results.get(x)))
-                .collect(Collectors.toList());
+    private void printResult(LottoResult result, int count) {
+        if (result == LottoResult.LOSE) {
+            return;
+        }
+        view.printResult(result, count);
     }
 }

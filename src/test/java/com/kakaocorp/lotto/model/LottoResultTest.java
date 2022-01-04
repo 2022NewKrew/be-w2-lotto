@@ -1,14 +1,12 @@
 package com.kakaocorp.lotto.model;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LottoResultTest {
 
@@ -25,27 +23,6 @@ class LottoResultTest {
     void get(int matches, boolean bonus, LottoResult expected) {
         LottoResult result = LottoResult.get(matches, bonus);
 
-        assertEquals(expected, result);
-    }
-
-    @Test
-    void orderWinsByRankAsc_noLose() {
-        List<LottoResult> result = LottoResult.orderWinsByRankAsc();
-
-        assertFalse(result.contains(LottoResult.LOSE));
-    }
-
-    @Test
-    void orderWinsByRankAsc_ordered() {
-        List<LottoResult> result = LottoResult.orderWinsByRankAsc();
-
-        List<LottoResult> expected = List.of(
-                LottoResult.FIRST,
-                LottoResult.SECOND,
-                LottoResult.THIRD,
-                LottoResult.FOURTH,
-                LottoResult.FIFTH
-        );
         assertEquals(expected, result);
     }
 

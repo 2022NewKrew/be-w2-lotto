@@ -6,56 +6,85 @@ import com.kakaocorp.lotto.model.LottoTicket;
 import com.kakaocorp.lotto.model.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InOrder;
 
-import java.util.List;
-import java.util.Map;
+import java.util.Comparator;
 import java.util.Random;
 import java.util.Set;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.mock;
 
 class ResultCounterTest {
 
+    private static final long RANDOM_SEED = 777L;
+
     private ResultCounter subject;
+    private Rule rule;
 
     @BeforeEach
     void setUp() {
-        subject = new ResultCounter();
-    }
-
-    @Test
-    void getResults() {
-        List<LottoTicket> tickets = getTickets(1234L, 50000);
-        Set<Integer> winningNumbers = Set.of(17, 18, 22, 30, 31, 41);
-        int bonusNumber = 23;
-        LottoRecord record = new LottoRecord(winningNumbers, bonusNumber);
-
-        Map<LottoResult, Integer> result = subject.getResults(tickets, record);
-
-        Map<LottoResult, Integer> expected = Map.of(
-                LottoResult.FIRST, 1,
-                LottoResult.SECOND, 0,
-                LottoResult.THIRD, 5,
-                LottoResult.FOURTH, 72,
-                LottoResult.FIFTH, 1218,
-                LottoResult.LOSE, 48704
-        );
-        assertEquals(expected, result);
-    }
-
-    @SuppressWarnings("SameParameterValue")
-    private List<LottoTicket> getTickets(long randomSeed, int count) {
-        Random random = new Random(randomSeed);
-        Rule rule = new Rule.Builder()
+        Random random = new Random(RANDOM_SEED);
+        rule = new Rule.Builder()
                 .minNumber(1)
                 .maxNumber(45)
                 .numberCount(6)
                 .random(random)
                 .build();
-        return IntStream.range(0, count)
-                .mapToObj(i -> LottoTicket.from(rule))
-                .collect(Collectors.toList());
+        subject = new ResultCounter();
+    }
+
+    @Test
+    void forEachOrdered() {
+        int count = 10;
+        initialize(subject, count);
+        Comparator<LottoResult> comparator = Comparator.comparing(Enum::name);
+
+        @SuppressWarnings("unchecked")
+        BiConsumer<LottoResult, Integer> consumer = mock(BiConsumer.class);
+        subject.forEachOrdered(comparator, consumer);
+
+        InOrder inOrder = inOrder(consumer);
+        inOrder.verify(consumer).accept(LottoResult.FIFTH, 2);
+        inOrder.verify(consumer).accept(LottoResult.FIRST, 0);
+        inOrder.verify(consumer).accept(LottoResult.FOURTH, 0);
+        inOrder.verify(consumer).accept(LottoResult.LOSE, 8);
+        inOrder.verify(consumer).accept(LottoResult.SECOND, 0);
+        inOrder.verify(consumer).accept(LottoResult.THIRD, 0);
+    }
+
+    @Test
+    void getTotalGain() {
+        int count = 10;
+        initialize(subject, count);
+
+        int result = subject.getTotalGain();
+
+        assertEquals(result, 10000);
+    }
+
+    private void initialize(ResultCounter counter, int count) {
+        for (int i = 0; i < count; i++) {
+            LottoTicket ticket = LottoTicket.from(rule);
+            LottoRecord record = getRecord();
+            counter.count(ticket, record);
+        }
+    }
+
+    private LottoRecord getRecord() {
+        Random random = rule.getRandom();
+        int min = rule.getMinNumber();
+        int max = rule.getMaxNumber();
+        Set<Integer> winningNumbers = random
+                .ints(min, max)
+                .distinct()
+                .limit(rule.getNumberCount())
+                .boxed()
+                .collect(Collectors.toSet());
+        int bonusNumber = min + random.nextInt(max);
+        return new LottoRecord(winningNumbers, bonusNumber);
     }
 }

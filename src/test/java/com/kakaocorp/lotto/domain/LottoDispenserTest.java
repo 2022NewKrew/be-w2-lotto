@@ -33,6 +33,7 @@ class LottoDispenserTest {
     @Test
     void purchase_countInt() {
         int count = 5;
+
         List<LottoTicket> result = subject.purchase(count * PRICE);
 
         assertEquals(count, result.size());
@@ -41,6 +42,7 @@ class LottoDispenserTest {
     @Test
     void purchase_countFloat() {
         float count = 5.5f;
+
         List<LottoTicket> result = subject.purchase((int) (count * PRICE));
 
         assertEquals(Math.floor(count), result.size());
