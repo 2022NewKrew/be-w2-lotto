@@ -2,6 +2,7 @@ package lotto.domain;
 
 import lotto.view.View;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -24,6 +25,7 @@ class LottoGameTest {
         MockitoAnnotations.initMocks(this);
     }
 
+    @DisplayName("로또 게임 실행 테스트 - readPurchaseAmountForLotto verify 진행")
     @Test
     void run() {
         // Given

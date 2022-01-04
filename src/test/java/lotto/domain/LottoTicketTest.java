@@ -9,9 +9,9 @@ import java.util.List;
 
 class LottoTicketTest {
 
-    @DisplayName("로또 생성 테스트")
+    @DisplayName("로또 생성시 purchaseAmount에 맞도록 lottoCount가 반환되는 지 테스트")
     @Test
-    void createLotto() {
+    void lotto_PurchaseAmount14000_getLottoCount14() {
         // Given
 
         // When
@@ -23,12 +23,12 @@ class LottoTicketTest {
 
     @DisplayName("로또 개수 get 메소드 테스트")
     @Test
-    void getLottoCount() {
+    void getLottoCount_PurchaseAmount14000_14() {
         // Given
         LottoTicket lotto = new LottoTicket(14000);
 
         // When
-        Integer result = lotto.getLottoCount();
+        int result = lotto.getLottoCount();
 
         //Then
         Assertions.assertEquals(14, result);
@@ -36,7 +36,7 @@ class LottoTicketTest {
 
     @DisplayName("getLottoRows 메소드 테스트")
     @Test
-    void getLottoRows() {
+    void getLottoList_PurchaseAmount14000_ListSize14() {
         // Given
         LottoTicket lotto = new LottoTicket(14000);
 
@@ -49,7 +49,7 @@ class LottoTicketTest {
 
     @DisplayName("로또 전체 가격 조회 메소드 테스트")
     @Test
-    void getWholeLottoPrice() {
+    void getWholeLottoPrice_PurchaseAmount14_14000() {
         // Given
         LottoTicket lotto = new LottoTicket(14000);
 
@@ -60,9 +60,9 @@ class LottoTicketTest {
         Assertions.assertEquals(14000, result);
     }
 
-    @DisplayName("LottoWinningResult get 메소드 테스트 - Nothing이 널인지 확인")
+    @DisplayName("LottoWinningResult get 메소드 테스트 - FOURTH의 WinningCount가 14이하인지 확인")
     @Test
-    void getLottoWinningResultWithNothingEnum() {
+    void getLottoWinningResultWithNothingEnum_PurchaseAmount14000_WinningCountUnder14() {
         // Given
         LottoTicket lotto = new LottoTicket(14000);
         List<Integer> winningNumbers = new ArrayList<>();

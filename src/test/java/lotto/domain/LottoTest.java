@@ -9,9 +9,9 @@ import java.util.List;
 
 class LottoTest {
 
-    @DisplayName("로또 한줄 생성 테스트")
+    @DisplayName("로또 한줄 생성 테스트 - lottoNumbers 크기가 6인지 확인")
     @Test
-    void createLotto() {
+    void createLotto_CreateLotto_NumbersSize6() {
         // Given
 
         // When
@@ -21,9 +21,9 @@ class LottoTest {
         Assertions.assertEquals(6, lotto.getLottoNumbers().size());
     }
 
-    @DisplayName("LottoNumbers get 메소드 테스트")
+    @DisplayName("LottoNumbers get 메소드 테스트 - lottoNumbers 크기가 6인지 확인")
     @Test
-    void getLottoNumbers() {
+    void getLottoNumbers_CreateLotto_NumbersSize6() {
         // Given
         Lotto lotto = new Lotto();
 
@@ -34,9 +34,9 @@ class LottoTest {
         Assertions.assertEquals(6, lottoNumbers.size());
     }
 
-    @DisplayName("로또 등급 get 메소드 테스트")
+    @DisplayName("로또 등급 get 메소드 테스트 - winningRating이 Enum의 상태에 속하는지 확인")
     @Test
-    void getWinningRating() {
+    void getWinningRating_WinningNumber123456_ResultCompareListContainWinningRating() {
         // Given
         Lotto lotto = new Lotto();
         List<Integer> winningNumbers = new ArrayList<>();

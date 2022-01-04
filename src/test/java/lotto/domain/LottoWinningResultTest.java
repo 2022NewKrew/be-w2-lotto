@@ -9,9 +9,9 @@ import java.util.List;
 
 class LottoWinningResultTest {
 
-    @DisplayName("LottoWinningResult 생성 테스트")
+    @DisplayName("LottoWinningResult 생성 테스트 - FOURTH의 winningCount 개수가 1개 이하가 True")
     @Test
-    void makeLottoWinningResult() {
+    void makeLottoWinningResult_WinningNumbers123456_WinningCountUnder1() {
         // Given
         List<Integer> winningNumbers = new ArrayList<>();
         winningNumbers.add(1);

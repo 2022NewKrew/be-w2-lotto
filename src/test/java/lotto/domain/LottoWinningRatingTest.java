@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 
 class LottoWinningRatingTest {
 
-    @DisplayName("getMatchingCount 테스트 - FIRST 인경우")
+    @DisplayName("getMatchingCount 테스트 - FIRST 인경우 6을 반환")
     @Test
-    void getMatchCountWithFirst() {
+    void getMatchCount_FIRST_6() {
         // Given
         LottoWinningRating lottoWinningRating = LottoWinningRating.FIRST;
 
@@ -19,9 +19,9 @@ class LottoWinningRatingTest {
         Assertions.assertEquals(6, matchCount);
     }
 
-    @DisplayName("getMatchingCount 테스트 - SECOND 인경우")
+    @DisplayName("getMatchingCount 테스트 - SECOND 인경우 5를 반환")
     @Test
-    void getMatchCountWithSecond() {
+    void getMatchCount_SECOND_5() {
         // Given
         LottoWinningRating lottoWinningRating = LottoWinningRating.SECOND;
 
@@ -32,9 +32,9 @@ class LottoWinningRatingTest {
         Assertions.assertEquals(5, matchCount);
     }
 
-    @DisplayName("getMatchingCount 테스트 - THIRD 인경우")
+    @DisplayName("getMatchingCount 테스트 - THIRD 인경우 4를 반환")
     @Test
-    void getMatchCountWithThird() {
+    void getMatchCount_THIRD_4() {
         // Given
         LottoWinningRating lottoWinningRating = LottoWinningRating.THIRD;
 
@@ -45,9 +45,9 @@ class LottoWinningRatingTest {
         Assertions.assertEquals(4, matchCount);
     }
 
-    @DisplayName("getMatchingCount 테스트 - FOURTH 인경우")
+    @DisplayName("getMatchingCount 테스트 - FOURTH 인경우 3을 반환")
     @Test
-    void getMatchCountWithFourth() {
+    void getMatchCount_FOURTH_3() {
         // Given
         LottoWinningRating lottoWinningRating = LottoWinningRating.FOURTH;
 
@@ -59,9 +59,9 @@ class LottoWinningRatingTest {
 
     }
 
-    @DisplayName("getMatchingCount 테스트 - NOTHING 인경우")
+    @DisplayName("getMatchingCount 테스트 - NOTHING 인경우 0을 반환")
     @Test
-    void getMatchCountWithNothing() {
+    void getMatchCount_NOTHING_0() {
         // Given
         LottoWinningRating lottoWinningRating = LottoWinningRating.NOTHING;
 
@@ -72,9 +72,9 @@ class LottoWinningRatingTest {
         Assertions.assertEquals(0, matchCount);
     }
 
-    @DisplayName("getWinningMoney 테스트 - FIRST인 경우")
+    @DisplayName("getWinningMoney 테스트 - FIRST인 경우 2,000,000,000을 반환")
     @Test
-    void getWinningMoneyWithFirst() {
+    void getWinningMoney_First_2000000000() {
         // Given
         LottoWinningRating lottoWinningRating = LottoWinningRating.FIRST;
 
@@ -82,12 +82,12 @@ class LottoWinningRatingTest {
         long winningMoney = lottoWinningRating.getWinningMoney();
 
         // Then
-        Assertions.assertEquals(2000000000, winningMoney);
+        Assertions.assertEquals(2_000_000_000, winningMoney);
     }
 
-    @DisplayName("getWinningMoney 테스트 - SECOND인 경우")
+    @DisplayName("getWinningMoney 테스트 - SECOND인 경우 1,500,000을 반환")
     @Test
-    void getWinningMoneyWithSecond() {
+    void getWinningMoney_Second_1500000() {
         // Given
         LottoWinningRating lottoWinningRating = LottoWinningRating.SECOND;
 
@@ -95,13 +95,13 @@ class LottoWinningRatingTest {
         long winningMoney = lottoWinningRating.getWinningMoney();
 
         // Then
-        Assertions.assertEquals(1500000, winningMoney);
+        Assertions.assertEquals(1_500_000, winningMoney);
 
     }
 
-    @DisplayName("getWinningMoney 테스트 - THIRD인 경우")
+    @DisplayName("getWinningMoney 테스트 - THIRD인 경우 50,000을 반환")
     @Test
-    void getWinningMoneyWithThird() {
+    void getWinningMoney_Third_50000() {
         // Given
         LottoWinningRating lottoWinningRating = LottoWinningRating.THIRD;
 
@@ -109,13 +109,13 @@ class LottoWinningRatingTest {
         long winningMoney = lottoWinningRating.getWinningMoney();
 
         // Then
-        Assertions.assertEquals(50000, winningMoney);
+        Assertions.assertEquals(50_000, winningMoney);
 
     }
 
-    @DisplayName("getWinningMoney 테스트 - FOURTH인 경우")
+    @DisplayName("getWinningMoney 테스트 - FOURTH인 경우 5,000을 반환")
     @Test
-    void getWinningMoneyWithFourth() {
+    void getWinningMoney_Fourth_5000() {
         // Given
         LottoWinningRating lottoWinningRating = LottoWinningRating.FOURTH;
 
@@ -123,13 +123,13 @@ class LottoWinningRatingTest {
         long winningMoney = lottoWinningRating.getWinningMoney();
 
         // Then
-        Assertions.assertEquals(5000, winningMoney);
+        Assertions.assertEquals(5_000, winningMoney);
 
     }
 
-    @DisplayName("getWinningMoney 테스트 - Nothing인 경우")
+    @DisplayName("getWinningMoney 테스트 - Nothing인 경우 0일 반환")
     @Test
-    void getWinningMoneyWithNothing() {
+    void getWinningMoney_Nothing_0() {
         // Given
         LottoWinningRating lottoWinningRating = LottoWinningRating.NOTHING;
 
@@ -141,9 +141,9 @@ class LottoWinningRatingTest {
 
     }
 
-    @DisplayName("getWinningRating 테스트 - matchCount가 6인 경우")
+    @DisplayName("getWinningRating 테스트 - matchCount가 6인 경우 FIRST를 반환")
     @Test
-    void getWinningRatingWithMachCount6() {
+    void getWinningRating_MachCount6_FIRST() {
         // Given
         int matchCount = 6;
 
@@ -154,9 +154,9 @@ class LottoWinningRatingTest {
         Assertions.assertEquals(LottoWinningRating.FIRST, result);
     }
 
-    @DisplayName("getWinningRating 테스트 - matchCount가 5인 경우")
+    @DisplayName("getWinningRating 테스트 - matchCount가 5인 경우 SECOND를 반환")
     @Test
-    void getWinningRatingWithMachCount5() {
+    void getWinningRating_MachCount5_SECOND() {
         // Given
         int matchCount = 5;
 
@@ -167,9 +167,9 @@ class LottoWinningRatingTest {
         Assertions.assertEquals(LottoWinningRating.SECOND, result);
     }
 
-    @DisplayName("getWinningRating 테스트 - matchCount가 4인 경우")
+    @DisplayName("getWinningRating 테스트 - matchCount가 4인 경우 THIRD를 반환")
     @Test
-    void getWinningRatingWithMachCount4() {
+    void getWinningRating_MachCount4_THIRD() {
         // Given
         int matchCount = 4;
 
@@ -180,9 +180,9 @@ class LottoWinningRatingTest {
         Assertions.assertEquals(LottoWinningRating.THIRD, result);
     }
 
-    @DisplayName("getWinningRating 테스트 - matchCount가 3인 경우")
+    @DisplayName("getWinningRating 테스트 - matchCount가 3인 경우 FOURTH를 반환")
     @Test
-    void getWinningRatingWithMachCount3() {
+    void getWinningRating_MachCount3_FOURTH() {
         // Given
         int matchCount = 3;
 
@@ -193,9 +193,9 @@ class LottoWinningRatingTest {
         Assertions.assertEquals(LottoWinningRating.FOURTH, result);
     }
 
-    @DisplayName("getWinningRating 테스트 - matchCount가 2이하인 경우")
+    @DisplayName("getWinningRating 테스트 - matchCount가 2이하인 경우 NOTHING을 반환")
     @Test
-    void getWinningRatingWithMachCountUnder3() {
+    void getWinningRating_MachCountUnder2_NOTHING() {
         // Given
         int matchCount = 2;
 
