@@ -5,8 +5,6 @@ import controller.OutputController;
 import dto.LastWeekWinningNumberDTO;
 import dto.LottoResultDTO;
 
-import java.util.List;
-
 public class LottoOutputView implements OutputView {
     private final OutputController outputController = new ConsoleOutputController();
 

@@ -11,7 +11,6 @@ import view.util.input.PositiveNumberListInputConsole;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class PriceInputView implements InputView {
     private final InputConsole<Integer> positiveNumberInputConsole = new PositiveNumberInputConsole();

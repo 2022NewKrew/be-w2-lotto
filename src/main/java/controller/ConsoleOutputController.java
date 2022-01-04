@@ -5,8 +5,6 @@ import dto.LottoResultDTO;
 import service.AutoLottoService;
 import service.LottoService;
 
-import java.util.List;
-
 public class ConsoleOutputController implements OutputController {
     private final LottoService lottoService = new AutoLottoService();
 

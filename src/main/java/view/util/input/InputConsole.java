@@ -1,7 +1,5 @@
 package view.util.input;
 
-import view.util.ResourceManager;
-
 import java.util.Scanner;
 
 public interface InputConsole<T> {

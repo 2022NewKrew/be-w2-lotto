@@ -4,7 +4,6 @@ import service.lotto.Lotto;
 import service.lotto.LottoBundle;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class LottoRepository implements Repository {

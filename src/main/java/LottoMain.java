@@ -5,8 +5,6 @@ import view.output.LottoOutputView;
 import view.output.OutputView;
 import view.util.ResourceManager;
 
-import java.util.List;
-
 public class LottoMain {
     private final InputView inputView = new PriceInputView();
     private final OutputView outputView = new LottoOutputView();
