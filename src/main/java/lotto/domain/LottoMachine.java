@@ -10,7 +10,7 @@ public class LottoMachine {
     }
 
     public static LottoTickets issue(Money inputMoney, LottoNumbersGenerator lottoNumbersGenerator) {
-        int numberOfTickets = inputMoney.getPrice() / TICKET_PRICE;
+        int numberOfTickets = inputMoney.getNumberOfTickets(TICKET_PRICE);
         List<LottoTicket> tickets = new ArrayList<>();
         for (int i = 0; i < numberOfTickets; i++) {
             tickets.add(LottoTicket.issue(lottoNumbersGenerator));
