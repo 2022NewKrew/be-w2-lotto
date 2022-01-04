@@ -33,21 +33,34 @@
     </style>
 </head>
 <body>
-<h1> 로또 게임 </h1>
-<form action="/buyLotto" method="post">
+<h1>로또 내역</h1>
+<p>주문 번호 : {{lottoId}}</p>
+<table border="1" width="500px">
+    <th>번 호</th>
+    <th>로또 번호</th>
+    {{#each lottoNumbersList}}
+    <tr>
+        <td>{{@index}}</td>
+        <td>{{this}}</td>
+    </tr>
+    {{/each}}
+</table>
+</br>
+<form action="/matchLotto" method="post">
     <div>
         <label>
-            구매 금액 :
+            지난 주 당첨 번호 :
         </label>
-        <input type="text" name="inputMoney"/>
+        <input type="text" name="lastWeekWinningNumbers"/>
     </div>
     <div>
         <label>
-            수동으로 구매할 로또 번호 :
+            보너스 볼 번호 :
         </label>
-        <textarea name="manualNumber"></textarea>
+        <input type="text" name="bonusBall"/>
     </div>
-    <input type="submit" value="로또 구매"/>
+    <input type="hidden" name="lottoId" value={{lottoId}}>
+    <input type="submit" value="당첨 확인"/>
 </form>
 </body>
 </html>

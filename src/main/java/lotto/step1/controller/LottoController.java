@@ -7,6 +7,7 @@ import lotto.step1.dto.request.LottoPurchaseSheetDTO;
 import lotto.step1.exception.NotFoundEntityException;
 import lotto.step1.model.Lotto;
 import lotto.step1.model.LottoGenerator;
+import lotto.step1.model.LottoResult;
 import lotto.step1.repository.LottoRepository;
 
 import java.util.List;
@@ -41,6 +42,6 @@ public class LottoController {
 
         lotto.confirmTheWin(lastWeekWinningNumbers);
 
-        return LottoResultsDTO.of(lotto);
+        return LottoResultsDTO.of(lotto, LottoResult.getEnumSetFirstToFourthPlace());
     }
 }

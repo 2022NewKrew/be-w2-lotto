@@ -25,6 +25,10 @@ public class PurchasedLottoDTO {
         return id;
     }
 
+    public List<String> getLottoNumbersList() {
+        return lottoNumbersList;
+    }
+
     @Override
     public String toString() {
         return String.join("\n", lottoNumbersList);

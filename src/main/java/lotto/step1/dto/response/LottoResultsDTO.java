@@ -3,8 +3,8 @@ package lotto.step1.dto.response;
 import lotto.step1.model.Lotto;
 import lotto.step1.model.LottoResult;
 
-import java.sql.ResultSet;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.Map;
 
 public class LottoResultsDTO {
@@ -16,26 +16,51 @@ public class LottoResultsDTO {
         this.yield = yield;
     }
 
-    public static LottoResultsDTO of(Lotto lotto) {
+    public Map<LottoResult, Integer> getNumOfWinsMap() {
+        return numOfWinsMap;
+    }
+
+    public double getYield() {
+        return yield;
+    }
+
+    public static LottoResultsDTO of(Lotto lotto, EnumSet<LottoResult> baseEntity) {
         final double yield = calcYield(lotto);
 
-        return new LottoResultsDTO(lotto.getLottoResults(), yield);
+        final Map<LottoResult, Integer> numOfWinsMap = new HashMap<>();
+
+        baseEntity.forEach(lottoResult -> numOfWinsMap.put(lottoResult, 0));
+
+        addLottoResultsToNumOfWinsMap(numOfWinsMap, lotto);
+
+        return new LottoResultsDTO(numOfWinsMap, yield);
+    }
+
+    protected static void addLottoResultsToNumOfWinsMap(Map<LottoResult, Integer> numOfWinsMap, Lotto lotto) {
+        lotto.getLottoResults().entrySet().stream()
+                .filter(LottoResultsDTO::isLessThanFourthPlace)
+                .forEach(lottoResult -> numOfWinsMap.put(lottoResult.getKey(), lottoResult.getValue()));
+    }
+
+    protected static boolean isLessThanFourthPlace(Map.Entry<LottoResult, Integer> lottoResult) {
+        return !(lottoResult.getKey().equals(LottoResult.UNWINNABLE) || lottoResult.getKey().equals(LottoResult.UNIDENTIFIED));
     }
 
     protected static double calcYield(Lotto lotto) {
         final int prizeMoney = lotto.getPrizeMoney();
         final int purchaseAmount = lotto.getPurchasedLottoNumbersList().size() * 1000;
 
-        return (prizeMoney / (double) purchaseAmount) * 100 - 100;
+        double yield = (prizeMoney / (double) purchaseAmount) * 100 - 100;
+        yield = Math.round(yield * 100) / 100.0;
+
+        return yield;
     }
 
     @Override
     public String toString() {
-        final EnumSet<LottoResult> lottoResultSet = getLottoResults();
-
         final StringBuilder sb = new StringBuilder("당첨 통계\n---------\n");
 
-        lottoResultSet.forEach(lottoResult -> appendLottoResult(sb, lottoResult));
+        numOfWinsMap.forEach((lottoResult, count) -> appendLottoResult(sb, lottoResult, count));
         sb.append("총 수익률은 ")
                 .append(yield)
                 .append("%입니다.");
@@ -43,22 +68,11 @@ public class LottoResultsDTO {
         return sb.toString();
     }
 
-    protected void appendLottoResult(StringBuilder sb, LottoResult lottoResult) {
-        final int count = getNumOfWins(lottoResult);
-
+    protected void appendLottoResult(StringBuilder sb, LottoResult lottoResult, int count) {
         sb.append(lottoResult)
                 .append(" - ")
                 .append(count)
                 .append("개")
                 .append('\n');
-    }
-
-    private int getNumOfWins(LottoResult lottoResult) {
-        final Integer count = numOfWinsMap.get(lottoResult);
-        return count == null ? 0 : count;
-    }
-
-    public EnumSet<LottoResult> getLottoResults() {
-        return LottoResult.getEnumSetFirstToFourthPlace();
     }
 }

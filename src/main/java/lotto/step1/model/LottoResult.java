@@ -4,7 +4,7 @@ import java.util.EnumSet;
 
 public enum LottoResult {
     FOURTH_PLACE(5000, "3개 일치 (5000원)"),
-    THIRD_PLACE(50000, "4개 일치 (50000원"),
+    THIRD_PLACE(50000, "4개 일치 (50000원)"),
     SECOND_PLACE(1500000, "5개 일치 (1500000원)"),
     BONUS_PLACE(30000000, "5개 일치, 보너스 볼 일치 (30000000원)"),
     FIRST_PLACE(2000000000, "6개 일치 (2000000000원)"),

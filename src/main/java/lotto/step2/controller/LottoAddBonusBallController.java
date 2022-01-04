@@ -6,8 +6,8 @@ import lotto.step1.dto.response.LottoResultsDTO;
 import lotto.step1.exception.NotFoundEntityException;
 import lotto.step1.model.Lotto;
 import lotto.step1.model.LottoGenerator;
+import lotto.step1.model.LottoResult;
 import lotto.step2.dto.request.ConfirmTheWinAddBonusBallDTO;
-import lotto.step2.dto.response.LottoResultsAddBonusBallDTO;
 import lotto.step2.model.LottoAddBonusBall;
 import lotto.step2.model.LottoAddBonusBallGenerator;
 
@@ -34,7 +34,7 @@ public class LottoAddBonusBallController extends LottoController {
         final LottoAddBonusBall lottoAddBonusBall = lottoAddBonusBallFrom(lotto);
         lottoAddBonusBall.confirmTheWin(lastWeekWinningNumbers, bonusBall);
 
-        return LottoResultsAddBonusBallDTO.of(lotto);
+        return LottoResultsDTO.of(lotto, LottoResult.getEnumSetFirstToFourthPlaceAddBonusPlace());
     }
 
     private int getBonusBall(ConfirmTheWinDTO confirmTheWinDTO) {
