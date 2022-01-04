@@ -4,8 +4,7 @@ import factory.ValidatorServiceFactory;
 import presentation.controller.LottoController;
 import presentation.view.input.PurchaseInputView;
 import presentation.view.input.WinningNumberInputView;
-import presentation.view.output.PurchaseOutputView;
-import presentation.view.output.ResultOutputView;
+import presentation.view.output.OutputView;
 import validate.ValidatorService;
 
 import java.util.Scanner;
@@ -21,11 +20,11 @@ public class LottoDriver {
 
     private static void startLotto(Scanner scanner, ValidatorService validatorService){
         PurchaseDto purchaseDto = new PurchaseInputView(scanner,validatorService).input();
-        PurchaseOutputView purchaseOutputView = lottoController.getPurchaseResult(purchaseDto);
+        OutputView purchaseOutputView = lottoController.getPurchaseResult(purchaseDto);
         purchaseOutputView.print();
 
         WinningNumberDto winningNumberDto =  new WinningNumberInputView(scanner, validatorService).input();
-        ResultOutputView resultOutputView = lottoController.getLottoResult(purchaseDto, winningNumberDto);
+        OutputView resultOutputView = lottoController.getLottoResult(winningNumberDto);
         resultOutputView.print();
     }
 }
