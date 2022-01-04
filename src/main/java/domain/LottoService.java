@@ -6,7 +6,6 @@ import view.LottoServiceRenderer;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -19,61 +18,60 @@ public final class LottoService {
     private final LottoServiceInputController inputController;
     private final LottoServiceRenderer renderer;
 
-    private int purchaseAmount;
-    private List<LottoTicket> purchasedLottoes;
-    private LottoTicket lastWeekWinning;
-
     public LottoService(LottoServiceInputController inputController, LottoServiceRenderer renderer) {
         this.inputController = inputController;
         this.renderer = renderer;
     }
 
     public void start() {
-        getPurchaseAmount(); //로또 구입 금액 입력
-        purchaseLottoes(purchaseAmount / LOTTO_PRICE.getValue()); //로또 구입 금액만큼 로또 생성
-        getLastWeekWinningNumber(); //당첨 번호 입력
-        printWinningStatistics(); //당첨 통계 출력
+        final int purchaseAmount = getPurchaseAmount();
+        final List<LottoTicket> purchasedLottoes = purchaseLottoes(purchaseAmount / LOTTO_PRICE.getValue());
+        final LottoTicket lastWeekWinning = getLastWeekWinningNumber();
+        printWinningStatistics(purchaseAmount, purchasedLottoes, lastWeekWinning);
     }
 
-    private void getPurchaseAmount() {
+    private int getPurchaseAmount() {
         try {
-            purchaseAmount = inputController.getPurchaseAmount();
+            return inputController.getPurchaseAmount();
         } catch (InputMismatchException e) {
             renderer.displaySentence("잘못 입력하셨습니다.");
-            getPurchaseAmount();
+            return getPurchaseAmount();
         } catch (IllegalArgumentException e) {
             renderer.displaySentence(e.getMessage());
-            getPurchaseAmount();
+            return getPurchaseAmount();
         }
     }
 
-    private void purchaseLottoes(int numberOfLottoes) {
+    private List<LottoTicket> purchaseLottoes(int numberOfLottoes) {
         renderer.displaySentence(numberOfLottoes + "개를 구매했습니다.");
-        purchasedLottoes = IntStream.range(0, numberOfLottoes)
+        List<LottoTicket> purchasedLottoes = IntStream.range(0, numberOfLottoes)
                 .mapToObj(e -> new LottoTicket())
                 .collect(Collectors.toUnmodifiableList());
         purchasedLottoes.forEach(renderer::displayLotto);
+
+        return purchasedLottoes;
     }
 
-    private void getLastWeekWinningNumber() {
+    private LottoTicket getLastWeekWinningNumber() {
         try {
-            lastWeekWinning = new LottoTicket(inputController.getLastWeekWinningNumber());
+            return new LottoTicket(inputController.getLastWeekWinningNumber());
         } catch (InputMismatchException e) {
             renderer.displaySentence("잘못 입력하셨습니다.");
-            getLastWeekWinningNumber();
+            return getLastWeekWinningNumber();
         } catch (IllegalArgumentException e) {
             renderer.displaySentence(e.getMessage());
-            getLastWeekWinningNumber();
+            return getLastWeekWinningNumber();
         }
     }
 
-    private void printWinningStatistics() {
-        Map<Long, Long> winningTickets = purchasedLottoes.stream().collect(groupingBy(this::numberOfSameNumbers, counting()));
+    private void printWinningStatistics(int purchaseAmount, List<LottoTicket> purchasedLottoes, LottoTicket lastWeekWinning) {
+        Map<Long, Long> winningTickets = purchasedLottoes.stream()
+                .collect(groupingBy(winningTicket -> numberOfSameNumbers(winningTicket ,lastWeekWinning), counting()));
 
         renderer.displayResults(winningTickets, purchaseAmount);
     }
 
-    private long numberOfSameNumbers(LottoTicket lottoTicket) {
+    private long numberOfSameNumbers(LottoTicket lottoTicket, LottoTicket lastWeekWinning) {
         List<Integer> myNumbers = lottoTicket.getLottoNumbers();
         List<Integer> winningNumbers = lastWeekWinning.getLottoNumbers();
 
