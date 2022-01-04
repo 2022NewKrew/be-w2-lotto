@@ -2,6 +2,7 @@ package com.chanminkim.w2;
 
 import com.chanminkim.w2.model.Lotto;
 import com.chanminkim.w2.model.RandomLottoGenerator;
+import com.chanminkim.w2.model.WinningStatistics;
 import com.chanminkim.w2.view.InputView;
 import com.chanminkim.w2.view.OutputView;
 
@@ -12,11 +13,13 @@ public class App {
     public static void main(String[] args) {
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
-        int payment = inputView.getPayment();
-        List<Lotto> lottoList = buildRandomLottoList(payment);
+
+        List<Lotto> lottoList = buildRandomLottoList(inputView.getPayment());
         outputView.printPurchasedLottoList(lottoList);
+
         Lotto winningLotto = new Lotto(inputView.getWinningLottoNumbers());
-        outputView.printWinningStatistics(lottoList, winningLotto);
+        WinningStatistics winningStatistics = new WinningStatistics(lottoList, winningLotto);
+        outputView.printWinningStatistics(winningStatistics);
     }
 
     private static List<Lotto> buildRandomLottoList(int payment) {
