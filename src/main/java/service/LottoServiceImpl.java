@@ -13,7 +13,7 @@ import java.util.List;
 
 public class LottoServiceImpl implements LottoService {
 
-    private LottoRepository lottoRepository;
+    private final LottoRepository lottoRepository;
 
     public LottoServiceImpl(LottoRepository lottoRepository) {
         this.lottoRepository = lottoRepository;
