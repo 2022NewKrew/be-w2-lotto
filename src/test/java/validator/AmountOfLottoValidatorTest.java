@@ -19,13 +19,13 @@ class AmountOfLottoValidatorTest {
     @ParameterizedTest
     @ValueSource(strings = {"abcd", "1234"})
     @DisplayName("로또 금액 입력 실패 테스트")
-    void aolvValidateFalseTest(String input) {
+    void ValidateFalseTest(String input) {
         assertThat(validatorInterface.validateData(input)).isFalse();
     }
 
     @Test
     @DisplayName("로또 금액 입력 성공 테스트")
-    void aolvValidateTrueTest(){
+    void ValidateTrueTest(){
         assertThat(validatorInterface.validateData("14000")).isTrue();
     }
 

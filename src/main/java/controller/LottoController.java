@@ -2,7 +2,7 @@ package controller;
 
 import model.calculate.CalculateEarningRatio;
 import model.calculate.CalculateResult;
-import model.builder.AutoMaker;
+import model.builder.LottoNumberGenerator;
 import model.scan.AmountOfLottoScanner;
 import model.scan.BonusNumberScanner;
 import model.scan.WinningNumberScanner;
@@ -18,15 +18,15 @@ public class LottoController {
     public LottoController() { }
 
     public void lottoFlow(){
-        int amountOfLotto = new AmountOfLottoScanner().getAmountOfLotto();
-        UserLottoLines userLottoLines = new AutoMaker().makeLines(amountOfLotto);
-        new UserLottoViewer().viewUserLottoList(userLottoLines);
-        List<Integer> winningNumbers = new WinningNumberScanner().getWinningNumbers();
-        int bonus = new BonusNumberScanner().getBonusNumber(winningNumbers);
-        LottoResult lottoResult = new CalculateResult().getLottoResult(userLottoLines, winningNumbers, bonus);
-        new UserResultViewer().viewResult(lottoResult);
-        new LottoEarningRatioViewer().viewEarningRatio(
-                new CalculateEarningRatio().calculateEarningRatio(lottoResult, amountOfLotto)
+        int amountOfLotto = AmountOfLottoScanner.getAmountOfLotto();
+        UserLottoLines userLottoLines = new LottoNumberGenerator().makeLines(amountOfLotto);
+        UserLottoViewer.viewUserLottoList(userLottoLines);
+        List<Integer> winningNumbers = WinningNumberScanner.getWinningNumbers();
+        int bonus = BonusNumberScanner.getBonusNumber(winningNumbers);
+        LottoResult lottoResult = CalculateResult.getLottoResult(userLottoLines, winningNumbers, bonus);
+        UserResultViewer.viewResult(lottoResult);
+        LottoEarningRatioViewer.viewEarningRatio(
+                CalculateEarningRatio.calculateEarningRatio(lottoResult, amountOfLotto)
         );
     }
 }

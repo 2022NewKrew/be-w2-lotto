@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class AutoMaker {
+public class LottoNumberGenerator {
     private final List<Integer> forRandomLotto;
-    public AutoMaker() {
+    public LottoNumberGenerator() {
         forRandomLotto = new ArrayList<>();
         for(int i = LottoRule.MIN_LOTTO_NUMBER; i <= LottoRule.MAX_LOTTO_NUMBER; i++){
             forRandomLotto.add(i);
