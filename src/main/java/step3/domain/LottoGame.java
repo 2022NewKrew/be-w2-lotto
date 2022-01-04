@@ -32,12 +32,12 @@ public class LottoGame {
     }
 
     private void printInfosWithResult() {
-        lottoView.printLottos(this.manualLottosQuantity);
+        this.lottoView.printLottos(this.manualLottosQuantity);
 
-        Result result = lottoView.askResult();
-        BonusNumber bonusNumber = lottoView.askBonusNumber(result);
+        Result result = this.lottoView.askResult();
+        BonusNumber bonusNumber = this.lottoView.askBonusNumber(result);
 
-        lottoView.printMatches(result, bonusNumber);
-        lottoView.printEarningRate();
+        this.lottoView.printMatches(result, bonusNumber);
+        this.lottoView.printEarningRate();
     }
 }
