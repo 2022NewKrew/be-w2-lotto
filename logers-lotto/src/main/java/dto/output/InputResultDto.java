@@ -1,4 +1,4 @@
-package dto;
+package dto.output;
 
 import domain.LottoOrder;
 import domain.WinningNumber;

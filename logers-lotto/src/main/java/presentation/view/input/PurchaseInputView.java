@@ -1,11 +1,11 @@
-package presentation.view;
+package presentation.view.input;
 
-import dto.PurchaseDto;
+import dto.input.PurchaseDto;
 import validate.ValidatorService;
 
 import java.util.Scanner;
 
-public class PurchaseInputView implements InputView<PurchaseDto>{
+public class PurchaseInputView implements InputView<PurchaseDto> {
     private final Scanner scanner;
     private final ValidatorService validatorService;
 

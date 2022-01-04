@@ -1,6 +1,6 @@
-package presentation.view;
+package presentation.view.input;
 
-import dto.WinningNumberDto;
+import dto.input.WinningNumberDto;
 import validate.ValidatorService;
 
 import java.util.Arrays;
@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 import static java.util.stream.Collectors.toList;
 
-public class WinningNumberInputView implements InputView<WinningNumberDto>{
+public class WinningNumberInputView implements InputView<WinningNumberDto> {
     private final Scanner scanner;
     private final ValidatorService validatorService;
 
