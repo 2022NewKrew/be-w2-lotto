@@ -11,15 +11,15 @@ class LottoResultTest {
 
     @Test
     void valueOf() {
-        LottoResult lottoResult = LottoResult.valueOf(5);
+        LottoResult lottoResult = LottoResult.valueOf(5, true);
         System.out.println(lottoResult);
     }
 
     @Test
     void values() {
-        LottoResult lottoResult = LottoResult.valueOf(5);
+        LottoResult lottoResult = LottoResult.valueOf(5, true);
         System.out.println(lottoResult.getWinningMoney());
-        System.out.println(Arrays.stream(lottoResult.values()).collect(Collectors.toList()).toString());
+        System.out.println(Arrays.stream(LottoResult.values()).collect(Collectors.toList()));
     }
 
 }

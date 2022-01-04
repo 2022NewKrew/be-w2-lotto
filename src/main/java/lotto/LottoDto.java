@@ -1,5 +1,6 @@
 package lotto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,8 +13,8 @@ public class LottoDto {
 
     private List<Integer> numbers;
 
-    public LottoDto(Lotto source) {
-        numbers = source.getNumbers().stream().collect(Collectors.toList());
+    public LottoDto(Lotto lotto) {
+        numbers = new ArrayList<>(lotto.getNumbers());
     }
 
     public List<Integer> getNumbers() {

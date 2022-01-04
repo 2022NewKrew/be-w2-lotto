@@ -9,14 +9,14 @@ class LottoTest {
     @Test
     void isNumbers() {
         Lotto lotto = new Lotto();
-        assertEquals(false, lotto.isNumbers());
+        assertFalse(lotto.isNumbers());
     }
 
     @Test
     void generateNumbers() {
         Lotto lotto = new Lotto();
         lotto.generateNumbers();
-        assertEquals(true, lotto.isNumbers());
+        assertTrue(lotto.isNumbers());
         System.out.println(lotto.getNumbers().toString());
     }
 }
