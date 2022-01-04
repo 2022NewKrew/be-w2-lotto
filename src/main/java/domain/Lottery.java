@@ -15,11 +15,9 @@ public class Lottery {
         return lotteryNumbers;
     }
 
-    public int calculateMatchCount(WinningLottery winningLottery) {
-        int matchCount = 0;
-        for (Integer lotteryNumber : lotteryNumbers) {
-            matchCount += winningLottery.contains(lotteryNumber);
-        }
-        return matchCount;
+    public int calculateMatchCount(Set<Integer> drawnNumbers) {
+        Set<Integer> lotteryNumbers = new TreeSet<>(this.lotteryNumbers);
+        lotteryNumbers.retainAll(drawnNumbers);
+        return lotteryNumbers.size();
     }
 }
