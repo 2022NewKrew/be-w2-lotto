@@ -16,7 +16,7 @@ public class LottoRankMatch {
     }
 
     public static LottoRank createLottoRank(Lotto autoLotto, List<Integer> inputLastWeekWinNumber) {
-        LottoRank lottoRank  checkMatchedNumbers(autoLotto, inputLastWeekWinNumber)
+        LottoRank lottoRank = checkMatchedNumbers(autoLotto, inputLastWeekWinNumber)
     }
 
     public static int checkMatchedNumbers(Lotto autoLotto, List<Integer> inputLastWeekWinNumbers) {
