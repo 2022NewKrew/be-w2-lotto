@@ -11,8 +11,8 @@ public enum LottoResult {
      * enum을 사용하면 그럴 수 없는 문제가 있어 고민 중
      */
     FIRST(6, 2000000000),
-    SECOND( 5, 1500000),
-    THIRD( 4, 50000),
+    SECOND(5, 1500000),
+    THIRD(4, 50000),
     FOURTH(3, 5000),
     LOSE(0, 0),
     ;
