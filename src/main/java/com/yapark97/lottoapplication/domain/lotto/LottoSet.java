@@ -2,13 +2,13 @@ package com.yapark97.lottoapplication.domain.lotto;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class LottoSet {
-    private final int lottoSetSize;
     private List<Lotto> lottos;
 
     public LottoSet(final int lottoSetSize) {
-        this.lottoSetSize = lottoSetSize;
         initLottos(lottoSetSize);
     }
 
@@ -20,20 +20,17 @@ public class LottoSet {
     }
 
     private List<Integer> generateRandomNumbers() {
-        List<Integer> numberPool = new ArrayList<>(LottoConst.MAX_LOTTO_NUMBER);
-        List<Integer> picked;
+        List<Integer> numberPool = IntStream.rangeClosed(1, LottoConst.MAX_LOTTO_NUMBER)
+                .boxed()
+                .collect(Collectors.toList());
+        List<Integer> picked = numberPool.subList(0, LottoConst.LOTTO_NUMBERS_SIZE);
 
-        for (int i=0; i<LottoConst.MAX_LOTTO_NUMBER; i++) {
-            numberPool.add(i + 1); // 1~45로 채우기
-        }
-        Collections.shuffle(numberPool);
-        picked = numberPool.subList(0, LottoConst.LOTTO_NUMBERS_SIZE); // 6개 뽑기
         Collections.sort(picked);
         return picked;
     }
 
     public int getLottoSetSize() {
-        return lottoSetSize;
+        return lottos.size();
     }
 
     public List<Lotto> getLottos() {
