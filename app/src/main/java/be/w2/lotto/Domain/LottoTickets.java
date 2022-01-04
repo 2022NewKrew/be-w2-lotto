@@ -6,7 +6,7 @@ import java.util.List;
 
 public class LottoTickets implements Iterable<LottoTicket> {
 
-    List<LottoTicket> lottoTickets;
+    private List<LottoTicket> lottoTickets;
 
     public LottoTickets(int amount, LottoMaker lottoMaker) {
         lottoTickets = new ArrayList<>();
@@ -15,7 +15,7 @@ public class LottoTickets implements Iterable<LottoTicket> {
         }
     }
 
-    public LottoTickets(List<LottoTicket> lottoTickets){
+    public LottoTickets(List<LottoTicket> lottoTickets) {
         this.lottoTickets = lottoTickets;
     }
 

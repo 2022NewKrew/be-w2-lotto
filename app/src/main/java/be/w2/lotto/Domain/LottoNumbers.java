@@ -50,7 +50,4 @@ public class LottoNumbers implements Iterable<LottoNumber> {
         return lottoNumbers.toString();
     }
 
-    public int size() {
-        return lottoNumbers.size();
-    }
 }

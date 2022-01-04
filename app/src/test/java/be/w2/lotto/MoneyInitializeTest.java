@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MoneyInitializeTest {
 
-
     @Test
     @DisplayName("Money_음수로_생성해서_실패하기")
     void test() {

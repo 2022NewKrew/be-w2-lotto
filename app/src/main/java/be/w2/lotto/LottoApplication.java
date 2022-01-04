@@ -1,6 +1,5 @@
 package be.w2.lotto;
 
-import be.w2.lotto.Domain.LottoCalculator;
 import be.w2.lotto.Domain.LottoService;
 import be.w2.lotto.View.UserInterface;
 
@@ -34,7 +33,9 @@ public class LottoApplication {
     private void makeAnswer() {
         userInterface.queryLastNumber();
         List<Integer> nums = userInterface.readIntList();
-        int benefit = lottoService.calculateBenefit(nums);
+        userInterface.queryBonusNumber();
+        int bonusNum = userInterface.readInt();
+        int benefit = lottoService.calculateBenefit(nums, bonusNum);
         userInterface.printStatistics(lottoService.getStatistics());
         userInterface.printBenefit(benefit);
     }

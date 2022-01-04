@@ -6,7 +6,7 @@ import java.util.List;
 public class LottoMaker {
 
     private static final int START_NUMBER = 1;
-    private static final int END_NUMBER   = 45;
+    private static final int END_NUMBER = 45;
     private LottoNumbers lottoNumbers;
 
     public LottoMaker() {
