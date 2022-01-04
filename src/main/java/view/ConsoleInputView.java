@@ -24,6 +24,7 @@ public class ConsoleInputView implements InputView {
             this.validateLotteryBuyPrice(lotteryBuyPrice);
         } catch (IllegalArgumentException exception) {
             System.err.println(exception.getMessage());
+            System.exit(1);
         } catch (NoSuchElementException | IllegalStateException exception) {
             System.err.println("입력을 처리할 수 없습니다.");
             System.exit(1);
@@ -46,6 +47,7 @@ public class ConsoleInputView implements InputView {
             this.validateLotteryNumberSet(lotteryNumberSet);
         } catch (IllegalArgumentException exception) {
             System.err.println(exception.getMessage());
+            System.exit(1);
         } catch (NoSuchElementException | IllegalStateException exception) {
             System.err.println("입력을 처리할 수 없습니다.");
             System.exit(1);
@@ -65,6 +67,7 @@ public class ConsoleInputView implements InputView {
             this.validateLotteryNumber(bonusNumber);
         } catch (IllegalArgumentException exception) {
             System.err.println(exception.getMessage());
+            System.exit(1);
         } catch (NoSuchElementException | IllegalStateException exception) {
             System.err.println("입력을 처리할 수 없습니다.");
             System.exit(1);
