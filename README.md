@@ -175,7 +175,7 @@ Main
 
 ### 힌트
 - Lotto 클래스를 사용자가 구매한 Lotto와 로또 기계에 의해 추첨한 Lotto를 구분해 생성한다.
-  - 로또 기계가 추첨한 Lotto는 WinningLotto와 같은 방식
+- 로또 기계가 추첨한 Lotto는 WinningLotto와 같은 방식
 
 ## 3단계
 ### 기능 요구사항
