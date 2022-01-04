@@ -32,9 +32,9 @@ public final class StandardInLottoServiceInputController implements LottoService
     }
 
     @Override
-    public List<Integer> getLastWeekWinningNumber() throws InputMismatchException, IllegalArgumentException {
+    public List<Integer> getLastWeekWinningNumber() throws IllegalArgumentException {
         System.out.println(LAST_WEEK_WINNING_NUMBER_REQUEST.getString());
-        List<Integer> numbers = Arrays.stream(scan.nextLine().split(COMMA.getString())).map(Integer::valueOf).collect(Collectors.toList());
+        List<Integer> numbers = Arrays.stream(scan.nextLine().replaceAll(" ","").split(COMMA.getString())).map(Integer::valueOf).collect(Collectors.toList());
 
         if(!numbers.stream().allMatch(ConditionCheck::isLottoNumber)) {
             throw new IllegalArgumentException(INPUT_ERROR.getString() + NEWLINE.getString() + PLEASE_INPUT_LOTTO_NUMBER.getString());
