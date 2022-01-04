@@ -1,6 +1,5 @@
 package lotto.domain;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,13 +18,17 @@ public class Lotto {
         Collections.sort(numbers);
     }
 
-    public int howManyMatch(Lotto targetLotto) {
+    public int howManyMatch(WinningLotto winningLotto) {
         int count = 0;
-        List<Integer> compareTarget = targetLotto.getNumbers();
+        List<Integer> winningLottoNumbers = winningLotto.getNumbers();
         for (int i = 0; i < N_NUMBERS; i++) {
-            count += numbers.contains(compareTarget.get(i)) ? 1 : 0;
+            count += this.numbers.contains(winningLottoNumbers.get(i)) ? 1 : 0;
         }
         return count;
+    }
+
+    public boolean isMatchBonus(WinningLotto winningLotto) {
+        return this.numbers.contains(winningLotto.getBonusNumber());
     }
 
     public List<Integer> getNumbers() {
