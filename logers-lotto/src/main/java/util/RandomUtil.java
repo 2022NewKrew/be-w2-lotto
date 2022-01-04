@@ -1,4 +1,4 @@
-package factory;
+package util;
 
 import domain.Lotto;
 
@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 
-public class LottoFactory {
+public class RandomUtil {
     private static final List<Integer> numbers;
 
     static {
@@ -20,10 +20,10 @@ public class LottoFactory {
                 .collect(toList());
     }
 
-    public static Lotto createInstance(){
+    public static List<Integer> createRandomNumbers(){
         Collections.shuffle(numbers);
         List<Integer> randomNumbers = new ArrayList<>(numbers.subList(0, Lotto.NUMBER_OF_WRITE_NUMBER));
         Collections.sort(randomNumbers);
-        return new Lotto(randomNumbers);
+        return randomNumbers;
     }
 }

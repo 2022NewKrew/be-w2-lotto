@@ -1,8 +1,14 @@
 package factory;
 
+import domain.Lotto;
 import domain.LottoOrder;
+import util.RandomUtil;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 public class LottoOrderFactory {
     private static LottoOrder instance = null;
@@ -21,6 +27,13 @@ public class LottoOrderFactory {
     }
 
     private static LottoOrder createLottoOrder(int purchaseAmount){
-        return new LottoOrder(purchaseAmount);
+        int count = purchaseAmount / Lotto.PRICE;
+
+        List<List<Integer>> numberLists = Stream
+                .generate(RandomUtil::createRandomNumbers)
+                .limit(count)
+                .collect(toList());
+
+        return new LottoOrder(purchaseAmount, numberLists);
     }
 }

@@ -1,11 +1,10 @@
 import dto.input.PurchaseDto;
 import dto.input.WinningNumbersDto;
-import factory.ValidatorServiceFactory;
 import presentation.controller.LottoController;
 import presentation.view.input.PurchaseInputView;
 import presentation.view.input.WinningNumberInputView;
+import presentation.view.output.ErrorOutputView;
 import presentation.view.output.OutputView;
-import validate.ValidatorService;
 
 import java.util.Scanner;
 
@@ -14,17 +13,28 @@ public class LottoDriver {
 
     public static void main(String[] args) {
         try(Scanner scanner = new Scanner(System.in)){
-            startLotto(scanner, ValidatorServiceFactory.getInstance());
+            inputPurchaseAndPrintResult(scanner);
+            inputWinningNumbersAndPrintResult(scanner);
         }
     }
 
-    private static void startLotto(Scanner scanner, ValidatorService validatorService){
-        PurchaseDto purchaseDto = new PurchaseInputView(scanner,validatorService).input();
-        OutputView purchaseOutputView = lottoController.getPurchaseResult(purchaseDto);
-        purchaseOutputView.print();
+    private static void inputPurchaseAndPrintResult(Scanner scanner){
+        PurchaseDto purchaseDto = new PurchaseInputView(scanner).input();
+        OutputView outputView = lottoController.getPurchaseResult(purchaseDto);
+        outputView.print();
+        exitProgramIfErrorOutputView(outputView);
+    }
 
-        WinningNumbersDto winningNumbersDto =  new WinningNumberInputView(scanner, validatorService).input();
-        OutputView resultOutputView = lottoController.getLottoResult(winningNumbersDto);
-        resultOutputView.print();
+    private static void inputWinningNumbersAndPrintResult(Scanner scanner){
+        WinningNumbersDto winningNumbersDto =  new WinningNumberInputView(scanner).input();
+        OutputView outputView = lottoController.getLottoResult(winningNumbersDto);
+        outputView.print();
+        exitProgramIfErrorOutputView(outputView);
+    }
+
+    private static void exitProgramIfErrorOutputView(OutputView outputView){
+        if(outputView instanceof  ErrorOutputView){
+            System.exit(0);
+        }
     }
 }
