@@ -49,6 +49,6 @@ public class Lottos {
         winPrice += checkResult.get(5) * 1500000;
         winPrice += checkResult.get(7) * 30000000;
         winPrice += checkResult.get(6) * 2000000000;
-        return winPrice * 100 / buyPrice;
+        return (winPrice - buyPrice) * 100 / buyPrice;
     }
 }
