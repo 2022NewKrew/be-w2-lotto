@@ -26,7 +26,7 @@ public enum LottoRank {
             .findFirst()
             .orElseGet(() -> NONE);
 
-        if (rank == SECOND && lottoTicket.hasNumber(winningLotto.getBonusNumber())) {
+        if (rank == SECOND && !lottoTicket.hasNumber(winningLotto.getBonusNumber())) {
             return THIRD;
         }
         return rank;
