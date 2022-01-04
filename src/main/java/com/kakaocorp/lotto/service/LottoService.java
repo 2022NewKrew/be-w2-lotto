@@ -3,6 +3,7 @@ package com.kakaocorp.lotto.service;
 import com.kakaocorp.lotto.domain.Lotto;
 import com.kakaocorp.lotto.domain.WinningLotto;
 import com.kakaocorp.lotto.dto.ResultResponse;
+import com.kakaocorp.lotto.enums.Grade;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -34,10 +35,10 @@ public class LottoService {
 
         List<Integer> scores = score(winningLotto, lottoList);
 
-        int winningMoney = IntStream.range(0, 8).map(i -> scores.get(i) * ResultResponse.winningMoneyList.get(i)).sum();
+        int totalWinningMoney = IntStream.range(0, 8).map(i -> scores.get(i) * ResultResponse.winningMoneyList.get(i)).sum();
         int investMoney = lottoList.size() * 1000;
-        resultResponse.setRateOfReturn((winningMoney - investMoney) / investMoney * 100);
 
+        resultResponse.setRateOfReturn((totalWinningMoney - investMoney) / investMoney * 100);
         resultResponse.setResults(scores);
 
         return resultResponse;
@@ -50,6 +51,9 @@ public class LottoService {
         for (Lotto lotto : lottoList) {
             int num = match(winningLotto, lotto);
             results.set(num, results.get(num) + 1);
+
+            // Lotto 객체에 grade 기록
+            rank(lotto, num);
         }
 
         return results;
@@ -66,5 +70,27 @@ public class LottoService {
         }
 
         return matchNumber;
+    }
+
+    private void rank(Lotto lotto, int num) {
+        switch (num) {
+            case 3:
+                lotto.rank(Grade.FIFTH);
+                return;
+            case 4:
+                lotto.rank(Grade.FOURTH);
+                return;
+            case 5:
+                lotto.rank(Grade.THIRD);
+                return;
+            case 7:
+                lotto.rank(Grade.SECOND);
+                return;
+            case 6:
+                lotto.rank(Grade.FIRST);
+                return;
+            default:
+                lotto.rank(Grade.NO_GRADE);
+        }
     }
 }

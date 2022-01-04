@@ -12,7 +12,7 @@ public class ConsoleView {
 
     public void start() {
         // 로또 구매
-        List<Lotto> lottoList = lottoGameConsoleController.purchase();
+        List<Lotto> lottoList = lottoGameConsoleController.buy();
         printPurchaseList(lottoList);
 
         // 당첨 통계

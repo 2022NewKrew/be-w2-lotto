@@ -15,7 +15,7 @@ public class LottoGameConsoleController {
     public LottoGameConsoleController() {
     }
 
-    public List<Lotto> purchase() {
+    public List<Lotto> buy() {
         int orderPrice = ioController.inputInt("구입금액을 입력해 주세요.");
 
         return lottoService.buy(orderPrice);
