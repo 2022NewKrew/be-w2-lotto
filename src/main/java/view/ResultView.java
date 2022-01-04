@@ -17,7 +17,6 @@ public class ResultView {
     public static void printLottoNumbers(Lottos lottos) {
         System.out.println(lottos.lottos().size() + MESSAGE_PURCHASING_COUNT);
         lottos.lottos()
-                .stream()
                 .forEach(lotto -> System.out.println(lotto.lottoNumbers()));
         System.out.println();
     }
