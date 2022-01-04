@@ -12,6 +12,7 @@ public class LottoGameService {
         List<Integer> result = new ArrayList<>(4);
         for (Lotto autoLotto : autuLottos.getLottos()) {
             Integer matchedCount = checkNum(autoLotto, inputLastWeekWinNumber);
+            System.out.println(matchedCount);
         }
         return result;
     }
