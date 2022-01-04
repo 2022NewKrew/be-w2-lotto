@@ -78,8 +78,8 @@ public class LottoView {
     public void printLottos(int manualLottosQuantity) {
         int lottosQuantity = this.lottos.size();
 
-        System.out.println(manualLottosQuantity != 0 ? "\n수동으로 " + manualLottosQuantity + "개, 자동으로 " +
-                (lottosQuantity - manualLottosQuantity) + "개를 구매했습니다." : "\n" + lottosQuantity + "개를 구매했습니다.");
+        System.out.println("\n수동으로 " + manualLottosQuantity + "개, 자동으로 " +
+                (lottosQuantity - manualLottosQuantity) + "개를 구매했습니다.");
 
         System.out.println(lottos);
     }
