@@ -16,7 +16,8 @@ public class LottoController {
         buyLottoFromCli();
         showAllLotto();
         ArrayList<Integer> winningNumber = getWinningNumberFromCli();
-        showWinningStats(winningNumber);
+        int bonusNumber = getBonusNumberFromCli();
+        showWinningStats(winningNumber, bonusNumber);
     }
 
     private void buyLottoFromCli() {
@@ -49,12 +50,18 @@ public class LottoController {
         return scanner.getValue();
     }
 
-    private void showWinningStats(ArrayList<Integer> winningNumber) {
+    private int getBonusNumberFromCli() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        PositiveIntScanner scanner = new PositiveIntScanner();
+        return scanner.getValue();
+    }
+
+    private void showWinningStats(ArrayList<Integer> winningNumber, int bonusNumber) {
         System.out.println("당첨 통계");
         System.out.println("---------");
-        LottoResult result = service.getLottoResult(winningNumber);
+        LottoResult result = service.getLottoResult(winningNumber, bonusNumber);
         System.out.println(result.render());
-        long yield = result.getYieldByPercent(LOTTO_PRICE);
-        System.out.printf("총 수익률은 %d%%입니다.%n", yield);
+        float yield = result.getYieldByPercent(LOTTO_PRICE);
+        System.out.printf("총 수익률은 %.2f%%입니다.%n", yield);
     }
 }

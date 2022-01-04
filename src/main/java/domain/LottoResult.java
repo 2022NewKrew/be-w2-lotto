@@ -4,63 +4,70 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LottoResult {
-    private static final HashMap<Integer, Long> REWARD_OF_MATCHES = new HashMap<>() {{
-        put(3, 5000L);
-        put(4, 50000L);
-        put(5, 1500000L);
-        put(6, 2000000000L);
-    }};
-    private static final String RENDER_FORMAT = "%d개 일치 (%d원)- %d개";
-    private final HashMap<Integer, Integer> stats = new HashMap<>();
+    private final HashMap<LottoRank, Integer> results = new HashMap<>();
     private final ArrayList<Lotto> lottoList;
     private final ArrayList<Integer> winningNumber;
+    private final int bonusNumber;
 
-    public LottoResult(ArrayList<Lotto> lottoList, ArrayList<Integer> winningNumber) {
+    public LottoResult(ArrayList<Lotto> lottoList, ArrayList<Integer> winningNumber, int bonusNumber) {
         this.lottoList = lottoList;
         this.winningNumber = winningNumber;
+        this.bonusNumber = bonusNumber;
         calcResult();
     }
 
     private void calcResult() {
         for (Lotto lotto : lottoList) {
-            int matches = getNumOfMatches(lotto.getNumbers());
-            stats.put(matches, getOrDefault(matches) + 1);
+            int countOfMatch = getCountOfMatch(lotto.getNumbers());
+            boolean matchBonus = isMatchBonus(lotto.getNumbers());
+            LottoRank rank = LottoRank.valueOf(countOfMatch, matchBonus);
+            results.put(rank, getNumOfRank(rank) + 1);
         }
     }
 
-    private int getNumOfMatches(ArrayList<Integer> numbers) {
-        int matches = 0;
+    private int getCountOfMatch(ArrayList<Integer> numbers) {
+        int countOfMatch = 0;
         for (Integer number : numbers) {
-            matches += winningNumber.contains(number) ? 1 : 0;
+            countOfMatch += winningNumber.contains(number) ? 1 : 0;
         }
-        return matches;
+        return countOfMatch;
     }
 
-    private int getOrDefault(int key) {
-        if (stats.containsKey(key)) {
-            return stats.get(key);
+    private boolean isMatchBonus(ArrayList<Integer> numbers) {
+        return numbers.contains(bonusNumber);
+    }
+
+    private int getNumOfRank(LottoRank rank) {
+        if (results.containsKey(rank)) {
+            return results.get(rank);
         }
         return 0;
     }
 
     public StringBuilder render() {
         StringBuilder builder = new StringBuilder();
-        for (int i = 3; i <= 6; ++i) {
-            builder.append(String.format(RENDER_FORMAT, i, REWARD_OF_MATCHES.get(i), getOrDefault(i)));
+        for (LottoRank rank : LottoRank.values()) {
+            builder.append(rank.getDescription());
+            builder.append(String.format("- %d개", getNumOfRank(rank)));
             builder.append("\n");
         }
         return builder;
     }
 
-    public long getYieldByPercent(int price) {
-        return 100 * getRewards() / lottoList.size() / price;
+    public float getYieldByPercent(int price) {
+        int purchaseMoney = lottoList.size() * price;
+        if (purchaseMoney == 0) {
+            return 0.0f;
+        }
+        long winningMoney = getTotalWinningMoney();
+        return 100.0f * (winningMoney - purchaseMoney) / purchaseMoney;
     }
 
-    public long getRewards() {
-        long rewards = 0;
-        for (int i = 3; i <= 6; ++i) {
-            rewards += getOrDefault(i) * REWARD_OF_MATCHES.get(i);
+    public long getTotalWinningMoney() {
+        long totalWinningMoney = 0;
+        for (LottoRank rank : LottoRank.values()) {
+            totalWinningMoney += getNumOfRank(rank) * rank.getWinningMoney();
         }
-        return rewards;
+        return totalWinningMoney;
     }
 }

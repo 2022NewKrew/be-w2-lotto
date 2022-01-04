@@ -16,7 +16,7 @@ public class LottoService {
         return lottoList;
     }
 
-    public LottoResult getLottoResult(ArrayList<Integer> winningNumber) {
-        return new LottoResult(lottoList, winningNumber);
+    public LottoResult getLottoResult(ArrayList<Integer> winningNumber, int bonusNumber) {
+        return new LottoResult(lottoList, winningNumber, bonusNumber);
     }
 }
