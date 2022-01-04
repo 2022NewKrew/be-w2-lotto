@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,8 +25,15 @@ public class Lottos {
         return new ArrayList<>(lottos);
     }
 
-    // 당첨개수 반환
-    public Map<Integer, Integer> matchCounts(WinningLotto winningLotto) {
-        return null;
+    public Map<Reward, Integer> matchCounts(WinningLotto winningLotto) {
+        final Map<Reward, Integer> rewardCounter = new EnumMap<>(Reward.class);
+
+        for (Lotto lotto: lottos) {
+            Reward reward = winningLotto.matchResult(lotto);
+            int count = rewardCounter.getOrDefault(reward, 0);
+            rewardCounter.put(reward, count + 1);
+        }
+
+        return rewardCounter;
     }
 }

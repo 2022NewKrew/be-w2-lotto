@@ -35,11 +35,11 @@ class WinningLottoTest {
         );
     }
 
-    static class Item {
+    private static class Item {
 
         private final Lotto lotto;
-
         private final Reward reward;
+
         public Item(Lotto lotto, Reward reward) {
             this.lotto = lotto;
             this.reward = reward;
