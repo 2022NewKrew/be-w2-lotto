@@ -39,7 +39,7 @@ public class Person {
         for (int i = 0; i < LOTTO_WINNINGS.size(); i++) {
             income += LOTTO_WINNINGS.get(i) * correctList.get(i);
         }
-        this.incomeRate = (income / spendPrice) * 100;
+        this.incomeRate = (int)((double)(income - spendPrice)/(double)spendPrice * 100);
     }
 
     public int getIncomeRate() {
