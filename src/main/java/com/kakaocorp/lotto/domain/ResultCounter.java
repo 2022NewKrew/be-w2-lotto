@@ -1,19 +1,19 @@
 package com.kakaocorp.lotto.domain;
 
+import com.kakaocorp.lotto.model.LottoRecord;
 import com.kakaocorp.lotto.model.LottoResult;
 import com.kakaocorp.lotto.model.LottoTicket;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class ResultCounter {
 
-    public Map<LottoResult, Integer> getResults(List<LottoTicket> tickets, List<Integer> winningNumbers) {
+    public Map<LottoResult, Integer> getResults(List<LottoTicket> tickets, LottoRecord record) {
         Map<LottoResult, Integer> map = initialize();
         for (LottoTicket ticket : tickets) {
-            LottoResult result = ticket.check(Set.copyOf(winningNumbers));
+            LottoResult result = record.check(ticket);
             increment(map, result);
         }
         return Map.copyOf(map);

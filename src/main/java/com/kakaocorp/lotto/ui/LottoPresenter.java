@@ -3,12 +3,14 @@ package com.kakaocorp.lotto.ui;
 import com.kakaocorp.lotto.domain.LottoDispenser;
 import com.kakaocorp.lotto.domain.ProfitCalculator;
 import com.kakaocorp.lotto.domain.ResultCounter;
+import com.kakaocorp.lotto.model.LottoRecord;
 import com.kakaocorp.lotto.model.LottoResult;
 import com.kakaocorp.lotto.model.LottoTicket;
 
 import java.util.AbstractMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class LottoPresenter {
@@ -46,8 +48,9 @@ public class LottoPresenter {
         view.showWinningNumbersPrompt(context);
     }
 
-    public void onWinningNumbersInput(LottoContext context, List<Integer> winningNumbers) {
-        Map<LottoResult, Integer> results = counter.getResults(context.getTickets(), winningNumbers);
+    public void onWinningNumbersInput(LottoContext context, List<Integer> winningNumbers, int bonusNumber) {
+        LottoRecord record = new LottoRecord(Set.copyOf(winningNumbers), bonusNumber);
+        Map<LottoResult, Integer> results = counter.getResults(context.getTickets(), record);
         float profit = calculator.calculate(context.getPayment(), results);
         List<Map.Entry<LottoResult, Integer>> ordered = orderResults(results);
         view.printResults(ordered, ((int) (profit * 100)));

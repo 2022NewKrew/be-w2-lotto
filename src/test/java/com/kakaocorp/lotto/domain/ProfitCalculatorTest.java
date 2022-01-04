@@ -30,14 +30,14 @@ class ProfitCalculatorTest {
 
     private static Stream<Arguments> provideCalculateParameters() {
         return Stream.of(
-                Arguments.of(1000, Map.of(LottoResult.FOURTH, 1), 5f),
+                Arguments.of(1000, Map.of(LottoResult.FIFTH, 1), 5f),
                 Arguments.of(1000, Map.of(LottoResult.FIRST, 0), 0),
-                Arguments.of(23450, Map.of(LottoResult.SECOND, 3), 191.89766f),
+                Arguments.of(23450, Map.of(LottoResult.THIRD, 3), 191.89766f),
                 Arguments.of(
                         2000000,
                         Map.of(
-                                LottoResult.FOURTH, 1,
-                                LottoResult.THIRD, 1
+                                LottoResult.FIFTH, 1,
+                                LottoResult.FOURTH, 1
                         ),
                         0.0275f
                 )

@@ -23,11 +23,12 @@ public class LottoTicket {
         return new LottoTicket(numbers);
     }
 
-    public LottoResult check(Set<Integer> winningNumbers) {
+    LottoResult check(Set<Integer> winningNumbers, int bonusNumber) {
         Set<Integer> intersection = new HashSet<>(numbers);
         intersection.retainAll(winningNumbers);
         int matches = intersection.size();
-        return LottoResult.get(matches);
+        boolean bonus = !winningNumbers.contains(bonusNumber) && numbers.contains(bonusNumber);
+        return LottoResult.get(matches, bonus);
     }
 
     public String toArrayString() {

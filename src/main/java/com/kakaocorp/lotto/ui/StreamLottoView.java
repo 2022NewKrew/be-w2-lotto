@@ -47,10 +47,12 @@ public class StreamLottoView extends LottoView {
         out.println("지난 주 당첨 번호를 입력해 주세요.");
         String input = sc.nextLine();
         String[] split = input.split(",\\s*");
-        List<Integer> numbers = Arrays.stream(split)
+        List<Integer> winningNumbers = Arrays.stream(split)
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
-        presenter.onWinningNumbersInput(context, numbers);
+        out.println("보너스 볼을 입력해 주세요.");
+        int bonusNumber = Integer.parseInt(sc.nextLine());
+        presenter.onWinningNumbersInput(context, winningNumbers, bonusNumber);
     }
 
     @Override
