@@ -17,7 +17,7 @@ public class OutputView {
     public void printWinningStatistics(List<Lotto> lottoList, Lotto winningLotto) {
         Map<Integer, Integer> countMap = initCountMap();
         for (Lotto lotto : lottoList) {
-            int matchedCount = matchLotto(lotto, winningLotto);
+            int matchedCount = lotto.countMatchedNumbers(winningLotto);
             countMap.put(matchedCount, countMap.get(matchedCount) + 1);
         }
 
@@ -56,13 +56,4 @@ public class OutputView {
         return countMap;
     }
 
-    private int matchLotto(Lotto lotto, Lotto winningLotto) {
-        int count = 0;
-        for (int i = 0; i < lotto.getLottoNumbers().size(); i++) {
-            if (lotto.getLottoNumbers().get(i).equals(winningLotto.getLottoNumbers().get(i))) {
-                count++;
-            }
-        }
-        return count;
-    }
 }

@@ -41,8 +41,12 @@ public class Lotto {
         }
     }
 
-    public List<LottoNumber> getLottoNumbers() {
-        return lottoNumbers;
+    public int countMatchedNumbers(Lotto other) {
+        int count = 0;
+        for (int i = 0; i < this.lottoNumbers.size(); i++) {
+            count += this.lottoNumbers.get(i).equals(other.lottoNumbers.get(i)) ? 1 : 0;
+        }
+        return count;
     }
 
     @Override
