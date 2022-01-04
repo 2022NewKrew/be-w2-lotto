@@ -1,13 +1,12 @@
 package util;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class IOUtils {
-	public static final BufferedReader BR = new BufferedReader(new InputStreamReader(System.in));
+	public static final Scanner SCANNER = new Scanner(System.in);
 
 	public static List<Integer> stringTokenizerToIntegerList(StringTokenizer st) {
 		List<Integer> list = new ArrayList<>();

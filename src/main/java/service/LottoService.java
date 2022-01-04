@@ -4,94 +4,52 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import domain.Lotto;
-import domain.LottoConfig;
 import domain.LottoGenerator;
-import domain.LottoWinningRank;
-import util.IOUtils;
-import util.Message;
+import domain.LottoInfo;
+import domain.LottoRank;
+import domain.WinningLotto;
 
 public class LottoService {
-	public int getPurchaseAmount() throws Exception {
-		System.out.println(Message.INPUT_LOTTO_PURCHASE_AMOUNT);
-		int purchaseAmount = Integer.parseInt(IOUtils.BR.readLine());
-
-		return purchaseAmount;
+	public int getPurchaseAmount(int purchaseMoney) {
+		return LottoGenerator.getAmountOfLotto(purchaseMoney);
 	}
 
-	public List<Lotto> createLottoList(int purchaseAmount) {
-		int amountOfLotto = getAmountOfLotto(purchaseAmount);
-
+	public List<Lotto> createLottoList(int amount) {
 		List<Lotto> lottoList = new ArrayList<>();
 
-		for (int number = 0; number < amountOfLotto; number++) {
-			Lotto lotto = LottoGenerator.generateLotto();
-			System.out.println(lotto.getLottoNumberList());
-			lottoList.add(lotto);
+		for (int number = 0; number < amount; number++) {
+			lottoList.add(LottoGenerator.generateLotto());
 		}
-		System.out.println();
 
 		return lottoList;
 	}
 
-	public int getAmountOfLotto(int purchaseAmount) {
-		int amountOfLotto = LottoConfig.getAmountOfLotto(purchaseAmount);
-		System.out.println(amountOfLotto + Message.LOTTO_PURCHASED_NUMBER);
+	public Map<LottoRank, Integer> calculateRank(List<Lotto> lottoList, WinningLotto winningLotto) {
+		Map<LottoRank, Integer> rankMap = new HashMap<>();
 
-		return amountOfLotto;
-	}
-
-	public Lotto createWinningLotto() throws Exception {
-		System.out.println(Message.INPUT_LOTTO_WINNING_NUMBER);
-		StringTokenizer st = new StringTokenizer(IOUtils.BR.readLine(), ",");
-
-		List<Integer> winningLotto = IOUtils.stringTokenizerToIntegerList(st);
-		System.out.println();
-
-		return new Lotto(winningLotto);
-	}
-
-	public Map<LottoWinningRank, Integer> calculateLottoRank(List<Lotto> lottoList, Lotto winningLotto) {
-		Map<LottoWinningRank, Integer> rankMap = new HashMap<>();
-
-		for (LottoWinningRank rank : LottoWinningRank.values()) {
+		for (LottoRank rank : LottoRank.values()) {
 			rankMap.put(rank, 0);
 		}
 
 		for (Lotto lotto : lottoList) {
-			LottoWinningRank lottoWinningRank = LottoWinningRank.calculate(lotto, winningLotto);
-			rankMap.put(lottoWinningRank, rankMap.get(lottoWinningRank) + 1);
+			LottoRank lottoRank = winningLotto.calculateRank(lotto);
+			rankMap.put(lottoRank, rankMap.get(lottoRank) + 1);
 		}
 
 		return rankMap;
 	}
 
-	public void printLottoStatistics(Map<LottoWinningRank, Integer> rankMap) {
-		StringBuilder sb = new StringBuilder();
-		sb.append(Message.LOTTO_WINNING_STATISTICS + "\n");
-		sb.append(Message.HORIZONTAL_LINE + "\n");
+	public double calculateProfit(List<Lotto> lottoList, Map<LottoRank, Integer> rankMap) {
+		int profit = 0;
+		int purchaseMoney = lottoList.size() * LottoInfo.PRICE;
 
-		List<LottoWinningRank> rankList = LottoWinningRank.getValidLottoWinningRankList();
-
-		for (LottoWinningRank rank : rankList) {
-			sb.append(rank.getNumberOfMatches() + "개 일치 (");
-			sb.append(rank.getReward() + "원) - ");
-			sb.append(rankMap.get(rank) + "개\n");
+		for (LottoRank rank : LottoRank.getValidLottoRankList()) {
+			profit += rank.getReward() * rankMap.get(rank);
 		}
 
-		System.out.println(sb);
-	}
-
-	public double calculatePurchase(int purchaseAmount, Map<LottoWinningRank, Integer> rankMap) {
-		int winningAmount = 0;
-
-		for (LottoWinningRank rank : LottoWinningRank.getValidLottoWinningRankList()) {
-			winningAmount += rank.getReward() * rankMap.get(rank);
-		}
-
-		return (double)winningAmount / (double)purchaseAmount * 100.0;
+		return (double)(profit - purchaseMoney) / purchaseMoney * 100.0;
 	}
 }
 
