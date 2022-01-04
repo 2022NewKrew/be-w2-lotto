@@ -1,6 +1,5 @@
 package domain.lottery;
 
-import domain.Agent;
 import domain.Prize;
 
 import java.util.ArrayList;
@@ -19,10 +18,10 @@ public class Tickets {
         return tickets;
     }
 
-    public Map<Prize, Integer> getPrizeCount(Agent agent) {
+    public Map<Prize, Integer> getPrizeCount(Result result) {
         Map<Prize, Integer> prizeCount = createInitializedPrizeCount();
         for (var ticket : tickets) {
-            Prize ticketPrize = agent.getTicketPrize(ticket);
+            Prize ticketPrize = result.getTicketPrize(ticket);
             prizeCount.put(ticketPrize, prizeCount.get(ticketPrize) + 1);
         }
         return prizeCount;

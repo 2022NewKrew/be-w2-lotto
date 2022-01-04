@@ -1,18 +1,24 @@
 package domain;
 
+import domain.lottery.NumbersFactory;
+import domain.lottery.Result;
+import domain.lottery.Ticket;
 import domain.lottery.Tickets;
 import dto.ReportDTO;
 
+import java.util.List;
+
 
 public class Purchase {
-    private final Agent agent;
     private final Tickets tickets;
     private int investment;
-    private int ticketPrice;
+    private final int ticketPrice;
+    private final NumbersFactory numbersFactory;
+    private Result result;
 
-    public Purchase(Agent agent, int ticketPrice) {
+    public Purchase(int ticketPrice) {
         this.ticketPrice = ticketPrice;
-        this.agent = agent;
+        this.numbersFactory = new NumbersFactory();
         investment = 0;
         tickets = new Tickets();
     }
@@ -20,7 +26,7 @@ public class Purchase {
     public Tickets buyRandomTicketsUnderBudget(int budget) {
         Tickets newTickets = new Tickets();
         while (budget >= ticketPrice) {
-            newTickets.add(agent.buyRandomTicket());
+            newTickets.add(new Ticket(numbersFactory.getRandomNumbers()));
             investment += ticketPrice;
             budget -= ticketPrice;
         }
@@ -28,7 +34,11 @@ public class Purchase {
         return newTickets;
     }
 
+    public void setResult(List<Integer> numbers, int bonusBall) {
+        this.result = new Result(numbersFactory.getValidatedNumbers(numbers), bonusBall);
+    }
+
     public ReportDTO getReport() {
-        return new ReportDTO(investment, tickets.getPrizeCount(agent));
+        return new ReportDTO(investment, tickets.getPrizeCount(result));
     }
 }
