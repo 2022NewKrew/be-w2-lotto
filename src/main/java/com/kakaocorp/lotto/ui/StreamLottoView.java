@@ -7,13 +7,9 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-/*
- * FIXME 입출력 담당하는 코드 외에 전부 Presenter로 옮기고 싶음
- */
 public class StreamLottoView extends LottoView {
 
     private final Scanner sc;
@@ -33,13 +29,14 @@ public class StreamLottoView extends LottoView {
     }
 
     @Override
-    public void printLottos(List<LottoTicket> tickets) {
-        int count = tickets.size();
+    public void printTicketHeader(int count) {
         //noinspection RedundantStringFormatCall
         out.println(String.format("%d개를 구매했습니다.", count));
-        for (LottoTicket ticket : tickets) {
-            out.println(ticket.toArrayString());
-        }
+    }
+
+    @Override
+    public void printTicket(LottoTicket ticket) {
+        out.println(ticket.toArrayString());
     }
 
     @Override
@@ -47,27 +44,28 @@ public class StreamLottoView extends LottoView {
         out.println("지난 주 당첨 번호를 입력해 주세요.");
         String input = sc.nextLine();
         String[] split = input.split(",\\s*");
-        List<Integer> numbers = Arrays.stream(split)
+        List<Integer> winningNumbers = Arrays.stream(split)
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
-        presenter.onWinningNumbersInput(context, numbers);
+        out.println("보너스 볼을 입력해 주세요.");
+        int bonusNumber = Integer.parseInt(sc.nextLine());
+        presenter.onWinningNumbersInput(context, winningNumbers, bonusNumber);
     }
 
     @Override
-    public void printResults(List<Map.Entry<LottoResult, Integer>> results, int profit) {
+    public void printResultHeader() {
         out.println("당첨 통계");
         out.println("---------");
-        for (Map.Entry<LottoResult, Integer> entry : results) {
-            LottoResult result = entry.getKey();
-            int count = entry.getValue();
-            printResult(result, count);
-        }
-        //noinspection RedundantStringFormatCall
-        out.println(String.format("총 수익률은 %d%%입니다.", profit));
     }
 
-    private void printResult(LottoResult result, int count) {
-        String s = result.toPrintString(count);
-        out.println(s);
+    @Override
+    public void printResult(LottoResult result, int count) {
+        out.println(result.toPrintString(count));
+    }
+
+    @Override
+    public void printProfit(int profit) {
+        //noinspection RedundantStringFormatCall
+        out.println(String.format("총 수익률은 %d%%입니다.", profit));
     }
 }

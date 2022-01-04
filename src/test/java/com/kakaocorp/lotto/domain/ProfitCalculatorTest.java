@@ -1,12 +1,10 @@
 package com.kakaocorp.lotto.domain;
 
-import com.kakaocorp.lotto.model.LottoResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,25 +20,18 @@ class ProfitCalculatorTest {
 
     @ParameterizedTest
     @MethodSource("provideCalculateParameters")
-    void calculate(int payment, Map<LottoResult, Integer> results, float expected) {
-        float result = subject.calculate(payment, results);
+    void calculate(int payment, int gain, float expected) {
+        float result = subject.calculate(payment, gain);
 
         assertEquals(expected, result);
     }
 
     private static Stream<Arguments> provideCalculateParameters() {
         return Stream.of(
-                Arguments.of(1000, Map.of(LottoResult.FOURTH, 1), 5f),
-                Arguments.of(1000, Map.of(LottoResult.FIRST, 0), 0),
-                Arguments.of(23450, Map.of(LottoResult.SECOND, 3), 191.89766f),
-                Arguments.of(
-                        2000000,
-                        Map.of(
-                                LottoResult.FOURTH, 1,
-                                LottoResult.THIRD, 1
-                        ),
-                        0.0275f
-                )
+                Arguments.of(1000, 5000, 5f),
+                Arguments.of(1000, 0, 0),
+                Arguments.of(23450, 4500000, 191.89766f),
+                Arguments.of(2000000, 55000, 0.0275f)
         );
     }
 }
