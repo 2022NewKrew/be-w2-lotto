@@ -45,9 +45,7 @@ public class Lottos {
     }
 
     private void addPrizeAmount(Rank rank) {
-        if (rank != null) {
-            rank.addWinnerCount();
-            prizeAmount += rank.getPrizeAmount();
-        }
+        rank.addWinnerCount();
+        prizeAmount += rank.getPrizeAmount();
     }
 }
