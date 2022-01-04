@@ -11,11 +11,11 @@ public class LottoCalculate {
     private double revenue;
 
     public LottoCalculate() {
-        totalCount.put(Rank.FIRST, 0);
-        totalCount.put(Rank.SECOND, 0);
-        totalCount.put(Rank.THIRD, 0);
-        totalCount.put(Rank.FOURTH, 0);
         totalCount.put(Rank.FIFTH, 0);
+        totalCount.put(Rank.FOURTH, 0);
+        totalCount.put(Rank.THIRD, 0);
+        totalCount.put(Rank.SECOND, 0);
+        totalCount.put(Rank.FIRST, 0);
     }
 
     private void addCount(int countOfMatch, boolean matchBonus) {
