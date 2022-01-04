@@ -1,8 +1,10 @@
 package lotto.domain.lotto;
 
-import java.util.ArrayList;
+import lotto.domain.dto.LottoMatchResultOutput;
+import lotto.domain.winning.BonusNumber;
+import lotto.domain.winning.WinningNumber;
+
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Lotto {
 
@@ -16,7 +18,17 @@ public class Lotto {
         return new Lotto(strategy.create());
     }
 
-    public List<Integer> getLottoNumber() {
-        return lottoNumber;
+    public LottoMatchResultOutput howManyLotteryNumbersAreIncluded(WinningNumber winningNumber, BonusNumber bonusNumber) {
+        int matchCount = (int) lottoNumber.stream()
+                .filter(winningNumber::isContainWinningNumber)
+                .count();
+        boolean bonusNumberMatching = lottoNumber.stream()
+                .anyMatch(bonusNumber::bonusNumberIsIncluded);
+        return new LottoMatchResultOutput(bonusNumberMatching, matchCount);
+    }
+
+    @Override
+    public String toString() {
+        return lottoNumber.toString();
     }
 }
