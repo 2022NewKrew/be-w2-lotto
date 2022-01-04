@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Lotto {
 
-    public static final Integer NUMBER_OF_WINNING_NUMBERS = 6;
-    public static final Integer MAX_SIZE_OF_LOTTO = 45;
+    public static final Integer COUNT_OF_WINNING_NUMBERS = 6;
+    public static final Integer MAX_NUMBER_OF_LOTTO = 45;
     private final List<Integer> lottoNumbers;
 
     public Lotto() {
@@ -18,7 +18,7 @@ public class Lotto {
         List<Integer> numbers = new ArrayList<>();
         List<Integer> lottoBasicNumbers = makeLottoBasicNumbers();
         Collections.shuffle(lottoBasicNumbers);
-        for (int i = 0; i < NUMBER_OF_WINNING_NUMBERS; i++) {
+        for (int i = 0; i < COUNT_OF_WINNING_NUMBERS; i++) {
             numbers.add(lottoBasicNumbers.get(i));
         }
         Collections.sort(numbers);
@@ -28,7 +28,7 @@ public class Lotto {
 
     private List<Integer> makeLottoBasicNumbers() {
         List<Integer> basicLottoNumbers = new ArrayList<>();
-        for (int i = 1; i <= MAX_SIZE_OF_LOTTO; i++) {
+        for (int i = 1; i <= MAX_NUMBER_OF_LOTTO; i++) {
             basicLottoNumbers.add(i);
         }
 
