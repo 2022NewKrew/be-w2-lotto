@@ -19,6 +19,7 @@ public class LottoMain {
         int bonusNum = LottoUI.inputBonusNum();
 
         // 당첨 결과 및 수익률 출력
-        LottoUI.outputWinningResult(lottoPaper.winningResult(winningNum), lottoPaper.winRate());
+        LottoUI.outputWinningResult(lottoPaper.winningResult(winningNum, bonusNum));
+        LottoUI.outputWinRate(lottoPaper.winRate());
     }
 }

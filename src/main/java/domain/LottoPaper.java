@@ -29,7 +29,7 @@ public class LottoPaper {
         return paper.size();
     }
 
-    public HashMap<Integer, Integer> winningResult(List<Integer> winningNum) {
+    public HashMap<Integer, Integer> winningResult(List<Integer> winningNum, int bonusNum) {
         int sameNum;
         IntStream.range(0, 7).forEach(num -> sameToCnt.put(num, 0));
         for (Lotto lotto : paper) {

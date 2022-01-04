@@ -1,5 +1,6 @@
 package view;
 
+import domain.Rank;
 import domain.UIMessage;
 
 import java.util.Arrays;
@@ -51,7 +52,22 @@ public class LottoUI {
         System.out.println(lotto);
     }
 
-    public static void outputWinningResult(HashMap<Integer, Integer> winningResult, int winRate) {
-        System.out.printf(UIMessage.WINNING_RESULT.getMessage(), winningResult.get(3), winningResult.get(4), winningResult.get(5), winningResult.get(6), winRate);
+    public static void outputWinningResult(HashMap<Integer, Integer> winningResult) {
+        StringBuilder result = new StringBuilder();
+        result.append("\n당첨 통계\n");
+        result.append("---------\n");
+        Arrays.stream(Rank.values()).forEach(rank -> {
+            result.append(rank.getCountOfMatch());
+            result.append("개 일치 (");
+            result.append(rank.getWinningMoney());
+            result.append("원)- ");
+            result.append(winningResult.get(rank.getCountOfMatch()));
+            result.append("개");
+        });
+        System.out.println(result);
+    }
+
+    public static void outputWinRate(int winRate) {
+        System.out.printf(UIMessage.WIN_RATE.getMessage(), winRate);
     }
 }
