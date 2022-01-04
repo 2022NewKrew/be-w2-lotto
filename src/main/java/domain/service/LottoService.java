@@ -4,6 +4,7 @@ import domain.buyer.Buyer;
 import domain.lotto.Lotto;
 import domain.lotto.Number;
 import domain.result.Result;
+import domain.result.Winning;
 import view.InputView;
 import view.OutputView;
 
@@ -12,14 +13,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static domain.result.Winning.FIRST_WINNING;
-import static domain.result.Winning.FOURTH_WINNING;
+import static domain.result.Winning.*;
 
 public class LottoService {
-    //로또
-    private final List<Integer> hittingTable; //index를 맞힌 갯수, value를 해당 횟수
-    private Buyer buyer;
-    private Result result;
+    //index를 맞힌 갯수, value를 해당 횟수로 하는 자료구조
+    private final List<Integer> hittingTable;
 
     //입출력
     private final InputView inputView;
@@ -27,54 +25,60 @@ public class LottoService {
 
     //상수
     private static final int LOTTO_PER_PRICE = 1000;
-    private static int MIN_HITTING_CNT = FOURTH_WINNING.getHittingCnt();
-    private static int MAX_HITTING_CNT = FIRST_WINNING.getHittingCnt();
+    private static int LOWEST_RANK = SIXTH_WINNING.getRank();
+    private static int HIGHEST_RANK = FIRST_WINNING.getRank();
 
     public LottoService() {
-        hittingTable = new ArrayList<>(Collections.nCopies(MAX_HITTING_CNT + 1, 0));
+        hittingTable = new ArrayList<>(Collections.nCopies(LOWEST_RANK + 1, 0));
         inputView = InputView.getInstance();
         outputView = OutputView.getInstance();
     }
 
     public void start() {
-        buyingLotto();
-        inputLastWinningNumber();
-        calculateHittingLotto();
+        Buyer buyer = buyingLotto();
+        Result lastRottoResult = inputLastWinningNumber();
+        calculateHittingLotto(buyer, lastRottoResult);
 
-        outputView.showTotalHitting(hittingTable, MIN_HITTING_CNT, MAX_HITTING_CNT, buyer.getYield());
+        outputView.showTotalHitting(hittingTable, LOWEST_RANK - 1, HIGHEST_RANK, buyer.getYield());
     }
 
     //구매자의 로또 정보를 바탕으로 맞힌 정보 및 수익 셋팅
-    private void calculateHittingLotto() {
+    private void calculateHittingLotto(Buyer buyer, Result result) {
         List<Lotto> buyingLottos = buyer.getBuyingLottos();
         for (Lotto buyingLotto : buyingLottos) {
             int hittingCnt = result.calculateHittingCnt(buyingLotto);
-            Integer curCnt = hittingTable.get(hittingCnt);
+            int bonusCnt = result.calculateBonusCnt(buyingLotto);
+            int rank = Winning.rankOfHitting(hittingCnt, bonusCnt);
 
-            hittingTable.set(hittingCnt, curCnt + 1);
+            Integer curCnt = hittingTable.get(rank);
+
+            hittingTable.set(rank, curCnt + 1);
         }
-        buyer.calculateEarningInfo(hittingTable, MIN_HITTING_CNT, MAX_HITTING_CNT);
+        buyer.calculateEarningInfo(hittingTable, HIGHEST_RANK, LOWEST_RANK);
     }
 
-    private void buyingLotto() {
+    private Buyer buyingLotto() {
         int buyingPrice = inputView.inputPrice();
         int buyingCnt = getBuyingCnt(buyingPrice);
 
-        buyer = new Buyer(buyingPrice);
+        Buyer buyer = new Buyer(buyingPrice);
         buyer.buyingManyByRandom(buyingCnt);
 
         outputView.completeBuying(buyingCnt);
         outputView.showLottoNumbers(buyer.getBuyingLottos());
+
+        return buyer;
     }
 
-    private void inputLastWinningNumber() {
+    private Result inputLastWinningNumber() {
         List<Integer> winningNumbers = inputView.inputLastWinningNumbers();
+        int bonusNumber = inputView.inputBonusNumber();
 
         List<Number> winningLottoNumber = winningNumbers.stream()
                 .map(Number::new)
                 .collect(Collectors.toList());
 
-        result = new Result(winningLottoNumber);
+        return new Result(winningLottoNumber, new Number(bonusNumber));
     }
 
     private int getBuyingCnt(int buyingPrice) {

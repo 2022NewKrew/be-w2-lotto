@@ -1,13 +1,13 @@
 package domain.buyer;
 
 public class Yield {
-    private final int yield;
+    private final int percent;
 
-    public Yield(int yield) {
-        this.yield = yield;
+    public Yield(int percent) {
+        this.percent = percent;
     }
 
-    public int getYield() {
-        return yield;
+    public int getPercent() {
+        return percent;
     }
 }

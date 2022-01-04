@@ -4,32 +4,23 @@ import domain.lotto.Lotto;
 import domain.lotto.Number;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class Result {
     private final Lotto lastLottoResult;
+    private final Number bonusNumber;
 
-    public Result(List<Number> lottoNumbers) {
+    public Result(List<Number> lottoNumbers, Number bonusNumber) {
         lastLottoResult = new Lotto(lottoNumbers);
+        this.bonusNumber = bonusNumber;
     }
 
     //대상이 되는 로또 번호와 결과 로또 번호중 얼마나 번호가 일치하는지 계산
-    public int calculateHittingCnt(Lotto lotto) {
-        List<Number> targetNumbers = lotto.getLottoNumbers();
-
-        return targetNumbers.stream()
-                .filter(t -> isContain(t))
-                .collect(Collectors.toList())
-                .size();
+    public int calculateHittingCnt(Lotto targetLotto) {
+        return lastLottoResult.compareLotto(targetLotto);
     }
 
-    private boolean isContain(final Number targetNumber) {
-        return lastLottoResult.getLottoNumbers()
-                .stream()
-                .filter(l -> l.isSame(targetNumber))
-                .findFirst()
-                .isPresent();
+    public int calculateBonusCnt(Lotto targetLotto) {
+        return targetLotto.compareLottoWithBonus(bonusNumber);
     }
-
 }

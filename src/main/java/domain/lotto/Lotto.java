@@ -1,24 +1,32 @@
 package domain.lotto;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Lotto {
-    private final List<Number> lottoNumbers;
+    private final LottoNumber lottoNumber;
 
-    public Lotto(List<Number> lottoNumbers) {
-        this.lottoNumbers = lottoNumbers;
+    public Lotto(List<Number> numbers) {
+        lottoNumber = new LottoNumber(numbers);
     }
 
-    public List<Number> getLottoNumbers() {
-        return lottoNumbers;
+    public Lotto(LottoNumber lottoNumber) {
+        this.lottoNumber = lottoNumber;
+    }
+
+    public String lottoNumberToString() {
+        return lottoNumber.numbersToString();
     }
 
     public static Lotto makeOneRandomLotto() {
-        List<Number> sixRandomNumber = RandomBucket.getSixRandomNumber();
-        Collections.sort(sixRandomNumber);
-
-        return new Lotto(sixRandomNumber);
+        return new Lotto(LottoNumber.makeSixNumbersByRandom());
     }
+
+    public int compareLotto(Lotto targetLotto) {
+        return lottoNumber.compareLottoNumber(targetLotto.lottoNumber);
+    }
+
+    public int compareLottoWithBonus(Number bonusNumber) {
+        return lottoNumber.compareBonusNumber(bonusNumber);
+    }
+
 }

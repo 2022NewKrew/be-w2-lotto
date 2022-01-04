@@ -1,13 +1,13 @@
 package domain.buyer;
 
 public class Price {
-    private final int price;
+    private final int value;
 
-    public Price(int price) {
-        this.price = price;
+    public Price(int value) {
+        this.value = value;
     }
 
-    public int getPrice() {
-        return price;
+    public int getValue() {
+        return value;
     }
 }
