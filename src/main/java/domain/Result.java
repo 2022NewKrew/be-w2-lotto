@@ -7,11 +7,11 @@ import java.util.Map;
 
 public class Result {
     private final Map<Rank, Integer> resultMap;
-    private final int yieldPercent;
+    private final float yieldPercent;
 
-    private Result(Map<Rank, Integer> resultMap, long yieldPercent) {
+    private Result(Map<Rank, Integer> resultMap, float yieldPercent) {
         this.resultMap = Collections.unmodifiableMap(resultMap);
-        this.yieldPercent = (int) yieldPercent;
+        this.yieldPercent = yieldPercent;
     }
 
     public static Result of(long baseMoney, List<Lottery> lotteries, WinningLottery winningLottery) {
@@ -26,14 +26,14 @@ public class Result {
         for (Rank rank : resultMap.keySet()) {
             prize += (rank.getPrize() * resultMap.get(rank));
         }
-        return new Result(resultMap, 100 * prize / baseMoney);
+        return new Result(resultMap, 100.0f * (prize - baseMoney) / baseMoney);
     }
 
     public int getCountOf(Rank rank) {
         return resultMap.get(rank);
     }
 
-    public long getYieldPercent() {
+    public float getYieldPercent() {
         return this.yieldPercent;
     }
 }
