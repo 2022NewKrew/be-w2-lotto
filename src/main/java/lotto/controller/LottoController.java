@@ -1,7 +1,7 @@
 package lotto.controller;
 
 import lotto.domain.*;
-import lotto.exception.InvalidInputFormatException;
+import lotto.exception.InvalidInputException;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
@@ -27,20 +27,24 @@ public class LottoController {
         }
     }
 
-    private List<LottoTicket> purchaseLottoTickets() throws InvalidInputFormatException {
-        int amount = inputView.inputAmountForPurchase();
-        int totalNumOfTickets = amount / LottoTicket.PRICE;
-        int numOfInputtedTickets = inputView.inputNumOfLottoTicketsToInput(totalNumOfTickets);
-        List<List<Integer>> numbers = inputView.inputNumbersForPurchaseLottoTickets(numOfInputtedTickets);
-        List<LottoTicket> inputtedTickets = factory.createLottoTickets(numbers);
-        List<LottoTicket> randomTickets = factory.createRandomLottoTickets(totalNumOfTickets - numOfInputtedTickets);
+    private List<LottoTicket> purchaseLottoTickets() throws InvalidInputException {
+        int totalNumOfTickets = inputView.inputAmountForPurchase() / LottoTicket.PRICE;
+        List<LottoTicket> inputtedTickets = inputLottoTickets(totalNumOfTickets);
+        List<LottoTicket> randomTickets = factory.createRandomLottoTickets(totalNumOfTickets - inputtedTickets.size());
         outputView.printLotteries(inputtedTickets, randomTickets);
         return Stream.concat(inputtedTickets.stream(), randomTickets.stream()).collect(Collectors.toList());
     }
 
-    private void validateBonusNumber(int bonusNumber, List<Integer> winningNumbers) throws Exception {
+    // 구매할 수 있는 로또 티켓의 개수보다 적게 구매하는 것을 확인하기 위해 구매할 수 있는 전체 로또 티켓의 개수를 전달해 준다.
+    private List<LottoTicket> inputLottoTickets(int totalNumOfTickets) throws InvalidInputException {
+        int numOfInputtedTickets = inputView.inputNumOfLottoTicketsToInput(totalNumOfTickets);
+        List<List<Integer>> numbers = inputView.inputNumbersForPurchaseLottoTickets(numOfInputtedTickets);
+        return factory.createLottoTickets(numbers);
+    }
+
+    private void validateBonusNumber(int bonusNumber, List<Integer> winningNumbers) throws InvalidInputException {
         if (winningNumbers.contains(bonusNumber)) {
-            throw new Exception("입력한 보너스 숫자가 당첨 번호에 포함되어 있습니다.");
+            throw new InvalidInputException("입력한 보너스 숫자가 당첨 번호에 포함되어 있습니다.");
         }
     }
 
