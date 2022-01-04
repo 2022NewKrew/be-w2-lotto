@@ -31,19 +31,24 @@ public class LottoResult {
         }
     }
 
+    private void increaseMatchingCount(int countOfMatchingNumber) {
+        LottoResultType resultType = LottoResultType.getLottoResultType(countOfMatchingNumber);
+        matchResult.computeIfPresent(resultType, (type, number) -> number + 1);
+    }
+
     private void compareLottoNumber(LottoTicket winningTicket, List<LottoTicket> lottoTickets) {
         for (LottoTicket ticket : lottoTickets) {
             int count = compareWinningNumber(winningTicket, ticket);
-            LottoResultType resultType = LottoResultType.valueOf(Integer.toString(count));
-            matchResult.computeIfPresent(resultType, (type, number) -> number + 1);
+            if (count >= LottoResultType.MIN_MATCH_NUMBER_COUNT) {
+                increaseMatchingCount(count);
+            }
         }
     }
 
     private int compareWinningNumber(LottoTicket winningTicket, LottoTicket lottoTickets) {
-        int matchCount = 0;
-        if (winningTicket.getTickets().contains(lottoTickets)) {
-            matchCount++;
-        }
-        return matchCount;
+        return (int) lottoTickets.getTickets()
+                .stream()
+                .filter(lottoNumber -> winningTicket.getTickets().contains(lottoNumber))
+                .count();
     }
 }

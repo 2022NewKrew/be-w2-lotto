@@ -17,7 +17,7 @@ public class LottoPrice {
 
     private void validateLottoPrice(int price) {
         if (price < LOTTO_MIN_PRICE) {
-            throw new IllegalArgumentException("로또가격은 최소 " + LOTTO_MIN_PRICE + "를 입력해야합니다.");
+            throw new IllegalArgumentException("로또 가격은 최소 " + LOTTO_MIN_PRICE + "를 입력해야합니다.");
         }
     }
 }
