@@ -35,4 +35,14 @@ public class InputController {
             throw new InputNumberFormatException("숫자의 형식이 아닙니다.");
         }
     }
+
+    public int getBonusNumber() {
+        try {
+            System.out.println("보너스 볼을 입력해 주세요.");
+
+            return Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            throw new InputNumberFormatException("숫자의 형식이 아닙니다.");
+        }
+    }
 }

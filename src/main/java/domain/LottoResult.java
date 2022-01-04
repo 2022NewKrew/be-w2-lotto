@@ -1,9 +1,6 @@
 package domain;
 
-import exception.LottoAmountLimitException;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class LottoResult {
@@ -14,7 +11,7 @@ public class LottoResult {
         this.countOfMatches = new HashMap<>();
         this.profitRate = 0.0;
     }
-
+    
     public void setProfitRate(double profitRate) {
         this.profitRate = profitRate;
     }

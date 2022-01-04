@@ -89,6 +89,10 @@ public class LottoController {
         lottoView.printPurchaseAmount(purchaseAmount);
     }
 
+    public void printLottoNumbers() {
+        lottoView.printLottoNumbers(lottoList);
+    }
+
     public void printResult() {
         lottoView.printLottoStatistics(lottoResult);
     }

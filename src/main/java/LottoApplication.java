@@ -6,7 +6,9 @@ public class LottoApplication {
         try {
             InputController inputController = new InputController();
             LottoController lottoController = new LottoController(inputController.getPurchasePrice());
+
             lottoController.printPurchaseAmount();
+            lottoController.printLottoNumbers();
 
             lottoController.setWinningLottoNumbers(inputController.getLottoNumbers());
             lottoController.generateLottoResult();
