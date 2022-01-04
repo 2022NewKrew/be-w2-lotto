@@ -197,3 +197,6 @@ gradle-app.setting
 /target/
 /build/
 .gradle
+.gradle/
+.idea/
+/build/

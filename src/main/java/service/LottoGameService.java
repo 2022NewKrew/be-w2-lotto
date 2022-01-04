@@ -5,7 +5,6 @@ import domain.LottoRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class LottoGameService {
 
@@ -23,16 +22,16 @@ public class LottoGameService {
                 .count();
     }
 
-        public static Boolean checkLotto(Lotto autoLotto, Integer num) {
-        boolean count = false;
-
-        for (int lottoIndex = 0; lottoIndex < autoLotto.getLotto().size(); lottoIndex++) {
-            if (Objects.equals(num, autoLotto.getLotto().get(lottoIndex))) {
-                count = true;
-                break;
+    public static Boolean checkLotto(Lotto autoLotto, Integer num) {
+        for (int lottoIndex = 0; lottoIndex < autoLotto.getLottoSize(); lottoIndex++) {
+            if (numInLotto(autoLotto.getLotto().get(lottoIndex), num)) {
+                return true;
             }
         }
-        return count;
+        return false;
     }
 
+    public static Boolean numInLotto(int lottoNum, int num) {
+        return lottoNum == num;
+    }
 }
