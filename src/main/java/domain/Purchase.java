@@ -4,12 +4,14 @@ import domain.lottery.Tickets;
 import dto.ReportDTO;
 
 
-public class User {
+public class Purchase {
     private final Agent agent;
     private final Tickets tickets;
     private int investment;
+    private int ticketPrice;
 
-    public User(Agent agent) {
+    public Purchase(Agent agent, int ticketPrice) {
+        this.ticketPrice = ticketPrice;
         this.agent = agent;
         investment = 0;
         tickets = new Tickets();
@@ -17,10 +19,10 @@ public class User {
 
     public Tickets buyRandomTicketsUnderBudget(int budget) {
         Tickets newTickets = new Tickets();
-        while (budget >= agent.getTicketPrice()) {
+        while (budget >= ticketPrice) {
             newTickets.add(agent.buyRandomTicket());
-            investment += agent.getTicketPrice();
-            budget -= agent.getTicketPrice();
+            investment += ticketPrice;
+            budget -= ticketPrice;
         }
         tickets.add(newTickets);
         return newTickets;
