@@ -20,7 +20,7 @@ public class WinningLottery {
                 .collect(Collectors.toList());
     }
 
-    public Rank checkRank(Lottery lottery) {
+    private Rank checkRank(Lottery lottery) {
         int matchCount = lottery.calculateMatchCount(this.drawnNumbers);
         boolean bonusMatched = lottery.contains(this.bonusNumber);
         return Rank.valueOf(matchCount, bonusMatched);
