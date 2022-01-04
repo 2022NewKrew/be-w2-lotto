@@ -4,6 +4,7 @@ import model.calculate.CalculateEarningRatio;
 import model.calculate.CalculateResult;
 import model.builder.AutoMaker;
 import model.scan.AmountOfLottoScanner;
+import model.scan.BonusNumberScanner;
 import model.scan.WinningNumberScanner;
 import parameters.LottoResult;
 import parameters.UserLottoLines;
@@ -21,7 +22,8 @@ public class LottoController {
         UserLottoLines userLottoLines = new AutoMaker().makeLines(amountOfLotto);
         new UserLottoViewer().viewUserLottoList(userLottoLines);
         List<Integer> winningNumbers = new WinningNumberScanner().getWinningNumbers();
-        LottoResult lottoResult = new CalculateResult().getLottoResult(userLottoLines, winningNumbers);
+        int bonus = new BonusNumberScanner().getBonusNumber(winningNumbers);
+        LottoResult lottoResult = new CalculateResult().getLottoResult(userLottoLines, winningNumbers, bonus);
         new UserResultViewer().viewResult(lottoResult);
         new LottoEarningRatioViewer().viewEarningRatio(
                 new CalculateEarningRatio().calculateEarningRatio(lottoResult, amountOfLotto)

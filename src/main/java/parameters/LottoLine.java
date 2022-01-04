@@ -10,6 +10,7 @@ public class LottoLine {
     public LottoLine(List<Integer> numbers) { this.numbers = numbers; }
 
     public Stream<Integer> getNumbersStream() { return numbers.stream(); }
+    public boolean checkBonus(int bonus) { return numbers.contains(bonus); }
     public String getViewString() {
         StringJoiner sj = new StringJoiner(", ", "[", "]");
         for(int number : numbers){
