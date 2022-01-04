@@ -6,16 +6,17 @@ import java.util.List;
 
 public class LottoResultPrinter {
 
+    private int LOTTO_PRICE = 1000;
     private int THREE_PRIZE = 5000;
     private int FOUR_PRIZE = 50000;
     private int FIVE_PRIZE = 1500000;
     private int SIX_PRIZE = 2000000000;
 
-    private int price;
+    private int lottoNumber;
     private List<Integer> results;
 
     public LottoResultPrinter(LottoResult lottoResult) {
-        this.price = lottoResult.getPrice();
+        lottoNumber = lottoResult.getLottoNumber();
         this.results = lottoResult.getResults();
     }
 
@@ -33,7 +34,7 @@ public class LottoResultPrinter {
     public void printProfitRate() {
         int profit = results.get(0) * THREE_PRIZE + results.get(1) * FOUR_PRIZE
                 + results.get(2) * FIVE_PRIZE + results.get(3) * SIX_PRIZE;
-        System.out.println("총 수익률은 " + (long)profit * 100 / price + "%입니다.");
+        System.out.println("총 수익률은 " + (long)profit * 100 / (lottoNumber * LOTTO_PRICE) + "%입니다.");
     }
 
 }

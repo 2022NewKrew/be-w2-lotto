@@ -9,16 +9,41 @@ import com.kakao.lotto.step2.view.LottoResultPrinter;
 import java.util.List;
 
 public class LottoMain {
-    public static void main(String[] args) {
-        int price = InputLotto.getPrice();
-        InputLotto.printBuyLottoNumber(price / 1000);
-        List<Lotto> lottos = Lotto.makeLottos(price / 1000);
-        LottoPrinter lottoPrinter = new LottoPrinter(lottos);
-        lottoPrinter.printLottos();
-        List<Integer> winningNumbers = InputLotto.getWinningNumbers();
-        LottoResult lottoResult = new LottoResult(price, lottos, winningNumbers);
+
+    private int LOTTO_PRICE = 1000;
+
+    private int lottoNumber;
+    List<Lotto> lottos;
+    List<Integer> winningNumbers;
+    private InputLotto inputLotto = new InputLotto();
+    LottoPrinter lottoPrinter = new LottoPrinter();
+
+    public void inputPrice() {
+        lottoNumber = inputLotto.getLottoNumber();
+        lottoPrinter.printBuyLottoNumber(lottoNumber);
+    }
+
+    public void makeLotto() {
+        lottos = Lotto.makeLottos(lottoNumber);
+        lottoPrinter.printLottos(lottos);
+    }
+
+    public void inputWinningNumbers() {
+        winningNumbers = inputLotto.getWinningNumbers();
+    }
+
+    public void printResult() {
+        LottoResult lottoResult = new LottoResult(lottos, winningNumbers);
         LottoResultPrinter lottoResultPrinter = new LottoResultPrinter(lottoResult);
         lottoResultPrinter.printResults();
         lottoResultPrinter.printProfitRate();
+    }
+
+    public static void main(String[] args) {
+        LottoMain lottoMain = new LottoMain();
+        lottoMain.inputPrice();
+        lottoMain.makeLotto();
+        lottoMain.inputWinningNumbers();
+        lottoMain.printResult();
     }
 }

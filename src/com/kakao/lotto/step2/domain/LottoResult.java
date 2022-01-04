@@ -7,13 +7,11 @@ import java.util.List;
 public class LottoResult {
 
     // results의 0번 인덱스는 3개 일치하는 로또의 개수, 1번 인덱스는 4개, 2번 인덱스는 5개, 3번 인덱스는 6개 일치하는 로또의 개수입니다.
-    private int price;
     private List<Lotto> lottos;
     private List<Integer> winningNumbers;
     private List<Integer> results = new ArrayList<>(Arrays.asList(0, 0, 0, 0));
 
-    public LottoResult(int price, List<Lotto> lottos, List<Integer> winningNumbers) {
-        this.price = price;
+    public LottoResult(List<Lotto> lottos, List<Integer> winningNumbers) {
         this.lottos = lottos;
         this.winningNumbers = winningNumbers;
         makeResults();
@@ -41,8 +39,8 @@ public class LottoResult {
         return results;
     }
 
-    public int getPrice() {
-        return price;
+    public int getLottoNumber() {
+        return lottos.size();
     }
 
 }

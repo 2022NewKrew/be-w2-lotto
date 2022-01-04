@@ -7,7 +7,7 @@ import java.util.List;
 public class Lotto {
 
     private int LOTTO_NUMBER = 6;
-    static private List<Integer> lottoNumbers = new ArrayList<>();
+    private static List<Integer> lottoNumbers = new ArrayList<>();
 
     private List<Integer> lotto = new ArrayList<>();
 
@@ -21,7 +21,7 @@ public class Lotto {
     }
 
     // lottoNumber 만큼의 Lotto를 랜덤하게 만들어 lottos List를 만들어줍니다.
-    static public List<Lotto> makeLottos(int lottoNumber) {
+    public static List<Lotto> makeLottos(int lottoNumber) {
         List<Lotto> lottos = new ArrayList<>();
         for(int i = 0; i < lottoNumber; i++)
             lottos.add(new Lotto());

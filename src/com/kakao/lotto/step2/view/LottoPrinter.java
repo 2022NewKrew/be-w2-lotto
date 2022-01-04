@@ -6,15 +6,15 @@ import java.util.List;
 
 public class LottoPrinter {
 
-    private List<Lotto> lottos;
-
-    public LottoPrinter(List<Lotto> lottos) {
-        this.lottos = lottos;
-    }
-
     // lotto들을 출력해줍니다.
-    public void printLottos() {
+    public void printLottos(List<Lotto> lottos) {
         for(int i = 0; i < lottos.size(); i++)
             System.out.println(lottos.get(i).getLotto());
     }
+
+    // 구매한 로또의 개수를 출력해줍니다.
+    public void printBuyLottoNumber(int lottoNumber) {
+        System.out.println(lottoNumber + "개를 구매했습니다.");
+    }
+
 }
