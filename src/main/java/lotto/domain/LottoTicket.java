@@ -8,7 +8,6 @@ public class LottoTicket {
 
     private static final Integer LOTTO_PRICE = 1000;
     private final List<Lotto> lottoList;
-    private LottoWinningResult lottoWinningResult;
 
     public LottoTicket(Integer purchaseAmount) {
         this.lottoList = Collections.unmodifiableList(makeLotto(calculateLottoCount(purchaseAmount)));
@@ -40,11 +39,7 @@ public class LottoTicket {
         return LOTTO_PRICE * getLottoCount();
     }
 
-    public void calculateLottoWinningResult(List<Integer> winningNumbers) {
-        lottoWinningResult = new LottoWinningResult(winningNumbers, lottoList);
-    }
-
-    public LottoWinningResult getLottoWinningResult() {
-        return lottoWinningResult;
+    public LottoWinningResult getLottoWinningResult(List<Integer> winningNumbers) {
+        return new LottoWinningResult(winningNumbers, lottoList);
     }
 }

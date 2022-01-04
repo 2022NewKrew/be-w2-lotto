@@ -8,6 +8,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class LottoGameTest {
 
     @Mock
@@ -31,7 +34,15 @@ class LottoGameTest {
         Mockito.doNothing().when(view).printLottoCount(lottoTicket.getLottoCount());
         Mockito.doNothing().when(view).printLotto(lottoTicket.getLottoList());
 
-        LottoWinningResult lottoWinningResult = lottoTicket.getLottoWinningResult();
+        List<Integer> winningNumbers = new ArrayList<>();
+        winningNumbers.add(1);
+        winningNumbers.add(2);
+        winningNumbers.add(3);
+        winningNumbers.add(4);
+        winningNumbers.add(5);
+        winningNumbers.add(6);
+
+        LottoWinningResult lottoWinningResult = lottoTicket.getLottoWinningResult(winningNumbers);
         Mockito.doNothing().when(view).printLottoWinningResult(lottoWinningResult);
         Mockito.doNothing().when(view).printYield(lottoTicket.getWholeLottoPrice());
 

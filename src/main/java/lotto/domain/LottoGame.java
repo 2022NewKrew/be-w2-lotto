@@ -19,8 +19,7 @@ public class LottoGame {
         view.printLotto(lotto.getLottoList());
 
         List<Integer> winningNumbers = view.readWinningNumbers();
-        lotto.calculateLottoWinningResult(winningNumbers);
-        LottoWinningResult lottoWinningResult = lotto.getLottoWinningResult();
+        LottoWinningResult lottoWinningResult = lotto.getLottoWinningResult(winningNumbers);
         view.printLottoWinningResult(lottoWinningResult);
         view.printYield(lottoWinningResult.getYield(lotto.getWholeLottoPrice()));
     }

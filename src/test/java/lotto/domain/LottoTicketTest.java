@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class LottoTicketTest {
@@ -64,13 +65,18 @@ class LottoTicketTest {
     void getLottoWinningResultWithNothingEnum() {
         // Given
         LottoTicket lotto = new LottoTicket(14000);
+        List<Integer> winningNumbers = new ArrayList<>();
+        winningNumbers.add(1);
+        winningNumbers.add(2);
+        winningNumbers.add(3);
+        winningNumbers.add(4);
+        winningNumbers.add(5);
+        winningNumbers.add(6);
 
         // When
-        LottoWinningResult lottoWinningResult = lotto.getLottoWinningResult();
+        LottoWinningResult lottoWinningResult = lotto.getLottoWinningResult(winningNumbers);
 
         //Then
-        Assertions.assertThrows(NullPointerException.class, () -> {
-            lottoWinningResult.getLottoWinningCount(LottoWinningRating.NOTHING);
-        });
+        Assertions.assertNull(lottoWinningResult.getLottoWinningCount(LottoWinningRating.NOTHING));
     }
 }
