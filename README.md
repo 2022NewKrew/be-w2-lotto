@@ -19,3 +19,4 @@
   * random하게 생성하는 로직 또한 tail latency 가 작은 방향으로 개선
 * DTO 추가
   * 숫자 6개가 들어가는 nNumber 만 먼저 추가
+* enum Class MatchScore 구현
