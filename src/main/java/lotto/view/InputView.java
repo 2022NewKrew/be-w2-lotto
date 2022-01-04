@@ -19,7 +19,9 @@ public class InputView {
 
     public int inputAmountForPurchase() throws InvalidInputFormatException {
         System.out.println("구입금액을 입력해 주세요.");
-        return inputNumber();
+        int amountForPurchase = inputNumber();
+        validateAmount(amountForPurchase);
+        return amountForPurchase;
     }
 
     private int inputNumber() throws InvalidInputFormatException {
@@ -27,6 +29,16 @@ public class InputView {
             return Integer.parseInt(scanner.nextLine().trim());
         } catch (NumberFormatException e) {
             throw new InvalidInputFormatException();
+        }
+    }
+
+    private void validateAmount(int amount) throws InvalidInputFormatException {
+        if (amount <= 0) {
+            throw new InvalidInputFormatException("양수를 입력해야 합니다.");
+        }
+
+        if (amount < LottoTicket.PRICE) {
+            throw new InvalidInputFormatException("금액이 부족하여 로또를 구매할 수 없습니다.");
         }
     }
 
@@ -51,19 +63,29 @@ public class InputView {
     }
 
     private void validateWinningNumbers(List<Integer> winningNumbers) throws InvalidInputFormatException {
-        validateLengthOfNumbers(winningNumbers, LottoTicket.LENGTH_OF_NUMBERS);
-        validateRangeOfNumbers(winningNumbers, LottoTicket.MIN_NUMBER, LottoTicket.MAX_NUMBER);
-    }
-
-    private void validateLengthOfNumbers(List<Integer> numbers, int length) throws InvalidInputFormatException {
-        if (numbers.size() != length) {
+        if (isValidSizeOfNumbers(winningNumbers)) {
             throw new InvalidInputFormatException("중복된 숫자를 포함하고 있거나 입력한 문자 리스트의 길이가 잘못 되었습니다.");
         }
+
+        if (winningNumbers.stream().anyMatch(number -> !isValidRangeNumber(number))) {
+            throw new InvalidInputFormatException("입력된 숫자의 범위가 잘못 되었습니다. (유효한 숫자 범위 : " + LottoTicket.MIN_NUMBER + " ~ " + LottoTicket.MAX_NUMBER + ")");
+        }
     }
 
-    private void validateRangeOfNumbers(List<Integer> numbers, int min, int max) throws InvalidInputFormatException {
-        if (numbers.stream().anyMatch(number -> number < min || number > max)) {
-            throw new InvalidInputFormatException("입력된 숫자의 범위가 잘못 되었습니다. (범위 : " + min + " ~ " + max + ")");
+    private boolean isValidSizeOfNumbers(List<Integer> numbers) {
+        return numbers.size() == LottoTicket.LENGTH_OF_NUMBERS;
+    }
+
+    private boolean isValidRangeNumber(int number) {
+        return number >= LottoTicket.MIN_NUMBER && number <= LottoTicket.MAX_NUMBER;
+    }
+
+    public int inputBonusNumber() throws InvalidInputFormatException {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        int bonusNumber = inputNumber();
+        if (!isValidRangeNumber(bonusNumber)) {
+            throw new InvalidInputFormatException("입력된 숫자의 범위가 잘못 되었습니다. (유효한 숫자 범위 : " + LottoTicket.MIN_NUMBER + " ~ " + LottoTicket.MAX_NUMBER + ")");
         }
+        return bonusNumber;
     }
 }
