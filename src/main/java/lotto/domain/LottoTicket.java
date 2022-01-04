@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class LottoTicket {
@@ -10,7 +11,7 @@ public class LottoTicket {
     private LottoWinningResult lottoWinningResult;
 
     public LottoTicket(Integer purchaseAmount) {
-        this.lottoList = makeLotto(calculateLottoCount(purchaseAmount));
+        this.lottoList = Collections.unmodifiableList(makeLotto(calculateLottoCount(purchaseAmount)));
     }
 
     private List<Lotto> makeLotto(Integer lottoCount) {

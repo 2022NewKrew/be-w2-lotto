@@ -11,7 +11,7 @@ public class Lotto {
     public static final Integer MAX_SIZE_OF_LOTTO = 45;
 
     public Lotto() {
-        this.lottoNumbers = makeLottoNumbers();
+        this.lottoNumbers = Collections.unmodifiableList(makeLottoNumbers());
     }
 
     private List<Integer> makeLottoNumbers() {
