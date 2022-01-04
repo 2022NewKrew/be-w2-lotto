@@ -24,6 +24,8 @@ public class ResultCounter {
         increment(map, result);
     }
 
+    // FIXME 이 클래스 역할이 다소 비대하지 않나 하는 생각
+    //  특히 이 메서드가 과다한 정보를 노출하는 건 아닌가 마음에 들지 않음...
     public void forEachOrdered(Comparator<LottoResult> comparator, BiConsumer<LottoResult, Integer> consumer) {
         map.entrySet()
                 .stream()
