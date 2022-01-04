@@ -1,6 +1,7 @@
 package view;
 
 import domain.Prize;
+import domain.lottery.Tickets;
 import dto.ReportDTO;
 import domain.lottery.Ticket;
 
@@ -17,9 +18,12 @@ public class View {
         return Integer.parseInt(scanner.nextLine());
     }
 
-    public void showBoughtTickets(List<Ticket> tickets) {
-        System.out.println(tickets.size() + "개를 구매했습니다.");
-        System.out.println(tickets.stream().map(ticket -> ticket.getNumbers().toString()).collect(Collectors.joining(System.lineSeparator())));
+    public void showBoughtTickets(Tickets tickets) {
+        // This is a quick fix.
+        // Later add TicketsDTO for this view.
+        List<Ticket> listOfTickets = tickets.getTickets();
+        System.out.println(listOfTickets.size() + "개를 구매했습니다.");
+        System.out.println(listOfTickets.stream().map(ticket -> ticket.getNumbers().toString()).collect(Collectors.joining(System.lineSeparator())));
         System.out.println();
     }
 
