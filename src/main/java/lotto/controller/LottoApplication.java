@@ -1,5 +1,6 @@
 package lotto.controller;
 
+import lotto.domain.LottoNumbers;
 import lotto.domain.LottoTicket;
 import lotto.service.LottoMachine;
 import lotto.view.InputView;
@@ -9,16 +10,17 @@ import java.util.List;
 
 public class LottoApplication {
 
-    public static void run() {
-        InputView inputView = new InputView();
-        OutputView outputView = new OutputView();
+    private static final InputView inputView = new InputView();
+    private static final OutputView outputView = new OutputView();
 
+    public static void run() {
         int purchaseCount = inputView.inputPurchaseAmount();
         List<LottoTicket> lottoTickets = LottoMachine.createLottoTickets(purchaseCount);
         outputView.printLottoTickets(lottoTickets);
 
-        List<Integer> winningNumbers = inputView.inputWinningNumbers();
+        LottoNumbers winningNumbers = inputView.inputWinningNumbers();
+        int bonusNumber = inputView.inputBonusNumber(winningNumbers);
 
-        outputView.printLottoResult(LottoMachine.getLottoResult(lottoTickets, winningNumbers), purchaseCount);
+        outputView.printLottoResult(LottoMachine.getLottoResult(lottoTickets, winningNumbers, bonusNumber), purchaseCount);
     }
 }
