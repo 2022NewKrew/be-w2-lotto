@@ -42,10 +42,10 @@ public enum LottoResultState {
         Set<Integer> winningLottoNumberDiffSet = createDiffSet(winningLottoNumber, curLottoNumber);
         Set<Integer> curLottoNumberDiffSet = createDiffSet(curLottoNumber, winningLottoNumber);
 
-        if (winningLottoNumberDiffSet.size() == LOTTO_PICK_NUMBER - this.getNumOfMatchs() && this.getPrice() != ConstLottoConfig.SECOND_PRICE)
+        if (winningLottoNumberDiffSet.size() == LOTTO_PICK_NUMBER - this.getNumOfMatchs() && this != LottoResultState.SECOND)
             return true;
 
-        if (this.getPrice() == ConstLottoConfig.SECOND_PRICE && winningLottoNumberDiffSet.size() == 1 && winningLottoBonus == curLottoNumberDiffSet.iterator().next())
+        if (this == LottoResultState.SECOND && winningLottoNumberDiffSet.size() == 1 && winningLottoBonus == curLottoNumberDiffSet.iterator().next())
             return true;
 
         return false;
