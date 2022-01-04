@@ -9,10 +9,10 @@ import java.util.stream.Collectors;
 public class UserInput {
     static private final Scanner scanner = new Scanner(System.in);
 
-    static public int getMoney() {
+    static public long getMoney() {
         try {
             System.out.println("구입 금액을 입력해 주세요");
-            return scanner.nextInt();
+            return scanner.nextLong();
         } catch (InputMismatchException exception) {
             throw new IllegalArgumentException("[ERROR] 올바른 구입 금액을 입력해주세요. (정수를 입력해 주세요)");
 
