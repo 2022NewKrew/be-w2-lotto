@@ -4,6 +4,7 @@ import com.kakao.lottogame.domain.Lotto;
 import com.kakao.lottogame.domain.Money;
 import com.kakao.lottogame.domain.Rank;
 import com.kakao.lottogame.domain.Result;
+import com.kakao.lottogame.domain.WinningLotto;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -27,9 +28,9 @@ public class LottoService {
             .collect(Collectors.toList());
     }
 
-    public Result collate(List<Lotto> lottos, Lotto winningLotto) {
+    public Result collate(List<Lotto> lottos, WinningLotto winningLotto) {
         List<Rank> ranks = lottos.stream()
-            .map(lotto -> lotto.compare(winningLotto))
+            .map(winningLotto::compare)
             .map(Rank::of)
             .collect(Collectors.toList());
         return Result.from(ranks);
