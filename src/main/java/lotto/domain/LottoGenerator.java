@@ -5,7 +5,7 @@ import java.util.List;
 
 public class LottoGenerator {
     private final int numOfPaper;
-    private final List<LottoPaper> lottoPapers = new ArrayList<>();
+    private final List<LottoNumber> lottoNumbers = new ArrayList<>();
 
 
     public LottoGenerator(int numOfPaper){
@@ -14,11 +14,11 @@ public class LottoGenerator {
 
     public void generateLotto(){
         for(int i=0;i<numOfPaper;i++){
-            LottoPaper lottopaper = new LottoPaper();
-            lottoPapers.add(lottopaper);
+            LottoNumber lottonumber = new LottoNumber();
+            lottoNumbers.add(lottonumber);
         }
     }
 
-    public List<LottoPaper> getLottoPapers() { return lottoPapers; }
+    public List<LottoNumber> getLottoPapers() { return lottoNumbers; }
 
 }
