@@ -79,7 +79,6 @@ public class InputLotto {
             try {
                 return inputWinningNumbers();
             } catch(Exception exception) {
-                scanner = new Scanner(System.in);
                 System.out.println("1 ~ 45 사이의 정수를 ', '로 구분해 중복되지 않게 6개 입력해주세요.");
            }
         }

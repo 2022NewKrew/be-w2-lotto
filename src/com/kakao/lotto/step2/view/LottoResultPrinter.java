@@ -12,11 +12,11 @@ public class LottoResultPrinter {
     private int FIVE_PRIZE = 1500000;
     private int SIX_PRIZE = 2000000000;
 
-    private int lottoNumber;
+    private int profitRate;
     private List<Integer> results;
 
     public LottoResultPrinter(LottoResult lottoResult) {
-        lottoNumber = lottoResult.getLottoNumber();
+        profitRate = lottoResult.getProfitRate();
         this.results = lottoResult.getResults();
     }
 
@@ -32,9 +32,7 @@ public class LottoResultPrinter {
 
     // 수익률을 출력해줍니다.
     public void printProfitRate() {
-        int profit = results.get(0) * THREE_PRIZE + results.get(1) * FOUR_PRIZE
-                + results.get(2) * FIVE_PRIZE + results.get(3) * SIX_PRIZE;
-        System.out.println("총 수익률은 " + (long)profit * 100 / (lottoNumber * LOTTO_PRICE) + "%입니다.");
+        System.out.println("총 수익률은 " + profitRate + "%입니다.");
     }
 
 }

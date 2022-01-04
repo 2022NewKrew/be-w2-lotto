@@ -9,7 +9,7 @@ import com.kakao.lotto.step2.view.LottoResultPrinter;
 import java.util.List;
 
 public class LottoMain {
-    
+
     private int lottoNumber;
     List<Lotto> lottos;
     List<Integer> winningNumbers;

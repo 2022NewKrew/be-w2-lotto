@@ -6,6 +6,12 @@ import java.util.List;
 
 public class LottoResult {
 
+    private int LOTTO_PRICE = 1000;
+    private int THREE_PRIZE = 5000;
+    private int FOUR_PRIZE = 50000;
+    private int FIVE_PRIZE = 1500000;
+    private int SIX_PRIZE = 2000000000;
+
     // results의 0번 인덱스는 3개 일치하는 로또의 개수, 1번 인덱스는 4개, 2번 인덱스는 5개, 3번 인덱스는 6개 일치하는 로또의 개수입니다.
     private List<Lotto> lottos;
     private List<Integer> winningNumbers;
@@ -39,8 +45,10 @@ public class LottoResult {
         return results;
     }
 
-    public int getLottoNumber() {
-        return lottos.size();
+    public int getProfitRate() {
+        int profit = results.get(0) * THREE_PRIZE + results.get(1) * FOUR_PRIZE
+                + results.get(2) * FIVE_PRIZE + results.get(3) * SIX_PRIZE;
+        return (int) ((long)profit * 100 / (lottos.size() * LOTTO_PRICE));
     }
 
 }
