@@ -3,6 +3,8 @@ package domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Lottos {
 
@@ -14,10 +16,9 @@ public class Lottos {
     }
 
     public static Lottos purchaseLottos(int countOfPurchaseLotto){
-        List<Lotto> lottos = new ArrayList<>();
-        for (int i = 0; i < countOfPurchaseLotto; i++) {
-            lottos.add(Lotto.purchaseLotto());
-        }
+        List<Lotto> lottos = IntStream.range(0,countOfPurchaseLotto)
+            .mapToObj(i->Lotto.purchaseLotto())
+            .collect(Collectors.toList());
         return new Lottos(lottos);
     }
 

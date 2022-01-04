@@ -3,6 +3,8 @@ package domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class RandomNumbers {
     private final List<Integer> randomNumbers;
@@ -12,10 +14,10 @@ public class RandomNumbers {
     }
 
     public static RandomNumbers createRandomNumbers(){
-        List<Integer> randomNumbers = new ArrayList<>();
-        for (int i = 1; i <= 45; i++) {
-            randomNumbers.add(i);
-        }
+        List<Integer> randomNumbers = IntStream.range(1,45)
+            .boxed()
+            .collect(Collectors.toList());
+
         return new RandomNumbers(randomNumbers);
     }
 

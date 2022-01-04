@@ -33,7 +33,7 @@ public class LottoController {
     }
 
     private static void validateMoney(int money) {
-        if (money > 0) {
+        if (money < 0) {
             throw new IllegalArgumentException(MONEY_RANGE_ERROR_MESSAGE);
         }
     }
