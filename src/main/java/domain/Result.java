@@ -2,14 +2,11 @@ package domain;
 
 public class Result {
     private final Rank rank;
-    private int count = 0;
+    private final int count;
 
-    public Result(Rank rank) {
+    public Result(Rank rank, int count) {
         this.rank = rank;
-    }
-
-    public void plusCount(){
-        count++;
+        this.count = count;
     }
 
     public Rank getRank() {
