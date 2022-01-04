@@ -2,6 +2,8 @@ package lotto.domain;
 
 import lotto.view.LottoScanner;
 
+import java.util.List;
+
 /**
  * Created by melodist
  * Date: 2022-01-03 003
@@ -10,15 +12,23 @@ import lotto.view.LottoScanner;
 public class LottoApplication {
 
     public static void start() {
-        Integer purchaseAmount = LottoScanner.getPurchaseAmount();
-        int lottoAmount = purchaseAmount / Constants.LOTTO_PRICE;
-
-        LottoBundle lottoBundle = new LottoBundle(lottoAmount);
+        LottoBundle lottoBundle = createLottoBundle();
         lottoBundle.printLottos();
 
-        LottoGame lottoGame = new LottoGame(lottoBundle);
-        lottoGame.playLottoGame();
-        lottoGame.calculateStatistics(purchaseAmount);
+        List<Integer> lastWeekWinningNumbers = LottoScanner.getLastWeekWinningNumbers();
+        Integer bonusBall = LottoScanner.getBonusBall();
+        WinningLotto winningLotto = new WinningLotto(lastWeekWinningNumbers, bonusBall);
+
+        LottoGame lottoGame = new LottoGame();
+        lottoGame.createLottoResult(lottoBundle, winningLotto);
+        lottoGame.printStatistics(lottoBundle);
     }
 
+    public static LottoBundle createLottoBundle() {
+        Integer purchaseAmount = LottoScanner.getPurchaseAmount();
+        Integer lottoCount = purchaseAmount / Constants.LOTTO_PRICE;
+        Integer manualLottoCount = LottoScanner.getManualLottoCount();
+
+        return new LottoBundle(lottoCount, manualLottoCount);
+    }
 }
