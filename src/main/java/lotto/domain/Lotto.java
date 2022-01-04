@@ -11,15 +11,15 @@ import java.util.stream.IntStream;
 
 public class Lotto {
     private static List<Integer> range = IntStream.range(1, 45).boxed().collect(Collectors.toList());
-    private static List<Integer> oneLotto = new ArrayList<>();
+    private List<Integer> oneLotto = new ArrayList<>();
 
     public Lotto(){
     }
 
     public List<Integer> getRandLotto() {
         Collections.shuffle(range);
-        oneLotto = new ArrayList<>(range.subList(0,6));
-        return oneLotto;
+        this.oneLotto = new ArrayList<>(range.subList(0,6));
+        return this.oneLotto;
     }
 
     //helper function for LottoPack.getResults()
