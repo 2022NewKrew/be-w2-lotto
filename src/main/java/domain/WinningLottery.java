@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class WinningLottery {
     private final Set<Integer> drawnNumbers;
-    private int bonusNumber;
+    private final int bonusNumber;
 
     public WinningLottery(Set<Integer> drawnNumber, int bonusNumber) {
         this.drawnNumbers = Collections.unmodifiableSet(drawnNumber);
