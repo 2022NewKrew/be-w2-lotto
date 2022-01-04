@@ -20,6 +20,6 @@ public class AmountOfLottoValidator extends IntegerValidator implements Validato
 
     private boolean dividableByThousand(String input){
         int intInput = Integer.parseInt(input);
-        return (intInput > 1000 && intInput % LottoRule.PRICE_PER_LOTTO == 0);
+        return (intInput >= 1000 && intInput % LottoRule.PRICE_PER_LOTTO == 0);
     }
 }

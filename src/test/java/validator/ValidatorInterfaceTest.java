@@ -1,9 +1,9 @@
 package validator;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -11,14 +11,13 @@ class ValidatorInterfaceTest {
 
     ValidatorInterface amountOfLottoValidator, lottoNumberValidator;
 
-    @ParameterizedTest
-    @DisplayName("1000의 배수인 자연수인 경우에만 통과")
-    void aolvValidateTest() {
-        amountOfLottoValidator = new AmountOfLottoValidator();
-        assertThat(amountOfLottoValidator.validateData("abcd")).isEqualTo(false);
-        assertThat(amountOfLottoValidator.validateData("1234")).isEqualTo(false);
-        assertThat(amountOfLottoValidator.validateData("1000")).isEqualTo(true);
-    }
+//    @ParameterizedTest
+//    @DisplayName("1000의 배수인 자연수인 경우에만 통과")
+//    @ValueSource(inputs = {"abcd", "1234"})
+//    void aolvValidateTest() {
+//        amountOfLottoValidator = new AmountOfLottoValidator();
+//        assertThat(amountOfLottoValidator.validateData(inputs)).isFalse();
+//    }
 
     @Test
     @DisplayName("6개의 1~45사이 숫자 받기")

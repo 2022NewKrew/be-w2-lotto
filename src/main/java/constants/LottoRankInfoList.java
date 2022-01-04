@@ -24,6 +24,5 @@ public class LottoRankInfoList {
     public static LottoRankInfoList getInstance(){
         return LottoRankInfoListHelper.instance;
     }
-
     public Stream<RankInfo> getRankInfoStream() { return rankInfoList.stream(); }
 }
