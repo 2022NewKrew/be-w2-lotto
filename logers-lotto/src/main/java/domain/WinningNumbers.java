@@ -16,7 +16,7 @@ public class WinningNumbers {
         this.bonusNumber = bonusNumber;
     }
 
-    public RewardType getMatchedNumber(List<Integer> numbers){
+    public RewardType matching(List<Integer> numbers){
         int matched = numbers.stream()
                 .map(this.numbers::contains)
                 .mapToInt(isInside -> isInside ? 1 : 0)

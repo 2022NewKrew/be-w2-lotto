@@ -54,7 +54,7 @@ class WinningNumbersTest {
     @DisplayName("당첨 여부 성공 확인")
     @MethodSource("matchedMethodInputAndExpected")
     void successMatched(WinningNumbers winningNumbers, List<Integer> numbers, RewardType expected){
-        assertThat(winningNumbers.getMatchedNumber(numbers)).isEqualTo(expected);
+        assertThat(winningNumbers.matching(numbers)).isEqualTo(expected);
     }
 
     // given
