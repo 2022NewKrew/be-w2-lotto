@@ -4,13 +4,11 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class LottoStatistics {
-    private final WinningNumbers winningNumbers;
-    private Map<LottoResult, Integer> resultMap = new EnumMap<>(LottoResult.class);
+    private final Map<LottoResult, Integer> resultMap = new EnumMap<>(LottoResult.class);
 
     public LottoStatistics (WinningNumbers winningNumbers, LottoTickets lottoTickets) {
-        this.winningNumbers = winningNumbers;
         initResultMap();
-        match(lottoTickets);
+        match(winningNumbers, lottoTickets);
     }
 
     private void initResultMap() {
@@ -19,15 +17,15 @@ public class LottoStatistics {
         }
     }
 
-    private void match(LottoTickets lottoTickets) {
+    private void match(WinningNumbers winningNumbers, LottoTickets lottoTickets) {
         for (LottoTicket ticket : lottoTickets) {
-            putResult(resultMap, ticket);
+            putResult(winningNumbers, ticket);
         }
     }
 
-    private void putResult(Map<LottoResult, Integer> resultMap, LottoTicket ticket) {
+    private void putResult(WinningNumbers winningNumbers, LottoTicket ticket) {
         int count = 0;
-        LottoResult result = LottoResult.valueOf(getMatchCount(ticket));
+        LottoResult result = LottoResult.valueOf(getMatchCount(winningNumbers, ticket));
         if (resultMap.get(result) != null) {
             count = resultMap.get(result);
         }
@@ -35,7 +33,7 @@ public class LottoStatistics {
         resultMap.put(result, count + 1);
     }
 
-    private int getMatchCount(LottoTicket lottoTicket) {
+    private int getMatchCount(WinningNumbers winningNumbers, LottoTicket lottoTicket) {
         int matchCount = 0;
 
         for (LottoNumber number : winningNumbers) {
