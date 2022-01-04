@@ -40,6 +40,7 @@ public enum LottoResult {
                 .orElse(LottoResult.LOSE);
     }
 
+    // FIXME getter와 거의 다름없지 않나? 이 정도는 괜찮은가?
     public int getValue(int count) {
         return value * count;
     }
