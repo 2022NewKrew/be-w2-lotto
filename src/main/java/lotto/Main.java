@@ -19,7 +19,6 @@ public class Main {
 
         Set<Integer> winnerNumber = inputView.getWinnerNumbersFromScanner("당첨 번호를 입력해주세요: ");
         lottoShop.setWinnerNumber(winnerNumber);
-
         int bonusBall = getBonusBall(inputView, winnerNumber);
 
         LottoPrinter printer = new LottoPrinter();
