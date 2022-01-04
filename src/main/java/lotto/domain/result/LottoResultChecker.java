@@ -1,16 +1,19 @@
-package lotto.domain;
+package lotto.domain.result;
+
+import lotto.domain.lotto.Lotto;
+import lotto.domain.player.PlayerLotto;
+import lotto.domain.player.PlayerLottoList;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LottoResultChecker {
-    private static final int LOTTO_NUMBER_COUNT_MAX = 6;
-    private final List<Integer> winningNumbers;
+    private final WinnerLotto winnerLotto;
     private final int bonusNumber;
 
-    public LottoResultChecker(List<Integer> winningNumbers, int bonusNumber) {
-        this.winningNumbers = winningNumbers;
+    public LottoResultChecker(WinnerLotto winnerLotto, int bonusNumber) {
+        this.winnerLotto = winnerLotto;
         this.bonusNumber = bonusNumber;
     }
 
@@ -24,9 +27,9 @@ public class LottoResultChecker {
     }
 
     private Map<LottoRank, Integer> getAllLottoRank(PlayerLottoList playerLottoList){
-        List<Lotto> lottoList = playerLottoList.getLottoList();
+        List<PlayerLotto> lottoList = playerLottoList.getPlayerLottoList();
         Map<LottoRank, Integer> countRank = new HashMap<>();
-        for(Lotto lotto : lottoList){
+        for(PlayerLotto lotto : lottoList){
             LottoRank rank = getOneLottoRank(lotto);
             countRank.put(rank, countRank.getOrDefault(rank, 0) + 1);
         }
@@ -34,9 +37,9 @@ public class LottoResultChecker {
         return countRank;
     }
 
-    public LottoRank getOneLottoRank(Lotto lotto){
-        Set<Integer> set = Stream.concat(lotto.getNumbers().stream(), winningNumbers.stream()).collect(Collectors.toSet());
-        int matchingCnt = LOTTO_NUMBER_COUNT_MAX * 2 - set.size();
+    public LottoRank getOneLottoRank(PlayerLotto lotto){
+        Set<Integer> set = Stream.concat(lotto.getNumbers().stream(), winnerLotto.getNumbers().stream()).collect(Collectors.toSet());
+        int matchingCnt = Lotto.LOTTO_NUMBER_COUNT_MAX * 2 - set.size();
         boolean matchingBonusNumber = lotto.getNumbers().contains(bonusNumber);
 
         return LottoRank.lookup(matchingCnt, matchingBonusNumber);

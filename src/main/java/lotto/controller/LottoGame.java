@@ -1,13 +1,13 @@
 package lotto.controller;
 
-import lotto.domain.LottoResult;
-import lotto.domain.LottoResultChecker;
-import lotto.domain.PlayerLottoList;
+import lotto.domain.result.LottoResult;
+import lotto.domain.result.LottoResultChecker;
+import lotto.domain.player.PlayerLottoList;
+import lotto.domain.result.WinnerLotto;
 import lotto.view.LottoGameInput;
 import lotto.view.LottoGameOutput;
 
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LottoGame {
@@ -17,7 +17,7 @@ public class LottoGame {
     private int numberOfLotto;
     private int bonusNumber;
     private final PlayerLottoList playerLottoList = new PlayerLottoList();
-    private List<Integer> winningNumbers = new ArrayList<>();
+    private WinnerLotto winnerLotto;
 
     public void startGame(){
         try (Scanner scanner = new Scanner(System.in)) {
@@ -41,12 +41,12 @@ public class LottoGame {
     }
 
     private void drawLotto(Scanner scanner){
-        winningNumbers = LottoGameInput.inputWinningNumbers(scanner);
+        winnerLotto = LottoGameInput.inputWinningNumbers(scanner);
         bonusNumber = LottoGameInput.inputBonusNumber(scanner);
     }
 
     private void showResults(){
-        LottoResultChecker lottoResultChecker = new LottoResultChecker(winningNumbers, bonusNumber);
+        LottoResultChecker lottoResultChecker = new LottoResultChecker(winnerLotto, bonusNumber);
         List<LottoResult> playerLottoResults = lottoResultChecker.getLottoResults(playerLottoList);
 
         long rewardRate = calculateRewardRate(playerLottoResults);
