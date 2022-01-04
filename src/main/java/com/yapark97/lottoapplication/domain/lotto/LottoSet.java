@@ -1,4 +1,4 @@
-package com.yapark97.lottoapplication.domain;
+package com.yapark97.lottoapplication.domain.lotto;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 public class LottoSet {
 
     private List<Lotto> lottos;
-    private Lotto winningLotto;
 
     public LottoSet(final int lottoSetSize) {
         initLottos(lottoSetSize);
@@ -32,27 +31,8 @@ public class LottoSet {
         return picked;
     }
 
-    public void setWinningLotto(List<Integer> numbers) {
-        winningLotto = new Lotto(numbers);
-    }
-
-    public Map<Integer, Integer> getStatistic() {
-        // 당첨 통계 (n개 일치하는 로또가 k개이다...) 를 구하는 메소드
-
-        Map<Integer, Integer> statistic = new HashMap<>();
-
-        for (Lotto lotto : lottos) {
-            int correctNumCount = getCorrectNumCount(winningLotto, lotto);
-            statistic.put(correctNumCount, statistic.getOrDefault(correctNumCount, 0) + 1);
-        }
-        return statistic;
-    }
-
-    private int getCorrectNumCount(Lotto winningLotto, Lotto lotto) {
-        return (int) winningLotto.getNumbers().stream()
-                .map(lotto.getNumbers()::contains)
-                .filter(c -> c)
-                .count();
+    public List<Lotto> getLottos() {
+        return lottos;
     }
 
     @Override

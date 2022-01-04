@@ -1,18 +1,27 @@
 package com.yapark97.lottoapplication.service;
 
-import com.yapark97.lottoapplication.domain.LottoSet;
+import com.yapark97.lottoapplication.domain.lotto.Lotto;
+import com.yapark97.lottoapplication.domain.lotto.LottoConst;
+import com.yapark97.lottoapplication.domain.lotto.LottoSet;
+import com.yapark97.lottoapplication.domain.winningPolicy.SimpleWinningPolicy;
+import com.yapark97.lottoapplication.domain.winningPolicy.WinningPolicy;
 import com.yapark97.lottoapplication.view.LottoInput;
 import com.yapark97.lottoapplication.view.LottoOutput;
 import com.yapark97.lottoapplication.view.SimpleLottoInput;
 import com.yapark97.lottoapplication.view.SimpleLottoOutput;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LottoService {
     private final LottoInput lottoInput;
     private final LottoOutput lottoOutput;
 
     private LottoSet lottoSet;
+    private Lotto winningLotto;
+    private List<WinningPolicy> winningPolicies;
 
     public LottoService() {
         // Standart input/output 사용한 view 클래스
@@ -22,8 +31,9 @@ public class LottoService {
 
     public void run() {
         initLottoSet();
+        initWinningPolicy();
         showLottoSet();
-        setWinnintLotto();
+        initWinnintLotto();
         showStatistic();
     }
 
@@ -33,16 +43,32 @@ public class LottoService {
         lottoSet = new LottoSet(lottoSetNum);
     }
 
+    private void initWinningPolicy() {
+        winningPolicies = new ArrayList<>();
+
+        for (int i=0; i< LottoConst.WINNING_CONDITION.size(); i++) {
+            winningPolicies.add(new SimpleWinningPolicy(LottoConst.WINNING_CONDITION.get(i), LottoConst.WINNING_PRIZE.get(i)));
+        }
+    }
+
     private void showLottoSet() {
         lottoOutput.printLottoSetInfo(lottoSet);
     }
 
-    private void setWinnintLotto() {
+    private void initWinnintLotto() {
         List<Integer> winningNumbers = lottoInput.takeWinningNumbersInput();
-        lottoSet.setWinningLotto(winningNumbers);
+        winningLotto = new Lotto(winningNumbers);
     }
 
     private void showStatistic() {
-        lottoOutput.printStatistic(lottoSet.getStatistic());
+        Map<WinningPolicy, Integer> statistic = new LinkedHashMap<>(); // 순서 유지
+
+        for (WinningPolicy winningPolicy : winningPolicies) {
+            int count = (int) lottoSet.getLottos().stream()
+                    .filter(lotto -> winningPolicy.isWon(lotto, winningLotto))
+                    .count();
+            statistic.put(winningPolicy, count);
+        }
+        lottoOutput.printStatistic(statistic);
     }
 }

@@ -1,4 +1,4 @@
-package com.yapark97.lottoapplication.domain;
+package com.yapark97.lottoapplication.domain.lotto;
 
 import java.util.List;
 

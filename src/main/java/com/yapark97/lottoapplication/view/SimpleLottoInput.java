@@ -1,6 +1,6 @@
 package com.yapark97.lottoapplication.view;
 
-import com.yapark97.lottoapplication.domain.LottoConst;
+import com.yapark97.lottoapplication.domain.lotto.LottoConst;
 
 import java.util.Arrays;
 import java.util.List;
