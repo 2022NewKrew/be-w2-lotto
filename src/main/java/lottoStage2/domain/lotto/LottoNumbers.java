@@ -1,5 +1,6 @@
 package lottoStage2.domain.lotto;
 
+import lottoStage2.domain.vo.Discrimination;
 import lottoStage2.domain.vo.Number;
 
 import java.util.ArrayList;
@@ -39,10 +40,15 @@ public class LottoNumbers {
         }
     }
 
-    public int match(List<Number> targetNumbers) {
+    public Discrimination match(List<Number> targetNumbers, int bonusNumber) {
         List<Number> tempNumbers = new ArrayList<>(numbers);
+        boolean matchBonus = tempNumbers.contains(Number.of(bonusNumber));
         tempNumbers.retainAll(targetNumbers);
-        return tempNumbers.size();
+        int matchCount = tempNumbers.size();
+
+        if(matchCount != 5)
+            return new Discrimination(matchCount, false);
+        return new Discrimination(matchCount, matchBonus);
     }
 
     public List<Number> getNumbers() {

@@ -18,7 +18,10 @@ public class LottoGame {
 
         String winningNumbers = InputView.inputLastWeekLottoNumber();
         Lotto winningLotto = Lotto.of(winningNumbers.split(", "));
-        WinningResult winningResult = lottos.getWinningResult(winningLotto);
+
+        int bonusNumber = InputView.inputBonusNumber();
+
+        WinningResult winningResult = lottos.getWinningResult(winningLotto, bonusNumber);
         System.out.println();
 
         ResultView.showStatistics(price, winningResult);

@@ -1,12 +1,14 @@
 package lottoStage2.domain.winning;
 
+import lottoStage2.domain.vo.Discrimination;
+
 import java.util.Collections;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public enum WinningType {
+    LOSER(0, false, 0, "3개 이하 일치"),
     FIFTH(3, false, 5_000, "3개 일치"),
     FOURTH(4, false, 50_000, "4개 일치"),
     THIRD(5, false, 1_500_00, "5개 일치"),
@@ -28,8 +30,10 @@ public enum WinningType {
         this.message = message;
     }
 
-    public static WinningType of(int matchCount) {
-        return WinningType.valueOf(MATCH_COUNT_MAP.get(matchCount));
+    public static WinningType of(Discrimination discrimination) {
+        if(discrimination.getMatchCount() < 3)
+            return LOSER;
+        return WinningType.valueOf(MATCH_COUNT_MAP.get(discrimination));
     }
 
     public Discrimination getDiscrimination() {
@@ -42,28 +46,5 @@ public enum WinningType {
 
     public String getMessage() {
         return message;
-    }
-
-    static class Discrimination {
-        private final int matchCount;
-        private final boolean matchBonus;
-
-        Discrimination(int matchCount, boolean matchBonus) {
-            this.matchCount = matchCount;
-            this.matchBonus = matchBonus;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Discrimination that = (Discrimination) o;
-            return matchCount == that.matchCount && matchBonus == that.matchBonus;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(matchCount, matchBonus);
-        }
     }
 }

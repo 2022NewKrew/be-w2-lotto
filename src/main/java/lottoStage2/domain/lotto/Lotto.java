@@ -1,5 +1,6 @@
 package lottoStage2.domain.lotto;
 
+import lottoStage2.domain.vo.Discrimination;
 import lottoStage2.domain.vo.Number;
 
 import java.util.List;
@@ -23,8 +24,8 @@ public class Lotto {
         return new Lotto(numbers);
     }
 
-    public int match(Lotto lotto) {
-        return lottoNumbers.match(lotto.getLottoNumbers());
+    public Discrimination match(Lotto lotto, int bonusNumber) {
+        return lottoNumbers.match(lotto.getLottoNumbers(), bonusNumber);
     }
 
     public List<Number> getLottoNumbers() {

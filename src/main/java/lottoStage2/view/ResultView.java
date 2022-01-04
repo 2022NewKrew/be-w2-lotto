@@ -12,7 +12,7 @@ public class ResultView {
     private static final String STATISTICS_MESSAGE = "당첨 통계";
     private static final String DASH_LINE = "----------";
     private static final String SHOW_WINNING_RESULT_MESSAGE = "%s (%d원) - %d개%n";
-    private static final String WINNING_RESULT_REVENUE_MESSAGE = "총 수익률을 %d 입니다.%n";
+    private static final String WINNING_RESULT_REVENUE_MESSAGE = "총 수익률은 %d%% 입니다.%n";
 
     public static void showLottoCount(Lottos lottos) {
         System.out.println(lottos.getLottos().size() + " 개를 구매했습니다.");

@@ -1,5 +1,6 @@
 package lottoStage2.domain.lotto;
 
+import lottoStage2.domain.vo.Discrimination;
 import lottoStage2.domain.winning.WinningResult;
 import lottoStage2.domain.winning.WinningType;
 
@@ -22,18 +23,17 @@ public class Lottos {
         return new Lottos(price / LOTTO_PRICE);
     }
 
-    public WinningResult getWinningResult(Lotto winningLotto) {
+    public WinningResult getWinningResult(Lotto winningLotto, int bonusNumber) {
         WinningResult winningResult = WinningResult.create();
 
         for (Lotto lotto : lottos) {
-            int matchCount = lotto.match(winningLotto);
-            WinningType type = WinningType.of(matchCount);
+            Discrimination discrimination = lotto.match(winningLotto, bonusNumber);
+            WinningType type = WinningType.of(discrimination);
             winningResult.addCount(type);
         }
 
         return winningResult;
     }
-
 
     public List<Lotto> getLottos() {
         return Collections.unmodifiableList(lottos);

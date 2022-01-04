@@ -15,6 +15,8 @@ public class Number {
         this.number = Integer.parseInt(number);
     }
 
+    private Number(int number) { this.number = number; }
+
     public static Number create() {
         return new Number();
     }
@@ -22,6 +24,8 @@ public class Number {
     public static Number of(String number) {
         return new Number(number);
     }
+
+    public static Number of(int number) { return new Number(number); }
 
     public int getNumber() {
         return number;
