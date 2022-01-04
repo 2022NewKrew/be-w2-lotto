@@ -13,6 +13,6 @@ public class RandomLottoNumberGenerator {
 
     public static Set<Integer> generateRandomLottoNumbers() {
         Collections.shuffle(nextRandomNumbers);
-        return new HashSet<>(nextRandomNumbers.subList(0, NUMBERS_TO_PICK));
+        return new TreeSet<>(nextRandomNumbers.subList(0, NUMBERS_TO_PICK));
     }
 }
