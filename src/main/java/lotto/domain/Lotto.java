@@ -15,9 +15,10 @@ public class Lotto {
     }
 
     private List<Integer> makeLottoNumbers() {
-        List<Integer> numbers = new ArrayList<>();
         List<Integer> lottoBasicNumbers = makeLottoBasicNumbers();
         Collections.shuffle(lottoBasicNumbers);
+
+        List<Integer> numbers = new ArrayList<>();
         for (int i = 0; i < COUNT_OF_WINNING_NUMBERS; i++) {
             numbers.add(lottoBasicNumbers.get(i));
         }
