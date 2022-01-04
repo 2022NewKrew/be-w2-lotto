@@ -19,10 +19,16 @@ public enum MatchBall {
         this.lottoWinningReward = new LottoWinningReward(countOfMatchNumber, rewardPrice, useBonusBall);
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 573229f (2일차 PR)
 
     public LottoWinningReward getLottoWinningReward(){
         return lottoWinningReward;
     }
+<<<<<<< HEAD
 =======
 >>>>>>> 231c634 (1차 PR 리뷰 개선)
+=======
+>>>>>>> 573229f (2일차 PR)
 }
