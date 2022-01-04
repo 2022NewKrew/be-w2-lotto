@@ -2,7 +2,10 @@ package lotto.controller;
 
 import lotto.domain.LottoSystem;
 import lotto.domain.lotto.Lotto;
-import lotto.dto.WinningResultResponse;
+import lotto.domain.lotto.RandomLottoStrategy;
+import lotto.domain.winning.BonusNumber;
+import lotto.domain.winning.WinningNumber;
+import lotto.dto.WinningResultOutput;
 import lotto.util.StringParsingUtil;
 import lotto.view.IOView;
 import lotto.view.LottoView;
@@ -19,22 +22,25 @@ public class LottoController {
 
     public LottoController(Scanner sc) {
         this.sc = sc;
-        this.lottoSystem = new LottoSystem();
+        this.lottoSystem = new LottoSystem(new RandomLottoStrategy());
     }
 
     public void lottoStart() {
         int purchasePrice = IOView.inputToInt("구입금액을 입력해 주세요.", sc);
-        List<Lotto> lottos = lottoSystem.buyLotto(purchasePrice);
-        LottoView.createLottoView(lottos).printView();
+        List<Lotto> lotteries = lottoSystem.buyLotto(purchasePrice);
+        LottoView.createLottoView(lotteries).printView();
 
-        String winningNumbers = IOView.inputToString("지난 주 당첨 번호를 입력해 주세요.(,사용)", sc);
+        String winningNumbers = IOView.inputToString("지난 주 당첨 번호를 입력해 주세요.", sc);
         List<String> parsed = StringParsingUtil.parse(winningNumbers, ",");
-        lottoSystem.inputWinningNumber(parsed.stream()
-                .map(Integer::parseInt)
-                .collect(Collectors.toList())
+        WinningNumber winningNumber = lottoSystem.inputWinningNumber(
+                parsed.stream()
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList())
         );
+        int bonusNumberInput = IOView.inputToInt("보너스 볼을 입력해 주세요.", sc);
+        BonusNumber bonusNumber = lottoSystem.inputBonusNumber(bonusNumberInput);
 
-        WinningResultResponse result = lottoSystem.winningResult(lottos, purchasePrice);
-        WinningResultView.createWinningResultView(result).printView();
+        WinningResultOutput result = lottoSystem.winningResult(lotteries, winningNumber, bonusNumber, purchasePrice);
+        WinningResultView.createWinningResultView(result.getWinningResult(), result.getEarningRate()).printView();
     }
 }
