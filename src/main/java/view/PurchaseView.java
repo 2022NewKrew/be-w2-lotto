@@ -2,12 +2,10 @@ package view;
 
 import domain.LottoRepository;
 
-import java.util.List;
-
 public class PurchaseView {
 
-    private int quantity;
-    private LottoRepository lottoRepository;
+    private final int quantity;
+    private final LottoRepository lottoRepository;
 
     public PurchaseView(LottoRepository lottoRepository) {
         this.lottoRepository = lottoRepository;
@@ -15,9 +13,7 @@ public class PurchaseView {
     }
 
     public void showLottoList() {
-        for (int i = 0; i < quantity; i++) {
-            System.out.println(lottoRepository.getList().get(i));
-        }
+        System.out.println(lottoRepository);
     }
 
 }

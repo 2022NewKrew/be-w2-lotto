@@ -16,6 +16,7 @@ public class LottoController {
     private int money, quantity;
     private LottoRepository lottoRepository;
     private List<Integer> winningNums;
+    private int bonusBall;
 
     public LottoController() {
         lottoPurchase();
@@ -37,11 +38,12 @@ public class LottoController {
         sc.nextLine();
         winningNums = Arrays.asList(sc.nextLine().split(","))
                 .stream().map(Integer::parseInt).collect(Collectors.toList());
-
-        Result result = new Result(lottoRepository, winningNums);
+        System.out.println("보너스 볼을 입력해 주세요.");
+        bonusBall = sc.nextInt();
+        Result result = new Result(lottoRepository, winningNums, bonusBall);
         ResultView rv = new ResultView(result);
         rv.showResult();
-
+        rv.showYield();
     }
 
 }

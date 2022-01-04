@@ -1,6 +1,9 @@
 package view;
 
 import domain.Result;
+import enums.Rank;
+
+import java.util.Map;
 
 public class ResultView {
 
@@ -13,29 +16,28 @@ public class ResultView {
 
     public void showResult() {
         System.out.println("당첨 통계");
-        for (int i = 3; i <= 6; i++) {
-            System.out.println(i + "개 일치 (" + prizeMoney(i) + "원)- " + result.getPrizeList()[i] + "개");
+        Map<Rank, Integer> prizeList = result.getPrizeList();
+        for (Map.Entry<Rank,Integer> entry : prizeList.entrySet()){
+            System.out.print(ResultMessage(entry));
         }
-        showYield();
     }
 
-    private void showYield() {
-        System.out.println("총 수익률은 " + result.totalPrizeMoney() / result.getQuantity() / 10 + "%입니다.");
+    private String ResultMessage(Map.Entry<Rank, Integer> entry){
+        if(entry.getKey() == Rank.NOMATCH){
+            return "";
+        }
+        String res = String.valueOf(entry.getKey().getCountOfMatch());
+        res += "개 일치";
+        if(entry.getKey() == Rank.SECOND){
+            res += ", 보너스 볼 일치";
+        }
+        res += "(" + entry.getKey().getWinningMoney() + "원)- " + entry.getValue() + "개\n";
+        return res;
     }
 
-    private int prizeMoney(int equalNums) {
-        switch (equalNums) {
-            case 3:
-                return 5000;
-            case 4:
-                return 50000;
-            case 5:
-                return 1500000;
-            case 6:
-                return 2000000000;
-            default:
-                return 0;
-        }
+
+    public void showYield() {
+        System.out.printf("총 수익률은 %.2f%%입니다.", result.calculateYield());
     }
 
 

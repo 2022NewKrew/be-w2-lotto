@@ -1,48 +1,66 @@
 package domain;
 
+import enums.Rank;
+
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public class Result {
 
-    private LottoRepository lottoRepository;
-    private List<Integer> winningNums;
-    private int[] prizeList = new int[7];
-    private int totalMoney = 0;
-    private int quantity;
+    private final LottoRepository lottoRepository;
+    private final List<Integer> winningNums;
+    private final int bonusBall;
+    private final int quantity;
+    private Map<Rank, Integer> prizeList = new EnumMap<>(Rank.class);
 
-    public Result(LottoRepository lottoRepository, List<Integer> winningNums) {
+    public Result(LottoRepository lottoRepository, List<Integer> winningNums, int bonusBall) {
         this.lottoRepository = lottoRepository;
         this.winningNums = winningNums;
         this.quantity = lottoRepository.getList().size();
+        this.bonusBall = bonusBall;
+        enumMapInit();
         setPrizeList();
+    }
+
+    private void enumMapInit() {
+        prizeList.put(Rank.FIFTH, 0);
+        prizeList.put(Rank.FOURTH, 0);
+        prizeList.put(Rank.THIRD, 0);
+        prizeList.put(Rank.SECOND, 0);
+        prizeList.put(Rank.FIRST, 0);
+        prizeList.put(Rank.NOMATCH, 0);
     }
 
 
     private void setPrizeList() {
         for (List<Integer> lotto : lottoRepository.getList()) {
-            prizeList[checkEqualNum(lotto)]++;
+            Rank rank = Rank.valueOf(numberMatch(lotto), bonusMatch(lotto, bonusBall));
+            int size = prizeList.get(rank);
+            prizeList.put(rank, size + 1);
         }
     }
 
-    public int[] getPrizeList() {
+    public Map<Rank, Integer> getPrizeList() {
         return prizeList;
     }
 
-    public int getQuantity() {
-        return quantity;
+    private int numberMatch(List<Integer> lotto) {
+        lotto.retainAll(winningNums);
+        return lotto.size();
     }
 
-    private int checkEqualNum(List<Integer> lotto) {
-        int res = 0;
-        for (Integer num : winningNums) {
-            res += lotto.contains(num) ? 1 : 0;
+    private boolean bonusMatch(List<Integer> lotto, int bonusBall) {
+        return lotto.contains(bonusBall);
+    }
+
+    public double calculateYield() {
+        long totalPrize = 0;
+        for (Map.Entry<Rank, Integer> entry : prizeList.entrySet()) {
+            totalPrize += (long) entry.getKey().getWinningMoney() * entry.getValue();
         }
-        return res;
-    }
-
-    public long totalPrizeMoney() {
-        return prizeList[3] * 5000 + prizeList[4] * 50000
-                + prizeList[5] * 1500000 + prizeList[6] * 2000000000;
+        long totalSpent = (long) quantity * 1000;
+        return (double) totalPrize / (double) totalSpent * 100 - 100;
     }
 
 }

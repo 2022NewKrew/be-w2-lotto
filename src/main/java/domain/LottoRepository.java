@@ -24,4 +24,14 @@ public class LottoRepository {
     public List<List<Integer>> getList() {
         return list;
     }
+
+    @Override
+    public String toString() {
+        String res = "";
+        for (List lotto : list) {
+            res += lotto;
+            res += "\n";
+        }
+        return res;
+    }
 }
