@@ -24,6 +24,7 @@ public class LottoMain {
 
         Results results = new Results(lottos, winningNumbers, bonusNum);
 
-        ResultView.printWinningResult(results, money);
+        ResultView.printResult(results);
+        ResultView.printROI(results, money);
     }
 }

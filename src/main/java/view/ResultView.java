@@ -13,9 +13,15 @@ public class ResultView {
         printLottos(lottos);
     }
 
-    public static void printWinningResult(Results results, int money) {
-        printWinningStats(results);
-        printROI(results, money);
+    public static void printResult(Results results) {
+        printStats(results);
+    }
+
+    public static void printROI(Results results, int money) {
+        long earnedMoney = getEarnedMoney(results);
+        int earnedRate = (int) Math.floor(earnedMoney / ((double) money) * 100);
+
+        System.out.println("총 수익률은 " + earnedRate + "% 입니다.");
     }
 
     private static void printLottoCount(List<Lotto> lottos) {
@@ -28,7 +34,7 @@ public class ResultView {
                 .forEach(System.out::println);
     }
 
-    private static void printWinningStats(Results results) {
+    private static void printStats(Results results) {
         System.out.println("");
         System.out.println("당첨 통계");
         System.out.println("---------");
@@ -37,12 +43,6 @@ public class ResultView {
         copiedResults.forEach(copiedResult -> System.out.println(copiedResult.toString()));
     }
 
-    private static void printROI(Results results, int money) {
-        long earnedMoney = getEarnedMoney(results);
-        int earnedRate = (int) Math.floor(earnedMoney / ((double) money) * 100);
-
-        System.out.println("총 수익률은 " + earnedRate + "% 입니다.");
-    }
 
     private static long getEarnedMoney(Results results) {
         long sum = 0L;
