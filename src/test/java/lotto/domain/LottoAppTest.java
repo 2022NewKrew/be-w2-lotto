@@ -18,12 +18,15 @@ class LottoAppTest {
     @Test
     @DisplayName("주어진 금액 만큼 로또를 구매합니다.")
     void purchaseLotto() {
-        int payment = 14000;
+        Money payment = new Money(14000);
+        int expectedCountOfLotto = payment.getAmount() / Lotto.PRICE;
+        int expectedAccumPayment = expectedCountOfLotto * Lotto.PRICE;
+        int expectedChanges = payment.getAmount() - expectedAccumPayment;
+
         app.purchaseLotto(payment);
-        int expectedCountOfLotto = payment / Lotto.PRICE;
         assertThat(app.getCountOfLottos()).isEqualTo(expectedCountOfLotto);
-        int expectedAccumPayment = payment - expectedCountOfLotto * Lotto.PRICE;
         assertThat(app.getAccumPayment()).isEqualTo(expectedAccumPayment);
+        assertThat(payment.getAmount()).isEqualTo(expectedChanges);
     }
 
     @Test

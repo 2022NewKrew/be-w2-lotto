@@ -15,16 +15,37 @@ public class LottoApp {
         this.accumPayment = 0;
     }
 
-    public void purchaseLotto(int payment) {
-        int numOfNewLotto = payment / Lotto.PRICE;
+    public int purchaseLotto(Money payment) throws IllegalArgumentException{
+        int numOfNewLotto = payment.getAmount() / Lotto.PRICE;
+        return purchaseLotto(payment, numOfNewLotto);
+    }
+
+    public int purchaseLotto(Money payment, int numOfNewLotto) throws IllegalArgumentException{
+        try{
+            payment.decrement(numOfNewLotto * Lotto.PRICE);
+        }catch(IllegalArgumentException e){
+            throw new IllegalArgumentException();
+        }
+
         for (int i = 0; i < numOfNewLotto; i++) {
             this.lottos.add(GENERATOR.generateLotto());
         }
-        System.out.println(numOfNewLotto + "개를 구매했습니다.");
         this.accumPayment += numOfNewLotto * Lotto.PRICE;
+        System.out.println(numOfNewLotto + "개를 구매했습니다.");
+        return numOfNewLotto;
     }
 
+    public int purchaseCustomLotto(Money payment, Lotto lotto) throws IllegalArgumentException{
+        try{
+            payment.decrement(Lotto.PRICE);
+        }catch(IllegalArgumentException e){
+            throw new IllegalArgumentException();
+        }
 
+        this.lottos.add(lotto);
+        this.accumPayment += Lotto.PRICE;
+        return 1;
+    }
 
 
     public String getResultString() {
@@ -38,7 +59,7 @@ public class LottoApp {
         builder.append(this.rewards.toString());
         builder.append("총 수익률은 ");
 
-        builder.append(String.format("%.2f%%", (float) rewards.getTotalReward() / accumPayment * 100));
+        builder.append(String.format("%.2f%%", (float) (rewards.getTotalReward() - accumPayment) / accumPayment * 100));
 
         builder.append("입니다.");
 

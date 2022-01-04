@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="lotto.domain.RewardsTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-01-04T05:29:44" hostname="ethan337-pc.local" time="0.068">
-  <properties/>
-  <testcase name="총 상금을 계산합니다." classname="lotto.domain.RewardsTest" time="0.068"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

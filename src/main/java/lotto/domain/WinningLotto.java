@@ -9,6 +9,10 @@ public class WinningLotto extends Lotto {
         super(numbers);
     }
 
+    public WinningLotto(Lotto lotto, Integer bonusNumber){
+        super(lotto);
+    }
+
     public Integer getBonusNumber() {
         return this.bonusNumber;
     }
