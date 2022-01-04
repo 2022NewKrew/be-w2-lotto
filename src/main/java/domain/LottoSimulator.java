@@ -34,10 +34,10 @@ public class LottoSimulator {
                 .collect(Collectors.toUnmodifiableList());
 
         return Arrays.stream(Prize.values())
-                .skip(1).map(prize -> new Result(prize, Collections.frequency(prizes, prize)))
+                .filter(prize -> prize != Prize.BLANK)
+                .map(prize -> new Result(prize, Collections.frequency(prizes, prize)))
                 .collect(Collectors.toUnmodifiableList());
     }
-
 }
 
 

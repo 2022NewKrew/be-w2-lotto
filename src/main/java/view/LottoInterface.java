@@ -29,7 +29,10 @@ public class LottoInterface {
         List<Integer> winningNumbers = Arrays.stream(scanner.nextLine().split(","))
                 .map(Integer::parseInt)
                 .collect(Collectors.toUnmodifiableList());
-        return new Winning(winningNumbers);
+
+        System.out.println("보너스 볼을 입력해 주세요.");
+        int bonusNumber = Integer.parseInt(scanner.nextLine());
+        return new Winning(winningNumbers, bonusNumber);
     }
 
     private String LottoToString(Lotto lotto) {
@@ -47,10 +50,15 @@ public class LottoInterface {
     public void printEarningRate(int cost, List<Result> results) {
         long prizeMoneySum = results.stream().mapToInt(Result::getPrizeMoney).sum();
         int earningRate = (int) Math.floor((double) prizeMoneySum / cost * 100);
+        
+        if (prizeMoneySum < cost) earningRate *= -1;
         System.out.printf("총 수익률은 %d%%입니다.%n", earningRate);
     }
 
     private String PrizeToString(Prize prize) {
+        if (prize == Prize.SECOND)
+            return String.format("%d개 일치, 보너스 볼 일 (%d원)", prize.getMatchCount(), prize.getMoney());
+
         return String.format("%d개 일치 (%d원)", prize.getMatchCount(), prize.getMoney());
     }
 }
