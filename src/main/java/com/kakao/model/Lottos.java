@@ -29,10 +29,14 @@ public class Lottos {
     // 유효성 검사
     private void checkMoneyRange(final int moneyToBuyLottos) throws MoneyRangeException {
 <<<<<<< HEAD
+<<<<<<< HEAD
         if(moneyToBuyLottos < LottoData.PRICE_OF_LOTTO ) {
 =======
         if(moneyToBuyLottos < LottoData.MIN_PRICE_RANGE ) {
 >>>>>>> edb2074 (1일차 중간 PR)
+=======
+        if(moneyToBuyLottos < LottoData.PRICE_OF_LOTTO ) {
+>>>>>>> 231c634 (1차 PR 리뷰 개선)
             throw new MoneyRangeException();
         }
     }

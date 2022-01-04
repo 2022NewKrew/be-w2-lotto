@@ -1,6 +1,10 @@
 package com.kakao.exception;
 
+<<<<<<< HEAD
 public class PickedNumberRangeException extends PickedNumberException {
+=======
+public class PickedNumberRangeException extends Exception {
+>>>>>>> 231c634 (1차 PR 리뷰 개선)
     @Override
     public void printStackTrace() {
         super.printStackTrace();

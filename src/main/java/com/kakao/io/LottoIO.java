@@ -1,6 +1,7 @@
 package com.kakao.io;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.kakao.data.LottoData;
 import com.kakao.data.io.LottoInputData;
 import com.kakao.exception.MoneyRangeException;
@@ -37,6 +38,9 @@ public class LottoIO {
         }
         return lottoWinning;
 =======
+=======
+import com.kakao.data.LottoData;
+>>>>>>> 231c634 (1차 PR 리뷰 개선)
 import com.kakao.data.io.LottoInputData;
 import com.kakao.exception.MoneyRangeException;
 import com.kakao.model.LottoWinning;
@@ -47,7 +51,8 @@ public class LottoIO {
 
     // 돈 입력받기
     public static Integer inputMoney() {
-        LottoOutput.printString(LottoInputData.REQUEST_COMMNET_OF_PRICE);
+        String requestPrice = String.format(LottoInputData.REQUEST_COMMNET_OF_PRICE, LottoData.PRICE_OF_LOTTO);
+        LottoOutput.printString(requestPrice);
         return LottoInput.inputMoney();
     }
 

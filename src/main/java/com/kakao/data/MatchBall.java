@@ -18,8 +18,11 @@ public enum MatchBall {
     MatchBall(int countOfMatchNumber, int rewardPrice, boolean useBonusBall) {
         this.lottoWinningReward = new LottoWinningReward(countOfMatchNumber, rewardPrice, useBonusBall);
     }
+<<<<<<< HEAD
 
     public LottoWinningReward getLottoWinningReward(){
         return lottoWinningReward;
     }
+=======
+>>>>>>> 231c634 (1차 PR 리뷰 개선)
 }
