@@ -1,4 +1,4 @@
-package domain;
+package DTO;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,19 +14,31 @@ public class nNumber {
     private static final int NUM_PER_LINE = 6;
 
     private nNumber() {
-        List<Integer> fullNumbers = IntStream.range(MIN_NUM, MAX_NUM+1).boxed()
+        List<Integer> fullNumbers = IntStream.range(MIN_NUM, MAX_NUM + 1).boxed()
                 .collect(Collectors.toList());
         Collections.shuffle(fullNumbers);
 
 
-        numbers = fullNumbers.subList(0,NUM_PER_LINE);
+        numbers = fullNumbers.subList(0, NUM_PER_LINE);
+    }
+
+    private nNumber(List<Integer> manualInput) {
+        numbers = manualInput;
     }
 
     public static nNumber makeRandomNumbers() {
         return new nNumber();
     }
 
+    public static nNumber makeManualNumbers(List<Integer> manualInput) {
+        return new nNumber(manualInput);
+    }
+
     public List<Integer> getNumbers() {
         return new ArrayList<>(numbers);
+    }
+
+    public String getPrintLine() {
+        return numbers.toString();
     }
 }

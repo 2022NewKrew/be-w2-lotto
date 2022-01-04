@@ -1,5 +1,7 @@
 package domain;
 
+import DTO.nNumber;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -17,11 +19,11 @@ public class MyLottoLines {
         lottoLines.add(curLottoLine);
     }
 
-    public List<Integer> checkWinning(List<Integer> winningLine) {
+    public List<Integer> checkWinning(nNumber winningNumbers) {
         List<Integer> matchingLst = new ArrayList<>(Collections.nCopies(NUM_PER_LINE + 1, 0));
 
         for (LottoLine curLottoLine : lottoLines) {
-            int matchNum = curLottoLine.checkWinning(winningLine);
+            int matchNum = curLottoLine.checkWinning(winningNumbers);
             matchingLst.set(matchNum, matchingLst.get(matchNum) + 1);
         }
 

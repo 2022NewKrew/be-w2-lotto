@@ -1,6 +1,6 @@
 package view;
 
-import java.util.List;
+import DTO.nNumber;
 
 public class OutputView {
     private OutputView() {
@@ -10,8 +10,8 @@ public class OutputView {
         System.out.println("1부터 45까지의 숫자 6개를 ','로 나누어서 입력해주세요.");
     }
 
-    public static void printLottoLine(List<Integer> lottoLine) {
-        System.out.println(lottoLine.toString());
+    public static void printLottoLine(nNumber lottoLine) {
+        System.out.println(lottoLine.getPrintLine());
     }
 
     public static void printPreResult() {

@@ -1,5 +1,7 @@
 package domain;
 
+import DTO.nNumber;
+
 import java.util.List;
 
 public class LottoLine {
@@ -9,7 +11,8 @@ public class LottoLine {
         lottoLine = paramLottoLine.getNumbers();
     }
 
-    public int checkWinning(List<Integer> winningLine) {
+    public int checkWinning(nNumber winningNumbers) {
+        List<Integer> winningLine = winningNumbers.getNumbers();
         int matchNum = 0;
 
         for (int num : winningLine) {
