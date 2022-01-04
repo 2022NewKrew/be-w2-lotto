@@ -33,17 +33,17 @@ public class ConsoleInputView implements InputView {
     }
 
     @Override
-    public List<Integer> getResult() {
-        List<Integer> resultList = null;
+    public List<Integer> getLotteryNumberList() {
+        List<Integer> lotteryNumberList = null;
 
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         try {
             String resultString = scanner.nextLine();
-            resultList = Arrays.stream(resultString.split(","))
+            lotteryNumberList = Arrays.stream(resultString.split(","))
                     .map(Integer::parseInt)
-                    .peek(this::validateResult)
+                    .peek(this::validateLotteryNumber)
                     .collect(Collectors.toList());
-            this.validateResultList(resultList);
+            this.validateLotteryNumberList(lotteryNumberList);
         } catch (IllegalArgumentException exception) {
             System.err.println(exception.getMessage());
         } catch (NoSuchElementException | IllegalStateException exception) {
@@ -51,7 +51,7 @@ public class ConsoleInputView implements InputView {
             System.exit(1);
         }
 
-        return resultList;
+        return lotteryNumberList;
     }
 
     private void validateLotteryBuyPrice(int value) throws IllegalArgumentException {
@@ -60,13 +60,13 @@ public class ConsoleInputView implements InputView {
         }
     }
 
-    private void validateResult(int value) throws IllegalArgumentException {
+    private void validateLotteryNumber(int value) throws IllegalArgumentException {
         if (value < lotteryRule.getLotteryNumberStart() || value > lotteryRule.getLotteryNumberEnd()) {
             throw new IllegalArgumentException(String.format("%d에서 %d 사이의 숫자만 입력 가능합니다.", lotteryRule.getLotteryNumberStart(), lotteryRule.getLotteryNumberEnd()));
         }
     }
 
-    private void validateResultList(List<Integer> resultList) throws IllegalArgumentException {
+    private void validateLotteryNumberList(List<Integer> resultList) throws IllegalArgumentException {
         if (resultList.size() != lotteryRule.getLotteryNumberCount()) {
             throw new IllegalArgumentException(String.format("서로 다른 %d개의 숫자만 입력 가능합니다.", lotteryRule.getLotteryNumberCount()));
         }

@@ -7,5 +7,5 @@ public interface InputView {
 
     long getLotteryBoughtPrice();
 
-    List<Integer> getResult();
+    List<Integer> getLotteryNumberList();
 }

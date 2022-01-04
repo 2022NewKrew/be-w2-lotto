@@ -27,7 +27,7 @@ public class Lotto {
         List<Lottery> lotteries = LotteryFactory.buildLotteries(lotteryBoughtPrice, lotteryRule);
         outputView.printBoughtLotteries(lotteries);
 
-        WinningLottery winningLottery = new WinningLottery(inputView.getResult());
+        WinningLottery winningLottery = new WinningLottery(inputView.getLotteryNumberList());
         Result result = new Result(lotteryBoughtPrice);
         result.add(winningLottery.checkRank(lotteries));
 
