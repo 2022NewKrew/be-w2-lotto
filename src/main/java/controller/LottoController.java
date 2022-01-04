@@ -10,14 +10,17 @@ import view.InputView;
 import view.OutputView;
 
 public class LottoController {
+    private final static String MONEY_RANGE_ERROR_MESSAGE = "구입금액은 0원 이상이어야 합니다.";
 
     private final static int LOTTO_PURCHASE_PRICE = 1000;
 
+    // Q. 로직이 너무 긴 것같은데, 어떻게 줄이면 좋을까요?
     public static void startLotto() throws IOException {
         int money = InputView.inputMoney();
-        int countOfPurchaseLotto = calculateCountOfPurchaseLotto(money);
+        validateMoney(money);
         int moneyOfPurchaseLotto = calculateMoneyOfPurchaseLotto(money);
 
+        int countOfPurchaseLotto = calculateCountOfPurchaseLotto(money);
         final Lottos lottos = Lottos.purchaseLottos(countOfPurchaseLotto);
 
         OutputView.outputLottos(lottos);
@@ -27,6 +30,12 @@ public class LottoController {
         final Map<Rank, Integer> winningStatistics = winningNumbers.winningConfirmation(lottos);
         final float profitRate = calculateProfitRate(winningStatistics, moneyOfPurchaseLotto);
         OutputView.outputWinning(winningStatistics, profitRate);
+    }
+
+    private static void validateMoney(int money) {
+        if (money > 0) {
+            throw new IllegalArgumentException(MONEY_RANGE_ERROR_MESSAGE);
+        }
     }
 
     private static int calculateCountOfPurchaseLotto(int money) {
