@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,12 +21,7 @@ public class Lotto {
 
     public Lotto(List<Integer> numbers) {
         validate(numbers);
-        this.numbers = new ArrayList<>(numbers);
-    }
-
-    public Lotto(Lotto lotto) {
-        List<Integer> numbers = lotto.getNumbers();
-        validate(numbers);
+        Collections.sort(numbers);
         this.numbers = new ArrayList<>(numbers);
     }
 
@@ -42,7 +38,7 @@ public class Lotto {
     }
 
     public void validateNumbersBound(List<Integer> numbers) {
-        for (int number: numbers) {
+        for (int number : numbers) {
             validateNumberBound(number);
         }
     }

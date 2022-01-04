@@ -18,7 +18,7 @@ public class LottoResult {
 
     public BigDecimal totalReward() {
         BigDecimal totalReward = BigDecimal.valueOf(0);
-        for (Entry<Reward, Integer> entry: rewardCounter.entrySet()) {
+        for (Entry<Reward, Integer> entry : rewardCounter.entrySet()) {
             BigDecimal rewardPrize = BigDecimal.valueOf(entry.getKey().getRewardPrize());
             BigDecimal rewardCount = BigDecimal.valueOf(entry.getValue());
             totalReward = totalReward.add(rewardPrize.multiply(rewardCount));
