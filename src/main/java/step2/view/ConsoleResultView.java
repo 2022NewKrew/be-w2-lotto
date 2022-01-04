@@ -5,10 +5,7 @@ import step2.domain.WinningLotto;
 import step2.controller.LottoController;
 import step2.dto.LottoResultDto;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ConsoleResultView implements ResultView{
@@ -28,7 +25,7 @@ public class ConsoleResultView implements ResultView{
         System.out.println("보너스 볼을 입력해 주세요.");
         int bonusNum = Integer.parseInt(sc.nextLine());
 
-        LottoResultDto lottoResultDto = lottoController.checkLottoeryResult(new WinningLotto(result), Long.parseLong(getCookie(COOKIE_KEY_USER_ID)));
+        LottoResultDto lottoResultDto = lottoController.checkLotteryResult(new WinningLotto(result, bonusNum), Long.parseLong(getCookie(COOKIE_KEY_USER_ID)));
 
         printLottoResult(lottoResultDto);
 
@@ -42,12 +39,9 @@ public class ConsoleResultView implements ResultView{
 
     public void printLottoResult(LottoResultDto lottoResultDto) {
         StringBuilder sb = new StringBuilder();
-        Map<Integer, Integer> userResult = lottoResultDto.getLottoPrizeToResultMap();
-        PrizeType.PRIZE_MAP.keySet().stream()
-                .forEach(prizeNum -> {
-                    int result = userResult.get(prizeNum) == null ? 0 : userResult.get(prizeNum);
-                    sb.append(String.format("%d개 일치 (%d원)- %d개\n", prizeNum, PrizeType.of(prizeNum).getWinningPrize(), result));
-                });
+        Map<String, Integer> prizeToCountMap = lottoResultDto.getLottoPrizeToResultMap();
+        Arrays.asList(PrizeType.values())
+                .forEach(prizeType -> sb.append(String.format("%s (%d원)- %d개\n", prizeType.getPrintingString(), prizeType.getWinningPrize(), prizeToCountMap.get(prizeType.name()) == null ? 0 : prizeToCountMap.get(prizeType.name()))));
         System.out.println(sb);
     }
 

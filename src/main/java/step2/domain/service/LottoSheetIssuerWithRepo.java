@@ -37,7 +37,7 @@ public class LottoSheetIssuerWithRepo implements LottoSheetIssuer {
     private LottoSheetWithId issueLottoSheetAuto(LottoConfig lottoConfig) {
         final int numberOfLotto = lottoConfig.getPurchaseAmount() / PRICE;
         List<Lotto> lottoList = new ArrayList<>();
-        IntStream.rangeClosed(0, numberOfLotto)
+        IntStream.range(0, numberOfLotto)
                 .forEach(i -> lottoList.add(new Lotto(generateRandomNumber())));
         return new LottoSheetWithId(lottoList);
     }

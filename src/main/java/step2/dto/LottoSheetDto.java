@@ -1,6 +1,5 @@
 package step2.dto;
 
-import step1.domain.LottoSheet;
 import step2.domain.LottoSheetWithId;
 
 import java.util.List;

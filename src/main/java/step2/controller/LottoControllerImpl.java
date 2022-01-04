@@ -28,7 +28,7 @@ public class LottoControllerImpl implements LottoController{
     }
 
     @Override
-    public LottoResultDto checkLottoeryResult(WinningLotto winningLotto, Long userId) {
+    public LottoResultDto checkLotteryResult(WinningLotto winningLotto, Long userId) {
         LottoSheetWithId lottoSheetWithId = lottoSheetRepository.findByUserId(userId);
         LottoResultDto lottoResultDto = lottoResultGenerator.makeLottoResult(winningLotto, lottoSheetWithId);
         return lottoResultDto;

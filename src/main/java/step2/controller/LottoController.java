@@ -8,5 +8,5 @@ import step2.dto.LottoSheetDto;
 public interface LottoController {
 
     LottoSheetDto purchase(LottoConfig lottoConfig);
-    LottoResultDto checkLottoeryResult(WinningLotto winningLotto, Long userId);
+    LottoResultDto checkLotteryResult(WinningLotto winningLotto, Long userId);
 }
