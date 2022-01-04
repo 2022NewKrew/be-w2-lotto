@@ -1,9 +1,11 @@
 package view;
 
 import domain.LottoPrize;
+import domain.LottoStatus;
 import domain.LottoTicket;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -13,8 +15,18 @@ public final class StandardOutLottoServiceRenderer implements LottoServiceRender
         System.out.println(sentence);
     }
 
+
     @Override
-    public void displayLotto(LottoTicket lotto) {
+    public void displayPurchaseStatus(List<LottoTicket> lottoes) {
+        long numberOfManualTicket = lottoes.stream().filter(e -> e.getPurchaseWay() == LottoStatus.MANUAL).count();
+        long numberOfAutoTicket = lottoes.stream().filter(e -> e.getPurchaseWay() == LottoStatus.AUTO).count();
+
+        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.", numberOfManualTicket, numberOfAutoTicket);
+
+        lottoes.forEach(this::displayLotto);
+    }
+
+    private void displayLotto(LottoTicket lotto) {
         System.out.println(lotto.getLottoNumbers());
     }
 
