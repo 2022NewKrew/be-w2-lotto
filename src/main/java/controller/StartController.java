@@ -1,5 +1,6 @@
 package controller;
 
+import domain.WinningLottoLine;
 import view.InputView;
 import view.OutputView;
 
@@ -9,13 +10,17 @@ import java.util.List;
 
 public class StartController {
     private final List<List<Integer>> lottoLines = new ArrayList<>();
-    private List<Integer> winningLine;
+    private WinningLottoLine winningLine = null;
 
-    private static final int NUM_PER_LINE = 6;
+    private final int NUM_PER_LINE = 6;
 
     public StartController() {
         makeLottoLines();
         makeWinningLine();
+        while (winningLine == null) {
+            OutputView.printWinningInputError();
+            makeWinningLine();
+        }
     }
 
     public List<List<Integer>> getLottoLines() {
@@ -29,7 +34,7 @@ public class StartController {
     }
 
     public List<Integer> getWinningLine() {
-        return new ArrayList<>(winningLine);
+        return new ArrayList<>(winningLine.getLottoLine());
     }
 
     private void makeLottoLines() {
@@ -56,36 +61,14 @@ public class StartController {
     }
 
     private void makeWinningLine() {
+        winningLine = null;
         List<String> strLine = InputView.getWinNumber();
 
-        while (strLine.size() != 6) {
-            System.out.println("1부터 45까지의 숫자 6개를 ','로 나누어서 입력해주세요.");
-            strLine = InputView.getWinNumber();
-        }
-
-        convert2IntList(strLine);
-    }
-
-    private void convert2IntList(List<String> strList) {
-        List<Integer> retList = new ArrayList<>();
-
-        for (String str : strList) {
-            retList.add(Integer.valueOf(str));
-        }
-
-        sortAndVerify(retList);
-    }
-
-    private void sortAndVerify(List<Integer> srcList) {
-        Collections.sort(srcList);
-
-        if (srcList.get(0) < 1 || srcList.get(5) > 45) {
-            System.out.println("1부터 45까지의 숫자 6개를 ','로 나누어서 입력해주세요.");
-            makeWinningLine();
+        if (strLine.size() != 6) {
             return;
         }
 
-        winningLine = srcList;
+        winningLine = WinningLottoLine.makeWinningLine(strLine);
     }
 
     private int findNewNumber(List<Integer> lottoLine) {

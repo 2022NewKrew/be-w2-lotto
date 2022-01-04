@@ -1,0 +1,41 @@
+package domain;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class WinningLottoLine {
+    private static List<Integer> lottoLine;
+
+    private static final int MIN_NUM = 1;
+    private static final int MAX_NUM = 45;
+    private static final int NUM_PER_LINE = 6;
+
+    private WinningLottoLine(List<Integer> paramLottoLine) {
+        lottoLine = paramLottoLine;
+    }
+
+    public static WinningLottoLine makeWinningLine(List<String> strLst) {
+        List<Integer> retLst = new ArrayList<>();
+
+        for (String str : strLst) {
+            retLst.add(Integer.valueOf(str));
+        }
+
+        Collections.sort(retLst);
+
+        if (isVerifiedLine(retLst)) {
+            return new WinningLottoLine(retLst);
+        }
+
+        return null;
+    }
+
+    public List<Integer> getLottoLine() {
+        return new ArrayList<>(lottoLine);
+    }
+
+    private static boolean isVerifiedLine(List<Integer> srcLst) {
+        return srcLst.get(0) >= MIN_NUM && srcLst.get(NUM_PER_LINE - 1) <= MAX_NUM;
+    }
+}
