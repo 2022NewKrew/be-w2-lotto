@@ -1,15 +1,14 @@
 package domain;
 
 import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Lottery {
     private final Set<Integer> lotteryNumbers;
 
-    public Lottery(List<Integer> lotteryNumbers) {
-        this.lotteryNumbers = Collections.unmodifiableSet(new LinkedHashSet<>(lotteryNumbers));
+    public Lottery(Set<Integer> lotteryNumbers) {
+        this.lotteryNumbers = Collections.unmodifiableSet(new TreeSet<>(lotteryNumbers));
     }
 
     public void printLottery() {

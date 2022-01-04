@@ -33,17 +33,17 @@ public class ConsoleInputView implements InputView {
     }
 
     @Override
-    public List<Integer> getLotteryNumberList() {
-        List<Integer> lotteryNumberList = null;
+    public Set<Integer> getLotteryNumberList() {
+        Set<Integer> lotteryNumberSet = null;
 
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         try {
             String resultString = scanner.nextLine();
-            lotteryNumberList = Arrays.stream(resultString.split(","))
+            lotteryNumberSet = Arrays.stream(resultString.split(","))
                     .map(Integer::parseInt)
                     .peek(this::validateLotteryNumber)
-                    .collect(Collectors.toList());
-            this.validateLotteryNumberList(lotteryNumberList);
+                    .collect(Collectors.toSet());
+            this.validateLotteryNumberSet(lotteryNumberSet);
         } catch (IllegalArgumentException exception) {
             System.err.println(exception.getMessage());
         } catch (NoSuchElementException | IllegalStateException exception) {
@@ -51,7 +51,7 @@ public class ConsoleInputView implements InputView {
             System.exit(1);
         }
 
-        return lotteryNumberList;
+        return lotteryNumberSet;
     }
 
     private void validateLotteryBuyPrice(int value) throws IllegalArgumentException {
@@ -66,8 +66,8 @@ public class ConsoleInputView implements InputView {
         }
     }
 
-    private void validateLotteryNumberList(List<Integer> resultList) throws IllegalArgumentException {
-        if (resultList.size() != lotteryRule.getLotteryNumberCount()) {
+    private void validateLotteryNumberSet(Set<Integer> lotteryNumberSet) throws IllegalArgumentException {
+        if (lotteryNumberSet.size() != lotteryRule.getLotteryNumberCount()) {
             throw new IllegalArgumentException(String.format("서로 다른 %d개의 숫자만 입력 가능합니다.", lotteryRule.getLotteryNumberCount()));
         }
     }

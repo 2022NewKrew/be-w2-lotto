@@ -1,11 +1,11 @@
 package view;
 
-import java.util.List;
+import java.util.Set;
 
 public interface InputView {
     int LOTTERY_UNIT_PRICE = 1000;
 
     long getLotteryBoughtPrice();
 
-    List<Integer> getLotteryNumberList();
+    Set<Integer> getLotteryNumberList();
 }

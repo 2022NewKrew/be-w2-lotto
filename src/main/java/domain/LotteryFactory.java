@@ -18,8 +18,7 @@ public class LotteryFactory {
         return new Lottery(random.ints(rule.getLotteryNumberStart(), rule.getLotteryNumberEnd() + 1)
                 .distinct()
                 .limit(rule.getLotteryNumberCount())
-                .sorted()
                 .boxed()
-                .collect(Collectors.toUnmodifiableList()));
+                .collect(Collectors.toSet()));
     }
 }

@@ -1,14 +1,15 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
 public class WinningLottery {
     private final Set<Integer> drawnNumbers;
 
-    public WinningLottery(List<Integer> drawnNumber) {
-        this.drawnNumbers = Set.copyOf(drawnNumber);
+    public WinningLottery(Set<Integer> drawnNumber) {
+        this.drawnNumbers = Collections.unmodifiableSet(drawnNumber);
     }
 
     public List<Rank> checkRank(List<Lottery> lotteries) {
