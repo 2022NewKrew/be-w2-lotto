@@ -8,8 +8,8 @@ import java.util.List;
 public class BonusNumberScanner extends InputData{
     public BonusNumberScanner() { }
 
-    public int getBonusNumber(List<Integer> winningNumber) {
-        validatorInterface = new BonusValidator(winningNumber);
+    public static int getBonusNumber(List<Integer> winningNumber) {
+        ValidatorInterface validatorInterface = new BonusValidator(winningNumber);
         String bonus;
         do {
             System.out.println("보너스 볼을 입력해주세요.");

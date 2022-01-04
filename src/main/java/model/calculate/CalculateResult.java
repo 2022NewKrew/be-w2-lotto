@@ -1,15 +1,15 @@
 package model.calculate;
 
 import constants.LottoRule;
+import constants.RankInfo;
 import parameters.LottoResult;
-import parameters.RankInfo;
 import parameters.UserLottoLines;
 
 import java.util.List;
 
 public class CalculateResult {
 
-    public LottoResult getLottoResult(UserLottoLines userLottoLines, List<Integer> winningNumbers, int bonus){
+    public static LottoResult getLottoResult(UserLottoLines userLottoLines, List<Integer> winningNumbers, int bonus){
         LottoResult lottoResult = new LottoResult();
         userLottoLines.getUserLottoLinesStream()
                 .forEach(line -> {
@@ -17,13 +17,13 @@ public class CalculateResult {
                     long count = line.getNumbersStream()
                             .filter(winningNumbers::contains)
                             .count();
-                    lottoResult.addCountToResult(new RankInfo(getRanking(count), checkBonus));
+                    lottoResult.addCountToResult(RankInfo.valueOf(getRanking(count), checkBonus));
                 });
         return lottoResult;
     }
 
-    private int getRanking(long count){
-        if(count > LottoRule.FAIL) { return (int) count; }
-        return LottoRule.FAIL;
+    private static int getRanking(long count){
+        if(count > RankInfo.FAIL.getCount()) { return (int) count; }
+        return RankInfo.FAIL.getCount();
     }
 }

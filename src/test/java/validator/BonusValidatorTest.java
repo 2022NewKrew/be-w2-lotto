@@ -29,13 +29,13 @@ class BonusValidatorTest {
     @ParameterizedTest
     @ValueSource(strings = {"abcd", "0", "46", "1"})
     @DisplayName("보너스 볼 입력 실패 테스트")
-    void bvtValidateFalseTest(String input){
+    void ValidateFalseTest(String input){
         assertThat(validatorInterface.validateData(input)).isFalse();
     }
 
     @Test
     @DisplayName("보너스 볼 입력 성공 테스트")
-    void bvtVAlidateTrueTest(){
+    void ValidateTrueTest() {
         assertThat(validatorInterface.validateData("10")).isTrue();
     }
 
