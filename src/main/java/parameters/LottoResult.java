@@ -3,6 +3,7 @@ package parameters;
 import constants.LottoRule;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class LottoResult {
     private final HashMap<RankInfo, Result> results;

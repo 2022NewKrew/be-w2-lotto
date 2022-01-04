@@ -3,6 +3,7 @@ package validator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -10,7 +11,7 @@ class ValidatorInterfaceTest {
 
     ValidatorInterface amountOfLottoValidator, lottoNumberValidator;
 
-    @Test
+    @ParameterizedTest
     @DisplayName("1000의 배수인 자연수인 경우에만 통과")
     void aolvValidateTest() {
         amountOfLottoValidator = new AmountOfLottoValidator();

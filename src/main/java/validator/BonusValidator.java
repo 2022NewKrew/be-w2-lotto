@@ -11,7 +11,7 @@ public class BonusValidator extends IntegerValidator implements ValidatorInterfa
 
     @Override
     public boolean validateData(String input) {
-        if(!isInteger(input)){
+        if(isNumeric(input)){
             System.out.println("정수로 입력해주세요.");
             return false;
         }
