@@ -12,7 +12,7 @@ public enum LottoResult {
     LOSE(0, false, 0),
     ;
 
-    public static final Comparator<LottoResult> VALUE_COMPARATOR_ASC = Comparator.comparingInt(a -> -a.value);
+    public static final Comparator<LottoResult> VALUE_COMPARATOR_ASC = Comparator.comparingInt(a -> a.value);
 
     private final int matches;
     private final boolean bonus;
