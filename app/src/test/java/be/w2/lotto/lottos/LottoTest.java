@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,11 +21,12 @@ class LottoTest {
     void isContain_notContain() {
         //Given
         int numberWhichIsNotInLotto = 10;
-        List<Integer> numbersOfLotto = Arrays.asList(1, 5, 29, 36, 64, 88);
+        LottoNumber lottoNumberNotInLotto = LottoNumber.of(10);
+        List<Integer> numbersOfLotto = Arrays.asList(1, 5, 29, 32, 36, 44);
         Lotto lotto = getInstance(numbersOfLotto);
 
         //When
-        boolean result = lotto.isContain(numberWhichIsNotInLotto);
+        boolean result = lotto.isContain(lottoNumberNotInLotto);
 
         //Then
         assertFalse(result);
@@ -35,33 +37,26 @@ class LottoTest {
     void isContain_contain() {
         //Given
         int numberWhichIsInLotto = 15;
-        List<Integer> numberOfLotto = Arrays.asList(11, numberWhichIsInLotto, 24, 67, 77, 89);
+        LottoNumber lottoNumberInLotto = LottoNumber.of(15);
+        List<Integer> numberOfLotto = Arrays.asList(11, numberWhichIsInLotto, 24, 32, 33, 44);
         Lotto lotto = getInstance(numberOfLotto);
 
         //When
-        boolean result = lotto.isContain(numberWhichIsInLotto);
+        boolean result = lotto.isContain(lottoNumberInLotto);
 
         //Then
         assertTrue(result);
     }
 
-    @Test
-    @DisplayName("toString -> check formatting ( 1, 2, 3, 4, 5, 6)")
-    void testToString_1to6() {
-        //Given
-        List<Integer> numberOfLotto = Arrays.asList(1, 2, 3, 4, 5, 6);
-        Lotto lotto = getInstance(numberOfLotto);
-
-        String expected = "[1, 2, 3, 4, 5, 6]";
-
-        //When
-        String result = lotto.toString();
-
-        //Then
-        assertEquals(expected, result);
+    public static Lotto getInstance(List<Integer> numbersOfLotto) {
+        return new Lotto(getLottoNumbersBy(numbersOfLotto));
     }
 
-    public static Lotto getInstance(List<Integer> numbersOfLotto) {
-        return new Lotto(numbersOfLotto);
+    private static List<LottoNumber> getLottoNumbersBy(List<Integer> numbersOfLotto) {
+        List<LottoNumber> lottoNumbers = new ArrayList<>();
+        for(Integer number: numbersOfLotto) {
+            lottoNumbers.add(LottoNumber.of(number));
+        }
+        return lottoNumbers;
     }
 }

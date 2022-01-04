@@ -19,19 +19,11 @@ public class Result {
         return stat;
     }
 
-    public void add(int howManyCorrect) {
-        Optional<RewardForCorrect> rewardForCorrect = getRewordForCorrctByHowManyCorrect(howManyCorrect);
+    public void add(CorrectSpec correctSpec) {
+        Optional<RewardForCorrect> rewardForCorrect = RewardForCorrect.getRewordForCorrectByHowManyCorrect(correctSpec);
         rewardForCorrect.ifPresent(
                 rfc -> stat.put(rfc, stat.get(rfc) + 1)
         );
-    }
-
-    private Optional<RewardForCorrect> getRewordForCorrctByHowManyCorrect(int howManyCorrect) {
-        for (RewardForCorrect rewardForCorrect : RewardForCorrect.values()) {
-            if (rewardForCorrect.getHowManyCorrect() == howManyCorrect)
-                return Optional.of(rewardForCorrect);
-        }
-        return Optional.empty();
     }
 
     public int getRevenue() {
