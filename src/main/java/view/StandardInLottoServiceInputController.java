@@ -31,7 +31,34 @@ public final class StandardInLottoServiceInputController implements LottoService
     }
 
     @Override
-    public List<Integer> getLastWeekWinningNumber() {
+    public int getNumberOfManualPurchase() {
+        System.out.println(NUMBER_OF_MANUAL_PURCHASE_REQUEST.getString());
+        try {
+            int amount = scan.nextInt();
+            scan.nextLine();
+
+            return amount;
+        } catch (InputMismatchException e) {
+            System.out.println(INPUT_ERROR.getString());
+            return getNumberOfManualPurchase();
+        }
+    }
+
+    @Override
+    public List<Integer> getManualLottoNumber() {
+        System.out.println(MANUAL_LOTTO_NUMBER_REQUEST.getString());
+        try {
+            return Arrays.stream(scan.nextLine().replaceAll(" ", "").split(COMMA.getString()))
+                    .map(Integer::valueOf).collect(Collectors.toUnmodifiableList());
+        } catch (IllegalArgumentException e) {
+            System.out.println(INPUT_ERROR.getString());
+            System.out.println(PLEASE_INPUT_NUMBERS.getString());
+            return getManualLottoNumber();
+        }
+    }
+
+    @Override
+    public List<Integer> getLastWeekWinningNumbers() {
         System.out.println(LAST_WEEK_WINNING_NUMBER_REQUEST.getString());
         try {
             return Arrays.stream(scan.nextLine().replaceAll(" ", "").split(COMMA.getString()))
@@ -39,7 +66,7 @@ public final class StandardInLottoServiceInputController implements LottoService
         } catch (IllegalArgumentException e) {
             System.out.println(INPUT_ERROR.getString());
             System.out.println(PLEASE_INPUT_NUMBERS.getString());
-            return getLastWeekWinningNumber();
+            return getLastWeekWinningNumbers();
         }
     }
 

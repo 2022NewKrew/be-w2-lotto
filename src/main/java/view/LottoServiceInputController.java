@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface LottoServiceInputController {
     int getPurchaseAmount();
-    List<Integer> getLastWeekWinningNumber();
+    int getNumberOfManualPurchase();
+    List<Integer> getManualLottoNumber();
+    List<Integer> getLastWeekWinningNumbers();
     int getBonusBallNumber();
 }
