@@ -18,11 +18,13 @@ public final class LottoService {
     private final LottoServiceInputController inputController;
     private final LottoServiceRenderer renderer;
     private final LottoGenerator autoLottoGenerator;
+    private final LottoGenerator manualLottoGenerator;
 
     public LottoService(LottoServiceInputController inputController, LottoServiceRenderer renderer) {
         this.inputController = inputController;
         this.renderer = renderer;
         autoLottoGenerator = new AutoLottoGenerator();
+        manualLottoGenerator = new ManualLottoGenerator(inputController);
     }
 
     public void start() {
@@ -35,22 +37,39 @@ public final class LottoService {
 
     private int getPurchaseAmount() {
         final int amount = inputController.getPurchaseAmount();
-        if(ConditionCheck.isPositiveInteger(amount)) {
-            return amount;
+        if(!ConditionCheck.isPositiveInteger(amount)) {
+            renderer.displaySentence(PLEASE_INPUT_POSITIVE_NUMBER.getString());
+            return getPurchaseAmount();
         }
 
-        renderer.displaySentence(PLEASE_INPUT_POSITIVE_NUMBER.getString());
-        return getPurchaseAmount();
+        return amount;
     }
 
     private List<LottoTicket> purchaseLottoes(int numberOfLottoes) {
-        renderer.displaySentence(numberOfLottoes + "개를 구매했습니다.");
-        List<LottoTicket> purchasedLottoes = IntStream.range(0, numberOfLottoes)
+        final List<LottoTicket> purchasedLottoes = new ArrayList<>();
+        final int numberOfManualPurchase = inputController.getNumberOfManualPurchase();
+        if(!ConditionCheck.isPositiveInteger(numberOfManualPurchase) || numberOfManualPurchase > numberOfLottoes) {
+            return purchaseLottoes(numberOfLottoes);
+        }
+
+        purchasedLottoes.addAll(purchaseManualLottoes(numberOfManualPurchase));
+        purchasedLottoes.addAll(purchaseAutoLottoes(numberOfLottoes - numberOfManualPurchase));
+
+        renderer.displayPurchaseStatus(purchasedLottoes);
+
+        return Collections.unmodifiableList(purchasedLottoes);
+    }
+
+    private List<LottoTicket> purchaseManualLottoes(int numberOfLottoes) {
+        return IntStream.range(0, numberOfLottoes)
+                .mapToObj(e -> manualLottoGenerator.getLottoTicket())
+                .collect(Collectors.toUnmodifiableList());
+    }
+
+    private List<LottoTicket> purchaseAutoLottoes(int numberOfLottoes) {
+        return IntStream.range(0, numberOfLottoes)
                 .mapToObj(e -> autoLottoGenerator.getLottoTicket())
                 .collect(Collectors.toUnmodifiableList());
-        purchasedLottoes.forEach(renderer::displayLotto);
-
-        return purchasedLottoes;
     }
 
     private LottoTicket getLastWeekWinningNumber() {
@@ -59,12 +78,12 @@ public final class LottoService {
 
     private int getBonusBallNumber() {
         final int bonusNumber = inputController.getBonusBallNumber();
-        if(ConditionCheck.isLottoNumber(bonusNumber)) {
-            return bonusNumber;
+        if(!ConditionCheck.isLottoNumber(bonusNumber)) {
+            renderer.displaySentence(INPUT_ERROR.getString() + NEWLINE.getString() + PLEASE_INPUT_WITHIN_LOTTO_NUMBER.getString());
+            return getBonusBallNumber();
         }
 
-        renderer.displaySentence(INPUT_ERROR.getString() + NEWLINE.getString() + PLEASE_INPUT_WITHIN_LOTTO_NUMBER.getString());
-        return getBonusBallNumber();
+        return bonusNumber;
     }
 
     private void printWinningStatistics(int purchaseAmount, List<LottoTicket> purchasedLottoes, LottoTicket lastWeekWinning, int bonusBallNumber) {
