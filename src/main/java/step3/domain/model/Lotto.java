@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static step2.utils.CommonConstants.*;
+import static step3.utils.CommonConstants.*;
 
 public class Lotto {
     private static final List<Integer> AVAIL_LOTTO_NUMS = IntStream

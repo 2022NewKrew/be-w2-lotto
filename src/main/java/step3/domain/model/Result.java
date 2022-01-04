@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static step2.utils.CommonConstants.*;
+import static step3.utils.CommonConstants.*;
 
 public class Result {
     private final List<Integer> resultList;

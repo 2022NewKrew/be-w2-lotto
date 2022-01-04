@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static step2.utils.CommonConstants.LOTTO_PRICE;
+import static step3.utils.CommonConstants.LOTTO_PRICE;
 
 public class Matches {
     private final Map<Rank, Integer> matches;
