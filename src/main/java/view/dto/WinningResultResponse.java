@@ -1,24 +1,25 @@
 package view.dto;
 
-import java.util.Map;
+import view.model.WinningStatisticalData;
+
+import java.util.List;
 
 public class WinningResultResponse {
 
-    private final Map<Integer, Integer> lottoResultCountMap;
+    private final List<WinningStatisticalData> winningStatisticalDataList;
 
-    private final double profitRatio;
+    private final Integer profitRatio;
 
-    public WinningResultResponse(Map<Integer, Integer> lottoResultCountMap, double profitRatio) {
-        this.lottoResultCountMap = lottoResultCountMap;
+    public WinningResultResponse(List<WinningStatisticalData> winningStatisticalDataList, Integer profitRatio) {
+        this.winningStatisticalDataList = winningStatisticalDataList;
         this.profitRatio = profitRatio;
     }
 
-    public Map<Integer, Integer> getLottoResultCountMap() {
-        return lottoResultCountMap;
+    public List<WinningStatisticalData> getWinningStatisticalDataList() {
+        return winningStatisticalDataList;
     }
 
     public double getProfitRatio() {
         return profitRatio;
     }
-
 }

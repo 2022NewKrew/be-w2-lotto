@@ -1,10 +1,12 @@
 package view;
 
-import domain.entity.LottoTicket;
-import domain.entity.LottoTickets;
+import domain.LottoTickets;
 import view.dto.WinningResultResponse;
+import view.screen.LottoResultScreen;
+import view.screen.UserInputScreen;
 
 import java.io.IOException;
+import java.util.List;
 
 public class LottoGameView {
 
@@ -16,8 +18,12 @@ public class LottoGameView {
         return userInputScreen.queryPurchaseAmount();
     }
 
-    public LottoTicket queryWinningLotto() throws IOException {
+    public List<Integer> queryWinningLotto() throws IOException {
         return userInputScreen.queryWinningLotto();
+    }
+
+    public int queryBonusNumber() throws IOException {
+        return userInputScreen.queryBonusNumber();
     }
 
     public void printLottoTickets(LottoTickets lottoTickets) {
