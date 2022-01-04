@@ -3,7 +3,7 @@ package domain;
 import java.util.List;
 
 public class LottoLine {
-    public static List<Integer> lottoLine;
+    public List<Integer> lottoLine;
 
     public LottoLine(List<Integer> paramLottoLine) {
         lottoLine = paramLottoLine;

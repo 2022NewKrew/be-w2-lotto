@@ -19,3 +19,8 @@
   * 여러 줄을 총괄하는 MyLottoLines 구현
   * 한 줄만을 관리하는 LottoLine 구현
 * ResultManager 구현
+* Bugfix
+  * 한개의 로또에서 중복된 숫자가 나오는 버그
+    * 랜덤 생성 시 로또에 포함된 숫자인지 체크
+  * 모든 로또가 같은 숫자를 가지고 있는 버그
+    * LottoLine class의 lottoLine 멤버변수의 static 키워드를 삭제
