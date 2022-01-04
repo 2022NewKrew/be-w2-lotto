@@ -1,53 +1,78 @@
 package lotto.view;
 
-import java.util.Arrays;
+import static lotto.domain.LottoRank.FIFTH;
+import static lotto.domain.LottoRank.FIRST;
+import static lotto.domain.LottoRank.FOURTH;
+import static lotto.domain.LottoRank.SECOND;
+import static lotto.domain.LottoRank.THIRD;
+
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import lotto.dto.LottoDTO;
+import lotto.dto.LottoResultDTO;
 
 public class LottoGameView {
 
-    private static final String LOTTO_BLOCK_START = "[";
-    private static final String LOTTO_BLOCK_END = "]";
-    private static final String LOTTO_TICKET_DELIMITER = ", ";
+    private static final String PRINT_PURCHASE_COUNT = "개를 구매했습니다.";
+    private static final String PRINT_RESULT_FORMAT = "%n당첨 통계%n"
+        + "---------%n"
+        + "3개 일치 (%d원) - %d개%n"
+        + "4개 일치 (%d원) - %d개%n"
+        + "5개 일치 (%d원) - %d개%n"
+        + "5개 일치, 보너스 볼 일치 (%d원) - %d개%n"
+        + "6개 일치 (%d원) - %d개%n"
+        + "총 수익률은 %.2f%%입니다.%n";
+
+    private static final String LOTTO_PRINT_START = "[";
+    private static final String LOTTO_PRINT_END = "]";
+    private static final String LOTTO_DELIMITER = ", ";
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public LottoDTO inputWinningNumbers() {
+    public String inputPurchasePrice() {
+        System.out.println("구매금액을 입력해주세요.");
+        return scanner.nextLine();
+    }
+
+    public String[] inputWinningLottoNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        String line;
-        while ((line = scanner.nextLine()).isEmpty())
-            ;
-        return convertInputNumbersToLottoDTO(line);
+        return scanner.nextLine().split(LOTTO_DELIMITER);
     }
 
-    private LottoDTO convertInputNumbersToLottoDTO(String inputNumbers) {
-        return new LottoDTO(Arrays.stream(inputNumbers.split(LOTTO_TICKET_DELIMITER))
-            .map(Integer::valueOf)
-            .collect(Collectors.toList()));
+    public String inputBonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return scanner.nextLine();
     }
 
-    public int inputPurchasePrice() {
-        System.out.println("구매금액을 입력해 주세요.");
-        return scanner.nextInt();
+    public void printLottoResult(LottoResultDTO lottoResultDTO) {
+        System.out.printf(PRINT_RESULT_FORMAT,
+            FIFTH.getPrizeMoney(), lottoResultDTO.getLottoRankCount().getOrDefault(FIFTH, 0L),
+            FOURTH.getPrizeMoney(), lottoResultDTO.getLottoRankCount().getOrDefault(FOURTH, 0L),
+            THIRD.getPrizeMoney(), lottoResultDTO.getLottoRankCount().getOrDefault(THIRD, 0L),
+            SECOND.getPrizeMoney(), lottoResultDTO.getLottoRankCount().getOrDefault(SECOND, 0L),
+            FIRST.getPrizeMoney(), lottoResultDTO.getLottoRankCount().getOrDefault(FIRST, 0L),
+            lottoResultDTO.getProfitRate());
     }
 
-    public void printLottoTickets(List<LottoDTO> lottoTickets) {
+    public void printLottoTickets(List<LottoDTO> lottoDTOS) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(lottoTickets.size()).append("개를 구매했습니다.")
+
+        stringBuilder.append(lottoDTOS.size())
+            .append(PRINT_PURCHASE_COUNT)
             .append(System.lineSeparator());
 
-        lottoTickets.forEach(ticket -> stringBuilder.append(convertLottoDTOToString(ticket))
+        lottoDTOS.forEach(lottoDTO -> stringBuilder.append(printLottoTicket(lottoDTO))
             .append(System.lineSeparator()));
 
         System.out.println(stringBuilder);
     }
 
-    private String convertLottoDTOToString(LottoDTO lottoTicket) {
-        return LOTTO_BLOCK_START + lottoTicket.getLottoNumbers().stream()
+    private String printLottoTicket(LottoDTO lottoDTO) {
+        return LOTTO_PRINT_START
+            + lottoDTO.getLottoNumbers().stream()
             .map(String::valueOf)
-            .collect(Collectors.joining(LOTTO_TICKET_DELIMITER))
-            + LOTTO_BLOCK_END;
+            .collect(Collectors.joining(LOTTO_DELIMITER))
+            + LOTTO_PRINT_END;
     }
 }

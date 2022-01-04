@@ -1,5 +1,6 @@
 package lotto.dto;
 
+import java.util.Collections;
 import java.util.List;
 
 public class LottoDTO {
@@ -11,10 +12,6 @@ public class LottoDTO {
     }
 
     public List<Integer> getLottoNumbers() {
-        return lottoNumbers;
-    }
-
-    public boolean contains(int number) {
-        return lottoNumbers.contains(number);
+        return Collections.unmodifiableList(lottoNumbers);
     }
 }
