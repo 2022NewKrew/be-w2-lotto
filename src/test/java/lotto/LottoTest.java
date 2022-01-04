@@ -2,10 +2,7 @@ package lotto;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -17,13 +14,9 @@ class LottoTest {
     @Test
     void getLottoNumbers() {
         Lotto lotto = new Lotto();
-        ArrayList<Integer> lottoNumbers = lotto.getLottoNumbers();
-        System.out.println(lottoNumbers);
-        assertThat(lottoNumbers.size()).isEqualTo(6);
-        for(var lottoNumber: lottoNumbers) {
-            assertThat(lottoNumber).isGreaterThanOrEqualTo(0);
-            assertThat(lottoNumber).isLessThanOrEqualTo(45);
-        }
+        ArrayList<LottoBall> lottoNumbers = lotto.getLottoNumbers();
+        Set<LottoBall> set = new HashSet<>(lottoNumbers);
+        assertThat(set.size()).isEqualTo(6);
     }
 
     @Test
@@ -32,8 +25,8 @@ class LottoTest {
 
     @Test
     void countMatch() {
-        Lotto lotto1 = new Lotto(Arrays.asList(1,2,3,4,5,6));
-        Lotto lotto2 = new Lotto(Arrays.asList(1,2,3,7,8,9));
-        assertThat(lotto1.countMatch(lotto2)).isEqualTo(3);
+        WinningLotto winningLotto = new WinningLotto(Arrays.asList(LottoBall.B1,LottoBall.B2,LottoBall.B3,LottoBall.B4,LottoBall.B5,LottoBall.B6), LottoBall.B45);
+        Lotto lotto2 = new Lotto(Arrays.asList(LottoBall.B1,LottoBall.B2,LottoBall.B3,LottoBall.B7,LottoBall.B8,LottoBall.B9));
+        assertThat(winningLotto.checkMatchResult(lotto2)).isEqualTo(5);
     }
 }

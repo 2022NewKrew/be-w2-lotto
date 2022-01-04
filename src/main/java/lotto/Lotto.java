@@ -3,36 +3,22 @@ package lotto;
 import java.util.*;
 
 public class Lotto {
-    private final ArrayList<Integer> lottoNumbers;
+    protected ArrayList<LottoBall> lottoNumbers;
 
     public Lotto() {
-        Random rand = new Random();
-        ArrayList<Integer> balls = new ArrayList<>();
-        for (int i = 0; i < 45; i++) {
-            balls.add(i);
-        }
+        ArrayList<LottoBall> balls = new ArrayList<>(Arrays.asList(LottoBall.values()));
         Collections.shuffle(balls);
         lottoNumbers = new ArrayList<>(balls.subList(0, 6));
         Collections.sort(lottoNumbers);
     }
 
-    public Lotto(List<Integer> lottoNumbers) {
+    public Lotto(List<LottoBall> lottoNumbers) {
         this.lottoNumbers = new ArrayList<>();
         this.lottoNumbers.addAll(lottoNumbers);
     }
 
-    public ArrayList<Integer> getLottoNumbers() {
+    public ArrayList<LottoBall> getLottoNumbers() {
         return lottoNumbers;
-    }
-
-    public int countMatch(Lotto lotto) {
-        int count = 0;
-        for (int number: lotto.lottoNumbers) {
-            if(lottoNumbers.contains(number)) {
-                count++;
-            }
-        }
-        return count;
     }
 
     public String toString() {

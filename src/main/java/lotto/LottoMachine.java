@@ -26,12 +26,14 @@ public class LottoMachine {
         return lottos;
     }
 
-    public List<Integer> countLottoMatch(Lotto winLotto) {
-        List<Integer> match = new ArrayList<>(Arrays.asList(0,0,0,0,0,0,0));
+    public List<Integer> getLottoMatchResults(WinningLotto winLotto) {
+        List<Integer> result = new ArrayList<>(Arrays.asList(0,0,0,0,0));
         for(Lotto lotto: lottos) {
-            int count = winLotto.countMatch(lotto);
-            match.set(count, match.get(count) + 1);
+            int rank = winLotto.checkMatchResult(lotto);
+            if(rank != 0) {
+                result.set(rank-1, result.get(rank-1) + 1);
+            }
         }
-        return match;
+        return result;
     }
 }

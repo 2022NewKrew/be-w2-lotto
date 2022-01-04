@@ -1,4 +1,3 @@
-import lotto.LottoMachine;
 import view.PrintLotto;
 
 public class Main {
