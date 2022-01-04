@@ -4,13 +4,11 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class LottoStatistics {
-    private final WinningNumbers winningNumbers;
-    private Map<LottoResult, Integer> resultMap = new EnumMap<>(LottoResult.class);
+    private final Map<LottoResult, Integer> resultMap = new EnumMap<>(LottoResult.class);
 
     public LottoStatistics (WinningNumbers winningNumbers, LottoTickets lottoTickets) {
-        this.winningNumbers = winningNumbers;
         initResultMap();
-        match(lottoTickets);
+        match(winningNumbers, lottoTickets);
     }
 
     private void initResultMap() {
@@ -19,15 +17,17 @@ public class LottoStatistics {
         }
     }
 
-    private void match(LottoTickets lottoTickets) {
+    private void match(WinningNumbers winningNumbers, LottoTickets lottoTickets) {
         for (LottoTicket ticket : lottoTickets) {
-            putResult(resultMap, ticket);
+            putResult(winningNumbers, ticket);
         }
     }
 
-    private void putResult(Map<LottoResult, Integer> resultMap, LottoTicket ticket) {
+    private void putResult(WinningNumbers winningNumbers, LottoTicket ticket) {
         int count = 0;
-        LottoResult result = LottoResult.valueOf(getMatchCount(ticket));
+        int matchCountPerTicket = getMatchCount(winningNumbers, ticket);
+        boolean matchBonus = getMatchBonus(winningNumbers, ticket);
+        LottoResult result = LottoResult.valueOf(matchCountPerTicket, matchBonus);
         if (resultMap.get(result) != null) {
             count = resultMap.get(result);
         }
@@ -35,7 +35,7 @@ public class LottoStatistics {
         resultMap.put(result, count + 1);
     }
 
-    private int getMatchCount(LottoTicket lottoTicket) {
+    private int getMatchCount(WinningNumbers winningNumbers, LottoTicket lottoTicket) {
         int matchCount = 0;
 
         for (LottoNumber number : winningNumbers) {
@@ -45,20 +45,26 @@ public class LottoStatistics {
         return matchCount;
     }
 
+    private boolean getMatchBonus(WinningNumbers winningNumbers, LottoTicket lottoTicket) {
+        return lottoTicket.contains(winningNumbers.getBonusNumber());
+    }
+
     public Map<LottoResult, Integer> getResultMap() {
         return resultMap;
     }
 
-    public int calculateRevenueRate(Money money) {
+    public int calculateRevenueRate(Money inputMoney) {
         long totalPrice = 0;
 
         for (Map.Entry<LottoResult, Integer> resultEntry : resultMap.entrySet()) {
             LottoResult lottoResult = resultEntry.getKey();
             int count = resultEntry.getValue();
 
-            totalPrice += lottoResult.getReward() * count;
+            totalPrice += (long) lottoResult.getReward() * count;
         }
 
-        return (int) (totalPrice / money.getPrice()) * 100;
+        Money totalMoney = new Money(totalPrice);
+
+        return totalMoney.getRevenueRate(inputMoney);
     }
 }
