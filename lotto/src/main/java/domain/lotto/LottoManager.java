@@ -51,12 +51,12 @@ public class LottoManager {
 
 
   private void setLastWinningNumber() throws IOException {
-    lotteryMachine.setCurrentWinningLotto(reader);
+    lotteryMachine.generateWinningLottery(reader);
   }
 
 
   private void reportWinningStatistics() throws IOException {
-    Statistics statistics = Statistics.of(lotteryMachine.getCurrentWinningLotto(), wallet);
+    Statistics statistics = Statistics.of(lotteryMachine.getCurrentWinningLottery(), wallet);
     writer.write(statistics);
   }
 

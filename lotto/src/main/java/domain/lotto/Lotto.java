@@ -35,7 +35,12 @@ public class Lotto {
   }
 
 
-  private boolean contains(int number) {
+  public boolean isBonusMatched(int bonusNumber) {
+    return holder.contains(bonusNumber);
+  }
+
+
+  public boolean contains(int number) {
     return holder.contains(number);
   }
 

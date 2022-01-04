@@ -46,9 +46,7 @@ public class LottoWallet implements Iterable<Lotto> {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder().append(lottoHolder.size()).append("개를 구매했습니다.").append('\n');
-    lottoHolder.forEach(lotto -> {
-      sb.append(lotto).append('\n');
-    });
+    lottoHolder.forEach(lotto -> sb.append(lotto).append('\n'));
     sb.append('\n');
     return sb.toString();
   }

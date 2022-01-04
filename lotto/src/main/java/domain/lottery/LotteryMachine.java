@@ -1,39 +1,26 @@
 package domain.lottery;
 
-import domain.lotto.Lotto;
 import java.io.IOException;
 import view.read.InputReader;
 
 public class LotteryMachine {
 
-  private Lotto currentWinningLotto;
+  private WinningLottery winningLottery;
 
-  private LotteryMachine(Lotto winningLotto) {
-    this.currentWinningLotto = winningLotto;
+  private LotteryMachine() {
+    this.winningLottery = null;
   }
-
-  public static LotteryMachine of(Lotto winningLotto) {
-    return new LotteryMachine(winningLotto);
-  }
-
 
   public static LotteryMachine createEmpty() {
-    return new LotteryMachine(null);
+    return new LotteryMachine();
+  }
+
+  public void generateWinningLottery(InputReader reader) throws IOException {
+    this.winningLottery = reader.getLastWinningLottery();
   }
 
 
-  public void setCurrentWinningLotto(Lotto lotto) {
-    this.currentWinningLotto = lotto;
+  public WinningLottery getCurrentWinningLottery() {
+    return winningLottery;
   }
-
-
-  public void setCurrentWinningLotto(InputReader reader) throws IOException {
-    currentWinningLotto = reader.getLastWinningLotto();
-  }
-
-
-  public Lotto getCurrentWinningLotto() {
-    return currentWinningLotto;
-  }
-
 }

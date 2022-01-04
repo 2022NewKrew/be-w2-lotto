@@ -1,52 +1,63 @@
 package domain.statistics;
 
+import domain.lottery.LotteryMachine;
+import domain.lottery.WinningLottery;
 import domain.lotto.Lotto;
+import domain.lotto.LottoPrize;
 import domain.lotto.LottoWallet;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
 public class Statistics {
 
-  private static final Map<Integer, Integer> amountMap = Map.of(
-      3, 5000,
-      4, 50000,
-      5, 1500000,
-      6, 2000000000
-  );
-  private final Map<Matcher, List<Lotto>> matchMap;
+  private final Map<LottoPrize, List<Lotto>> winningLotteryHolder;
   private final int buyAmount;
 
-  private Statistics(Lotto winningLotto, LottoWallet wallet) {
-    this.matchMap = new HashMap<>();
+  private Statistics(WinningLottery winningLottery, LottoWallet wallet) {
+    this.winningLotteryHolder = new EnumMap<>(LottoPrize.class);
     this.buyAmount = calculateBuyAmount(wallet);
-    setupMatchMap(winningLotto, wallet);
+    setupHolder();
+    setupMatchMap(winningLottery, wallet);
   }
+
+
+  private void setupHolder() {
+    for (LottoPrize lottoPrize : LottoPrize.values()) {
+      winningLotteryHolder.put(lottoPrize, new ArrayList<>());
+    }
+  }
+
 
   private int calculateBuyAmount(LottoWallet wallet) {
     return wallet.size() * Lotto.LOTTO_PRICE;
   }
 
-  public static Statistics of(Lotto winningLotto, LottoWallet wallet) {
-    return new Statistics(winningLotto, wallet);
+  public static Statistics of(WinningLottery winningLottery, LottoWallet wallet) {
+    return new Statistics(winningLottery, wallet);
   }
 
 
-  private void setupMatchMap(Lotto winningLotto, LottoWallet wallet) {
+  private void setupMatchMap(WinningLottery winningLottery, LottoWallet wallet) {
     for(Lotto candidateLotto : wallet) {
-      int matchCount = candidateLotto.getMatchCount(winningLotto);
-      addMatchMap(matchCount, candidateLotto);
+      MatchInfo matchInfo = MatchInfo.of(winningLottery, candidateLotto);
+      addLottoIfMatched(matchInfo, candidateLotto);
     }
   }
 
 
-  private void addMatchMap(int matchCount, Lotto lotto) {
-    Matcher matcher = getMatcher(matchCount);
-    if(!matchMap.containsKey(matcher)) {
-      matchMap.put(matcher, new ArrayList<>());
-    }
-    List<Lotto> matchLottoList = matchMap.get(matcher);
+  private void addLottoIfMatched(MatchInfo matchInfo, Lotto lotto) {
+    LottoPrize.get(matchInfo)
+        .ifPresent(lottoPrize -> {
+          addLottoIntoHolder(lottoPrize, lotto);
+        });
+  }
+
+
+  private void addLottoIntoHolder(LottoPrize lottoPrize, Lotto lotto) {
+    List<Lotto> matchLottoList = winningLotteryHolder.get(lottoPrize);
     matchLottoList.add(lotto);
   }
 
@@ -57,7 +68,7 @@ public class Statistics {
 
 
   private int getProfitAmount() {
-    return matchMap.entrySet().stream()
+    return winningLotteryHolder.entrySet().stream()
         .map(matcherIntegerEntry -> {
           int reward = matcherIntegerEntry.getKey().getReward();
           int count = matcherIntegerEntry.getValue().size();
@@ -69,25 +80,26 @@ public class Statistics {
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder("당첨 통계").append('\n');
-    sb.append("---------").append('\n');
-    amountMap.forEach((matchCount, v) -> {
-      Matcher matcher = getMatcher(matchCount);
-      sb.append(toString(matcher)).append('\n');
+    return "당첨 통계" + '\n'
+        + "---------" + '\n'
+        + stringifyMatchMap()
+        + "총 수익률은 " + getProfitRate() + "%입니다." + '\n';
+  }
+
+
+  private String stringifyMatchMap() {
+    StringBuilder sb = new StringBuilder();
+    winningLotteryHolder.forEach((lottoPrize, count) -> {
+      sb.append(stringify(lottoPrize));
     });
-    sb.append("총 수익률은 ").append(getProfitRate()).append("%입니다.").append('\n');
     return sb.toString();
   }
 
-  public String toString(Matcher matcher) {
-    List<Lotto> matchLottoList = matchMap.getOrDefault(matcher, new ArrayList<>());
+
+  private String stringify(LottoPrize lottoPrize) {
+    List<Lotto> matchLottoList = winningLotteryHolder.getOrDefault(lottoPrize, new ArrayList<>());
     int count = matchLottoList.size();
-    return matcher + " - " + count + "개";
-  }
-
-
-  private Matcher getMatcher(int matchCount) {
-    return Matcher.of(matchCount, amountMap.getOrDefault(matchCount, 0));
+    return lottoPrize + " - " + count + "개\n";
   }
 
 }
