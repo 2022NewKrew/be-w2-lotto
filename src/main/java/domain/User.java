@@ -1,6 +1,7 @@
 package domain;
 
 import domain.lottery.Ticket;
+import dto.ReportDTO;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -36,13 +37,13 @@ public class User {
         return newTickets;
     }
 
-    public Report getReport() {
+    public ReportDTO getReport() {
         EnumMap<Prize, Integer> prizeCount = createInitializedPrizeCount();
         for (var ticket : tickets) {
             Prize ticketPrize = agent.getTicketPrize(ticket);
             prizeCount.put(ticketPrize, prizeCount.get(ticketPrize) + 1);
         }
-        return new Report(investment, prizeCount);
+        return new ReportDTO(investment, prizeCount);
     }
 
     private EnumMap<Prize, Integer> createInitializedPrizeCount() {

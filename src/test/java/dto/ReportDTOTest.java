@@ -1,17 +1,19 @@
-package domain;
+package dto;
 
+import domain.Prize;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.EnumMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ReportTest {
+class ReportDTOTest {
 
     @Test
     @DisplayName("수익률은 총상금액/투자액이다.")
-    void givenInvestmentAndPrizeCount_whenMakingReport_thenCalculateProfitRate() {
+    void Given_InvestmentAndPrizeCount_When_MakingReportDTO_Then_CalculateProfitRate() {
         // Given
         final int INVESTMENT = 1_000_000_000;
         final int FIRST_PRIZE_COUNT = 1;
@@ -19,8 +21,7 @@ class ReportTest {
         final int THIRD_PRIZE_COUNT = 3;
         final int FOURTH_PRIZE_COUNT = 4;
         final int FIFTH_PRIZE_COUNT = 5;
-        final double PROFIT_RATE = 1.064725;
-        EnumMap<Prize, Integer> prizeCount = new EnumMap<>(Prize.class);
+        Map<Prize, Integer> prizeCount = new EnumMap<>(Prize.class);
         prizeCount.put(Prize.FIRST, FIRST_PRIZE_COUNT);
         prizeCount.put(Prize.SECOND, SECOND_PRIZE_COUNT);
         prizeCount.put(Prize.THIRD, THIRD_PRIZE_COUNT);
@@ -28,9 +29,10 @@ class ReportTest {
         prizeCount.put(Prize.FIFTH, FIFTH_PRIZE_COUNT);
 
         // When
-        Report report = new Report(INVESTMENT, prizeCount);
+        ReportDTO reportDTO = new ReportDTO(INVESTMENT, prizeCount);
 
         // Then
-        assertEquals(PROFIT_RATE, report.getProfitRate());
+        final double PROFIT_RATE = 1.064725;
+        assertEquals(PROFIT_RATE, reportDTO.profitRate);
     }
 }

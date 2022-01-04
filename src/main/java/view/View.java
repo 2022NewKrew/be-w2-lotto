@@ -1,7 +1,7 @@
 package view;
 
 import domain.Prize;
-import domain.Report;
+import dto.ReportDTO;
 import domain.lottery.Ticket;
 
 import java.util.Arrays;
@@ -33,16 +33,16 @@ public class View {
         return Integer.parseInt(scanner.nextLine());
     }
 
-    public void showReport(Report report) {
+    public void showReport(ReportDTO reportDTO) {
         System.out.println();
         System.out.println("당첨 통계");
         System.out.println("---------");
-        System.out.println(Prize.FIFTH.getWinningMatchingCount() + "개 일치 (" + Prize.FIFTH.getValue() + "원)- " + report.prizeCount.get(Prize.FIFTH) + "개");
-        System.out.println(Prize.FOURTH.getWinningMatchingCount() + "개 일치 (" + Prize.FOURTH.getValue() + "원)- " + report.prizeCount.get(Prize.FOURTH) + "개");
-        System.out.println(Prize.THIRD.getWinningMatchingCount() + "개 일치 (" + Prize.THIRD.getValue() + "원)- " + report.prizeCount.get(Prize.THIRD) + "개");
-        System.out.println(Prize.SECOND.getWinningMatchingCount() + "개 일치, 보너스 볼 일치(" + Prize.SECOND.getValue() + "원)- " + report.prizeCount.get(Prize.SECOND) + "개");
-        System.out.println(Prize.FIRST.getWinningMatchingCount() + "개 일치 (" + Prize.FIRST.getValue() + "원)- " + report.prizeCount.get(Prize.FIRST) + "개");
-        System.out.println("총 수익률은 " + toPercentage(report.getProfitRate(), 2) + "입니다.");
+        System.out.println(Prize.FIFTH.getWinningMatchingCount() + "개 일치 (" + Prize.FIFTH.getValue() + "원)- " + reportDTO.prizeCount.get(Prize.FIFTH) + "개");
+        System.out.println(Prize.FOURTH.getWinningMatchingCount() + "개 일치 (" + Prize.FOURTH.getValue() + "원)- " + reportDTO.prizeCount.get(Prize.FOURTH) + "개");
+        System.out.println(Prize.THIRD.getWinningMatchingCount() + "개 일치 (" + Prize.THIRD.getValue() + "원)- " + reportDTO.prizeCount.get(Prize.THIRD) + "개");
+        System.out.println(Prize.SECOND.getWinningMatchingCount() + "개 일치, 보너스 볼 일치(" + Prize.SECOND.getValue() + "원)- " + reportDTO.prizeCount.get(Prize.SECOND) + "개");
+        System.out.println(Prize.FIRST.getWinningMatchingCount() + "개 일치 (" + Prize.FIRST.getValue() + "원)- " + reportDTO.prizeCount.get(Prize.FIRST) + "개");
+        System.out.println("총 수익률은 " + toPercentage(reportDTO.profitRate, 2) + "입니다.");
     }
 
     private static String toPercentage(double rate, int numOfDigits) {
