@@ -7,7 +7,7 @@ import java.util.List;
 
 public class OutputView {
 
-    private static final String NEWLINE = "\n";
+    private static final String NEWLINE = System.lineSeparator();
 
     private OutputView() {}
 
