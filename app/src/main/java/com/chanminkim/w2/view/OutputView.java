@@ -30,7 +30,8 @@ public class OutputView {
 
     private void printEarningPercentage(List<Lotto> lottoList, Map<Integer, Integer> countMap) {
         int lotteryWinnings = calculateLotteryWinnings(countMap);
-        double earningPercentage = lotteryWinnings / (double) (Lotto.LOTTO_PRICE * lottoList.size()) * 100;
+        int principal = Lotto.LOTTO_PRICE * lottoList.size();
+        double earningPercentage = (lotteryWinnings - principal) / (double) principal * 100;
         System.out.printf("총 수익률은 %.2f%% 입니다.%n", earningPercentage);
     }
 
