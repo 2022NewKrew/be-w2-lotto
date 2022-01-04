@@ -23,9 +23,8 @@ public class LottoIO {
             lottosToBuy = new Lottos(moneyToBuyLottos);
         } catch (MoneyRangeException e) {
             e.printStackTrace();
-        } finally {
-            return lottosToBuy;
         }
+        return lottosToBuy;
     }
 
     // 당첨 정보 입력 및 생성

@@ -21,9 +21,8 @@ class LottoInput {
             money = Integer.parseInt(br.readLine());
         } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
-        } finally { // 반드시 값을 반환
-            return money;
         }
+        return money;
     }
 
     public static LottoWinning inputWinning() {
@@ -34,8 +33,7 @@ class LottoInput {
             lottoWinning = new LottoWinning(winningList);
         } catch (IOException | NumberFormatException | PickedNumbersFormatException e) {
             e.printStackTrace();
-        } finally {
-            return lottoWinning;
         }
+        return lottoWinning;
     }
 }
