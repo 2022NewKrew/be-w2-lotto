@@ -6,12 +6,14 @@ public class LottoResultDTO {
     private int secondPrizeCount;
     private int thirdPrizeCount;
     private int fourthPrizeCount;
+    private int fifthPrizeCount;
 
     public LottoResultDTO() {
         this.firstPrizeCount = 0;
         this.secondPrizeCount = 0;
         this.thirdPrizeCount = 0;
         this.fourthPrizeCount = 0;
+        this.fifthPrizeCount = 0;
     }
 
     public int getFirstPrizeCount() {
@@ -30,6 +32,10 @@ public class LottoResultDTO {
         return fourthPrizeCount;
     }
 
+    public int getFifthPrizeCount() {
+        return fifthPrizeCount;
+    }
+
     public void plusFirstPrizeCount() {
         this.firstPrizeCount++;
     }
@@ -44,5 +50,9 @@ public class LottoResultDTO {
 
     public void plusFourthPrizeCount() {
         this.fourthPrizeCount++;
+    }
+
+    public void plusFifthPrizeCount() {
+        this.fifthPrizeCount++;
     }
 }
