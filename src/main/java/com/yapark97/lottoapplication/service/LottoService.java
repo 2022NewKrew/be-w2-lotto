@@ -1,8 +1,8 @@
 package com.yapark97.lottoapplication.service;
 
-import com.yapark97.lottoapplication.domain.lotto.Lotto;
 import com.yapark97.lottoapplication.domain.lotto.LottoConst;
 import com.yapark97.lottoapplication.domain.lotto.LottoSet;
+import com.yapark97.lottoapplication.domain.lotto.WinningLotto;
 import com.yapark97.lottoapplication.domain.winningPolicy.BonusBallWinningPolicy;
 import com.yapark97.lottoapplication.domain.winningPolicy.SimpleWinningPolicy;
 import com.yapark97.lottoapplication.domain.winningPolicy.WinningPolicy;
@@ -18,7 +18,7 @@ public class LottoService {
     private final LottoOutput lottoOutput;
 
     private LottoSet lottoSet;
-    private Lotto winningLotto;
+    private WinningLotto winningLotto;
     private Set<WinningPolicy> winningPolicies;
 
     public LottoService() {
@@ -32,7 +32,6 @@ public class LottoService {
         initWinningPolicy();
         showLottoSet();
         initWinnintLotto();
-        addBonusBallWinningPolicy();
         showStatistic();
     }
 
@@ -56,11 +55,12 @@ public class LottoService {
 
     private void initWinnintLotto() {
         List<Integer> winningNumbers = lottoInput.takeWinningNumbersInput();
-        winningLotto = new Lotto(winningNumbers);
+        int bonusBall = lottoInput.takeBonusBallInput();
+        winningLotto = new WinningLotto(winningNumbers, bonusBall);
+        addBonusBallWinningPolicy(bonusBall);
     }
 
-    private void addBonusBallWinningPolicy() {
-        int bonusBall = lottoInput.takeBonusBallInput();
+    private void addBonusBallWinningPolicy(int bonusBall) {
         winningPolicies.add(new BonusBallWinningPolicy(bonusBall, LottoConst.BONUS_BALL_WINNING_CONDITION, LottoConst.BONUS_BALL_WINNING_PRIZE));
     }
 
