@@ -3,8 +3,11 @@ package lotto.view;
 import lotto.domain.Lotto;
 import lotto.domain.LottoNumber;
 import lotto.domain.LottoWinner;
+import lotto.domain.Rank;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static lotto.domain.LottoSetting.*;
 
@@ -36,28 +39,18 @@ public class LottoViewOutput {
     }
 
     public void printWinner(){
-        List<LottoWinner> winnerList = lottoObject.getLottoWinner();
+        Map<Rank, List<LottoNumber>> winnerMap = lottoObject.getLottoWinner();
 
         System.out.println("\n당첨 통계\n---------");
 
-        for(int correctCount = 3 ; correctCount <= LOTTO_LENGTH ; correctCount++){
-            System.out.println(correctCount + "개 일치 (" + LOTTO_WINNER_PRIZE.get(correctCount) + "원)- " + winnerList.get(correctCount).getWinner().size() + "개");
-        }
-        System.out.println("총 수익률은 " + Long.valueOf((long) (getEarning().doubleValue() / getPayment() * 100)) + "%입니다.");
-    }
-
-    private Long getPayment(){
-        return Long.valueOf(lottoObject.getLottos().size() * LOTTO_PRICE) ;
-    }
-
-    private Long getEarning(){
-        Long totalEarning = Long.valueOf(0);
-        List<LottoWinner> winnerList = lottoObject.getLottoWinner();
-
-        for(int correctCount = 0 ; correctCount <= LOTTO_LENGTH ; correctCount++){
-            totalEarning += Long.valueOf(LOTTO_WINNER_PRIZE.get(correctCount)) * winnerList.get(correctCount).getWinner().size();
+        List<Rank> ranks = List.of(Rank.values());
+        for(int i = ranks.size() - 1 ; i >= 0 ; i--){
+            if(ranks.get(i).getCountOfMatch() < Rank.FOURTH.getCountOfMatch()){
+                continue;
+            }
+            System.out.println(ranks.get(i).getCountOfMatch() + "개 일치 " + ranks.get(i).getWinningMessage() + " - " + winnerMap.get(ranks.get(i)).size() + "개");
         }
 
-        return totalEarning;
+        System.out.println("총 수익률은 " + Long.valueOf((long) (lottoObject.getEarning().doubleValue() / lottoObject.getPayment() * 100)) + "%입니다.");
     }
 }

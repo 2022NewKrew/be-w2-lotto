@@ -4,30 +4,18 @@ import lotto.view.LottoViewInput;
 import lotto.view.LottoViewOutput;
 
 import java.text.CollationElementIterator;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static lotto.domain.LottoSetting.*;
 
 public class Lotto {
-    private LottoNumber lottoResult;
+    private LottoResult lottoResult;
     private List<LottoNumber> lottos;
-    private LottoViewOutput lottoViewOutput;
-    private List<LottoWinner> lottoWinner;
+    private Map<Rank, List<LottoNumber>> lottoWinner;
     private List<Integer> lottoElement;
 
-    public Lotto(Integer payment){
+    public Lotto(){
         lottos = new ArrayList<>();
-        lottoViewOutput = new LottoViewOutput(this);
-
-        addLottos(payment / LOTTO_PRICE);
-        lottoViewOutput.printLottoCount();
-        lottoViewOutput.printAllLottos();
-        lottoResult = new LottoNumber(LottoViewInput.lottoInputResult());
-        makeTotal();
-        lottoViewOutput.printWinner();
     }
 
     //getter
@@ -35,12 +23,31 @@ public class Lotto {
         return lottos;
     }
 
-    public List<LottoWinner> getLottoWinner() {
+    public Map<Rank, List<LottoNumber>> getLottoWinner() {
         return lottoWinner;
     }
 
+    public Long getPayment(){
+        return Long.valueOf(lottos.size() * LOTTO_PRICE) ;
+    }
 
-    private void addLottos(Integer lottoCount){
+    public Long getEarning(){
+        Long totalEarning = Long.valueOf(0);
+
+        for(Rank rank : List.of(Rank.values())){
+            totalEarning += rank.getWinningMoney() * lottoWinner.get(rank).size();
+        }
+
+        return totalEarning;
+    }
+
+    public void setLottoResult(LottoNumber lottoNumber, Integer bonusNumber) {
+        lottoResult = new LottoResult();
+        lottoResult.setLottoNumber(lottoNumber);
+        lottoResult.setBonusNumber(bonusNumber);
+    }
+
+    public void addRandomLottos(Integer lottoCount){
         for(int i = 0 ; i < lottoCount ; i++){
             lottos.add(createRandomLotto()); //lottoCount만큼 랜덤으로 로또를 생성
         }
@@ -52,27 +59,32 @@ public class Lotto {
         int curLottoIdx = 0;
         int matchCount = 0;
 
-        while(resultIdx < lottoResult.num.size() && curLottoIdx < curLotto.num.size()){
-            if(lottoResult.num.get(resultIdx).equals(curLotto.num.get(curLottoIdx))){
+        while(resultIdx < lottoResult.getLottoNumber().num.size() && curLottoIdx < curLotto.num.size()){
+            if(lottoResult.getLottoNumber().num.get(resultIdx).equals(curLotto.num.get(curLottoIdx))){
                 resultIdx++; curLottoIdx++; matchCount++; continue;
             }
-            int garbageVariable = ((lottoResult.num.get(resultIdx) < curLotto.num.get(curLottoIdx)) ? resultIdx++ : curLottoIdx++ ) ;
+            int garbageVariable = ((lottoResult.getLottoNumber().num.get(resultIdx) < curLotto.num.get(curLottoIdx)) ? resultIdx++ : curLottoIdx++ ) ;
         }
         return matchCount;
     }
 
-    private void makeTotal(){
+    private void initLottoWinner(){
         //init lottoWinner Objects
-        lottoWinner = new ArrayList<>();
-
-        for(int i = 0 ; i <= LOTTO_LENGTH ; i++){
-            lottoWinner.add(new LottoWinner());
+        lottoWinner = new HashMap<>();
+        for(Rank rank : List.of(Rank.values())){
+            lottoWinner.put(rank, new ArrayList<LottoNumber>());
         }
+    }
+
+    public void makeTotal(){
+        //initialize Hashmap to lottoWinner.
+        initLottoWinner();
 
         //add win numbers to lottoWinner
         for(int i = 0 ; i < lottos.size() ; i++){
             LottoNumber curLotto = lottos.get(i);
-            lottoWinner.get(calculateMatchCount(curLotto)).addLottoNumber(curLotto);
+            Rank lottoRank = Rank.getRankByCount(calculateMatchCount(curLotto), curLotto.num.contains(lottoResult.getBonusNumber()));
+            lottoWinner.get(lottoRank).add(curLotto);
         }
 
     }
@@ -95,4 +107,6 @@ public class Lotto {
         newLotto.sort(Integer::compareTo);
         return new LottoNumber( newLotto );
     }
+
+
 }
