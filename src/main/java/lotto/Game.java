@@ -1,6 +1,9 @@
 package lotto;
 
-import java.util.*;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.HashMap;
 import java.util.stream.Collectors;
 
 public class Game {
@@ -13,10 +16,8 @@ public class Game {
     private int totalPrizeMoney = 0;
     final int bonusKey = 2;
 
-    private void getRankResult(int rank) {
-        final int prizeMoney = LotteryConstants.prizeMoney.get(rank);
-        final int matches = gameBoard.getOrDefault(rank, 0);
-        totalPrizeMoney = totalPrizeMoney + matches * prizeMoney;
+    private void getRankResult(int prizeMoney, int rank, int matches) {
+        totalPrizeMoney += matches * prizeMoney;
         if (rank == bonusKey) {
             System.out.println("5개 일치, 보너스 볼 일치("+prizeMoney+"원)- " + matches + "개");
             return;
@@ -32,14 +33,18 @@ public class Game {
         System.out.println("당첨 통계");
         System.out.println("---------");
 
-        for (int i = LotteryConstants.numPrizes; i>0; i--) {
-            getRankResult(i);
+        for (LotteryConstants.prizeMoney p: LotteryConstants.prizeMoney.values()) {
+            int prizeMoney = p.getMoney();
+            int rank = p.getRank();
+            int matches = gameBoard.getOrDefault(rank, 0);
+            getRankResult(prizeMoney, rank, matches);
         }
         System.out.println("총 수익률은 "+ getRateOfReturn(totalPrizeMoney)  + "%입니다.");
     }
 
     private long getRateOfReturn(int totalPrizeMoney) {
-        return (long) ((double)totalPrizeMoney/((double)numTickets*1000))*100;
+        int principal = numTickets*1000;
+        return (long) ((double)(totalPrizeMoney-principal)/((double)principal))*100;
     }
 
     private void getTickets() {
