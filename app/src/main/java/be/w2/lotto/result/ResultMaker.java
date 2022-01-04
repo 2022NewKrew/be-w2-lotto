@@ -27,7 +27,7 @@ public class ResultMaker {
     private View view = View.getInstance();
     private LastWinningLotto lastWinningLotto;
 
-    public void getResult(List<Lotto> purchaseLotto) {
+    public void produceResults(List<Lotto> purchaseLotto) {
         inputLastWinningLotto();
         Result result = ResultCalculator.getResultOfGame(purchaseLotto, lastWinningLotto);
         int investment = purchaseLotto.size() * Cashier.PRICE_PER_LOTTO;

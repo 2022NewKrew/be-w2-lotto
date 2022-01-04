@@ -31,7 +31,7 @@ public class GameStarter {
         int purchaseAmount = view.inputIntWithMessage(GameMessage.INPUT_PURCHASE_AMOUNT);
         List<Lotto> lottos = purchase(purchaseAmount);
         outputLottos(lottos);
-        ResultMaker.getInstance().getResult(lottos);
+        ResultMaker.getInstance().produceResults(lottos);
     }
 
     private List<Lotto> purchase(int purchaseAmount) {
