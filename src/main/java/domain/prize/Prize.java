@@ -1,5 +1,7 @@
 package domain.prize;
 
+import java.util.Arrays;
+
 public enum Prize {
 
     FIRST_PRIZE(6, 2000000000),
@@ -8,12 +10,6 @@ public enum Prize {
     FOURTH_PRIZE(4, 50000),
     FIFTH_PRIZE(3, 5000),
     NO_PRIZE(0, 0);
-
-    public static final int FIRST_PRIZE_COUNT = 6;
-    public static final int SECOND_PRIZE_COUNT = 5;
-    public static final int THIRD_PRIZE_COUNT = 5;
-    public static final int FOURTH_PRIZE_COUNT = 4;
-    public static final int FIFTH_PRIZE_COUNT = 3;
 
     private final int matchedNum;
     private final boolean matchedBonus;
@@ -31,6 +27,21 @@ public enum Prize {
         this.prizeMoney = prizeMoney;
     }
 
+    public static Prize valueOf(int matchedNum, boolean matchedBonus) {
+        return Arrays.stream(values())
+                .filter(p -> isEqualMatchedNum(p, matchedNum) && checkSecondPrizeForBonus(p, matchedBonus))
+                .findFirst()
+                .orElse(NO_PRIZE);
+    }
+
+    private static boolean isEqualMatchedNum(Prize prize, int matchedNum) {
+        return prize.matchedNum == matchedNum;
+    }
+
+    private static boolean checkSecondPrizeForBonus(Prize prize, boolean matchedBonus) {
+        return !SECOND_PRIZE.equals(prize) || matchedBonus;
+    }
+
     public int getMatchedNum() {
         return matchedNum;
     }
@@ -42,6 +53,5 @@ public enum Prize {
     public int getPrizeMoney() {
         return prizeMoney;
     }
-
 
 }
