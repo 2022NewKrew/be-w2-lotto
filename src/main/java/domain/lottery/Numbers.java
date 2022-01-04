@@ -7,11 +7,16 @@ import java.util.Random;
 import java.util.stream.IntStream;
 
 class Numbers {
-    final List<Integer> numbers;
-    final static int NUMBER_DOMAIN_START = 1;
-    final static int NUMBER_DOMAIN_END = 45;
-    final static List<Integer> NUMBERS_DOMAIN = IntStream.range(NUMBER_DOMAIN_START, NUMBER_DOMAIN_END + 1).collect(ArrayList::new, List::add, List::addAll);
-    final static int NUMBERS_LENGTH = 6;
+    private static final int NUMBER_DOMAIN_START = 1;
+    private static final int NUMBER_DOMAIN_END = 45;
+    private static final List<Integer> NUMBERS_DOMAIN = IntStream.rangeClosed(NUMBER_DOMAIN_START, NUMBER_DOMAIN_END).collect(ArrayList::new, List::add, List::addAll);
+    private static final int NUMBERS_LENGTH = 6;
+
+    public List<Integer> getNumbers() {
+        return numbers;
+    }
+
+    private final List<Integer> numbers;
 
     Numbers(Random random) {
         Collections.shuffle(NUMBERS_DOMAIN, random);

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class View {
-    final static Scanner scanner = new Scanner(System.in);
+    private final static Scanner scanner = new Scanner(System.in);
 
     public int getBudgetByPrompt() {
         System.out.println("구입금액을 입력해 주세요.");
@@ -17,9 +17,7 @@ public class View {
 
     public void showBoughtTickets(List<Ticket> tickets) {
         System.out.println(tickets.size() + "개를 구매했습니다.");
-        for (var ticket : tickets) {
-            System.out.println(ticket.getNumbers());
-        }
+        tickets.forEach(ticket -> System.out.println(ticket.getNumbers()));
         System.out.println();
     }
 
