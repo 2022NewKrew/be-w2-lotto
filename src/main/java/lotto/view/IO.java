@@ -86,6 +86,8 @@ public class IO {
         }
     }
 
+
+
     private void showCorrectCntsPerLine(Rank rank, int cnt){
         if (rank==rank.SECOND){ //bonus number match
             System.out.println(String.format(aResultsBonusMatch, 5, rank.getWinningMoney(), cnt));

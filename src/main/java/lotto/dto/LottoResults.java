@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class LottoResults {
-    static RankMap rankMap;
-    static int earnRate;
+    RankMap rankMap;
+    int earnRate;
 
     public LottoResults() {
     }

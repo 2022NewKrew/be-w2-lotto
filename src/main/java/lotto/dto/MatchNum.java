@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MatchNum {
-    private static List<Integer> prevNums = new ArrayList<>(6);
-    private static int bonusNum;
+    private List<Integer> prevNums = new ArrayList<>(6);
+    private int bonusNum;
 
     public MatchNum(List<Integer> prevNums, int bonusNum) {
         this.prevNums = prevNums;
@@ -13,9 +13,9 @@ public class MatchNum {
     }
 
     public List<Integer> getPrevNums(){
-        return prevNums;
+        return this.prevNums;
     }
-    public static int getBonusNum(){
-        return bonusNum;
+    public int getBonusNum(){
+        return this.bonusNum;
     }
 }

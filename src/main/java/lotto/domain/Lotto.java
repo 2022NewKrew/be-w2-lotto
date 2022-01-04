@@ -29,7 +29,7 @@ public class Lotto {
             cnt += countMatchPerNum(nums, i);
         }
         //check bonus num is matched
-        boolean bonusMatch = (countMatchPerNum(nums, MatchNum.getBonusNum()) == 1);
+        boolean bonusMatch = (countMatchPerNum(nums, matchNum.getBonusNum()) == 1);
         Rank rank = Rank.valueOf(cnt, bonusMatch);
         return rank;
     }
