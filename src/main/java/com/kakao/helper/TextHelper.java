@@ -9,7 +9,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class TextHelper {
-    private TextHelper(){}
+    private TextHelper() {}
 
     public static List<String> seperateString (String str, String regex) {
         return new ArrayList<>(Arrays.asList(str.split(regex)));

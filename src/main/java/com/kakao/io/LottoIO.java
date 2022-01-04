@@ -1,5 +1,6 @@
 package com.kakao.io;
 
+import com.kakao.data.LottoData;
 import com.kakao.data.io.LottoInputData;
 import com.kakao.exception.MoneyRangeException;
 import com.kakao.model.LottoWinning;
@@ -10,7 +11,8 @@ public class LottoIO {
 
     // 돈 입력받기
     public static Integer inputMoney() {
-        LottoOutput.printString(LottoInputData.REQUEST_COMMNET_OF_PRICE);
+        String requestPrice = String.format(LottoInputData.REQUEST_COMMNET_OF_PRICE, LottoData.PRICE_OF_LOTTO);
+        LottoOutput.printString(requestPrice);
         return LottoInput.inputMoney();
     }
 

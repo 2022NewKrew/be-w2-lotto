@@ -21,7 +21,7 @@ public class Lottos {
 
     // 유효성 검사
     private void checkMoneyRange(final int moneyToBuyLottos) throws MoneyRangeException {
-        if(moneyToBuyLottos < LottoData.MIN_PRICE_RANGE ) {
+        if(moneyToBuyLottos < LottoData.PRICE_OF_LOTTO ) {
             throw new MoneyRangeException();
         }
     }
