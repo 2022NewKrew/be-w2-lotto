@@ -66,5 +66,4 @@ class LottoNumbersTest {
         assertThat(e1.getMessage()).isEqualTo("로또 번호는 1~45 사이의 숫자여야 합니다.");
         assertThat(e2.getMessage()).isEqualTo("로또 번호는 1~45 사이의 숫자여야 합니다.");
     }
-
 }
