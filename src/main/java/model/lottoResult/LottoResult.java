@@ -11,20 +11,22 @@ import java.util.stream.Collectors;
 public class LottoResult {
     Map<LottoRank, Long> result = new HashMap<>();
     Lotto winningLotto;
+    double revenuePercent;
 
     public LottoResult(List<Lotto> lottos, Lotto winningLotto) {
         this.winningLotto = winningLotto;
-        generateResult(lottos, winningLotto);
+        generateResult(lottos);
+        revenuePercent = calculateRevenuePercent(lottos.size());
     }
 
-    private void generateResult(List<Lotto> lottos, Lotto winningLotto) {
+    private void generateResult(List<Lotto> lottos) {
         List<LottoRank> lottoRanks = lottos.stream().map(this::matchLotto).collect(Collectors.toList());
         for (LottoRank targetLottoRank : LottoRank.values()) {
-            generateResult(result, lottoRanks, targetLottoRank);
+            addResult(result, lottoRanks, targetLottoRank);
         }
     }
 
-    private void generateResult(Map<LottoRank, Long> result, List<LottoRank> lottoRanks, LottoRank targetLottoRank) {
+    private void addResult(Map<LottoRank, Long> result, List<LottoRank> lottoRanks, LottoRank targetLottoRank) {
         result.put(targetLottoRank, countLottoRank(lottoRanks, targetLottoRank));
     }
 
@@ -59,15 +61,23 @@ public class LottoResult {
         return LottoRank.FAIL;
     }
 
-    public long getTotalEarn() {
+    public double calculateRevenuePercent(int numberOfLotto) {
+        return revenuePercent = getTotalEarn() / numberOfLotto * 1000.0 * 100;
+    }
+
+    private double getTotalEarn() {
         return result
                 .entrySet()
                 .stream()
-                .mapToLong(entry -> entry.getKey().getReward() * entry.getValue())
+                .mapToDouble(entry -> entry.getKey().getReward() * entry.getValue())
                 .sum();
     }
 
     public Map<LottoRank, Long> getResult() {
         return result;
+    }
+
+    public double getRevenuePercent() {
+        return revenuePercent;
     }
 }

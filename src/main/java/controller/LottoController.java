@@ -14,7 +14,7 @@ public class LottoController {
         UserOutput.printLotto(getLottoNumbers(lottos));
         LottoResult lottoResult = MatchLottoController.matchingResult(lottos);
         UserOutput.printHistory(lottoResult.getResult());
-        UserOutput.printRevenueRate(lottoResult.getTotalEarn());
+        UserOutput.printRevenueRate(lottoResult.getRevenuePercent());
     }
 
     private static List<List<Integer>> getLottoNumbers(List<Lotto> lottos) {

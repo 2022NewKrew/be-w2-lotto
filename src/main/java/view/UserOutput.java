@@ -13,8 +13,8 @@ public class UserOutput {
         }
     }
 
-    static public void printRevenueRate(long revenueRate) {
-        System.out.println("총 수익률은 " + Math.floor(revenueRate * 100) + "% 입니다.");
+    static public void printRevenueRate(double revenueRate) {
+        System.out.println("총 수익률은 " + revenueRate + "% 입니다.");
     }
 
     static public void printHistory(Map<LottoRank, Long> result) {
