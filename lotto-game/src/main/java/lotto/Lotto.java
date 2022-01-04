@@ -28,13 +28,8 @@ public class Lotto {
         Collections.sort(numbers);
     }
 
-    public void print() {
-        System.out.printf("[ ");
-        for(int index = 0; index < 6; index++){
-            System.out.printf(numbers.get(index) +"");
-            if(index < 5) System.out.printf(", ");
-        }
-        System.out.printf("]\n");
+    public List<Integer> getLottoNumbers(){
+        return numbers;
     }
 
     public int contain(int number) {
