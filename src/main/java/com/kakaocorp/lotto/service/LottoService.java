@@ -1,9 +1,12 @@
 package com.kakaocorp.lotto.service;
 
 import com.kakaocorp.lotto.domain.Lotto;
+import com.kakaocorp.lotto.domain.WinningLotto;
 import com.kakaocorp.lotto.dto.ResultResponse;
+import com.kakaocorp.lotto.enums.Grade;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class LottoService {
 
@@ -27,31 +30,67 @@ public class LottoService {
         return lottoList;
     }
 
-    public ResultResponse result(List<Integer> winningNumbers, List<Lotto> lottoList) {
+    public ResultResponse result(WinningLotto winningLotto, List<Lotto> lottoList) {
         ResultResponse resultResponse = new ResultResponse();
 
-        int[] resultArray = score(winningNumbers, lottoList);
-        resultResponse.setRateOfReturn(lottoList.size() * 100 / Arrays.stream(resultArray).sum());
-        resultResponse.setResult(resultArray);
+        List<Integer> scores = score(winningLotto, lottoList);
+
+        int totalWinningMoney = IntStream.range(0, 8).map(i -> scores.get(i) * ResultResponse.winningMoneyList.get(i)).sum();
+        int investMoney = lottoList.size() * 1000;
+
+        resultResponse.setRateOfReturn((totalWinningMoney - investMoney) / investMoney * 100);
+        resultResponse.setResults(scores);
 
         return resultResponse;
     }
 
-    private int[] score(List<Integer> winningNumbers, List<Lotto> lottoList) {
-        int[] result = new int[7];
+    private List<Integer> score(WinningLotto winningLotto, List<Lotto> lottoList) {
+        // index 0~6에는 index 만큼 일치하는 로또의 갯수가 담겨 있고, index 7에는 5개 일치 + 보너스 볼 일치인 로또의 갯수가 담겨 있다
+        List<Integer> results = new ArrayList<>(Collections.nCopies(8, 0));
 
         for (Lotto lotto : lottoList) {
-            int num = match(winningNumbers, lotto);
-            result[num] += 1;
+            int num = match(winningLotto, lotto);
+            results.set(num, results.get(num) + 1);
+
+            // Lotto 객체에 grade 기록
+            rank(lotto, num);
         }
 
-        return result;
+        return results;
     }
 
-    private int match(List<Integer> winningNumbers, Lotto lotto) {
-        Set<Integer> targetA = new HashSet<>(winningNumbers);
-        Set<Integer> targetB = new HashSet<>(lotto.getNumbers());
+    private int match(WinningLotto winningLotto, Lotto lotto) {
+        Set<Integer> targetA = new HashSet<>(lotto.getNumbers());
+        Set<Integer> targetB = new HashSet<>(winningLotto.getNumbers());
         targetA.retainAll(targetB);
-        return targetA.size();
+        int matchNumber = targetA.size();
+
+        if (matchNumber == 5 && lotto.getNumbers().contains(winningLotto.getBonusBall())) {
+            return 7;
+        }
+
+        return matchNumber;
+    }
+
+    private void rank(Lotto lotto, int num) {
+        switch (num) {
+            case 3:
+                lotto.rank(Grade.FIFTH);
+                return;
+            case 4:
+                lotto.rank(Grade.FOURTH);
+                return;
+            case 5:
+                lotto.rank(Grade.THIRD);
+                return;
+            case 7:
+                lotto.rank(Grade.SECOND);
+                return;
+            case 6:
+                lotto.rank(Grade.FIRST);
+                return;
+            default:
+                lotto.rank(Grade.NO_GRADE);
+        }
     }
 }

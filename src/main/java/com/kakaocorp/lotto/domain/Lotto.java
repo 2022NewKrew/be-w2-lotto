@@ -1,10 +1,15 @@
 package com.kakaocorp.lotto.domain;
 
+import com.kakaocorp.lotto.enums.Grade;
+
 import java.util.List;
 
 public class Lotto {
 
     private final List<Integer> numbers;
+
+    private boolean isClosed = false;
+    private Grade grade;
 
     public Lotto(List<Integer> numbers) {
         this.numbers = numbers;
@@ -17,5 +22,10 @@ public class Lotto {
 
     public List<Integer> getNumbers() {
         return numbers;
+    }
+
+    public void rank(Grade grade) {
+        this.grade = grade;
+        this.isClosed = true;
     }
 }

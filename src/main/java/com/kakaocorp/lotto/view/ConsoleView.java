@@ -4,28 +4,36 @@ import com.kakaocorp.lotto.controller.LottoGameConsoleController;
 import com.kakaocorp.lotto.domain.Lotto;
 import com.kakaocorp.lotto.dto.ResultResponse;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class ConsoleView {
 
     private static final LottoGameConsoleController lottoGameConsoleController = new LottoGameConsoleController();
-    private static final List<Integer> scoreList = Arrays.asList(0, 0, 0, 5000, 50000, 1500000, 2000000000);
 
     public void start() {
-        List<Lotto> lottoList = lottoGameConsoleController.purchase();
-
+        // 로또 구매
+        List<Lotto> lottoList = lottoGameConsoleController.buy();
         printPurchaseList(lottoList);
-        printResult(lottoGameConsoleController.result(lottoList));
+
+        // 당첨 통계
+        printResults(lottoGameConsoleController.result(lottoList));
     }
 
-    private void printResult(ResultResponse resultResponse) {
+    private void printResults(ResultResponse resultResponse) {
         System.out.println("당첨 통계\n---------");
-        int[] result = resultResponse.getResult();
-        for (int i = 3; i < result.length; i++) {
-            System.out.println(i + 1 + "개 일치 (" + scoreList.get(i) + ")- " + result[i] + "개");
+        List<Integer> results = resultResponse.getResults();
+        for (int i = 3; i < results.size()-1; i++) {
+            printResult(results, i);
         }
-        System.out.println("총 수익률은 " + resultResponse.getRateOfReturn() + "입니다.");
+        System.out.println("총 수익률은 " + String.format("%.2f", resultResponse.getRateOfReturn()) + "%입니다.");
+    }
+
+    private void printResult(List<Integer> results, int i) {
+        System.out.println(i + "개 일치 (" + ResultResponse.winningMoneyList.get(i) + "원)- " + results.get(i) + "개");
+
+        if (i == 5) {
+            System.out.println("5개 일치, 보너스 볼 일치(" + ResultResponse.winningMoneyList.get(7) + "원)- " + results.get(7) + "개");
+        }
     }
 
     private void printPurchaseList(List<Lotto> purchaseList) {
