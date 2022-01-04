@@ -10,6 +10,11 @@ public class LottoTicket {
         this.numbers = numbers;
     }
 
+    /**
+     * @param winnerNumber 1등 번호
+     * @param bonusBall 보너스 숫자
+     * @return {@link LottoTicket#numbers}가 해당되는 {@link Prize}
+     */
     public Prize matchWithWinnerNumber(Set<Integer> winnerNumber, int bonusBall) {
         Set<Integer> intersection = new HashSet<>(numbers);
         intersection.retainAll(winnerNumber);

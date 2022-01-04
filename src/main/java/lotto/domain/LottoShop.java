@@ -16,7 +16,7 @@ public class LottoShop {
     }
 
     /**
-     * {@link Gambler}의 돈으로 로또 구매
+     * {@link Gambler}의 돈으로 {@link LottoTicket} 구매
      */
     public void sellLottoTicket(Gambler gambler, int moneyToBuy) {
         int sellCount = moneyToBuy / PRICE;

@@ -36,6 +36,11 @@ public enum Prize {
         return String.format("%d개 일치 %s (%d원)", matchedCount, ( bonusBallMatched ? "+ 보너스 볼" : ""), money);
     }
 
+    /**
+     * @param matchedCount 맞힌 번호 수
+     * @param bonusBallMatched 보너스 볼 맞았는지 여부
+     * @return 맞힌 번호와 보너스볼 여부에 따라 결정된 {@link Prize}
+     */
     public static Prize getPrize(int matchedCount, boolean bonusBallMatched) {
         return Arrays.stream(values())
                 .filter(prize -> prize.matchedCount == matchedCount)
