@@ -1,6 +1,7 @@
 package com.chanminkim.w2;
 
 import com.chanminkim.w2.model.Lotto;
+import com.chanminkim.w2.model.LottoNumber;
 import com.chanminkim.w2.model.RandomLottoGenerator;
 import com.chanminkim.w2.model.WinningStatistics;
 import com.chanminkim.w2.view.InputView;
@@ -18,7 +19,8 @@ public class App {
         outputView.printPurchasedLottoList(lottoList);
 
         Lotto winningLotto = new Lotto(inputView.getWinningLottoNumbers());
-        WinningStatistics winningStatistics = new WinningStatistics(lottoList, winningLotto);
+        LottoNumber bonus = new LottoNumber(inputView.getBonusNumber());
+        WinningStatistics winningStatistics = new WinningStatistics(lottoList, winningLotto, bonus);
         outputView.printWinningStatistics(winningStatistics);
     }
 

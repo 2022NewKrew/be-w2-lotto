@@ -26,8 +26,10 @@ public class OutputView {
         for (Map.Entry<WinningState, Integer> entry : statistics.getCountMap().entrySet()) {
             WinningState state = entry.getKey();
             int count = entry.getValue();
-            System.out.printf("%d개 일치 (%d원) - %d개%n",
+            String bonusString = ", 보너스 볼 일치";
+            System.out.printf("%d개 일치%s(%d원) - %d개%n",
                     state.getMatchedCount(),
+                    state.isCountingBonus() ? bonusString : "",
                     state.getPrizeMoney(),
                     count);
         }

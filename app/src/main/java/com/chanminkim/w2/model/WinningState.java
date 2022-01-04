@@ -1,33 +1,30 @@
 package com.chanminkim.w2.model;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public enum WinningState {
-    FIRST_PRIZE(Lotto.LOTTO_NUMBERS_LENGTH_LIMIT, 2_000_000_000),
-    SECOND_PRIZE(Lotto.LOTTO_NUMBERS_LENGTH_LIMIT - 1, 1_500_000),
-    THIRD_PRIZE(Lotto.LOTTO_NUMBERS_LENGTH_LIMIT - 2, 50_000),
-    FORTH_PRIZE(Lotto.LOTTO_NUMBERS_LENGTH_LIMIT - 3, 5_000);
+    FIRST_PRIZE(Lotto.LOTTO_NUMBERS_LENGTH_LIMIT, 2_000_000_000, false),
+    SECOND_PRIZE(Lotto.LOTTO_NUMBERS_LENGTH_LIMIT - 1, 3_000_000, true),
+    THIRD_PRIZE(Lotto.LOTTO_NUMBERS_LENGTH_LIMIT - 1, 1_500_000, false),
+    FORTH_PRIZE(Lotto.LOTTO_NUMBERS_LENGTH_LIMIT - 2, 50_000, false),
+    FIFTH_PRIZE(Lotto.LOTTO_NUMBERS_LENGTH_LIMIT - 3, 5_000, false);
 
     private final int matchedCount;
     private final int prizeMoney;
+    private final boolean isCountingBonus;
 
-    private static final Map<Integer, WinningState> MATCHED_COUNT_MAP;
-
-    static {
-        MATCHED_COUNT_MAP = new HashMap<>();
-        for (WinningState state : WinningState.values()) {
-            MATCHED_COUNT_MAP.put(state.matchedCount, state);
-        }
-    }
-
-    WinningState(int matchedCount, int prizeMoney) {
+    WinningState(int matchedCount, int prizeMoney, boolean isCountingBonus) {
         this.matchedCount = matchedCount;
         this.prizeMoney = prizeMoney;
+        this.isCountingBonus = isCountingBonus;
     }
 
-    public static WinningState findByMatchedCount(int matchedCount) {
-        return MATCHED_COUNT_MAP.get(matchedCount);
+    public static WinningState findByMatchedCountAndBonus(int matchedCount, boolean isContainingBonus) {
+        for (WinningState value : values()) {
+            if (value.matchedCount == matchedCount
+                    && value.isCountingBonus == isContainingBonus) {
+                return value;
+            }
+        }
+        return null;
     }
 
     public int getMatchedCount() {
@@ -36,5 +33,9 @@ public enum WinningState {
 
     public int getPrizeMoney() {
         return prizeMoney;
+    }
+
+    public boolean isCountingBonus() {
+        return isCountingBonus;
     }
 }

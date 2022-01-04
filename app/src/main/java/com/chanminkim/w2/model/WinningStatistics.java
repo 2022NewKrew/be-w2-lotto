@@ -8,10 +8,10 @@ public class WinningStatistics {
     private final EnumMap<WinningState, Integer> countMap;
     private final int payment;
 
-    public WinningStatistics(List<Lotto> lottoList, Lotto winningLotto) {
+    public WinningStatistics(List<Lotto> lottoList, Lotto winningLotto, LottoNumber bonus) {
         this.payment = lottoList.size() * Lotto.LOTTO_PRICE;
         this.countMap = initializeCountMap();
-        buildCountMap(lottoList, winningLotto);
+        buildCountMap(lottoList, winningLotto, bonus);
     }
 
     public double calculateEarningPercentage() {
@@ -25,15 +25,15 @@ public class WinningStatistics {
                 .reduce(0, Integer::sum);
     }
 
-    private void buildCountMap(List<Lotto> lottoList, Lotto winningLotto) {
+    private void buildCountMap(List<Lotto> lottoList, Lotto winningLotto, LottoNumber bonus) {
         for (Lotto lotto : lottoList) {
             int matchedCount = lotto.countMatchedNumbers(winningLotto);
-            increaseWinningStateCount(matchedCount);
+            increaseWinningStateCount(matchedCount, lotto.isContainingBonus(bonus));
         }
     }
 
-    private void increaseWinningStateCount(int matchedCount) {
-        WinningState winningState = WinningState.findByMatchedCount(matchedCount);
+    private void increaseWinningStateCount(int matchedCount, boolean isContainingBonus) {
+        WinningState winningState = WinningState.findByMatchedCountAndBonus(matchedCount, isContainingBonus);
         if (winningState == null) {
             return;
         }

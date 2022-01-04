@@ -53,4 +53,8 @@ public class Lotto {
     public String toString() {
         return lottoNumbers.toString();
     }
+
+    public boolean isContainingBonus(LottoNumber bonus) {
+        return lottoNumbers.contains(bonus);
+    }
 }
