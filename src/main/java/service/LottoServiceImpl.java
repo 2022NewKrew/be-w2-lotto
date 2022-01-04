@@ -27,6 +27,7 @@ public class LottoServiceImpl implements LottoService {
             lottoRepository.save(lottos); // inMemory database save
             printLottoList(lottos);
             List<Integer> winningNumbers = inputWinningNumbers();
+            int winningBonusNumber = inputWinningBonusNumber();
             LottoStatistic lottoStatistic = getLottoStatic(purchaseCount, lottos, winningNumbers);
             printLottoStatic(lottoStatistic);
         } catch (Exception e) {
@@ -78,6 +79,14 @@ public class LottoServiceImpl implements LottoService {
         }
 
         return result;
+    }
+
+    private int inputWinningBonusNumber() throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("보너스 볼을 입력해 주세요.");
+
+        return Integer.parseInt(bufferedReader.readLine());
+
     }
 
     private void printLottoList(List<Lotto> lottos) {
