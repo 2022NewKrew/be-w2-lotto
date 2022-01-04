@@ -1,6 +1,7 @@
 package service;
 
 import domain.Lotto;
+import domain.LottoAuto;
 import dto.LottoStatistic;
 import repository.LottoRepository;
 
@@ -28,7 +29,8 @@ public class LottoServiceImpl implements LottoService {
             printLottoList(lottos);
             List<Integer> winningNumbers = inputWinningNumbers();
             int winningBonusNumber = inputWinningBonusNumber();
-            LottoStatistic lottoStatistic = getLottoStatic(purchaseCount, lottos, winningNumbers);
+            updateLottoStatus(lottos, winningNumbers, winningBonusNumber);
+            LottoStatistic lottoStatistic = getLottoStatic(purchaseCount, lottos);
             printLottoStatic(lottoStatistic);
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -36,13 +38,17 @@ public class LottoServiceImpl implements LottoService {
 
     }
 
-    private LottoStatistic getLottoStatic(int purchaseCount, List<Lotto> lottos, List<Integer> winningNumbers) {
-        List<Integer> resultList = new ArrayList<>();
+    private void updateLottoStatus(List<Lotto> lottos, List<Integer> winningNumbers, int winningBonusNumber) {
+        for (Lotto lotto : lottos) {
+            lotto.updateStatus(winningNumbers, winningBonusNumber);
+        }
+    }
+
+    private LottoStatistic getLottoStatic(int purchaseCount, List<Lotto> lottos) {
         LottoStatistic lottoStatistic = new LottoStatistic(purchaseCount);
 
         for (Lotto lotto : lottos) {
-            int count = getCountWinning(lotto, winningNumbers);
-            lottoStatistic.addLottoInfo(count);
+            lottoStatistic.addLottoInfo(lotto);
         }
 
         lottoStatistic.calculateProfitRate();
@@ -52,17 +58,6 @@ public class LottoServiceImpl implements LottoService {
 
     private void printLottoStatic(LottoStatistic lottoStatistic) {
         System.out.println(lottoStatistic.getLottoStatisticString());
-    }
-
-    private int getCountWinning(Lotto lotto, List<Integer> winningNumbers) {
-        int count = 0;
-
-        for (int number : lotto.getNumbers()) {
-            if (winningNumbers.contains(number)) {
-                count++;
-            }
-        }
-        return count;
     }
 
     private List<Integer> inputWinningNumbers() throws IOException {
@@ -115,9 +110,9 @@ public class LottoServiceImpl implements LottoService {
         List<Lotto> lottos = new ArrayList<>();
 
         for (int count = 0; count < purchaseCount; count++) {
-            Lotto lotto = new Lotto();
-            lotto.createRandomNumber();
-            lottos.add(lotto);
+            LottoAuto lottoAuto = new LottoAuto();
+            lottoAuto.createRandomNumber();
+            lottos.add(lottoAuto);
         }
 
         return lottos;
