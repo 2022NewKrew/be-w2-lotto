@@ -22,11 +22,8 @@ public class ResultGenerator {
     }
 
     private static void addCount(Rank rank, List<Result> results){
-        for(Result result : results){
-            if(result.getRank().equals(rank)){
-                result.plusCount();
-                return;
-            }
-        }
+        results.stream()
+                .filter(result -> result.getRank().equals(rank))
+                .forEach(Result::plusCount);
     }
 }
