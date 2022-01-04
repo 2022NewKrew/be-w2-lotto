@@ -1,5 +1,4 @@
-import domain.Lotto;
-import domain.LottoService;
+import domain.*;
 import view.InputView;
 import view.ResultView;
 
@@ -13,14 +12,19 @@ public class LottoMain {
 
     public static void startGame() {
         int money = InputView.getMoney();
-        LottoService lottoService = new LottoService(money);
-        List<Lotto> lottos = lottoService.getLottos();
+
+        LottoService lottoService = new LottoService();
+
+        List<Lotto> lottos = lottoService.buyLottos(money);
 
         ResultView.printPurchaseResult(lottos);
 
         List<Integer> winningNumbers = InputView.getWinningNumbers();
-        Map<Integer, Integer> winningResult = lottoService.getWinningResult(winningNumbers);
+        int bonusNum = InputView.getBounusNum();
 
-        ResultView.printWinningResult(winningResult, money);
+        Results results = new Results(lottos, winningNumbers, bonusNum);
+
+        ResultView.printResult(results);
+        ResultView.printROI(results, money);
     }
 }
