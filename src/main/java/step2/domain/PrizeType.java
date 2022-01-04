@@ -1,11 +1,11 @@
 package step2.domain;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+// 등수별 개수, 상금, print용 String
 public enum PrizeType {
     THREE(3, 5000, "3개 일치"),
     FOUR(4, 50000, "4개 일치"),
@@ -35,10 +35,12 @@ public enum PrizeType {
         return printingString;
     }
 
+    // Map<맞춘 개수, 등수 이름(THREE, FOUR...)>
     public static final Map<Integer, String> PRIZE_MAP = Collections.unmodifiableMap(
             Stream.of(values()).collect(Collectors.toMap(PrizeType::getHittingNum, PrizeType::name))
     );
 
+    // 맞춘 개수로 PrizeType 찾기
     public static PrizeType of(final Integer hittingNum){
         return PrizeType.valueOf(PRIZE_MAP.get(hittingNum));
     }

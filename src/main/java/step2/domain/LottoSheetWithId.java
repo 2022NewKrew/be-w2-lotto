@@ -4,8 +4,9 @@ import java.util.List;
 
 public class LottoSheetWithId {
 
+    // UserId
     private Long id;
-
+    // 로또(6개의 번호)의 리스트
     private List<Lotto> lottoList;
 
     public LottoSheetWithId(List<Lotto> lottoList) {

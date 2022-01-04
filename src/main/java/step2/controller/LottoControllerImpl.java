@@ -21,15 +21,19 @@ public class LottoControllerImpl implements LottoController{
         this.lottoResultGenerator = lottoResultGenerator;
     }
 
+    // 구매 정보로 로또 발급 및 반환
     @Override
     public LottoSheetDto purchase(LottoConfig lottoConfig) {
         LottoSheetWithId lottoSheet = lottoSheetIssuer.issueLottoSheet(lottoConfig);
         return LottoSheetDto.of(lottoSheet);
     }
 
+    // 당첨 번호로 결과 반환
     @Override
     public LottoResultDto checkLotteryResult(WinningLotto winningLotto, Long userId) {
+        // Repository에서 userId의 LottoSheet를 가져온다
         LottoSheetWithId lottoSheetWithId = lottoSheetRepository.findByUserId(userId);
+        // LottoResultGenerator(결과 계산)에 winningLotto(당첨 정보)와 LottoSheet 보내 결과를 받는다
         LottoResultDto lottoResultDto = lottoResultGenerator.makeLottoResult(winningLotto, lottoSheetWithId);
         return lottoResultDto;
     }

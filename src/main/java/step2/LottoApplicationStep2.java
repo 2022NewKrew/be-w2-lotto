@@ -24,11 +24,17 @@ public class LottoApplicationStep2 {
     private final LottoResultGenerator lottoResultGenerator;
 
     public LottoApplicationStep2() {
+        // LottoSheet(로또 번호 모음) 저장
         this.lottoSheetRepository = new LottoSheetMemoryRepository();
+        // LottoSheet 생성 담당
         this.lottoSheetIssuer = new LottoSheetIssuerWithRepo(lottoSheetRepository);
+        // LottoSheet과 WinningLotto(당첨 번호)로 결과 생성
         this.lottoResultGenerator = new LottoResultGeneratorImpl();
+        // 뷰 로직과 도메인 로직을 연결하는 Controller
         this.lottoController = new LottoControllerImpl(lottoSheetIssuer, lottoSheetRepository, lottoResultGenerator);
+        // 구매 정보 입출력
         this.configView = new ConsoleConfigView(lottoController);
+        // 당첨 번호 입력 및 결과 출력
         this.resultView = new ConsoleResultView(lottoController);
     }
 
@@ -36,5 +42,6 @@ public class LottoApplicationStep2 {
         Scanner sc = new Scanner(System.in);
         configView.print(sc);
         resultView.print(sc);
+        sc.close();
     }
 }

@@ -8,7 +8,9 @@ import static java.util.stream.Collectors.counting;
 
 public class WinningLotto {
 
+    // 당첨번호
     private final List<Integer> winningLotto;
+    // 보너스 번호
     private final int bonusNum;
 
     public WinningLotto(List<Integer> winningLotto, int bonusNum) {

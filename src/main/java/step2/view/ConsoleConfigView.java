@@ -11,17 +11,24 @@ public class ConsoleConfigView implements ConfigView {
 
     private final LottoController lottoController;
 
+    // LottoController 의존
     public ConsoleConfigView(LottoController lottoController) {
         this.lottoController = lottoController;
     }
 
+    // 화면을 뿌리는 역할
     @Override
     public void print(Scanner sc) {
+        // 구매 정보 입력
         LottoConfig lottoConfig = readConfig(sc);
+        // 구매 정보로 LottoSheet(생성된 로또 번호 모음) 받기
         LottoSheetDto lottoSheetDto = lottoController.purchase(lottoConfig);
+        // 쿠키에 발행된 userId 저장
         setUserIdCookie(COOKIE_KEY_USER_ID, String.valueOf(lottoSheetDto.getId()));
+        // 생성된 로또 번호 출력
         printLottoSheet(lottoSheetDto);
     }
+
 
     private LottoConfig readConfig(Scanner sc){
         System.out.println("구입금액을 입력해주세요.");
