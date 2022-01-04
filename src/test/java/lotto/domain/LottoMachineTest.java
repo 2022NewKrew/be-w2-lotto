@@ -1,6 +1,5 @@
 package lotto.domain;
 
-import static lotto.domain.Lotto.LOTTO_NUMBER_SIZE;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.util.HashSet;
@@ -13,6 +12,9 @@ import org.junit.jupiter.api.Test;
 class LottoMachineTest {
 
     private static final int NUMBER_OF_LOTTO_FOR_TEST = 1000;
+    private static final int LOTTO_NUMBER_START = 1;
+    private static final int LOTTO_NUMBER_END = 45;
+    private static final int LOTTO_NUMBER_SIZE = 6;
 
     LottoMachine lottoMachine;
 
@@ -23,7 +25,7 @@ class LottoMachineTest {
 
     @Test
     @DisplayName("생성된 로또 번호 중복 테스트")
-    void purchaseLottoTickets3() {
+    void purchaseLottoTicketTest() {
         List<Lotto> lottoTickets = lottoMachine.purchaseLottoTickets(NUMBER_OF_LOTTO_FOR_TEST);
 
         lottoTickets.forEach(lottoTicket ->
@@ -39,7 +41,7 @@ class LottoMachineTest {
 
     @Test
     @DisplayName("생성된 로또 번호 개수 테스트")
-    void purchaseLottoTickets2() {
+    void purchaseLottoTicketTest2() {
         List<Lotto> lottoTickets = lottoMachine.purchaseLottoTickets(NUMBER_OF_LOTTO_FOR_TEST);
 
         lottoTickets.forEach(lottoTicket ->
@@ -54,7 +56,7 @@ class LottoMachineTest {
 
     @Test
     @DisplayName("생성된 로또 번호 테스트")
-    void purchaseLottoTickets() {
+    void purchaseLottoTicketTest3() {
         List<Lotto> lottoTickets = lottoMachine.purchaseLottoTickets(NUMBER_OF_LOTTO_FOR_TEST);
 
         lottoTickets.forEach(lottoTicket -> lottoTicket.getLottoNumbers()
@@ -62,7 +64,7 @@ class LottoMachineTest {
     }
 
     private void validateRangeOfNumber(int number) throws Exception {
-        if (number < Lotto.LOTTO_NUMBER_START || number > Lotto.LOTTO_NUMBER_END) {
+        if (number < LOTTO_NUMBER_START || number > LOTTO_NUMBER_END) {
             throw new Exception("로또의 허용 숫자 범위 (1 ~ 45) 를 벗어났습니다.");
         }
     }
