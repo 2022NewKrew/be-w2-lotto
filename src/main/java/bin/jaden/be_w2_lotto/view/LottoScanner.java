@@ -1,6 +1,7 @@
 package bin.jaden.be_w2_lotto.view;
 
 import bin.jaden.be_w2_lotto.domain.Constants;
+import bin.jaden.be_w2_lotto.exception.DuplicateNumberException;
 import bin.jaden.be_w2_lotto.exception.InvalidNumberException;
 import bin.jaden.be_w2_lotto.exception.InvalidNumbersLengthException;
 
@@ -42,6 +43,20 @@ public class LottoScanner {
         return null;
     }
 
+    public static int getBonusNumbers(List<Integer> winNumbers) {
+        System.out.println(Constants.INPUT_BONUS_NUMBERS_MESSAGE);
+        try {
+            return scanBonusNumber(winNumbers);
+        } catch (NumberFormatException numberFormatException) {
+            System.out.println(Constants.INVALID_BONUS_NUMBER_MESSAGE);
+        } catch (InvalidNumberException invalidNumberException) {
+            System.out.println(Constants.INVALID_BONUS_NUMBER_RANGE_MESSAGE);
+        } catch (DuplicateNumberException duplicateNumberException) {
+            System.out.println(Constants.DUPLICATE_BONUS_NUMBERS_MESSAGE);
+        }
+        return 0;
+    }
+
     private static int scanPurchasingAmount() {
         String input = scanner.nextLine();
         int purchasingAmount = Integer.parseInt(input);
@@ -59,6 +74,16 @@ public class LottoScanner {
         }
         validationCheck(winNumbers);
         return Collections.unmodifiableList(winNumbers);
+    }
+
+    private static int scanBonusNumber(List<Integer> winNumbers) {
+        String input = scanner.nextLine();
+        int bonusNumber = Integer.parseInt(input);
+        if (bonusNumber < Constants.MIN_LOTTO_NUMBER || bonusNumber > Constants.MAX_LOTTO_NUMBER)
+            throw new InvalidNumberException();
+        if (winNumbers.contains(bonusNumber))
+            throw new DuplicateNumberException();
+        return bonusNumber;
     }
 
     private static void validationCheck(List<Integer> winNumbers) {
