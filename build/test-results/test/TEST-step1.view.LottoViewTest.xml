@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="step1.view.LottoViewTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-01-03T09:54:33" hostname="mylesnah-pc.local" time="0.017">
-  <properties/>
-  <testcase name="잘못된 금액을 입력했을 때 오류 확인" classname="step1.view.LottoViewTest" time="0.017"/>
-  <system-out><![CDATA[구입금액을 입력해 주세요.
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
