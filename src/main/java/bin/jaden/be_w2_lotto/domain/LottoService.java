@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class LottoService {
-    private static List<Integer> winNumbers;
-    private static int bonusNumber;
+    private static LottoGame inputLottoGame;
 
     private LottoService() {
         // instance 생성 제한용 생성자
@@ -21,8 +20,9 @@ public class LottoService {
         Lotto lotto = new Lotto(purchasingAmount);
         purchasingAmount = lotto.getLottoGames().size() * Constants.PRICE_PER_GAME; // 거스름돈을 무시하기 위해 구매한 (로또수 * 가격)을 한다.
         LottoPrinter.printLottoData(lotto);
-        winNumbers = getWinNumbers();
-        bonusNumber = getBonusNumber();
+        List<Integer> winNumbers = getWinNumbers();
+        int bonusNumber = getBonusNumber(winNumbers);
+        inputLottoGame = new LottoGame(winNumbers, bonusNumber);
         Map<LottoRankEnum, Integer> result = getResult(lotto.getLottoGames());
         LottoPrinter.printResults(purchasingAmount, result);
     }
@@ -43,7 +43,7 @@ public class LottoService {
         return winNumbers;
     }
 
-    private static int getBonusNumber() {
+    private static int getBonusNumber(List<Integer> winNumbers) {
         int bonusNumber = 0;
         while (bonusNumber == 0) {
             bonusNumber = LottoScanner.getBonusNumbers(winNumbers);
@@ -56,7 +56,7 @@ public class LottoService {
 
         for (LottoGame lottoGame : lottoGames) {
             int count = getCount(lottoGame.getNumbers());
-            setResult(results, count, lottoGame.getNumbers().contains(bonusNumber));
+            setResult(results, count, lottoGame.getNumbers().contains(inputLottoGame.getBonusNumber()));
         }
         return Collections.unmodifiableMap(results);
     }
@@ -80,6 +80,7 @@ public class LottoService {
 
     private static int getCount(List<Integer> lottoGame) {
         int count = 0;
+        List<Integer> winNumbers = inputLottoGame.getNumbers();
         for (int winNumber : winNumbers) {
             count = lottoGame.contains(winNumber) ? count + 1 : count;
         }
