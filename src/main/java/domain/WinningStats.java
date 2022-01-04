@@ -57,13 +57,11 @@ public class WinningStats {
     }
 
     private String rankString(Rank rank) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(rank.getCountOfMatch()).append("개 일치");
         if (rank.name().equals("SECOND")) {
-            stringBuilder.append(", 보너스 볼 일치");
+            return String.format("%d개 일치, 보너스 볼 일치(%d원)- %d개",
+                    rank.getCountOfMatch(),rank.getWinningMoney(),winningStats.get(rank));
         }
-        stringBuilder.append("(").append(rank.getWinningMoney()).append("원)- ");
-        stringBuilder.append(winningStats.get(rank)).append("개");
-        return stringBuilder.toString();
+        return String.format("%d개 일치 (%d원)- %d개",
+                rank.getCountOfMatch(),rank.getWinningMoney(),winningStats.get(rank));
     }
 }
