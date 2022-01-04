@@ -9,11 +9,12 @@ public class MyLottoLines {
 
     private static final int NUM_PER_LINE = 6;
 
-    public MyLottoLines(List<List<Integer>> paramLottoLines) {
-        for (List<Integer> paramLottoLine : paramLottoLines) {
-            LottoLine curLottoLine = new LottoLine(paramLottoLine);
-            lottoLines.add(curLottoLine);
-        }
+    public MyLottoLines() {
+    }
+
+    public void addLotto(nNumber numbers) {
+        LottoLine curLottoLine = new LottoLine(numbers);
+        lottoLines.add(curLottoLine);
     }
 
     public List<Integer> checkWinning(List<Integer> winningLine) {

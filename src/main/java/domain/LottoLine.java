@@ -5,8 +5,8 @@ import java.util.List;
 public class LottoLine {
     public List<Integer> lottoLine;
 
-    public LottoLine(List<Integer> paramLottoLine) {
-        lottoLine = paramLottoLine;
+    public LottoLine(nNumber paramLottoLine) {
+        lottoLine = paramLottoLine.getNumbers();
     }
 
     public int checkWinning(List<Integer> winningLine) {

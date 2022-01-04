@@ -1,5 +1,6 @@
 package controller;
 
+import domain.MyLottoLines;
 import domain.WinningLottoLine;
 import domain.nNumber;
 import view.InputView;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StartController {
-    private final List<List<Integer>> lottoLines = new ArrayList<>();
+    private final MyLottoLines lottoLines = new MyLottoLines();
     private WinningLottoLine winningLine = null;
 
     public StartController() {
@@ -21,14 +22,8 @@ public class StartController {
         }
     }
 
-    public List<List<Integer>> getLottoLines() {
-        List<List<Integer>> newLottoLine = new ArrayList<>();
-
-        for (List<Integer> lottoLine : lottoLines) {
-            newLottoLine.add(new ArrayList<>(lottoLine));
-        }
-
-        return newLottoLine;
+    public MyLottoLines getLottoLines() {
+        return lottoLines;
     }
 
     public List<Integer> getWinningLine() {
@@ -44,8 +39,8 @@ public class StartController {
         for (int i = 0; i < numLotto; i++) {
             nNumber curLine = nNumber.makeRandomNumbers();
 
-            lottoLines.add(curLine.getNumbers());
-            OutputView.printLottoLine(lottoLines.get(i));
+            lottoLines.addLotto(curLine);
+            OutputView.printLottoLine(curLine.getNumbers());
         }
     }
 
