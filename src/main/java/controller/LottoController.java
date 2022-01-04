@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import domain.Lotto;
-import domain.LottoWinningRank;
+import domain.LottoRank;
+import domain.LottoStatistics;
+import domain.WinningLotto;
 import service.LottoService;
 
 public class LottoController {
@@ -14,17 +16,18 @@ public class LottoController {
 		this.lottoService = lottoService;
 	}
 
-	public void start() throws Exception {
-		int purchaseAmount = lottoService.getPurchaseAmount();
+	public int getPurchaseAmount(int purchaseMoney) {
+		return lottoService.getPurchaseAmount(purchaseMoney);
+	}
 
-		List<Lotto> lottoList = lottoService.createLottoList(purchaseAmount);
-		Lotto winningLotto = lottoService.createWinningLotto();
+	public List<Lotto> purchase(int purchaseAmount) {
+		return lottoService.createLottoList(purchaseAmount);
+	}
 
-		Map<LottoWinningRank, Integer> rankMap = lottoService.calculateLottoRank(lottoList, winningLotto);
-		lottoService.printLottoStatistics(rankMap);
+	public LottoStatistics getStatistics(List<Lotto> lottoList, WinningLotto winningLotto) {
+		Map<LottoRank, Integer> rankMap = lottoService.calculateRank(lottoList, winningLotto);
+		double profit = lottoService.calculateProfit(lottoList, rankMap);
 
-		System.out.println("총 수익률은 "
-			+ String.format("%.2f", lottoService.calculatePurchase(purchaseAmount, rankMap))
-			+ "%입니다.");
+		return new LottoStatistics(rankMap, profit);
 	}
 }
