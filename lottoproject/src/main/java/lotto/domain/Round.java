@@ -7,25 +7,16 @@ import java.util.List;
 import java.util.Map;
 
 public class Round {
-    private final List<Lotto> lottos;
-    private final List<Integer> resultNumbers;
-    private final int bonusNumber;
+    private final Lottos lottos;
     private final Map<Rank,Integer> resultMap;
 
     public Round(List<Lotto> lottos, List<Integer> resultNumbers, int bonusNumber){
-        this.lottos = lottos;
-        this.resultNumbers = resultNumbers;
-        this.bonusNumber = bonusNumber;
-        this.resultMap = findResultMap(lottos, resultNumbers, bonusNumber);
+        this.lottos = new Lottos(lottos);
+        this.resultMap = findResultMap(resultNumbers, bonusNumber);
     }
 
-    private Map<Rank,Integer> findResultMap(List<Lotto> lottos, List<Integer> resultNumbers, int bonusNumber){
-        Map<Rank,Integer> resultMap = new HashMap<>();
-        for(Lotto lotto : lottos){
-            Rank lottoRank = lotto.findRank(resultNumbers, bonusNumber);
-            resultMap.put(lottoRank, resultMap.getOrDefault(lottoRank, 0)+1);
-        }
-        return resultMap;
+    private Map<Rank,Integer> findResultMap(List<Integer> resultNumbers, int bonusNumber){
+        return lottos.findResultMap(resultNumbers, bonusNumber);
     }
 
     public Map<Rank,Integer> findResultMap(){
@@ -33,7 +24,7 @@ public class Round {
     }
 
     public int findLottoCount(){
-        return lottos.size();
+        return lottos.findSize();
     }
 
     public int findTotalReward(){
