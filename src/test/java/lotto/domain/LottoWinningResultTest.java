@@ -25,8 +25,10 @@ class LottoWinningResultTest {
         Lotto lotto = new Lotto();
         lottoList.add(lotto);
 
+        int bonusBallNumber = 7;
+
         // When
-        LottoWinningResult lottoWinningResult = new LottoWinningResult(winningNumbers, lottoList);
+        LottoWinningResult lottoWinningResult = new LottoWinningResult(winningNumbers, bonusBallNumber, lottoList);
 
         // Then
         Assertions.assertTrue(lottoWinningResult.getLottoWinningCount(LottoWinningRating.FOURTH) <= 1);

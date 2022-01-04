@@ -54,8 +54,10 @@ class LottoTest {
         resultCompareList.add(LottoWinningRating.FIRST);
         resultCompareList.add(LottoWinningRating.NOTHING);
 
+        int bonusBallNumber = 7;
+
         // When
-        LottoWinningRating winningRating = lotto.getWinningRating(winningNumbers);
+        LottoWinningRating winningRating = lotto.getWinningRating(winningNumbers, bonusBallNumber);
 
         // Then
         Assertions.assertTrue(resultCompareList.contains(winningRating));
