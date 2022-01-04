@@ -1,33 +1,40 @@
 package org.cs.finn.lotto.domain;
 
-import org.cs.finn.lotto.domain.lotto.LottoNumber;
 import org.cs.finn.lotto.domain.lotto.LottoNumbers;
 import org.cs.finn.lotto.domain.lotto.LottoPrize;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class LottoResult {
 
-    private final Map<LottoPrize, Integer> results;
+    private final Map<LottoPrize, Integer> mapCount;
+    private final Map<LottoPrize, Lottos> mapLottos;
 
     public LottoResult(final LottoWinnings lottoWinnings, final Lottos lottos) {
         Objects.requireNonNull(lottoWinnings);
         Objects.requireNonNull(lottos);
 
         // Enum 정의된 순서로 삽입하여 정렬
-        final Map<LottoPrize, Integer> map = new LinkedHashMap<>();
+        final Map<LottoPrize, Integer> mapCount = new LinkedHashMap<>();
+        final Map<LottoPrize, Lottos> mapLottos = new LinkedHashMap<>();
         for (LottoPrize lottoPrize : LottoPrize.values()) {
-            map.put(lottoPrize, 0);
+            mapCount.put(lottoPrize, 0);
+            mapLottos.put(lottoPrize, new Lottos());
         }
         for (LottoNumbers lottoNumbers : lottos.getList()) {
-            countResult(map, lottoWinnings, lottoNumbers);
+            countResult(mapCount, mapLottos, lottoWinnings, lottoNumbers);
         }
 
-        this.results = map;
+        this.mapCount = mapCount;
+        this.mapLottos = mapLottos;
     }
 
     private void countResult(
-            final Map<LottoPrize, Integer> map,
+            final Map<LottoPrize, Integer> mapCount,
+            final Map<LottoPrize, Lottos> mapLottos,
             final LottoWinnings winnings,
             final LottoNumbers lottoNumbers
     )
@@ -36,7 +43,8 @@ public class LottoResult {
         final boolean bonusFound = lottoNumbers.contains(winnings.getBonusNumber());
         final LottoPrize lottoPrize = LottoPrize.find(cntMatch, bonusFound);
 
-        map.put(lottoPrize, map.get(lottoPrize) + 1);
+        mapCount.put(lottoPrize, mapCount.get(lottoPrize) + 1);
+        mapLottos.get(lottoPrize).add(lottoNumbers);
     }
 
     private int countMatchNumbers(final LottoNumbers lottoNumbers, final LottoWinnings winnings) {
@@ -47,7 +55,11 @@ public class LottoResult {
                 .sum();
     }
 
-    public Map<LottoPrize, Integer> getResultMap() {
-        return Collections.unmodifiableMap(results);
+    public Map<LottoPrize, Integer> getMapCount() {
+        return Collections.unmodifiableMap(mapCount);
+    }
+
+    public Map<LottoPrize, Lottos> getMapLottos() {
+        return Collections.unmodifiableMap(mapLottos);
     }
 }

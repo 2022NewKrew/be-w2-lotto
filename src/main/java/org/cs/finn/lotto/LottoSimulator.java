@@ -25,7 +25,6 @@ public class LottoSimulator {
 
         final LottoWinnings lottoWinnings = userInput.requestLottoWinnings();
         final LottoResult lottoResult = new LottoResult(lottoWinnings, lottos);
-        System.out.println(lottoResult.getResultMap());
         lottoSimulatorView.printResult(lottoResult, money);
     }
 

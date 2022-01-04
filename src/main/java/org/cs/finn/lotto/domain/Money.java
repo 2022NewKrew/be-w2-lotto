@@ -57,6 +57,10 @@ public class Money {
         return Collections.unmodifiableList(list);
     }
 
+    public int getMoney() {
+        return money;
+    }
+
     @Override
     public String toString() {
         return NumberFormatter.strNumberWithSeparator(money) + "원";
