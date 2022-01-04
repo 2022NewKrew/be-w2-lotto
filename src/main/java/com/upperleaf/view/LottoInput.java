@@ -19,7 +19,11 @@ public class LottoInput {
     public LottoPaymentInfo inputPaymentInfoByUser() {
         System.out.println("구입 금액을 입력해 주세요.");
         long paymentAmount = Long.parseLong(sc.nextLine());
-        return new LottoPaymentInfo(paymentAmount);
+
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        int manualNum = Integer.parseInt(sc.nextLine());
+
+        return new LottoPaymentInfo(paymentAmount, manualNum);
     }
 
     /**

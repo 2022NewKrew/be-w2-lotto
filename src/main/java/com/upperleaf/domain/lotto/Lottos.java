@@ -1,5 +1,7 @@
 package com.upperleaf.domain.lotto;
 
+import com.upperleaf.domain.lotto.create.LottoCreateStrategy;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;

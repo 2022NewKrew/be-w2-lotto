@@ -1,5 +1,7 @@
 package com.upperleaf.domain.lotto;
 
+import com.upperleaf.domain.lotto.create.LottoValidator;
+
 import java.util.List;
 
 /**
@@ -12,6 +14,7 @@ public class LottoWinningNumber {
     private final int bonusNumber;
 
     public LottoWinningNumber(List<Integer> winningNumbers, int bonusNumber) {
+        validation(winningNumbers, bonusNumber);
         this.winningNumbers = winningNumbers;
         this.bonusNumber = bonusNumber;
     }
@@ -22,5 +25,10 @@ public class LottoWinningNumber {
 
     public boolean isEqualToBonusNumber(int lottoNumber) {
         return bonusNumber == lottoNumber;
+    }
+
+    private void validation(List<Integer> winningNumbers, int bonusNumber) {
+        LottoValidator.validation(winningNumbers);
+        LottoValidator.validLottoNumRange(bonusNumber);
     }
 }

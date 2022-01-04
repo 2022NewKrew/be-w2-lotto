@@ -4,13 +4,14 @@ import com.upperleaf.domain.*;
 import com.upperleaf.domain.lotto.LottoWinningNumber;
 import com.upperleaf.domain.lotto.Lottos;
 import com.upperleaf.view.LottoInput;
+import com.upperleaf.view.LottoInputRetry;
 import com.upperleaf.view.LottosPrinter;
 
 public class LottoApp {
 
     private static final int LOTTO_PRICE = 1000;
 
-    private final LottoInput lottoInput = new LottoInput();
+    private final LottoInput lottoInput = new LottoInputRetry(new LottoInput());
     private final LottosPrinter lottosPrinter = new LottosPrinter();
     private final LottoSeller lottoSeller = new LottoSeller(LOTTO_PRICE);
 

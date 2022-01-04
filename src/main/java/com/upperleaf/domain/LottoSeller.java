@@ -1,7 +1,7 @@
 package com.upperleaf.domain;
 
+import com.upperleaf.domain.lotto.create.CustomLottoStrategy;
 import com.upperleaf.domain.lotto.Lottos;
-import com.upperleaf.domain.lotto.RandomLottoStrategy;
 
 public class LottoSeller {
 
@@ -18,7 +18,7 @@ public class LottoSeller {
      */
     public Lottos sell(LottoPaymentInfo paymentInfo) {
         long amount = getLottoAmount(paymentInfo);
-        return Lottos.createLottos(amount, new RandomLottoStrategy());
+        return Lottos.createLottos(amount, new CustomLottoStrategy(paymentInfo));
     }
 
     private long getLottoAmount(LottoPaymentInfo paymentInfo) {

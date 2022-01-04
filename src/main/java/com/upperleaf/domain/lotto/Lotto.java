@@ -2,14 +2,14 @@ package com.upperleaf.domain.lotto;
 
 import java.util.List;
 
-class Lotto {
+public class Lotto {
 
     private final List<Integer> numbers;
     /**
      * 로또 표현 객체
      * @param numbers 로또를 표현하는 숫자 리스트
      */
-    Lotto(List<Integer> numbers) {
+    public Lotto(List<Integer> numbers) {
         this.numbers = numbers;
     }
 
