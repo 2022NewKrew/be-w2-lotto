@@ -15,6 +15,10 @@ public class WinningLottery {
     }
 
     public List<Rank> checkRank(List<Lottery> lotteries) {
+        if (lotteries == null) {
+            throw new IllegalArgumentException("로또 목록 정보가 올바르지 않습니다.");
+        }
+
         return lotteries.stream()
                 .map(this::checkRank)
                 .collect(Collectors.toList());

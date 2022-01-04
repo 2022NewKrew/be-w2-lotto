@@ -16,6 +16,10 @@ public class Lottery {
     }
 
     public int calculateMatchCount(Set<Integer> drawnNumbers) {
+        if (drawnNumbers == null || drawnNumbers.size() != lotteryNumbers.size()) {
+            throw new IllegalArgumentException("당첨 번호 목록 정보가 올바르지 않습니다.");
+        }
+
         return (int) drawnNumbers.stream().filter(this::contains)
                 .count();
     }

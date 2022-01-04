@@ -31,7 +31,7 @@ public enum Rank {
     }
 
     public static Rank valueOf(int matchCount, boolean bonusMatched) {
-        if (matchCount < 0) {
+        if (matchCount < 0 || matchCount > FIRST.matchCount) {
             throw new IllegalArgumentException("당첨 정보가 올바르지 않습니다.");
         }
 

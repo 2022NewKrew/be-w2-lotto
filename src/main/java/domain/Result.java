@@ -15,6 +15,14 @@ public class Result {
     }
 
     public static Result of(long baseMoney, List<Lottery> lotteries, WinningLottery winningLottery) {
+        if (baseMoney == 0) {
+            throw new IllegalArgumentException("구입 금액 정보가 올바르지 않습니다.");
+        }
+
+        if (winningLottery == null) {
+            throw new IllegalArgumentException("당첨 복권 정보가 올바르지 않습니다.");
+        }
+
         Map<Rank, Integer> resultMap = new EnumMap<>(Rank.class);
         for (Rank rank : Rank.values()) {
             resultMap.put(rank, 0);
