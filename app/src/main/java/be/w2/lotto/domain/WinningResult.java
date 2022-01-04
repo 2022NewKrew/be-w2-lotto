@@ -29,7 +29,7 @@ public class WinningResult {
 
     private static int calculateProfitRate(List<WinningMatchResult> winningMatchResults, int purchaseAmount) {
         int profitSum = winningMatchResults.stream().map(WinningMatchResult::calculateProfit).mapToInt(i -> i).sum();
-        return profitSum * 100 / purchaseAmount;
+        return profitSum * DIVIDE_PERCENTAGE / purchaseAmount;
     }
 
     private static List<WinningMatchResult> getWinningMatchResult(LottoTickets lottoTickets, WinningLottoTicket winningLottoTicket) {
@@ -46,4 +46,6 @@ public class WinningResult {
             5, 1500000,
             6, 2000000000
     );
+
+    private static final int DIVIDE_PERCENTAGE = 100;
 }

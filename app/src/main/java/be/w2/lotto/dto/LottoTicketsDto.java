@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class LottoTicketsDto {
-    private final List<List<Integer>> lottoTickets;
+    public final List<List<Integer>> lottoTickets;
 
     private LottoTicketsDto(List<List<Integer>> lottoTickets) {
         this.lottoTickets = lottoTickets;
@@ -17,10 +17,6 @@ public class LottoTicketsDto {
     public static LottoTicketsDto from(LottoTickets lottoTickets) {
         List<List<Integer>> listedLottoTickets = toListedLottoTickets(lottoTickets);
         return new LottoTicketsDto(listedLottoTickets);
-    }
-
-    public List<List<Integer>> getLottoTickets() {
-        return this.lottoTickets;
     }
 
     public int getLottoTicketAmount() {

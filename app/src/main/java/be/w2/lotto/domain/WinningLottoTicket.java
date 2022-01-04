@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static be.w2.lotto.common.exception.ExceptionMessages.INVALID_WINNING_NUMBERS_EXCEPTION;
+
 public class WinningLottoTicket {
     List<LottoNumber> winningNumbers;
 
@@ -25,7 +27,7 @@ public class WinningLottoTicket {
 
     private static void validateNumbers(List<String> winningNumbers) throws IllegalArgumentException {
         if (winningNumbers.size() != LOTTO_SIZE) {
-            throw new IllegalArgumentException("당첨 번호는 6개의 숫자가 필요합니다.");
+            throw new IllegalArgumentException(INVALID_WINNING_NUMBERS_EXCEPTION);
         }
     }
 

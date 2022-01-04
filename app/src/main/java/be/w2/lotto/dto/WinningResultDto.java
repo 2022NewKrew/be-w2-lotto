@@ -21,12 +21,4 @@ public class WinningResultDto {
                 .collect(Collectors.toList());
         return new WinningResultDto(winningMatchResultDtos, winningResult.getProfitRate());
     }
-
-    public List<WinningMatchResultDto> getWinningMatchResultDtos() {
-        return winningMatchResultDtos;
-    }
-
-    public int getProfitRate() {
-        return profitRate;
-    }
 }
