@@ -19,10 +19,7 @@ public class LottoNumbers {
     }
 
     private static boolean isValid(Set<LottoNumber> lottoNumbers) {
-        if (lottoNumbers.size() != LOTTO_NUMBER_COUNT) {
-            return false;
-        }
-        return true;
+        return lottoNumbers.size() == LOTTO_NUMBER_COUNT;
     }
 
     public Set<LottoNumber> getLottoNumbers() {
