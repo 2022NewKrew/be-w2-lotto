@@ -1,4 +1,4 @@
-package domain;
+package step2.domain;
 
 import java.util.List;
 
