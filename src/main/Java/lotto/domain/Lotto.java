@@ -1,4 +1,4 @@
-package lotto.com.kakao;
+package lotto.domain;
 
 import java.util.*;
 import java.util.stream.Collectors;

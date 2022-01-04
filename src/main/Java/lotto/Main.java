@@ -1,7 +1,7 @@
 package lotto;
 
-import lotto.com.kakao.LottoBundle;
-import lotto.com.kakao.WinningStats;
+import lotto.domain.LottoBundle;
+import lotto.domain.WinningStats;
 import lotto.view.ConsoleInputView;
 import lotto.view.ConsoleOutputView;
 

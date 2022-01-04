@@ -1,4 +1,4 @@
-package lotto.com.kakao;
+package lotto.domain;
 
 public enum WinningPrice {
 
