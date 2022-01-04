@@ -18,7 +18,7 @@ public class Main {
         lottoViewOutput.printLottoCount(); //구매한 로또 개수를 출력
         lottoViewOutput.printAllLottos(); //구매한 로또 정보를 출력
 
-        lottoObject.setLottoResult(new LottoNumber(LottoViewInput.lottoInputResult())); //로또 결과 입력
+        lottoObject.setLottoResult(new LottoNumber(LottoViewInput.lottoInputResult()), LottoViewInput.lottoInputResultBonus()); //로또 결과 입력
 
         lottoObject.makeTotal(); //당첨 통계 집계
         lottoViewOutput.printWinner(); //당첨 통계 출력

@@ -12,7 +12,7 @@ import java.util.List;
 import static lotto.domain.LottoSetting.*;
 
 public class Lotto {
-    private LottoNumber lottoResult;
+    private LottoResult lottoResult;
     private List<LottoNumber> lottos;
     private List<LottoWinner> lottoWinner;
     private List<Integer> lottoElement;
@@ -44,8 +44,10 @@ public class Lotto {
         return totalEarning;
     }
 
-    public void setLottoResult(LottoNumber lottoResult) {
-        this.lottoResult = lottoResult;
+    public void setLottoResult(LottoNumber lottoNumber, Integer bonusNumber) {
+        lottoResult = new LottoResult();
+        lottoResult.setLottoNumber(lottoNumber);
+        lottoResult.setBonusNumber(bonusNumber);
     }
 
     public void addRandomLottos(Integer lottoCount){
@@ -60,11 +62,11 @@ public class Lotto {
         int curLottoIdx = 0;
         int matchCount = 0;
 
-        while(resultIdx < lottoResult.num.size() && curLottoIdx < curLotto.num.size()){
-            if(lottoResult.num.get(resultIdx).equals(curLotto.num.get(curLottoIdx))){
+        while(resultIdx < lottoResult.getLottoNumber().num.size() && curLottoIdx < curLotto.num.size()){
+            if(lottoResult.getLottoNumber().num.get(resultIdx).equals(curLotto.num.get(curLottoIdx))){
                 resultIdx++; curLottoIdx++; matchCount++; continue;
             }
-            int garbageVariable = ((lottoResult.num.get(resultIdx) < curLotto.num.get(curLottoIdx)) ? resultIdx++ : curLottoIdx++ ) ;
+            int garbageVariable = ((lottoResult.getLottoNumber().num.get(resultIdx) < curLotto.num.get(curLottoIdx)) ? resultIdx++ : curLottoIdx++ ) ;
         }
         return matchCount;
     }
