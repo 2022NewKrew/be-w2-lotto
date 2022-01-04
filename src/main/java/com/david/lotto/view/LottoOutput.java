@@ -1,16 +1,20 @@
 package com.david.lotto.view;
 
-import com.david.lotto.domain.LottoCalculate;
-import com.david.lotto.domain.LottoMachine;
+import com.david.lotto.Lotto;
+import com.david.lotto.LottoCalculate;
+
+import java.util.List;
 
 public class LottoOutput {
 
-    public void printLottoCount(int amount, int lottoPrice) {
-        System.out.println(amount / lottoPrice + "개를 구매했습니다.");
+    public void printLottoCount(int count) {
+        System.out.println(count + "개를 구매했습니다.");
     }
 
-    public void printLottoInfo(LottoMachine lottoMachine) {
-        System.out.println(lottoMachine);
+    public void printLottoInfo(List<Lotto> lottoList) {
+        for (Lotto lotto : lottoList) {
+            System.out.println(lotto);
+        }
         System.out.println();
     }
 
