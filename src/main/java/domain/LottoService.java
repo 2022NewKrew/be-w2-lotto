@@ -37,27 +37,33 @@ public final class LottoService {
 
     private int getPurchaseAmount() {
         final int amount = inputController.getPurchaseAmount();
-        if(!ConditionCheck.isPositiveInteger(amount)) {
-            renderer.displaySentence(PLEASE_INPUT_POSITIVE_NUMBER.getString());
-            return getPurchaseAmount();
+        if(ConditionCheck.isPositiveInteger(amount)) {
+            return amount;
         }
 
-        return amount;
+        renderer.displaySentence(PLEASE_INPUT_POSITIVE_NUMBER.getString());
+        return getPurchaseAmount();
     }
 
     private List<LottoTicket> purchaseLottoes(int numberOfLottoes) {
         final List<LottoTicket> purchasedLottoes = new ArrayList<>();
-        final int numberOfManualPurchase = inputController.getNumberOfManualPurchase();
-        if(!ConditionCheck.isPositiveInteger(numberOfManualPurchase) || numberOfManualPurchase > numberOfLottoes) {
-            return purchaseLottoes(numberOfLottoes);
-        }
+        final int numberOfManualPurchase = getNumberOfManualPurchase(numberOfLottoes);
 
         purchasedLottoes.addAll(purchaseManualLottoes(numberOfManualPurchase));
         purchasedLottoes.addAll(purchaseAutoLottoes(numberOfLottoes - numberOfManualPurchase));
 
         renderer.displayPurchaseStatus(purchasedLottoes);
-
         return Collections.unmodifiableList(purchasedLottoes);
+    }
+
+    private int getNumberOfManualPurchase(int numberOfLottoes) {
+        final int numberOfManualPurchase = inputController.getNumberOfManualPurchase();
+        if(ConditionCheck.isPositiveInteger(numberOfManualPurchase) && numberOfManualPurchase <= numberOfLottoes) {
+            return numberOfManualPurchase;
+        }
+
+        renderer.displaySentence(PLEASE_INPUT_WITHIN_TOTAL_PURCHASE_TICKET.getString());
+        return getNumberOfManualPurchase(numberOfLottoes);
     }
 
     private List<LottoTicket> purchaseManualLottoes(int numberOfLottoes) {
@@ -78,12 +84,12 @@ public final class LottoService {
 
     private int getBonusBallNumber() {
         final int bonusNumber = inputController.getBonusBallNumber();
-        if(!ConditionCheck.isLottoNumber(bonusNumber)) {
-            renderer.displaySentence(INPUT_ERROR.getString() + NEWLINE.getString() + PLEASE_INPUT_WITHIN_LOTTO_NUMBER.getString());
-            return getBonusBallNumber();
+        if(ConditionCheck.isLottoNumber(bonusNumber)) {
+            return bonusNumber;
         }
 
-        return bonusNumber;
+        renderer.displaySentence(INPUT_ERROR.getString() + NEWLINE.getString() + PLEASE_INPUT_WITHIN_LOTTO_NUMBER.getString());
+        return getBonusBallNumber();
     }
 
     private void printWinningStatistics(int purchaseAmount, List<LottoTicket> purchasedLottoes, LottoTicket lastWeekWinning, int bonusBallNumber) {
