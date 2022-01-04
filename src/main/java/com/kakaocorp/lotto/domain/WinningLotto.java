@@ -10,4 +10,7 @@ public class WinningLotto {
         this.numbers = numbers;
     }
 
+    public List<Integer> getNumbers() {
+        return numbers;
+    }
 }

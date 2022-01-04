@@ -1,9 +1,11 @@
 package com.kakaocorp.lotto.service;
 
 import com.kakaocorp.lotto.domain.Lotto;
+import com.kakaocorp.lotto.domain.WinningLotto;
 import com.kakaocorp.lotto.dto.ResultResponse;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class LottoService {
 
@@ -27,29 +29,33 @@ public class LottoService {
         return lottoList;
     }
 
-    public ResultResponse result(List<Integer> winningNumbers, List<Lotto> lottoList) {
+    public ResultResponse result(WinningLotto winningLotto, List<Lotto> lottoList) {
         ResultResponse resultResponse = new ResultResponse();
 
-        int[] resultArray = score(winningNumbers, lottoList);
-        resultResponse.setRateOfReturn(lottoList.size() * 100 / Arrays.stream(resultArray).sum());
-        resultResponse.setResult(resultArray);
+        List<Integer> scores = score(winningLotto, lottoList);
+
+        int winningMoney = IntStream.range(0, 7).map(i -> scores.get(i) * ResultResponse.winningMoneyList.get(i)).sum();
+        int investMoney = lottoList.size() * 1000;
+        resultResponse.setRateOfReturn((winningMoney - investMoney) * 100 / investMoney);
+
+        resultResponse.setResult(scores);
 
         return resultResponse;
     }
 
-    private int[] score(List<Integer> winningNumbers, List<Lotto> lottoList) {
-        int[] result = new int[7];
+    private List<Integer> score(WinningLotto winningLotto, List<Lotto> lottoList) {
+        List<Integer> result = new ArrayList<>(Collections.nCopies(7, 0));
 
         for (Lotto lotto : lottoList) {
-            int num = match(winningNumbers, lotto);
-            result[num] += 1;
+            int num = match(winningLotto, lotto);
+            result.set(num, result.get(num) + 1);
         }
 
         return result;
     }
 
-    private int match(List<Integer> winningNumbers, Lotto lotto) {
-        Set<Integer> targetA = new HashSet<>(winningNumbers);
+    private int match(WinningLotto winningLotto, Lotto lotto) {
+        Set<Integer> targetA = new HashSet<>(winningLotto.getNumbers());
         Set<Integer> targetB = new HashSet<>(lotto.getNumbers());
         targetA.retainAll(targetB);
         return targetA.size();

@@ -1,6 +1,7 @@
 package com.kakaocorp.lotto.controller;
 
 import com.kakaocorp.lotto.domain.Lotto;
+import com.kakaocorp.lotto.domain.WinningLotto;
 import com.kakaocorp.lotto.dto.ResultResponse;
 import com.kakaocorp.lotto.service.LottoService;
 
@@ -21,6 +22,6 @@ public class LottoGameConsoleController {
 
     public ResultResponse result(List<Lotto> lottoList) {
         List<Integer> winningNumbers = ioController.inputNumbers("지난 주 당첨 번호를 입력해 주세요.");
-        return lottoService.result(winningNumbers, lottoList);
+        return lottoService.result(new WinningLotto(winningNumbers), lottoList);
     }
 }
