@@ -33,7 +33,7 @@ public enum Rank {
         return match;
     }
 
-    public Money getReward() {
-        return reward;
+    public int getRewardValue() {
+        return reward.getValue();
     }
 }

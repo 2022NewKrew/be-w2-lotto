@@ -4,9 +4,7 @@ import com.kakao.lottogame.domain.Lotto;
 import com.kakao.lottogame.domain.Money;
 import com.kakao.lottogame.domain.Rank;
 import com.kakao.lottogame.domain.Result;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map.Entry;
 
 public class OutputView {
 
@@ -20,14 +18,11 @@ public class OutputView {
         System.out.println();
         System.out.println("당첨 통계");
         System.out.println("---------");
-        Iterator<Entry<Rank, Integer>> entries = result.getBoard().entrySet().iterator();
-        entries.next();
-        while (entries.hasNext()) {
-            Entry<Rank, Integer> entry = entries.next();
+        result.getBoardWithout(Rank.NONE).forEach(entry -> {
             Rank rank = entry.getKey();
-            System.out.printf("%d개 일치 (%d원)- %d개%n", rank.getMatch(),
-                rank.getReward().getValue(), entry.getValue());
-        }
-        System.out.printf("총 수익률은 %d%%입니다.%n", result.calculateProfit(money));
+            int count = entry.getValue();
+            System.out.printf("%d개 일치 (%d원)- %d개%n", rank.getMatch(), rank.getRewardValue(), count);
+        });
+        System.out.printf("총 수익률은 %d%%입니다.%n", result.calculateProfitRate(money));
     }
 }

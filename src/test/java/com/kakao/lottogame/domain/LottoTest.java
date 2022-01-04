@@ -1,13 +1,11 @@
 package com.kakao.lottogame.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -20,14 +18,5 @@ class LottoTest {
         List<LottoNumber> lottoNumbers = new Random().ints(1, 46).distinct().limit(size).sorted()
             .mapToObj(LottoNumber::of).collect(Collectors.toList());
         assertThatThrownBy(() -> Lotto.of(lottoNumbers)).hasMessage("로또 번호는 총 6개입니다.");
-    }
-
-    @DisplayName("로또 번호가 6개이면 로또를 정상적으로 생성할 수 있다.")
-    @Test
-    void constructor_Six_Success() {
-        final int size = 6;
-        List<LottoNumber> lottoNumbers = new Random().ints(1, 46).distinct().limit(size).sorted()
-            .mapToObj(LottoNumber::of).collect(Collectors.toList());
-        assertThat(Lotto.of(lottoNumbers).getNumbers()).hasSize(size);
     }
 }

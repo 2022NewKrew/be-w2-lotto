@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,25 +13,31 @@ class ResultTest {
 
     private final List<Rank> RANKS = List.of(Rank.THIRD, Rank.FOURTH, Rank.NONE);
     private final long REWARD = RANKS.stream()
-        .map(rank -> rank.getReward().getValue())
+        .map(Rank::getRewardValue)
         .reduce(0, Integer::sum);
 
     @DisplayName("Result 생성 시에 모든 Rank에 따른 초기화가 이뤄진다.")
     @Test
     void constructor_EmptyList_Initialized() {
-        assertThat(Result.from(Collections.emptyList()).getBoard()).hasSize(Rank.values().length);
+        Result result = Result.from(Collections.emptyList());
+
+        assertThat(result.getCountOf(Rank.FIRST)).isZero();
+        assertThat(result.getCountOf(Rank.SECOND)).isZero();
+        assertThat(result.getCountOf(Rank.THIRD)).isZero();
+        assertThat(result.getCountOf(Rank.FOURTH)).isZero();
+        assertThat(result.getCountOf(Rank.NONE)).isZero();
     }
 
     @DisplayName("주어진 Rank에 따라 Result가 초기화된다.")
     @Test
     void constructor_List_Result() {
-        Map<Rank, Integer> board = Result.from(RANKS).getBoard();
+        Result result = Result.from(RANKS);
 
-        assertThat(board.get(Rank.FIRST)).isZero();
-        assertThat(board.get(Rank.SECOND)).isZero();
-        assertThat(board.get(Rank.THIRD)).isOne();
-        assertThat(board.get(Rank.FOURTH)).isOne();
-        assertThat(board.get(Rank.NONE)).isOne();
+        assertThat(result.getCountOf(Rank.FIRST)).isZero();
+        assertThat(result.getCountOf(Rank.SECOND)).isZero();
+        assertThat(result.getCountOf(Rank.THIRD)).isOne();
+        assertThat(result.getCountOf(Rank.FOURTH)).isOne();
+        assertThat(result.getCountOf(Rank.NONE)).isOne();
     }
 
     @DisplayName("투자 금액 대비 수익률을 계산한다.")
@@ -41,6 +46,6 @@ class ResultTest {
     void calculateProfit_Money_Profit(int value) {
         Result result = Result.from(RANKS);
         Money money = Money.of(value);
-        assertThat(result.calculateProfit(money)).isEqualTo(REWARD * 100 / value);
+        assertThat(result.calculateProfitRate(money)).isEqualTo(REWARD * 100 / value);
     }
 }

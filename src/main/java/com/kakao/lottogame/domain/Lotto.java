@@ -28,10 +28,6 @@ public class Lotto {
         }
     }
 
-    public List<LottoNumber> getNumbers() {
-        return lottoNumbers;
-    }
-
     public int compare(Lotto lotto) {
         Set<LottoNumber> intersectSet = new HashSet<>(lottoNumbers);
         intersectSet.retainAll(lotto.lottoNumbers);
@@ -49,12 +45,12 @@ public class Lotto {
 
         Lotto lotto = (Lotto) o;
 
-        return getNumbers().equals(lotto.getNumbers());
+        return lottoNumbers.equals(lotto.lottoNumbers);
     }
 
     @Override
     public int hashCode() {
-        return getNumbers().hashCode();
+        return lottoNumbers.hashCode();
     }
 
     @Override

@@ -8,7 +8,6 @@ import com.kakao.lottogame.domain.Money;
 import com.kakao.lottogame.domain.Rank;
 import com.kakao.lottogame.domain.Result;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -51,13 +50,12 @@ class LottoServiceTest {
 
         // when
         Result result = lottoService.collate(lottos, winningLotto);
-        Map<Rank, Integer> board = result.getBoard();
 
         // then
-        assertThat(board.get(Rank.FIRST)).isOne();
-        assertThat(board.get(Rank.SECOND)).isOne();
-        assertThat(board.get(Rank.THIRD)).isZero();
-        assertThat(board.get(Rank.FOURTH)).isOne();
-        assertThat(board.get(Rank.NONE)).isZero();
+        assertThat(result.getCountOf(Rank.FIRST)).isOne();
+        assertThat(result.getCountOf(Rank.SECOND)).isOne();
+        assertThat(result.getCountOf(Rank.THIRD)).isZero();
+        assertThat(result.getCountOf(Rank.FOURTH)).isOne();
+        assertThat(result.getCountOf(Rank.NONE)).isZero();
     }
 }

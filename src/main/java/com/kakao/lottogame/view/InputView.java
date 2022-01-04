@@ -34,6 +34,7 @@ public class InputView {
 
     private List<LottoNumber> extractNumbers(String line) {
         return Arrays.stream(line.split(DELIMITER))
+            .distinct()
             .mapToInt(Integer::parseInt)
             .mapToObj(LottoNumber::of)
             .collect(Collectors.toList());
