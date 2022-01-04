@@ -1,11 +1,14 @@
 package com.yapark97.lottoapplication.view;
 
-import com.yapark97.lottoapplication.domain.Lotto;
-import com.yapark97.lottoapplication.domain.LottoSet;
+import com.yapark97.lottoapplication.domain.lotto.LottoSet;
+import com.yapark97.lottoapplication.domain.winningPolicy.WinningPolicy;
 
 import java.util.Map;
 
 public interface LottoOutput {
     void printLottoSetInfo(LottoSet lottoSet);
-    void printStatistic(Map<Integer, Integer> statistic);
+
+    void printStatistic(Map<WinningPolicy, Integer> statistic);
+
+    void printProfitRate(double profitRate);
 }

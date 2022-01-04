@@ -1,9 +1,8 @@
-package com.yapark97.lottoapplication.domain;
+package com.yapark97.lottoapplication.domain.lotto;
 
 import java.util.List;
 
 public class Lotto {
-    // 일급 컬렉션
     List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
