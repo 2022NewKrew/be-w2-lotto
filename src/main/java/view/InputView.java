@@ -1,10 +1,15 @@
 package view;
 
+import domain.Lotto;
 import domain.Number;
+import domain.WinningLotto;
+import domain.WinningLottoManual;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+
+import static utils.Symbol.*;
 
 public class InputView {
     private static Scanner sc = new Scanner(System.in);
@@ -26,9 +31,21 @@ public class InputView {
         return ManualLottoCount;
     }
 
+    public WinningLotto getWinningLotto(){
+        return getWinningLottoManual();
+    }
+
+    public WinningLottoManual getWinningLottoManual(){
+        ArrayList<Number> inputNumberList = getNumberList();
+        Lotto lotto = new Lotto(inputNumberList);
+        Number bonusNumber = getBonusNumber();
+        return new WinningLottoManual(lotto, bonusNumber);
+    }
+
     public ArrayList<Number> getNumberList(){
+        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         String str = sc.nextLine();
-        String[] strList = str.replace(" ","").split(",");
+        String[] strList = str.replace(SPACE,BLANK).split(COMMA);
         int[] nums = Arrays.stream(strList)
                 .mapToInt(Integer::parseInt).toArray();
 
@@ -39,10 +56,10 @@ public class InputView {
         return numberList;
     }
 
-    public int getBonusNumber(){
+    public Number getBonusNumber(){
         System.out.println("보너스 볼을 입력해 주세요.");
         int bonusNumber = sc.nextInt();
         sc.nextLine();
-        return bonusNumber;
+        return new Number(bonusNumber);
     }
 }

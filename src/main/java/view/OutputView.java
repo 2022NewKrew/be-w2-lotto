@@ -1,13 +1,17 @@
 package view;
 
-import service.OwnLotto;
+import domain.Lotto;
+
+import java.util.ArrayList;
 
 public class OutputView {
     public OutputView(){
 
     }
 
-    public void printPurchaseLottoList(OwnLotto ownLotto){
-        ownLotto.printOwnLottoList();
+    public void printPurchaseLottoList(ArrayList<Lotto> lottos){
+        for(Lotto lotto: lottos){
+            System.out.println(lotto);
+        }
     }
 }

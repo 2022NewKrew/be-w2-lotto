@@ -3,7 +3,7 @@ package domain;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Lotto {
+public class Lotto{
     private ArrayList<Number> numberList;
 
     public Lotto(ArrayList<Number> numberList){
