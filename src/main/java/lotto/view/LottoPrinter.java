@@ -39,6 +39,6 @@ public class LottoPrinter {
         }
 
         int purchaseCosts = PRICE * tickets.size();
-        System.out.printf("총 수익률은 %2.0f%%입니다.%n", (float)prizeSum / purchaseCosts);
+        System.out.printf("총 수익률은 %2.0f%%입니다.%n", ((float)(prizeSum - purchaseCosts) / purchaseCosts) * 100);
     }
 }
