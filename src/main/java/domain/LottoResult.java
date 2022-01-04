@@ -1,53 +1,58 @@
 package domain;
 
-import domain.Lotto;
-import domain.LottoConst;
-import domain.LottoList;
-
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
+import java.util.TreeMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class LottoResult {
     private final LottoList lottoList;
-    private final Map<Integer, Integer> lottoResult;
+    private final Lotto resultLottoNumber;
+    private final int resultBonusNumber;
+    private final Map<Rank, Integer> lottoResult;
 
-    public LottoResult(LottoList lottoList) {
+    public LottoResult(LottoList lottoList, Lotto resultLottoNumber, int resultBonusNumber) {
         this.lottoList = lottoList;
-        lottoResult = new HashMap<>();
+        this.resultLottoNumber = resultLottoNumber;
+        this.resultBonusNumber = resultBonusNumber;
+        lottoResult = new TreeMap<>(Collections.reverseOrder());
 
-        for(int i=0; i<=6; i++){
-            lottoResult.put(i, 0);
+        for (Rank rank : Rank.values()) {
+            lottoResult.put(rank, 0);
         }
     }
 
-    public Map<Integer, Integer> getLottoResult(Lotto resultNumber){
+    public Map<Rank, Integer> getLottoResult(){
         for (Lotto lotto : lottoList.getLottoList()) {
-            int matchCount = matchLotto(lotto, resultNumber);
-            lottoResult.put(matchCount, lottoResult.get(matchCount)+1);
+            Rank rank = Rank.valueOf(matchLotto(lotto), checkBonusLotto(lotto));
+            lottoResult.put(rank, lottoResult.get(rank)+1);
         }
 
         return lottoResult;
     }
 
     public Double getTotalResultPrice(){
-        long resultPrice = 0L;
-        long purchasePrice = (long) LottoConst.LOTTO_PRICE * lottoList.getLottoList().size();
+        AtomicLong resultPrice = new AtomicLong(0L);
+        long purchasePrice = lottoList.getLottoPrice();
 
-        for (Integer rank : LottoConst.RANK_TO_PRICE.keySet()) {
-            resultPrice += (long) LottoConst.RANK_TO_PRICE.get(rank) * lottoResult.get(rank);
-        }
+        lottoResult.forEach((rank, count) ->
+                resultPrice.addAndGet((long) rank.getWinningMoney() * count));
 
-        return (double) resultPrice / purchasePrice * 100;
+        return (double) resultPrice.get() / purchasePrice * 100;
     }
 
 
-    private int matchLotto(Lotto purchaseNumber, Lotto resultNumber){
+    private int matchLotto(Lotto purchaseLotto){
         int count = 0;
-        for (Integer lottoNumber : purchaseNumber.getLotto()) {
-            count += resultNumber.getLotto().contains(lottoNumber) ? 1 : 0;
+        for (Integer lottoNumber : purchaseLotto.getLotto()) {
+            count += resultLottoNumber.getLotto().contains(lottoNumber) ? 1 : 0;
         }
 
         return count;
+    }
+
+    private boolean checkBonusLotto(Lotto purchaseLotto){
+        return purchaseLotto.getLotto().contains(resultBonusNumber);
     }
 
 }

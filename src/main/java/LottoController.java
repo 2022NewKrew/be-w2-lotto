@@ -11,16 +11,18 @@ import java.util.stream.Collectors;
 public class LottoController {
     private final Scanner sc = new Scanner(System.in);
 
-
     public void startLotto(){
         LottoList lottoList = new LottoList();
+        LottoView lottoView = new LottoView();
+
         lottoList.createLottoList(inputPrice());
+        lottoView.printLottoList(lottoList);
 
-        LottoResult lottoResult = new LottoResult(lottoList);
-        LottoView lottoView = new LottoView(lottoList, lottoResult);
+        Lotto resultLottoNumber = inputResultLotto();
+        int resultBonusNumber = inputResultBonusLotto();
+        LottoResult lottoResult = new LottoResult(lottoList, resultLottoNumber, resultBonusNumber);
 
-        lottoView.printLottoList();
-        lottoView.printLottoResult(inputResultLotto());
+        lottoView.printLottoResult(lottoResult);
     }
 
     private int inputPrice(){
@@ -37,5 +39,11 @@ public class LottoController {
                 .collect(Collectors.toList());
 
         return new Lotto(lottoNumber);
+    }
+
+    private int inputResultBonusLotto(){
+        System.out.println("보너스 볼을 입력해주세요.");
+
+        return Integer.parseInt(sc.nextLine());
     }
 }
