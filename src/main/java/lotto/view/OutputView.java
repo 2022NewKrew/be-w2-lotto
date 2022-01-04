@@ -1,14 +1,14 @@
-package view;
+package lotto.view;
 
-import domain.LottoResult;
-import domain.LottoResultType;
-import domain.LottoTicket;
+import lotto.domain.result.LottoResult;
+import lotto.domain.result.LottoResultType;
+import lotto.domain.lottocomponent.LottoTicket;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.List;
 
-import static view.OutputPrinter.*;
+import static lotto.view.printer.OutputPrinter.*;
 
 public class OutputView {
 

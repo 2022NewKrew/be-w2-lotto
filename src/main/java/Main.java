@@ -1,13 +1,16 @@
-import domain.*;
-import view.InputView;
-import view.OutputView;
+import lotto.domain.lottocomponent.LottoPrice;
+import lotto.domain.lottocomponent.LottoTicket;
+import lotto.domain.lottocomponent.WinningLottoTicket;
+import lotto.domain.LottoMachine;
+import lotto.domain.result.LottoResult;
+import lotto.view.OutputView;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
-import static view.InputView.*;
+import static lotto.view.InputView.*;
 
 public class Main {
 

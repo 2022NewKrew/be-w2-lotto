@@ -1,4 +1,4 @@
-package domain;
+package lotto.domain.lottocomponent;
 
 public class LottoNumber {
 

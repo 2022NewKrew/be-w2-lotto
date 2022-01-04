@@ -1,7 +1,7 @@
-package view;
+package lotto.view.printer;
 
-import domain.LottoResultType;
-import domain.LottoTicket;
+import lotto.domain.result.LottoResultType;
+import lotto.domain.lottocomponent.LottoTicket;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

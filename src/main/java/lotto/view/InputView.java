@@ -1,8 +1,8 @@
-package view;
+package lotto.view;
 
-import domain.LottoNumber;
-import domain.LottoPrice;
-import domain.LottoTicket;
+import lotto.domain.lottocomponent.LottoNumber;
+import lotto.domain.lottocomponent.LottoPrice;
+import lotto.domain.lottocomponent.LottoTicket;
 
 import java.io.BufferedReader;
 import java.io.IOException;
