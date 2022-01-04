@@ -19,44 +19,86 @@ Main
 ```
 
 ### controller
-- `LottoController`
-  - 사용자로 부터 입력을 받은 데이터를 전달하거나 가공한 데이터를 출력 화면에 전달한다.
-  - `start()`
+#### `LottoController`
+- 사용자로 부터 입력을 받은 데이터를 전달하거나 가공한 데이터를 출력 화면에 전달한다.
+
+|메서드|설명|
+|---|---|
+|`start()`| 어플리케이션 로직을 실행한다.|
+
+<br>
 
 ### domain
-- `LottoRank`
-  - 로또 등수
-  - `parseResult()` : 로또 등수 결과로 변환한다.
-- `LottoResultCalculator`
-  - 로또 통계 계산기
-  - `getLottoResultCounts()` : 로또 티켓 리스트를 전달받아 로또 등수 개수를 반환한다.
-  - `calculateEarningRate()` : 수익률을 계산한다.
-- `LottoTicket`
-  - 로또 티켓
-  - `containNumbers()` : 숫자를 포함하고 있는지 확인한다.
-  - `countEqualNumbers()` : 전달하는 넘버 리스트와 비교해서 같은 숫자 개수를 반환한다.
-- `LottoTicketFactory`
-  - 로또 티켓을 생성하는 역할의 인터페이스
-  - `createRandomLottoTicket()` : 랜덤한 숫자의 로또 티켓을 생성한다.
-  - `createRandomLottoTickets()` : 전달하는 개수만큼의 로또 티켓 리스트를 생성한다.
-- `LottoTicketFactoryImpl`
-  - `LottoTicketFactory` 인터페이스의 구현체
+#### `LottoRank`
+- 로또 등수
+
+|메서드|설명|
+|---|---|
+|`parseResult()`|로또 등수 결과로 변환한다.|
+
+<br>
+
+#### `LottoResultCalculator`
+- 로또 통계 계산기
+
+|메서드|설명|
+|---|---|
+|`getLottoResultCounts()`|로또 티켓 리스트를 전달받아 로또 등수 개수를 반환한다.|
+|`calculateEarningRate()`|수익률을 계산한다.|
+
+<br>
+
+#### `LottoTicket`
+- 로또 티켓
+
+|메서드|설명|
+|---|---|
+|`containNumbers()`|숫자를 포함하고 있는지 확인한다.|
+|`countEqualNumbers()`|전달하는 넘버 리스트와 비교해서 같은 숫자 개수를 반환한다.|
+
+<br>
+
+#### `LottoTicketFactory`
+- 로또 티켓을 생성하는 역할의 인터페이스
+
+|메서드|설명|
+|---|---|
+|`createRandomLottoTicket()`|랜덤한 숫자의 로또 티켓을 생성한다.|
+|`createRandomLottoTickets()`|전달하는 개수만큼의 로또 티켓 리스트를 생성한다.|
+|`createLottoTicket()`|지정하는 번호의 로또 티켓을 생성한다.|
+|`createLottoTickets()`|지정하는 번호의 로또 티켓 리스트를 생성한다.|
+
+<br>
+
+#### `LottoTicketFactoryImpl`
+- `LottoTicketFactory` 인터페이스의 구현체
 
 ### exception
-- `InvalidInputFormatException`
-  - 잘못된 형식을 입력하였을 때 발생시키는 에러
+#### `InvalidInputException`
+- 잘못된 형식을 입력하였을 때 발생시키는 에러
 
 ### view
-- `InputView`
-  - 입력에 대한 처리를 담당 (입력에 대한 유효성 검사 포함)
-  - `inputAmountForPurchase()` : 구입 금액을 입력받아 반환한다.
-  - `inputBonusNumber()` : 보너스 숫자를 입력받아 전달한다.
-  - `inputWinningNumbers()` : 당첨 번호를 입력받아 전달한다.
-- `OutputView`
-  - 출력에 대한 처리를 담당
-  - `printLotteries()` : 전달 받은 로또 티켓을 출력한다.
-  - `printErrorMessage()` : 전달 받은 에러에 대한 메시지를 출력한다.
-  - `printResult()` : 전달 받은 통계와 수익률을 출력한다.
+#### `InputView`
+- 입력에 대한 처리를 담당 (입력에 대한 유효성 검사 포함)
+
+|메서드|설명|
+|---|---|
+|`inputAmountForPurchase()`|구입 금액을 입력받아 반환한다.|
+|`inputBonusNumber()`|보너스 숫자를 입력받아 반환한다.|
+|`inputWinningNumbers()`|당첨 번호를 입력받아 반환한다.|
+|`inputNumOfLottoTicketsToInput()`|수동으로 구매할 로또 티켓의 개수를 입력 받아 반환한다.|
+|`inputNumbersForPurchaseLottoTickets()`|수동으로 구매할 번호를 입력 받아 반환한다.|
+
+<br>
+
+#### `OutputView`
+- 출력에 대한 처리를 담당
+
+|메서드|설명|
+|---|---|
+|`printLotteries()`|수동으로 생성한 로또 티켓과 랜덤으로 생성한 로또 티켓을 출력한다.|
+|`printErrorMessage()`|전달 받은 에러에 대한 메시지를 출력한다.|
+|`printResult()`|전달 받은 통계와 수익률을 출력한다.|
 
 ## 1단계
 ### 기능 요구사항
