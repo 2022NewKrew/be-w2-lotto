@@ -22,7 +22,9 @@ public class ConsoleInputView implements InputView {
         try{
             lotteryBuyPrice = Integer.parseInt(scanner.nextLine());
             this.validateLotteryBuyPrice(lotteryBuyPrice);
-        } catch (NumberFormatException | NoSuchElementException | IllegalStateException exception) {
+        } catch (IllegalArgumentException exception) {
+            System.err.println(exception.getMessage());
+        } catch (NoSuchElementException | IllegalStateException exception) {
             System.err.println("입력을 처리할 수 없습니다.");
             System.exit(1);
         }
@@ -42,6 +44,8 @@ public class ConsoleInputView implements InputView {
                     .peek(this::validateResult)
                     .collect(Collectors.toList());
             this.validateResultList(resultList);
+        } catch (IllegalArgumentException exception) {
+            System.err.println(exception.getMessage());
         } catch (NoSuchElementException | IllegalStateException exception) {
             System.err.println("입력을 처리할 수 없습니다.");
             System.exit(1);
@@ -50,21 +54,21 @@ public class ConsoleInputView implements InputView {
         return resultList;
     }
 
-    private void validateLotteryBuyPrice(int value) throws InputMismatchException {
+    private void validateLotteryBuyPrice(int value) throws IllegalArgumentException {
         if (value <= 0 || value % lotteryRule.getLotteryUnitPrice() != 0) {
-            throw new InputMismatchException();
+            throw new IllegalArgumentException(String.format("%d원 단위의 양수만 입력 가능합니다.", lotteryRule.getLotteryUnitPrice()));
         }
     }
 
-    private void validateResult(int value) throws InputMismatchException {
+    private void validateResult(int value) throws IllegalArgumentException {
         if (value < lotteryRule.getLotteryNumberStart() || value > lotteryRule.getLotteryNumberEnd()) {
-            throw new InputMismatchException();
+            throw new IllegalArgumentException(String.format("%d에서 %d 사이의 숫자만 입력 가능합니다.", lotteryRule.getLotteryNumberStart(), lotteryRule.getLotteryNumberEnd()));
         }
     }
 
-    private void validateResultList(List<Integer> resultList) throws InputMismatchException {
+    private void validateResultList(List<Integer> resultList) throws IllegalArgumentException {
         if (resultList.size() != lotteryRule.getLotteryNumberCount()) {
-            throw new InputMismatchException();
+            throw new IllegalArgumentException(String.format("서로 다른 %d개의 숫자만 입력 가능합니다.", lotteryRule.getLotteryNumberCount()));
         }
     }
 }
