@@ -1,5 +1,7 @@
 package lotto.view;
 
+import lotto.domain.WinningLotto;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -16,8 +18,8 @@ public class LottoInput {
 
             nullInput(sc);
 
-            List<Integer> winningNumbers = inputWinningNumbers(sc);
-            System.out.println(lottoView.printLottoResult(winningNumbers));
+            WinningLotto winningLotto = inputWinningLotto(sc);
+            System.out.println(lottoView.printLottoResult(winningLotto));
         }
     }
 
@@ -38,22 +40,21 @@ public class LottoInput {
         }
     }
 
-    private List<Integer> inputWinningNumbers(Scanner sc) {
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        String input = sc.nextLine();
-        List<Integer> winningNumbers = Arrays.stream(input.split(", "))
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
-        validateWinningNumbers(winningNumbers);
-        return winningNumbers;
+    private WinningLotto inputWinningLotto(Scanner sc){
+        List<Integer> numbers = inputWinningNumbers(sc);
+        int bonusBall = inputBonusBall(sc);
+        return new WinningLotto(numbers, bonusBall);
     }
 
-    private void validateWinningNumbers(List<Integer> winningNumbers) {
-        if (winningNumbers.size() != COUNT_OF_NUMBER.getValue()) {
-            throw new IllegalArgumentException("당첨 번호는 6개 입니다.");
-        }
-        if (winningNumbers.stream().anyMatch(number -> number < MIN_NUMBER.getValue() || number > MAX_NUMBER.getValue())) {
-            throw new IllegalArgumentException("번호의 범위는 1~45 입니다.");
-        }
+    private List<Integer> inputWinningNumbers(Scanner sc) {
+        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+        return Arrays.stream(sc.nextLine().split(", "))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
+    }
+
+    private int inputBonusBall(Scanner sc) {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return sc.nextInt();
     }
 }
