@@ -13,33 +13,36 @@ public class Lotto {
     private static final int LOTTO_LENGTH = 6;
 
     private static List<Integer> lottoWinningNumbers;
+    private static int bonusNumber;
 
     private final List<Integer> lottoNumbers;
-    private int correctCount;
 
-    public Lotto(){
+    public Lotto() {
         this.lottoNumbers = createLottoNumbers();
     }
 
-    private List<Integer> createLottoNumbers(){
-        List<Integer> list =  IntStream.range(LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER).boxed().collect(Collectors.toList());
+    private List<Integer> createLottoNumbers() {
+        List<Integer> list = IntStream.range(LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER).boxed().collect(Collectors.toList());
         Collections.shuffle(list);
         list = list.subList(0, LOTTO_LENGTH);
         Collections.sort(list);
         return list;
     }
 
-    public static void setLottoWinningNumbers(String lottoInput){
+    public static void setLottoWinningNumbers(String lottoInput, int bonusNumber) {
         Lotto.lottoWinningNumbers = splitLottoNumbers(lottoInput);
+        Lotto.bonusNumber = bonusNumber;
     }
 
-    private static List<Integer> splitLottoNumbers(String lottoInput){
+    private static List<Integer> splitLottoNumbers(String lottoInput) {
         return Arrays.stream(lottoInput.split(",")).map(Integer::parseInt).collect(Collectors.toList());
     }
 
-    public int compareLottoNumbers(){
-        this.correctCount = lottoWinningNumbers.stream().filter(lottoNumbers::contains).toArray().length;
-        return correctCount;
+    public void compareLottoNumbers() {
+        int correctCount = lottoWinningNumbers.stream().filter(lottoNumbers::contains).toArray().length;
+        boolean bonusCorrect = lottoNumbers.contains(bonusNumber);
+
+        Rank.addRankCount(correctCount, bonusCorrect);
     }
 
     public List<Integer> getLottoNumbers(){
