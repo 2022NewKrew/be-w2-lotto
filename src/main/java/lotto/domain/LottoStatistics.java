@@ -25,7 +25,9 @@ public class LottoStatistics {
 
     private void putResult(WinningNumbers winningNumbers, LottoTicket ticket) {
         int count = 0;
-        LottoResult result = LottoResult.valueOf(getMatchCount(winningNumbers, ticket));
+        int matchCountPerTicket = getMatchCount(winningNumbers, ticket);
+        boolean matchBonus = getMatchBonus(winningNumbers, ticket);
+        LottoResult result = LottoResult.valueOf(matchCountPerTicket, matchBonus);
         if (resultMap.get(result) != null) {
             count = resultMap.get(result);
         }
@@ -41,6 +43,10 @@ public class LottoStatistics {
         }
 
         return matchCount;
+    }
+
+    private boolean getMatchBonus(WinningNumbers winningNumbers, LottoTicket lottoTicket) {
+        return lottoTicket.contains(winningNumbers.getBonusNumber());
     }
 
     public Map<LottoResult, Integer> getResultMap() {

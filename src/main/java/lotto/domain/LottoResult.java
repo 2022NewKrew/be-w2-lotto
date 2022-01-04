@@ -3,23 +3,27 @@ package lotto.domain;
 import java.util.stream.Stream;
 
 public enum LottoResult {
-    FIRST(6, 2_000_000_000),
-    SECOND(5, 1_500_000),
-    THIRD(4, 50_000),
-    FOURTH(3, 5_000),
-    NONE(0, 0);
+    FIRST(6, 2_000_000_000, false),
+    SECOND(5, 30_000_000, true),
+    THIRD(5, 1_500_000, false),
+    FOURTH(4, 50_000, false),
+    FIFTH(3, 5_000, false),
+    NONE(0, 0, false);
 
     private final int matchCount;
     private final int reward;
+    private final boolean matchBonus;
 
-    LottoResult(int matchCount, int reward) {
+    LottoResult(int matchCount, int reward, boolean matchBonus) {
         this.matchCount = matchCount;
         this.reward = reward;
+        this.matchBonus = matchBonus;
     }
 
-    public static LottoResult valueOf(int matchCount) {
+    public static LottoResult valueOf(int matchCount, boolean matchBonus) {
         return Stream.of(LottoResult.values())
-                .filter(result -> result.getMatchCount() == matchCount)
+                .filter(result -> result.isEqualToMatchCount(matchCount))
+                .filter(result -> result.isEqualToMatchBonus(matchBonus))
                 .findAny()
                 .orElse(LottoResult.NONE);
     }
@@ -30,5 +34,13 @@ public enum LottoResult {
 
     public int getMatchCount() {
         return matchCount;
+    }
+
+    private boolean isEqualToMatchCount(int matchCount) {
+        return this.matchCount == matchCount;
+    }
+
+    private boolean isEqualToMatchBonus(boolean matchBonus) {
+        return this.matchBonus == matchBonus;
     }
 }
