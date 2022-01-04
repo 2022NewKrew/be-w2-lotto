@@ -2,7 +2,7 @@ package validator;
 
 import constants.LottoRule;
 
-public class AmountOfLottoValidator implements ValidatorInterface{
+public class AmountOfLottoValidator extends IntegerValidator implements ValidatorInterface{
     public AmountOfLottoValidator() { }
 
     @Override
@@ -16,10 +16,6 @@ public class AmountOfLottoValidator implements ValidatorInterface{
             return false;
         }
         return true;
-    }
-
-    private boolean isInteger(String input){
-        return input.matches(LottoRule.IS_NUMERIC);
     }
 
     private boolean dividableByThousand(String input){
