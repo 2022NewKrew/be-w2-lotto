@@ -9,7 +9,7 @@ import lotto.view.OutputView;
 public class Application {
 
     public static void main(String[] args) {
-        int inputMoney = InputView.inputMoney();
+        long inputMoney = InputView.inputMoney();
         LottoController lottoController = LottoController.valueOf(inputMoney);
         OutputView.printPurchaseLottoCount(lottoController.purchase());
         OutputView.printLottos(lottoController.getLottos());

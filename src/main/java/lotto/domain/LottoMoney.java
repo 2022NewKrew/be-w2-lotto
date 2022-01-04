@@ -6,25 +6,25 @@ import java.util.Objects;
 
 public class LottoMoney {
 
-    private static final int PRICE = 1000;
+    private static final long PRICE = 1000;
     private static final int DEFAULT_SCALE = 4;
     private static final BigDecimal ORIGINAL_PROFIT = BigDecimal.valueOf(100.0);
 
-    private final int money;
+    private final long money;
 
-    public LottoMoney(int money) {
+    public LottoMoney(long money) {
         validate(money);
         this.money = money - money % PRICE;
     }
 
-    private void validate(int money) {
+    private void validate(long money) {
         if (money < PRICE) {
             throw new IllegalArgumentException("[ERROR] 최소 1,000원 이상 구매해주세요.");
         }
     }
 
     public int purchase() {
-        return money / PRICE;
+        return (int) (money / PRICE);
     }
 
     public BigDecimal profit(BigDecimal totalMoney) {
