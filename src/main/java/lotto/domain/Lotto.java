@@ -14,6 +14,15 @@ public class Lotto {
     Random random;
 
     public Lotto() {
+        createObject();
+    }
+
+    public Lotto(String originalLottoString) {
+        createObject();
+        initialize(originalLottoString);
+    }
+
+    private void createObject() {
         lottoNumbers = new ArrayList<Integer>();
         random = new Random();
     }
