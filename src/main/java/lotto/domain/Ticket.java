@@ -1,4 +1,4 @@
-package lotto;
+package lotto.domain;
 
 import java.util.Collections;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-class Ticket {
+public class Ticket {
     private final List<Integer> ticketNumbers = new ArrayList<>();
     Random random = new Random();
 
@@ -14,12 +14,15 @@ class Ticket {
         createTicket();
     }
 
-    private void createTicket() {
-        while (ticketNumbers.size() <LotteryConstants.ticketLength) {
-            int number = random.nextInt(LotteryConstants.maxNumber-1)+1;
-            if (ticketNumbers.contains(number))
-                continue;
+    private void getUniqueNumber() {
+        int number = random.nextInt(LotteryConstants.maxNumber-1)+1;
+        if (!ticketNumbers.contains(number))
             ticketNumbers.add(number);
+    }
+
+    private void createTicket() {
+        while (ticketNumbers.size() < LotteryConstants.ticketLength) {
+            getUniqueNumber();
         }
         Collections.sort(ticketNumbers);
     }

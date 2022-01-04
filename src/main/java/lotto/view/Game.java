@@ -1,4 +1,7 @@
-package lotto;
+package lotto.view;
+
+import lotto.domain.LotteryConstants;
+import lotto.domain.Ticket;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -97,7 +100,7 @@ public class Game {
         }
     }
 
-    void run() {
+    public void run() {
         getTickets();
         getWinningNumber();
         getBonusNumber();
