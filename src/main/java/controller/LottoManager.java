@@ -19,6 +19,8 @@ public class LottoManager {
 
         // 당첨 로또 번호 입력 받음
         List<Integer> winningNumber = InputManager.inputWinningNumber();
+        // 보너스 볼 입력 받음
+        int bonusNumber = InputManager.inputBonusNumber();
 
         // 로또 결과 확인
         PrintManager.printResult(lottos.checkResult(winningNumber));

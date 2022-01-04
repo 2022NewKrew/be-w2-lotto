@@ -61,11 +61,38 @@ public class InputManager {
         return inputIntPrice;
     }
 
+    public static int inputBonusNumber() {
+        boolean pass = false;
+        int inputIntBonusNumber = 0;
+        do {
+            System.out.println(Const.INPUT_BONUS_NUMBER);
+            try {
+                inputIntBonusNumber = scanner.nextInt();
+                // Flush Buffer
+                scanner.nextLine();
+                pass = isLottoNumber(inputIntBonusNumber);
+            } catch (InputMismatchException e) {
+                System.out.println(Const.INPUT_INTEGER);
+                // Flush Buffer
+                scanner.nextLine();
+            }
+        } while (!pass);
+        return inputIntBonusNumber;
+    }
+
     private static boolean isPositiveNumber(int inputIntPrice) {
         if (inputIntPrice >= 0) {
             return true;
         }
         System.out.println(Const.INPUT_POSITIVE_INTEGER);
+        return false;
+    }
+
+    private static boolean isLottoNumber(int inputIntBonusNumber) {
+        if (inputIntBonusNumber > 0 && inputIntBonusNumber < 46) {
+            return true;
+        }
+        System.out.println(Const.INPUT_LOTTO_NUMBER);
         return false;
     }
 }
