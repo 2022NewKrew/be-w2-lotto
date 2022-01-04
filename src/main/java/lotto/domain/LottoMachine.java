@@ -13,6 +13,7 @@ public class LottoMachine {
     private int purchaseAmount;
     private int prizeAmount;
     private List<Integer> winningNumberList;
+    private int bonusNumber;
     private final List<Lotto> lottoList = new ArrayList<>();
     private final List<Integer> numberList = new ArrayList<>();
 
@@ -27,8 +28,10 @@ public class LottoMachine {
         purchaseLotto();
         OutputView.printLottos(lottoList);
         this.winningNumberList = InputView.getWinningNumberList();
+        this.bonusNumber = InputView.getBonusNumber();
         checkLottoList();
-        OutputView.printLottoResults(purchaseAmount, prizeAmount);
+        double earningRate = prizeAmount / (double) purchaseAmount * 100;
+        OutputView.printLottoResults(earningRate);
     }
 
     private void purchaseLotto() {
@@ -43,8 +46,9 @@ public class LottoMachine {
 
     private void checkLottoList() {
         for (Lotto lotto : lottoList) {
+            boolean hasBonusNumber= lotto.hasBonusNumber(bonusNumber);
             int matchingNumber = lotto.checkLotto(winningNumberList);
-            Rank rank = Rank.valueOf(matchingNumber);
+            Rank rank = Rank.valueOf(matchingNumber, hasBonusNumber);
             addPrizeAmount(rank);
         }
     }

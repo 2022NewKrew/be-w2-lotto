@@ -3,9 +3,10 @@ package lotto.domain;
 import java.util.Arrays;
 
 public enum Rank {
-    FOURTH(3, 5000, 0),
-    THIRD(4, 50000, 0),
-    SECOND(5,1500000, 0),
+    FIFTH(3, 5000, 0),
+    FOURTH(4, 50000, 0),
+    THIRD(5,1500000, 0),
+    SECOND(5, 30000000, 0),
     FIRST(6, 2000000000, 0);
 
     private final int matchingNumber;
@@ -18,23 +19,25 @@ public enum Rank {
         this.winnerCount = winnerCount;
     }
 
-    public int getMatchingNumber() {
-        return matchingNumber;
-    }
-
     public int getPrizeAmount() {
         return prizeAmount;
-    }
-
-    public int getWinnerCount() {
-        return winnerCount;
     }
 
     public void addWinnerCount() {
         winnerCount++;
     }
 
-    public static Rank valueOf(int matchingNumber) {
+    public String getResultString() {
+        if (this == Rank.SECOND) {
+            return String.format("%s개 일치, 보너스 볼 일치(%s원)- %s개", matchingNumber, prizeAmount, winnerCount);
+        }
+        return String.format("%s개 일치 (%s원)- %s개", matchingNumber, prizeAmount, winnerCount);
+    }
+
+    public static Rank valueOf(int matchingNumber, boolean hasBonusNumber) {
+        if (matchingNumber == 5 && hasBonusNumber) {
+            return Rank.SECOND;
+        }
         for (Rank rank : Rank.values()) {
             if (rank.matchingNumber == matchingNumber) {
                 return rank;

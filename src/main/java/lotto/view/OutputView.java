@@ -21,16 +21,13 @@ public class OutputView {
         System.out.println(sb);
     }
 
-    public static void printLottoResults(int purchaseAmount, int prizeAmount) {
+    public static void printLottoResults(double earningRate) {
         System.out.println("당첨 통계");
         System.out.println("---------");
-        for (int i = 0; i < 4; i++) {
-            Rank rank = Rank.values()[i];
-            System.out.printf("%s개 일치 (%s원)- %s개%n",
-                    rank.getMatchingNumber(),
-                    rank.getPrizeAmount(),
-                    rank.getWinnerCount());
+        for (Rank rank : Rank.values()) {
+            System.out.println(rank.getResultString());
         }
-        System.out.printf("총 수익률은 %s%%입니다.", prizeAmount / purchaseAmount * 100);
+
+        System.out.printf("총 수익률은 %s%%입니다.", earningRate);
     }
 }
