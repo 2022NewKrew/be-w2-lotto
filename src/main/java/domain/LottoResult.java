@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LottoResult {
-    private Map<LottoMatch, Integer> countOfMatches;
+    private Map<LottoRank, Integer> countOfMatches;
     private double profitRate;
 
     public LottoResult() {
@@ -16,11 +16,11 @@ public class LottoResult {
         this.profitRate = profitRate;
     }
 
-    public void setCountOfMatches(Map<LottoMatch, Integer> countOfMatches) {
+    public void setCountOfMatches(Map<LottoRank, Integer> countOfMatches) {
         this.countOfMatches = countOfMatches;
     }
 
-    public Map<LottoMatch, Integer> getCountOfMatches() {
+    public Map<LottoRank, Integer> getCountOfMatches() {
         return countOfMatches;
     }
 

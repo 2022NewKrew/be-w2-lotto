@@ -1,9 +1,6 @@
 package controller;
 
-import domain.Lotto;
-import domain.LottoMatch;
-import domain.LottoResult;
-import domain.WinningLotto;
+import domain.*;
 import exception.LottoPurchasePriceException;
 import view.LottoView;
 
@@ -51,22 +48,26 @@ public class LottoController {
     }
 
     public void generateLottoResult() {
-        Map<LottoMatch, Integer> countOfMatches = new HashMap<>();
+        Map<LottoRank, Integer> countOfMatches = new HashMap<>();
 
         for (Lotto lotto : lottoList) {
-            LottoMatch lottoMatch = calculateLottoMatch(lotto);
+            LottoRank lottoRank = calculateLottoRank(lotto);
 
-            if (!countOfMatches.containsKey(lottoMatch)) {
-                countOfMatches.put(lottoMatch, 0);
+            if (lottoRank == null) {
+                continue;
             }
 
-            countOfMatches.put(lottoMatch, countOfMatches.get(lottoMatch) + 1);
+            if (!countOfMatches.containsKey(lottoRank)) {
+                countOfMatches.put(lottoRank, 0);
+            }
+
+            countOfMatches.put(lottoRank, countOfMatches.get(lottoRank) + 1);
         }
 
         setCountOfMatches(countOfMatches);
     }
 
-    public LottoMatch calculateLottoMatch(Lotto lotto) {
+    public LottoRank calculateLottoRank(Lotto lotto) {
         int matches = 0;
         boolean bonus = false;
 
@@ -85,23 +86,24 @@ public class LottoController {
         return selectLottoMatch(matches, bonus);
     }
 
-    public LottoMatch selectLottoMatch(int matches, boolean bonus) {
+    public LottoRank selectLottoMatch(int matches, boolean bonus) {
         switch (matches) {
+            case 3:
+                return LottoRank.ETC;
             case 4:
-                return LottoMatch.FOURTH;
+                return LottoRank.FOURTH;
             case 5:
                 if (bonus) {
-                    return LottoMatch.SECOND;
+                    return LottoRank.SECOND;
                 }
 
-                return LottoMatch.THIRD;
+                return LottoRank.THIRD;
             case 6:
-                return LottoMatch.FIRST;
+                return LottoRank.FIRST;
             default:
-                return LottoMatch.ETC;
+                return null;
         }
     }
-
 
     public boolean isBonusRank(List<Integer> numbers, int bonusNumber) {
         return numbers.contains(bonusNumber);
@@ -111,7 +113,7 @@ public class LottoController {
         winningLotto.setNumbers(numbers);
     }
 
-    public void setCountOfMatches(Map<LottoMatch, Integer> countOfMatches) {
+    public void setCountOfMatches(Map<LottoRank, Integer> countOfMatches) {
         lottoResult.setCountOfMatches(countOfMatches);
     }
 

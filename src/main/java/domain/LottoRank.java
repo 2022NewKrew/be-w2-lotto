@@ -1,22 +1,28 @@
 package domain;
 
 public enum LottoRank {
-    ETC(LottoMatch.ETC, 5000L),
-    FOURTH(LottoMatch.FOURTH, 50000L),
-    THIRD(LottoMatch.THIRD, 1500000L),
-    SECOND(LottoMatch.SECOND, 30000000L),
-    FIRST(LottoMatch.FIRST, 2000000000L);
+    ETC(3, false, 5000L),
+    FOURTH(4, false, 50000L),
+    THIRD(5, false, 1500000L),
+    SECOND(5, true, 30000000L),
+    FIRST(6, false, 2000000000L);
 
-    private final LottoMatch lottoMatch;
+    private final int matches;
+    private final boolean bonus;
     private final long price;
 
-    LottoRank(LottoMatch lottoMatch, long price) {
-        this.lottoMatch = lottoMatch;
+    LottoRank(int matches, boolean bonus, long price) {
+        this.matches = matches;
+        this.bonus = bonus;
         this.price = price;
     }
 
-    public LottoMatch getLottoMatch() {
-        return lottoMatch;
+    public int getMatches() {
+        return matches;
+    }
+
+    public boolean isBonus() {
+        return bonus;
     }
 
     public long getPrice() {
