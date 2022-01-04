@@ -10,6 +10,7 @@ import java.util.List;
 
 public class LottoMain {
     public static void main(String[] args) {
+        
         int price = InputLotto.getPrice();
         InputLotto.printBuyLottoNumber(price / 1000);
         List<Lotto> lottos = Lotto.makeLottos(price / 1000);
@@ -20,5 +21,6 @@ public class LottoMain {
         LottoResultPrinter lottoResultPrinter = new LottoResultPrinter(lottoResult);
         lottoResultPrinter.printResults();
         lottoResultPrinter.printProfitRate();
+
     }
 }
