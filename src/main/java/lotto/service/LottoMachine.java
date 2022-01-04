@@ -1,39 +1,41 @@
 package lotto.service;
 
+import lotto.domain.LottoNumbers;
 import lotto.domain.LottoTicket;
 import lotto.domain.PrizeType;
 import lotto.dto.LottoResultDTO;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class LottoMachine {
 
     public static List<LottoTicket> createLottoTickets(int purchaseCount) {
-        List<LottoTicket> lottoTickets = new ArrayList<>();
-        for (int i = 0; i < purchaseCount; i++) {
-            lottoTickets.add(new LottoTicket());
-        }
-        return lottoTickets;
+        return Stream.generate(LottoMachine::createLottoTicket)
+                .limit(purchaseCount)
+                .collect(Collectors.toList());
     }
 
-    public static LottoResultDTO getLottoResult(List<LottoTicket> lottoTickets, List<Integer> winningNumbers) {
+    private static LottoTicket createLottoTicket() {
+        return new LottoTicket(LottoNumbersFactory.createRandomLottoNumbers());
+    }
+
+    public static LottoResultDTO getLottoResult(List<LottoTicket> lottoTickets, LottoNumbers winningNumbers, int bonusNumber) {
         LottoResultDTO lottoResultDTO = new LottoResultDTO();
         for (LottoTicket lottoTicket : lottoTickets) {
-            countLottoResult(lottoResultDTO, lottoTicket.getLottoMatchCount(winningNumbers));
+            int matchCount = lottoTicket.getLottoMatchCount(winningNumbers);
+            boolean matchBonus = lottoTicket.hasBonusNumber(bonusNumber);
+
+            countLottoResult(lottoResultDTO, matchCount, matchBonus);
         }
         return lottoResultDTO;
     }
 
-    private static void countLottoResult(LottoResultDTO lottoResultDTO, int matchCount) {
-        if (matchCount == PrizeType.FIRST_PRIZE.getValue()) {
-            lottoResultDTO.plusFirstPrizeCount();
-        } else if (matchCount == PrizeType.SECOND_PRIZE.getValue()) {
-            lottoResultDTO.plusSecondPrizeCount();
-        } else if (matchCount == PrizeType.THIRD_PRIZE.getValue()) {
-            lottoResultDTO.plusThirdPrizeCount();
-        } else if (matchCount == PrizeType.FOURTH_PRIZE.getValue()) {
-            lottoResultDTO.plusFourthPrizeCount();
+    private static void countLottoResult(LottoResultDTO lottoResultDTO, int matchCount, boolean matchBonus) {
+        PrizeType prizeType = PrizeType.valueOf(matchCount, matchBonus);
+        if (prizeType != null) {
+            prizeType.count(lottoResultDTO);
         }
     }
 }
