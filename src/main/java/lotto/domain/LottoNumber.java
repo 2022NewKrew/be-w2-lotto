@@ -23,6 +23,10 @@ public class LottoNumber {
         return number >= MIN_VALUE && number <= MAX_VALUE;
     }
 
+    public int getNumber() {
+        return number;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

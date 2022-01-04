@@ -31,7 +31,11 @@ public enum LottoResult {
         return LottoResult.NONE;
     }
 
-    public long getReward() {
+    public int getReward() {
         return reward;
+    }
+
+    public int getMatchCount() {
+        return matchCount;
     }
 }
