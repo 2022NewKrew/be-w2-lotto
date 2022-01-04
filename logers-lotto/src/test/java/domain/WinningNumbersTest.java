@@ -7,53 +7,68 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.*;
 
 class WinningNumbersTest {
     @ParameterizedTest
     @DisplayName("당첨 번호가 범위안의 숫자가 아닐때 실패")
-    @MethodSource("numbersThatHasWrongNumber")
-    void failedWhenNumbersHasWrongNumbers(List<Integer> numbers){
-        assertThatThrownBy(() -> new WinningNumbers(numbers))
+    @MethodSource("inputThatHasWrongNumber")
+    void failedWhenNumbersHasWrongNumbers(List<Integer> numbers, int bonusNumber){
+        assertThatThrownBy(() -> new WinningNumbers(numbers, bonusNumber))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("이상")
                 .hasMessageContaining("이하");
     }
 
-    private static Stream<Arguments> numbersThatHasWrongNumber(){
+    // given
+    private static Stream<Arguments> inputThatHasWrongNumber(){
         return Stream.of(
-                Arguments.of(List.of(-1, 1, 22, 30, 44, 45)),
-                Arguments.of(List.of(0, 1, 22, 30, 44, 45)),
-                Arguments.of(List.of(1, 22, 30, 44, 45, 46))
+                Arguments.of(List.of(-1, 1, 22, 30, 44, 45), 31),
+                Arguments.of(List.of(0, 1, 22, 30, 44, 45), 31),
+                Arguments.of(List.of(1, 22, 30, 44, 45, 46), 31)
         );
     }
 
     @ParameterizedTest
     @DisplayName("당첨 번호의 갯수가 6개가 아니면 실패")
-    @MethodSource("numbersThatSizeDifferent")
-    void failedWhenNumbersSizeDifferent(List<Integer> numbers){
-        assertThatThrownBy(() -> new WinningNumbers(numbers))
+    @MethodSource("inputThatHasSizeDifferent")
+    void failedWhenNumbersSizeDifferent(List<Integer> numbers, int bonusNumber){
+        assertThatThrownBy(() -> new WinningNumbers(numbers, bonusNumber))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("갯수");
     }
 
-    private static Stream<Arguments> numbersThatSizeDifferent(){
+    // given
+    private static Stream<Arguments> inputThatHasSizeDifferent(){
         return Stream.of(
-                Arguments.of(generateSameNumbers(Lotto.PRICE, 3)),
-                Arguments.of(generateSameNumbers(Lotto.PRICE, 5)),
-                Arguments.of(generateSameNumbers(Lotto.PRICE, 7)),
-                Arguments.of(generateSameNumbers(Lotto.PRICE, 10))
+                Arguments.of(List.of(1,2,3,4), 45),
+                Arguments.of(List.of(1,2,3,4,5), 45),
+                Arguments.of(List.of(1,2,3,4,5,6,7), 45),
+                Arguments.of(List.of(1,2,3,4,5,6,7,8,9,10), 45)
         );
     }
 
-    private static List<Integer> generateSameNumbers(int number, int times){
-        return IntStream.iterate(number, num -> num)
-                .boxed()
-                .limit(times)
-                .collect(toList());
+    @ParameterizedTest
+    @DisplayName("당첨 여부 성공 확인")
+    @MethodSource("matchedMethodInputAndExpected")
+    void successMatched(WinningNumbers winningNumbers, List<Integer> numbers, RewardType expected){
+        assertThat(winningNumbers.getMatchedNumber(numbers)).isEqualTo(expected);
+    }
+
+    // given
+    private static Stream<Arguments> matchedMethodInputAndExpected(){
+        return Stream.of(
+                Arguments.of(winningNumbers(), List.of(1,2,3,4,5,6), RewardType.FIRST_PLACE), // 1등
+                Arguments.of(winningNumbers(), List.of(1,2,3,4,5,7), RewardType.SECOND_PLACE), // 2등
+                Arguments.of(winningNumbers(), List.of(1,2,3,4,5,8), RewardType.THIRD_PLACE), // 3등
+                Arguments.of(winningNumbers(), List.of(1,2,3,4,7,8), RewardType.FOURTH_PLACE), // 4등
+                Arguments.of(winningNumbers(), List.of(1,2,3,7,8,9), RewardType.NONE) // 꽝
+        );
+    }
+
+    private static WinningNumbers winningNumbers(){
+        return new WinningNumbers(List.of(1,2,3,4,5,6), 7);
     }
 }

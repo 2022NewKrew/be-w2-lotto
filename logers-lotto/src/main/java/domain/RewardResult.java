@@ -1,29 +1,27 @@
 package domain;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
-import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toMap;
 
 public class RewardResult {
     private int purchaseAmount = 0;
-    private final Map<Integer, Integer> matchedToCount;
+    private final Map<RewardType, Integer> rewardToCount;
 
     public RewardResult(){
-        matchedToCount = IntStream.iterate(0, matched -> matched+1)
-                .limit(7)
-                .boxed()
-                .collect(toMap(matched -> matched, matched -> 0));
+        rewardToCount = Arrays.stream(RewardType.values())
+                .collect(toMap(rewardType -> rewardType, rewardType -> 0));
     }
 
-    public void addMatched(int numOfMatched){
+    public void addMatched(RewardType rewardType){
         purchaseAmount += Lotto.PRICE;
-        matchedToCount.computeIfPresent(numOfMatched, (key, val)-> ++val);
+        rewardToCount.computeIfPresent(rewardType, (key, val)-> ++val);
     }
 
-    public Map<Integer, Integer> getMatchedToCount() {
-        return Collections.unmodifiableMap(matchedToCount);
+    public Map<RewardType, Integer> getRewardToCount() {
+        return Collections.unmodifiableMap(rewardToCount);
     }
 
     public int getProfitPercent(){
@@ -31,8 +29,8 @@ public class RewardResult {
     }
 
     private int getTotalReward(){
-        return matchedToCount.entrySet().stream()
-                .map(entry -> RewardType.getReward(entry.getKey()) * entry.getValue())
+        return rewardToCount.entrySet().stream()
+                .map(entry -> entry.getKey().getReward() * entry.getValue())
                 .reduce(0, Integer::sum);
     }
 }
