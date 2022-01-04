@@ -30,8 +30,8 @@ final class ResultOutput {
     }
 
     private static void writeHowManyCorrectTo(StringBuilder sb, RewardForCorrect rewardForCorrect, Integer howMany) {
-        sb.append(rewardForCorrect.getHowManyCorrect())
-                .append("개 일치 (")
+        sb.append(rewardForCorrect.getDescription())
+                .append("(")
                 .append(rewardForCorrect.getReward())
                 .append(")- ")
                 .append(howMany)

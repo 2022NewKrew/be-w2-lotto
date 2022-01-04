@@ -4,8 +4,11 @@ import java.util.List;
 
 public class LastWinningLotto extends Lotto {
 
-    public LastWinningLotto(List<LottoNumber> numbers) {
+    private LottoNumber bonusNumber;
+
+    public LastWinningLotto(List<LottoNumber> numbers, LottoNumber bonusNumber) {
         super(numbers);
+        this.bonusNumber = bonusNumber;
     }
 
     public int getHowManyCorrect(Lotto myLotto) {
@@ -14,5 +17,9 @@ public class LastWinningLotto extends Lotto {
             if (myLotto.isContain(number)) howManyCorrect++;
         }
         return howManyCorrect;
+    }
+
+    public boolean isContainBonus(Lotto myLotto) {
+        return myLotto.isContain(bonusNumber);
     }
 }

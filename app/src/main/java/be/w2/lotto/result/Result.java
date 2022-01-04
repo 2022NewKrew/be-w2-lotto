@@ -19,8 +19,8 @@ public class Result {
         return stat;
     }
 
-    public void add(int howManyCorrect) {
-        Optional<RewardForCorrect> rewardForCorrect = RewardForCorrect.getRewordForCorrectByHowManyCorrect(howManyCorrect);
+    public void add(CorrectSpec correctSpec) {
+        Optional<RewardForCorrect> rewardForCorrect = RewardForCorrect.getRewordForCorrectByHowManyCorrect(correctSpec);
         rewardForCorrect.ifPresent(
                 rfc -> stat.put(rfc, stat.get(rfc) + 1)
         );

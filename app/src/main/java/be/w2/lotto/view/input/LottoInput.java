@@ -15,10 +15,10 @@ final class LottoInput {
     private LottoInput() {
     }
 
-    static LastWinningLotto getLastWinningLottoBy(String input) {
+    static LastWinningLotto getLastWinningLottoBy(String input, String inputForBonus) {
         List<LottoNumber> numbers = convertStringToListOfNumbers(input);
         Collections.sort(numbers);
-        return new LastWinningLotto(numbers);
+        return new LastWinningLotto(numbers, LottoNumber.of(inputForBonus));
     }
 
     private static List<LottoNumber> convertStringToListOfNumbers(String input) {

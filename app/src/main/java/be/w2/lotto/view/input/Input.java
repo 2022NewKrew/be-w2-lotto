@@ -15,7 +15,8 @@ public final class Input {
 
     public static synchronized LastWinningLotto inputLastWinningLotto() {
         String input = inputStringWithMessage(GameMessage.INPUT_LAST_WINNING_NUMBER);
-        return LottoInput.getLastWinningLottoBy(input);
+        String inputForBonus = inputStringWithMessage(GameMessage.INPUT_BONUS_NUMBER);
+        return LottoInput.getLastWinningLottoBy(input, inputForBonus);
     }
 
     public static synchronized int inputIntWithMessage(String message) {
