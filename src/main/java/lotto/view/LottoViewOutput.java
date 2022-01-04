@@ -45,11 +45,10 @@ public class LottoViewOutput {
 
         List<Rank> ranks = List.of(Rank.values());
         for(int i = ranks.size() - 1 ; i >= 0 ; i--){
-            Rank rank = ranks.get(i);
-            if(rank.getCountOfMatch() < Rank.FOURTH.getCountOfMatch()){
+            if(ranks.get(i).getCountOfMatch() < Rank.FOURTH.getCountOfMatch()){
                 continue;
             }
-            System.out.println(rank.getCountOfMatch() + "개 일치 " + rank.getWinningMessage() + " - " + winnerMap.get(rank).size() + "개");
+            System.out.println(ranks.get(i).getCountOfMatch() + "개 일치 " + ranks.get(i).getWinningMessage() + " - " + winnerMap.get(ranks.get(i)).size() + "개");
         }
 
         System.out.println("총 수익률은 " + Long.valueOf((long) (lottoObject.getEarning().doubleValue() / lottoObject.getPayment() * 100)) + "%입니다.");
