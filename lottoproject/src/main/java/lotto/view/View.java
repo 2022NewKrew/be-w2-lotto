@@ -1,12 +1,14 @@
 package lotto.view;
 
 import lotto.domain.Lotto;
+import lotto.domain.Round;
+import lotto.util.Rank;
 import lotto.util.Util;
 
 import java.util.*;
 
 public class View {
-    private static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
 
     public static int inputInteger(String message){
         System.out.println(message);
@@ -18,10 +20,10 @@ public class View {
     public static List<Integer> inputIntegerArrayList(String message, String gubun){
         System.out.println(message);
         String input = sc.nextLine();
-        List<Integer> inputIntegerArrayList = new ArrayList<Integer>();
+        List<Integer> inputIntegerArrayList = new ArrayList<>();
         for (String string : input.split(gubun)){
             inputIntegerArrayList.add(Integer.parseInt(string));
-        };
+        }
         return inputIntegerArrayList;
     }
 
@@ -32,19 +34,13 @@ public class View {
         }
     }
 
-    public static void printRoundResult(Map<Integer,Integer> resultMap){
-        int totalCount = 0;
-        int totalReward = 0;
-        for (int count : resultMap.values()) {
-            totalCount += count;
-        }
+    public static void printRoundResult(Round round){
         System.out.println("당첨 통계");
         System.out.println("------------------");
-        for(int i=3; i<=6; i++){
-            totalCount += resultMap.getOrDefault(i,0);
-            totalReward += Util.reward.get(i) * resultMap.getOrDefault(i,0);
-            System.out.println(i+"개 일치"+" ("+Util.reward.get(i)+")- "+resultMap.getOrDefault(i,0)+"개");
+        for (Rank rank : Rank.values()) {
+            if(rank == Rank.NONE) continue;
+            System.out.println(rank.toString()+" - "+round.findResultMap().getOrDefault(rank, 0)+"개");
         }
-        System.out.println("총 수익률은 "+(float)totalReward*100/(totalCount*Util.lottoPrice)+"%입니다.");
+        System.out.println("총 수익률은 "+(float)round.findTotalReward()*100/(round.findLottoCount()*Util.lottoPrice)+"%입니다.");
     }
 }
