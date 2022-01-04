@@ -8,8 +8,15 @@ public class LottoGameInfo {
     private final int lottoQuantity;
 
     public LottoGameInfo(int inputMoney) {
+        validateInputMoney(inputMoney);
         this.inputMoney = inputMoney;
         this.lottoQuantity = inputMoney / LOTTO_PRICE;
+    }
+
+    private void validateInputMoney(int money) {
+        if (money < LOTTO_PRICE) {
+            throw new IllegalArgumentException("[에러] 구입 금액은 반드시 1000원 이상이어야 합니다.");
+        }
     }
 
     public int getInputMoney() {
