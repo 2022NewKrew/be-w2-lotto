@@ -9,6 +9,6 @@ public class Main {
         MyLottoLines myLottoLines = sm.getLottoLines();
         myLottoLines.checkWinning(sm.getWinningLine(), sm.getBonus());
 
-        ResultController.printResult();
+        ResultController.printResult(myLottoLines.getNumLotto());
     }
 }

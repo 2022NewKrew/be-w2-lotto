@@ -20,6 +20,7 @@ public class NNumber {
 
 
         numbers = fullNumbers.subList(0, NUM_PER_LINE);
+        Collections.sort(numbers);
     }
 
     private NNumber(List<Integer> manualInput) {

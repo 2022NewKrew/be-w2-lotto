@@ -2,9 +2,7 @@ package domain;
 
 import DTO.NNumber;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class WinningLottoLine {
     private static List<Integer> lottoLine;
@@ -35,7 +33,7 @@ public class WinningLottoLine {
     }
 
     public boolean setBonus(int bonus) {
-        if (bonus >= MIN_NUM && bonus <= MAX_NUM) {
+        if (!lottoLine.contains(bonus) && bonus >= MIN_NUM && bonus <= MAX_NUM) {
             this.bonus = bonus;
             return true;
         }
@@ -51,6 +49,8 @@ public class WinningLottoLine {
     }
 
     private static boolean isVerifiedLine(List<Integer> srcLst) {
-        return srcLst.get(0) >= MIN_NUM && srcLst.get(NUM_PER_LINE - 1) <= MAX_NUM;
+        Set<Integer> set = new HashSet<>(srcLst);
+
+        return set.size() == NUM_PER_LINE && srcLst.get(0) >= MIN_NUM && srcLst.get(NUM_PER_LINE - 1) <= MAX_NUM;
     }
 }

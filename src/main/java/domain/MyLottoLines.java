@@ -27,4 +27,8 @@ public class MyLottoLines {
             ms.addNumLotto();
         }
     }
+
+    public int getNumLotto() {
+        return lottoLines.size();
+    }
 }

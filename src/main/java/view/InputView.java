@@ -16,7 +16,7 @@ public class InputView {
     public static int getNumLotto() {
         System.out.println("구입금액을 입력해 주세요.");
         int payAmount = sc.nextInt();
-        System.out.print(payAmount / PRICE);
+        System.out.print(Integer.max(payAmount / PRICE, 0));
         System.out.println("개를 구매했습니다.");
 
         return payAmount / PRICE;

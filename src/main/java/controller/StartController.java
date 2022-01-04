@@ -37,7 +37,8 @@ public class StartController {
 
     private void makeLottoLines() {
         int numLotto = InputView.getNumLotto();
-        while (numLotto < 1) {
+        while (numLotto == 0) {
+            OutputView.printPayInputError();
             numLotto = InputView.getNumLotto();
         }
 

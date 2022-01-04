@@ -9,7 +9,7 @@ public class ResultController {
     private ResultController() {
     }
 
-    public static void printResult() {
+    public static void printResult(int numLotto) {
         OutputView.printPreResult();
 
         List<MatchScore> msLst = MatchScore.getWinObjLst();
@@ -17,6 +17,6 @@ public class ResultController {
         for (MatchScore ms : msLst) {
             OutputView.printResult(ms.getMatchNums(), ms.isMatchBonus(), ms.getPrice(), ms.getNumLotto());
         }
-        OutputView.printYield(MatchScore.getTotalPrice());
+        OutputView.printYield(MatchScore.getTotalPrice()/(numLotto*1000)*100);
     }
 }
