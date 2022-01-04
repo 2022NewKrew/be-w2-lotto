@@ -1,49 +1,50 @@
 package lotto.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
 
-    private static final Integer LOTTO_PRICE = 1000;
-    private final List<LottoRow> lottoRows;
-    private LottoWinningResult lottoWinningResult;
+    private final List<Integer> lottoNumbers;
+    public static final Integer NUMBER_OF_WINNING_NUMBERS = 6;
+    public static final Integer MAX_SIZE_OF_LOTTO = 45;
 
-    public Lotto(Integer purchaseAmount) {
-        this.lottoRows = makeLottoRows(calculateLottoCount(purchaseAmount));
+    public Lotto() {
+        this.lottoNumbers = makeLottoNumbers();
     }
 
-    private List<LottoRow> makeLottoRows(Integer lottoCount) {
-        List<LottoRow> lottoRows = new ArrayList<>();
+    private List<Integer> makeLottoNumbers() {
+        List<Integer> numbers = new ArrayList<>();
+        List<Integer> lottoBasicNumbers = makeLottoBasicNumbers();
+        Collections.shuffle(lottoBasicNumbers);
+        for (int i = 0; i < NUMBER_OF_WINNING_NUMBERS; i++) {
+            numbers.add(lottoBasicNumbers.get(i));
+        }
+        Collections.sort(numbers);
 
-        for (int i = 0; i < lottoCount; i++) {
-            lottoRows.add(new LottoRow());
+        return numbers;
+    }
+
+    private List<Integer> makeLottoBasicNumbers() {
+        List<Integer> basicLottoNumbers = new ArrayList<>();
+        for (int i = 1; i <= MAX_SIZE_OF_LOTTO; i++) {
+            basicLottoNumbers.add(i);
         }
 
-        return lottoRows;
+        return basicLottoNumbers;
     }
 
-    private Integer calculateLottoCount(Integer purchaseAmount) {
-        return purchaseAmount / LOTTO_PRICE;
+    public List<Integer> getLottoNumbers() {
+        return lottoNumbers;
     }
 
-    public Integer getLottoCount() {
-        return lottoRows.size();
-    }
+    public LottoWinningRating getWinningRating(List<Integer> winningNumbers) {
 
-    public List<LottoRow> getLottoRows() {
-        return lottoRows;
-    }
+        int matchCount = Math.toIntExact(winningNumbers.stream()
+                .filter(lottoNumbers::contains)
+                .count());
 
-    public Integer getWholeLottoPrice() {
-        return LOTTO_PRICE * getLottoCount();
-    }
-
-    public void calculateLottoWinningResult(List<Integer> winningNumbers) {
-        lottoWinningResult = new LottoWinningResult(winningNumbers, lottoRows);
-    }
-
-    public LottoWinningResult getLottoWinningResult() {
-        return lottoWinningResult;
+        return LottoWinningRating.getWinningRating(matchCount);
     }
 }

@@ -4,73 +4,60 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 class LottoTest {
 
-    @DisplayName("로또 생성 테스트")
+    @DisplayName("로또 한줄 생성 테스트")
     @Test
     void createLotto() {
         // Given
 
         // When
-        Lotto lotto = new Lotto(14000);
+        Lotto lotto = new Lotto();
 
         // Then
-        Assertions.assertEquals(14, lotto.getLottoCount());
+        Assertions.assertEquals(6, lotto.getLottoNumbers().size());
     }
 
-    @DisplayName("로또 개수 get 메소드 테스트")
+    @DisplayName("LottoNumbers get 메소드 테스트")
     @Test
-    void getLottoCount() {
+    void getLottoNumbers() {
         // Given
-        Lotto lotto = new Lotto(14000);
+        Lotto lotto = new Lotto();
 
         // When
-        Integer result = lotto.getLottoCount();
+        List<Integer> lottoNumbers = lotto.getLottoNumbers();
 
-        //Then
-        Assertions.assertEquals(14, result);
+        // Then
+        Assertions.assertEquals(6, lottoNumbers.size());
     }
 
-    @DisplayName("getLottoRows 메소드 테스트")
+    @DisplayName("로또 등급 get 메소드 테스트")
     @Test
-    void getLottoRows() {
+    void getWinningRating() {
         // Given
-        Lotto lotto = new Lotto(14000);
+        Lotto lotto = new Lotto();
+        List<Integer> winningNumbers = new ArrayList<>();
+        winningNumbers.add(1);
+        winningNumbers.add(2);
+        winningNumbers.add(3);
+        winningNumbers.add(4);
+        winningNumbers.add(5);
+        winningNumbers.add(6);
+
+        List<LottoWinningRating> resultCompareList = new ArrayList<>();
+        resultCompareList.add(LottoWinningRating.FIRST);
+        resultCompareList.add(LottoWinningRating.SECOND);
+        resultCompareList.add(LottoWinningRating.THIRD);
+        resultCompareList.add(LottoWinningRating.FIRST);
+        resultCompareList.add(LottoWinningRating.NOTHING);
 
         // When
-        List<LottoRow> result = lotto.getLottoRows();
+        LottoWinningRating winningRating = lotto.getWinningRating(winningNumbers);
 
-        //Then
-        Assertions.assertEquals(14, result.size());
-    }
-
-    @DisplayName("로또 전체 가격 조회 메소드 테스트")
-    @Test
-    void getWholeLottoPrice() {
-        // Given
-        Lotto lotto = new Lotto(14000);
-
-        // When
-        Integer result = lotto.getWholeLottoPrice();
-
-        //Then
-        Assertions.assertEquals(14000, result);
-    }
-
-    @DisplayName("LottoWinningResult get 메소드 테스트 - Nothing이 널인지 확인")
-    @Test
-    void getLottoWinningResultWithNothingEnum() {
-        // Given
-        Lotto lotto = new Lotto(14000);
-
-        // When
-        LottoWinningResult lottoWinningResult = lotto.getLottoWinningResult();
-
-        //Then
-        Assertions.assertThrows(NullPointerException.class, () -> {
-            lottoWinningResult.getLottoWinningCount(LottoWinningRating.NOTHING);
-        });
+        // Then
+        Assertions.assertTrue(resultCompareList.contains(winningRating));
     }
 }

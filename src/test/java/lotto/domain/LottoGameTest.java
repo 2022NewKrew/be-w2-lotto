@@ -27,13 +27,13 @@ class LottoGameTest {
 
         Mockito.when(view.readPurchaseAmountForLotto()).thenReturn(14000);
 
-        Lotto lotto = new Lotto(14000);
-        Mockito.doNothing().when(view).printLottoCount(lotto.getLottoCount());
-        Mockito.doNothing().when(view).printLotto(lotto.getLottoRows());
+        LottoTicket lottoTicket = new LottoTicket(14000);
+        Mockito.doNothing().when(view).printLottoCount(lottoTicket.getLottoCount());
+        Mockito.doNothing().when(view).printLotto(lottoTicket.getLottoList());
 
-        LottoWinningResult lottoWinningResult = lotto.getLottoWinningResult();
+        LottoWinningResult lottoWinningResult = lottoTicket.getLottoWinningResult();
         Mockito.doNothing().when(view).printLottoWinningResult(lottoWinningResult);
-        Mockito.doNothing().when(view).printYield(lotto.getWholeLottoPrice());
+        Mockito.doNothing().when(view).printYield(lottoTicket.getWholeLottoPrice());
 
         // When
         lottoGame.run();

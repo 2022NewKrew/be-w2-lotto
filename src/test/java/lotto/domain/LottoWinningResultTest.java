@@ -21,12 +21,12 @@ class LottoWinningResultTest {
         winningNumbers.add(5);
         winningNumbers.add(6);
 
-        List<LottoRow> lottoRows = new ArrayList<>();
-        LottoRow lottoRow = new LottoRow();
-        lottoRows.add(lottoRow);
+        List<Lotto> lottoList = new ArrayList<>();
+        Lotto lotto = new Lotto();
+        lottoList.add(lotto);
 
         // When
-        LottoWinningResult lottoWinningResult = new LottoWinningResult(winningNumbers, lottoRows);
+        LottoWinningResult lottoWinningResult = new LottoWinningResult(winningNumbers, lottoList);
 
         // Then
         Assertions.assertTrue(lottoWinningResult.getLottoWinningCount(LottoWinningRating.FOURTH) <= 1);

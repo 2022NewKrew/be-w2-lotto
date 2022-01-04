@@ -6,14 +6,14 @@ public class LottoWinningResult {
 
     private Map<LottoWinningRating, Integer> lottoWinningResults;
 
-    public LottoWinningResult(List<Integer> winningNumbers, List<LottoRow> lottoRows) {
-        makeLottoWinningResults(winningNumbers, lottoRows);
+    public LottoWinningResult(List<Integer> winningNumbers, List<Lotto> lottoList) {
+        makeLottoWinningResults(winningNumbers, lottoList);
     }
 
-    private void makeLottoWinningResults(List<Integer> winningNumbers, List<LottoRow> lottoRows) {
+    private void makeLottoWinningResults(List<Integer> winningNumbers, List<Lotto> lottoList) {
         initLottoWinningResults();
-        for (LottoRow lottoRow : lottoRows) {
-            LottoWinningRating result = lottoRow.getWinningRating(winningNumbers);
+        for (Lotto lotto : lottoList) {
+            LottoWinningRating result = lotto.getWinningRating(winningNumbers);
             Integer count = lottoWinningResults.get(result);
             lottoWinningResults.put(result, count + 1);
         }

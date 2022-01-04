@@ -1,6 +1,6 @@
 package lotto.view;
 
-import lotto.domain.LottoRow;
+import lotto.domain.Lotto;
 import lotto.domain.LottoWinningRating;
 import lotto.domain.LottoWinningResult;
 
@@ -35,8 +35,8 @@ public class View {
         System.out.println(lottoCount + "개를 구매했습니다.");
     }
 
-    public void printLotto(List<LottoRow> lottoRows) {
-        for (LottoRow lottoRow : lottoRows) {
+    public void printLotto(List<Lotto> lottoRows) {
+        for (Lotto lottoRow : lottoRows) {
             System.out.println(lottoRow.getLottoNumbers());
         }
     }
