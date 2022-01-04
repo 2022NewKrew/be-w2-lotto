@@ -17,8 +17,4 @@ public class WinningLotto {
     public WinningLotto(Lotto lotto) {
         this.lotto = lotto;
     }
-
-    public Lotto getLotto() {
-        return new Lotto(lotto);
-    }
 }
