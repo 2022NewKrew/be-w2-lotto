@@ -2,30 +2,30 @@ package Lotto.view;
 
 import Lotto.domain.LottoManager;
 import Lotto.domain.LottoStatistics;
+import Lotto.domain.Rank;
 import Lotto.domain.Ticket;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class UIprinter {
-
-
     public static void start(){
         LottoManager lottoManager = new LottoManager();
-        LottoStatistics lottoStatistics = new LottoStatistics();
-
 
         lottoManager.buyTickets(getPrice());     // 구입금액 입력 and 로또 복권 구입
         printTickets(lottoManager.getTickets()); // 로또 출력
 
         // 지난 주 당첨 번호 입력
         lottoManager.setResults(getLastNum());
-        // 로또 통계 계산
-        lottoStatistics.calculateStatistics(lottoManager.getInvestmentAmount(), lottoManager.getTickets(), lottoManager.getResults());
+        // 보너스 숫자 입력
+        lottoManager.setBonusNumber(getBonusNumber());
+        // 로또 통계 생성
+        LottoStatistics lottoStatistics = new LottoStatistics(lottoManager.getInvestmentAmount(), lottoManager.getTickets(),
+                lottoManager.getResults(), lottoManager.getBonusNumber());
         // 로또 통계 출력
-        printStatistics(lottoStatistics.getMatched3num(), lottoStatistics.getMatched4num(),
-                lottoStatistics.getMatched5num(), lottoStatistics.getMatched6num(), lottoStatistics.getRateOfProfit());
+        printStatistics(lottoStatistics.getCountOfWining(), lottoStatistics.getRateOfProfit());
     }
 
     // 구입 금액을 입력받는 메소드
@@ -70,13 +70,21 @@ public class UIprinter {
     }
 
     // 로또 통계를 화면에 출력하는 메소드
-    public static void printStatistics(int matched3num, int matched4num, int matched5num, int matched6num, int rateOfProfit){
+    public static void printStatistics(Map<Rank, Integer> countOfWining, long rateOfProfit){
         System.out.println("당첨 통계");
         System.out.println("---------");
-        System.out.println("3개 일치 (5000원)- "+matched3num+"개");
-        System.out.println("4개 일치 (50000원)- "+matched4num+"개");
-        System.out.println("5개 일치 (1500000원)- "+matched5num+"개");
-        System.out.println("6개 일치 (2000000000원)- "+matched6num+"개");
+        System.out.println("3개 일치 (5000원)- "+countOfWining.get(Rank.FIFTH)+"개");
+        System.out.println("4개 일치 (50000원)- "+countOfWining.get(Rank.FOURTH)+"개");
+        System.out.println("5개 일치 (1500000원)- "+countOfWining.get(Rank.THIRD)+"개");
+        System.out.println("5개 일치, 보너스 볼 일치(30000000원)- "+countOfWining.get(Rank.SECOND)+"개");
+        System.out.println("6개 일치 (2000000000원)- "+countOfWining.get(Rank.FIRST)+"개");
         System.out.println("총 수익률은 "+rateOfProfit+"%입니다.");
+    }
+
+    // 보너스 숫자를 입력받는 메소드
+    public static int getBonusNumber(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return sc.nextInt();
     }
 }
