@@ -23,11 +23,11 @@ public class Agent {
     }
 
     public Ticket buyRandomTicket() {
-        return new Ticket(numbersFactory);
+        return new Ticket(numbersFactory.getRandomNumbers());
     }
 
     public void setResult(List<Integer> numbers, int bonusBall) {
-        this.result = new Result(numbers, numbersFactory, bonusBall);
+        this.result = new Result(numbersFactory.getValidatedNumbers(numbers), bonusBall);
     }
 
     public Prize getTicketPrize(Ticket ticket) {

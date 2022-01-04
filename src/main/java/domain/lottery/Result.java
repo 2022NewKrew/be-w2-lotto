@@ -6,12 +6,13 @@ public class Result {
     private final List<Integer> numbers;
     private final int bonusBall;
 
-    public Result(List<Integer> numbers, NumbersFactory numbersFactory, int bonusBall) {
+    public Result(List<Integer> numbers, int bonusBall) {
         if (numbers.contains(bonusBall)) {
-            throw new IllegalArgumentException("보너스 볼은 당첨 번호에 포함되면 안 됩니다.");
+            throw new IllegalArgumentException("보너스 볼 " + bonusBall + "은 당첨 번호 " + numbers + "에 포함되면 안 됩니다.");
         }
 
-        this.numbers = numbersFactory.getValidatedNumbers(numbers);
+        // bonusBall의 값 범위 검증 추가해야 됨
+        this.numbers = numbers;
         this.bonusBall = bonusBall;
     }
 

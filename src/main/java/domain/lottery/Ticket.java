@@ -5,8 +5,8 @@ import java.util.List;
 public class Ticket {
     private final List<Integer> numbers;
 
-    public Ticket(NumbersFactory numbersFactory) {
-        this.numbers = numbersFactory.getRandomNumbers();
+    public Ticket(List<Integer> numbers) {
+        this.numbers = numbers;
     }
 
     public boolean contains(int number) {
