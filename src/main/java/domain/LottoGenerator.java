@@ -1,6 +1,5 @@
 package domain;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,7 +18,10 @@ public final class LottoGenerator {
     }
 
     public static List<Integer> getLottoTicket() {
-        Collections.shuffle(lottoNumbers);
-        return  new ArrayList<>(lottoNumbers.subList(ZERO.getValue(), NUMBER_OF_LOTTO_NUMBERS.getValue()));
+        List<Integer> copyLottoNumbers = new ArrayList<>(lottoNumbers);
+        Collections.shuffle(copyLottoNumbers);
+        return copyLottoNumbers.stream()
+                .limit(NUMBER_OF_LOTTO_NUMBERS.getValue())
+                .collect(Collectors.toUnmodifiableList());
     }
 }

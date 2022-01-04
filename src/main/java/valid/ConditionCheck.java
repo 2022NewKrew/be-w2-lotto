@@ -5,9 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static domain.Lotto.ZERO;
-import static domain.Lotto.NUMBER_OF_LOTTO_NUMBERS;
-import static domain.Lotto.MAX_LOTTO_NUMBER;
+import static domain.Lotto.*;
 
 public final class ConditionCheck {
 
@@ -17,7 +15,7 @@ public final class ConditionCheck {
      * @return 양의 정수면 true, 아니면 false
      */
     public static boolean isPositiveInteger(int number) {
-        return number > ZERO.getValue();
+        return number > 0;
     }
 
     /**+
@@ -26,7 +24,7 @@ public final class ConditionCheck {
      * @return 인자 값이 로또 번호로 가능하면 true, 아니면 false
      */
     public static boolean isLottoNumber(int number) {
-        return ZERO.getValue() < number && number <= MAX_LOTTO_NUMBER.getValue();
+        return MIN_LOTTO_NUMBER.getValue() <= number && number <= MAX_LOTTO_NUMBER.getValue();
     }
 
     /**+

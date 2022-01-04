@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import static view.Sentence.*;
+
 public final class StandardInLottoServiceInputController implements LottoServiceInputController {
 
     private final Scanner scan;
@@ -18,12 +20,12 @@ public final class StandardInLottoServiceInputController implements LottoService
 
     @Override
     public int getPurchaseAmount() throws InputMismatchException, IllegalArgumentException {
-        System.out.println("구입금액을 입력해 주세요.");
+        System.out.println(PURCHASE_AMOUNT_REQUEST.getString());
         int amount = scan.nextInt();
         scan.nextLine();
 
         if(!ConditionCheck.isPositiveInteger(amount)) {
-            throw new IllegalArgumentException("잘못 입력하셨습니다." + System.lineSeparator() + "양의 정수만 입력해주세요.");
+            throw new IllegalArgumentException(INPUT_ERROR.getString() + NEWLINE.getString() + PLEASE_INPUT_POSITIVE_NUMBER.getString());
         }
 
         return amount;
@@ -31,17 +33,30 @@ public final class StandardInLottoServiceInputController implements LottoService
 
     @Override
     public List<Integer> getLastWeekWinningNumber() throws InputMismatchException, IllegalArgumentException {
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        List<Integer> numbers = Arrays.stream(scan.nextLine().split(",")).map(Integer::valueOf).collect(Collectors.toList());
+        System.out.println(LAST_WEEK_WINNING_NUMBER_REQUEST.getString());
+        List<Integer> numbers = Arrays.stream(scan.nextLine().split(COMMA.getString())).map(Integer::valueOf).collect(Collectors.toList());
 
         if(!numbers.stream().allMatch(ConditionCheck::isLottoNumber)) {
-            throw new IllegalArgumentException("잘못 입력하셨습니다." + System.lineSeparator() + "로또 번호 내에서 입력해주세요.");
+            throw new IllegalArgumentException(INPUT_ERROR.getString() + NEWLINE.getString() + PLEASE_INPUT_LOTTO_NUMBER.getString());
         }
 
         if(!ConditionCheck.isDistinctNumbers(numbers)) {
-            throw new IllegalArgumentException("잘못 입력하셨습니다." + System.lineSeparator() + "번호 중복없이 입력해주세요.");
+            throw new IllegalArgumentException(INPUT_ERROR.getString() + NEWLINE.getString() + PLEASE_INPUT_NUMBER_UNIQUE.getString());
         }
 
         return numbers;
+    }
+
+    @Override
+    public int getBonusBallNumber() throws InputMismatchException, IllegalArgumentException {
+        System.out.println(BONUS_BALL_REQUEST.getString());
+        int number = scan.nextInt();
+        scan.nextLine();
+
+        if(!ConditionCheck.isLottoNumber(number)) {
+            throw new IllegalArgumentException(INPUT_ERROR.getString() + NEWLINE.getString() + PLEASE_INPUT_LOTTO_NUMBER.getString());
+        }
+
+        return number;
     }
 }
