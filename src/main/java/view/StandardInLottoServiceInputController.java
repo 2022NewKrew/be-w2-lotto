@@ -44,4 +44,17 @@ public final class StandardInLottoServiceInputController implements LottoService
 
         return numbers;
     }
+
+    @Override
+    public int getBonusBallNumber() throws InputMismatchException, IllegalArgumentException {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        int number = scan.nextInt();
+        scan.nextLine();
+
+        if(!ConditionCheck.isLottoNumber(number)) {
+            throw new IllegalArgumentException("잘못 입력하셨습니다." + System.lineSeparator() + "로또 번호 내에서 입력해주세요.");
+        }
+
+        return number;
+    }
 }
