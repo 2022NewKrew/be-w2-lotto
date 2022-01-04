@@ -4,6 +4,7 @@ plugins {
 
 group 'org.example.lotto'
 version '1.0-SNAPSHOT'
+sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
     mavenCentral()
