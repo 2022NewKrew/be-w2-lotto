@@ -5,7 +5,7 @@ import java.util.Set;
 public interface InputView {
     long getLotteryBoughtPrice();
 
-    Set<Integer> getLotteryNumberList();
+    Set<Integer> getLotteryNumberSet();
 
     int getBonusNumber();
 }

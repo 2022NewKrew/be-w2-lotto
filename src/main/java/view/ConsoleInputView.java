@@ -33,13 +33,13 @@ public class ConsoleInputView implements InputView {
     }
 
     @Override
-    public Set<Integer> getLotteryNumberList() {
+    public Set<Integer> getLotteryNumberSet() {
         Set<Integer> lotteryNumberSet = null;
 
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         try {
-            String resultString = scanner.nextLine();
-            lotteryNumberSet = Arrays.stream(resultString.split(","))
+            String lotteryNumbersString = scanner.nextLine();
+            lotteryNumberSet = Arrays.stream(lotteryNumbersString.split(","))
                     .map(Integer::parseInt)
                     .peek(this::validateLotteryNumber)
                     .collect(Collectors.toSet());
@@ -60,8 +60,8 @@ public class ConsoleInputView implements InputView {
 
         System.out.println("보너스 볼을 압력해주세요.");
         try {
-            String resultString = scanner.nextLine();
-            bonusNumber = Integer.parseInt(resultString);
+            String bonusNumberString = scanner.nextLine();
+            bonusNumber = Integer.parseInt(bonusNumberString);
             this.validateLotteryNumber(bonusNumber);
         } catch (IllegalArgumentException exception) {
             System.err.println(exception.getMessage());
