@@ -1,12 +1,14 @@
 package domain;
 
+import domain.generator.PrizeGenerator;
+
 import java.util.List;
 
 public class Lotto {
     public static final int cost = 1000;
     private final List<Integer> lottoSequence;
 
-    public Lotto(List<Integer> lottoSequence){
+    public Lotto(List<Integer> lottoSequence) {
         this.lottoSequence = lottoSequence;
     }
 
@@ -14,10 +16,12 @@ public class Lotto {
         return lottoSequence;
     }
 
-    public Prize getResult(WinningLotto winningLotto){
+    public Prize getResult(WinningLotto winningLotto) {
         int correctNum = (int) lottoSequence.stream()
                 .filter(lottoNumber -> winningLotto.getLottoSequence().contains(lottoNumber))
                 .count();
-        return Prize.createPrize(correctNum);
+        boolean isBonus = lottoSequence.contains(winningLotto.getBonusNumber());
+
+        return PrizeGenerator.generate(correctNum, isBonus);
     }
 }

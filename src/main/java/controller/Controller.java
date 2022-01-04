@@ -1,38 +1,44 @@
 package controller;
 
 import domain.Lotto;
-import domain.LottoGenerator;
+import domain.generator.LottoGenerator;
 import domain.Prize;
 import domain.WinningLotto;
 import view.InputOutputManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Controller {
     private final InputOutputManager inputOutputManager;
 
-    public Controller(InputOutputManager inputOutputManager){
+    public Controller(InputOutputManager inputOutputManager) {
         this.inputOutputManager = inputOutputManager;
     }
 
-    public void run(){
+    public void run() {
         int money = inputOutputManager.getMoney();
 
+        // Lotto 생성
         List<Lotto> lottoList = buyLottoWithMoney(money);
         inputOutputManager.printLottoList(lottoList);
 
+        // WinningLotto 생성
         List<Integer> winningSequence = inputOutputManager.getWinningSequence();
-        WinningLotto winningLotto = new WinningLotto(winningSequence);
+        int bonusNumber = inputOutputManager.getBonusNumber();
+        WinningLotto winningLotto = new WinningLotto(winningSequence, bonusNumber);
 
+        // Prize(결과) 생성
         List<Prize> prizes = lottoList.stream()
-                                .map(lotto -> lotto.getResult(winningLotto))
-                                .collect(Collectors.toList());
+                .map(lotto -> lotto.getResult(winningLotto))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
         inputOutputManager.printResult(prizes, money);
     }
 
-    private List<Lotto> buyLottoWithMoney(int money){
+    private List<Lotto> buyLottoWithMoney(int money) {
         List<Lotto> lottoList = new ArrayList<>();
         for (; money >= Lotto.cost; money -= Lotto.cost)
             lottoList.add(LottoGenerator.generate());

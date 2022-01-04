@@ -1,5 +1,5 @@
 import domain.Lotto;
-import domain.LottoGenerator;
+import domain.generator.LottoGenerator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;

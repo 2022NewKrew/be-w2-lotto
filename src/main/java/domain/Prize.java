@@ -5,31 +5,31 @@ import exception.IllegalInputException;
 import java.util.Arrays;
 
 public enum Prize {
-    FOURTH(5000, 3),
-    THIRD(50000, 4),
-    SECOND(1500000, 5),
-    FIRST(2000000000, 6);
+    FOURTH(5000, 3, false),
+    THIRD(50000, 4, false),
+    SECOND(1500000, 5, false),
+    SECOND_BONUS(30000000, 5, true),
+    FIRST(2000000000, 6, false);
 
     private final int money;
     private final int correctAmount;
+    private final boolean isBonus;
 
-    Prize(int money, int correctAmount){
+    Prize(int money, int correctAmount, boolean isBonus) {
         this.money = money;
         this.correctAmount = correctAmount;
+        this.isBonus = isBonus;
     }
 
-    public int getMoney(){
+    public int getMoney() {
         return money;
     }
 
-    public int getCorrectAmount(){
+    public int getCorrectAmount() {
         return correctAmount;
     }
 
-    public static Prize createPrize(int correctAmount){
-        return Arrays.stream(Prize.values())
-                .filter(prize -> prize.getCorrectAmount() == correctAmount)
-                .findFirst()
-                .orElse(null);
+    public boolean getIsBonus() {
+        return isBonus;
     }
 }

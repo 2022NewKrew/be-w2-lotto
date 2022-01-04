@@ -1,11 +1,11 @@
 package exception;
 
-public class IllegalInputException extends RuntimeException{
-    public IllegalInputException(){
+public class IllegalInputException extends RuntimeException {
+    public IllegalInputException() {
         super();
     }
 
-    public IllegalInputException(String message){
+    public IllegalInputException(String message) {
         super(message);
     }
 }

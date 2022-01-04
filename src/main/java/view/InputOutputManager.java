@@ -9,14 +9,18 @@ import view.Scanner.PositiveIntScanner;
 import java.util.List;
 
 public class InputOutputManager {
-    public int getMoney(){
+    public int getMoney() {
         return PositiveIntScanner.getPositiveInt("구입 금액을 입력해주세요.");
+    }
+
+    public int getBonusNumber() {
+        return PositiveIntScanner.getPositiveInt("보너스 볼을 입력해주세요.");
     }
 
     public void printLottoList(List<Lotto> lottoList) {
         int lottoCount = lottoList.size();
 
-        if (lottoCount == 0){
+        if (lottoCount == 0) {
             System.out.println("구입하신 로또가 없습니다.");
             return;
         }
