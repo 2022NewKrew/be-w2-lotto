@@ -1,5 +1,7 @@
 package be.w2.lotto.result;
 
+import java.util.Optional;
+
 public enum RewardForCorrect {
 
     THREE(3, 5_000),
@@ -21,5 +23,13 @@ public enum RewardForCorrect {
 
     public int getReward() {
         return reward;
+    }
+
+    static Optional<RewardForCorrect> getRewordForCorrectByHowManyCorrect(int howManyCorrect) {
+        for (RewardForCorrect rewardForCorrect : RewardForCorrect.values()) {
+            if (rewardForCorrect.getHowManyCorrect() == howManyCorrect)
+                return Optional.of(rewardForCorrect);
+        }
+        return Optional.empty();
     }
 }

@@ -20,18 +20,10 @@ public class Result {
     }
 
     public void add(int howManyCorrect) {
-        Optional<RewardForCorrect> rewardForCorrect = getRewordForCorrctByHowManyCorrect(howManyCorrect);
+        Optional<RewardForCorrect> rewardForCorrect = RewardForCorrect.getRewordForCorrectByHowManyCorrect(howManyCorrect);
         rewardForCorrect.ifPresent(
                 rfc -> stat.put(rfc, stat.get(rfc) + 1)
         );
-    }
-
-    private Optional<RewardForCorrect> getRewordForCorrctByHowManyCorrect(int howManyCorrect) {
-        for (RewardForCorrect rewardForCorrect : RewardForCorrect.values()) {
-            if (rewardForCorrect.getHowManyCorrect() == howManyCorrect)
-                return Optional.of(rewardForCorrect);
-        }
-        return Optional.empty();
     }
 
     public int getRevenue() {
