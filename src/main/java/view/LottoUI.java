@@ -2,6 +2,7 @@ package main.java.view;
 
 import main.java.lotto.Lotto;
 import main.java.lotto.LottoGame;
+import main.java.lotto.LottoRank;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,6 +18,7 @@ public class LottoUI {
         moneyInput();
         showLotto(lottoGame);
         sixNumInput();
+        bonusInput(lottoGame);
         showWinning(lottoGame);
         showEarning(lottoGame);
     }
@@ -51,10 +53,17 @@ public class LottoUI {
         System.out.println("----------");
         lottoGame.makeWinList();
         ArrayList<Integer> winList = lottoGame.getWinList();
-        ArrayList<Integer> earningList = lottoGame.getEarningList();
-        for (int i=3;i<7;i++){
-            System.out.printf("%d개 일치 (%d원)- %d개%n",i,earningList.get(i),winList.get(i));
+//        ArrayList<Integer> earningList = lottoGame.getEarningList();
+        LottoRank[] rank = LottoRank.values();
+        for (int i=4;i>=0;i--){
+            System.out.printf("%d개 일치%s (%d원)- %d개%n",rank[i].getMatch(),rank[i].getIsBonus(),rank[i].getEarning(),winList.get(i));
         }
+    }
+
+    private void bonusInput(LottoGame lottoGame){
+        System.out.println("보너스 볼을 입력해 주세요.");
+        lottoGame.setBonus(sc.nextInt());
+        sc.nextLine();
     }
 
     private void showEarning(LottoGame lottoGame){

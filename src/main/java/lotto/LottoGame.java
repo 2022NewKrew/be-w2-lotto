@@ -8,42 +8,48 @@ public class LottoGame {
     private int money;
     private int earning;
     private int lottoCount;
+    private int bonus;
     private ArrayList<Lotto> lottoList;
     private ArrayList<Integer> sixNumList;
     private ArrayList<Integer> winList;
-    private ArrayList<Integer> earningList;
+//    private ArrayList<Integer> earningList;
 
     public LottoGame(int money){
         this.money=money;
-        this.earning=0;
+        this.earning=-money;
         this.lottoCount = money/1000;
         this.lottoList = new ArrayList<>();
         makeLottoList();
         this.sixNumList = new ArrayList<>();
         this.winList = new ArrayList<>();
         setWinList();
-        this.earningList = new ArrayList<>();
-        setEarningList();
+//        this.earningList = new ArrayList<>();
+//        setEarningList();
     }
 
     private void setWinList(){
-        for(int i=0;i<7;i++){
+        for(int i=0;i<5;i++){
             winList.add(0);
         }
     }
 
-    private void setEarningList() {
-        earningList.add(0);
-        earningList.add(0);
-        earningList.add(0);
-        earningList.add(5000);
-        earningList.add(50000);
-        earningList.add(1500000);
-        earningList.add(2000000000);
-    }
+//    private void setEarningList() {
+//        earningList.add(0);
+//        earningList.add(0);
+//        earningList.add(0);
+//        earningList.add(5000);
+//        earningList.add(50000);
+//        earningList.add(1500000);
+//        earningList.add(2000000000);
+//    }
+//
+//    public ArrayList<Integer> getEarningList() {
+//        return earningList;
+//    }
 
-    public ArrayList<Integer> getEarningList() {
-        return earningList;
+
+    public void setBonus(int bonus) {
+        this.bonus = bonus;
     }
 
     public ArrayList<Lotto> getLottoList() {
@@ -71,9 +77,32 @@ public class LottoGame {
 
     public void makeWinList(){
         for(int i=0;i<lottoList.size();i++){
-            int idx = checkWinning(lottoList.get(i));
+            int cnt = checkWinning(lottoList.get(i));
+            int idx = -1;
+            if (checkBonus(lottoList.get(i)) && cnt==LottoRank.SECOND.getMatch()){
+                idx = LottoRank.SECOND.ordinal();
+            } else {
+                idx = makeIdx(cnt);
+            }
+            if (idx<0){
+                continue;
+            }
             winList.set(idx,winList.get(idx)+1);
         }
+    }
+
+    public int makeIdx(int cnt){
+        switch (cnt){
+            case 6: return 0;
+            case 5: return 2;
+            case 4: return 3;
+            case 3: return 4;
+            default: return -1;
+        }
+    }
+
+    private boolean checkBonus(Lotto lotto){
+        return lotto.getLotto().contains(bonus);
     }
 
     private int checkWinning(Lotto lotto){
@@ -86,9 +115,11 @@ public class LottoGame {
         return cnt;
     }
 
+
     public void setEarning(){
-        for(int i=3;i<7;i++){
-            earning += earningList.get(i) * winList.get(i);
+        LottoRank[] val = LottoRank.values();
+        for(int i=0;i<5;i++){
+            earning += val[i].getEarning() * winList.get(i);
         }
     }
 
