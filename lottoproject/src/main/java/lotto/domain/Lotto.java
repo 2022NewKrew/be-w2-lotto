@@ -13,7 +13,6 @@ public class Lotto {
     }
 
     public Rank findRank(List<Integer> resultNumbers, int bonusNumber){
-        System.out.println(Rank.valueOf(findMatchNumberCount(resultNumbers), isMatchBonusNumber(bonusNumber)));
         return Rank.valueOf(findMatchNumberCount(resultNumbers), isMatchBonusNumber(bonusNumber));
     }
 
