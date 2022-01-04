@@ -1,6 +1,9 @@
 package lottogame.controller;
 
-import lottogame.domain.*;
+import lottogame.domain.lottery.LotteryTickets;
+import lottogame.domain.lottery.LotteryTicketsFactory;
+import lottogame.domain.statistics.Statistics;
+import lottogame.domain.statistics.StatisticsFactory;
 import lottogame.dto.PurchasedPrice;
 import lottogame.dto.WinningNumbers;
 import lottogame.view.LottoGameView;

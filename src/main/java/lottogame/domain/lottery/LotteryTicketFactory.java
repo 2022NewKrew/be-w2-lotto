@@ -1,4 +1,6 @@
-package lottogame.domain;
+package lottogame.domain.lottery;
+
+import lottogame.domain.RandomCollection;
 
 public class LotteryTicketFactory {
     private LotteryTicketFactory() {

@@ -1,7 +1,7 @@
 package lottogame.view;
 
-import lottogame.domain.LotteryTickets;
-import lottogame.domain.Statistics;
+import lottogame.domain.lottery.LotteryTickets;
+import lottogame.domain.statistics.Statistics;
 import lottogame.dto.PurchasedPrice;
 import lottogame.dto.WinningNumbers;
 

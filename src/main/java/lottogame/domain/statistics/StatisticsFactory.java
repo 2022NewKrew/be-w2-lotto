@@ -1,5 +1,8 @@
-package lottogame.domain;
+package lottogame.domain.statistics;
 
+import lottogame.domain.lottery.LotteryNumbers;
+import lottogame.domain.lottery.LotteryNumbersFactory;
+import lottogame.domain.lottery.LotteryTickets;
 import lottogame.dto.WinningNumbers;
 
 import java.util.ArrayList;

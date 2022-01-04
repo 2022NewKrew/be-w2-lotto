@@ -1,4 +1,4 @@
-package lottogame.domain;
+package lottogame.domain.statistics;
 
 public class Statistics {
     private Results results;

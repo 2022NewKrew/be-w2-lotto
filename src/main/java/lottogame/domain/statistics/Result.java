@@ -1,4 +1,4 @@
-package lottogame.domain;
+package lottogame.domain.statistics;
 
 public class Result {
     private int countOfSameNumber;

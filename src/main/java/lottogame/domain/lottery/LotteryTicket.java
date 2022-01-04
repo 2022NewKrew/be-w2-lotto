@@ -1,4 +1,4 @@
-package lottogame.domain;
+package lottogame.domain.lottery;
 
 public class LotteryTicket {
     LotteryNumbers lotteryNumbers;
