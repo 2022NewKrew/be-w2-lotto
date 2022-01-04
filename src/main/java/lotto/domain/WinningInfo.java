@@ -47,10 +47,8 @@ public class WinningInfo {
     }
 
     private int compare(Lotto lotto, List<Integer> winningNumber) {
-        int result = 0;
-        for (int i = 0; i < Lotto.LENGTH; i++) {
-            result += lotto.getNumbers().contains(winningNumber.get(i)) ? 1 : 0;
-        }
-        return result;
+        return (int) winningNumber.stream()
+                .filter(n -> lotto.getNumbers().contains(n))
+                .count();
     }
 }

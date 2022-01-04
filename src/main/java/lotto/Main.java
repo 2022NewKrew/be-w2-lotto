@@ -13,12 +13,15 @@ public class Main {
 
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
-            PurchaseInfo purchaseInfo = im.getPurchaseAmount(scanner);
+            int purchaseAmount = im.getPurchaseAmount(scanner);
+
+            PurchaseInfo purchaseInfo = new PurchaseInfo(purchaseAmount);
             List<Lotto> lottoList = pm.purchase(purchaseInfo);
             om.printAllLotto(lottoList);
 
             List<Integer> winningNumber = im.getWinningNumber(scanner);
             int bonusNumber = im.getBonusNumber(scanner);
+
             WinningInfo winningInfo = new WinningInfo(lottoList, winningNumber, bonusNumber);
             om.printPrizes(purchaseInfo, winningInfo);
         }

@@ -1,23 +1,19 @@
 package lotto.io;
 
 import lotto.domain.Lotto;
-import lotto.domain.PurchaseInfo;
 
 import java.util.*;
 
 public class CLIInputManager implements InputManager {
     private static final String PURCHASE_AMOUNT_TITLE = "구입금액을 입력해 주세요.";
-    private static final String PURCHASE_RESULT_FORMAT = "%d개를 구매했습니다.%n";
     private static final String WINNING_NUMBER_TITLE = "지난 주 당첨 번호를 입력해 주세요.";
     private static final String BONUS_NUMBER_TITLE = "보너스 볼을 입력해 주세요.";
 
-    public PurchaseInfo getPurchaseAmount(Scanner scanner) {
+    public int getPurchaseAmount(Scanner scanner) {
         System.out.println(PURCHASE_AMOUNT_TITLE);
         int purchaseAmount = Integer.parseInt(scanner.nextLine());
         checkValidPurchaseAmount(purchaseAmount);
-        PurchaseInfo pi = new PurchaseInfo(purchaseAmount);
-        System.out.format(PURCHASE_RESULT_FORMAT, pi.getNumOfPurchase());
-        return pi;
+        return purchaseAmount;
     }
 
     public List<Integer> getWinningNumber(Scanner scanner) {
@@ -28,7 +24,7 @@ public class CLIInputManager implements InputManager {
         }
         Collections.sort(result);
         checkValidWinningNumberList(result);
-        return result;
+        return Collections.unmodifiableList(result);
     }
 
     public int getBonusNumber(Scanner scanner) {
@@ -38,34 +34,36 @@ public class CLIInputManager implements InputManager {
         return bonus;
     }
 
-    private void checkValidPurchaseAmount(int purchaseAmount) {
+    private static void checkValidPurchaseAmount(int purchaseAmount) {
         if (purchaseAmount < 0) {
             throw new IllegalArgumentException("잘못된 구매금액입니다!");
         }
     }
 
-    private void checkValidWinningNumberList(List<Integer> winningNumber) {
+    private static void checkValidWinningNumberList(List<Integer> winningNumber) {
         checkValidWinningNumberLength(winningNumber);
         for (int i = 0; i < winningNumber.size() - 1; i++) {
             checkValidWinningNumberEach(winningNumber.get(i), winningNumber.get(i + 1));
         }
     }
 
-    private void checkValidWinningNumberLength(List<Integer> winningNumber){
+    private static void checkValidWinningNumberLength(List<Integer> winningNumber){
         if (winningNumber.size() != Lotto.LENGTH) {
             throw new IllegalArgumentException("잘못된 당첨 번호 개수입니다!");
         }
     }
 
-    private void checkValidWinningNumberEach(int current, int next) {
+    private static void checkValidWinningNumberEach(int current, int next) {
         if (current == next) {
             throw new IllegalArgumentException("당첨 번호에 중복이 존재합니다!");
         }
     }
 
-    private void checkValidBonusNumber(int bonus) {
+    private static void checkValidBonusNumber(int bonus) {
         if (bonus < 1 || bonus > 45) {
             throw new IllegalArgumentException("잘못된 보너스 볼 범위입니다!");
         }
     }
 }
+
+

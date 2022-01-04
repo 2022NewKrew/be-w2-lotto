@@ -12,21 +12,22 @@ public class Lotto {
     private final List<Integer> numbers;
 
     public Lotto() {
-        this.numbers = new ArrayList<>();
+        List<Integer> numbers = new ArrayList<>();
         for (int i = 0; i < LENGTH; i++) {
-            int nextNum = i == 0 ? randomNum() : nextNum();
-            this.numbers.add(nextNum);
+            int nextNum = i == 0 ? randomNum() : nextNum(numbers);
+            numbers.add(nextNum);
         }
-        Collections.sort(this.numbers);
+        Collections.sort(numbers);
+        this.numbers = Collections.unmodifiableList(numbers);
     }
 
     private int randomNum() {
         return random.nextInt(44) + 1;
     }
 
-    private int nextNum() {
-        int result = this.numbers.get(0);
-        while (this.numbers.contains(result)) {
+    private int nextNum(List<Integer> numbers) {
+        int result = numbers.get(0);
+        while (numbers.contains(result)) {
             result = randomNum();
         }
         return result;
