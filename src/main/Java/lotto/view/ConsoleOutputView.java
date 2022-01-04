@@ -1,6 +1,6 @@
 package lotto.view;
 
-import lotto.domain.LottoBundle;
+import lotto.domain.lottobundle.LottoBundle;
 import lotto.domain.WinningStats;
 
 public class ConsoleOutputView {

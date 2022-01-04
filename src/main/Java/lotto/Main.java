@@ -1,6 +1,7 @@
 package lotto;
 
-import lotto.domain.LottoBundle;
+import lotto.controller.LottoController;
+import lotto.domain.lottobundle.LottoBundle;
 import lotto.domain.WinningStats;
 import lotto.view.ConsoleInputView;
 import lotto.view.ConsoleOutputView;
@@ -9,12 +10,11 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-            int lottoPurchaseMoney = ConsoleInputView.getLottoPurchaseMoney();
-            LottoBundle lottoBundle = new LottoBundle(lottoPurchaseMoney);
-            ConsoleOutputView.printLottoCount(lottoBundle.getCount());
-            ConsoleOutputView.printLottoBundle(lottoBundle);
-            List<Integer> lastWeekLottoNumberList = ConsoleInputView.getLastWeekLottoNumberList();
-            WinningStats winningStats = new WinningStats(lottoBundle,lastWeekLottoNumberList,lottoPurchaseMoney);
-            ConsoleOutputView.printWinningStats(winningStats);
+        LottoController lottoController = new LottoController();
+        lottoController.purchaseLottoBundleInView();
+        lottoController.printLottoBundle();
+        lottoController.getLastWeekLottoNumberList();
+        lottoController.constructWinningStats();
+        lottoController.printWinningStats();
     }
 }
