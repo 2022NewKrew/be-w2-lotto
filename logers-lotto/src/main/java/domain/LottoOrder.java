@@ -1,39 +1,48 @@
 package domain;
 
-import factory.LottoFactory;
-
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
 public class LottoOrder {
+    private final int purchaseAmount;
     private final List<Lotto> lottos;
 
-    public LottoOrder(int purchaseAmount) {
-        int times = purchaseAmount / Lotto.PRICE;
-        lottos = Stream
-                .generate(LottoFactory::createInstance)
-                .limit(times)
+    public LottoOrder(int purchaseAmount, List<List<Integer>> numberLists) {
+        validate(purchaseAmount);
+
+        this.purchaseAmount = purchaseAmount;
+        this.lottos = numberLists.stream()
+                .map(Lotto::new)
                 .collect(toList());
     }
 
-    public Result getResult(WinningNumber winningNumber){
-        Result result = new Result();
-        for(Lotto lotto : lottos){
-            result.addMatched(winningNumber.getMatchedNumber(lotto));
+    private void validate(int purchaseAmount) {
+        if(purchaseAmount % Lotto.PRICE != 0){
+            throw new IllegalArgumentException(
+                    "로또 가격의 단위는 ".concat(String.valueOf(Lotto.PRICE)).concat("입니다."));
         }
-        return result;
+
+        if(purchaseAmount <= 0){
+            throw new IllegalArgumentException("구매 금액은 양수로 적어주세요.");
+        }
     }
 
-    @Override
-    public String toString() {
-        return String.valueOf(lottos.size())
-                .concat("개를 구매했습니다.\n")
-                .concat(lottos.stream()
-                        .map(Lotto::toString)
-                        .collect(Collectors.joining("\n"))
-                );
+    public RewardResult getResult(WinningNumbers winningNumbers){
+        RewardResult rewardResult = new RewardResult();
+        for(Lotto lotto : lottos){
+            rewardResult.addMatched(winningNumbers.matching(lotto.getNumbers()));
+        }
+        return rewardResult;
+    }
+
+    public List<List<Integer>> getLottos(){
+        return lottos.stream()
+                .map(Lotto::getNumbers)
+                .collect(toList());
+    }
+
+    public int getPurchaseAmount(){
+        return purchaseAmount;
     }
 }
