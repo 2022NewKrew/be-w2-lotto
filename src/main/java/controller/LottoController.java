@@ -2,6 +2,7 @@ package controller;
 
 import domain.Lotto;
 import domain.LottoResult;
+import domain.WinningLotto;
 import exception.LottoPurchasePriceException;
 import view.LottoView;
 
@@ -16,6 +17,7 @@ public class LottoController {
     private int purchasePrice;
     private int purchaseAmount;
     private List<Lotto> lottoList;
+    private WinningLotto winningLotto;
     private LottoResult lottoResult;
     private LottoView lottoView;
 
@@ -24,6 +26,8 @@ public class LottoController {
         this.purchasePrice = purchasePrice;
         this.purchaseAmount = purchasePrice / LOTTO_PRICE;
         this.lottoList = generateLottoList();
+        this.winningLotto = new WinningLotto();
+        this.lottoResult = new LottoResult();
         this.lottoView = new LottoView();
     }
 
@@ -58,13 +62,13 @@ public class LottoController {
             countOfMatches.put(countNumber, countOfMatches.get(countNumber) + 1);
         }
 
-        lottoResult.setCountOfMatches(countOfMatches);
+        setCountOfMatches(countOfMatches);
     }
 
     public int countNumberOfMatches(Lotto lotto) {
         int matches = 0;
 
-        for (Integer target : lottoResult.getNumbers()) {
+        for (Integer target : winningLotto.getNumbers()) {
             if (lotto.getNumbers().contains(target)) {
                 matches += 1;
             }
@@ -73,8 +77,12 @@ public class LottoController {
         return matches;
     }
 
-    public void setLottoResult(List<Integer> numbers) {
-        lottoResult = new LottoResult(numbers);
+    public void setWinningLottoNumbers(List<Integer> numbers) {
+        winningLotto.setNumbers(numbers);
+    }
+
+    public void setCountOfMatches(Map<Integer, Integer> countOfMatches) {
+        lottoResult.setCountOfMatches(countOfMatches);
     }
 
     public void printPurchaseAmount() {

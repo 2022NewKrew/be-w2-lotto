@@ -8,7 +8,7 @@ public class LottoApplication {
             LottoController lottoController = new LottoController(inputController.getPurchasePrice());
             lottoController.printPurchaseAmount();
 
-            lottoController.setLottoResult(inputController.getLottoNumbers());
+            lottoController.setWinningLottoNumbers(inputController.getLottoNumbers());
             lottoController.generateLottoResult();
 
             lottoController.printResult();
