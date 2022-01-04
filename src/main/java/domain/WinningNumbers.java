@@ -4,9 +4,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class WinningNumbers {
-    private final static int LOTTO_SIZE = 6;
-    private final static String ILLEGAL_LOTTO_NUMBERS = "로또는 6개의 서로 다른 숫자로 만들어져야 합니다";
-    private final static String ILLEGAL_BONUS_NUMBER = "보너스 번호는 6개 로또 번호와 다른 숫자여야 합니다.";
+    private static final int LOTTO_SIZE = 6;
+    private static final String ILLEGAL_LOTTO_NUMBERS = "로또는 6개의 서로 다른 숫자로 만들어져야 합니다";
+    private static final String ILLEGAL_BONUS_NUMBER = "보너스 번호는 6개 로또 번호와 다른 숫자여야 합니다.";
     private final Set<LottoNumber> lottoNumbers;
     private final LottoNumber bonusNumber;
 
