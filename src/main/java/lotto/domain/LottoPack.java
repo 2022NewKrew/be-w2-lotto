@@ -1,7 +1,9 @@
 package lotto.domain;
 
 import lotto.dto.LottoResults;
+import lotto.dto.MatchNum;
 
+import javax.crypto.Mac;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,7 +11,7 @@ import java.util.List;
 public class LottoPack {
     private List<List<Integer>> lottos = new ArrayList();
     private Lotto lotto = new Lotto();
-    private static final List<Integer> priceList = Arrays.asList(5000, 50000, 1500000, 2000000000);
+    private static final List<Integer> priceList = Arrays.asList(5000, 50000, 1500000, 30000000, 2000000000);
     private static final int lottoPrice = 1000;
 
     public LottoPack(int nLottos) {
@@ -23,11 +25,11 @@ public class LottoPack {
         return this.lottos;
     }
 
-    public LottoResults getResults(List<Integer> prevNums) {
-        List<Integer> correctCnts = Arrays.asList(0,0,0,0);
+    public LottoResults getResults(MatchNum matchNum) {
+        List<Integer> correctCnts = Arrays.asList(0,0,0,0,0);
 
         for(List<Integer> nums : this.lottos){
-            int cnt = lotto.countMatch(nums, prevNums);
+            int cnt = lotto.countMatch(nums, matchNum);
             this.addCnt(correctCnts, cnt);
         }
         int earnRate = this.getEarnRate(correctCnts);

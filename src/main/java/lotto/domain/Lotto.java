@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import lotto.dto.MatchNum;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -20,18 +22,25 @@ public class Lotto {
     }
 
     //helper function for LottoPack.getResults()
-    public int countMatch(List<Integer> nums, List<Integer> prevNums){
+    public int countMatch(List<Integer> nums, MatchNum matchNum){
         int cnt = 0;
-        for (int i : prevNums){
+        for (int i : matchNum.getPrevNums()){
             cnt += countMatchPerNum(nums, i);
+        }
+        if (cnt == 6){
+            return 7;
+        }
+        //check bonus num is matched
+        if( cnt == 5 && countMatchPerNum(nums, MatchNum.getBonusNum()) == 1){
+            return 6;
         }
         return cnt;
     }
 
-    private int countMatchPerNum(List<Integer> nums, int i){
+    private int countMatchPerNum(List<Integer> nums, int i) {
         int cnt = 0;
-        if (nums.contains(i)){
-            cnt +=1;
+        if (nums.contains(i)) {
+            cnt += 1;
         }
         return cnt;
     }

@@ -1,6 +1,7 @@
 package lotto.view;
 
 import lotto.dto.LottoResults;
+import lotto.dto.MatchNum;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,14 +13,16 @@ public class IO {
 
     private static final String qPrice = "구입 금액을 입력해주세요.";
     private static final String qPrevNums = "지난 주 당첨 번호을 입력해주세요. -- 띄어쓰기로 구별 ex) 1 2 3 4 5 6";
+    private static final String qBonusNum = "보너스 볼을 입력해 주세요.";
 
     private static final String aBuyNums = "%d개를 구매했습니다.";
     private static final String aResults = "당첨통계\n--------";
     private static final String aResultsPerNum = "%d개 일치 (%d원) - %d개";
+    private static final String aResultsBonusMatch = "%d개 일치, 보너스볼 일치 (%d원) - %d개";
     private static final String aEarnRate = "총 수익률은 %d %%입니다.";
 
     private static final int lottoPrice = 1000;
-    private static final List<Integer> prices = Arrays.asList(5000, 50000, 1500000, 2000000000);
+    private static final List<Integer> prices = Arrays.asList(5000, 50000, 1500000, 30000000, 2000000000);
 
     public IO() {
     }
@@ -30,11 +33,27 @@ public class IO {
         return itemCnt;
     }
 
+    public MatchNum enterMatchNums(){
+        List<Integer> prevNums = enterPrevNums();
+        int bonusNum = enterBonusNum();
+        MatchNum matchNum = new MatchNum(prevNums, bonusNum);
+        return matchNum;
+    }
+
     private int enterPurchaseAmount(){
         System.out.println(qPrice);
         int amount = scanner.nextInt();
         return amount;
     }
+
+
+
+    private int enterBonusNum(){
+        System.out.println(qBonusNum);
+        int num = scanner.nextInt();
+        return num;
+    }
+
     private int printAndGetAmount(int money){
         int itemCnt = money/lottoPrice;
         System.out.println(String.format(aBuyNums, itemCnt));
@@ -51,7 +70,7 @@ public class IO {
         System.out.println(qPrevNums);
         List<Integer> prevNums = new ArrayList<Integer>();
 
-        while (scanner.hasNextInt() && prevNums.size()<5){
+        while (prevNums.size()<6 && scanner.hasNextInt()){
             prevNums.add(scanner.nextInt());
         }
         return prevNums;
@@ -68,9 +87,20 @@ public class IO {
     private void showCorrectCnts(List<Integer> cnts ){
         System.out.println(aResults);
         for(int i=0; i<cnts.size();i++){
-            int correctNum = i+3;
-            System.out.println(String.format(aResultsPerNum, correctNum,prices.get(i), cnts.get(i)));
+            showCorrectCntsPerLine(cnts, i);
         }
+    }
+
+    private void showCorrectCntsPerLine(List<Integer> cnts, int i){
+        int correctNum = i+3;
+        if (correctNum==6){ //bonus number match
+            System.out.println(String.format(aResultsBonusMatch, 5, prices.get(i), cnts.get(i)));
+            return;
+        }
+        if (correctNum==7){
+            correctNum=6;
+        }
+        System.out.println(String.format(aResultsPerNum, correctNum, prices.get(i), cnts.get(i)));
     }
 
     public void showEarnRate(int rate){
