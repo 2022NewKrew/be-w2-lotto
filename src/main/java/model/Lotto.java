@@ -3,8 +3,8 @@ package model;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-
 import static CONST.Const.*;
+
 
 public class Lotto {
     private static final Random random = new Random();

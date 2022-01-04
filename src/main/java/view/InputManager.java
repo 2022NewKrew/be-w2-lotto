@@ -80,6 +80,7 @@ public class InputManager {
         return inputIntBonusNumber;
     }
 
+
     private static boolean isPositiveNumber(int inputIntPrice) {
         if (inputIntPrice >= 0) {
             return true;
@@ -87,6 +88,7 @@ public class InputManager {
         System.out.println(Const.INPUT_POSITIVE_INTEGER);
         return false;
     }
+
 
     private static boolean isLottoBonusNumber(int inputIntBonusNumber, List<Integer> winningNumber) {
         if (inputIntBonusNumber >= Const.LOTTO_START_NUM
