@@ -2,10 +2,10 @@ package dto.output;
 
 import domain.LottoOrder;
 
-public class PurchaseOutputDto {
+public class PurchaseResultDto {
     private final LottoOrder lottoOrder;
 
-    public PurchaseOutputDto(LottoOrder lottoOrder) {
+    public PurchaseResultDto(LottoOrder lottoOrder) {
         this.lottoOrder = lottoOrder;
     }
 

@@ -1,6 +1,5 @@
 package domain;
 
-import dto.output.ResultOutputDto;
 import factory.LottoFactory;
 
 import java.util.List;
@@ -20,12 +19,12 @@ public class LottoOrder {
                 .collect(toList());
     }
 
-    public ResultOutputDto getResult(WinningNumber winningNumber){
-        ResultOutputDto resultOutputDto = new ResultOutputDto();
+    public RewardResult getResult(WinningNumbers winningNumbers){
+        RewardResult rewardResult = new RewardResult();
         for(Lotto lotto : lottos){
-            resultOutputDto.addMatched(winningNumber.getMatchedNumber(lotto));
+            rewardResult.addMatched(winningNumbers.getMatchedNumber(lotto));
         }
-        return resultOutputDto;
+        return rewardResult;
     }
 
     @Override

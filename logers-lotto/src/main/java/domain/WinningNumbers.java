@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class WinningNumber {
+public class WinningNumbers {
     private final List<Integer> numbers;
 
-    public WinningNumber(List<Integer> numbers) {
+    public WinningNumbers(List<Integer> numbers) {
         this.numbers = new ArrayList<>(numbers);
         Collections.sort(this.numbers);
     }

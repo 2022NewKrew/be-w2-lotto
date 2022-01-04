@@ -3,10 +3,10 @@ package dto.input;
 import java.util.Collections;
 import java.util.List;
 
-public class WinningNumberDto {
+public class WinningNumbersDto {
     private final List<Integer> winningNumbers;
 
-    public WinningNumberDto(List<Integer> winningNumbers) {
+    public WinningNumbersDto(List<Integer> winningNumbers) {
         this.winningNumbers = winningNumbers;
     }
 

@@ -1,18 +1,18 @@
 package factory;
 
-import domain.WinningNumber;
+import domain.WinningNumbers;
 
 import java.util.List;
 import java.util.Optional;
 
 public class WinningNumberFactory {
-    private static WinningNumber instance = null;
+    private static WinningNumbers instance = null;
 
-    public static Optional<WinningNumber> getInstance(){
+    public static Optional<WinningNumbers> getInstance(){
         return Optional.of(instance);
     }
 
-    public static Optional<WinningNumber> getInstance(List<Integer> numbers){
+    public static Optional<WinningNumbers> getInstance(List<Integer> numbers){
         if(instance != null){
             return Optional.empty();
         }
@@ -21,7 +21,7 @@ public class WinningNumberFactory {
         return Optional.of(instance);
     }
 
-    private static WinningNumber createInstance(List<Integer> numbers){
-        return new WinningNumber(numbers);
+    private static WinningNumbers createInstance(List<Integer> numbers){
+        return new WinningNumbers(numbers);
     }
 }

@@ -1,6 +1,6 @@
 package presentation.view.input;
 
-import dto.input.WinningNumberDto;
+import dto.input.WinningNumbersDto;
 import validate.ValidatorService;
 
 import java.util.Arrays;
@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 import static java.util.stream.Collectors.toList;
 
-public class WinningNumberInputView implements InputView<WinningNumberDto> {
+public class WinningNumberInputView implements InputView<WinningNumbersDto> {
     private final Scanner scanner;
     private final ValidatorService validatorService;
 
@@ -19,7 +19,7 @@ public class WinningNumberInputView implements InputView<WinningNumberDto> {
     }
 
     @Override
-    public WinningNumberDto input() {
+    public WinningNumbersDto input() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         List<Integer> winNumbers = Arrays.stream(scanner.next()
                         .split(","))
@@ -28,6 +28,6 @@ public class WinningNumberInputView implements InputView<WinningNumberDto> {
 
         validatorService.validateWinNumbers(winNumbers);
 
-        return new WinningNumberDto(winNumbers);
+        return new WinningNumbersDto(winNumbers);
     }
 }

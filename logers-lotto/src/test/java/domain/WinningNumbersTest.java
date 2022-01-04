@@ -11,19 +11,19 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.*;
 
-class WinningNumberTest {
+class WinningNumbersTest {
 
     @ParameterizedTest
     @DisplayName("당첨번호의 갯수와 로또번호의 갯수 다를 때 실패")
     @MethodSource("listThatNumOfEntryNotEqualTo6")
     public void testFailedWhenNumberOfWriteNumberDifferent(List<Integer> numbers){
         //given
-        WinningNumber winningNumber = new WinningNumber(List.of(1,2,3,4,5,6));
+        WinningNumbers winningNumbers = new WinningNumbers(List.of(1,2,3,4,5,6));
         Lotto lotto = new Lotto(numbers);
 
         //when
         //then
-        assertThatThrownBy(() -> winningNumber.getMatchedNumber(lotto))
+        assertThatThrownBy(() -> winningNumbers.getMatchedNumber(lotto))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("갯수");
     }
