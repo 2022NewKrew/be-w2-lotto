@@ -2,10 +2,7 @@ package lotto;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -18,8 +15,8 @@ class LottoTest {
     void getLottoNumbers() {
         Lotto lotto = new Lotto();
         ArrayList<LottoBall> lottoNumbers = lotto.getLottoNumbers();
-        System.out.println(lottoNumbers);
-        assertThat(lottoNumbers.size()).isEqualTo(6);
+        Set<LottoBall> set = new HashSet<>(lottoNumbers);
+        assertThat(set.size()).isEqualTo(6);
     }
 
     @Test
