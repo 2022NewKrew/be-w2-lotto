@@ -11,6 +11,7 @@ public class LottoApplication {
             lottoController.printLottoNumbers();
 
             lottoController.setWinningLottoNumbers(inputController.getLottoNumbers());
+            lottoController.setBonusNumber(inputController.getBonusNumber());
             lottoController.generateLottoResult();
 
             lottoController.printResult();

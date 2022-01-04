@@ -22,11 +22,12 @@ public class LottoView {
         System.out.println("---------");
 
         for (LottoRank lottoRank : LottoRank.values()) {
-            Integer matchCount = lottoResult.getCountOfMatches().get(lottoRank.getMatches());
+            Integer matchCount = lottoResult.getCountOfMatches().get(lottoRank.getLottoMatch());
 
             System.out.printf(
-                    "%d개 일치 (%d원) - %d개\n",
-                    lottoRank.getMatches(),
+                    "%d개 일치, %s (%d원) - %d개\n",
+                    lottoRank.getLottoMatch().getMatches(),
+                    lottoRank.getLottoMatch().isBonus() ? "보너스볼 일치" : "",
                     lottoRank.getPrice(),
                     matchCount == null ? 0 : matchCount
             );
