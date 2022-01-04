@@ -23,9 +23,9 @@ public class LottoGameOutput {
         if(lottoResult.rank == LottoRank.BLANK) return;
 
         StringBuilder sb = new StringBuilder();
-        sb.append(lottoResult.rank.getMatchingCnt()).append("개 일치 ");
-        if(lottoResult.rank.isBonus()) sb.append(",보너스 볼 일치");
-        sb.append("(").append(lottoResult.rank.getReward()).append("원)- ")
+        sb.append(lottoResult.rank.getMatchingCnt()).append("개 일치");
+        if(lottoResult.rank.isBonus()) sb.append(", 보너스 볼 일치");
+        sb.append(" (").append(lottoResult.rank.getReward()).append("원)- ")
                 .append(lottoResult.numberOfWinningLotteryPaper).append("개");
         System.out.println(sb);
     }

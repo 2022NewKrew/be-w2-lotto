@@ -30,6 +30,7 @@ public class LottoResultChecker {
             LottoRank rank = getOneLottoRank(lotto);
             countRank.put(rank, countRank.getOrDefault(rank, 0) + 1);
         }
+
         return countRank;
     }
 
@@ -37,6 +38,7 @@ public class LottoResultChecker {
         Set<Integer> set = Stream.concat(lotto.getNumbers().stream(), winningNumbers.stream()).collect(Collectors.toSet());
         int matchingCnt = LOTTO_NUMBER_COUNT_MAX * 2 - set.size();
         boolean matchingBonusNumber = lotto.getNumbers().contains(bonusNumber);
+
         return LottoRank.lookup(matchingCnt, matchingBonusNumber);
     }
 }

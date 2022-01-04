@@ -21,13 +21,16 @@ public class LottoGame {
 
     public void startGame(){
         try (Scanner scanner = new Scanner(System.in)) {
-            purchaseAmount = LottoGameInput.inputPurchaseAmount(scanner);
-            purchaseLotto();
-            LottoGameOutput.printLottoNumbers(numberOfLotto, playerLottoList);
-            winningNumbers = LottoGameInput.inputWinningNumbers(scanner);
-            bonusNumber = LottoGameInput.inputBonusNumber(scanner);
+            purchase(scanner);
+            drawLotto(scanner);
             showResults();
         }
+    }
+
+    private void purchase(Scanner scanner){
+        purchaseAmount = LottoGameInput.inputPurchaseAmount(scanner);
+        purchaseLotto();
+        LottoGameOutput.printLottoNumbers(numberOfLotto, playerLottoList);
     }
 
     private void purchaseLotto() {
@@ -35,6 +38,11 @@ public class LottoGame {
         for (int i = 0; i < numberOfLotto; i++) {
             playerLottoList.purchaseLotto();
         }
+    }
+
+    private void drawLotto(Scanner scanner){
+        winningNumbers = LottoGameInput.inputWinningNumbers(scanner);
+        bonusNumber = LottoGameInput.inputBonusNumber(scanner);
     }
 
     private void showResults(){
