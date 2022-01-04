@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class LottoTest {
     private final Lotto lotto = new Lotto(createBallList(List.of(1, 2, 3, 4, 5, 6)));
@@ -28,6 +29,22 @@ class LottoTest {
 
         assertThat(numbers.size())
                 .isEqualTo(Lotto.NUMBER);
+    }
+
+    @DisplayName("숫자의 개수가 6개가 아니면 에러 발생")
+    @Test
+    void assertBallsNumberInvalid() {
+        List<Ball> invalidBallList = createBallList(List.of(1, 2, 3, 4, 5));
+
+        assertThrows(IllegalArgumentException.class, () -> new Lotto(invalidBallList));
+    }
+
+    @DisplayName("중복된 숫자가 있으면 에러 발생")
+    @Test
+    void assertDuplicatedNumber() {
+        List<Ball> invalidBallList = createBallList(List.of(1, 2, 3, 4, 5, 5));
+
+        assertThrows(IllegalArgumentException.class, () -> new Lotto(invalidBallList));
     }
     
     @DisplayName("특정 숫자를 포함하고 있는지 검증")

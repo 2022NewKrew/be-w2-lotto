@@ -35,7 +35,7 @@ public class LottoGuidePrinter {
 
     public static void printLotto(Lotto lotto) {
         System.out.println(lotto.getBalls().stream()
-                .map(String::valueOf)
+                .map(e -> String.valueOf(e.getNumber()))
                 .collect(Collectors.joining(COMMA, OPEN_BRACKET, CLOSING_BRACKET))
         );
     }

@@ -25,12 +25,10 @@ public class LottoScanner {
     public static List<Ball> getWinningLottoNumbers() {
         LottoGuidePrinter.requestLottoNumberInput();
         try {
-            List<Ball> lottoNumbers = Collections.list(new StringTokenizer(in.nextLine(), ", "))
+            return Collections.list(new StringTokenizer(in.nextLine(), ", "))
                     .stream()
                     .map(e -> new Ball(Integer.parseInt(((String) e).trim())))
                     .collect(Collectors.toList());
-            LottoValidator.assertValidLottoNumbers(lottoNumbers);
-            return lottoNumbers;
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return getWinningLottoNumbers();
