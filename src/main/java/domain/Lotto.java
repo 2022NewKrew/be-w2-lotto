@@ -15,14 +15,13 @@ public class Lotto {
     private static List<Integer> lottoWinningNumbers;
 
     private final List<Integer> lottoNumbers;
-    private int correctCount;
 
-    public Lotto(){
+    public Lotto() {
         this.lottoNumbers = createLottoNumbers();
     }
 
-    private List<Integer> createLottoNumbers(){
-        List<Integer> list =  IntStream.range(LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER).boxed().collect(Collectors.toList());
+    private List<Integer> createLottoNumbers() {
+        List<Integer> list = IntStream.range(LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER).boxed().collect(Collectors.toList());
         Collections.shuffle(list);
         list = list.subList(0, LOTTO_LENGTH);
         Collections.sort(list);
@@ -33,7 +32,7 @@ public class Lotto {
         Lotto.lottoWinningNumbers = splitLottoNumbers(lottoInput);
     }
 
-    private static List<Integer> splitLottoNumbers(String lottoInput){
+    private static List<Integer> splitLottoNumbers(String lottoInput) {
         return Arrays.stream(lottoInput.split(",")).map(Integer::parseInt).collect(Collectors.toList());
     }
 
