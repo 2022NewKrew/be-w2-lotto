@@ -7,28 +7,29 @@ import static domain.prize.Prize.*;
 
 public class LottoResult {
 
-    private Prize lottoPrize;
+    private final Prize lottoPrize;
 
-    public LottoResult(int matchedNum) {
-        switch (matchedNum) {
-            case FIRST_PRIZE_COUNT:
-                lottoPrize = FIRST_PRIZE;
-                break;
-            case SECOND_PRIZE_COUNT:
-                lottoPrize = SECOND_PRIZE;
-                break;
-            case THIRD_PRIZE_COUNT:
-                lottoPrize = THIRD_PRIZE;
-                break;
-            case FOURTH_PRIZE_COUNT:
-                lottoPrize = FOURTH_PRIZE;
-                break;
-            case FIFTH_PRIZE_COUNT:
-                lottoPrize = FIFTH_PRIZE;
-                break;
-            default:
-                lottoPrize = NO_PRIZE;
+    public LottoResult(int matchedNum, boolean bonusMatched) {
+        lottoPrize = getPrizeByMatchedResult(matchedNum, bonusMatched);
+    }
+
+    private Prize getPrizeByMatchedResult(int matchedNum, boolean bonusMatched) {
+        if (matchedNum == FIRST_PRIZE_COUNT) {
+            return FIRST_PRIZE;
         }
+        if (matchedNum == SECOND_PRIZE_COUNT && bonusMatched) {
+            return SECOND_PRIZE;
+        }
+        if (matchedNum == THIRD_PRIZE_COUNT) {
+            return THIRD_PRIZE;
+        }
+        if (matchedNum == FOURTH_PRIZE_COUNT) {
+            return FOURTH_PRIZE;
+        }
+        if (matchedNum == FIFTH_PRIZE_COUNT) {
+            return FIFTH_PRIZE;
+        }
+        return NO_PRIZE;
     }
 
     public Prize getPrizeType() {
@@ -39,7 +40,4 @@ public class LottoResult {
         return lottoPrize.getPrizeMoney();
     }
 
-    public int getMatchedNum() {
-        return lottoPrize.getMatchedNum();
-    }
 }

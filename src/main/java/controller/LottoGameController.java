@@ -16,17 +16,18 @@ public class LottoGameController {
     private static LottoGameInfo lottoGameInfo;
     private static List<Lotto> lottoList;
     private static List<Integer> winLottoNumbers;
+    private static int bonusLottoNumber;
     private static LottoTotalResult lottoTotalResult;
 
     public static void start() {
         inputPurchaseParam();
-        validatePurchaseParam(lottoGameInfo);
-        generateLotto(lottoGameInfo);
-        renderLottoList(lottoList);
+        validatePurchaseParam();
+        generateLotto();
+        renderLottoList();
         inputWinLottoNumbers();
-        validateWinLottoNumbers(winLottoNumbers);
-        calcLottoResult(lottoGameInfo.getInputMoney(), lottoList, winLottoNumbers);
-        renderResult(lottoTotalResult);
+        validateWinLottoNumbers();
+        calcLottoResult(lottoGameInfo.getInputMoney());
+        renderResult();
     }
 
     private static void inputPurchaseParam() {
@@ -36,15 +37,15 @@ public class LottoGameController {
         lottoGameInfo = new LottoGameInfo(money);
     }
 
-    private static void validatePurchaseParam(LottoGameInfo lottoGameInfo) {
+    private static void validatePurchaseParam() {
         // TODO - implement input validation
     }
 
-    private static void generateLotto(LottoGameInfo lottoGameInfo) {
+    private static void generateLotto() {
         lottoList = LottoGenerator.generate(lottoGameInfo);
     }
 
-    private static void renderLottoList(List<Lotto> lottoList) {
+    private static void renderLottoList() {
         LottoRenderer.renderLotto(lottoList);
     }
 
@@ -54,17 +55,19 @@ public class LottoGameController {
         winLottoNumbers = Arrays.stream(inputLottoNumbers)
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
+        System.out.println("보너스 볼을 입력해 주세요.");
+        bonusLottoNumber = sc.nextInt();
     }
 
-    private static void validateWinLottoNumbers(List<Integer> winLottoNumbers) {
+    private static void validateWinLottoNumbers() {
         // TODO - implement input validation
     }
 
-    private static void calcLottoResult(int inputMoney, List<Lotto> lottoList, List<Integer> winLottoNumbers) {
-        lottoTotalResult = LottoCalculator.calculate(inputMoney, lottoList, winLottoNumbers);
+    private static void calcLottoResult(int inputMoney) {
+        lottoTotalResult = LottoCalculator.calculate(inputMoney, lottoList, winLottoNumbers, bonusLottoNumber);
     }
 
-    private static void renderResult(LottoTotalResult lottoTotalResult) {
+    private static void renderResult() {
         LottoRenderer.renderResult(lottoTotalResult);
         LottoRenderer.renderEarningRatio(lottoTotalResult);
     }

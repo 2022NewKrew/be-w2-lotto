@@ -27,12 +27,18 @@ public class LottoRenderer {
 
     public static void renderResult(LottoTotalResult lottoTotalResult) {
         Map<Prize, Long> totalResultMap = lottoTotalResult.getLottoTotalResultMap();
-        totalResultMap.keySet().stream().sorted(Prize::compareTo);
 
         System.out.println("당첨 통계");
         System.out.println("----------");
         totalResultMap.forEach((k, v) ->
-                System.out.printf("%s개 일치 (%s원)- %s개\n", k.getMatchedNum(), k.getPrizeMoney(), v));
+                System.out.print(getResultString(k, v)));
+    }
+
+    private static String getResultString(Prize prize, long prizeCount) {
+        if (prize.isMatchedBonus()) {
+            return String.format("%s개 일치, 보너스 볼 일치(%s원)- %s개\n", prize.getMatchedNum(), prize.getPrizeMoney(), prizeCount);
+        }
+        return String.format("%s개 일치 (%s원)- %s개\n", prize.getMatchedNum(), prize.getPrizeMoney(), prizeCount);
     }
 
     public static void renderEarningRatio(LottoTotalResult lottoTotalResult) {

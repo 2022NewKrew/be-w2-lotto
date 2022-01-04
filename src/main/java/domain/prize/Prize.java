@@ -11,9 +11,9 @@ public enum Prize {
 
     public static final int FIRST_PRIZE_COUNT = 6;
     public static final int SECOND_PRIZE_COUNT = 5;
-    public static final int THIRD_PRIZE_COUNT = 4;
-    public static final int FOURTH_PRIZE_COUNT = 3;
-    public static final int FIFTH_PRIZE_COUNT = 2;
+    public static final int THIRD_PRIZE_COUNT = 5;
+    public static final int FOURTH_PRIZE_COUNT = 4;
+    public static final int FIFTH_PRIZE_COUNT = 3;
 
     private final int matchedNum;
     private final boolean matchedBonus;
@@ -33,6 +33,10 @@ public enum Prize {
 
     public int getMatchedNum() {
         return matchedNum;
+    }
+
+    public boolean isMatchedBonus() {
+        return matchedBonus;
     }
 
     public int getPrizeMoney() {

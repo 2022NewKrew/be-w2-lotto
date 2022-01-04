@@ -13,20 +13,12 @@ public class LottoTotalResult {
     private int totalEarning;
     private final double earningRatio;
 
-    public LottoTotalResult(List<Integer> matchedList, int inputMoney) {
-        lottoResults = new ArrayList<>();
-        for (Integer matchedNum : matchedList) {
-            createNewResult(matchedNum);
+    public LottoTotalResult(List<LottoResult> lottoResults, int inputMoney) {
+        this.lottoResults = lottoResults;
+        for (LottoResult lottoResult : lottoResults) {
+            totalEarning += lottoResult.getPrizeMoney();
         }
         earningRatio = calculateEarningRatio(inputMoney);
-    }
-
-    private void createNewResult(int matchedNum) {
-        LottoResult result = new LottoResult(matchedNum);
-        if (result.getPrizeType() != NO_PRIZE) {
-            totalEarning += result.getPrizeMoney();
-            lottoResults.add(result);
-        }
     }
 
     private double calculateEarningRatio(int inputMoney) {

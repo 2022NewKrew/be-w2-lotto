@@ -24,6 +24,10 @@ public class Lotto {
         return matchedNum;
     }
 
+    public boolean isBonusMatched(int bonusLottoNumber) {
+        return numbers.contains(bonusLottoNumber);
+    }
+
     private void plusIfMatched(int number, List<Integer> winLottoNumbers) {
         if (winLottoNumbers.contains(number)) {
             matchedNum++;
