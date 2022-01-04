@@ -6,12 +6,13 @@ import lotto.domain.LottoTicket;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class OutputView {
 
-    public void printLotteries(List<LottoTicket> lotteries) {
-        System.out.printf("%d개를 구매했습니다.\n", lotteries.size());
-        System.out.println(lotteries.stream().map(LottoTicket::toString).collect(Collectors.joining("\n")));
+    public void printLotteries(List<LottoTicket> inputtedTickets, List<LottoTicket> randomTickets) {
+        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.\n", inputtedTickets.size(), randomTickets.size());
+        System.out.println(Stream.concat(inputtedTickets.stream(), randomTickets.stream()).map(LottoTicket::toString).collect(Collectors.joining("\n")));
     }
 
     public void printErrorMessage(Exception e) {

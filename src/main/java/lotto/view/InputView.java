@@ -3,6 +3,7 @@ package lotto.view;
 import lotto.domain.LottoTicket;
 import lotto.exception.InvalidInputFormatException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -44,27 +45,25 @@ public class InputView {
 
     public List<Integer> inputWinningNumbers() throws InvalidInputFormatException {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        List<Integer> numbers = inputDistinctNumbers();
-
-        validateWinningNumbers(numbers);
-
-        return numbers;
+        return inputDistinctNumbers();
     }
 
     private List<Integer> inputDistinctNumbers() throws InvalidInputFormatException {
         try {
-            return Arrays.stream(scanner.nextLine().split(COMMA))
+            List<Integer> numbers = Arrays.stream(scanner.nextLine().split(COMMA))
                     .map(string -> Integer.parseInt(string.trim()))
                     .distinct()
-                    .collect(Collectors.toList());
+                    .collect(Collectors.toList());;
+            validateNumbersForLottoTicket(numbers);
+            return numbers;
         } catch (NumberFormatException e) {
             throw new InvalidInputFormatException();
         }
     }
 
-    private void validateWinningNumbers(List<Integer> winningNumbers) throws InvalidInputFormatException {
+    private void validateNumbersForLottoTicket(List<Integer> winningNumbers) throws InvalidInputFormatException {
         if (!isValidSizeOfNumbers(winningNumbers)) {
-            throw new InvalidInputFormatException("중복된 숫자를 포함하고 있거나 입력한 문자 리스트의 길이가 잘못 되었습니다.");
+            throw new InvalidInputFormatException("중복된 숫자를 포함하고 있거나 입력한 숫자 리스트의 길이가 잘못 되었습니다.");
         }
 
         if (winningNumbers.stream().anyMatch(number -> !isValidRangeNumber(number))) {
@@ -87,5 +86,23 @@ public class InputView {
             throw new InvalidInputFormatException("입력된 숫자의 범위가 잘못 되었습니다. (유효한 숫자 범위 : " + LottoTicket.MIN_NUMBER + " ~ " + LottoTicket.MAX_NUMBER + ")");
         }
         return bonusNumber;
+    }
+
+    public int inputNumOfLottoTicketsToInput(int maxCount) throws InvalidInputFormatException {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        int count = inputNumber();
+        if (count > maxCount) {
+            throw new IllegalArgumentException(maxCount + "개 까지 구매할 수 있습니다.");
+        }
+        return count;
+    }
+
+    public List<List<Integer>> inputNumbersForPurchaseLottoTickets(int count) throws InvalidInputFormatException {
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        List<List<Integer>> numbers = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            numbers.add(inputDistinctNumbers());
+        }
+        return numbers;
     }
 }

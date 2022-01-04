@@ -23,6 +23,16 @@ public class LottoTicketFactoryImpl implements LottoTicketFactory {
         return lottoTickets;
     }
 
+    @Override
+    public LottoTicket createLottoTicket(List<Integer> numbers) {
+        return new LottoTicket(numbers);
+    }
+
+    @Override
+    public List<LottoTicket> createLottoTickets(List<List<Integer>> numbers) {
+        return numbers.stream().map(LottoTicket::new).collect(Collectors.toList());
+    }
+
     private List<Integer> createRandomSortedLottoTicketNumbers() {
         Collections.shuffle(ALL_NUMBERS);
         List<Integer> numbers = new ArrayList<>(ALL_NUMBERS.subList(0, LottoTicket.LENGTH_OF_NUMBERS));

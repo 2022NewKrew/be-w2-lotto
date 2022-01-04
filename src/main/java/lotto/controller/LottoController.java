@@ -7,6 +7,8 @@ import lotto.view.OutputView;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class LottoController {
     private final InputView inputView = new InputView();
@@ -27,9 +29,13 @@ public class LottoController {
 
     private List<LottoTicket> purchaseLottoTickets() throws InvalidInputFormatException {
         int amount = inputView.inputAmountForPurchase();
-        List<LottoTicket> tickets = factory.createRandomLottoTickets(amount / LottoTicket.PRICE);
-        outputView.printLotteries(tickets);
-        return tickets;
+        int totalNumOfTickets = amount / LottoTicket.PRICE;
+        int numOfInputtedTickets = inputView.inputNumOfLottoTicketsToInput(totalNumOfTickets);
+        List<List<Integer>> numbers = inputView.inputNumbersForPurchaseLottoTickets(numOfInputtedTickets);
+        List<LottoTicket> inputtedTickets = factory.createLottoTickets(numbers);
+        List<LottoTicket> randomTickets = factory.createRandomLottoTickets(totalNumOfTickets - numOfInputtedTickets);
+        outputView.printLotteries(inputtedTickets, randomTickets);
+        return Stream.concat(inputtedTickets.stream(), randomTickets.stream()).collect(Collectors.toList());
     }
 
     private void validateBonusNumber(int bonusNumber, List<Integer> winningNumbers) throws Exception {
