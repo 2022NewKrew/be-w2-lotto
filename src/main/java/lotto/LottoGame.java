@@ -72,6 +72,6 @@ public class LottoGame {
             int resultRank = lr.getResultRank();
             sum += matchPrize * rank.get(resultRank);
         }
-        return sum / inputPrice * 100;
+        return (sum-inputPrice) / inputPrice * 100;
     }
 }

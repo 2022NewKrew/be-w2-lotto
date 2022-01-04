@@ -17,11 +17,11 @@ public class LottoNumber {
 
 
     public LottoNumber(){
-        generatePaper();
+        generateNumbers();
     }
 
 
-    private void generatePaper(){
+    private void generateNumbers(){
         Collections.shuffle(allNumbers);
         numbers =  new ArrayList<>(allNumbers.subList(0, SIZE_OF_NUMBERS));
         Collections.sort(numbers);
