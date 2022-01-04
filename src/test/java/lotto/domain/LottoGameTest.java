@@ -29,7 +29,6 @@ class LottoGameTest {
     @Test
     void run() {
         // Given
-
         Mockito.when(view.readPurchaseAmountForLotto()).thenReturn(14000);
 
         LottoTicket lottoTicket = new LottoTicket(14000);
@@ -44,7 +43,9 @@ class LottoGameTest {
         winningNumbers.add(5);
         winningNumbers.add(6);
 
-        LottoWinningResult lottoWinningResult = lottoTicket.getLottoWinningResult(winningNumbers);
+        int bonusBallNumber = 7;
+
+        LottoWinningResult lottoWinningResult = lottoTicket.getLottoWinningResult(winningNumbers, bonusBallNumber);
         Mockito.doNothing().when(view).printLottoWinningResult(lottoWinningResult);
         Mockito.doNothing().when(view).printYield(lottoTicket.getWholeLottoPrice());
 

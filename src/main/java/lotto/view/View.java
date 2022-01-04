@@ -15,7 +15,7 @@ public class View {
 
     private static final String SPLIT_DELIMITER = ", ";
 
-    public Integer readPurchaseAmountForLotto() {
+    public int readPurchaseAmountForLotto() {
         System.out.println("구입금액을 입력해 주세요.");
         return Integer.parseInt(scanner.nextLine());
     }
@@ -61,6 +61,11 @@ public class View {
         stringBuilder.append("개");
 
         return stringBuilder.toString();
+    }
+
+    public int readBonusBallNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return Integer.parseInt(scanner.nextLine());
     }
 
 }

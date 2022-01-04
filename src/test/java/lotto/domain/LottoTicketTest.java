@@ -15,20 +15,20 @@ class LottoTicketTest {
         // Given
 
         // When
-        LottoTicket lotto = new LottoTicket(14000);
+        LottoTicket lottoTicket = new LottoTicket(14000);
 
         // Then
-        Assertions.assertEquals(14, lotto.getLottoCount());
+        Assertions.assertEquals(14, lottoTicket.getLottoCount());
     }
 
     @DisplayName("로또 개수 get 메소드 테스트")
     @Test
     void getLottoCount_PurchaseAmount14000_14() {
         // Given
-        LottoTicket lotto = new LottoTicket(14000);
+        LottoTicket lottoTicket = new LottoTicket(14000);
 
         // When
-        int result = lotto.getLottoCount();
+        int result = lottoTicket.getLottoCount();
 
         //Then
         Assertions.assertEquals(14, result);
@@ -38,10 +38,10 @@ class LottoTicketTest {
     @Test
     void getLottoList_PurchaseAmount14000_ListSize14() {
         // Given
-        LottoTicket lotto = new LottoTicket(14000);
+        LottoTicket lottoTicket = new LottoTicket(14000);
 
         // When
-        List<Lotto> result = lotto.getLottoList();
+        List<Lotto> result = lottoTicket.getLottoList();
 
         //Then
         Assertions.assertEquals(14, result.size());
@@ -51,10 +51,10 @@ class LottoTicketTest {
     @Test
     void getWholeLottoPrice_PurchaseAmount14_14000() {
         // Given
-        LottoTicket lotto = new LottoTicket(14000);
+        LottoTicket lottoTicket = new LottoTicket(14000);
 
         // When
-        int result = lotto.getWholeLottoPrice();
+        int result = lottoTicket.getWholeLottoPrice();
 
         //Then
         Assertions.assertEquals(14000, result);
@@ -64,7 +64,7 @@ class LottoTicketTest {
     @Test
     void getLottoWinningResultWithNothingEnum_PurchaseAmount14000_WinningCountUnder14() {
         // Given
-        LottoTicket lotto = new LottoTicket(14000);
+        LottoTicket lottoTicket = new LottoTicket(14000);
         List<Integer> winningNumbers = new ArrayList<>();
         winningNumbers.add(1);
         winningNumbers.add(2);
@@ -73,8 +73,10 @@ class LottoTicketTest {
         winningNumbers.add(5);
         winningNumbers.add(6);
 
+        int bonusBallNumber = 7;
+
         // When
-        LottoWinningResult lottoWinningResult = lotto.getLottoWinningResult(winningNumbers);
+        LottoWinningResult lottoWinningResult = lottoTicket.getLottoWinningResult(winningNumbers, bonusBallNumber);
 
         //Then
         Assertions.assertTrue(lottoWinningResult.getLottoWinningCount(LottoWinningRating.FOURTH) <= 14);
