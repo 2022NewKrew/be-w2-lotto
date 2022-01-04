@@ -5,6 +5,7 @@ import domain.LottoNumber;
 import domain.Lottos;
 import domain.Rank;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class OutputView {
 
@@ -13,7 +14,7 @@ public class OutputView {
     private static final String LOTTO_END = "]\n";
 
     private static final String LOTTO_PURCHASE_MESSAGE = "%d개를 구매했습니다.\n";
-    private static final String WINNING_STATISTICS_INFO_MESSAGE = "당첨 통계\n---------\n";
+    private static final String WINNING_STATISTICS_INFO_MESSAGE = "\n당첨 통계\n---------\n";
 
     private static final String WINNING_STATISTICS_MESSAGE = "%d개 일치 (%d원)- %d개\n";
     private static final String WINNING_STATISTICS_BONUS_MESSAGE = "%d개 일치, 보너스 볼 일치 (%d원)- %d개\n";
@@ -28,12 +29,10 @@ public class OutputView {
     }
 
     private static String outputLotto(Lotto lotto) {
-        StringBuilder sb = new StringBuilder(LOTTO_START);
-        for (LottoNumber lottoNumber : lotto.getLottoNumbers()) {
-            sb.append(lottoNumber.getNumber()).append(LOTTO_SPLIT);
-        }
-        return sb.delete(sb.length() - LOTTO_SPLIT.length(), sb.length())
-            .append(LOTTO_END).toString();
+        return lotto.getLottoNumbers().stream()
+            .map(LottoNumber::getNumber)
+            .map(String::valueOf)
+            .collect(Collectors.joining(LOTTO_SPLIT, LOTTO_START, LOTTO_END));
     }
 
     public static void outputWinning(Map<Rank, Integer> winningStatistics, float profitRate) {

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import util.RandomUtil;
 
 public class Lotto {
-
-    private static final int LOTTO_NUMBERS_SIZE = 6;
 
     private final List<LottoNumber> lottoNumbers;
 
@@ -18,12 +18,11 @@ public class Lotto {
 
     public static Lotto purchaseLotto() {
         List<Integer> shuffledNumbers = RandomUtil.generateRandomNumbers();
-
-        List<LottoNumber> lottoNumbers = new ArrayList<>();
-        for (int i = 0; i < LOTTO_NUMBERS_SIZE; i++) {
-            lottoNumbers.add(new LottoNumber(shuffledNumbers.get(i)));
-        }
-        lottoNumbers.sort(Comparator.comparing(LottoNumber::getNumber));
+        List<LottoNumber> lottoNumbers = IntStream.range(0, 6)
+            .map(shuffledNumbers::get)
+            .mapToObj(LottoNumber::new)
+            .sorted(Comparator.comparing(LottoNumber::getNumber))
+            .collect(Collectors.toList());
         return new Lotto(lottoNumbers);
     }
 

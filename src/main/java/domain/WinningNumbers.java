@@ -25,10 +25,8 @@ public class WinningNumbers {
         int inputBonusNumber) {
         validateWinningNumbers(inputWinningNumbers);
         validateNumber(inputBonusNumber);
-        List<WinningNumber> winningNumbers = new ArrayList<>();
-        for (int inputWinningNumber : inputWinningNumbers) {
-            winningNumbers.add(new WinningNumber(inputWinningNumber));
-        }
+        List<WinningNumber> winningNumbers = inputWinningNumbers.stream()
+            .map(WinningNumber::new).collect(Collectors.toList());
 
         WinningNumber bonusNumber = new WinningNumber(inputBonusNumber);
 
@@ -66,7 +64,8 @@ public class WinningNumbers {
     }
 
     private int countMatchNumber(Lotto lotto) {
-        List<Integer> winningNumbers = this.winningNumbers.stream().map(WinningNumber::getNumber)
+        List<Integer> winningNumbers = this.winningNumbers.stream()
+            .map(WinningNumber::getNumber)
             .collect(Collectors.toList());
 
         return (int) lotto.getLottoNumbers().stream()
