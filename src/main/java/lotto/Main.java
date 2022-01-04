@@ -18,7 +18,8 @@ public class Main {
             om.printAllLotto(lottoList);
 
             List<Integer> winningNumber = im.getWinningNumber(scanner);
-            WinningInfo winningInfo = new WinningInfo(lottoList, winningNumber);
+            int bonusNumber = im.getBonusNumber(scanner);
+            WinningInfo winningInfo = new WinningInfo(lottoList, winningNumber, bonusNumber);
             om.printPrizes(purchaseInfo, winningInfo);
         }
     }

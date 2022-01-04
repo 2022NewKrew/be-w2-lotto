@@ -6,17 +6,22 @@ import lotto.domain.PurchaseInfo;
 import java.util.*;
 
 public class CLIInputManager implements InputManager {
+    private static final String PURCHASE_AMOUNT_TITLE = "구입금액을 입력해 주세요.";
+    private static final String PURCHASE_RESULT_FORMAT = "%d개를 구매했습니다.%n";
+    private static final String WINNING_NUMBER_TITLE = "지난 주 당첨 번호를 입력해 주세요.";
+    private static final String BONUS_NUMBER_TITLE = "보너스 볼을 입력해 주세요.";
+
     public PurchaseInfo getPurchaseAmount(Scanner scanner) {
-        System.out.println("구입금액을 입력해 주세요.");
+        System.out.println(PURCHASE_AMOUNT_TITLE);
         int purchaseAmount = Integer.parseInt(scanner.nextLine());
         checkValidPurchaseAmount(purchaseAmount);
         PurchaseInfo pi = new PurchaseInfo(purchaseAmount);
-        System.out.printf("%d개를 구매했습니다.", pi.getNumOfPurchase());
+        System.out.format(PURCHASE_RESULT_FORMAT, pi.getNumOfPurchase());
         return pi;
     }
 
     public List<Integer> getWinningNumber(Scanner scanner) {
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+        System.out.println(WINNING_NUMBER_TITLE);
         List<Integer> result = new ArrayList<>();
         for (String element : scanner.nextLine().replace(" ", "").split(",")) {
             result.add(Integer.parseInt(element));
@@ -24,6 +29,13 @@ public class CLIInputManager implements InputManager {
         Collections.sort(result);
         checkValidWinningNumberList(result);
         return result;
+    }
+
+    public int getBonusNumber(Scanner scanner) {
+        System.out.println(BONUS_NUMBER_TITLE);
+        int bonus = Integer.parseInt(scanner.nextLine());
+        checkValidBonusNumber(bonus);
+        return bonus;
     }
 
     private void checkValidPurchaseAmount(int purchaseAmount) {
@@ -48,6 +60,12 @@ public class CLIInputManager implements InputManager {
     private void checkValidWinningNumberEach(int current, int next) {
         if (current == next) {
             throw new IllegalArgumentException("당첨 번호에 중복이 존재합니다!");
+        }
+    }
+
+    private void checkValidBonusNumber(int bonus) {
+        if (bonus < 1 || bonus > 45) {
+            throw new IllegalArgumentException("잘못된 보너스 볼 범위입니다!");
         }
     }
 }

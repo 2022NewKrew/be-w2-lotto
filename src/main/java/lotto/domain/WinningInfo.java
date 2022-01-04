@@ -1,42 +1,48 @@
 package lotto.domain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class WinningInfo {
-    public static final List<Integer> MATCH_COUNT = new ArrayList<>(Arrays.asList(3, 4, 5, 6));
-    public static final List<Integer> PRIZE = new ArrayList<>(Arrays.asList(5000, 50000, 1500000, 2000000000));
-
-    private final List<Integer> win;
+    private final HashMap<Rank, Integer> winCount;
+    private final int bonusNumber;
     private int returnAmount;
 
-    public WinningInfo(List<Lotto> lottoList, List<Integer> winningNumber) {
-        this.win = IntStream.iterate(0, n -> n).limit(MATCH_COUNT.size()).boxed().collect(Collectors.toList());
+    public WinningInfo(List<Lotto> lottoList, List<Integer> winningNumber, int bonusNumber) {
+        this.winCount = new HashMap<>();
+        this.bonusNumber = bonusNumber;
         this.returnAmount = 0;
-        for (Lotto lotto : lottoList) {
-            addWinCount(lotto, winningNumber);
-        }
-        for (int i = 0; i < MATCH_COUNT.size(); i++) {
-            returnAmount += this.win.get(i) * PRIZE.get(i);
-        }
+        initializeWinCount(lottoList, winningNumber);
+        initializeReturnAmount();
     }
 
-    public List<Integer> getWin() {
-        return win;
-    }
+    public HashMap<Rank, Integer> getWinCount() { return this.winCount; }
 
     public int getReturnAmount() {
-        return returnAmount;
+        return this.returnAmount;
     }
 
-    private void addWinCount(Lotto lotto, List<Integer> winningNumber) {
-        int result = compare(lotto, winningNumber);
-        int index_win = MATCH_COUNT.indexOf(result);
-        if (index_win > -1) {
-            this.win.set(index_win, this.win.get(index_win) + 1);
+    private void initializeWinCount(List<Lotto> lottoList, List<Integer> winningNumber) {
+        for (Rank rank : Rank.values()) {
+            this.winCount.put(rank, 0);
+        }
+        for (Lotto lotto : lottoList) {
+            addWinCount(lotto, winningNumber, bonusNumber);
+        }
+    }
+
+    private void initializeReturnAmount() {
+        for (Rank rank : Rank.values()) {
+            this.returnAmount += rank.getWinningMoney() * this.winCount.get(rank);
+        }
+    }
+
+    private void addWinCount(Lotto lotto, List<Integer> winningNumber, int bonusNumber) {
+        int match_count = compare(lotto, winningNumber);
+        boolean isBonusContained = lotto.getNumbers().contains(bonusNumber);
+        Rank result = Rank.valueOf(match_count, isBonusContained);
+        if (result != null) {
+            this.winCount.put(result, this.winCount.get(result) + 1);
         }
     }
 

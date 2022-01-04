@@ -8,4 +8,5 @@ import java.util.Scanner;
 public interface InputManager {
     PurchaseInfo getPurchaseAmount(Scanner scanner);
     List<Integer> getWinningNumber(Scanner scanner);
+    int getBonusNumber(Scanner scanner);
 }
