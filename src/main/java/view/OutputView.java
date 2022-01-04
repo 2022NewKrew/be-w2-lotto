@@ -2,7 +2,6 @@ package view;
 
 import domain.Lotto;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class OutputView {
@@ -20,5 +19,9 @@ public class OutputView {
         for (String winningStatsString : winningStatsStrings) {
             System.out.println(winningStatsString);
         }
+    }
+
+    public void printWinningRate(double winningRate) {
+        System.out.printf("총 수익률은 %.2f%%입니다.\n", winningRate);
     }
 }
