@@ -10,31 +10,27 @@ public class LottoRankMatch {
     public static Map<LottoRank, Integer> createLottoRankResult(LottoRepository autoLottos, List<Integer> inputLastWeekWinNumber) {
 //        lottoResult.put(new HashMap<LottoRank, Integer>());
         for (Lotto autoLotto : autoLottos.getLottos()) {
-            lottoResult.put(c)
+            lottoResult.put(createLottoRank(autoLotto, inputLastWeekWinNumber))
         }
         autoLottos.getLottos().stream().filter(autoLotto -> )
     }
 
-    public static LottoRank createLottoRank(Lotto autoLotto, List<Integer> inputLastWeekWinNumber) {
-        LottoRank lottoRank = checkMatchedNumbers(autoLotto, inputLastWeekWinNumber)
+    private static LottoRank createLottoRank(Lotto autoLotto, List<Integer> inputLastWeekWinNumber) {
+        return LottoRank.find(checkMatchedNumbers(autoLotto, inputLastWeekWinNumber));
     }
 
-    public static int checkMatchedNumbers(Lotto autoLotto, List<Integer> inputLastWeekWinNumbers) {
+    private static int checkMatchedNumbers(Lotto autoLotto, List<Integer> inputLastWeekWinNumbers) {
         return (int) inputLastWeekWinNumbers.stream()
                 .filter(inputLastWeekWinNumber -> checkMatchedNumber(autoLotto, inputLastWeekWinNumber))
                 .count();
     }
 
-    public static Boolean checkMatchedNumber(Lotto autoLotto, Integer num) {
-        for (int lottoIndex = 0; lottoIndex < autoLotto.getLottoSize(); lottoIndex++) {
-            if (checkMatchedNumberIsBoolean(autoLotto.getLotto().get(lottoIndex), num)) {
-                return true;
-            }
-        }
-        return false;
+    private static Boolean checkMatchedNumber(Lotto autoLotto, Integer num) {
+        return autoLotto.getLotto().stream()
+                .anyMatch(autoLottoNumber -> checkMatchedNumberIsBoolean(autoLottoNumber, num));
     }
 
-    public static Boolean checkMatchedNumberIsBoolean(int lottoNumber, int inputNumber) {
+    private static Boolean checkMatchedNumberIsBoolean(int lottoNumber, int inputNumber) {
         return lottoNumber == inputNumber;
     }
 }
