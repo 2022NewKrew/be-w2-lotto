@@ -1,9 +1,13 @@
 package lottery.web;
 
 import lottery.web.dto.BudgetDto;
+import lottery.web.dto.LotteryDto;
+import lottery.web.dto.LotteryResultDto;
+import lottery.web.dto.LotteryWinningNumberDto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class IOController {
@@ -12,9 +16,17 @@ public class IOController {
     private final LotteryController lotteryController = new LotteryController();
 
     public void runApp() {
-//        BudgetDto budgetDto = new BudgetDto(getBudget());
-//        lotteryController.buy(budgetDto);
-        getWinningNumbers();
+
+        BudgetDto budgetDto = new BudgetDto(getBudget());
+        List<LotteryDto> boughtLotteries = lotteryController.buy(budgetDto);
+        for (LotteryDto lotto : boughtLotteries) {
+            System.out.println(lotto.getNumbers().toString());
+        }
+
+        LotteryWinningNumberDto winningNumberDto = new LotteryWinningNumberDto(getWinningNumbers());
+        LotteryResultDto matchResult = lotteryController.match(winningNumberDto);
+        System.out.println(matchResult.toString());
+
         close();
     }
 
@@ -35,8 +47,6 @@ public class IOController {
         ArrayList<Integer> winningNumbers = new ArrayList<Integer>();
 
         inputStrArr.forEach(el -> winningNumbers.add(Integer.parseInt(el.trim())));
-
-        System.out.println(winningNumbers.toString());
 
         return winningNumbers;
     }
