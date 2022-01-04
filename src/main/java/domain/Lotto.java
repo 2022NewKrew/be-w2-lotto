@@ -16,10 +16,16 @@ public class Lotto {
         this.numbers = numbers;
     }
 
-    public int getWinningCount(List<Integer> winningNumbers) {
-        return Math.toIntExact(numbers.stream()
+    public Rank getRank(List<Integer> winningNumbers, int bonusNum){
+        int countOfMatch = getCountofMatch(winningNumbers);
+        boolean matchOfBonus = numbers.contains(bonusNum);
+        return Rank.valueOf(countOfMatch, matchOfBonus);
+    }
+
+    private int getCountofMatch(List<Integer> winningNumbers){
+        return (int) numbers.stream()
                 .filter(winningNumbers::contains)
-                .count());
+                .count();
     }
 
     @Override

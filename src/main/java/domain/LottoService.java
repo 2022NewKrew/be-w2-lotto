@@ -40,20 +40,4 @@ public class LottoService {
     public List<Lotto> getLottos() {
         return Collections.unmodifiableList(lottos);
     }
-
-    public Map<Integer, Integer> getWinningResult(List<Integer> winningNumbers) {
-        Map<Integer, Integer> winningResult = new HashMap<>() {{
-            put(FOURTH_RANK, INITIAL_COUNT);
-            put(THIRD_RANK, INITIAL_COUNT);
-            put(SECOND_RANK, INITIAL_COUNT);
-            put(FIRST_RANK, INITIAL_COUNT);
-        }};
-
-        lottos.stream()
-                .map(lotto -> lotto.getWinningCount(winningNumbers))
-                .filter(count -> count >= MINIMUM_MATCH_COUNT)
-                .forEach(count -> winningResult.put(count, winningResult.get(count) + 1));
-
-        return Collections.unmodifiableMap(winningResult);
-    }
 }
