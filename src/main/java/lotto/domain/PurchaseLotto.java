@@ -5,7 +5,6 @@ import java.util.List;
 
 public class PurchaseLotto {
     private static final int BASIC_PRICE = 1000;
-    private static final String ERROR_INVALID_PRICE = "금액은 1000원 이상 입력하셔야 합니다.";
 
     private List<Lotto> lottos;
 
@@ -28,7 +27,7 @@ public class PurchaseLotto {
 
     private static void validateLottos(int purchasePrice) {
         if (purchasePrice < BASIC_PRICE) {
-            throw new IllegalArgumentException(ERROR_INVALID_PRICE);
+            throw new IllegalArgumentException(ExceptionMessage.ERROR_INVALID_PRICE.getMessage());
         }
     }
 
