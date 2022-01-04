@@ -1,18 +1,17 @@
-package com.david.lotto.domain;
+package com.david.lotto;
 
 import com.david.lotto.view.LottoInput;
 import com.david.lotto.view.LottoOutput;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class LottoMachine {
 
     private static final LottoInput lottoInput = new LottoInput();
     private static final LottoOutput lottoOutput = new LottoOutput();
     private static final LottoCalculate lottoCalculate = new LottoCalculate();
-    private static final int lottoPrice = 1000;
+    public static final int lottoPrice = 1000;
     private final List<Lotto> lottoList = new ArrayList<>();
     private int count;
 
@@ -23,18 +22,13 @@ public class LottoMachine {
     }
 
     public void runLottoMachine() {
-        int amount = lottoInput.inputAmount();
-        lottoOutput.printLottoCount(amount,lottoPrice);
-        count = amount / lottoPrice;
+        count = lottoInput.inputCount(lottoPrice);
+        lottoOutput.printLottoCount(count);
         generateLottoList();
-        lottoOutput.printLottoInfo(this);
+        lottoOutput.printLottoInfo(lottoList);
         List<Integer> winningNumber = lottoInput.inputWinningNumber();
-        double profitRate = lottoCalculate.calculateProfitRate(lottoList, winningNumber, amount);
+        int bonusNumber = lottoInput.inputBonusNumber();
+        double profitRate = lottoCalculate.calculateProfitRate(lottoList, winningNumber, count, bonusNumber);
         lottoOutput.printLottoResult(lottoCalculate, profitRate);
-    }
-
-    @Override
-    public String toString() {
-        return lottoList.stream().map(Lotto::toString).collect(Collectors.joining("\n"));
     }
 }

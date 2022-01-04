@@ -1,4 +1,4 @@
-package com.david.lotto.domain;
+package com.david.lotto;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 
 public class Lotto {
 
-    private static final List<Integer> allLottoNumber = IntStream.range(1, 46).boxed().collect(Collectors.toList());
+    private final List<Integer> allLottoNumber = IntStream.range(1, 46).boxed().collect(Collectors.toList());
     private final List<Integer> lottoNumber = new ArrayList<>();
 
     public Lotto() {
@@ -20,19 +20,12 @@ public class Lotto {
         Collections.sort(lottoNumber);
     }
 
-    public int calculateContain(List<Integer> winningNumber) {
-        int containCount = 0;
-        for (int number : winningNumber) {
-            containCount += checkContain(number);
-        }
-        return containCount;
+    public int calculateCountOfMatch(List<Integer> winningNumber) {
+        return (int) lottoNumber.stream().filter(winningNumber::contains).count();
     }
 
-    private int checkContain(int number) {
-        if (lottoNumber.contains(number)) {
-            return 1;
-        }
-        return 0;
+    public boolean checkBonusNumber(int bonusNumber) {
+        return lottoNumber.contains(bonusNumber);
     }
 
     @Override
