@@ -6,7 +6,7 @@ public class WinningLotto {
     private final List<Integer> lottoSequence;
     private final int bonusNumber;
 
-    public WinningLotto(List<Integer> lottoSequence, int bonusNumber){
+    public WinningLotto(List<Integer> lottoSequence, int bonusNumber) {
         this.lottoSequence = lottoSequence;
         this.bonusNumber = bonusNumber;
     }

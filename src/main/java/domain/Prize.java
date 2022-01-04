@@ -15,30 +15,21 @@ public enum Prize {
     private final int correctAmount;
     private final boolean isBonus;
 
-    Prize(int money, int correctAmount, boolean isBonus){
+    Prize(int money, int correctAmount, boolean isBonus) {
         this.money = money;
         this.correctAmount = correctAmount;
         this.isBonus = isBonus;
     }
 
-    public int getMoney(){
+    public int getMoney() {
         return money;
     }
 
-    public int getCorrectAmount(){
+    public int getCorrectAmount() {
         return correctAmount;
     }
 
-    public static Prize createPrize(int correctAmount, boolean isBonus){
-        return Arrays.stream(Prize.values())
-                .filter(prize -> prize.getCorrectAmount() == correctAmount && checkBonus(prize, correctAmount, isBonus))
-                .findFirst()
-                .orElse(null);
-    }
-
-    private static boolean checkBonus(Prize prize, int correctAmount, boolean isBonus){
-        if (correctAmount != SECOND_BONUS.getCorrectAmount())
-            return true;
-        return prize.isBonus == isBonus;
+    public boolean getIsBonus() {
+        return isBonus;
     }
 }
