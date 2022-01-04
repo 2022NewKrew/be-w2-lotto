@@ -28,24 +28,11 @@ public class Lotto {
         Collections.sort(numbers);
     }
 
-    public void print() {
-        System.out.printf("[ ");
-        for(int index = 0; index < 6; index++){
-            System.out.printf(numbers.get(index) +"");
-            if(index < 5) System.out.printf(", ");
-        }
-        System.out.printf("]\n");
+    public List<Integer> getLottoNumbers(){
+        return numbers;
     }
 
-    public int compare(Lotto lotto) {
-        int result = 0;
-        for(int number : numbers){
-            result += lotto.contain(number);
-        }
-        return result;
-    }
-
-    private int contain(int number) {
+    public int contain(int number) {
         if(numbers.contains(number)) return 1;
         return 0;
     }
