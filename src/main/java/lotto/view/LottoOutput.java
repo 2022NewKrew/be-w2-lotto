@@ -6,6 +6,7 @@ import lotto.domain.LottoStatistic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class LottoOutput {
@@ -23,7 +24,7 @@ public class LottoOutput {
         System.out.printf("%d개를 구매했습니다.\n", count);
     }
 
-    public void printLottos(ArrayList<Lotto> lottos) {
+    public void printLottos(List<Lotto> lottos) {
         for(Lotto lotto : lottos) {
             System.out.println(lotto);
         }
