@@ -9,7 +9,7 @@ public class WinningLotto extends Lotto{
 
     public int compareTo(Lotto other) {
         return (int) this.getNumbers().stream()
-                .filter(e -> other.getNumbers().contains(e))
+                .filter(other.getNumbers()::contains)
                 .count();
     }
 }
