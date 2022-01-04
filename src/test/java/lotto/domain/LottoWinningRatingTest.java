@@ -13,7 +13,7 @@ class LottoWinningRatingTest {
         LottoWinningRating lottoWinningRating = LottoWinningRating.FIRST;
 
         // When
-        Integer matchCount = lottoWinningRating.getMatchCount();
+        long matchCount = lottoWinningRating.getMatchCount();
 
         // Then
         Assertions.assertEquals(6, matchCount);
@@ -26,7 +26,7 @@ class LottoWinningRatingTest {
         LottoWinningRating lottoWinningRating = LottoWinningRating.SECOND;
 
         // When
-        Integer matchCount = lottoWinningRating.getMatchCount();
+        long matchCount = lottoWinningRating.getMatchCount();
 
         // Then
         Assertions.assertEquals(5, matchCount);
@@ -39,7 +39,7 @@ class LottoWinningRatingTest {
         LottoWinningRating lottoWinningRating = LottoWinningRating.THIRD;
 
         // When
-        Integer matchCount = lottoWinningRating.getMatchCount();
+        long matchCount = lottoWinningRating.getMatchCount();
 
         // Then
         Assertions.assertEquals(4, matchCount);
@@ -52,7 +52,7 @@ class LottoWinningRatingTest {
         LottoWinningRating lottoWinningRating = LottoWinningRating.FOURTH;
 
         // When
-        Integer matchCount = lottoWinningRating.getMatchCount();
+        long matchCount = lottoWinningRating.getMatchCount();
 
         // Then
         Assertions.assertEquals(3, matchCount);
@@ -66,7 +66,7 @@ class LottoWinningRatingTest {
         LottoWinningRating lottoWinningRating = LottoWinningRating.NOTHING;
 
         // When
-        Integer matchCount = lottoWinningRating.getMatchCount();
+        long matchCount = lottoWinningRating.getMatchCount();
 
         // Then
         Assertions.assertEquals(0, matchCount);
@@ -79,7 +79,7 @@ class LottoWinningRatingTest {
         LottoWinningRating lottoWinningRating = LottoWinningRating.FIRST;
 
         // When
-        Integer winningMoney = lottoWinningRating.getWinningMoney();
+        long winningMoney = lottoWinningRating.getWinningMoney();
 
         // Then
         Assertions.assertEquals(2000000000, winningMoney);
@@ -92,7 +92,7 @@ class LottoWinningRatingTest {
         LottoWinningRating lottoWinningRating = LottoWinningRating.SECOND;
 
         // When
-        Integer winningMoney = lottoWinningRating.getWinningMoney();
+        long winningMoney = lottoWinningRating.getWinningMoney();
 
         // Then
         Assertions.assertEquals(1500000, winningMoney);
@@ -106,7 +106,7 @@ class LottoWinningRatingTest {
         LottoWinningRating lottoWinningRating = LottoWinningRating.THIRD;
 
         // When
-        Integer winningMoney = lottoWinningRating.getWinningMoney();
+        long winningMoney = lottoWinningRating.getWinningMoney();
 
         // Then
         Assertions.assertEquals(50000, winningMoney);
@@ -120,7 +120,7 @@ class LottoWinningRatingTest {
         LottoWinningRating lottoWinningRating = LottoWinningRating.FOURTH;
 
         // When
-        Integer winningMoney = lottoWinningRating.getWinningMoney();
+        long winningMoney = lottoWinningRating.getWinningMoney();
 
         // Then
         Assertions.assertEquals(5000, winningMoney);
@@ -134,7 +134,7 @@ class LottoWinningRatingTest {
         LottoWinningRating lottoWinningRating = LottoWinningRating.NOTHING;
 
         // When
-        Integer winningMoney = lottoWinningRating.getWinningMoney();
+        long winningMoney = lottoWinningRating.getWinningMoney();
 
         // Then
         Assertions.assertEquals(0, winningMoney);

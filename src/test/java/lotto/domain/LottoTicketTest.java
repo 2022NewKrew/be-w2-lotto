@@ -54,7 +54,7 @@ class LottoTicketTest {
         LottoTicket lotto = new LottoTicket(14000);
 
         // When
-        Integer result = lotto.getWholeLottoPrice();
+        int result = lotto.getWholeLottoPrice();
 
         //Then
         Assertions.assertEquals(14000, result);
@@ -77,6 +77,6 @@ class LottoTicketTest {
         LottoWinningResult lottoWinningResult = lotto.getLottoWinningResult(winningNumbers);
 
         //Then
-        Assertions.assertNull(lottoWinningResult.getLottoWinningCount(LottoWinningRating.NOTHING));
+        Assertions.assertTrue(lottoWinningResult.getLottoWinningCount(LottoWinningRating.FOURTH) <= 14);
     }
 }

@@ -9,26 +9,26 @@ public enum LottoWinningRating {
     FOURTH(3, 5_000),
     NOTHING(0, 0);
 
-    private final Integer matchCount;
-    private final Integer winningMoney;
+    private final int matchCount;
+    private final int winningMoney;
 
-    LottoWinningRating(Integer matchCount, Integer winningMoney) {
+    LottoWinningRating(int matchCount, int winningMoney) {
         this.matchCount = matchCount;
         this.winningMoney = winningMoney;
     }
 
-    public static LottoWinningRating getWinningRating(Integer matchCount) {
+    public static LottoWinningRating getWinningRating(int matchCount) {
         return Arrays.stream(LottoWinningRating.values())
                 .filter(lottoWinningRating -> lottoWinningRating.getMatchCount() == matchCount)
                 .findAny()
                 .orElse(LottoWinningRating.NOTHING);
     }
 
-    public Integer getMatchCount() {
+    public int getMatchCount() {
         return matchCount;
     }
 
-    public Integer getWinningMoney() {
+    public int getWinningMoney() {
         return winningMoney;
     }
 

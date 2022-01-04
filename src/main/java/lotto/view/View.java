@@ -31,7 +31,7 @@ public class View {
 
     }
 
-    public void printLottoCount(Integer lottoCount) {
+    public void printLottoCount(int lottoCount) {
         System.out.println(lottoCount + "개를 구매했습니다.");
     }
 
@@ -50,11 +50,11 @@ public class View {
         }
     }
 
-    public void printYield(Integer yield) {
+    public void printYield(long yield) {
         System.out.println("총 수익률은 " + yield + "%입니다.");
     }
 
-    private String makeLottoWinningResultText(LottoWinningRating lottoWinningRating, Integer count) {
+    private String makeLottoWinningResultText(LottoWinningRating lottoWinningRating, int count) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(lottoWinningRating.getMatchCount());
         stringBuilder.append("개 일치 (");

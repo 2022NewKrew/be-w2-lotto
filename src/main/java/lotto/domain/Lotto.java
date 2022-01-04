@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Lotto {
 
-    public static final Integer COUNT_OF_WINNING_NUMBERS = 6;
-    public static final Integer MAX_NUMBER_OF_LOTTO = 45;
+    public static final int COUNT_OF_WINNING_NUMBERS = 6;
+    public static final int MAX_NUMBER_OF_LOTTO = 45;
     private final List<Integer> lottoNumbers;
 
     public Lotto() {

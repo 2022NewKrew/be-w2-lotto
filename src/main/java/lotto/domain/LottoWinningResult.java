@@ -26,16 +26,16 @@ public class LottoWinningResult {
                 .forEach(lottoWinningRating -> lottoWinningResults.put(lottoWinningRating, 0));
     }
 
-    public Integer getYield(Integer wholeLottoPrice) {
+    public long getYield(int wholeLottoPrice) {
         int earnedMoney = 0;
         for (LottoWinningRating lottoWinningRating : lottoWinningResults.keySet()) {
             earnedMoney += lottoWinningRating.getWinningMoney() * lottoWinningResults.get(lottoWinningRating);
         }
 
-        return (earnedMoney * 100) / wholeLottoPrice;
+        return (earnedMoney * 100L) / wholeLottoPrice;
     }
 
-    public Integer getLottoWinningCount(LottoWinningRating lottoWinningRating) {
+    public int getLottoWinningCount(LottoWinningRating lottoWinningRating) {
         return lottoWinningResults.get(lottoWinningRating);
     }
 
