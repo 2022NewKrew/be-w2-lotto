@@ -12,8 +12,8 @@ public class User {
     private int investment;
 
     public User(Admin admin) {
-        investment = 0;
         this.admin = admin;
+        investment = 0;
         tickets = new ArrayList<>();
     }
 

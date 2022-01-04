@@ -1,5 +1,6 @@
 package domain;
 
+import domain.lottery.NumbersFactory;
 import domain.lottery.Result;
 import domain.lottery.Ticket;
 
@@ -14,9 +15,12 @@ public class Admin {
     private final static int DEFAULT_THIRD_PRIZE_VALUE = 50000;
     private final static int DEFAULT_FOURTH_PRIZE_VALUE = 5000;
     private final static int DEFAULT_TICKET_PRICE = 1000;
-    private final Map<PrizeRank, Integer> prizeValues;
-    private final int ticketPrice;
+
+    private Map<PrizeRank, Integer> prizeValues;
+    private int ticketPrice;
     private Result result;
+    private NumbersFactory numbersFactory;
+
     public Admin() {
         prizeValues = new HashMap<>();
         prizeValues.put(PrizeRank.FIRST, DEFAULT_FIRST_PRIZE_VALUE);
@@ -24,6 +28,7 @@ public class Admin {
         prizeValues.put(PrizeRank.THIRD, DEFAULT_THIRD_PRIZE_VALUE);
         prizeValues.put(PrizeRank.FOURTH, DEFAULT_FOURTH_PRIZE_VALUE);
         ticketPrice = DEFAULT_TICKET_PRICE;
+        numbersFactory = new NumbersFactory();
     }
 
     public int getTicketPrice() {
@@ -31,11 +36,11 @@ public class Admin {
     }
 
     public Ticket buyRandomTicket(Random random) {
-        return new Ticket(random);
+        return new Ticket(random, numbersFactory);
     }
 
     public void setResult(List<Integer> numbers) {
-        this.result = new Result(numbers);
+        this.result = new Result(numbers, numbersFactory);
     }
 
     public Report getReportFor(User user) {

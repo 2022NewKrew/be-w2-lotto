@@ -4,17 +4,13 @@ import java.util.List;
 import java.util.Random;
 
 public class Ticket {
-    private final Numbers numbersObject;
+    private final List<Integer> numbers;
 
-    public Ticket(List<Integer> numbers) {
-        this.numbersObject = new Numbers(numbers);
-    }
-
-    public Ticket(Random random) {
-        this.numbersObject = new Numbers(random);
+    public Ticket(Random random, NumbersFactory numbersFactory) {
+        this.numbers = numbersFactory.getRandomNumbers(random);
     }
 
     public List<Integer> getNumbers() {
-        return numbersObject.getNumbers();
+        return numbers;
     }
 }
