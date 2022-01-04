@@ -14,7 +14,7 @@ public class LotteryFactory {
                 .collect(Collectors.toList());
     }
 
-    public static Lottery buildSingleLottery(Rule rule) {
+    private static Lottery buildSingleLottery(Rule rule) {
         return new Lottery(random.ints(rule.getLotteryNumberStart(), rule.getLotteryNumberEnd() + 1)
                 .distinct()
                 .limit(rule.getLotteryNumberCount())
