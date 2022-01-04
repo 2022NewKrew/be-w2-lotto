@@ -35,11 +35,9 @@ public class LottoApp {
         StringBuilder builder = new StringBuilder();
         builder.append(this.rewards.toString());
         builder.append("총 수익률은 ");
-<<<<<<< HEAD
+
         builder.append(String.format("%.2f%%", (float)rewards.getTotalReward()/accumPayment*100));
-=======
-        builder.append(String.format("%.2f%%", (float)rewards.getTotalReward()/accumPayment));
->>>>>>> 4806713 (feat : step 1)
+
         builder.append("입니다.");
 
         return builder.toString();
