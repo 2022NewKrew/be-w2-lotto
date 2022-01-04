@@ -33,6 +33,11 @@ public class InputView {
 
     }
 
+    public static LottoNumber inputBonusBall() throws IOException {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return new LottoNumber(stoi(br.readLine()));
+    }
+
     public static int stoi(String input) {
         return Integer.parseInt(input);
     }

@@ -8,6 +8,7 @@ public enum LottoResultType {
     THREE_MATCH(3, 5000),
     FOUR_MATCH(4, 50000),
     FIVE_MATCH(5, 1500000),
+    FIVE_MATCH_WITH_BONUS(5, 30000000),
     SIX_MATCH(6, 2000000000);
 
     public static final int MIN_MATCH_NUMBER_COUNT = 3;

@@ -11,10 +11,10 @@ public class LottoResult {
     private final Map<LottoResultType, Integer> matchingResult = new HashMap<>();
 
 
-    public LottoResult(LottoTicket winningTicket, List<LottoTicket> lottoTickets, int purchasePrice) {
+    public LottoResult(WinningLottoTicket winningLottoTicket, List<LottoTicket> lottoTickets, int purchasePrice) {
         this.purchasePrice = purchasePrice;
         initialize();
-        compareLottoNumber(winningTicket, lottoTickets);
+        compareLottoNumber(winningLottoTicket, lottoTickets);
     }
 
     public int getPurchasePrice() {
@@ -31,16 +31,30 @@ public class LottoResult {
         }
     }
 
-    private void increaseMatchingCount(int countOfMatchingNumber) {
-        LottoResultType resultType = LottoResultType.getLottoResultType(countOfMatchingNumber);
-        matchingResult.computeIfPresent(resultType, (type, number) -> number + 1);
+    private boolean checkBonusMatch(LottoTicket ticket, LottoNumber bonusBall) {
+        return ticket.getLottoNumbers().contains(bonusBall);
     }
 
-    private void compareLottoNumber(LottoTicket winningTicket, List<LottoTicket> lottoTickets) {
+    private LottoResultType findResultType(int countOfMatchingNumber, boolean isBonusMatch) {
+        LottoResultType resultType = LottoResultType.getLottoResultType(countOfMatchingNumber);
+        if ((resultType == LottoResultType.FIVE_MATCH) && isBonusMatch) {
+            return LottoResultType.FIVE_MATCH_WITH_BONUS;
+        }
+        return resultType;
+    }
+
+    private void increaseMatchingCount(int countOfMatchingNumber, boolean isBonusMatch) {
+        matchingResult.computeIfPresent(findResultType(countOfMatchingNumber, isBonusMatch),
+                (type, number) -> number + 1);
+    }
+
+
+    private void compareLottoNumber(WinningLottoTicket winningLottoTicket, List<LottoTicket> lottoTickets) {
         for (LottoTicket ticket : lottoTickets) {
-            int count = compareWinningNumber(winningTicket, ticket);
+            int count = compareWinningNumber(winningLottoTicket.getWinningTicket(), ticket);
             if (count >= LottoResultType.MIN_MATCH_NUMBER_COUNT) {
-                increaseMatchingCount(count);
+                increaseMatchingCount(count,
+                        checkBonusMatch(ticket, winningLottoTicket.getBonusBall()));
             }
         }
     }

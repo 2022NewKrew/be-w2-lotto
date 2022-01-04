@@ -1,7 +1,4 @@
-import domain.LottoMachine;
-import domain.LottoPrice;
-import domain.LottoResult;
-import domain.LottoTicket;
+import domain.*;
 import view.InputView;
 import view.OutputView;
 
@@ -10,19 +7,23 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
+import static view.InputView.*;
+
 public class Main {
 
     public static void main(String[] args) throws IOException {
 
         BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(System.out));
-        LottoPrice lottoPrice = InputView.inputLottoPrice();
         LottoMachine lottoMachine = new LottoMachine();
+
+        LottoPrice lottoPrice = inputLottoPrice();
         List<LottoTicket> lottoTickets = lottoMachine.makeLottoTicket(lottoPrice);
 
         OutputView.printLottoTickets(lottoTickets, wr);
 
-        LottoTicket winningTicket = InputView.inputWinningNumber();
-        LottoResult lottoResult = new LottoResult(winningTicket, lottoTickets, lottoPrice.getPrice());
+        WinningLottoTicket winningLottoTicket = new WinningLottoTicket(inputWinningNumber(), inputBonusBall());
+        LottoResult lottoResult = new LottoResult(winningLottoTicket, lottoTickets, lottoPrice.getPrice());
+
         OutputView.printLottoResult(lottoResult, wr);
         wr.close();
     }
