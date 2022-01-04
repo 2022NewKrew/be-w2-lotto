@@ -16,9 +16,8 @@ public class Lottery {
     }
 
     public int calculateMatchCount(Set<Integer> drawnNumbers) {
-        Set<Integer> lotteryNumbers = new TreeSet<>(this.lotteryNumbers);
-        lotteryNumbers.retainAll(drawnNumbers);
-        return lotteryNumbers.size();
+        return (int) drawnNumbers.stream().filter(this::contains)
+                .count();
     }
 
     public boolean contains(int number) {
