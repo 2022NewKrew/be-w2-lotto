@@ -6,7 +6,7 @@ import java.util.List;
 
 public class LottoAuto extends Lotto{
 
-    private static List<Integer> lottoNumberList;
+    private static final List<Integer> lottoNumberList;
 
     static {
         lottoNumberList = new ArrayList<>();
