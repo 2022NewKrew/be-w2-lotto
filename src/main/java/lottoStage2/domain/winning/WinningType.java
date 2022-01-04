@@ -7,11 +7,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public enum WinningType {
-    FIFTH(3, false, 5_000),
-    FOURTH(4, false, 50_000),
-    THIRD(5, false, 1_500_00),
-    SECOND(5, true, 30_000_000),
-    FIRST(6, true, 2_000_000_000);
+    FIFTH(3, false, 5_000, "3개 일치"),
+    FOURTH(4, false, 50_000, "4개 일치"),
+    THIRD(5, false, 1_500_00, "5개 일치"),
+    SECOND(5, true, 30_000_000, "5개 일치, 보너스볼 일치"),
+    FIRST(6, true, 2_000_000_000, "6개 일치");
 
     private static final Map<Discrimination, String> MATCH_COUNT_MAP =
             Collections.unmodifiableMap(
@@ -20,10 +20,12 @@ public enum WinningType {
 
     private final Discrimination discrimination;
     private final int winnings;
+    private final String message;
 
-    WinningType(int matchCount, boolean matchBonus, int winnings) {
+    WinningType(int matchCount, boolean matchBonus, int winnings, String message) {
         discrimination = new Discrimination(matchCount, matchBonus);
         this.winnings = winnings;
+        this.message = message;
     }
 
     public static WinningType of(int matchCount) {
@@ -36,6 +38,10 @@ public enum WinningType {
 
     public int getWinnings() {
         return winnings;
+    }
+
+    public String getMessage() {
+        return message;
     }
 
     static class Discrimination {

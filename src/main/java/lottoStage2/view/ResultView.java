@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class ResultView {
     private static final String STATISTICS_MESSAGE = "당첨 통계";
     private static final String DASH_LINE = "----------";
-    private static final String SHOW_WINNING_RESULT_MESSAGE = "%d개 일치 (%d원) - %d개%n";
+    private static final String SHOW_WINNING_RESULT_MESSAGE = "%s (%d원) - %d개%n";
     private static final String WINNING_RESULT_REVENUE_MESSAGE = "총 수익률을 %d 입니다.%n";
 
     public static void showLottoCount(Lottos lottos) {
@@ -46,7 +46,7 @@ public class ResultView {
         Map<WinningType, Integer> winningResultMap = winningResult.getWinningResult();
         for(WinningType type : winningResultMap.keySet()) {
             System.out.printf(SHOW_WINNING_RESULT_MESSAGE,
-                    type.getMatchCount(), type.getWinnings(), winningResultMap.get(type));
+                    type.getMessage(), type.getWinnings(), winningResultMap.get(type));
         }
     }
 }
