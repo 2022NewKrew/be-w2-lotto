@@ -29,7 +29,7 @@ public class LottoView {
         lottoResultMap.forEach((rank, count) -> sb.append(printLottoRank(rank, count)));
 
         // 수익률
-        sb.append(String.format("총 수익률은 %.1f%%입니다.\n", lottoResult.getTotalResultPrice()));
+        sb.append(String.format("총 수익률은 %.2f%%입니다.\n", lottoResult.getTotalResultPrice()));
         System.out.println(sb);
     }
 

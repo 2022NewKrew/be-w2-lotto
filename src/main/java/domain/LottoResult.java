@@ -38,7 +38,7 @@ public class LottoResult {
         lottoResult.forEach((rank, count) ->
                 resultPrice.addAndGet((long) rank.getWinningMoney() * count));
 
-        return (double) resultPrice.get() / purchasePrice * 100;
+        return (double) (resultPrice.get()-purchasePrice) / purchasePrice * 100;
     }
 
 
