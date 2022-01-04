@@ -34,6 +34,18 @@ public class LottoUI {
                 .collect(Collectors.toList());
     }
 
+    public static int inputBonusNum() {
+        System.out.println(UIMessage.BONUS_NUM.getMessage());
+        int bonus;
+        try {
+            String input = scanner.nextLine();
+            bonus = Integer.parseInt(input);
+        } catch (Exception e) {
+            bonus = -1;
+        }
+        return bonus;
+    }
+
     public static void outputLotto(int count, String lotto) {
         System.out.printf(UIMessage.BUY_RESULT.getMessage(), count);
         System.out.println(lotto);

@@ -16,6 +16,7 @@ public class LottoMain {
 
         // 당첨 번호 입력
         List<Integer> winningNum = LottoUI.inputWinningNum();
+        int bonusNum = LottoUI.inputBonusNum();
 
         // 당첨 결과 및 수익률 출력
         LottoUI.outputWinningResult(lottoPaper.winningResult(winningNum), lottoPaper.winRate());
