@@ -27,10 +27,14 @@ public class Lotto {
         return lotto.toString();
     }
 
-    public int checkNumber(List<Integer> winningNumber) {
-        return (int) winningNumber
+    public int checkNumber(List<Integer> winningNumber, int bonusNumber) {
+        int correctCount = (int) winningNumber
                 .stream()
                 .filter(lotto::contains)
                 .count();
+        if (correctCount == 5 & lotto.contains(bonusNumber)) {
+            return 7;
+        }
+        return correctCount;
     }
 }

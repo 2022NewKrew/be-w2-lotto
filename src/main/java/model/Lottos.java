@@ -27,18 +27,18 @@ public class Lottos {
                 .collect(Collectors.joining("\n"));
     }
 
-    public HashMap<Integer, Integer> checkResult(List<Integer> winningNumber) {
+    public HashMap<Integer, Integer> checkResult(List<Integer> winningNumber, int bonusNum) {
         HashMap<Integer, Integer> resultMap = new HashMap<>();
         IntStream
-                .range(3, 7)
-                .forEach(correctNum -> resultMap.put(correctNum, countWinLotto(winningNumber, correctNum)));
+                .range(3, 8)
+                .forEach(correctNum -> resultMap.put(correctNum, countWinLotto(winningNumber, bonusNum, correctNum)));
         return resultMap;
     }
 
-    private int countWinLotto(List<Integer> winningNumber, int correctNum) {
+    private int countWinLotto(List<Integer> winningNumber, int bonusNum, int correctNum) {
         return (int) lottos
                 .stream()
-                .map(lotto -> lotto.checkNumber(winningNumber)).filter(l -> l.equals(correctNum)).count();
+                .map(lotto -> lotto.checkNumber(winningNumber, bonusNum)).filter(l -> l.equals(correctNum)).count();
     }
 
     public long checkWinRate(HashMap<Integer, Integer> checkResult) {
@@ -47,6 +47,7 @@ public class Lottos {
         winPrice += checkResult.get(3) * 5000;
         winPrice += checkResult.get(4) * 50000;
         winPrice += checkResult.get(5) * 1500000;
+        winPrice += checkResult.get(7) * 30000000;
         winPrice += checkResult.get(6) * 2000000000;
         return winPrice * 100 / buyPrice;
     }
