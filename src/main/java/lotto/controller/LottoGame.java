@@ -1,6 +1,7 @@
 package lotto.controller;
 
 import lotto.domain.LottoResult;
+import lotto.domain.LottoResultChecker;
 import lotto.domain.PlayerLottoList;
 import lotto.view.LottoGameInput;
 import lotto.view.LottoGameOutput;
@@ -37,7 +38,9 @@ public class LottoGame {
     }
 
     private void showResults(){
-        List<LottoResult> playerLottoResults = playerLottoList.getLottoResults(winningNumbers);
+        LottoResultChecker lottoResultChecker = new LottoResultChecker(winningNumbers, bonusNumber);
+        List<LottoResult> playerLottoResults = lottoResultChecker.getLottoResults(playerLottoList);
+
         long rewardRate = calculateRewardRate(playerLottoResults);
         LottoGameOutput.printLottoResults(playerLottoResults, rewardRate);
     }

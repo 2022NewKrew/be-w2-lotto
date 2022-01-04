@@ -1,19 +1,16 @@
 package lotto.domain;
 
 public class LottoResult {
-    private final int[] matchingReward = {0, 0, 0, 5000, 50000, 1500000, 2000000000};
 
-    public int matchingCounts;
-    public int reward;
-    public int numberOfMatchingLotto;
+    public LottoRank rank;
+    public int numberOfWinningLotteryPaper;
 
-    public LottoResult(int matchingCounts, int numberOfMatchingLotto) {
-        this.matchingCounts = matchingCounts;
-        this.reward = matchingReward[matchingCounts];
-        this.numberOfMatchingLotto = numberOfMatchingLotto;
+    public LottoResult(LottoRank rank, int numberOfWinningLotteryPaper) {
+        this.rank = rank;
+        this.numberOfWinningLotteryPaper = numberOfWinningLotteryPaper;
     }
 
     public long calculateEarnMoney(){
-        return (long) reward * numberOfMatchingLotto;
+        return (long) rank.getReward() * numberOfWinningLotteryPaper;
     }
 }

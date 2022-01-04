@@ -1,5 +1,6 @@
 package lotto.view;
 
+import lotto.domain.LottoRank;
 import lotto.domain.LottoResult;
 import lotto.domain.PlayerLottoList;
 
@@ -19,9 +20,13 @@ public class LottoGameOutput {
     }
 
     public static void printOneLottoResult(LottoResult lottoResult) {
-        String sb = lottoResult.matchingCounts + "개 일치 " +
-                "(" + lottoResult.reward + ")- " +
-                lottoResult.numberOfMatchingLotto + "개";
+        if(lottoResult.rank == LottoRank.BLANK) return;
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(lottoResult.rank.getMatchingCnt()).append("개 일치 ");
+        if(lottoResult.rank.isBonus()) sb.append(",보너스 볼 일치");
+        sb.append("(").append(lottoResult.rank.getReward()).append("원)- ")
+                .append(lottoResult.numberOfWinningLotteryPaper).append("개");
         System.out.println(sb);
     }
 }
