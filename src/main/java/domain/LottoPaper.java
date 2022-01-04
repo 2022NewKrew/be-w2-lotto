@@ -8,10 +8,6 @@ import java.util.stream.IntStream;
 
 public class LottoPaper {
     private static final int LOTTO_PRICE = 1000;
-    private static final int WINNING_PRICE_1st = 2000000000;
-    private static final int WINNING_PRICE_2nd = 1500000;
-    private static final int WINNING_PRICE_3rd = 50000;
-    private static final int WINNING_PRICE_4th = 5000;
     private final ArrayList<Lotto> paper = new ArrayList<>();
     private final HashMap<Integer, Integer> sameToCnt = new HashMap<>();
 
@@ -46,10 +42,10 @@ public class LottoPaper {
     public int winRate() {
         long useCost = (long) paper.size() * LOTTO_PRICE;
         long winCost = 0;
-        winCost += sameToCnt.get(3) * WINNING_PRICE_4th;
-        winCost += sameToCnt.get(4) * WINNING_PRICE_3rd;
-        winCost += sameToCnt.get(5) * WINNING_PRICE_2nd;
-        winCost += sameToCnt.get(6) * WINNING_PRICE_1st;
+        winCost += sameToCnt.get(Rank.FIFTH.getCountOfMatch()) * Rank.FIFTH.getWinningMoney();
+        winCost += sameToCnt.get(Rank.FOURTH.getCountOfMatch()) * Rank.FOURTH.getWinningMoney();
+        winCost += sameToCnt.get(Rank.THIRD.getCountOfMatch()) * Rank.THIRD.getWinningMoney();
+        winCost += sameToCnt.get(Rank.FIRST.getCountOfMatch()) * Rank.FIRST.getWinningMoney();
         return (int) (winCost * 100 / useCost);
     }
 }
