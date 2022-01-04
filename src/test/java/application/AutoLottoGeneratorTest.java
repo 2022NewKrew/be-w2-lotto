@@ -13,5 +13,4 @@ class AutoLottoGeneratorTest {
         LottoGenerator lottoGenerator = new AutoLottoGenerator();
         assertDoesNotThrow(lottoGenerator::getLotto);    // 정상적(중복X, 유효 범위)으로 로또를 생성하면 예외가 발생하지 않는다
     }
-
 }
