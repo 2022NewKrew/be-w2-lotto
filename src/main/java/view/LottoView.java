@@ -7,10 +7,9 @@ import java.util.stream.Collectors;
 
 public class LottoView {
 
-    public static void printLotto(Lotto lotto) {
-        List<Integer> numberList = lotto.getNumberList();
+    public static void printLottoNumber(List<Integer> lottoNumber) {
         System.out.print("[");
-        System.out.print(numberList.stream().map(v->v.toString()).collect(Collectors.joining(",")));
+        System.out.print(lottoNumber.stream().map(v -> v.toString()).collect(Collectors.joining(",")));
         System.out.println("]");
     }
 }

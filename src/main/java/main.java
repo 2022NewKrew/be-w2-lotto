@@ -1,21 +1,50 @@
-import domain.Matching;
-import domain.Player;
-import domain.UserInput;
+import domain.*;
+import view.LottoView;
 import view.MatchingView;
 import view.PlayerView;
 
+import java.util.*;
+
 public class main {
+    private static Player player;
+    private static int payPrice;
+    private static PlayerView playerView = new PlayerView();
+    private static LottoView lottoView = new LottoView();
+    private static Matching matching = new Matching();
+    private static MatchingView matchingView = new MatchingView();
+
     public static void main(String[] args) {
+        player = new Player(payPrice = UserInput.getPayPriceInput());
+        printLottoList();
+        printLottoSize();
+        addMatchingLotto();
+        printMatchingResult();
+    }
 
-        Player player = new Player(UserInput.getIntegerInput("구입금액을 입력해 주세요.","양의 점수를 입력해 주세요."));
+    private static void printLottoList() {
+        List<Lotto> lottoList = player.getLottoList();
+        for (Lotto lotto : lottoList) {
+            lottoView.printLottoNumber(lotto.getNumberList());
+        }
+    }
 
-        PlayerView playerView = new PlayerView(player);
-        playerView.PrintPlayerLottoList();
+    private static void printLottoSize() {
+        playerView.PrintLottoSize(player.getLottoList().size());
+    }
 
-        Matching matching = new Matching(UserInput.getWinningInput("지난 주 당첨 번호를 입력해 주세요."));
-        matching.matchPlayer(player);
+    private static void addMatchingLotto() {
+        List<Integer> winningNumber = UserInput.getWinningInput();
+        Integer bonusNumber = UserInput.getBonusWinningInput();
+        List<Integer> matchingLottos = player.matchingLotto(winningNumber);
+        List<Boolean> matchingBonusLottos = player.matchingBonusLotto(bonusNumber);
+        for (int i = 0; i < matchingLottos.size(); i++) {
+            Prize prize = Prize.getPrize(matchingLottos.get(i), matchingBonusLottos.get(i));
+            matching.addMatchingMap(prize);
+        }
+    }
 
-        MatchingView matchingView = new MatchingView(matching, player);
-        matchingView.PrintMatchResult();
+    private static void printMatchingResult() {
+        EnumMap<Prize, Long> matchingMap = matching.getMatchingMap();
+        matchingView.PrintMatchResult(matchingMap, payPrice);
     }
 }
