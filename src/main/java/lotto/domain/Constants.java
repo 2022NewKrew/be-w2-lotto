@@ -12,11 +12,18 @@ public class Constants {
     public static final Integer LOTTO_PRICE = 1000;
 
     public static final String INPUT_PURCHASE_MESSAGE = "구입금액을 입력해 주세요.";
+    public static final String INPUT_BONUS_BALL_MESSAGE = "보너스 볼을 입력해 주세요.";
     public static final String INPUT_LAST_WEEK_DELIMITER = ", ";
     public static final String INPUT_LAST_WEEK_MESSAGE = "\n지난 주 당첨 번호를 입력해 주세요.";
 
     public static final String PRINT_PURCHASE_LOTTO_FORMAT = "%d개를 구매했습니다.";
     public static final String PRINT_WINNING_STATISTICS = "\n당첨 통계\n---------";
-    public static final String PRINT_MATCHED_FORMAT = "%d개 일치 (%d원) - %d개";
-    public static final String PRINT_YIELD_FORMAT = "총 수익률은 %d%%입니다.";
+    public static final String PRINT_MATCHED_FORMAT = "%s (%d원) - %d개";
+    public static final String PRINT_YIELD_FORMAT = "총 수익률은 %.2f%%입니다.";
+
+    public static final String PRINT_FIFTH = "3개 일치";
+    public static final String PRINT_FOURTH = "4개 일치";
+    public static final String PRINT_THIRD = "5개 일치";
+    public static final String PRINT_SECOND = "5개 일치, 보너스 볼 일치";
+    public static final String PRINT_FIRST = "6개 일치";
 }

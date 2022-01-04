@@ -13,9 +13,12 @@ import java.util.List;
 public class LottoBundle {
     private final Integer lottoAmount;
     private final List<Lotto> lottos;
+    private final Integer bonusBall;
 
-    public LottoBundle(int lottoAmount) {
+    public LottoBundle(Integer lottoAmount, Integer bonusBall) {
         this.lottoAmount = lottoAmount;
+        this.bonusBall = bonusBall;
+
         lottos = new ArrayList<>();
         for (int i = 0; i < lottoAmount; i++) {
             lottos.add(new Lotto(LottoGenerator.generateLotto()));
@@ -24,6 +27,10 @@ public class LottoBundle {
 
     public List<Lotto> getLottos() {
         return lottos;
+    }
+
+    public Integer getBonusBall() {
+        return bonusBall;
     }
 
     public void printLottos() {

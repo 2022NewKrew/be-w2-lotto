@@ -25,4 +25,8 @@ public class Lotto {
         copiedNumbers.retainAll(lastWeekWinningNumbers);
         return copiedNumbers.size();
     }
+
+    public boolean matchBonusBall(Integer bonusBall) {
+        return numbers.contains(bonusBall);
+    }
 }

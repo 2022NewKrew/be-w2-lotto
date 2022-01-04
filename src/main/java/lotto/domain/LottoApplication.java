@@ -11,14 +11,15 @@ public class LottoApplication {
 
     public static void start() {
         Integer purchaseAmount = LottoScanner.getPurchaseAmount();
-        int lottoAmount = purchaseAmount / Constants.LOTTO_PRICE;
+        Integer lottoAmount = purchaseAmount / Constants.LOTTO_PRICE;
+        Integer bonusBall = LottoScanner.getBonusBall();
 
-        LottoBundle lottoBundle = new LottoBundle(lottoAmount);
+        LottoBundle lottoBundle = new LottoBundle(lottoAmount, bonusBall);
         lottoBundle.printLottos();
 
         LottoGame lottoGame = new LottoGame(lottoBundle);
         lottoGame.playLottoGame();
-        lottoGame.calculateStatistics(purchaseAmount);
+        lottoGame.printStatistics(purchaseAmount);
     }
 
 }

@@ -13,31 +13,29 @@ import java.util.*;
 public class LottoGame {
     private final LottoBundle lottoBundle;
     private final List<Integer> lastWeekWinningNumbers;
-    private final Map<Integer, Integer> statistics;
+    private final Map<Rank, Integer> statistics;
+    private long winningAmount;
 
     public LottoGame(LottoBundle lottoBundle) {
         this.lottoBundle = lottoBundle;
         lastWeekWinningNumbers = LottoScanner.getLastWeekWinningNumbers();
         statistics = new HashMap<>();
+        winningAmount = 0;
     }
 
-    public int calculateWinningAmount(Map<Integer, Integer> statistics) {
-        List<Rank> ranks = Arrays.asList(Rank.FIFTH, Rank.FOURTH, Rank.THIRD, Rank.FIRST);
-        int winningAmount = 0;
+    private void calculateWinningAmount() {
+        List<Rank> ranks = Arrays.asList(Rank.FIFTH, Rank.FOURTH, Rank.THIRD, Rank.SECOND, Rank.FIRST);
         for (Rank rank : ranks) {
-            int countOfMatch = rank.getCountOfMatch();
-            int winningMoney = rank.getWinningMoney();
-            Integer countOfMatched = statistics.getOrDefault(countOfMatch, 0);
-            LottoPrinter.printLottoRankResult(countOfMatch, winningMoney, countOfMatched);
-            winningAmount += winningMoney * countOfMatched;
+            Integer countOfMatched = statistics.getOrDefault(rank, 0);
+            LottoPrinter.printLottoRankResult(rank, countOfMatched);
+            winningAmount += (long) rank.getWinningMoney() * countOfMatched;
         }
-        return winningAmount;
     }
 
-    public void calculateStatistics(Integer purchaseAmount) {
+    public void printStatistics(Integer purchaseAmount) {
+        calculateWinningAmount();
         LottoPrinter.printLottoStatisticsTitle();
-        int winningAmount = calculateWinningAmount(statistics);
-        LottoPrinter.printLottoYield(purchaseAmount, winningAmount);
+        LottoPrinter.printLottoYield(winningAmount, purchaseAmount);
     }
 
     public void playLottoGame() {
@@ -48,9 +46,10 @@ public class LottoGame {
 
     private void playLotto(Lotto lotto) {
         Integer winningNumberCount = lotto.matchLottoWithLastWeek(lastWeekWinningNumbers);
-        if (winningNumberCount > 2) {
-            statistics.put(winningNumberCount
-                    , statistics.getOrDefault(winningNumberCount, 0) + 1);
+        boolean matchBonus = lotto.matchBonusBall(lottoBundle.getBonusBall());
+        Rank rank = Rank.valueOf(winningNumberCount, matchBonus);
+        if (rank != null) {
+            statistics.put(rank, statistics.getOrDefault(rank, 0) + 1);
         }
     }
 }

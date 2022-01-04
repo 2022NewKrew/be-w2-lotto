@@ -1,6 +1,7 @@
 package lotto.view;
 
 import lotto.domain.Constants;
+import lotto.domain.Rank;
 
 /**
  * Created by melodist
@@ -20,11 +21,13 @@ public class LottoPrinter {
         System.out.println(Constants.PRINT_WINNING_STATISTICS);
     }
 
-    public static void printLottoRankResult(Integer countOfMatch, Integer winning, Integer countOfMatched) {
-        System.out.println(String.format(Constants.PRINT_MATCHED_FORMAT, countOfMatch, winning, countOfMatched));
+    public static void printLottoRankResult(Rank rank, Integer countOfMatched) {
+        System.out.println(String.format(Constants.PRINT_MATCHED_FORMAT,
+                rank.getMatchString(), rank.getWinningMoney(), countOfMatched));
     }
 
-    public static void printLottoYield(Integer winningAmount, Integer purchaseAmount) {
-        System.out.println(String.format(Constants.PRINT_YIELD_FORMAT, 100 * winningAmount / purchaseAmount));
+    public static void printLottoYield(long winningAmount, int purchaseAmount) {
+        float lottoYield = 100 * (winningAmount - purchaseAmount) / purchaseAmount;
+        System.out.println(String.format(Constants.PRINT_YIELD_FORMAT, lottoYield));
     }
 }
