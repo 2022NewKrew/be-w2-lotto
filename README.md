@@ -32,4 +32,7 @@
 
 ## 구현 내용.
 - enum 클래스 WinningPrice를 WinningStats 클래스 내에 정의하여 사용.
-- enum 클래스 내에 index,lottoCount 변수를 정의하여 수익률 계산 및 당첨 통계 출력시 사용. 
+- enum 클래스 내에 index,lottoCount 변수를 정의하여 수익률 계산 및 당첨 통계 출력시 사용.
+- MVC 패턴에 맞추어 구조 변경
+  - controller 클래스 및 DTO 클래스 생성.
+  - 입출력을 담당하는 InputView, OutputView 생성.
