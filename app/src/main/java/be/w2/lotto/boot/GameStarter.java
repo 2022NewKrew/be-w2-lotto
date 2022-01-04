@@ -1,10 +1,10 @@
 package be.w2.lotto.boot;
 
 import be.w2.lotto.lottos.Lotto;
-import be.w2.lotto.lottos.LottoService;
 import be.w2.lotto.machines.AutoPurchaseMachine;
 import be.w2.lotto.messages.GameMessage;
 import be.w2.lotto.result.ResultMaker;
+import be.w2.lotto.view.Output;
 import be.w2.lotto.view.View;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Singleton
  */
-public class GameStarter {
+public final class GameStarter {
 
     private static GameStarter INSTANCE;
 
@@ -28,10 +28,15 @@ public class GameStarter {
     private final View view = View.getInstance();
 
     public void start() {
-        int purchaseAmount = view.inputIntWithMessage(GameMessage.INPUT_PURCHASE_AMOUNT);
+        int purchaseAmount = inputPurchaseAmount();
         List<Lotto> lottos = purchase(purchaseAmount);
         outputLottos(lottos);
-        ResultMaker.getInstance().produceResults(lottos);
+
+        ResultMaker.getInstance().proceedBy(lottos);
+    }
+
+    private int inputPurchaseAmount() {
+        return view.inputIntWithMessage(GameMessage.INPUT_PURCHASE_AMOUNT);
     }
 
     private List<Lotto> purchase(int purchaseAmount) {
@@ -40,11 +45,6 @@ public class GameStarter {
     }
 
     private void outputLottos(List<Lotto> lottos) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(lottos.size())
-                .append("개를 구매했습니다.")
-                .append("\n")
-                .append(LottoService.getStringOfLottos(lottos));
-        view.output(sb.toString());
+        view.output(Output.getOutputOfLottos(lottos));
     }
 }

@@ -4,6 +4,7 @@ import be.w2.lotto.cashier.Cashier;
 import be.w2.lotto.lottos.LastWinningLotto;
 import be.w2.lotto.lottos.Lotto;
 import be.w2.lotto.messages.GameMessage;
+import be.w2.lotto.view.Output;
 import be.w2.lotto.view.View;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * Singleton
  */
-public class ResultMaker {
+public final class ResultMaker {
 
     private static ResultMaker INSTANCE;
 
@@ -27,11 +28,11 @@ public class ResultMaker {
     private View view = View.getInstance();
     private LastWinningLotto lastWinningLotto;
 
-    public void produceResults(List<Lotto> purchaseLotto) {
+    public void proceedBy(List<Lotto> purchaseLotto) {
         inputLastWinningLotto();
-        Result result = ResultCalculator.getResultOfGame(purchaseLotto, lastWinningLotto);
-        int investment = purchaseLotto.size() * Cashier.PRICE_PER_LOTTO;
-        makeWinningStat(result, investment);
+        Result result = getResult(purchaseLotto);
+        int investment = getInvestment(purchaseLotto);
+        outputResult(result, investment);
     }
 
     private void inputLastWinningLotto() {
@@ -39,8 +40,15 @@ public class ResultMaker {
         this.lastWinningLotto = LastWinningLotto.of(lastWinningNumbers);
     }
 
-    private void makeWinningStat(Result result, int investment) {
-        WinningStatMaker winningStatMaker = new WinningStatMaker(result, investment);
-        view.output(winningStatMaker.getStringOfWinningStat());
+    private Result getResult(List<Lotto> purchaseLotto) {
+        return ResultCalculator.getResultOfGame(purchaseLotto, lastWinningLotto);
+    }
+
+    private int getInvestment(List<Lotto> purchaseLotto) {
+        return purchaseLotto.size() * Cashier.PRICE_PER_LOTTO;
+    }
+
+    private void outputResult(Result result, int investment) {
+        view.output(Output.getOutputOfResult(result, investment));
     }
 }
