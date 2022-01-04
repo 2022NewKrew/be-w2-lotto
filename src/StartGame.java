@@ -1,7 +1,7 @@
 public class StartGame {
     public static void main(String[] args) {
-        LottoGame lottoGame = new LottoGame();
-        lottoGame.startLottoGame();
-        lottoGame.runLottoGame();
+        LotteryRound lotteryRound = new LotteryRound(new TestLotteryPrinter());
+        lotteryRound.purchaseTickets();
+        lotteryRound.drawLottery();
     }
 }
