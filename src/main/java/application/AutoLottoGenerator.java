@@ -1,5 +1,6 @@
 package application;
 
+import domain.Ball;
 import domain.Lotto;
 
 import java.util.Collections;
@@ -8,7 +9,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class AutoLottoGenerator implements LottoGenerator {
-    private final List<Integer> numbers = IntStream.rangeClosed(Lotto.MIN_LOTTO_NUMBER, Lotto.MAX_LOTTO_NUMBER).boxed().collect(Collectors.toList());
+    private final List<Ball> numbers = IntStream.rangeClosed(Ball.MIN_LOTTO_NUMBER, Ball.MAX_LOTTO_NUMBER)
+            .mapToObj(Ball::new).collect(Collectors.toList());
 
     @Override
     public Lotto getLotto() {
