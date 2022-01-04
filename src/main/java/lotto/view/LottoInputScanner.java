@@ -30,8 +30,7 @@ public class LottoInputScanner {
         return numOfManualLottos;
     }
 
-    public List<Integer> getDigits(String msg) throws IllegalArgumentException {
-        System.out.print(msg);
+    public List<Integer> getDigits() throws IllegalArgumentException {
         List<Integer> winningDigitList = Arrays.stream(sc.nextLine().split(SEPARATOR))
                 .map(s -> Integer.parseInt(s.trim()))
                 .collect(Collectors.toList());

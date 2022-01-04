@@ -7,6 +7,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class LottoSimulator {
     public static final int LOTTO_PRICE = 1000;
@@ -49,11 +51,10 @@ public class LottoSimulator {
 
     private List<Lotto> getManualLotto() {
         int numOfManualLotto = getNumOfManualLotto();
-        List<Lotto> manualLottoList = new ArrayList<>();
-        for (int i = 0; i < numOfManualLotto; i++) {
-            manualLottoList.add(new Lotto(getDigitList(i == 0 ? "\n수동으로 구매할 번호를 입력해 주세요.\n" : "")));
-        }
-        return new ArrayList<>(manualLottoList);
+        lottoOutputPrinter.printDescription("\n수동으로 구매할 번호를 입력해 주세요.\n");
+        return IntStream.range(0, numOfManualLotto)
+                .mapToObj(i -> new Lotto(getDigitList()))
+                .collect(Collectors.toList());
     }
 
     private int getNumOfManualLotto() {
@@ -65,12 +66,12 @@ public class LottoSimulator {
         }
     }
 
-    private List<Integer> getDigitList(String msg) {
+    private List<Integer> getDigitList() {
         try {
-            return lottoInputScanner.getDigits(msg);
+            return lottoInputScanner.getDigits();
         } catch (IllegalArgumentException iae) {
             System.out.println("번호는 1~45사이의 숫자 6개로 중복이 없어야 합니다.");
-            return getDigitList(msg);
+            return getDigitList();
         }
     }
 
@@ -87,7 +88,8 @@ public class LottoSimulator {
     }
 
     private @NotNull WinningLotto getWinningInfo() {
-        List<Integer> winningDigitList = getDigitList("\n지난주 당첨 정보를 입력해 주세요.\n");
+        lottoOutputPrinter.printDescription("\n지난주 당첨 정보를 입력해 주세요.\n");
+        List<Integer> winningDigitList = getDigitList();
         int bonusDigit = getBonusDigit(winningDigitList);
         return new WinningLotto(winningDigitList, bonusDigit);
     }

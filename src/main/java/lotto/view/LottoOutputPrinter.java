@@ -15,6 +15,10 @@ public class LottoOutputPrinter {
     public static final String PREFIX = "[";
     public static final String SUFFIX = "]";
 
+    public void printDescription(String msg) {
+        System.out.print(msg);
+    }
+
     public void printPurchaseResult(int numOfManualLottos, @NotNull List<Lotto> purchasedLottoList) {
         System.out.println("\n수동으로 " + numOfManualLottos + "장, 자동으로 " + (purchasedLottoList.size() - numOfManualLottos) + "개를 구매했습니다.");
         purchasedLottoList.forEach(this::printLotto);
