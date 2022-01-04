@@ -8,18 +8,18 @@ import java.util.stream.Collectors;
 public class UserInput {
     private static final Scanner sc = new Scanner(System.in);
 
-    public static int getIntegerInput(String msg, String errMsg) {
+    public static int getPayPriceInput() {
         int result = -1;
-        System.out.println(msg);
+        System.out.println("구입금액을 입력해 주세요.");
         while (!sc.hasNextInt() || ((result = sc.nextInt()) < 0)) {
-            System.out.println(errMsg);
+            System.out.println("양의 점수를 입력해 주세요.");
             sc.next();
         }
         return result;
     }
 
-    public static List getWinningInput(String msg) {
-        System.out.println(msg);
+    public static List getWinningInput() {
+        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         List<Integer> arrayList;
         do {
             String inputStr = sc.next();
