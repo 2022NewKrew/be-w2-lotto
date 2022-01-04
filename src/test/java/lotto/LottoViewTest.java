@@ -15,15 +15,14 @@ class LottoViewTest {
 
     @Test
     void inputPurchaseAmount() {
-        LottoView lottoView = new LottoView();
-        assertEquals(14, lottoView.inputPurchaseAmount(new ByteArrayInputStream("14000\n".getBytes())));
+        assertEquals(14, LottoView.inputPurchaseAmount(new ByteArrayInputStream("14000\n".getBytes())));
     }
 
     @Test
     void inputLastWeekLottoNumbers() {
         LottoView lottoView = new LottoView();
-        List<Integer> lastWeekLottoNumbers = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6));
-        assertEquals(lastWeekLottoNumbers, lottoView.inputLastWeekLottoNumbers(new ByteArrayInputStream("1, 2, 3, 4, 5, 6\n".getBytes())));
+        List<Integer> lastWeekLottoNumbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
+        assertEquals(lastWeekLottoNumbers, LottoView.inputLastWeekLottoNumbers(new ByteArrayInputStream("1, 2, 3, 4, 5, 6\n".getBytes())));
     }
 
     @Test
@@ -47,8 +46,8 @@ class LottoViewTest {
             lotto.generateNumbers();
             lottos.add(new LottoDto(lotto));
         }
-        List<Integer> lastWeekLottoNumbers = new ArrayList<Integer>(Arrays.asList(1, 2, 3, 4, 5, 6));
-        List<LottoResult> lottoResults = LottoResult.calLottoResults(lottos, lastWeekLottoNumbers);
-        lottoView.outputLottoResult(lottoResults);
+        List<Long> lastWeekLottoNumbers = new ArrayList<>(Arrays.asList((long)1, (long)2, (long)3, (long)4, (long)5, (long)6));
+        List<LottoResult> lottoResults = LottoResult.calLottoResults(lottos, lastWeekLottoNumbers, 7);
+        LottoView.outputLottoResult(lottoResults);
     }
 }

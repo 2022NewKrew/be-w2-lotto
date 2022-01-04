@@ -16,3 +16,6 @@
 - 로또 자동 생성은 Collections.shuffle() 메소드 활용한다.
 - Collections.sort() 메소드를 활용해 정렬 가능하다.
 - ArrayList의 contains() 메소드를 활용하면 어떤 값이 존재하는지 유무를 판단할 수 있다.
+
+## Step2
+2등을 위해 추가 번호를 하나 더 추첨한다. 당첨 통계에 2등도 추가해야 한다.

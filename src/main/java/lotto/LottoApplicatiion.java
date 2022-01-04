@@ -9,9 +9,11 @@ public class LottoApplicatiion {
 
         List<LottoDto> lottos = lottoController.purchaseLottos(LottoView.inputPurchaseAmount(System.in));
 
-        List<Integer> lastWeekLottoNumbers = LottoView.inputLastWeekLottoNumbers(System.in);
+        List<Long> lastWeekLottoNumbers = LottoView.inputLastWeekLottoNumbers(System.in);
 
-        List<LottoResult> lottoResults = LottoResult.calLottoResults(lottos, lastWeekLottoNumbers);
+        int bonusBall = LottoView.inputBonusBall(System.in);
+
+        List<LottoResult> lottoResults = LottoResult.calLottoResults(lottos, lastWeekLottoNumbers, bonusBall);
 
         LottoView.outputLottoResult(lottoResults);
     }

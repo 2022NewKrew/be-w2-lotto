@@ -18,15 +18,21 @@ public class LottoView {
         }
     }
 
-    public static List<Integer> inputLastWeekLottoNumbers(InputStream inputStream) {
+    public static List<Long> inputLastWeekLottoNumbers(InputStream inputStream) {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        List<Integer> lastWeekLottoNumbers = new ArrayList<>();
+        List<Long> lastWeekLottoNumbers = new ArrayList<>();
         Scanner scanner = new Scanner(inputStream);
         for (int i = 0; i < LottoDto.NUMBERS_SIZE; i++) {
-            lastWeekLottoNumbers.add(Integer.parseInt(scanner.next().replace(",","").strip()));
+            lastWeekLottoNumbers.add(Long.parseLong(scanner.next().replace(",","").strip()));
         }
         lastWeekLottoNumbers.sort(Comparator.naturalOrder());
         return lastWeekLottoNumbers;
+    }
+
+    public static int inputBonusBall(InputStream inputStream) {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        Scanner scanner = new Scanner(inputStream);
+        return Integer.parseInt(scanner.next());
     }
 
     public static void outputLottoResult(List<LottoResult> lottoResults) {
@@ -34,14 +40,16 @@ public class LottoView {
         System.out.println("---------");
         long totalProfit = 0;
         for (LottoResult lottoResult : LottoResult.values()) {
-            if (lottoResult.getCountOfMatch() < LottoResult.FOURTH.getCountOfMatch()) continue;
+            if (lottoResult.getCountOfMatch() < LottoResult.FIFTH.getCountOfMatch()) continue;
             long hit = lottoResult.getCountOfMatch();
             long reward = lottoResult.getWinningMoney();
             long count = Collections.frequency(lottoResults, lottoResult);
             totalProfit += count * reward;
-            System.out.printf("%d개 일치 (%d원)- %d개\n", hit, reward, count);
+            System.out.printf("%d개 일치 ", hit);
+            if (lottoResult.isCheckBonusBall()) System.out.printf("보너스 볼 일치");
+            System.out.printf("(%d원)- %d개\n", reward, count);
         }
         long totalLoss = (long)LottoDto.LOTTO_PRICE * lottoResults.size();
-        System.out.printf("총 수익률은 %.2f%%입니다.", (Double.valueOf(totalProfit) / Double.valueOf(totalLoss) - 1) * 100);
+        System.out.printf("총 수익률은 %.2f%%입니다.", ((double) totalProfit / (double) totalLoss - 1) * 100);
     }
 }
