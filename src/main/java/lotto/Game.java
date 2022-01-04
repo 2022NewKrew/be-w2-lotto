@@ -8,17 +8,31 @@ public class Game {
     Scanner scanner = new Scanner(System.in);
     HashMap<Integer, Integer> gameBoard = new HashMap<>();
     private final List<Integer> winningNumber = new ArrayList<>();
+    private int bonusNumber;
+    private int totalPrizeMoney = 0;
+    final int bonusKey = 2;
+
+    private void getRankResult(int rank) {
+        final int prizeMoney = LotteryConstants.prizeMoney.get(rank);
+        final int matches = gameBoard.getOrDefault(rank, 0);
+        totalPrizeMoney = totalPrizeMoney + matches * prizeMoney;
+        if (rank == bonusKey) {
+            System.out.println("5개 일치, 보너스 볼 일치("+prizeMoney+"원)- " + matches + "개");
+            return;
+        }
+        if (rank == 1) {
+            System.out.println("6개 일치 ("+prizeMoney+"원)- "+matches+"개");
+            return;
+        }
+        System.out.println(8-rank+"개 일치 ("+prizeMoney+"원)- " + matches +"개");
+    }
 
     private void printResult() {
         System.out.println("당첨 통계");
         System.out.println("---------");
-        int totalPrizeMoney = 0;
 
-        for (int i = LotteryConstants.minMatchForPrize; i<=LotteryConstants.ticketLength; i++) {
-            int prizeMoney = LotteryConstants.prizeMoney.get(i);
-            int matches = gameBoard.getOrDefault(i, 0);
-            totalPrizeMoney = totalPrizeMoney + matches * prizeMoney;
-            System.out.println(i+"개 일치 ("+prizeMoney+"원)- " + matches +"개");
+        for (int i = LotteryConstants.numPrizes; i>0; i--) {
+            getRankResult(i);
         }
         System.out.println("총 수익률은 "+ getRateOfReturn(totalPrizeMoney)  + "%입니다.");
     }
@@ -48,6 +62,11 @@ public class Game {
         }
     }
 
+    private void getBonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        bonusNumber = scanner.nextInt();
+    }
+
     private void getMatches() {
         for (Ticket ticket: ticketList) {
             int matches = 0;
@@ -56,14 +75,25 @@ public class Game {
                 if (ticketNumber.contains(number))
                     matches++;
             }
-            if (matches >= 3)
-                gameBoard.put(matches, gameBoard.getOrDefault(matches, 0)+1);
+            if (matches == 5 && ticketNumber.contains(bonusNumber)) {
+                gameBoard.put(bonusKey, gameBoard.getOrDefault(bonusKey, 0)+1);
+                continue;
+            }
+            if (matches == 6) {
+                gameBoard.put(1, gameBoard.getOrDefault(1, 0)+1);
+                continue;
+            }
+            if (matches >= 3) {
+                gameBoard.put(8-matches, gameBoard.getOrDefault(8-matches, 0)+1);
+            }
+
         }
     }
 
     void run() {
         getTickets();
         getWinningNumber();
+        getBonusNumber();
         getMatches();
         printResult();
     }
