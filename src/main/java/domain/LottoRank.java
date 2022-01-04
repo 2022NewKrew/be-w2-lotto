@@ -1,6 +1,7 @@
 package domain;
 
 public enum LottoRank {
+    MISS(0, 0),
     THREE(3, 5_000),
     FOUR(4, 50_000),
     FIFTH(5, 1_500_500),
