@@ -9,18 +9,34 @@ import java.util.stream.Collectors;
 public class WinningNumbers {
 
     private final List<WinningNumber> winningNumbers;
+    private final WinningNumber bonusNumber;
 
-    public WinningNumbers(List<WinningNumber> winningNumbers) {
+    public WinningNumbers(List<WinningNumber> winningNumbers, WinningNumber bonusNumber) {
         this.winningNumbers = new ArrayList<>(winningNumbers);
+        this.bonusNumber = bonusNumber;
     }
 
-    public Map<Integer, Integer> winningConfirmation(Lottos lottos) {
-        Map<Integer, Integer> winningStatistics = new HashMap<>();
+    public static WinningNumbers createWinningNumbers(List<Integer> inputWinningNumbers,
+        int inputBonusNumber) {
+        List<WinningNumber> winningNumbers = new ArrayList<>();
+        for (int inputWinningNumber : inputWinningNumbers) {
+            winningNumbers.add(new WinningNumber(inputWinningNumber));
+        }
 
+        WinningNumber bonusNumber = new WinningNumber(inputBonusNumber);
+
+        return new WinningNumbers(winningNumbers, bonusNumber);
+    }
+
+
+    public Map<Rank, Integer> winningConfirmation(Lottos lottos) {
+        Map<Rank, Integer> winningStatistics = new HashMap<>();
         for (Lotto lotto : lottos.getLottos()) {
             int countOfMatch = countMatchNumber(lotto);
-            int countOfLottoByMatch = winningStatistics.getOrDefault(countOfMatch, 0);
-            winningStatistics.put(countOfMatch, countOfLottoByMatch + 1);
+            boolean isMatchBonus = isMatchBonus(lotto);
+            Rank rank = Rank.valueOf(countOfMatch, isMatchBonus);
+            int countOfLottoByMatch = winningStatistics.getOrDefault(rank, 0);
+            winningStatistics.put(rank, countOfLottoByMatch + 1);
         }
 
         return winningStatistics;
@@ -33,5 +49,10 @@ public class WinningNumbers {
         return (int) lotto.getLottoNumbers().stream()
             .filter(l -> winningNumbers.contains(l.getNumber()))
             .count();
+    }
+
+    private boolean isMatchBonus(Lotto lotto) {
+        return lotto.getLottoNumbers().stream()
+            .anyMatch(l -> l.getNumber() == this.bonusNumber.getNumber());
     }
 }
