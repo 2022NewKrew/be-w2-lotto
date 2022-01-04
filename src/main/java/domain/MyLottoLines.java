@@ -26,4 +26,8 @@ public class MyLottoLines {
 
         return matchingLst;
     }
+
+    public int getNumOfLotto() {
+        return lottoLines.size();
+    }
 }
