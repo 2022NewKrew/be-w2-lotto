@@ -14,7 +14,11 @@ public class LottoResult {
         Objects.requireNonNull(lottoWinnings);
         Objects.requireNonNull(lottos);
 
+        // Enum 정의된 순서로 삽입하여 정렬
         final Map<LottoPrize, Integer> map = new LinkedHashMap<>();
+        for (LottoPrize lottoPrize : LottoPrize.values()) {
+            map.put(lottoPrize, 0);
+        }
         for (LottoNumbers lottoNumbers : lottos.getList()) {
             countResult(map, lottoWinnings, lottoNumbers);
         }
@@ -29,10 +33,10 @@ public class LottoResult {
     )
     {
         final int cntMatch = countMatchNumbers(lottoNumbers, winnings);
-        final boolean bBonus = lottoNumbers.contains(winnings.getBonusNumber());
-        final LottoPrize lottoPrize = LottoPrize.find(cntMatch, bBonus);
+        final boolean bonusFound = lottoNumbers.contains(winnings.getBonusNumber());
+        final LottoPrize lottoPrize = LottoPrize.find(cntMatch, bonusFound);
 
-        map.put(lottoPrize, map.getOrDefault(lottoPrize, 0) + 1);
+        map.put(lottoPrize, map.get(lottoPrize) + 1);
     }
 
     private int countMatchNumbers(final LottoNumbers lottoNumbers, final LottoWinnings winnings) {

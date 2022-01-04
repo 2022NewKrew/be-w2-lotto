@@ -4,7 +4,6 @@ import org.cs.finn.lotto.util.Checker;
 import org.cs.finn.lotto.util.NumberFormatter;
 
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 public enum LottoPrize {
     NONE("꽝", 0, 0, false),
@@ -35,18 +34,21 @@ public enum LottoPrize {
         this.reqBonusMatch = reqBonusMatch;
     }
 
-    public static LottoPrize find(final int reqMatch, final boolean reqBonusMatch) {
-        final Stream<LottoPrize> filtered = Arrays.stream(values())
-                .filter(p -> (p.reqMatch == reqMatch));
+    // 2-depth면 for loop로 간단할텐데...
+    public static LottoPrize find(final int cntMatch, final boolean bonusFound) {
+        final LottoPrize filtered = Arrays.stream(values())
+                .filter(p -> (p.reqMatch == cntMatch && p.reqBonusMatch == bonusFound))
+                .findFirst()
+                .orElse(NONE);
 
-        if (filtered.anyMatch(p -> (p.reqBonusMatch == reqBonusMatch))) {
-            return filtered.filter(p -> (p.reqBonusMatch == reqBonusMatch))
+        if (filtered.equals(NONE)) {
+            return Arrays.stream(values())
+                    .filter(p -> (p.reqMatch == cntMatch))
                     .findFirst()
                     .orElse(NONE);
         }
 
-        return filtered.findFirst()
-                .orElse(NONE);
+        return filtered;
     }
 
     @Override
