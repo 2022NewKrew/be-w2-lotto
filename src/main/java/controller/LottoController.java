@@ -109,6 +109,24 @@ public class LottoController {
         return numbers.contains(bonusNumber);
     }
 
+    public double calculateProfitRate() {
+        long sum = sumLottoPrice();
+
+        return (double) (sum - purchasePrice) / purchasePrice * 100;
+    }
+
+    public long sumLottoPrice() {
+        long sum = 0;
+
+        Set<LottoRank> lottoRankSet = lottoResult.getCountOfMatches().keySet();
+
+        for (LottoRank lottoRank : lottoRankSet) {
+            sum += lottoResult.getCountOfMatches().get(lottoRank);
+        }
+
+        return sum;
+    }
+
     public void setWinningLottoNumbers(List<Integer> numbers) {
         winningLotto.setNumbers(numbers);
     }
@@ -119,6 +137,10 @@ public class LottoController {
 
     public void setBonusNumber(int bonusNumber) {
         winningLotto.setBonusNumber(bonusNumber);
+    }
+
+    public void setProfitRate() {
+        lottoResult.setProfitRate(calculateProfitRate());
     }
 
     public void printPurchaseAmount() {

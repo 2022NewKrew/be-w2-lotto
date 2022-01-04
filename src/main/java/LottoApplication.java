@@ -13,6 +13,7 @@ public class LottoApplication {
             lottoController.setWinningLottoNumbers(inputController.getLottoNumbers());
             lottoController.setBonusNumber(inputController.getBonusNumber());
             lottoController.generateLottoResult();
+            lottoController.setProfitRate();
 
             lottoController.printResult();
         } catch (RuntimeException e) {

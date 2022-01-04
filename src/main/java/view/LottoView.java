@@ -32,5 +32,7 @@ public class LottoView {
                     matchCount == null ? 0 : matchCount
             );
         }
+
+        System.out.printf("총 수익률은 %.02f%%입니다.\n", lottoResult.getProfitRate());
     }
 }
