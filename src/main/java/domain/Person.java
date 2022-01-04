@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 
 public class Person {
     private static final int LOTTO_PRICE = 1000;
-    private static final List<Integer> LOTTO_WINNINGS = Arrays.asList(0, 0, 0, 5000, 50000, 1500000, 2000000000);
+    private static final List<Integer> LOTTO_WINNINGS = Arrays.asList(0, 0, 0, 5000, 50000, 1500000, 30000000, 2000000000);
 
     private final int spendPrice;
     private final int lottoCount;
