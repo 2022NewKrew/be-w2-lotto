@@ -1,5 +1,8 @@
 package domain;
 
+import domain.lottery.Result;
+import domain.lottery.Ticket;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,9 +33,9 @@ public enum Prize {
         this.value = value;
     }
 
-    public static Prize getPrizeByMatchingCountAndIsBonusBallMatched(int matchingCount, boolean isBonusBallMatched) {
-        Prize prize = matchingCountToPrize.getOrDefault(matchingCount, Prize.None);
-        return prize.equals(Prize.THIRD) && isBonusBallMatched ? Prize.SECOND : prize;
+    public static Prize getPrize(Result result, Ticket ticket) {
+        Prize prize = matchingCountToPrize.getOrDefault(result.getMatchingCountOf(ticket), Prize.None);
+        return prize.equals(Prize.THIRD) && result.isBonusBallMatched(ticket) ? Prize.SECOND : prize;
     }
 
     public int getWinningMatchingCount() {

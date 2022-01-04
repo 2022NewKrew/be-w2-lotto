@@ -31,6 +31,6 @@ public class Agent {
     }
 
     public Prize getTicketPrize(Ticket ticket) {
-        return Prize.getPrizeByMatchingCountAndIsBonusBallMatched(result.getMatchingCountOf(ticket), result.isBonusBallMatched(ticket));
+        return Prize.getPrize(result, ticket);
     }
 }
