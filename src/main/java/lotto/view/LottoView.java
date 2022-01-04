@@ -90,7 +90,7 @@ public class LottoView {
                 .collect(Collectors.toList());
     }
 
-    public Integer validateLottoNumber(Integer number){
+    public Integer validateLottoNumber(Integer number) throws IllegalArgumentException{
         if (number < Lotto.MIN_NUMBER || number > Lotto.MAX_NUMBER){
             throw new IllegalArgumentException(Lotto.MIN_NUMBER + " 에서 " + Lotto.MAX_NUMBER + " 사이의 값을 입력하세요");
         }
