@@ -10,16 +10,25 @@ public class LottoValidationCheck {
     }
 
     public static void stringLottoValidationCheck(List<String> stringLottoList){
+        lottoCountCheck(stringLottoList);
+        lottoNumCheck(stringLottoList);
+        lottoValidNumCheck(stringLottoList);
+    }
+
+    private static void lottoCountCheck(List<String> stringLottoList){
         if(stringLottoList.size() != LOTTO_LENGTH){
             throw new IllegalArgumentException("로또 번호 개수가 올바르지 않습니다.");
         }
+    }
 
+    private static void lottoNumCheck(List<String> stringLottoList){
         for(int i = 1 ; i < stringLottoList.size() ; i++){
             if(stringLottoList.get(i-1).equals(stringLottoList.get(i))){
                 throw new IllegalArgumentException("중복된 번호가 존재합니다.");
             }
         }
-
+    }
+    private static void lottoValidNumCheck(List<String> stringLottoList){
         for(int i = 0 ; i <stringLottoList.size() ; i++){
             if(!isValidInteger(stringLottoList.get(i))){
                 throw new IllegalArgumentException("유효하지 않은 로또 값이 입력됌.");
