@@ -10,14 +10,7 @@ public class WinningLotto{
     private final int bonusNum;
 
     public WinningLotto() {
-        String lottoNums = InputManager.inputWinningNums();
-
-        String[] winningNumsArray = lottoNums.split(",");
-        winningNums = new ArrayList<>();
-        for (String num : winningNumsArray) {
-            winningNums.add(Integer.parseInt(num));
-        }
-
+        winningNums = InputManager.inputWinningLotto();
         bonusNum = InputManager.inputBonusNum();
     }
 

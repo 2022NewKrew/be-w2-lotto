@@ -1,6 +1,7 @@
 package domain.entity;
 
 import domain.Const;
+import view.InputManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,6 +13,10 @@ public class Lotto {
     public Lotto() {
         List<Integer> numbers = getRandomNums();
         lottoNumbers = numbers.subList(0, Const.NUM_OF_LOTTO_NUMS);
+    }
+
+    public Lotto(List<Integer> lottoNumbers) {
+        this.lottoNumbers = lottoNumbers;
     }
 
     private List<Integer> getRandomNums() {
