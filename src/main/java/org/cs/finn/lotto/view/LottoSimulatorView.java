@@ -62,7 +62,7 @@ public class LottoSimulatorView {
     }
 
     private void printLottos(final LottoPrize lottoPrize, final Lottos lottos) {
-        if (lottoPrize.equals(LottoPrize.NONE)) {
+        if (lottoPrize.isNone()) {
             return;
         }
 

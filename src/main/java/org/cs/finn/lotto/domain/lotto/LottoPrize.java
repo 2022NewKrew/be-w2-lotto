@@ -51,6 +51,10 @@ public enum LottoPrize {
         return filtered;
     }
 
+    public boolean isNone() {
+        return this.equals(NONE);
+    }
+
     public long getReward() {
         return reward;
     }
