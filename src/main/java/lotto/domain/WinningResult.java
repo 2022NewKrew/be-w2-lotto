@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class WinningResult {
+    public static final int ZERO = 0;
+
     private final List<LottoResult> purchasedResult;
 
     public WinningResult(List<LottoResult> purchasedResult) {
@@ -15,6 +17,9 @@ public class WinningResult {
     }
 
     public int getCountOf(LottoResult lottoResult) {
+        if (purchasedResult.isEmpty()) {
+            return ZERO;
+        }
         return Collections.frequency(purchasedResult, lottoResult);
     }
 }
