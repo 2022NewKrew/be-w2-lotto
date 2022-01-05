@@ -6,7 +6,6 @@ import com.kakaocorp.lotto.dto.ResultResponse;
 import com.kakaocorp.lotto.enums.Grade;
 
 import java.util.*;
-import java.util.stream.IntStream;
 
 public class LottoService {
 
@@ -33,27 +32,29 @@ public class LottoService {
     public ResultResponse result(WinningLotto winningLotto, List<Lotto> lottoList) {
         ResultResponse resultResponse = new ResultResponse();
 
-        List<Integer> scores = score(winningLotto, lottoList);
+        Map<Grade, Integer> scores = score(winningLotto, lottoList);
 
-        int totalWinningMoney = IntStream.range(0, 8).map(i -> scores.get(i) * ResultResponse.winningMoneyList.get(i)).sum();
+        int totalWinningMoney = scores.entrySet().stream()
+                .map(e -> e.getKey().getWinningMoney() * e.getValue())
+                .mapToInt(i -> i)
+                .sum();
         int investMoney = lottoList.size() * 1000;
 
-        resultResponse.setRateOfReturn((totalWinningMoney - investMoney) / investMoney * 100);
+        resultResponse.setRateOfReturn((double) (totalWinningMoney - investMoney) / investMoney * 100);
         resultResponse.setResults(scores);
-
         return resultResponse;
     }
 
-    private List<Integer> score(WinningLotto winningLotto, List<Lotto> lottoList) {
-        // index 0~6에는 index 만큼 일치하는 로또의 갯수가 담겨 있고, index 7에는 5개 일치 + 보너스 볼 일치인 로또의 갯수가 담겨 있다
-        List<Integer> results = new ArrayList<>(Collections.nCopies(8, 0));
+    private Map<Grade, Integer> score(WinningLotto winningLotto, List<Lotto> lottoList) {
+        Map<Grade, Integer> results = new HashMap<>();
+        Arrays.stream(Grade.values()).forEach(g -> results.put(g, 0));
 
         for (Lotto lotto : lottoList) {
-            int num = match(winningLotto, lotto);
-            results.set(num, results.get(num) + 1);
-
+            int matchIndex = match(winningLotto, lotto);
             // Lotto 객체에 grade 기록
-            rank(lotto, num);
+            rank(lotto, matchIndex);
+
+            results.put(lotto.getGrade(), results.getOrDefault(lotto.getGrade(), 0) + 1);
         }
 
         return results;
