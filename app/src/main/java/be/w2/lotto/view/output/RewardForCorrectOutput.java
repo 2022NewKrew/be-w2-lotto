@@ -1,6 +1,6 @@
 package be.w2.lotto.view.output;
 
-import be.w2.lotto.exceptions.NonValidRewardForCorrect;
+import be.w2.lotto.exceptions.NonValidRewardForCorrectException;
 import be.w2.lotto.messages.ErrorMessage;
 import be.w2.lotto.result.RewardForCorrect;
 
@@ -32,7 +32,7 @@ final class RewardForCorrectOutput extends ClassOutput<RewardForCorrect> {
             case SIX:
                 return "6개 일치";
             default:
-                throw new NonValidRewardForCorrect(ErrorMessage.REWARD_FOR_CORRECT_NOT_FOUNDED);
+                throw new NonValidRewardForCorrectException(ErrorMessage.REWARD_FOR_CORRECT_NOT_FOUNDED);
         }
     }
 }
