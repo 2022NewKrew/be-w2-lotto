@@ -3,10 +3,7 @@ package view;
 import domain.Rank;
 import domain.UIMessage;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class LottoUI {
@@ -24,15 +21,36 @@ public class LottoUI {
         return money;
     }
 
-    public static List<Integer> inputWinningNum() {
-        System.out.println(UIMessage.LAST_WINNING_NUM.getMessage());
-
+    private static List<Integer> inputSixNum() {
         String input = scanner.nextLine();
         String replace = input.replace(" ", "");
 
         return Arrays.stream(replace.split(","))
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
+    }
+
+    public static List<Integer> inputWinningNum() {
+        System.out.println(UIMessage.LAST_WINNING_NUM.getMessage());
+        return inputSixNum();
+    }
+
+    public static List<List<Integer>> inputManualNum() {
+        System.out.println(UIMessage.HOW_MANY_MANUAL.getMessage());
+        int buyManual;
+        try {
+            String input = scanner.nextLine();
+            buyManual = Integer.parseInt(input);
+        } catch (Exception e) {
+            buyManual = 0;
+        }
+
+        System.out.println(UIMessage.ENTER_MANUAL_NUM.getMessage());
+        List<List<Integer>> manualNum = new ArrayList<>();
+        for(int buy=0; buy < buyManual; buy++){
+            manualNum.add(inputSixNum());
+        }
+        return manualNum;
     }
 
     public static int inputBonusNum() {
@@ -47,8 +65,8 @@ public class LottoUI {
         return bonus;
     }
 
-    public static void outputLotto(int count, String lotto) {
-        System.out.printf(UIMessage.BUY_RESULT.getMessage(), count);
+    public static void outputLotto(int total, int manual, String lotto) {
+        System.out.printf(UIMessage.BUY_RESULT.getMessage(), manual, total-manual);
         System.out.println(lotto);
     }
 

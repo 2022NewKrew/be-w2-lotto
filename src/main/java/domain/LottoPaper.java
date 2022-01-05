@@ -23,6 +23,18 @@ public class LottoPaper {
                 .forEach(rank -> cntToRank.put(rank.getCountOfMatch(), rank));
     }
 
+    public LottoPaper(long money, List<List<Integer>> manualNum) {
+        manualNum.forEach(nums -> paper.add(new Lotto(nums)));
+
+        int buyMax = (int) money / LOTTO_PRICE - manualNum.size();
+        IntStream.range(0, buyMax)
+                .forEach(buy -> paper.add(new Lotto()));
+
+        Arrays.stream(Rank.values())
+                .filter(rank -> rank != Rank.SECOND)
+                .forEach(rank -> cntToRank.put(rank.getCountOfMatch(), rank));
+    }
+
     @Override
     public String toString() {
         return paper.stream()
