@@ -1,5 +1,8 @@
-package lotto.domain;
+package lotto.service;
 
+import lotto.domain.Lotto;
+import lotto.domain.LottoPrize;
+import lotto.domain.LottoWinningNumber;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
