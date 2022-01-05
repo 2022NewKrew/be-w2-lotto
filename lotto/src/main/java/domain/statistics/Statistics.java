@@ -1,12 +1,10 @@
 package domain.statistics;
 
-import domain.lottery.LotteryMachine;
 import domain.lottery.WinningLottery;
 import domain.lotto.Lotto;
 import domain.lotto.LottoPrize;
 import domain.lotto.LottoWallet;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;

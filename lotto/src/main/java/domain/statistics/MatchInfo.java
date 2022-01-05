@@ -1,6 +1,5 @@
 package domain.statistics;
 
-import domain.lottery.LotteryMachine;
 import domain.lottery.WinningLottery;
 import domain.lotto.Lotto;
 

@@ -1,8 +1,6 @@
 package domain.lottery;
 
 import domain.lotto.Lotto;
-import java.io.IOException;
-import view.read.InputReader;
 
 public class WinningLottery {
 
