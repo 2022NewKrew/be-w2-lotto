@@ -1,6 +1,8 @@
-package lotto.domain;
+package lotto.domain.game;
 
 import java.util.Arrays;
+import lotto.domain.model.Lotto;
+import lotto.domain.model.WinningLotto;
 
 public enum LottoRank {
     FIRST(6, 2_000_000_000),
@@ -26,10 +28,14 @@ public enum LottoRank {
             .findFirst()
             .orElseGet(() -> NONE);
 
-        if (rank == SECOND && !lottoTicket.hasNumber(winningLotto.getBonusNumber())) {
+        if (rank == SECOND && !winningLotto.isTicketHasBonusNumber(lottoTicket)) {
             return THIRD;
         }
         return rank;
+    }
+
+    public long calculatePrizeMoneyWithCount(long count) {
+        return prizeMoney * count;
     }
 
     public int getPrizeMoney() {

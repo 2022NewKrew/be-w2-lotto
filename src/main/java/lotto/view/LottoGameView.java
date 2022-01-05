@@ -1,20 +1,21 @@
 package lotto.view;
 
-import static lotto.domain.LottoRank.FIFTH;
-import static lotto.domain.LottoRank.FIRST;
-import static lotto.domain.LottoRank.FOURTH;
-import static lotto.domain.LottoRank.SECOND;
-import static lotto.domain.LottoRank.THIRD;
+import static lotto.domain.game.LottoRank.FIFTH;
+import static lotto.domain.game.LottoRank.FIRST;
+import static lotto.domain.game.LottoRank.FOURTH;
+import static lotto.domain.game.LottoRank.SECOND;
+import static lotto.domain.game.LottoRank.THIRD;
 
-import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import lotto.dto.LottoDTO;
+import lotto.dto.LottoNumberDTO;
 import lotto.dto.LottoResultDTO;
+import lotto.dto.LottoTicketsDTO;
 
 public class LottoGameView {
 
-    private static final String PRINT_PURCHASE_COUNT = "개를 구매했습니다.";
+    private static final String PRINT_PURCHASE_FORMAT = "수동으로 %d장, 자동으로 %d개를 구매했습니다.%n";
     private static final String PRINT_RESULT_FORMAT = "%n당첨 통계%n"
         + "---------%n"
         + "3개 일치 (%d원) - %d개%n"
@@ -30,13 +31,24 @@ public class LottoGameView {
 
     private static final Scanner scanner = new Scanner(System.in);
 
+    public static LottoGameView create() {
+        return new LottoGameView();
+    }
+
+    private LottoGameView() {
+    }
+
     public String inputPurchasePrice() {
         System.out.println("구매금액을 입력해주세요.");
         return scanner.nextLine();
     }
 
-    public String[] inputWinningLottoNumbers() {
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+    public String inputManualPurchaseAmount() {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        return scanner.nextLine();
+    }
+
+    public String[] inputLottoNumbers() {
         return scanner.nextLine().split(LOTTO_DELIMITER);
     }
 
@@ -45,25 +57,40 @@ public class LottoGameView {
         return scanner.nextLine();
     }
 
-    public void printLottoResult(LottoResultDTO lottoResultDTO) {
-        System.out.printf(PRINT_RESULT_FORMAT,
-            FIFTH.getPrizeMoney(), lottoResultDTO.getLottoRankCount().getOrDefault(FIFTH, 0L),
-            FOURTH.getPrizeMoney(), lottoResultDTO.getLottoRankCount().getOrDefault(FOURTH, 0L),
-            THIRD.getPrizeMoney(), lottoResultDTO.getLottoRankCount().getOrDefault(THIRD, 0L),
-            SECOND.getPrizeMoney(), lottoResultDTO.getLottoRankCount().getOrDefault(SECOND, 0L),
-            FIRST.getPrizeMoney(), lottoResultDTO.getLottoRankCount().getOrDefault(FIRST, 0L),
-            lottoResultDTO.getProfitRate());
+    public void printManualLottoTicketMessage() {
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
     }
 
-    public void printLottoTickets(List<LottoDTO> lottoDTOS) {
+    public void printWinningLottoNumbersMessage() {
+        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+    }
+
+    public void printLottoResult(LottoResultDTO lottoResultDTO) {
+        System.out.printf(PRINT_RESULT_FORMAT,
+            FIFTH.getPrizeMoney(), lottoResultDTO.getLottoRankCountDTO().getCountByRank(FIFTH),
+            FOURTH.getPrizeMoney(), lottoResultDTO.getLottoRankCountDTO().getCountByRank(FOURTH),
+            THIRD.getPrizeMoney(), lottoResultDTO.getLottoRankCountDTO().getCountByRank(THIRD),
+            SECOND.getPrizeMoney(), lottoResultDTO.getLottoRankCountDTO().getCountByRank(SECOND),
+            FIRST.getPrizeMoney(), lottoResultDTO.getLottoRankCountDTO().getCountByRank(FIRST),
+            lottoResultDTO.getLottoProfitRateDTO().getProfitRate());
+    }
+
+    public void printLottoTickets(LottoTicketsDTO manualTicketsDTO,
+        LottoTicketsDTO autoTicketsDTO) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.append(lottoDTOS.size())
-            .append(PRINT_PURCHASE_COUNT)
+        stringBuilder.append(String.format(PRINT_PURCHASE_FORMAT,
+                manualTicketsDTO.lottoTicketSize(),
+                autoTicketsDTO.lottoTicketSize()))
             .append(System.lineSeparator());
 
-        lottoDTOS.forEach(lottoDTO -> stringBuilder.append(printLottoTicket(lottoDTO))
-            .append(System.lineSeparator()));
+        manualTicketsDTO.getLottoDTOs()
+            .forEach(lottoDTO -> stringBuilder.append(printLottoTicket(lottoDTO))
+                .append(System.lineSeparator()));
+
+        autoTicketsDTO.getLottoDTOs()
+            .forEach(lottoDTO -> stringBuilder.append(printLottoTicket(lottoDTO))
+                .append(System.lineSeparator()));
 
         System.out.println(stringBuilder);
     }
@@ -71,6 +98,7 @@ public class LottoGameView {
     private String printLottoTicket(LottoDTO lottoDTO) {
         return LOTTO_PRINT_START
             + lottoDTO.getLottoNumbers().stream()
+            .map(LottoNumberDTO::getNumber)
             .map(String::valueOf)
             .collect(Collectors.joining(LOTTO_DELIMITER))
             + LOTTO_PRINT_END;
