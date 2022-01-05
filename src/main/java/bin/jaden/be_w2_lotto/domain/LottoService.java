@@ -1,5 +1,8 @@
 package bin.jaden.be_w2_lotto.domain;
 
+import bin.jaden.be_w2_lotto.LottoGame.LottoGame;
+import bin.jaden.be_w2_lotto.LottoGame.ManualLottoGame;
+import bin.jaden.be_w2_lotto.LottoGame.WinLottoGame;
 import bin.jaden.be_w2_lotto.view.LottoPrinter;
 import bin.jaden.be_w2_lotto.view.LottoScanner;
 
@@ -9,21 +12,35 @@ import java.util.List;
 import java.util.Map;
 
 public class LottoService {
-    private static LottoGame inputLottoGame;
 
     private LottoService() {
         // instance 생성 제한용 생성자
     }
 
     public static void startLotto() {
+        LottoGameManager lottoGameManager = getLottoManager();
+        int purchasingAmount = lottoGameManager.getLottoGames().size() * Constants.PRICE_PER_GAME; // 거스름돈을 무시하기 위해 구매한 (로또 수 * 가격)을 한다.
+        LottoPrinter.printLottoData(lottoGameManager);
+        WinLottoGame winLottoGame = getWinLottoGame();
+        printResult(purchasingAmount, lottoGameManager.getLottoGames(), winLottoGame);
+    }
+
+    private static LottoGameManager getLottoManager() {
         int purchasingAmount = getPurchasingAmount();
-        Lotto lotto = new Lotto(purchasingAmount);
-        purchasingAmount = lotto.getLottoGames().size() * Constants.PRICE_PER_GAME; // 거스름돈을 무시하기 위해 구매한 (로또수 * 가격)을 한다.
-        LottoPrinter.printLottoData(lotto);
+        int numberOfPurchaseManually = getNumberOfPurchaseManually(purchasingAmount / Constants.PRICE_PER_GAME);
+        List<ManualLottoGame> manualLottoGames = LottoScanner.getManualLottoGames(numberOfPurchaseManually);
+
+        return new LottoGameManager(purchasingAmount, numberOfPurchaseManually, manualLottoGames);
+    }
+
+    private static WinLottoGame getWinLottoGame() {
         List<Integer> winNumbers = getWinNumbers();
         int bonusNumber = getBonusNumber(winNumbers);
-        inputLottoGame = new LottoGame(winNumbers, bonusNumber);
-        Map<LottoRankEnum, Integer> result = getResult(lotto.getLottoGames());
+        return new WinLottoGame(winNumbers, bonusNumber);
+    }
+
+    private static void printResult(int purchasingAmount, List<LottoGame> lottoGames, WinLottoGame winLottoGame) {
+        Map<LottoRankEnum, Integer> result = getResult(lottoGames, winLottoGame);
         LottoPrinter.printResults(purchasingAmount, result);
     }
 
@@ -33,6 +50,14 @@ public class LottoService {
             purchasingAmount = LottoScanner.getPurchasingAmount();
         }
         return purchasingAmount;
+    }
+
+    private static int getNumberOfPurchaseManually(int totalLottos) {
+        int numberOfPurchaseManually = -1;
+        while (numberOfPurchaseManually < 0) {
+            numberOfPurchaseManually = LottoScanner.getNumberOfPurchaseManually(totalLottos);
+        }
+        return numberOfPurchaseManually;
     }
 
     private static List<Integer> getWinNumbers() {
@@ -51,36 +76,20 @@ public class LottoService {
         return bonusNumber;
     }
 
-    private static Map<LottoRankEnum, Integer> getResult(List<LottoGame> lottoGames) {
+    private static Map<LottoRankEnum, Integer> getResult(List<LottoGame> lottoGames, WinLottoGame winLottoGame) {
         Map<LottoRankEnum, Integer> results = new HashMap<>();
 
+        int bonusNumber = winLottoGame.getBonusNumber();
         for (LottoGame lottoGame : lottoGames) {
-            int count = getCount(lottoGame.getNumbers());
-            setResult(results, count, lottoGame.getNumbers().contains(inputLottoGame.getBonusNumber()));
+            int count = getCount(lottoGame.getNumbers(), winLottoGame.getNumbers());
+            LottoRankEnum rank = LottoRankEnum.getRank(count, lottoGame.getNumbers().contains(bonusNumber));
+            results.put(rank, results.getOrDefault(rank, 0) + 1);
         }
         return Collections.unmodifiableMap(results);
     }
 
-    private static void setResult(Map<LottoRankEnum, Integer> results, int count, boolean isBonus) {
-        if (count > 2) {
-            LottoRankEnum rank = getRank(count, isBonus);
-            results.put(rank, results.getOrDefault(rank, 0) + 1);
-        }
-    }
-
-    private static LottoRankEnum getRank(int count, boolean isBonus) {
-        if (count == Constants.NUMBERS_PER_GAME) {
-            return LottoRankEnum.LOTTO_RANK_1ST;
-        }
-        if (count == Constants.NUMBERS_PER_GAME - 1 && isBonus) {
-            return LottoRankEnum.LOTTO_RANK_2ND;
-        }
-        return LottoRankEnum.values()[count - 3];
-    }
-
-    private static int getCount(List<Integer> lottoGame) {
+    private static int getCount(List<Integer> lottoGame, List<Integer> winNumbers) {
         int count = 0;
-        List<Integer> winNumbers = inputLottoGame.getNumbers();
         for (int winNumber : winNumbers) {
             count = lottoGame.contains(winNumber) ? count + 1 : count;
         }
