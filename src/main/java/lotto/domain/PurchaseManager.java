@@ -8,7 +8,7 @@ public class PurchaseManager {
     public List<Lotto> purchase(PurchaseInfo pi) {
         List<Lotto> result = new ArrayList<>();
         for (int i = 0; i < pi.getNumOfPurchase(); i++) {
-            result.add(new Lotto());
+            result.add(LottoGenerator.generateRandomLotto());
         }
         return Collections.unmodifiableList(result);
     }

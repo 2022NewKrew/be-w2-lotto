@@ -39,9 +39,9 @@ public class WinningInfo {
 
     private void addWinCount(Lotto lotto, List<Integer> winningNumber, int bonusNumber) {
         int match_count = compare(lotto, winningNumber);
-        boolean isBonusContained = lotto.getNumbers().contains(bonusNumber);
-        Rank result = Rank.valueOf(match_count, isBonusContained);
-        if (result != null) {
+        if (Rank.isWin(match_count)) {
+            boolean isBonusContained = lotto.getNumbers().contains(bonusNumber);
+            Rank result = Rank.valueOf(match_count, isBonusContained);
             this.winCount.put(result, this.winCount.get(result) + 1);
         }
     }
