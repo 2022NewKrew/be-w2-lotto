@@ -20,13 +20,11 @@ public class Lotto {
         Collections.sort(numbers);
     }
 
-<<<<<<< HEAD
-=======
+
     public Lotto(Lotto lotto){
         this(lotto.getNumbers());
     }
 
->>>>>>> 73407950a993c8ab02b196cc1f9fecf44a984723
     public int howManyMatch(WinningLotto winningLotto) {
         int count = 0;
         List<Integer> winningLottoNumbers = winningLotto.getNumbers();
