@@ -20,10 +20,15 @@ public class InputView {
     public static List<Integer> inputWinningNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         String[] values = scanner.nextLine().split(",");
-        List<Integer> winningNumbers = Arrays.stream(values)
+        return Arrays.stream(values)
             .map(value -> Integer.parseInt(value.trim()))
             .collect(Collectors.toList());
+    }
+
+    public static int inputBonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        int bonusBallNumber = Integer.parseInt(scanner.nextLine());
         System.out.println();
-        return winningNumbers;
+        return bonusBallNumber;
     }
 }

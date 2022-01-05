@@ -24,7 +24,7 @@ class LottoResultTest {
         final BigDecimal totalReward = lottoResult.totalReward();
 
         // then
-        assertThat(totalReward).isEqualTo(BigDecimal.valueOf(2_000_120_000));
+        assertThat(totalReward).isEqualTo(BigDecimal.valueOf(2_003_200_000));
     }
 
     @ParameterizedTest
