@@ -14,8 +14,6 @@ public class InputView {
     private static final String MSG_INPUT_BONUS = "보너스 볼을 입력해 주세요.";
     private static final String MSG_INPUT_MANUAL_LOTTO = "수동으로 구매할 번호를 입력해 주세요.";
     private static final String MSG_INPUT_MANUAL_COUNT = "수동으로 구매할 로또 수를 입력해 주세요.";
-    private static final int NUMBER_MAX = 45;
-    private static final int NUMBER_MIN = 1;
     private static final int LOTTO_NUMBERS_COUNT = 6; // 로또 숫자 6개
     private static Scanner scanner;
 
@@ -84,7 +82,6 @@ public class InputView {
         for(String s : scanner.nextLine().replaceAll(" ", "").split(",")) {
             numbers.add(LottoNumber.of(Integer.parseInt(s)));
         }
-        checkNumbers(numbers);
         return numbers;
     }
 
@@ -95,11 +92,6 @@ public class InputView {
 
     private static void checkCount(final int count) {
         if(count < 0)
-            throw new InputMismatchException();
-    }
-
-    private static void checkNumbers(final List<LottoNumber> numbers) {
-        if(numbers.size() != LOTTO_NUMBERS_COUNT)
             throw new InputMismatchException();
     }
 }
