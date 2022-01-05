@@ -6,7 +6,7 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class WinningResultsDto {
+public class OutputWinningResultsDto {
     public final List<WinningResult> winningResults;
 
     public final BigInteger profitRate;
@@ -25,15 +25,15 @@ public class WinningResultsDto {
         }
     }
 
-    private WinningResultsDto(List<WinningResult> winningResults, BigInteger profitRate) {
+    private OutputWinningResultsDto(List<WinningResult> winningResults, BigInteger profitRate) {
         this.winningResults = winningResults;
         this.profitRate = profitRate;
     }
 
-    public static WinningResultsDto from(WinningResults winningResult) {
+    public static OutputWinningResultsDto from(WinningResults winningResult) {
         List <WinningResult> winningResults = winningResult.getWinningMatchResults().stream()
                 .map(WinningResult::new)
                 .collect(Collectors.toList());
-        return new WinningResultsDto(winningResults, winningResult.getProfitRate());
+        return new OutputWinningResultsDto(winningResults, winningResult.getProfitRate());
     }
 }

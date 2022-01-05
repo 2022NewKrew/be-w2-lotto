@@ -8,8 +8,8 @@ import be.w2.lotto.domain.lottoticket.LottoTickets;
 import be.w2.lotto.domain.lottoticket.WinningLottoTicket;
 import be.w2.lotto.domain.winningresult.WinningResults;
 import be.w2.lotto.dto.InputPurchaseAmountDto;
-import be.w2.lotto.dto.LottoTicketsDto;
-import be.w2.lotto.dto.WinningResultsDto;
+import be.w2.lotto.dto.OutputLottoTicketsDto;
+import be.w2.lotto.dto.OutputWinningResultsDto;
 import be.w2.lotto.view.InputView;
 
 import java.util.List;
@@ -22,20 +22,20 @@ import static be.w2.lotto.view.OutputView.*;
 public class LottoApplication {
 
     public static void main(String[] args) {
-        InputPurchaseAmountDto inputPurchaseAmountDto = LottoApplication.inputPurchaseAmountDto();
+        InputPurchaseAmountDto inputPurchaseAmountDto = inputPurchaseAmountDto();
         LottoTickets lottoTickets = inputPurchaseAmountDto.lottoTickets;
         int purchaseAmount = inputPurchaseAmountDto.purchaseAmount;
-        LottoTicketsDto lottoTicketsDto = LottoTicketsDto.from(lottoTickets);
 
-        outputLottoAmounts(lottoTicketsDto.getLottoTicketAmount());
-        outputLottoTickets(lottoTicketsDto.lottoTickets);
+        OutputLottoTicketsDto outputLottoTicketsDto = OutputLottoTicketsDto.from(lottoTickets);
+        outputLottoAmounts(outputLottoTicketsDto.getLottoTicketAmount());
+        outputLottoTickets(outputLottoTicketsDto.lottoTickets);
 
         WinningLottoTicket winningLottoTicket = inputWinningNumbers();
         BonusNumber bonusNumber = inputBonusNumber(winningLottoTicket);
         WinningResults winningResult = WinningResults.valueOf(lottoTickets, winningLottoTicket, purchaseAmount, bonusNumber);
 
-        WinningResultsDto winningResultsDto = WinningResultsDto.from(winningResult);
-        outputWinningResult(winningResultsDto);
+        OutputWinningResultsDto outputWinningResultsDto = OutputWinningResultsDto.from(winningResult);
+        outputWinningResult(outputWinningResultsDto);
     }
 
     private static InputPurchaseAmountDto inputPurchaseAmountDto() {
