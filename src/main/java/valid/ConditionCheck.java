@@ -51,6 +51,6 @@ public final class ConditionCheck {
      */
     public static boolean isDistinctLottoNumbers(List<Integer> numbers) {
         Set<Integer> nums = new HashSet<>(numbers);
-        return nums.size() == NUMBER_OF_LOTTO_NUMBERS.getValue();
+        return nums.size() == numbers.size() && nums.size() == NUMBER_OF_LOTTO_NUMBERS.getValue();
     }
 }
