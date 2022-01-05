@@ -65,8 +65,8 @@ public class SimpleLottoInput implements LottoInput {
     }
 
     private void validateManualLottoNumRange(int manualLottoNum, int lottoNum) {
-        if (manualLottoNum > lottoNum) {
-            throw new InputMismatchException("수동 구매 로또수 > 전체 로또수");
+        if (manualLottoNum < 0 || manualLottoNum > lottoNum) {
+            throw new InputMismatchException("수동 로또 수가 음수이거나 전체 로또 수보다 큼");
         }
     }
 
