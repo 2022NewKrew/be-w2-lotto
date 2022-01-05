@@ -25,13 +25,14 @@ public class LottoResultManager {
     public Map<MatchingStatus, Integer> getMatchingResult() {
         for (Lotto lotto: userLottoList) {
             int matchCount = winningLotto.checkNumberOfWinning(lotto);
-            reflectScore(matchCount, false);
+            boolean isBonusMatched = winningLotto.checkBonusBallMatched(lotto);
+            reflectScore(matchCount, isBonusMatched);
         }
         return matchingResult;
     }
 
     private void reflectScore(int matchCount, boolean isBonusMatched) {
-        MatchingStatus status = MatchingStatus.getMatchingStatus(matchCount, false);
+        MatchingStatus status = MatchingStatus.getMatchingStatus(matchCount, isBonusMatched);
         matchingResult.put(status, matchingResult.get(status) + 1);
     }
 

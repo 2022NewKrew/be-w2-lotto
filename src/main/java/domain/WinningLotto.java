@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class WinningLotto {
-    public static final int NUMBER = 6;
     private final List<Ball> balls;
     private final Ball bonusBall;
 
@@ -25,5 +24,9 @@ public class WinningLotto {
         return (int) this.getBalls().stream()
                 .filter(other::containBall)
                 .count();
+    }
+
+    public boolean checkBonusBallMatched(Lotto lotto) {
+        return lotto.containBall(bonusBall);
     }
 }

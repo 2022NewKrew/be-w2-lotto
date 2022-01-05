@@ -9,22 +9,22 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class WinningLottoTest {
-    WinningLotto winningLotto = createWinningLotto(createBallList(List.of(1, 2, 3, 4, 5, 6)), createBall(7));
+    private static final WinningLotto winningLotto = createWinningLotto(createBallList(List.of(1, 2, 3, 4, 5, 6)), createBall(7));
 
-    private Ball createBall(int number) {
+    private static Ball createBall(int number) {
         return new Ball(number);
     }
 
-    private List<Ball> createBallList(List<Integer> list) {
+    private static List<Ball> createBallList(List<Integer> list) {
         return list.stream()
                 .map(Ball::new)
                 .collect(Collectors.toList());
     }
-    private Lotto createLotto(List<Ball> balls) {
+    private static Lotto createLotto(List<Ball> balls) {
         return new Lotto(balls);
     }
 
-    private WinningLotto createWinningLotto(List<Ball> balls, Ball bonusBall) {
+    private static WinningLotto createWinningLotto(List<Ball> balls, Ball bonusBall) {
         return new WinningLotto(balls, bonusBall);
     }
 
@@ -44,5 +44,18 @@ class WinningLottoTest {
 
         assertThat(matchList)
                 .isEqualTo(List.of(6, 5, 4, 3));
+    }
+
+    @DisplayName("보너스 공을 포함하는지 확인하는 로직 검증")
+    @Test
+    void 보너스공() {
+        Lotto lottoIncludingBonusBall = createLotto(createBallList(List.of(1, 2, 3, 4, 5, 7)));
+        Lotto lottoNotIncludingBonusBall = createLotto(createBallList(List.of(1, 2, 3, 4, 5, 8)));
+
+        boolean includingBonusBall = winningLotto.checkBonusBallMatched(lottoIncludingBonusBall);
+        boolean notIncludingBonusBall = winningLotto.checkBonusBallMatched(lottoNotIncludingBonusBall);
+
+        assertThat(includingBonusBall).isTrue();
+        assertThat(notIncludingBonusBall).isFalse();
     }
 }
