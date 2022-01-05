@@ -46,8 +46,12 @@ public class LottoNumbers {
 
     public int matchedBy(LottoNumbers otherLottoNumbers){
         return otherLottoNumbers.lottoNumbers.stream()
-                .map(lottoNumber -> this.lottoNumbers.contains(lottoNumber))
+                .map(this.lottoNumbers::contains)
                 .mapToInt(isContained -> isContained ? 1 : 0)
                 .reduce(Integer::sum).orElse(0);
+    }
+
+    public List<LottoNumber> getLottoNumberList() {
+        return List.copyOf(lottoNumbers);
     }
 }

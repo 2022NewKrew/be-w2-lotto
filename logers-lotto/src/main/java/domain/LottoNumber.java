@@ -33,4 +33,8 @@ public class LottoNumber {
         LottoNumber other = (LottoNumber) obj;
         return this.number == other.number;
     }
+
+    public int getNumber() {
+        return number;
+    }
 }

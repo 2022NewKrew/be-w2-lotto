@@ -36,7 +36,7 @@ public class LottoController {
     }
 
     private OutputView getPurchaseOutputView(LottoOrder lottoOrder){
-        PurchaseResultDto purchaseResultDto = new PurchaseResultDto(lottoOrder.getLottoList());
+        PurchaseResultDto purchaseResultDto = new PurchaseResultDto(lottoOrder.getLottoNumberLists());
         return new PurchaseOutputView(purchaseResultDto);
     }
 
