@@ -33,13 +33,10 @@ public enum LottoPrize {
   // https://pjh3749.tistory.com/279
   private static Optional<LottoPrize> of(int matchCount, boolean isBonusMatched) {
     return Arrays.stream(LottoPrize.values())
-        .filter(lottoPrize -> lottoPrize.matchCount == matchCount)
-        .filter(lottoPrize -> {
-          if (matchCount == 5) {
-            return lottoPrize.needBonusNumber == isBonusMatched;
-          }
-          return true;
-        })
+        .filter(lottoPrize ->
+            (lottoPrize.matchCount == matchCount)
+                && (matchCount != RANK_2ND.getMatchCount()
+                || lottoPrize.needBonusNumber == isBonusMatched))
         .findAny();
   }
 
@@ -56,11 +53,6 @@ public enum LottoPrize {
 
   public int getReward() {
     return reward;
-  }
-
-
-  public boolean isNeedBonusNumber() {
-    return needBonusNumber;
   }
 
 
