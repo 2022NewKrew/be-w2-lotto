@@ -1,6 +1,7 @@
 package lotto.view;
 
 import lotto.domain.Lotto;
+import lotto.domain.LottoValidationCheck;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,11 +12,29 @@ public class LottoViewInput {
     static public Integer lottoInputPayment(){
         Scanner sc = new Scanner(System.in);
         System.out.println("구매금액을 입력해 주세요.");
-        return sc.nextInt();
+
+        try {
+            return sc.nextInt();
+        } catch(Exception e){
+            return 0;
+        }
     }
 
-    static private List<Integer> resultToList(String stringAry){
+    static public Integer lottoInputUserMakeCount(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        try {
+            return sc.nextInt();
+        } catch(Exception e){
+            return 0;
+        }
+    }
+
+    static public List<Integer> resultToList(String stringAry){
         List<String> resultListString = new ArrayList<>(Arrays.asList(stringAry.split(",")));
+
+        LottoValidationCheck.stringLottoValidationCheck(resultListString); //올바른 입력인지 체크
+
         List<Integer> resultListInteger = new ArrayList<>();
         for(int i = 0 ; i < resultListString.size() ; i++){
             resultListInteger.add(Integer.parseInt(resultListString.get(i)));
@@ -23,9 +42,9 @@ public class LottoViewInput {
         return resultListInteger;
     }
 
-    static public List<Integer> lottoInputResult(){
+    static public List<Integer> lottoInputToList(Runnable runnable){
         Scanner sc = new Scanner(System.in);
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+        runnable.run();
         return resultToList(sc.nextLine());
     }
 

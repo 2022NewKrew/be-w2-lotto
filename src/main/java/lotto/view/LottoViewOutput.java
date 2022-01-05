@@ -2,23 +2,23 @@ package lotto.view;
 
 import lotto.domain.Lotto;
 import lotto.domain.LottoNumber;
-import lotto.domain.LottoWinner;
 import lotto.domain.Rank;
+import lotto.dto.OutputDTO;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import static lotto.domain.LottoSetting.*;
 
 public class LottoViewOutput {
-    Lotto lottoObject;
-    public LottoViewOutput(Lotto lottoObject){
-        this.lottoObject = lottoObject;
-    }
+    public LottoViewOutput(){}
 
-    public void printLottoCount(){
-        System.out.println(lottoObject.getLottos().size() + "개를 구매했습니다.");
+    public void printLottoCount(OutputDTO outputDTO){
+        int autoMadeCount = (int) outputDTO.getLottos().stream().filter((lotto) -> {return lotto.getAutoMade().equals(LOTTO_AUTO);}).count();
+        System.out.println("수동으로 " + (outputDTO.getLottos().size() - autoMadeCount) + "장, 자동으로 " + autoMadeCount + "개를 구매했습니다.");
     }
 
     private void printLotto(LottoNumber singleLotto){
@@ -31,15 +31,15 @@ public class LottoViewOutput {
         System.out.println(sb);
     }
 
-    public void printAllLottos(){
-        for(int i = 0 ; i < lottoObject.getLottos().size() ; i++){
-            printLotto(lottoObject.getLottos().get(i));
+    public void printAllLottos(OutputDTO outputDTO){
+        for(int i = 0 ; i < outputDTO.getLottos().size() ; i++){
+            printLotto(outputDTO.getLottos().get(i));
         }
         System.out.print("\n");
     }
 
-    public void printWinner(){
-        Map<Rank, List<LottoNumber>> winnerMap = lottoObject.getLottoWinner();
+    public void printWinner(OutputDTO outputDTO){
+        Map<Rank, List<LottoNumber>> winnerMap = outputDTO.getLottoWinner();
 
         System.out.println("\n당첨 통계\n---------");
 
@@ -51,6 +51,6 @@ public class LottoViewOutput {
             System.out.println(ranks.get(i).getCountOfMatch() + "개 일치 " + ranks.get(i).getWinningMessage() + " - " + winnerMap.get(ranks.get(i)).size() + "개");
         }
 
-        System.out.println("총 수익률은 " + Long.valueOf((long) (lottoObject.getEarning().doubleValue() / lottoObject.getPayment() * 100)) + "%입니다.");
+        System.out.println("총 수익률은 " + Long.valueOf((long) (outputDTO.getEarning().doubleValue() / outputDTO.getPayment() * 100)) + "%입니다.");
     }
 }

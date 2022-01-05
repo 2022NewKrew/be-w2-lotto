@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import lotto.dto.OutputDTO;
 import lotto.view.LottoViewInput;
 import lotto.view.LottoViewOutput;
 
@@ -12,10 +13,13 @@ public class Lotto {
     private LottoResult lottoResult;
     private List<LottoNumber> lottos;
     private Map<Rank, List<LottoNumber>> lottoWinner;
-    private List<Integer> lottoElement;
 
     public Lotto(){
         lottos = new ArrayList<>();
+        lottoResult = new LottoResult();
+
+        //initialize Hashmap to lottoWinner.
+        initLottoWinner();
     }
 
     //getter
@@ -27,46 +31,44 @@ public class Lotto {
         return lottoWinner;
     }
 
-    public Long getPayment(){
-        return Long.valueOf(lottos.size() * LOTTO_PRICE) ;
-    }
+    public void lottoBuy(Integer payment){
+        Integer userMakeCount = LottoViewInput.lottoInputUserMakeCount();
 
-    public Long getEarning(){
-        Long totalEarning = Long.valueOf(0);
+        //validation check logic 후 오류안나게 개선을 할까? 아니면 그냥 exception을 던질까? 뭐가 좋을까요?
+        userMakeCount = LottoValidationCheck.userMakeCountValidation(payment, userMakeCount);
 
-        for(Rank rank : List.of(Rank.values())){
-            totalEarning += rank.getWinningMoney() * lottoWinner.get(rank).size();
+        Integer autoMakecount = (payment / LOTTO_PRICE) - userMakeCount;
+
+        if(userMakeCount > 0){
+            addLottos(userMakeCount, Lotto::addUserMakeLottos);
         }
 
-        return totalEarning;
+        if(autoMakecount > 0){
+            addLottos(autoMakecount, Lotto::addRandomLottos);
+        }
     }
 
     public void setLottoResult(LottoNumber lottoNumber, Integer bonusNumber) {
-        lottoResult = new LottoResult();
         lottoResult.setLottoNumber(lottoNumber);
         lottoResult.setBonusNumber(bonusNumber);
+
+        LottoValidationCheck.bonusNumberCheck(lottoNumber, bonusNumber);
     }
 
-    public void addRandomLottos(Integer lottoCount){
+    public void addLottos(Integer lottoCount, LottoCreate lottoCreate){
         for(int i = 0 ; i < lottoCount ; i++){
-            lottos.add(createRandomLotto()); //lottoCount만큼 랜덤으로 로또를 생성
+            lottos.add(lottoCreate.create(i == 0));
         }
     }
 
-
-    private Integer calculateMatchCount(LottoNumber curLotto){
-        int resultIdx = 0;
-        int curLottoIdx = 0;
-        int matchCount = 0;
-
-        while(resultIdx < lottoResult.getLottoNumber().num.size() && curLottoIdx < curLotto.num.size()){
-            if(lottoResult.getLottoNumber().num.get(resultIdx).equals(curLotto.num.get(curLottoIdx))){
-                resultIdx++; curLottoIdx++; matchCount++; continue;
-            }
-            int garbageVariable = ((lottoResult.getLottoNumber().num.get(resultIdx) < curLotto.num.get(curLottoIdx)) ? resultIdx++ : curLottoIdx++ ) ;
-        }
-        return matchCount;
+    static private LottoNumber addRandomLottos(boolean isPrinting){
+        return LottoNumber.createRandomLotto(isPrinting); //랜덤으로 로또를 생성
     }
+
+    static private LottoNumber addUserMakeLottos(boolean isPrinting){
+        return LottoNumber.createUserMakeLotto(isPrinting); //사용자가 로또를 입력하여 생성
+    }
+
 
     private void initLottoWinner(){
         //init lottoWinner Objects
@@ -77,36 +79,15 @@ public class Lotto {
     }
 
     public void makeTotal(){
-        //initialize Hashmap to lottoWinner.
-        initLottoWinner();
-
         //add win numbers to lottoWinner
         for(int i = 0 ; i < lottos.size() ; i++){
             LottoNumber curLotto = lottos.get(i);
-            Rank lottoRank = Rank.getRankByCount(calculateMatchCount(curLotto), curLotto.num.contains(lottoResult.getBonusNumber()));
+            Rank lottoRank = Rank.getRankByCount(curLotto.calculateMatchCount(lottoResult.getLottoNumber()), curLotto.num.contains(lottoResult.getBonusNumber()));
             lottoWinner.get(lottoRank).add(curLotto);
         }
-
     }
 
-    private void initLottoElement(){
-        for(int i = 1 ; i <= LOTTO_NUMBER_RANGE ; i++){
-            lottoElement.add(i);
-        }
+    public OutputDTO getOutputDTO(){
+       return new OutputDTO(lottos, lottoResult, lottoWinner);
     }
-
-    private LottoNumber createRandomLotto(){
-        //initialize only once
-        if(lottoElement == null){
-            lottoElement = new ArrayList<>();
-            initLottoElement();
-        }
-
-        Collections.shuffle(lottoElement);
-        List<Integer> newLotto = lottoElement.subList(0, LOTTO_LENGTH);
-        newLotto.sort(Integer::compareTo);
-        return new LottoNumber( newLotto );
-    }
-
-
 }
