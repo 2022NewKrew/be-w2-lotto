@@ -33,8 +33,8 @@ public enum LottoPrize {
         return allowBonusBall;
     }
 
-    public static LottoPrize getLottoRank(long numberOfMatches, boolean matchesBonusBall) {
-        if(numberOfMatches == SECOND_PLACE.numberOfMatches && matchesBonusBall == SECOND_PLACE.allowBonusBall)
+    public static LottoPrize getLottoRank(long numberOfMatches, boolean isMatchBonusBall) {
+        if(numberOfMatches == SECOND_PLACE.numberOfMatches && isMatchBonusBall == SECOND_PLACE.allowBonusBall)
             return SECOND_PLACE;
 
         return Arrays.stream(values())
