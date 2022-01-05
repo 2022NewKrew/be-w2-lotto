@@ -1,6 +1,7 @@
 package domain.buyer;
 
 import domain.lotto.Lotto;
+import domain.lotto.Number;
 import domain.result.Winning;
 
 import java.util.ArrayList;
@@ -57,6 +58,10 @@ public class Buyer {
         for (int i = 0; i < buyingCnt; i++) {
             buyingOneByRandom();
         }
+    }
+
+    public void buyingByInput(List<Number> numbers) {
+        buyingLottos.add(Lotto.makeOneInputLotto(numbers));
     }
 
     //랜덤으로 로또 하나 구매

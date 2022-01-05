@@ -13,12 +13,17 @@ public class Lotto {
         this.lottoNumber = lottoNumber;
     }
 
-    public String lottoNumberToString() {
-        return lottoNumber.numbersToString();
+    @Override
+    public String toString() {
+        return lottoNumber.toString();
     }
 
     public static Lotto makeOneRandomLotto() {
         return new Lotto(LottoNumber.makeSixNumbersByRandom());
+    }
+
+    public static Lotto makeOneInputLotto(List<Number> numbers) {
+        return new Lotto(numbers);
     }
 
     public int compareLotto(Lotto targetLotto) {

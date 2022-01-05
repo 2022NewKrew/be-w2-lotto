@@ -20,12 +20,11 @@ public class OutputView {
 
     public void showLottoNumbers(List<Lotto> lottos) {
         lottos.stream()
-                .map(Lotto::lottoNumberToString)
                 .forEach(System.out::println);
     }
 
-    public void completeBuying(int cnt) {
-        System.out.println(cnt + "개를 구매했습니다.");
+    public void completeBuying(int buyingCnt, int inputBuyingCnt) {
+        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.\n", inputBuyingCnt, buyingCnt - inputBuyingCnt);
     }
 
     public void showTotalHitting(List<Integer> hittingTable, int startIdx, int endIdx, Yield yield) {

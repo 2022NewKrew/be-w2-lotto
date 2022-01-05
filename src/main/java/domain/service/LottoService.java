@@ -37,11 +37,16 @@ public class LottoService {
     }
 
     public void start() {
-        Buyer buyer = buyingLotto();
-        Result lastRottoResult = inputLastWinningNumber();
-        calculateHittingLotto(buyer, lastRottoResult);
+        try {
+            Buyer buyer = buyingLotto();
+            Result lastRottoResult = inputLastWinningNumber();
+            calculateHittingLotto(buyer, lastRottoResult);
 
-        outputView.showTotalHitting(hittingTable, LOWEST_RANK - 1, HIGHEST_RANK, buyer.getYield());
+            outputView.showTotalHitting(hittingTable, LOWEST_RANK - 1, HIGHEST_RANK, buyer.getYield());
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("There is no second chance... bye..");
+        }
     }
 
     //구매자의 로또 정보를 바탕으로 맞힌 정보 및 수익 셋팅
@@ -62,14 +67,31 @@ public class LottoService {
     private Buyer buyingLotto() {
         int buyingPrice = inputView.inputPrice();
         int buyingCnt = getBuyingCnt(buyingPrice);
+        int inputBuyingCnt = inputView.inputBuyingLottoCnt();
 
         Buyer buyer = new Buyer(buyingPrice);
-        buyer.buyingManyByRandom(buyingCnt);
+        buyingInputLotto(buyer, inputBuyingCnt);
+        buyer.buyingManyByRandom(buyingCnt - inputBuyingCnt);
 
-        outputView.completeBuying(buyingCnt);
-        outputView.showLottoNumbers(buyer.getBuyingLottos());
+        printCompleteMessage(buyingCnt, inputBuyingCnt, buyer);
 
         return buyer;
+    }
+
+    private void buyingInputLotto(Buyer buyer, int inputBuyingCnt) {
+        List<List<Integer>> lottos = inputView.inputBuyingLottoNumbers(inputBuyingCnt);
+
+        for(List<Integer> lotto : lottos) {
+            List<Number> lottoNumbers = lotto.stream()
+                    .map(Number::new)
+                    .collect(Collectors.toList());
+            buyer.buyingByInput(lottoNumbers);
+        }
+    }
+
+    public void printCompleteMessage(int buyingCnt, int inputBuyingCnt, Buyer buyer) {
+        outputView.completeBuying(buyingCnt, inputBuyingCnt);
+        outputView.showLottoNumbers(buyer.getBuyingLottos());
     }
 
     private Result inputLastWinningNumber() {
