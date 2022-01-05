@@ -7,7 +7,7 @@ public interface ILotto {
     int MINNUM = 1;
     int MAXNUM = 45;
     int SIZE = 6;
-    int PRICE = 1000;
+    long PRICE = 1000;
 
     public void createNum();
 
