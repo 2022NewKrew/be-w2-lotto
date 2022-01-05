@@ -14,7 +14,7 @@ public class Separator {
 
     public static String[] splitString(final String str, final String regex) {
         return Arrays.stream(
-                Objects.requireNonNull(str)
+                (Objects.requireNonNull(str) + " ")
                         .split(Objects.requireNonNull(regex))
                 )
                 .map(String::trim)
