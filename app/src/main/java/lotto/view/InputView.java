@@ -1,6 +1,7 @@
 package lotto.view;
 
 import lotto.domain.Lotto;
+import lotto.domain.LottoNumber;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -40,7 +41,7 @@ public class InputView {
         return purchase;
     }
 
-    public static List<Integer> getLastWinningNumbers() {
+    public static List<LottoNumber> getLastWinningNumbers() {
         System.out.println(MSG_INPUT_WINNING_NUMBERS);
         return getNumbers();
     }
@@ -50,21 +51,20 @@ public class InputView {
 
         System.out.println(MSG_INPUT_MANUAL_LOTTO);
         for(int i = 0; i < lottoCount; i++) {
-            List<Integer> numbers = getNumbers();
+            List<LottoNumber> numbers = getNumbers();
             lottoList.add(new Lotto(numbers));
         }
     }
 
-    public static Integer getBonusBall() {
+    public static LottoNumber getBonusBall() {
         final int bonusBall;
 
         System.out.println(MSG_INPUT_BONUS);
 
         bonusBall = scanner.nextInt();
-        checkOneNumber(bonusBall);
 
         scanner.nextLine();
-        return bonusBall;
+        return LottoNumber.of(bonusBall);
     }
 
     private static int getManualLottoCount() {
@@ -78,11 +78,11 @@ public class InputView {
         return manualLottoCount;
     }
 
-    private static List<Integer> getNumbers() {
-        List<Integer> numbers = new ArrayList<>(LOTTO_NUMBERS_COUNT);
+    private static List<LottoNumber> getNumbers() {
+        List<LottoNumber> numbers = new ArrayList<>(LOTTO_NUMBERS_COUNT);
 
         for(String s : scanner.nextLine().replaceAll(" ", "").split(",")) {
-            numbers.add(Integer.parseInt(s));
+            numbers.add(LottoNumber.of(Integer.parseInt(s)));
         }
         checkNumbers(numbers);
         return numbers;
@@ -98,17 +98,8 @@ public class InputView {
             throw new InputMismatchException();
     }
 
-    private static void checkOneNumber(final int number) {
-        if(number < NUMBER_MIN || number > NUMBER_MAX)
-            throw new InputMismatchException();
-    }
-
-    private static void checkNumbers(final List<Integer> numbers) {
+    private static void checkNumbers(final List<LottoNumber> numbers) {
         if(numbers.size() != LOTTO_NUMBERS_COUNT)
             throw new InputMismatchException();
-
-        for(Integer number : numbers) {
-            checkOneNumber(number);
-        }
     }
 }

@@ -57,8 +57,8 @@ public class LottoBuyer {
      * Map<LottoPrize, Integer> result 에 결과 저장
      */
     private void checkAllLotto() {
-        final List<Integer> winningNumbers = InputView.getLastWinningNumbers();
-        final Integer bonusBall = InputView.getBonusBall();
+        final List<LottoNumber> winningNumbers = InputView.getLastWinningNumbers();
+        final LottoNumber bonusBall = InputView.getBonusBall();
 
         for(Lotto lotto : lottoList) {
             int matchCount = lotto.match(winningNumbers, bonusBall);

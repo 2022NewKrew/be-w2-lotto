@@ -8,9 +8,9 @@ import java.util.Collections;
  * 로또가 얼마나 맞았는지 확인하는 메소드가 있는 class
  */
 public class Lotto {
-    private final List<Integer> lottoNumbers;
+    private final List<LottoNumber> lottoNumbers;
 
-    public Lotto(List<Integer> lottoNumbers) {
+    public Lotto(List<LottoNumber> lottoNumbers) {
         Collections.sort(lottoNumbers);
         this.lottoNumbers = lottoNumbers;
     }
@@ -20,10 +20,10 @@ public class Lotto {
         return lottoNumbers.toString();
     }
 
-    public final int match(final List<Integer> winningNumbers, final Integer bonusBall) {
+    public final int match(final List<LottoNumber> winningNumbers, final LottoNumber bonusBall) {
         int count = 0;
-        for(Integer num : winningNumbers)
-            count += lottoNumbers.contains(num) ? 1 : 0;
+        for(LottoNumber number : winningNumbers)
+            count += lottoNumbers.contains(number) ? 1 : 0;
 
         // 보너스볼 포함해서 다 맞은 경우(2등)와 구별하기 위해
         // 보너스볼 없이 다 맞은 경우 7개 맞춘 것으로 반환
