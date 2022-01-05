@@ -53,7 +53,7 @@ public class LottoService {
             throw new IllegalArgumentException("보너스 번호가 중복됩니다.");
         }
         winningResult = calculateWinningResult(winningLotto);
-        profit = IntStream.rangeClosed(1, 5).mapToLong(idx -> winningResult.get(idx) * LottoPrize.PRICES[idx]).sum();
+        profit = IntStream.rangeClosed(1, 5).mapToLong(rank -> (long) winningResult.get(rank) * LottoPrize.getMoneyWithRanking(rank)).sum();
     }
 
     private List<Integer> calculateWinningResult(Lotto winning) {

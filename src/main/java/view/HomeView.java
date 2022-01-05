@@ -57,9 +57,9 @@ public class HomeView {
                     , i
                     , LottoPrize.getWithRanking(i).getMatchingNum()
                     , (i == 2) ? "보너스 볼 일치" : ""
-                    , LottoPrize.PRICES[i]
+                    , LottoPrize.getMoneyWithRanking(i)
                     , results.get(i));
         }
-        System.out.printf("총 수익률은 %d%%입니다.%n", (int) (lottoService.getProfit() / (double) lottoService.getBuyPrice() * 100.0));
+        System.out.printf("총 수익률은 %d %d%%입니다.%n", lottoService.getProfit(), (int) (lottoService.getProfit() / (double) lottoService.getBuyPrice() * 100.0));
     }
 }
