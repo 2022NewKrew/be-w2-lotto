@@ -6,12 +6,12 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class UserInput {
-    static private final Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
-    static public long getMoney() {
+    public static int getMoney() {
         try {
             System.out.println("구입 금액을 입력해 주세요");
-            long money = scanner.nextLong();
+            int money = scanner.nextInt();
             isOverZero(money);
             return money;
         } catch (Exception exception) {
@@ -20,7 +20,7 @@ public class UserInput {
         }
     }
 
-    static public List<Integer> getWinningLotto() {
+    public static List<Integer> getWinningLotto() {
         try {
             checkInputBuffer();
             System.out.println("지난 주 당첨 번호를 입력해 주세요");
@@ -30,13 +30,13 @@ public class UserInput {
         }
     }
 
-    static private void checkInputBuffer() {
+    private static void checkInputBuffer() {
         if (scanner.hasNextLine()) {
             scanner.nextLine();
         }
     }
 
-    static private void isOverZero(long number) {
+    private static void isOverZero(int number) {
         if (number > 0) {
             return;
         }
