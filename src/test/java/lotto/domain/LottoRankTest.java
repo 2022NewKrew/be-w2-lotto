@@ -15,16 +15,19 @@ class LottoRankTest {
     @DisplayName("당첨 개수에 맞는 결과가 반환되야 한다.")
     @ParameterizedTest
     @MethodSource("provideLottoResultAndCountOfMatches")
-    void parseResult(int countOfMatches, LottoRank expected) {
-        assertThat(LottoRank.parseResult(countOfMatches)).isEqualTo(expected);
+    void parseResult(int countOfMatches, boolean isMatchBonusNumber, LottoRank expected) {
+        assertThat(LottoRank.parseResult(countOfMatches, isMatchBonusNumber)).isEqualTo(expected);
     }
 
     private static Stream<Arguments> provideLottoResultAndCountOfMatches() {
         return Stream.of(
-                arguments(6, LottoRank.FIRST),
-                arguments(5, LottoRank.SECOND),
-                arguments(4, LottoRank.THIRD),
-                arguments(3, LottoRank.FOURTH)
+                arguments(6, false, LottoRank.FIRST),
+                arguments(5, true, LottoRank.SECOND),
+                arguments(5, false, LottoRank.THIRD),
+                arguments(4, false, LottoRank.FOURTH),
+                arguments(4, true, LottoRank.FOURTH),
+                arguments(3, false, LottoRank.FIFTH),
+                arguments(3, true, LottoRank.FIFTH)
         );
     }
 }

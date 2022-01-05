@@ -9,30 +9,33 @@ import java.util.stream.Collectors;
 
 public class LottoResultCalculator {
     private final List<Integer> winningNumbers;
+    private final int bonusNumber;
 
-    public LottoResultCalculator(List<Integer> winningNumbers) {
+    public LottoResultCalculator(List<Integer> winningNumbers, int bonusNumber) {
         this.winningNumbers = winningNumbers;
+        this.bonusNumber = bonusNumber;
     }
 
     public Map<LottoRank, Integer> getLottoResultCounts(List<LottoTicket> tickets) {
         List<LottoRank> results = getLottoResults(tickets);
         Map<LottoRank, Integer> resultCounts = new HashMap<>();
         for (LottoRank rank : LottoRank.values()) {
-            resultCounts.put(rank, (int) results.stream().filter(result -> result.equals(rank)).count());
+            int count = (int) results.stream().filter(result -> result.equals(rank)).count();
+            resultCounts.put(rank, count);
         }
         return resultCounts;
     }
 
     private List<LottoRank> getLottoResults(List<LottoTicket> tickets) {
         return tickets.stream()
-                .map(ticket -> LottoRank.parseResult(ticket.countEqualNumbers(winningNumbers)))
+                .map(ticket -> LottoRank.parseResult(ticket.countEqualNumbers(winningNumbers), ticket.containNumbers(bonusNumber)))
                 .filter(ObjectUtils::isNotEmpty)
                 .collect(Collectors.toList());
     }
 
-    public int calculateEarningRate(Map<LottoRank, Integer> resultCounts, int totalAmount) {
-        long sum = calculateSum(resultCounts);
-        return (int) sum * 100 / totalAmount;
+    public int calculateEarningRate(Map<LottoRank, Integer> resultCounts, int original) {
+        long earning = calculateSum(resultCounts);
+        return (int) (earning - original) * 100 / original;
     }
 
     private long calculateSum(Map<LottoRank, Integer> resultCounts) {
