@@ -27,7 +27,7 @@ public class LottoApplication {
         int purchaseAmount = inputPurchaseAmountDto.purchaseAmount;
 
         OutputLottoTicketsDto outputLottoTicketsDto = OutputLottoTicketsDto.from(lottoTickets);
-        outputLottoAmounts(outputLottoTicketsDto.getLottoTicketAmount());
+        outputLottoAmounts(outputLottoTicketsDto.getLottoTicketAmount(), inputPurchaseAmountDto.manualPurchaseAmount);
         outputLottoTickets(outputLottoTicketsDto.lottoTickets);
 
         WinningLottoTicket winningLottoTicket = inputWinningNumbers();
@@ -45,7 +45,7 @@ public class LottoApplication {
                 int manualLottoAmount = inputManualLottoAmount();
                 List<List<Integer>> manualLottoNumbers = parseInputNumbers(inputManualLottoNumbers(manualLottoAmount));
                 LottoTickets lottoTickets = LottoTickets.valueOf(purchaseAmount, manualLottoNumbers);
-                return InputPurchaseAmountDto.of(lottoTickets, purchaseAmount);
+                return InputPurchaseAmountDto.of(lottoTickets, purchaseAmount, manualLottoAmount);
             } catch (Exception e) {
                 errorMessage(e);
             }

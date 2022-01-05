@@ -17,7 +17,7 @@ class LottoAmountTest {
         int expected = purchaseAmount / LOTTO_TICKET_PRICE;
 
         // when
-        int lottoAmount = LottoTicketAmount.getLottoAmount(purchaseAmount);
+        int lottoAmount = LottoTicketAmount.createLottoAmount(purchaseAmount);
 
         // then
         assertThat(lottoAmount).isEqualTo(expected);

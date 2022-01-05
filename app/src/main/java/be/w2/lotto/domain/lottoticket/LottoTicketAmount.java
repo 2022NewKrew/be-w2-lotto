@@ -9,7 +9,8 @@ public class LottoTicketAmount {
         throw new RuntimeException(FORBIDDEN_INSTANCE_GENERATION_EXCEPTION);
     }
 
-    public static int getLottoAmount(int purchaseAmount) {
+    public static int createLottoAmount(int purchaseAmount) {
+        validatePurchaseAmount(purchaseAmount);
         return purchaseAmount / LOTTO_TICKET_PRICE;
     }
 
