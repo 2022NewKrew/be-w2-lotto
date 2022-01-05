@@ -7,13 +7,13 @@ import static java.util.stream.Collectors.toList;
 
 public class LottoOrder {
     private final int purchaseAmount;
-    private final List<Lotto> lottos;
+    private final List<Lotto> lottoList;
 
     public LottoOrder(int purchaseAmount, List<List<Integer>> numberLists) {
         validate(purchaseAmount);
 
         this.purchaseAmount = purchaseAmount;
-        this.lottos = numberLists.stream()
+        this.lottoList = numberLists.stream()
                 .map(Lotto::new)
                 .collect(toList());
     }
@@ -29,21 +29,18 @@ public class LottoOrder {
         }
     }
 
-    public RewardResult getResult(WinningNumbers winningNumbers){
-        RewardResult rewardResult = new RewardResult();
-        for(Lotto lotto : lottos){
-            rewardResult.addMatched(winningNumbers.matching(lotto.getNumbers()));
-        }
-        return rewardResult;
+    public RewardResult matchingWith(WinningNumbers winningNumbers){
+        List<RewardType> rewards
+                = lottoList.stream()
+                .map(lotto -> winningNumbers.matching(lotto.getNumbers()))
+                .collect(toList());
+
+        return new RewardResult(rewards);
     }
 
-    public List<List<Integer>> getLottos(){
-        return lottos.stream()
+    public List<List<Integer>> getLottoList(){
+        return lottoList.stream()
                 .map(Lotto::getNumbers)
                 .collect(toList());
-    }
-
-    public int getPurchaseAmount(){
-        return purchaseAmount;
     }
 }

@@ -1,6 +1,7 @@
 package util;
 
 import domain.Lotto;
+import domain.LottoNumber;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,16 +15,19 @@ public class RandomUtil {
 
     static {
         numbers = IntStream
-                .iterate(1, number -> number+1)
-                .limit(45)
+                .iterate(LottoNumber.MIN_NUMBER, number -> number+1)
+                .limit(LottoNumber.MAX_NUMBER)
                 .boxed()
                 .collect(toList());
     }
 
     public static List<Integer> createRandomNumbers(){
         Collections.shuffle(numbers);
-        List<Integer> randomNumbers = new ArrayList<>(numbers.subList(0, Lotto.NUMBER_OF_WRITE_NUMBER));
+
+        List<Integer> randomNumbers
+                = new ArrayList<>(numbers.subList(0, Lotto.NUMBER_OF_WRITE_NUMBER));
         Collections.sort(randomNumbers);
+
         return randomNumbers;
     }
 }

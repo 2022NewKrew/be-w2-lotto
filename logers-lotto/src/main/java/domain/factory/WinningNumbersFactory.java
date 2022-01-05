@@ -5,12 +5,8 @@ import domain.WinningNumbers;
 import java.util.List;
 import java.util.Optional;
 
-public class WinningNumberFactory {
+public class WinningNumbersFactory {
     private static WinningNumbers instance = null;
-
-    public static Optional<WinningNumbers> getInstance(){
-        return Optional.of(instance);
-    }
 
     public static Optional<WinningNumbers> getInstance(List<Integer> numbers, int bonusNumber){
         if(instance != null){

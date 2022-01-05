@@ -30,6 +30,7 @@ public class LottoOrderFactory {
     private static LottoOrder createLottoOrder(int purchasePrise, List<List<Integer>> manualLottoNumberLists){
         List<List<Integer>> numberLists = new ArrayList<>();
         int numOfRandomLotto = purchasePrise / Lotto.PRICE - manualLottoNumberLists.size();
+
         numberLists.addAll(createRandomLottoNumberLists(numOfRandomLotto));
         numberLists.addAll(manualLottoNumberLists);
 

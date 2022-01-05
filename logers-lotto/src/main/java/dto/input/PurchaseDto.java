@@ -3,19 +3,19 @@ package dto.input;
 import java.util.List;
 
 public class PurchaseDto {
-    private final int purchaseAmount;
-    private final List<List<Integer>> manualLottoNumbers;
+    private final int purchasePrise;
+    private final List<List<Integer>> manualLottoNumberLists;
 
-    public PurchaseDto(int purchaseAmount, List<List<Integer>> manualLottoNumbers) {
-        this.purchaseAmount = purchaseAmount;
-        this.manualLottoNumbers = manualLottoNumbers;
+    public PurchaseDto(int purchasePrise, List<List<Integer>> manualLottoNumberLists) {
+        this.purchasePrise = purchasePrise;
+        this.manualLottoNumberLists = manualLottoNumberLists;
     }
 
-    public int getPurchaseAmount() {
-        return purchaseAmount;
+    public int getPurchasePrise() {
+        return purchasePrise;
     }
 
-    public List<List<Integer>> getManualLottoNumbers() {
-        return manualLottoNumbers;
+    public List<List<Integer>> getManualLottoNumberLists() {
+        return manualLottoNumberLists;
     }
 }

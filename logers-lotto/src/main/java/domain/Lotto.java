@@ -1,24 +1,31 @@
 package domain;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Lotto {
     public static final int PRICE = 1000;
     public static final int NUMBER_OF_WRITE_NUMBER = 6;
 
-    private final List<Integer> numbers;
+    private final Set<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
         validate(numbers);
-        this.numbers = new ArrayList<>(numbers);
-
+        this.numbers = new HashSet<>(numbers);
     }
 
     private void validate(List<Integer> numbers) {
         validateNumberOfValues(numbers.size());
+        validateDuplicate(numbers);
         for(Integer number : numbers){
             validateOneValue(number);
+        }
+    }
+
+    private void validateDuplicate(List<Integer> numbers){
+        if(numbers.stream().distinct().count() != numbers.size()){
+            throw new IllegalArgumentException("중복된 숫자가 있습니다.");
         }
     }
 
@@ -36,6 +43,6 @@ public class Lotto {
     }
 
     public List<Integer> getNumbers() {
-        return numbers;
+        return List.copyOf(numbers);
     }
 }

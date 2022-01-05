@@ -1,36 +1,26 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class WinningNumbers {
-    private final List<Integer> numbers;
+    private final Set<Integer> numbers;
     private final int bonusNumber;
 
     public WinningNumbers(List<Integer> numbers, int bonusNumber) {
         Validator.validate(numbers, bonusNumber);
 
-        this.numbers = new ArrayList<>(numbers);
-        Collections.sort(this.numbers);
+        this.numbers = new TreeSet<>(numbers);
         this.bonusNumber = bonusNumber;
     }
 
     public RewardType matching(List<Integer> numbers){
         int matched = numbers.stream()
                 .map(this.numbers::contains)
-                .mapToInt(isInside -> isInside ? 1 : 0)
-                .reduce(Integer::sum).getAsInt();
+                .mapToInt(contained -> contained ? 1 : 0)
+                .reduce(Integer::sum).orElse(0);
+        boolean isBonusMatched = numbers.contains(bonusNumber);
 
-        return RewardType.of(matched, numbers.contains(bonusNumber));
-    }
-
-    public List<Integer> getNumbers() {
-        return Collections.unmodifiableList(numbers);
-    }
-
-    public int getBonusNumber() {
-        return bonusNumber;
+        return RewardType.of(matched, isBonusMatched);
     }
 
     private static class Validator{
@@ -41,14 +31,16 @@ public class WinningNumbers {
 
         static void validateNumbers(List<Integer> numbers){
             validateSize(numbers.size());
+            validateDuplicate(numbers);
             for(Integer number : numbers){
-                validateOneNumber(number);
+                validateNumber(number);
             }
         }
 
-        static void validateBonusNumber(List<Integer> numbers, int bonusNumber){
-            validateOneNumber(bonusNumber);
-            validateNumbersDoesntHasBonus(numbers, bonusNumber);
+        static void validateDuplicate(List<Integer> numbers){
+            if(numbers.stream().distinct().count() != numbers.size()){
+                throw new IllegalArgumentException("중복된 숫자가 있습니다.");
+            }
         }
 
         static void validateSize(int numberOfValue){
@@ -58,13 +50,19 @@ public class WinningNumbers {
             }
         }
 
-        static void validateOneNumber(Integer number) throws IllegalArgumentException{
-            if(number <= 0 || number > 45){
-                throw new IllegalArgumentException("당첨번호는 1이상 45 이하입니다.");
+        static void validateNumber(Integer number) throws IllegalArgumentException{
+            if(number < LottoNumber.MIN_NUMBER || number > LottoNumber.MAX_NUMBER){
+                throw new IllegalArgumentException("당첨번호는 ".concat(String.valueOf(LottoNumber.MIN_NUMBER))
+                        .concat("이상 ").concat(String.valueOf(LottoNumber.MAX_NUMBER)).concat("이하입니다."));
             }
         }
 
-        static void validateNumbersDoesntHasBonus(List<Integer> numbers, int bonusNumber){
+        static void validateBonusNumber(List<Integer> numbers, int bonusNumber){
+            validateNumber(bonusNumber);
+            validateBonusNumberNotContained(numbers, bonusNumber);
+        }
+
+        static void validateBonusNumberNotContained(List<Integer> numbers, int bonusNumber){
             if(numbers.contains(bonusNumber)){
                 throw new IllegalArgumentException("보너스 숫자는 당첨번호들과 달라야 합니다.");
             }
