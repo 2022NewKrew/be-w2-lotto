@@ -6,16 +6,16 @@ package lotto.domain;
  * Time: 오후 4:39
  */
 public class Constants {
-    public static final Integer LOTTO_MIN_NUMBER = 1;
-    public static final Integer LOTTO_MAX_NUMBER = 45;
-    public static final Integer LOTTO_SIZE = 6;
-    public static final Integer LOTTO_PRICE = 1000;
+    public static final int LOTTO_MIN_NUMBER = 1;
+    public static final int LOTTO_MAX_NUMBER = 45;
+    public static final int LOTTO_SIZE = 6;
+    public static final int LOTTO_PRICE = 1000;
 
     public static final String INPUT_PURCHASE_MESSAGE = "구입금액을 입력해 주세요.";
     public static final String INPUT_MANUAL_LOTTO_COUNT_MESSAGE = "\n수동으로 구매할 로또 수를 입력해 주세요.";
     public static final String INPUT_MANUAL_LOTTO_MESSAGE = "\n수동으로 구매할 번호를 입력해 주세요.";
     public static final String INPUT_BONUS_BALL_MESSAGE = "보너스 볼을 입력해 주세요.";
-    public static final String INPUT_LAST_WEEK_DELIMITER = ", ";
+    public static final String INPUT_MANUAL_LOTTO_DELIMITER = ", ?";
     public static final String INPUT_LAST_WEEK_MESSAGE = "\n지난 주 당첨 번호를 입력해 주세요.";
 
     public static final String PRINT_PURCHASE_LOTTO_FORMAT = "\n수동으로 %d장, 자동으로 %d장을 구매했습니다.";

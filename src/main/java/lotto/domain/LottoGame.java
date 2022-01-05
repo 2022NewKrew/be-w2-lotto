@@ -26,17 +26,14 @@ public class LottoGame {
         for (Rank rank : ranks) {
             Integer countOfMatched = statistics.getOrDefault(rank, 0);
             LottoPrinter.printLottoRankResult(rank, countOfMatched);
-            winningAmount += (long) rank.getWinningMoney() * countOfMatched;
+            winningAmount += rank.getWinningMoney() * countOfMatched;
         }
     }
 
     public void createLottoResult(LottoBundle lottoBundle, WinningLotto winningLotto) {
         for (Lotto lotto : lottoBundle.getLottos()) {
             Rank rank = winningLotto.matchLotto(lotto);
-
-            if (rank != null) {
-                statistics.put(rank, statistics.getOrDefault(rank, 0) + 1);
-            }
+            appendStatistics(rank);
         }
     }
 
@@ -44,5 +41,11 @@ public class LottoGame {
         LottoPrinter.printLottoStatisticsTitle();
         calculateWinningAmount();
         LottoPrinter.printLottoYield(winningAmount, lottoBundle.getLottoCount() * Constants.LOTTO_PRICE);
+    }
+
+    private void appendStatistics(Rank rank) {
+        if (rank != null) {
+            statistics.put(rank, statistics.getOrDefault(rank, 0) + 1);
+        }
     }
 }

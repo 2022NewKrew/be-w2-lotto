@@ -1,6 +1,7 @@
 package lotto.view;
 
 import lotto.domain.Constants;
+import lotto.domain.Validator;
 
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +29,7 @@ public class LottoScanner {
         System.out.println(Constants.INPUT_LAST_WEEK_MESSAGE);
         String lastWeekWinningNumber = scanner.nextLine();
 
-        return Arrays.stream(lastWeekWinningNumber.split(Constants.INPUT_LAST_WEEK_DELIMITER))
+        return Arrays.stream(lastWeekWinningNumber.split(Constants.INPUT_MANUAL_LOTTO_DELIMITER))
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
@@ -46,7 +47,7 @@ public class LottoScanner {
     public static List<Integer> getManualLottoNumber() {
         String manualLottoNumbers = scanner.nextLine();
 
-        return Arrays.stream(manualLottoNumbers.split(Constants.INPUT_LAST_WEEK_DELIMITER))
+        return Arrays.stream(manualLottoNumbers.split(Constants.INPUT_MANUAL_LOTTO_DELIMITER))
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
