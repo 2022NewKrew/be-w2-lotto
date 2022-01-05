@@ -3,24 +3,25 @@ package domain;
 
 import java.util.Objects;
 
-public class Number implements Comparable<Number>{
+public class Number implements Comparable<Number> {
     private int num;
 
-    public Number(int num){
+    public Number(int num) {
         this.num = num;
     }
-    
-    public int getNum(){
+
+    public int getNum() {
         return this.num;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return Integer.toString(num);
     }
 
     @Override
     public int compareTo(Number o) {
-        return this.getNum() - o.getNum() ;
+        return this.getNum() - o.getNum();
     }
 
     @Override

@@ -48,7 +48,7 @@ class ResultServiceTest {
         lottoList = new ArrayList<>();
         lottoList.add(lotto1);
         lottoList.add(lotto2);
-        
+
         resultService.generateResult(lottoList, winningLotto);
     }
 

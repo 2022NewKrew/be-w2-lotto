@@ -1,10 +1,10 @@
 package domain;
 
-public class WinningLottoManual implements WinningLotto{
+public class WinningLottoManual implements WinningLotto {
     private Lotto lotto;
     private Number bonusNumber;
 
-    public WinningLottoManual(Lotto lotto, Number bonusNumber){
+    public WinningLottoManual(Lotto lotto, Number bonusNumber) {
         this.lotto = lotto;
         this.bonusNumber = bonusNumber;
     }
