@@ -23,7 +23,7 @@ public class WinningResults {
             int purchaseAmount,
             BonusNumber bonusNumber
     ) {
-        List<WinningResult> winningResults = getWinningMatchResult(lottoTickets, winningLottoTicket, bonusNumber);
+        List<WinningResult> winningResults = createWinningMatchResult(lottoTickets, winningLottoTicket, bonusNumber);
         ProfitRate profitRate = ProfitRate.valueOf(winningResults, purchaseAmount);
         return new WinningResults(winningResults, profitRate);
     }
@@ -36,18 +36,13 @@ public class WinningResults {
         return winningResults;
     }
 
-    private static List<WinningResult> getWinningMatchResult(
+    private static List<WinningResult> createWinningMatchResult(
             LottoTickets lottoTickets,
             WinningLottoTicket winningLottoTicket,
             BonusNumber bonusNumber
     ) {
-        return Reward.stream()
-                .map(reward -> WinningResult.valueOf(
-                        reward,
-                        lottoTickets,
-                        winningLottoTicket,
-                        bonusNumber
-                ))
+        return Rewards.stream()
+                .map(reward -> WinningResult.valueOf(reward, lottoTickets, winningLottoTicket, bonusNumber))
                 .collect(Collectors.toList());
     }
 }

@@ -17,7 +17,7 @@ public class OutputView {
     public static void outputWinningResult(OutputWinningResultsDto outputWinningResultsDto) {
         System.out.println("\n당첨 통계");
         System.out.println("---------");
-        outputWinningResultsDto.winningResults.forEach(winningResult ->
+        outputWinningResultsDto.winningResultDtos.forEach(winningResult ->
                 {
                     System.out.print(winningResult.matchedNumber + "개 일치");
                     if (winningResult.isBonusRound) System.out.print(", 보너스 볼 일치");

@@ -23,7 +23,7 @@ public class AutoLottoNumberGenerator implements LottoNumberGeneratable {
     public AutoLottoNumberGenerator() {}
 
     @Override
-    public List<LottoTicket> generateLottoNumbers(int numberCount, List<List<Integer>> autoLottoTickets) {
+    public List<LottoTicket> generateLottoTickets(int numberCount, List<List<Integer>> autoLottoTickets) {
         List<LottoTicket> lottoTickets = new ArrayList<>();
         for(int i = 0; i < numberCount; i++) {
             lottoTickets.add(generateLottoTicket());

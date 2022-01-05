@@ -34,8 +34,8 @@ public class LottoTickets {
         return lottoNumberGeneratables.stream()
                 .map(lottoNumberGeneratable ->
                     lottoNumberGeneratable instanceof AutoLottoNumberGenerator ?
-                            lottoNumberGeneratable.generateLottoNumbers(autoNumberCount, null) :
-                            lottoNumberGeneratable.generateLottoNumbers(manualLottoNumbers.size(), manualLottoNumbers)
+                            lottoNumberGeneratable.generateLottoTickets(autoNumberCount, null) :
+                            lottoNumberGeneratable.generateLottoTickets(manualLottoNumbers.size(), manualLottoNumbers)
                 )
                 .collect(Collectors.toList()).stream()
                 .flatMap(List::stream)

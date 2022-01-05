@@ -4,12 +4,10 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static be.w2.lotto.common.exception.ExceptionMessages.DIVIDE_BY_ZERO_EXCEPTION;
-
 public class ProfitRate {
     private final BigInteger profitRate;
 
-    public ProfitRate(BigInteger profitRate) {
+    private ProfitRate(BigInteger profitRate) {
         this.profitRate = profitRate;
     }
 
@@ -27,15 +25,17 @@ public class ProfitRate {
             throws NoSuchElementException, ArithmeticException
     {
         BigInteger profitSum = winningResults.stream()
-                .map(WinningResult::calculateProfit)
+                .map(ProfitRate::calculateProfit)
                 .reduce(BigInteger::add)
                 .orElseThrow(NoSuchElementException::new);
 
-        if (purchaseAmount == 0) {
-            throw new ArithmeticException(DIVIDE_BY_ZERO_EXCEPTION);
-        }
-
         return profitSum.multiply(MULTIPLY_BY_PERCENTAGE).divide(BigInteger.valueOf(purchaseAmount));
+    }
+
+    private static BigInteger calculateProfit(WinningResult winningResult) {
+        BigInteger reward = BigInteger.valueOf(winningResult.getReward());
+        BigInteger count = BigInteger.valueOf(winningResult.getCount());
+        return reward.multiply(count);
     }
 
     private static final BigInteger MULTIPLY_BY_PERCENTAGE = BigInteger.valueOf(100);
