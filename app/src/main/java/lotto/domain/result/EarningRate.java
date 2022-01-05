@@ -1,4 +1,6 @@
-package lotto.domain.winning;
+package lotto.domain.result;
+
+import lotto.domain.lotto.MatchType;
 
 import java.util.Map;
 
@@ -7,9 +9,9 @@ public final class EarningRate {
     private EarningRate() {
     }
 
-    public static int calculate(Map<String, Long> winningResult, int lottoPrice) {
+    public static int calculate(Map<WinningRanking, Long> winningResult, int lottoPrice) {
         int sumResult = winningResult.keySet().stream()
-                .map(key -> WinningCalc.findCalc(key).calc(winningResult.get(key)))
+                .map(ranking -> ranking.calculatePrizeAccordingToRanking(winningResult.get(ranking)))
                 .reduce(0, Integer::sum);
 
         return earningCalculate(sumResult, lottoPrice);

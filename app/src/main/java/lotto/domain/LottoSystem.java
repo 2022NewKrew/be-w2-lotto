@@ -1,36 +1,47 @@
 package lotto.domain;
 
-import lotto.domain.lotto.Lotto;
-import lotto.domain.lotto.LottoStrategy;
-import lotto.domain.winning.BonusNumber;
-import lotto.domain.winning.WinningNumber;
-import lotto.domain.winning.WinningResult;
+import lotto.domain.lotto.Lotteries;
+import lotto.domain.lotto.number.Lotto;
+import lotto.domain.lotto.number.Number;
+import lotto.domain.lotto.strategy.LottoStrategy;
+import lotto.domain.lotto.number.BonusNumber;
+import lotto.domain.lotto.number.WinningNumber;
+import lotto.domain.result.WinningResult;
 import lotto.dto.WinningResultOutput;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import static java.util.stream.Collectors.toList;
 
 public class LottoSystem {
 
-    private final static int LOTTO_PRICE = 1000;
     private final LottoStrategy lottoStrategy;
 
     public LottoSystem(LottoStrategy lottoStrategy) {
         this.lottoStrategy = lottoStrategy;
     }
 
-    public List<Lotto> buyLotto(int lottoPrice) {
-        return IntStream.range(0, lottoCount(lottoPrice))
+    public Lotteries buyLotto(int lottoPrice, List<List<Integer>> manualLotteries) {
+        List<Lotto> lotteries = addAutoLotto(new Money(lottoPrice), manualLotteries.size());
+        addManualLotto(lotteries, manualLotteries);
+
+        return Lotteries.create(lotteries);
+    }
+
+    private List<Lotto> addAutoLotto(Money lottoPrice, int manualLotteriesLength) {
+        return IntStream.range(0, lottoPrice.howManyAutoLottoBuy(manualLotteriesLength))
                 .mapToObj(n -> Lotto.createLotto(lottoStrategy))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
-    private int lottoCount(int lottoPrice) {
-        return lottoPrice / LOTTO_PRICE;
+    private void addManualLotto(List<Lotto> lotteries, List<List<Integer>> manualLotteries) {
+        lotteries.addAll(manualLotteries.stream()
+                .map(Lotto::createManualLotto)
+                .collect(toList()));
     }
 
-    public WinningResultOutput winningResult(List<Lotto> lotteries, WinningNumber winningNumber, BonusNumber bonusNumber, int lottoPrice) {
+    public WinningResultOutput winningResult(Lotteries lotteries, WinningNumber winningNumber, BonusNumber bonusNumber, int lottoPrice) {
         WinningResult winningResult = new WinningResult(winningNumber, bonusNumber);
         return winningResult.winningResultRequest(lotteries, lottoPrice);
     }
@@ -39,7 +50,14 @@ public class LottoSystem {
         return new WinningNumber(numbers);
     }
 
-    public BonusNumber inputBonusNumber(int number) {
+    public BonusNumber inputBonusNumber(int number, WinningNumber winningNumber) {
+        validBonusNumber(number, winningNumber);
         return new BonusNumber(number);
+    }
+
+    private void validBonusNumber(int number, WinningNumber winningNumber) {
+        if (winningNumber.isContainWinningNumber(new Number(number))) {
+            throw new IllegalArgumentException("당첨번호와 보너스 번호가 겹쳐서는 안됩니다");
+        }
     }
 }

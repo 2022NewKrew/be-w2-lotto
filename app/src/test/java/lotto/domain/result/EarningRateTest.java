@@ -1,4 +1,4 @@
-package lotto.domain.winning;
+package lotto.domain.result;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -13,12 +13,12 @@ public class EarningRateTest {
     @DisplayName("수익률 계산이 일치하는지 확인하는 테스트")
     void earningRateCorrectTest() {
         //given
-        Map<String, Long> winningResult = new HashMap<>();
-        winningResult.put("FIRST", 0L);
-        winningResult.put("SECOND", 0L);
-        winningResult.put("THIRD", 0L);
-        winningResult.put("FOURTH", 0L);
-        winningResult.put("FIFTH", 1L);
+        Map<WinningRanking, Long> winningResult = new HashMap<>();
+        winningResult.put(WinningRanking.FIRST, 0L);
+        winningResult.put(WinningRanking.SECOND, 0L);
+        winningResult.put(WinningRanking.THIRD, 0L);
+        winningResult.put(WinningRanking.FOURTH, 0L);
+        winningResult.put(WinningRanking.FIFTH, 1L);
         int lottoPrice = 14000;
         int expected = 35;
 
