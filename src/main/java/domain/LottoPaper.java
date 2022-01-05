@@ -34,7 +34,7 @@ public class LottoPaper {
         return paper.size();
     }
 
-    public HashMap<Rank, Integer> winningResult(List<Integer> winningNum, int bonusNum) {
+    public HashMap<Rank, Integer> winningResult(Lotto winningNum, int bonusNum) {
         Arrays.stream(Rank.values()).forEach(rank -> rankToCnt.put(rank, 0));
         Rank rank;
         for (Lotto lotto : paper) {
@@ -48,7 +48,7 @@ public class LottoPaper {
         return rankToCnt;
     }
 
-    private void bonusCheck(List<Integer> winningNum, int bonusNum) {
+    private void bonusCheck(Lotto winningNum, int bonusNum) {
         int sameBonus = (int) paper.stream()
                 .filter(lotto -> lotto.sameWithWinningNum(winningNum) == 5)
                 .filter(lotto -> lotto.containBonusNum(bonusNum))

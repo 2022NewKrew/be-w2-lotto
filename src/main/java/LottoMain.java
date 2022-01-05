@@ -1,3 +1,4 @@
+import domain.Lotto;
 import domain.LottoPaper;
 import view.LottoUI;
 
@@ -15,7 +16,7 @@ public class LottoMain {
         LottoUI.outputLotto(lottoPaper.countLotto(), lottoPaper.toString());
 
         // 당첨 번호 입력
-        List<Integer> winningNum = LottoUI.inputWinningNum();
+        Lotto winningNum = new Lotto(LottoUI.inputWinningNum());
         int bonusNum = LottoUI.inputBonusNum();
 
         // 당첨 결과 및 수익률 출력
