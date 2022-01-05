@@ -1,14 +1,12 @@
 package output;
 
-import lotto.LottoConfig;
-import lotto.domain.LottoResult;
+import step3.lotto.domain.LottoResult;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import step3.output.ResultChecker;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ResultCheckerTest {
 

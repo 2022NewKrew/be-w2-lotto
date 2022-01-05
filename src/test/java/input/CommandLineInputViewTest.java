@@ -1,6 +1,7 @@
 package input;
 
-import lotto.domain.WinningLotto;
+import step3.input.CommandLineInputView;
+import step3.lotto.domain.WinningLotto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;

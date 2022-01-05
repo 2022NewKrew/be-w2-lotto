@@ -1,14 +1,14 @@
 package lotto;
 
-import lotto.domain.LottoTicket;
+import step3.lotto.LottoCreater;
+import step3.lotto.LottoCreatorAuto;
+import step3.lotto.domain.LottoTicket;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class LottoCreatorAutoTest {
     @Test
