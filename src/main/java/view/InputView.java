@@ -4,65 +4,79 @@ import domain.Lotto;
 import domain.Number;
 import domain.WinningLotto;
 import domain.WinningLottoManual;
+import exception.InvalidInputException;
+import validation.Validator;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static utils.Symbol.*;
 
 public class InputView {
     private static Scanner sc = new Scanner(System.in);
+    private static Validator validator = new Validator();
 
-    public InputView(){
+    public InputView() {
     }
 
-    public int getPurchaseAmount(){
+    public int getPurchaseAmount() throws InvalidInputException {
         System.out.println(PURCHASE_AMOUNT_MESSAGE);
-        int purchaseAmount = sc.nextInt();
-        sc.nextLine();
-        return purchaseAmount;
-    }
-
-    public int getManualLottoCount(){
-        System.out.println();
-        System.out.println(MANNUAL_COUNT_MESSAGE);
-        int ManualLottoCount = sc.nextInt();
-        sc.nextLine();
-        return ManualLottoCount;
-    }
-
-    public WinningLotto getWinningLotto(){
-        return getWinningLottoManual();
-    }
-
-    public WinningLottoManual getWinningLottoManual(){
-        ArrayList<Number> inputNumberList = getNumberList();
-        Lotto lotto = new Lotto(inputNumberList);
-        Number bonusNumber = getBonusNumber();
-        return new WinningLottoManual(lotto, bonusNumber);
-    }
-
-    public ArrayList<Number> getNumberList(){
-        System.out.println();
-        System.out.println(LAST_WEEK_WINNING_NUMBER_MESSAGE);
-        String str = sc.nextLine();
-        String[] strList = str.replace(SPACE,BLANK).split(COMMA);
-        int[] nums = Arrays.stream(strList)
-                .mapToInt(Integer::parseInt).toArray();
-
-        ArrayList<Number> numberList = new ArrayList<>();
-        for(int num : nums){
-            numberList.add(new Number(num));
+        try {
+            int purchaseAmount = sc.nextInt();
+            sc.nextLine();
+            validator.isValidMoney(purchaseAmount);
+            return purchaseAmount;
+        } catch (InputMismatchException e) {
+            throw new InvalidInputException();
         }
+    }
+
+    public int getManualLottoCount(int purchaseAmount) throws InvalidInputException {
+        System.out.println("\n" + MANNUAL_COUNT_MESSAGE);
+        try {
+            int manualLottoCount = sc.nextInt();
+            sc.nextLine();
+            validator.isValidMannualCount(purchaseAmount, manualLottoCount);
+            return manualLottoCount;
+        } catch (InputMismatchException e) {
+            throw new InvalidInputException();
+        }
+
+    }
+
+    public WinningLotto getWinningLotto() throws InvalidInputException {
+        Lotto winningLotto = getManualLotto(LAST_WEEK_WINNING_NUMBER_MESSAGE);
+        Number bonusNumber = getBonusNumber(winningLotto);
+        return new WinningLottoManual(winningLotto, bonusNumber);
+    }
+
+    public Lotto getManualLotto(String message) throws InvalidInputException {
+        List<Number> inputNumberList = getNumberList(message);
+        ArrayList<Number> inputNumberArrayList = new ArrayList<Number>();
+        inputNumberArrayList.addAll(inputNumberList);
+        return new Lotto(inputNumberArrayList);
+    }
+
+    public List<Number> getNumberList(String Message) throws InvalidInputException {
+        System.out.println("\n" + Message);
+        String str = sc.nextLine();
+        List<Number> numberList = Arrays.stream(str.split(COMMA))
+                .filter(s -> !s.isEmpty())
+                .map(String::trim)
+                .mapToInt(Integer::parseInt)
+                .distinct()
+                .mapToObj(n -> new Number(n))
+                .collect(Collectors.toList());
+        validator.isValidNumberList(numberList);
         return numberList;
     }
 
-    public Number getBonusNumber(){
-        System.out.println();
-        System.out.println(BONUS_NUMBER_MESSAGE);
+    public Number getBonusNumber(Lotto winningLotto) throws InvalidInputException {
+        System.out.println("\n" + BONUS_NUMBER_MESSAGE);
         int bonusNumber = sc.nextInt();
         sc.nextLine();
+        validator.isValidBonusNumber(winningLotto, bonusNumber);
         return new Number(bonusNumber);
     }
 }

@@ -29,3 +29,15 @@
 
 ### 회고
 - 팀원들간의 코드리뷰중 한 팀원이 Arraylist를 stream으로 다루어 코드를 깔끔하게 작성한 것을 보았습니다. 시간이 남으면 이 부분을 수정해 보아야겠습니다.
+
+# step3 
+- [x] 전체적인 변수 리네이밍 및 코드 indent 정리완료
+- [x] 로또 수동 생성(ManualGenerator) 추가
+- [x] step1 todo사항이던 inputview의 getNumberList()함수에 stream적용 완료
+- [x] input의 유효성 검증을 위한 Validator class추가
+- [x] exception 추가
+
+### 회고
+- stream을 처음 써보았는데 코드를 깔끔하게 정리해주는 느낌을 받았고, 좀 더 공부해봐야겠습니다.
+- exception을 practice를 찾아 적용해 보았는데 이런식으로 활용하는게 최선인지 궁금합니다.
+- option + command + L 을 누르면 코드가 깔끔히 정렬된다!
