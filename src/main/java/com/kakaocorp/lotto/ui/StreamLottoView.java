@@ -5,6 +5,7 @@ import com.kakaocorp.lotto.model.LottoTicket;
 
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -26,6 +27,25 @@ public class StreamLottoView extends LottoView {
         String input = sc.nextLine();
         int payment = Integer.parseInt(input);
         presenter.onPaymentInput(context, payment);
+    }
+
+    @Override
+    public void showManualCountPrompt(LottoContext context) {
+        out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        String autoInput = sc.nextLine();
+        int auto = Integer.parseInt(autoInput);
+        presenter.onManualCountInput(context, auto);
+    }
+
+    @Override
+    public void showManualTicketsPrompt(LottoContext context, int count) {
+        out.println("수동으로 구매할 번호를 입력해 주세요.");
+        List<List<Integer>> manualTickets = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            List<Integer> numbers = parseManualTicketInput();
+            manualTickets.add(numbers);
+        }
+        presenter.onManualTicketsInput(context, manualTickets);
     }
 
     @Override
@@ -67,5 +87,13 @@ public class StreamLottoView extends LottoView {
     public void printProfit(int profit) {
         //noinspection RedundantStringFormatCall
         out.println(String.format("총 수익률은 %d%%입니다.", profit));
+    }
+
+    private List<Integer> parseManualTicketInput() {
+        String input = sc.nextLine();
+        String[] split = input.split(",\\s*");
+        return Arrays.stream(split)
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
     }
 }
