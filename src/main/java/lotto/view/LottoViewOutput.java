@@ -2,7 +2,6 @@ package lotto.view;
 
 import lotto.domain.Lotto;
 import lotto.domain.LottoNumber;
-import lotto.domain.LottoWinner;
 import lotto.domain.Rank;
 
 import java.util.Collections;

@@ -54,19 +54,6 @@ public class Lotto {
     }
 
 
-    private Integer calculateMatchCount(LottoNumber curLotto){
-        int resultIdx = 0;
-        int curLottoIdx = 0;
-        int matchCount = 0;
-
-        while(resultIdx < lottoResult.getLottoNumber().num.size() && curLottoIdx < curLotto.num.size()){
-            if(lottoResult.getLottoNumber().num.get(resultIdx).equals(curLotto.num.get(curLottoIdx))){
-                resultIdx++; curLottoIdx++; matchCount++; continue;
-            }
-            int garbageVariable = ((lottoResult.getLottoNumber().num.get(resultIdx) < curLotto.num.get(curLottoIdx)) ? resultIdx++ : curLottoIdx++ ) ;
-        }
-        return matchCount;
-    }
 
     private void initLottoWinner(){
         //init lottoWinner Objects
@@ -83,10 +70,9 @@ public class Lotto {
         //add win numbers to lottoWinner
         for(int i = 0 ; i < lottos.size() ; i++){
             LottoNumber curLotto = lottos.get(i);
-            Rank lottoRank = Rank.getRankByCount(calculateMatchCount(curLotto), curLotto.num.contains(lottoResult.getBonusNumber()));
+            Rank lottoRank = Rank.getRankByCount(curLotto.calculateMatchCount(lottoResult.getLottoNumber()), curLotto.num.contains(lottoResult.getBonusNumber()));
             lottoWinner.get(lottoRank).add(curLotto);
         }
-
     }
 
     private void initLottoElement(){

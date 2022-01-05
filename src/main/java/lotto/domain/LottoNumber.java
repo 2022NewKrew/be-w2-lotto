@@ -14,4 +14,19 @@ public class LottoNumber {
             num.add(newNum.get(i));
         }
     }
+
+
+    public Integer calculateMatchCount(LottoNumber resultLotto){
+        int resultIdx = 0;
+        int curLottoIdx = 0;
+        int matchCount = 0;
+
+        while(resultIdx < resultLotto.num.size() && curLottoIdx < this.num.size()){
+            if(resultLotto.num.get(resultIdx).equals(this.num.get(curLottoIdx))){
+                resultIdx++; curLottoIdx++; matchCount++; continue;
+            }
+            int garbageVariable = ((resultLotto.num.get(resultIdx) < this.num.get(curLottoIdx)) ? resultIdx++ : curLottoIdx++ ) ;
+        }
+        return matchCount;
+    }
 }
