@@ -32,7 +32,7 @@ public class LottoOrder {
     public RewardResult matchingWith(WinningNumbers winningNumbers){
         List<RewardType> rewards
                 = lottoList.stream()
-                .map(lotto -> winningNumbers.matching(lotto.getNumbers()))
+                .map(lotto -> winningNumbers.matching(new LottoNumbers(lotto.getNumbers())))
                 .collect(toList());
 
         return new RewardResult(rewards);
