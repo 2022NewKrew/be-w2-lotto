@@ -28,8 +28,6 @@ public enum LottoRank {
         return money;
     }
 
-    //    valueOf(Four) -> Four
-
     public static LottoRank valueOf(int matchedNumber) {
         return Arrays.stream(LottoRank.values())
                 .filter(i -> i.getCountOfMatch() == matchedNumber)

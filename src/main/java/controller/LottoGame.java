@@ -16,13 +16,12 @@ public class LottoGame {
         LottoRepository autoLottos = lottoMachine.createAutoLottos(purchasedLottoNumbers);
 
         OutputView.printAutoLottos(autoLottos);
-        List<Integer> inputLastWeekWinNumber = InputView.numbers();
+        Lotto inputLastWeekWinNumber = InputView.numbers();
 
         Map<LottoRank, Integer> lottoRankResult = LottoRankMatch.createResult(autoLottos, inputLastWeekWinNumber);
-        System.out.println(lottoRankResult);
+//        System.out.println(lottoRankResult);
 
         OutputView.printProfit(lottoRankResult, purchasedAmount);
-//        Double a = LottoProfitRate.createProfitRate(lottoRankResult, purchasedAmount);
 
     }
 }

@@ -7,10 +7,10 @@ import java.util.Map;
 public class LottoRankMatch {
     private static final Map<LottoRank, Integer> lottoResult = new EnumMap<>(LottoRank.class);
 
-    public static Map<LottoRank, Integer> createResult(LottoRepository autoLottos, List<Integer> inputLastWeekWinNumber) {
+    public static Map<LottoRank, Integer> createResult(LottoRepository autoLottos, Lotto inputLastWeekWinNumber) {
         initResult();
         for (Lotto autoLotto : autoLottos.getLottos()) {
-            LottoRank lottoRank = createLottoRank(autoLotto, inputLastWeekWinNumber);
+            LottoRank lottoRank = createLottoRank(autoLotto, inputLastWeekWinNumber.getLotto());
             lottoResult.put(lottoRank, lottoResult.get(lottoRank) + 1);
         }
         return lottoResult;

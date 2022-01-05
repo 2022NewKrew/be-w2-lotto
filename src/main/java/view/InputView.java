@@ -1,5 +1,7 @@
 package view;
 
+import domain.Lotto;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -21,11 +23,12 @@ public class InputView {
         return purchasedLottoNumbers;
     }
 
-    public static List<Integer> numbers() {
+    public static Lotto numbers() {
         System.out.println(INPUT_LAST_WEEK_WIN_NUMBER);
-        String numberBeforeDefined = scanner.next();
-        return Arrays.stream(numberBeforeDefined.split(","))
+        String numbersBeforeDefined = scanner.next();
+        List<Integer> numbersAfterDefined = Arrays.stream(numbersBeforeDefined.split(","))
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
+        return new Lotto(numbersAfterDefined);
     }
 }
