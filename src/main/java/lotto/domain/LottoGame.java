@@ -14,8 +14,10 @@ public class LottoGame {
 
     public void run() {
         int purchaseAmount = view.readPurchaseAmountForLotto();
-        LottoTicket lotto = new LottoTicket(purchaseAmount);
-        view.printLottoCount(lotto.getLottoCount());
+        int manualPurchaseCountForLotto = view.readManualPurchaseCountForLotto();
+        List<String> manualLottoNumberTexts = view.readManualLottoNumbers(manualPurchaseCountForLotto);
+        LottoTicket lotto = new LottoTicket(purchaseAmount, manualLottoNumberTexts);
+        view.printLottoCount(lotto.getManualLottoCount(), lotto.getAutomaticLottoCount());
         view.printLotto(lotto.getLottoList());
 
         List<Integer> winningNumbers = view.readWinningNumbers();

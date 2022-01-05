@@ -22,8 +22,8 @@ public enum LottoWinningRating {
 
     public static LottoWinningRating getWinningRating(int matchCount, boolean hasBonusBall) {
         return Arrays.stream(LottoWinningRating.values())
-                .filter(lottoWinningRating -> lottoWinningRating.isSameMatchCount(matchCount))
-                .filter(lottoWinningRating -> lottoWinningRating.isSameHasBonusBall(hasBonusBall))
+                .filter(lottoWinningRating -> lottoWinningRating.matchCount == matchCount)
+                .filter(lottoWinningRating -> lottoWinningRating.hasBonusBall == hasBonusBall)
                 .findAny()
                 .orElse(LottoWinningRating.NOTHING);
     }
@@ -36,12 +36,8 @@ public enum LottoWinningRating {
         return winningMoney;
     }
 
-    private boolean isSameMatchCount(int matchCount) {
-        return this.matchCount == matchCount;
-    }
-
-    private boolean isSameHasBonusBall(boolean hasBonusBall) {
-        return this.hasBonusBall == hasBonusBall;
+    public boolean hasBonusBall() {
+        return hasBonusBall;
     }
 
 }
