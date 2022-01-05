@@ -1,6 +1,5 @@
 package step2.domain.service;
 
-import step2.domain.IssueConditionType;
 import step2.domain.Lotto;
 import step2.domain.LottoConfig;
 import step2.domain.LottoSheetWithId;
@@ -18,7 +17,7 @@ public class LottoSheetIssuerWithRepo implements LottoSheetIssuer {
     private static List<Integer> SHUFFLED_LOTTO_NUMBER_LIST = IntStream.rangeClosed(Lotto.LOTTO_MIN_NUM, Lotto.LOTTO_MAX_NUM).boxed().collect(Collectors.toList());
 
     // LottoSheet 저장 담당
-    private final LottoSheetRepository lottoSheetRepository;
+    protected final LottoSheetRepository lottoSheetRepository;
 
     public LottoSheetIssuerWithRepo(LottoSheetRepository lottoSheetRepository) {
         this.lottoSheetRepository = lottoSheetRepository;
@@ -33,27 +32,27 @@ public class LottoSheetIssuerWithRepo implements LottoSheetIssuer {
 
     // 자동 구매와 수동 구매 구분
     private LottoSheetWithId issueAutoOrManual(LottoConfig lottoConfig){
-        if (lottoConfig.getIssueCondition() == IssueConditionType.AUTO)
+//        if (lottoConfig.getIssueCondition() == IssueConditionType.AUTO)
             return issueLottoSheetAuto(lottoConfig);
-        return issueLottoSheetManual(lottoConfig);
+//        return issueLottoSheetManual(lottoConfig);
     }
 
     // 자동 구매
-    private LottoSheetWithId issueLottoSheetAuto(LottoConfig lottoConfig) {
-        final int numberOfLotto = lottoConfig.getPurchaseAmount() / PRICE;
+    protected LottoSheetWithId issueLottoSheetAuto(LottoConfig lottoConfig) {
+        final int numberOfLotto = lottoConfig.getNumberOfLotto();
         List<Lotto> lottoList = new ArrayList<>();
         IntStream.range(0, numberOfLotto)
                 .forEach(i -> lottoList.add(new Lotto(generateRandomNumber())));
         return new LottoSheetWithId(lottoList);
     }
 
-    // 수동 구매
-    private LottoSheetWithId issueLottoSheetManual(LottoConfig lottoConfig) {
-        List<Lotto> lottoList = new ArrayList<>();
-        lottoConfig.getUserInputLottoList()
-                .forEach(userInput -> lottoList.add(new Lotto(generateNumberByUser(userInput))));
-        return new LottoSheetWithId(lottoList);
-    }
+//    // 수동 구매
+//    private LottoSheetWithId issueLottoSheetManual(LottoConfig lottoConfig) {
+//        List<Lotto> lottoList = new ArrayList<>();
+//        lottoConfig.getUserInputLottoList()
+//                .forEach(userInput -> lottoList.add(new Lotto(generateNumberByUser(userInput))));
+//        return new LottoSheetWithId(lottoList);
+//    }
 
     // 랜덤 번호 생성 함수
     private List<Integer> generateRandomNumber() {
