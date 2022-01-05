@@ -1,33 +1,32 @@
 package domain;
 
+import DTO.NNumber;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class MyLottoLines {
     private final List<LottoLine> lottoLines = new ArrayList<>();
 
-    private static final int NUM_PER_LINE = 6;
-
-    public MyLottoLines(List<List<Integer>> paramLottoLines) {
-        for (List<Integer> paramLottoLine : paramLottoLines) {
-            LottoLine curLottoLine = new LottoLine(paramLottoLine);
-            lottoLines.add(curLottoLine);
-        }
+    public MyLottoLines() {
     }
 
-    public List<Integer> checkWinning(List<Integer> winningLine) {
-        List<Integer> matchingLst = new ArrayList<>(Collections.nCopies(NUM_PER_LINE + 1, 0));
+    public void addLotto(NNumber numbers) {
+        LottoLine curLottoLine = new LottoLine(numbers);
+        lottoLines.add(curLottoLine);
+    }
 
+    public void checkWinning(NNumber winningNumbers, NNumber bonusNum) {
         for (LottoLine curLottoLine : lottoLines) {
-            int matchNum = curLottoLine.checkWinning(winningLine);
-            matchingLst.set(matchNum, matchingLst.get(matchNum) + 1);
-        }
+            int matchNum = curLottoLine.checkWinning(winningNumbers);
+            int matchBonusNum = curLottoLine.checkWinning(bonusNum);
 
-        return matchingLst;
+            MatchScore ms = MatchScore.findMatchScoreObject(matchNum, matchBonusNum);
+            ms.addNumLotto();
+        }
     }
 
-    public int getNumOfLotto() {
+    public int getNumLotto() {
         return lottoLines.size();
     }
 }

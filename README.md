@@ -1,26 +1,25 @@
 # be-w2-lotto
 웹 백엔드 2주차 로또 구현
 
-#1일차
+#2일차
 ### 요구사항
-* 로또 구입 금액을 입력하면 구입 금액에 해당하는 로또를 발급해야 한다.
-* 로또 1장의 가격은 1000원이다.
-* indent(인덴트, 들여쓰기) depth를 2단계에서 1단계로 줄여라.
-* depth의 경우 if문을 사용하는 경우 1단계의 depth가 증가한다. if문 안에 while문을 사용한다면 depth가 2단계가 된다.
-* else를 사용하지 마라.
-* 메소드의 크기가 최대 10라인을 넘지 않도록 구현한다.
-* method가 한 가지 일만 하도록 최대한 작게 만들어라.
-* 배열 대신 ArrayList를 사용한다.
-### DONE
-* 입력 부분 구현
-* 출력 부문 구현
-* StartManager 구현
-* domain 구현
-  * 여러 줄을 총괄하는 MyLottoLines 구현
-  * 한 줄만을 관리하는 LottoLine 구현
-* ResultManager 구현
-* Bugfix
-  * 한개의 로또에서 중복된 숫자가 나오는 버그
-    * 랜덤 생성 시 로또에 포함된 숫자인지 체크
-  * 모든 로또가 같은 숫자를 가지고 있는 버그
-    * LottoLine class의 lottoLine 멤버변수의 static 키워드를 삭제
+* 2등을 위해 추가 번호를 하나 더 추첨한다. 당첨 통계에 2등도 추가해야 한다.
+* enum 적용할것.
+
+### TODO
+* private 생성자에 AssertionError 적용
+* DTO에서 generating하는 부분 Domain으로 보내기
+
+###DONE
+* controller -> controller 이름변경
+* WiningLottoLine 도메인 추가
+  * 예외처리 부분을 WinningLottoLine 에서 담당
+* nNumber 도메인 추가
+  * random하게 생성하는 로직 또한 tail latency 가 작은 방향으로 개선
+* DTO 추가
+  * 숫자 6개가 들어가는 nNumber 만 먼저 추가
+* enum Class MatchScore 구현
+* WinningLottoLine에 보너스 볼에 대한 자료구조 추가
+* 보너스 볼을 위한 로직 구현
+* Testcode 작성
+  * DTO쪽은 클래스를 다시 나누어야 할 필요성이 있어 3일차에 작업.
