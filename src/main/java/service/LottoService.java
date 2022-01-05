@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 public class LottoService {
@@ -33,7 +34,7 @@ public class LottoService {
         updateData();
     }
 
-    public void registerManualLotto(String number) {
+    public void registerManualLotto(List<String> number) {
         lottos.add(new Lotto(number));
         updateData();
     }
@@ -43,7 +44,7 @@ public class LottoService {
         this.buyPrice = lottos.size() * 1000;
     }
 
-    public void registerWinningLotto(String number) {
+    public void registerWinningLotto(List<String> number) {
         winningLotto = new Lotto(number);
     }
 

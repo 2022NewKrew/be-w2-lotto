@@ -17,9 +17,9 @@ public class Lotto {
         validationLottoNumbers(number);
     }
 
-    public Lotto(String numbers) {
-        number = Arrays.stream(numbers.split(","))
-                .map(stringInt -> new LottoNumber(stringInt.trim()))
+    public Lotto(List<String> numbers) {
+        number = numbers.stream()
+                .map(stringInt -> new LottoNumber(stringInt))
                 .collect(Collectors.toList());
         validationLottoNumbers(number);
     }
