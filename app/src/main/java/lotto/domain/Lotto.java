@@ -16,7 +16,6 @@ public class Lotto {
     public Lotto(List<LottoNumber> lottoNumbers) {
         checkLottoNumberCount(lottoNumbers);
         checkLottoNumberDuplicate(lottoNumbers);
-
         Collections.sort(lottoNumbers);
         this.lottoNumbers = lottoNumbers;
     }
