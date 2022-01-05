@@ -20,7 +20,6 @@ public class LottoInput {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         String lastNumbersString = sc.next();
 
-
     }
     private List<Integer> parseLottoNumbers(String numberString){
         String[] spt = numberString.split(NUMBER_SPLIT_REGEX);
