@@ -11,20 +11,14 @@ import java.util.stream.Stream;
 
 public class LottoMachine {
 
-    public static List<LottoTicket> createAutoLottoTickets(int purchaseCount) {
-        return Stream.generate(LottoMachine::createAutoLottoTicket)
+    public static List<LottoTicket> createLottoTickets(int purchaseCount) {
+        return Stream.generate(LottoMachine::createLottoTicket)
                 .limit(purchaseCount)
                 .collect(Collectors.toList());
     }
 
-    private static LottoTicket createAutoLottoTicket() {
+    private static LottoTicket createLottoTicket() {
         return new LottoTicket(LottoNumbersFactory.createRandomLottoNumbers());
-    }
-
-    public static List<LottoTicket> createManualLottoTickets(List<LottoNumbers> lottoNumbers) {
-        return lottoNumbers.stream()
-                .map(LottoTicket::new)
-                .collect(Collectors.toList());
     }
 
     public static LottoResultDTO getLottoResult(List<LottoTicket> lottoTickets, LottoNumbers winningNumbers, int bonusNumber) {

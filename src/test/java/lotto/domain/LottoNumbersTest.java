@@ -2,13 +2,9 @@ package lotto.domain;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,25 +22,20 @@ class LottoNumbersTest {
         assertDoesNotThrow(() -> new LottoNumbers(numbers));
     }
 
+    @Test
     @DisplayName("로또 번호는 6개여야만 한다.")
-    @ParameterizedTest
-    @MethodSource("invalidLottoNumberSize")
-    void lottoNumbersSizeTest(List<Integer> numbers){
+    void lottoNumbersSizeTest(){
         // given
+        List<Integer> numbers1 = Arrays.asList(1,2,3,4,5,6,7);
+        List<Integer> numbers2 = Arrays.asList(1,2,3,4,5);
+
         // when
-        Throwable e = assertThrows(IllegalArgumentException.class, () -> new LottoNumbers(numbers));
+        Throwable e1 = assertThrows(IllegalArgumentException.class, () -> new LottoNumbers(numbers1));
+        Throwable e2 = assertThrows(IllegalArgumentException.class, () -> new LottoNumbers(numbers2));
 
         // then
-        assertThat(e.getMessage()).isEqualTo("로또 번호는 6개여야만 합니다.");
-    }
-
-    static Stream<Arguments> invalidLottoNumberSize() {
-        return Stream.of(
-                Arguments.of(Arrays.asList(1, 2, 3, 4, 5, 6, 7)),
-                Arguments.of(Arrays.asList(1, 2, 3, 4, 5)),
-                Arguments.of(Arrays.asList(1, 2, 3, 4)),
-                Arguments.of(Arrays.asList(1, 2, 3))
-        );
+        assertThat(e1.getMessage()).isEqualTo("로또 번호는 6개여야만 합니다.");
+        assertThat(e2.getMessage()).isEqualTo("로또 번호는 6개여야만 합니다.");
     }
 
     @Test
@@ -60,24 +51,19 @@ class LottoNumbersTest {
         assertThat(e.getMessage()).isEqualTo("로또 번호는 중복될 수 없습니다.");
     }
 
+    @Test
     @DisplayName("로또 번호 1~45 사이의 숫자여야 한다.")
-    @ParameterizedTest
-    @MethodSource("invalidLottoNumbers")
-    void lottoNumbersTest(List<Integer> numbers){
+    void lottoNumbersTest(){
         // given
+        List<Integer> numbers1 = Arrays.asList(1,2,3,4,5,46);
+        List<Integer> numbers2 = Arrays.asList(0,1,2,3,4,5);
+
         // when
-        Throwable e = assertThrows(IllegalArgumentException.class, () -> new LottoNumbers(numbers));
+        Throwable e1 = assertThrows(IllegalArgumentException.class, () -> new LottoNumbers(numbers1));
+        Throwable e2 = assertThrows(IllegalArgumentException.class, () -> new LottoNumbers(numbers2));
 
         // then
-        assertThat(e.getMessage()).isEqualTo("로또 번호는 1~45 사이의 숫자여야 합니다.");
-    }
-
-    static Stream<Arguments> invalidLottoNumbers() {
-        return Stream.of(
-                Arguments.of(Arrays.asList(1, 2, 3, 4, 5, 46)),
-                Arguments.of(Arrays.asList(0, 1, 2, 3, 4, 5)),
-                Arguments.of(Arrays.asList(10, 20, 30, 40, 45, 50)),
-                Arguments.of(Arrays.asList(-10, 1, 2, 3, 4, 5))
-        );
+        assertThat(e1.getMessage()).isEqualTo("로또 번호는 1~45 사이의 숫자여야 합니다.");
+        assertThat(e2.getMessage()).isEqualTo("로또 번호는 1~45 사이의 숫자여야 합니다.");
     }
 }

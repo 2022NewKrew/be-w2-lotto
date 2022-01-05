@@ -7,8 +7,6 @@ import lotto.view.InputView;
 import lotto.view.OutputView;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class LottoApplication {
 
@@ -17,17 +15,12 @@ public class LottoApplication {
 
     public static void run() {
         int purchaseCount = inputView.inputPurchaseAmount();
-        int manualPurchaseCount = inputView.inputManualPurchaseCount(purchaseCount);
-        int autoPurchaseCount = purchaseCount - manualPurchaseCount;
-        List<LottoTicket> manualLottoTicket = LottoMachine.createManualLottoTickets(inputView.inputManualLottoNumbers(manualPurchaseCount));
-        List<LottoTicket> autoLottoTickets = LottoMachine.createAutoLottoTickets(autoPurchaseCount);
-        List<LottoTicket> totalLottoTickets = Stream.concat(manualLottoTicket.stream(), autoLottoTickets.stream()).collect(Collectors.toList());
-
-        outputView.printLottoTickets(totalLottoTickets, manualPurchaseCount, autoPurchaseCount);
+        List<LottoTicket> lottoTickets = LottoMachine.createLottoTickets(purchaseCount);
+        outputView.printLottoTickets(lottoTickets);
 
         LottoNumbers winningNumbers = inputView.inputWinningNumbers();
         int bonusNumber = inputView.inputBonusNumber(winningNumbers);
 
-        outputView.printLottoResult(LottoMachine.getLottoResult(totalLottoTickets, winningNumbers, bonusNumber), purchaseCount);
+        outputView.printLottoResult(LottoMachine.getLottoResult(lottoTickets, winningNumbers, bonusNumber), purchaseCount);
     }
 }

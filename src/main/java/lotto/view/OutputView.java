@@ -1,6 +1,5 @@
 package lotto.view;
 
-import lotto.domain.Constants;
 import lotto.domain.LottoTicket;
 import lotto.domain.PrizeType;
 import lotto.dto.LottoResultDTO;
@@ -9,8 +8,9 @@ import java.util.List;
 
 public class OutputView {
 
-    public void printLottoTickets(List<LottoTicket> lottoTickets, int manualPurchaseCount, int autoPurchaseCount) {
-        System.out.printf("\n수동으로 %d장, 자동으로 %d개를 구매했습니다.\n", manualPurchaseCount, autoPurchaseCount);
+    private static final int LOTTO_PRICE = 1000;
+
+    public void printLottoTickets(List<LottoTicket> lottoTickets) {
         lottoTickets.forEach(System.out::println);
     }
 
@@ -26,7 +26,7 @@ public class OutputView {
     }
 
     private double calculateProfitRate(LottoResultDTO lottoResultDTO, int purchaseCount) {
-        int purchaseAmount = purchaseCount * Constants.LOTTO_PRICE;
+        int purchaseAmount = purchaseCount * LOTTO_PRICE;
         return (getSumOfPrize(lottoResultDTO) - purchaseAmount) / (double)(purchaseAmount) * 100;
     }
 
