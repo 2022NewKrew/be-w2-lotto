@@ -11,7 +11,8 @@ public class LottoView {
     public void printLottoList(LottoList lottoList){
         StringBuilder sb = new StringBuilder();
 
-        sb.append(String.format("%d개를 구매했습니다\n", lottoList.getLottoList().size()));
+        sb.append(String.format("수동으로 %d개, 자동으로 %d개를 구매했습니다\n",
+                lottoList.getManualCount(), lottoList.getAutoCount()));
 
         for (Lotto lotto : lottoList.getLottoList()) {
             sb.append(lotto).append("\n");
