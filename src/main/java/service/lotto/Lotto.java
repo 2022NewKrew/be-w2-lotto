@@ -30,15 +30,9 @@ public class Lotto {
         this.result = LottoResult.of(
                 (int) winningNumbers.stream()
                         .filter(lotto::contains)
-                        .count()
+                        .count() ,
+                lotto.contains(bonusBall)
         );
-        checkSecondPlace(bonusBall);
-    }
-
-    private void checkSecondPlace(int bonusBall) {
-        if (result.equals(LottoResult.FIRST_PLACE) && lotto.contains(bonusBall)) {
-            result = LottoResult.SECOND_PLACE;
-        }
     }
 
     @Override

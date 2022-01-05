@@ -11,21 +11,19 @@ public enum LottoResult {
     UNWINNABLE(0, "미당첨"),
     UNIDENTIFIED(0, "미확인");
 
-
     private final int prizeMoney;
     private final String str;
-
 
     LottoResult(int prizeMoney, String str) {
         this.prizeMoney = prizeMoney;
         this.str = str;
     }
 
-    public static LottoResult of(int score) {
+    public static LottoResult of(int score, boolean isBonusBallMatched) {
         if (score == 6) {
             return FIRST_PLACE;
         } else if (score == 5) {
-            return THIRD_PLACE;
+            return isBonusBallMatched ? SECOND_PLACE : THIRD_PLACE;
         } else if (score == 4) {
             return FOURTH_PLACE;
         } else if (score == 3) {
@@ -34,7 +32,7 @@ public enum LottoResult {
         return UNWINNABLE;
     }
 
-    public static EnumSet<LottoResult> getEnumSetFirstToFourthPlace() {
+    public static EnumSet<LottoResult> getEnumSetRankedPlace() {
         return EnumSet.of(
                 LottoResult.FIFTH_PLACE,
                 LottoResult.FOURTH_PLACE,

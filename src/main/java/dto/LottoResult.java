@@ -1,32 +1,31 @@
 package dto;
 
 import service.lotto.LottoBundle;
-import service.lotto.LottoResult;
 
 import java.util.EnumSet;
 import java.util.Map;
 
-public class LottoResultDTO {
-    private final Map<LottoResult, Integer> numOfWinsMap;
+public class LottoResult {
+    private final Map<service.lotto.LottoResult, Integer> numOfWinsMap;
     private final double yield;
 
-    private LottoResultDTO(Map<LottoResult, Integer> numOfWinsMap, double yield) {
+    private LottoResult(Map<service.lotto.LottoResult, Integer> numOfWinsMap, double yield) {
         this.numOfWinsMap = numOfWinsMap;
         this.yield = yield;
     }
 
-    public static LottoResultDTO of(LottoBundle lottoBundle) {
+    public static LottoResult of(LottoBundle lottoBundle) {
         final int prizeMoney = lottoBundle.getPrizeMoney();
         final int purchaseAmount = lottoBundle.getLottoBundle().size() * 1000;
 
         final double yield = ((prizeMoney - purchaseAmount) / (double) purchaseAmount) * 100;
 
-        return new LottoResultDTO(lottoBundle.getLottoResults(), yield);
+        return new LottoResult(lottoBundle.getLottoResults(), yield);
     }
 
     @Override
     public String toString() {
-        final EnumSet<LottoResult> lottoResultEnumSet = LottoResult.getEnumSetFirstToFourthPlace();
+        final EnumSet<service.lotto.LottoResult> lottoResultEnumSet = service.lotto.LottoResult.getEnumSetRankedPlace();
 
         final StringBuilder sb = new StringBuilder("당첨 통계\n---------\n");
 
@@ -38,7 +37,7 @@ public class LottoResultDTO {
         return sb.toString();
     }
 
-    private void appendLottoResult(StringBuilder sb, LottoResult lottoResult) {
+    private void appendLottoResult(StringBuilder sb, service.lotto.LottoResult lottoResult) {
         final int count = getNumOfWins(lottoResult);
 
         sb.append(lottoResult)
@@ -47,7 +46,7 @@ public class LottoResultDTO {
                 .append("개\n");
     }
 
-    private int getNumOfWins(LottoResult lottoResult) {
+    private int getNumOfWins(service.lotto.LottoResult lottoResult) {
         final Integer count = numOfWinsMap.get(lottoResult);
         return count == null ? 0 : count;
     }

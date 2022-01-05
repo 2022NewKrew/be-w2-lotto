@@ -1,8 +1,8 @@
 package view.input;
 
 import controller.ConsoleInputController;
-import dto.LastWeekWinningNumberDTO;
-import dto.PurchasingSheetDTO;
+import dto.LastWeekWinningNumber;
+import dto.PurchasingSheet;
 import service.LottoValueObject;
 import view.util.ResourceManager;
 import view.util.input.InputConsole;
@@ -25,16 +25,15 @@ public class PriceInputView implements InputView {
 
         List<List<Integer>> manualLottoNumber = new ArrayList<>();
         for (int i = 0; i < manualLottoQuantity; i++) {
-            manualLottoNumber.add(positiveNumberListInputConsole.readWithoutMSG(ResourceManager.SCANNER));
+            manualLottoNumber.add(positiveNumberListInputConsole.readWithoutMessage(ResourceManager.SCANNER));
         }
-        return consoleInputController.purchaseLotto(new PurchasingSheetDTO(autoLottoQuantity, manualLottoQuantity, manualLottoNumber));
+        return consoleInputController.purchaseLotto(new PurchasingSheet(autoLottoQuantity, manualLottoQuantity, manualLottoNumber));
     }
 
     @Override
-    public LastWeekWinningNumberDTO inputWinningNumbers() {
+    public LastWeekWinningNumber inputWinningNumbers() {
         final List<Integer> lastWeekWinningNumber = positiveNumberListInputConsole.read("지난 주 당첨 번호를 입력해 주세요.", ResourceManager.SCANNER);
         final int bonusNumber = positiveNumberInputConsole.read("보너스 볼을 입력해 주세요.", ResourceManager.SCANNER);
-        lastWeekWinningNumber.add(bonusNumber);
-        return new LastWeekWinningNumberDTO(lastWeekWinningNumber, bonusNumber);
+        return new LastWeekWinningNumber(lastWeekWinningNumber, bonusNumber);
     }
 }

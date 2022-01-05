@@ -1,11 +1,11 @@
 package controller;
 
-import dto.LastWeekWinningNumberDTO;
-import dto.LottoResultDTO;
+import dto.LastWeekWinningNumber;
+import dto.LottoResult;
 
 public interface OutputController {
 
     String showPurchasedLottoBundle(Long lottoBundleId);
 
-    LottoResultDTO showPurchasedLottoResults(LastWeekWinningNumberDTO lastWeekWinningNumberDTO, Long lottoBundleId);
+    String showPurchasedLottoResults(LastWeekWinningNumber lastWeekWinningNumberDTO, Long lottoBundleId);
 }

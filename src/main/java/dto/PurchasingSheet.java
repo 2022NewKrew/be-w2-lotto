@@ -2,12 +2,12 @@ package dto;
 
 import java.util.List;
 
-public class PurchasingSheetDTO {
+public class PurchasingSheet {
     private final int autoLottoAmount;
     private final int manualLottoAmount;
     private final List<List<Integer>> manualLottoNumber;
 
-    public PurchasingSheetDTO(int autoLottoAmount, int manualLottoAmount, List<List<Integer>> manualLottoNumber) {
+    public PurchasingSheet(int autoLottoAmount, int manualLottoAmount, List<List<Integer>> manualLottoNumber) {
         this.autoLottoAmount = autoLottoAmount;
         this.manualLottoAmount = manualLottoAmount;
         this.manualLottoNumber = manualLottoNumber;

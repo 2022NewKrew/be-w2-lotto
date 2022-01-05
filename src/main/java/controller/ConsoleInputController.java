@@ -1,6 +1,6 @@
 package controller;
 
-import dto.PurchasingSheetDTO;
+import dto.PurchasingSheet;
 import service.AutoLottoService;
 import service.LottoService;
 
@@ -8,7 +8,7 @@ public class ConsoleInputController implements InputController {
     private final LottoService autoLottoService = new AutoLottoService();
 
     @Override
-    public Long purchaseLotto(PurchasingSheetDTO purchasingSheetDTO) {
-        return autoLottoService.purchaseLotto(purchasingSheetDTO);
+    public Long purchaseLotto(PurchasingSheet purchasingSheet) {
+        return autoLottoService.purchaseLotto(purchasingSheet);
     }
 }

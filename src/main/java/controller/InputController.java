@@ -1,7 +1,7 @@
 package controller;
 
-import dto.PurchasingSheetDTO;
+import dto.PurchasingSheet;
 
 public interface InputController {
-    Long purchaseLotto(PurchasingSheetDTO purchasingSheetDTO);
+    Long purchaseLotto(PurchasingSheet purchasingSheet);
 }

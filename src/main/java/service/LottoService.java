@@ -1,13 +1,13 @@
 package service;
 
-import dto.LastWeekWinningNumberDTO;
-import dto.LottoResultDTO;
-import dto.PurchasingSheetDTO;
+import dto.LastWeekWinningNumber;
+import dto.LottoResult;
+import dto.PurchasingSheet;
 
 public interface LottoService {
-    Long purchaseLotto(PurchasingSheetDTO purchasingSheetDTO);
+    Long purchaseLotto(PurchasingSheet purchasingSheet);
 
     String getPurchasedLottoBundleString(Long lottoBundleId);
 
-    LottoResultDTO getLottoResultDTO(LastWeekWinningNumberDTO winningNumbers, Long lottoBundleId);
+    LottoResult getLottoResultDTO(LastWeekWinningNumber winningNumbers, Long lottoBundleId);
 }

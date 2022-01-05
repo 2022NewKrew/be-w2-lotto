@@ -1,4 +1,4 @@
-import dto.LastWeekWinningNumberDTO;
+import dto.LastWeekWinningNumber;
 import view.input.InputView;
 import view.input.PriceInputView;
 import view.output.LottoOutputView;
@@ -12,7 +12,7 @@ public class LottoMain {
     public void start() {
         Long lottoBundleId = inputView.inputPrice();
         outputView.showPurchasedLottoBundle(lottoBundleId);
-        LastWeekWinningNumberDTO lastWeekWinningNumberDTO = inputView.inputWinningNumbers();
+        LastWeekWinningNumber lastWeekWinningNumberDTO = inputView.inputWinningNumbers();
         outputView.showPurchasedLottoResults(lastWeekWinningNumberDTO, lottoBundleId);
         ResourceManager.close();
     }

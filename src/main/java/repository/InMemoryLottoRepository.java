@@ -1,12 +1,11 @@
 package repository;
 
-import service.lotto.Lotto;
 import service.lotto.LottoBundle;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class LottoRepository implements Repository {
+public class InMemoryLottoRepository implements Repository {
     private static final Map<Long, LottoBundle> repository = new HashMap<>();
 
     @Override

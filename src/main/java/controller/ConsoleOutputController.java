@@ -1,7 +1,7 @@
 package controller;
 
-import dto.LastWeekWinningNumberDTO;
-import dto.LottoResultDTO;
+import dto.LastWeekWinningNumber;
+import dto.LottoResult;
 import service.AutoLottoService;
 import service.LottoService;
 
@@ -14,7 +14,7 @@ public class ConsoleOutputController implements OutputController {
     }
 
     @Override
-    public LottoResultDTO showPurchasedLottoResults(LastWeekWinningNumberDTO lastWeekWinningNumberDTO, Long lottoBundleId) {
-        return lottoService.getLottoResultDTO(lastWeekWinningNumberDTO, lottoBundleId);
+    public String showPurchasedLottoResults(LastWeekWinningNumber lastWeekWinningNumber, Long lottoBundleId) {
+        return lottoService.getLottoResultDTO(lastWeekWinningNumber, lottoBundleId).toString();
     }
 }

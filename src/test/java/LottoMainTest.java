@@ -1,4 +1,4 @@
-import dto.LastWeekWinningNumberDTO;
+import dto.LastWeekWinningNumber;
 import org.junit.jupiter.api.Test;
 import view.input.InputView;
 import view.input.PriceInputView;
@@ -20,7 +20,7 @@ class LottoMainTest {
 
         Long lottoBundleId = inputView.inputPrice();
         outputView.showPurchasedLottoBundle(lottoBundleId);
-        LastWeekWinningNumberDTO lastWeekWinningNumberDTO = inputView.inputWinningNumbers();
+        LastWeekWinningNumber lastWeekWinningNumberDTO = inputView.inputWinningNumbers();
         outputView.showPurchasedLottoResults(lastWeekWinningNumberDTO, lottoBundleId);
     }
 

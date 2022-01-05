@@ -2,11 +2,11 @@ package dto;
 
 import java.util.List;
 
-public class LastWeekWinningNumberDTO {
+public class LastWeekWinningNumber {
     private final List<Integer> lastWeekWinningNumber;
     private final int bonusNumber;
 
-    public LastWeekWinningNumberDTO(List<Integer> lastWeekWinningNumber, int bonusNumber) {
+    public LastWeekWinningNumber(List<Integer> lastWeekWinningNumber, int bonusNumber) {
         this.lastWeekWinningNumber = lastWeekWinningNumber;
         this.bonusNumber = bonusNumber;
     }

@@ -1,10 +1,10 @@
 package view.input;
 
-import dto.LastWeekWinningNumberDTO;
+import dto.LastWeekWinningNumber;
 
 public interface InputView {
     Long inputPrice();
 
-    LastWeekWinningNumberDTO inputWinningNumbers();
+    LastWeekWinningNumber inputWinningNumbers();
 
 }
