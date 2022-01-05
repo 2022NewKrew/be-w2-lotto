@@ -36,4 +36,8 @@ public enum LottoWinningRating {
         return winningMoney;
     }
 
+    public boolean hasBonusBall() {
+        return hasBonusBall;
+    }
+
 }

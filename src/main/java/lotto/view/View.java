@@ -54,9 +54,12 @@ public class View {
     private String makeLottoWinningResultText(LottoWinningRating lottoWinningRating, int count) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(lottoWinningRating.getMatchCount());
-        stringBuilder.append("개 일치 (");
-        stringBuilder.append(lottoWinningRating.getWinningMoney());
-        stringBuilder.append("원)- ");
+        stringBuilder.append("개 일치");
+        if (lottoWinningRating.hasBonusBall()) {
+            stringBuilder.append(", 보너스 볼 일치");
+        }
+        stringBuilder.append(" (" + lottoWinningRating.getWinningMoney());
+        stringBuilder.append("원) - ");
         stringBuilder.append(count);
         stringBuilder.append("개");
 
