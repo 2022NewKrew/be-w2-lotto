@@ -48,7 +48,7 @@ public class LottoManager {
 
 
   private int getMaxPurchaseQuantity(int amount) {
-    return amount / Lotto.LOTTO_PRICE;
+    return amount / Lotto.PRICE;
   }
 
 

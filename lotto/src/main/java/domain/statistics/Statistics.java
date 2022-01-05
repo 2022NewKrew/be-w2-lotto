@@ -1,8 +1,8 @@
 package domain.statistics;
 
+import domain.lottery.LottoPrize;
 import domain.lottery.WinningLotto;
 import domain.lotto.Lotto;
-import domain.lottery.LottoPrize;
 import domain.lotto.LottoWallet;
 import java.util.ArrayList;
 import java.util.EnumMap;

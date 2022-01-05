@@ -1,5 +1,6 @@
 package view.read;
 
+import domain.lottery.BonusNumber;
 import domain.lottery.WinningLotto;
 import domain.lotto.Lotto;
 import java.io.BufferedReader;
@@ -9,8 +10,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import utils.StringUtils;
 
 /**
@@ -54,7 +53,7 @@ public class BufferedInputReader implements InputReader {
 
   private int getManualBuyQuantity(int buyLimitation) throws IOException {
     int manualBuyQuantity = getIntegerFromReader();
-    if(manualBuyQuantity > buyLimitation) {
+    if (manualBuyQuantity > buyLimitation) {
       throw new IllegalArgumentException(
           "구매 가능한 수량 초과. "
               + "[구매 가능 개수 : " + buyLimitation
@@ -67,7 +66,7 @@ public class BufferedInputReader implements InputReader {
 
   private List<Lotto> getManualLottoList(int quantity) throws IOException {
     List<Lotto> lottoList = new ArrayList<>(quantity);
-    for(int i = 0; i < quantity; i++) {
+    for (int i = 0; i < quantity; i++) {
       Lotto lotto = Lotto.of(getValidLottoNumbers());
       lottoList.add(lotto);
     }
@@ -78,7 +77,7 @@ public class BufferedInputReader implements InputReader {
   @Override
   public WinningLotto getLastWinningLottery() throws IOException {
     List<Integer> winningLotto = getWinningLotto();
-    int bonusNumber = getBonusNumber();
+    BonusNumber bonusNumber = getBonusNumber();
     return WinningLotto.of(winningLotto, bonusNumber);
   }
 
@@ -98,18 +97,18 @@ public class BufferedInputReader implements InputReader {
 
 
   //TODO: try-catch + while 활용하여 valid check 후 반복 수행 해야 함.
-  private int getBonusNumber() throws IOException {
+  private BonusNumber getBonusNumber() throws IOException {
     println("보너스 볼을 입력해 주세요.");
-    return Integer.parseInt(reader.readLine());
+    return BonusNumber.of(reader.readLine());
   }
 
 
   //TODO: 조금더 상세한 valid check, Integer 는 맞는 지, 45 이내인지 등등
   private void validCheck(List<Integer> numbers) {
-    if (numbers.size() != Lotto.LOTTO_COUNT) {
+    if (numbers.size() != Lotto.TOTAL_NUMBER) {
       throw new IllegalArgumentException(
           "입력한 로또 개수가 일치하지 않음."
-              + "[필요 개수 : " + Lotto.LOTTO_COUNT
+              + "[필요 개수 : " + Lotto.TOTAL_NUMBER
               + " / 입력 개수 : " + numbers.size() + "]"
       );
     }

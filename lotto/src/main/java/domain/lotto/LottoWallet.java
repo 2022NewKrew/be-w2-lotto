@@ -8,10 +8,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * 유저가 구매한 로또들의 집합.
+ * 유저가 구매한 로또들의 집합. 수동입력 추가
  *
  * @author leo.jung
- * @since 1.0
+ * @since 1.1
  */
 public class LottoWallet implements Iterable<Lotto> {
 

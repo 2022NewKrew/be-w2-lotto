@@ -33,11 +33,15 @@ public enum LottoPrize {
   // https://pjh3749.tistory.com/279
   private static Optional<LottoPrize> of(int matchCount, boolean isBonusMatched) {
     return Arrays.stream(LottoPrize.values())
-        .filter(lottoPrize ->
-            (lottoPrize.matchCount == matchCount)
-                && (matchCount != RANK_2ND.getMatchCount()
-                || lottoPrize.needBonusNumber == isBonusMatched))
+        .filter(lottoPrize -> lottoPrize.isCoincide(matchCount, isBonusMatched))
         .findAny();
+  }
+
+
+  private boolean isCoincide(int matchCount, boolean isBonusMatched) {
+    return (this.matchCount == matchCount)
+        && (matchCount != RANK_2ND.getMatchCount()
+        || this.needBonusNumber == isBonusMatched);
   }
 
 

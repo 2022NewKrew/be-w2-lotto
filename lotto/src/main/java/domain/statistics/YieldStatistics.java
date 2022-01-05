@@ -26,7 +26,7 @@ public class YieldStatistics extends Statistics {
 
 
   private int calculateBuyAmount(LottoWallet wallet) {
-    return wallet.size() * Lotto.LOTTO_PRICE;
+    return wallet.size() * Lotto.PRICE;
   }
 
 
