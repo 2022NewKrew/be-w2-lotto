@@ -21,15 +21,17 @@ public class LottoView {
     }
 
     public List<Integer> inputIntegerList(String msg) {
-        System.out.println(msg);
+        if (msg.length() > 0) {
+            System.out.println(msg);
+        }
         return Arrays.stream(sc.nextLine().split(","))
                 .map(StringUtils::deleteWhitespace)
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
 
-    public void printPurchaseMessage(int ticketCount) {
-        System.out.printf("%d개를 구매했습니다.\n", ticketCount);
+    public void printPurchaseMessage(int manualTicketCount, int autoTicketCount) {
+        System.out.printf("수동으로 %d개, 자동으로 %d개를 구매했습니다.\n", manualTicketCount, autoTicketCount);
     }
 
     public void printAllTickets(List<LottoTicket> tickets) {
@@ -50,6 +52,6 @@ public class LottoView {
     }
 
     public void printEarnRatio(int money, int totalPrize) {
-        System.out.printf("총 수익률은 %d%%입니다.\n", totalPrize * 100 / money);
+        System.out.printf("총 수익률은 %d%%입니다.\n", (totalPrize - money) * 100 / money);
     }
 }

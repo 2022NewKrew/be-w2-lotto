@@ -1,5 +1,6 @@
 package domain;
 
+import util.InputChecker;
 import view.LottoView;
 
 import java.util.*;
@@ -10,17 +11,20 @@ import java.util.*;
 public class LottoController {
 
     private int money;
+    private int manualTicketCount;
     private int totalPrize;
     private List<LottoTicket> tickets;
     private Map<Rank, Integer> rankCount;
     private Lotto lotto;
     private LottoView view;
     private TicketReader reader;
+    private InputChecker checker;
 
     public LottoController() {
         lotto = new Lotto();
         view = new LottoView();
         reader = new TicketReader();
+        checker = new InputChecker();
     }
 
     public void run() {
@@ -31,23 +35,24 @@ public class LottoController {
 
     private void buyLotto() {
         inputMoney();
-        tickets = lotto.generateAllLottoTicket(money);
-        view.printPurchaseMessage(tickets.size());
+        inputManualTicketCount();
+        tickets = lotto.generateAllLottoTicket(view, checker, money, manualTicketCount);
+        view.printPurchaseMessage(manualTicketCount, tickets.size() - manualTicketCount);
         view.printAllTickets(tickets);
     }
 
     private void inputMoney() {
-        try {
-            money = view.inputInt("구입금액을 입력해 주세요.");
-            checkMoney(money);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            inputMoney();
-        }
+        money = view.inputInt("구입금액을 입력해 주세요.");
+        checker.checkMoney(lotto, money);
+    }
+
+    private void inputManualTicketCount() {
+        manualTicketCount = view.inputInt("수동으로 구매할 로또 수를 입력해 주세요.");
+        checker.checkManualTicketCount(lotto, money, manualTicketCount);
     }
 
     private void classifyTicketRank() {
-        rankCount = reader.classifyTicketRank(lotto, view, tickets);
+        rankCount = reader.classifyTicketRank(lotto, view, checker, tickets);
     }
 
     private void showResult() {
@@ -65,15 +70,5 @@ public class LottoController {
         }
 
         return totalPrize;
-    }
-
-    private void checkMoney(int money) throws IllegalArgumentException {
-        if (money < lotto.getTicketPrice()) {
-            throw new IllegalArgumentException(String.format("금액은 %d원 이상이어야 합니다.", lotto.getTicketPrice()));
-        }
-
-        if (money % lotto.getTicketPrice() != 0) {
-            throw new IllegalArgumentException(String.format("금액은 %d원 단위로 입력해야합니다.", lotto.getTicketPrice()));
-        }
     }
 }

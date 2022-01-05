@@ -1,11 +1,14 @@
 package domain;
 
+import util.InputChecker;
+import view.LottoView;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /*
-** 복권 관련 상수 저장, 복권 번호 생성 기능 수행
+ ** 복권 관련 상수 저장, 복권 번호 생성 기능 수행
  */
 public class Lotto {
 
@@ -23,21 +26,55 @@ public class Lotto {
                 .collect(Collectors.toList());
     }
 
-    public List<LottoTicket> generateAllLottoTicket(int money) {
+    public List<LottoTicket> generateAllLottoTicket(LottoView view,
+                                                    InputChecker checker,
+                                                    int money,
+                                                    int manualTicketCount) {
         List<LottoTicket> tickets = new ArrayList<>();
 
-        int ticketCount = money / TICKET_PRICE;
-        while (ticketCount > 0) {
-            tickets.add(generateLottoTicket());
-            ticketCount--;
+        if (manualTicketCount > 0) {
+            tickets.addAll(creatManualTicketList(view, checker, manualTicketCount));
         }
+        tickets.addAll(createAutoTicketList(checker, money, manualTicketCount));
 
         return tickets;
     }
 
-    private LottoTicket generateLottoTicket() {
+    private List<LottoTicket> creatManualTicketList(LottoView view,
+                                                    InputChecker checker,
+                                                    int manualTicketCount) {
+        List<LottoTicket> manualTicketList = new ArrayList<>();
+
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        while (manualTicketCount-- > 0) {
+            manualTicketList.add(generateManualLottoTicket(view, checker));
+        }
+
+        return manualTicketList;
+    }
+
+    private List<LottoTicket> createAutoTicketList(InputChecker checker,
+                                                   int money,
+                                                   int manualTicketCount) {
+        List<LottoTicket> autoTicketList = new ArrayList<>();
+        int ticketCount = money / TICKET_PRICE - manualTicketCount;
+
+        while (ticketCount-- > 0) {
+            autoTicketList.add(generateAutoLottoTicket(checker));
+        }
+
+        return autoTicketList;
+    }
+
+    private LottoTicket generateManualLottoTicket(LottoView view,
+                                                  InputChecker checker) {
+        List<Integer> manualNumber = view.inputIntegerList("");
+        return new LottoTicket(this, checker, manualNumber);
+    }
+
+    private LottoTicket generateAutoLottoTicket(InputChecker checker) {
         Collections.shuffle(numberList, new Random());
-        return new LottoTicket(numberList.subList(0, 6));
+        return new LottoTicket(this, checker, numberList.subList(0, 6));
     }
 
     public int getTicketPrice() {
