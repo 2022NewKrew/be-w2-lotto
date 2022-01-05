@@ -7,9 +7,10 @@ import com.kakaocorp.lotto.model.LottoRecord;
 import com.kakaocorp.lotto.model.LottoResult;
 import com.kakaocorp.lotto.model.LottoTicket;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class LottoPresenter {
 
@@ -26,51 +27,45 @@ public class LottoPresenter {
     }
 
     public void onStart() {
-        view.attachPresenter(this);
+        int payment = view.showPaymentPrompt();
+        int manualCount = view.showManualCountPrompt();
+        List<LottoTicket> tickets = generateTickets(payment, manualCount);
+        printTickets(tickets);
 
-        /*
-          FIXME Presenter와 View에서 호출이 오가며 유지되어야 하는 맥락 정보를
-           멤버 변수나 함수 인자로 나열하지 않고 객체로 전달했는데
-           괜찮은 설계인가 하는 생각 - 테스트는 훨씬 용이해진 듯
-         */
-        LottoContext context = new LottoContext();
-        view.showPaymentPrompt(context);
+        List<Integer> winningNumbers = view.showWinningNumbersPrompt();
+        int bonusNumber = view.showBonusNumberPrompt();
+
+        LottoRecord record = new LottoRecord(Set.copyOf(winningNumbers), bonusNumber);
+        checkResult(payment, tickets, record);
     }
 
-    public void onPaymentInput(LottoContext context, int payment) {
-        context.setPayment(payment);
-        view.showManualCountPrompt(context);
+    private List<LottoTicket> generateTickets(int payment, int manualCount) {
+        List<LottoTicket> manualTickets = new ArrayList<>(manualCount);
+        view.showManualTicketPromptHeader();
+        for (int i = 0; i < manualCount; i++) {
+            List<Integer> numbers = view.acceptManualTicketInput();
+            LottoTicket ticket = new LottoTicket(Set.copyOf(numbers));
+            manualTickets.add(ticket);
+        }
+        return dispenser.purchase(payment, manualTickets);
     }
 
-    public void onManualCountInput(LottoContext context, int count) {
-        view.showManualTicketsPrompt(context, count);
-    }
-
-    public void onManualTicketsInput(LottoContext context, List<List<Integer>> numbersList) {
-        int payment = context.getPayment();
-        List<LottoTicket> manual = numbersList.stream()
-                .map(Set::copyOf)
-                .map(LottoTicket::new)
-                .collect(Collectors.toList());
-        List<LottoTicket> tickets = dispenser.purchase(payment, manual);
-        context.setTickets(tickets);
-
+    private void printTickets(Collection<LottoTicket> tickets) {
         view.printTicketHeader(tickets.size());
         for (LottoTicket ticket : tickets) {
             view.printTicket(ticket);
         }
-        view.showWinningNumbersPrompt(context);
     }
 
-    public void onWinningNumbersInput(LottoContext context, List<Integer> winningNumbers, int bonusNumber) {
-        LottoRecord record = new LottoRecord(Set.copyOf(winningNumbers), bonusNumber);
-        for (LottoTicket ticket : context.getTickets()) {
+    private void checkResult(int payment, List<LottoTicket> tickets, LottoRecord record) {
+        for (LottoTicket ticket : tickets) {
             counter.count(ticket, record);
         }
-        float profit = calculator.calculate(context.getPayment(), counter.getTotalGain());
         view.printResultHeader();
         counter.forEachOrdered(LottoResult.VALUE_COMPARATOR_ASC, this::printResult);
-        view.printProfit(((int) (profit * 100)));
+        int gain = counter.getTotalGain();
+        float profit = calculator.calculate(payment, gain);
+        view.printProfit((int) (100 * profit));
     }
 
     private void printResult(LottoResult result, int count) {
