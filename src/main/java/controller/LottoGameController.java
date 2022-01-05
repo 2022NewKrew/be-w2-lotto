@@ -17,8 +17,9 @@ public class LottoGameController {
     public void start() {
         LottoGameInfo lottoGameInfo = lottoInputService.inputPurchaseParam();
 
-        List<Lotto> lottoList = LottoGenerator.generateAllLotto(lottoGameInfo);
-        LottoRenderer.renderLotto(lottoList);
+        List<Lotto> lottoList = lottoGameInfo.getManualPurchaseLottoList();
+        lottoList.addAll(LottoGenerator.generateAllLotto(lottoGameInfo));
+        LottoRenderer.renderLotto(lottoList, lottoGameInfo);
 
         WinningLotto winningLotto = lottoInputService.inputWinLottoNumbers();
 

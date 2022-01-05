@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+import static util.LottoConst.LOTTO_PRICE;
 
 class LottoGeneratorTest {
 
@@ -21,14 +22,14 @@ class LottoGeneratorTest {
         List<Lotto> result = LottoGenerator.generateAllLotto(lottoGameInfo);
 
         //then
-        assertThat(result.size()).isEqualTo(10);
+        assertThat(result.size()).isEqualTo(MONEY / LOTTO_PRICE);
     }
 
     @Test
     @DisplayName("수동으로 로또 번호를 입력하여 하나의 로또를 생성한다")
     void generateOneLotto() {
         //given
-        String[] lottoInputSequence = {"1", "2", "3", "4", "5", "6"};
+        List<Integer> lottoInputSequence = List.of(1, 2, 3, 4, 5, 6);
 
         //when
         Lotto result = LottoGenerator.generateOneLotto(lottoInputSequence);
@@ -42,7 +43,7 @@ class LottoGeneratorTest {
     @DisplayName("로또 문자열의 순서를 무작위로 섞어도 정렬된 로또를 생성한다")
     void generateOneLottoWithReverseOrder() {
         //given
-        String[] lottoInputSequence = {"5", "6", "3", "1", "4", "2"};
+        List<Integer> lottoInputSequence = List.of(5, 6, 3, 1, 4, 2);
 
         //when
         Lotto result = LottoGenerator.generateOneLotto(lottoInputSequence);

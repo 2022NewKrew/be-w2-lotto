@@ -20,7 +20,7 @@ class LottoGameInfoTest {
         LottoGameInfo lottoGameInfo = new LottoGameInfo(money);
 
         //then
-        assertThat(lottoGameInfo.getPurchasedQuantity()).isEqualTo(expectedQuantity);
+        assertThat(lottoGameInfo.getPurchaseQuantity()).isEqualTo(expectedQuantity);
     }
 
     private static Stream<Arguments> testForPurchaseQuantityByInputMoney() {

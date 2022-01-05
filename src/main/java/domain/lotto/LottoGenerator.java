@@ -13,16 +13,15 @@ public class LottoGenerator {
     public static List<Lotto> generateAllLotto(LottoGameInfo lottoGameInfo) {
         List<Lotto> lottoList = new ArrayList<>();
 
-        for (int currentLotto = 0; currentLotto < lottoGameInfo.getPurchasedQuantity(); currentLotto++) {
+        for (int currentLotto = 0; currentLotto < lottoGameInfo.getAutomaticallyPurchaseQuantity(); currentLotto++) {
             Lotto lotto = createNewLotto();
             lottoList.add(lotto);
         }
         return lottoList;
     }
 
-    public static Lotto generateOneLotto(String[] inputNumbers) {
-        List<Integer> numbers = stringArrayToIntegerList(inputNumbers);
-        return new Lotto(numbers);
+    public static Lotto generateOneLotto(List<Integer> inputNumbers) {
+        return new Lotto(inputNumbers);
     }
 
     private static Lotto createNewLotto() {
@@ -33,16 +32,8 @@ public class LottoGenerator {
         return new Lotto(numbers);
     }
 
-    public static WinningLotto generateWinningLotto(String[] inputNumbers, int bonusNumber) {
-        List<Integer> winningNumbers = stringArrayToIntegerList(inputNumbers);
-        return new WinningLotto(winningNumbers, bonusNumber);
-    }
-
-    private static List<Integer> stringArrayToIntegerList(String[] stringArray) {
-        return Arrays.stream(stringArray)
-                .map(Integer::parseInt)
-                .sorted(Integer::compareTo)
-                .collect(Collectors.toList());
+    public static WinningLotto generateWinningLotto(List<Integer> inputNumbers, int bonusNumber) {
+        return new WinningLotto(inputNumbers, bonusNumber);
     }
 
 }

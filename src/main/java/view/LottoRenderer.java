@@ -1,6 +1,7 @@
 package view;
 
 import domain.lotto.Lotto;
+import domain.lotto.LottoGameInfo;
 import domain.lotto.LottoTotalResult;
 import domain.prize.Prize;
 
@@ -11,12 +12,14 @@ public class LottoRenderer {
 
     private static final String NEW_LINE = "\n";
 
-    public static void renderLotto(List<Lotto> lottoList) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(lottoList.size());
-        sb.append("개를 구매했습니다.");
-        sb.append(NEW_LINE);
+    public static void renderLotto(List<Lotto> lottoList, LottoGameInfo lottoGameInfo) {
 
+        System.out.printf("수동으로 %s장, 자동으로 %s장을 구매했습니다.%n",
+                lottoGameInfo.getManuallyPurchaseQuantity(),
+                lottoGameInfo.getAutomaticallyPurchaseQuantity()
+        );
+
+        StringBuilder sb = new StringBuilder();
         for (Lotto lotto : lottoList) {
             sb.append(lotto.toString());
             sb.append(NEW_LINE);
