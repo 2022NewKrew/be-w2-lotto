@@ -14,6 +14,13 @@ public class LottoNumber implements Comparable<LottoNumber> {
         this.number = number;
     }
 
+    public LottoNumber(LottoNumbers lottoNumbers, int number) {
+        this(number);
+        if (lottoNumbers.contains(this)) {
+            throw new IllegalArgumentException("중복되는 번호가 존재합니다!");
+        }
+    }
+
     public String toString() {
         return String.valueOf(number);
     }
