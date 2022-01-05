@@ -2,11 +2,13 @@ package be.w2.lotto.view.output;
 
 import be.w2.lotto.result.Report;
 
-final class ReportOutput {
-    private ReportOutput() {
+final class ReportOutput extends ClassOutput<Report> {
+
+    ReportOutput() {
     }
 
-    static String getOutput(Report report) {
+    @Override
+    String getOutput(Report report) {
         return new StringBuilder()
                 .append("총 수익률은 ")
                 .append(getFormattedYieldBy(report))
@@ -14,7 +16,7 @@ final class ReportOutput {
                 .toString();
     }
 
-    private static String getFormattedYieldBy(Report report) {
+    private String getFormattedYieldBy(Report report) {
         return String.format("%.2f", report.getYield());
     }
 }

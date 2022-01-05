@@ -4,12 +4,13 @@ import be.w2.lotto.exceptions.NonValidRewardForCorrect;
 import be.w2.lotto.messages.ErrorMessage;
 import be.w2.lotto.result.RewardForCorrect;
 
-final class RewardForCorrectOutput {
+final class RewardForCorrectOutput extends ClassOutput<RewardForCorrect> {
 
-    private RewardForCorrectOutput() {
+    RewardForCorrectOutput() {
     }
 
-    static String getOutput(RewardForCorrect rewardForCorrect) {
+    @Override
+    String getOutput(RewardForCorrect rewardForCorrect) {
         return new StringBuilder()
                 .append(getDescriptionOf(rewardForCorrect))
                 .append("(")
@@ -18,7 +19,7 @@ final class RewardForCorrectOutput {
                 .toString();
     }
 
-    private static String getDescriptionOf(RewardForCorrect rewardForCorrect) {
+    private String getDescriptionOf(RewardForCorrect rewardForCorrect) {
         switch (rewardForCorrect) {
             case THREE:
                 return "3개 일치";

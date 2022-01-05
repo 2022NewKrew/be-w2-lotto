@@ -13,19 +13,19 @@ public final class Output {
     }
 
     public static void outputOrderSheet(OrderSheet orderSheet) {
-        output(OrderSheetOutput.getOutput(orderSheet));
+        output(new OrderSheetOutput().getOutput(orderSheet));
     }
 
     public static void outputLottos(List<Lotto> lottos) {
-        output(LottoOutput.getOutput(lottos));
+        output(new LottoOutput().getOutput(lottos));
     }
 
     public static void outputResult(Result result) {
-        output(ResultOutput.getOutput(result));
+        output(new ResultOutput().getOutput(result));
     }
 
     public static void outputReport(Report report) {
-        output(ReportOutput.getOutput(report));
+        output(new ReportOutput().getOutput(report));
     }
 
     public static void output(String str) {

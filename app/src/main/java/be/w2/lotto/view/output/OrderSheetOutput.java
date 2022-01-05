@@ -2,12 +2,13 @@ package be.w2.lotto.view.output;
 
 import be.w2.lotto.cashier.OrderSheet;
 
-final class OrderSheetOutput {
+final class OrderSheetOutput extends ClassOutput<OrderSheet> {
 
-    private OrderSheetOutput() {
+    OrderSheetOutput() {
     }
 
-    static String getOutput(OrderSheet orderSheet) {
+    @Override
+    String getOutput(OrderSheet orderSheet) {
         return new StringBuilder()
                 .append("수동으로 ")
                 .append(orderSheet.getNumOfManual())
