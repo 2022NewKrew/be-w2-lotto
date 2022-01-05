@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class PurchasedLottoDTO {
-    private final Long id;
+    private final long id;
     private final List<String> lottoNumbersList;
 
-    private PurchasedLottoDTO(Long id, List<LottoNumbers> lottoNumbersList) {
+    private PurchasedLottoDTO(long id, List<LottoNumbers> lottoNumbersList) {
         this.id = id;
         this.lottoNumbersList = lottoNumbersList.stream()
                 .map(LottoNumbers::toString)
@@ -23,6 +23,10 @@ public class PurchasedLottoDTO {
 
     public Long getId() {
         return id;
+    }
+
+    public List<String> getLottoNumbersList() {
+        return lottoNumbersList;
     }
 
     @Override

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Lotto extends BaseEntity {
-    private final List<LottoNumbers> purchasedLottoNumbersList;
+    protected final List<LottoNumbers> purchasedLottoNumbersList;
 
     protected Lotto(List<LottoNumbers> purchasedLottoNumbersList) {
         this.purchasedLottoNumbersList = purchasedLottoNumbersList;
