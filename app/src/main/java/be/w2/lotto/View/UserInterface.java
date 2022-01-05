@@ -30,21 +30,38 @@ public class UserInterface {
         printString("구입금액을 입력해주세요");
     }
 
-    public void printBuyAmount(int amount) {
-        printString(String.format("%d 개를 구입하셨습니다", amount));
+    public void printBuyAmount(LottoTickets lottoTickets) {
+        printString(String.format("수동으로 %d 장, 자동으로 %d 장울 구입하셨습니다", lottoTickets.getManualAmount(), lottoTickets.getAutoAmount()));
     }
 
-    public void queryLastNumber() {
+    public void queryAnswerNumber() {
         printString("지난 주 당첨 번호를 입력해주세요.");
     }
 
-    public void queryBonusNumber(){
+    public void queryBonusNumber() {
         printString("보너스 볼을 입력해 주세요.");
     }
 
     public void printBenefit(int benefit) {
         printString(String.format("총 수익률은 %d %%입니다.", benefit));
     }
+
+    public void queryManualAmount() {
+        printString("수동으로 구매할 로또 수를 입력해 주세요.");
+    }
+
+    public void queryManualNumbers() {
+        printString("수동으로 구매할 번호를 입력해 주세요.");
+    }
+
+    public List<List<Integer>> readManualInputs(int manualAmount) {
+        List<List<Integer>> manualInputList = new ArrayList<>();
+        for (int i = 0; i < manualAmount; i++) {
+            manualInputList.add(readIntList());
+        }
+        return manualInputList;
+    }
+
 
     public List<Integer> readIntList() {
         String intListStr = readStr();
@@ -61,8 +78,7 @@ public class UserInterface {
 
     public String readStr() {
         Input<String> target = new Input<>();
-        while (!readStrInput(target))
-            flush();
+        while (!readStrInput(target)) ;
         return target.getValue();
     }
 
@@ -71,7 +87,6 @@ public class UserInterface {
         try {
             input = scanner.nextLine();
             target.setValue(input);
-            flush();
         } catch (InputMismatchException e) {
             System.out.println("문자열을 입력해주세요!");
             return false;

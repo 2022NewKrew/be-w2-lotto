@@ -22,17 +22,19 @@ public enum HitCount {
     }
 
     public static HitCount valueOf(int hitCount, boolean isBonus) {
-        if (hitCount == 3 && isBonus == false)
-            return THREE;
-        if (hitCount == 4 && isBonus == false)
-            return FOUR;
-        if (hitCount == 5 && isBonus == false)
-            return FIVE;
-        if (hitCount == 5 && isBonus == true)
-            return FIVE_BONUS;
-        if (hitCount == 6 && isBonus == false)
-            return SIX;
+        for (HitCount target : HitCount.values()) {
+            if (target.getHitCount() == hitCount && target.isBonus() == isBonus)
+                return target;
+        }
         return null;
+    }
+
+    public int getHitCount() {
+        return hitCount;
+    }
+
+    public boolean isBonus() {
+        return isBonus;
     }
 
     public int getPrice() {
