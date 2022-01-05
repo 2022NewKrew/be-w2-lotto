@@ -15,6 +15,7 @@ public class LottoService {
 
         int totalLottoCount = calcLottoCount(money);
         validateManualLottoCount(totalLottoCount, manualLottoCount);
+        validateManualNumbers(manualLottoCount, manualNumbers);
 
         int autoLottocount = totalLottoCount - manualLottoCount;
 
@@ -37,6 +38,11 @@ public class LottoService {
 
     private static int calcLottoCount(int money) {
         return (int) Math.floor(money / COST_PER_LOTTO);
+    }
+
+
+    private static void validateManualNumbers(int manualLottoCount, List<List<Integer>> manualNumbers){
+        if(manualLottoCount != manualNumbers.size()) throw new IllegalArgumentException();
     }
 
     private static void validateMoney(int money) {
