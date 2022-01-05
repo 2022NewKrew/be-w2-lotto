@@ -1,5 +1,9 @@
 package com.kakao.lotto.step3.core;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public enum Rank {
     FIFTH(3, 5000),
     FOURTH(4, 50000),
@@ -22,16 +26,15 @@ public enum Rank {
     }
 
     public static Rank valueOf(int countOfMatch, boolean matchBonus) {
-        Rank[] ranks = values();
-        for (Rank rank : ranks) {
-            if (countOfMatch == SECOND.countOfMatch) {
-                return matchBonus ? SECOND : THIRD;
+        List<Rank> ranks = Arrays.stream(values()).filter(rank -> {
+            boolean match = rank.countOfMatch == countOfMatch;
+            if (rank == SECOND) {
+                return matchBonus && match;
             }
-
-            if (rank.countOfMatch == countOfMatch) {
-                return rank;
-            }
-        }
-        return null;
+            return match;
+        }).collect(Collectors.toList());
+        if(ranks.size() == 0)
+            return null;
+        return ranks.get(0);
     }
 }

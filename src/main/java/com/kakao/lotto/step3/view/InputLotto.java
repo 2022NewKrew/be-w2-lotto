@@ -47,10 +47,13 @@ public class InputLotto {
             throw new Exception("중복 요소가 있습니다.");
     }
 
-    private void checkNumbers(List<Integer> winningNumbers) throws Exception {
-        if((int)winningNumbers.stream().filter(number -> number > 0 && number <= 45).count()
-                != winningNumbers.size())
-            throw new Exception("1에서 45 사이의 숫자를 입력하세요");
+    private void checkNumbers(List<Integer> winningNumbers) throws RuntimeException {
+        winningNumbers.stream()
+                .filter(number -> number < 1 || number > 45)
+                .findAny()
+                .ifPresent(it -> {
+                    throw new RuntimeException();
+                });
     }
 
     private List<Integer> inputLottoNumbers() throws Exception {

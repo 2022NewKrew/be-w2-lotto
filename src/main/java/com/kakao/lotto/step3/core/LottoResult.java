@@ -33,10 +33,8 @@ public class LottoResult {
 
     // lottos의 각각의 lotto를 가지고 results 값을 변경합니다.
     private void makeResults() {
-        for(Lotto lotto : lottos) {
-            Rank rank = Rank.valueOf(lotto.getSameNumber(winningNumbers), lotto.hasBonusNumber(bonusNumber));
-            makeResult(rank);
-        }
+        for(Lotto lotto : lottos)
+            makeResult(Rank.valueOf(lotto.getSameNumber(winningNumbers), lotto.hasBonusNumber(bonusNumber)));
     }
 
     // getter
