@@ -50,8 +50,8 @@ public class Main {
 
     private static List<LottoTicket> purchaseManualLotto(LottoShop lottoShop, InputView inputView, int numOfPurchase) {
         System.out.println("수동으로 구매할 번호를 입력해주세요:");
-        List<Set<Integer>> pickedNumbers = IntStream.range(0, numOfPurchase)
-                .mapToObj(i -> inputView.getWinnerNumbersFromScanner())
+        List<Set<Integer>> pickedNumbers = IntStream.rangeClosed(1, numOfPurchase)
+                .mapToObj(i -> inputView.getWinnerNumbersFromScanner(String.format("%d번째장: ", i)))
                 .collect(Collectors.toList());
         return lottoShop.sellManualLottoTicket(pickedNumbers);
     }
