@@ -4,11 +4,17 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class LottoGenerator {
+public class LottoMachine {
     private static final Random random = new Random();
-    private static final int MAXIMUM_VALUE = 44;
+    private static final int MAXIMUM_VALUE = 46;
+    private static final int MINIMUM_VALUE = 1;
+    private static final int PICK_LOTTO = 6;
+    private static final List<Integer> LOTTO_BALLS = IntStream.range(MINIMUM_VALUE, MAXIMUM_VALUE)
+            .boxed()
+            .collect(Collectors.toList());
 
     public LottoRepository createAutoLottos(int purchasedLottoNumbers) {
         List<Lotto> autuLottos = Stream.generate(this::createAutoLotto)
@@ -22,18 +28,10 @@ public class LottoGenerator {
      }
 
     private List<Integer> createAutoLottoNumber() {
-        List<Integer> autoLottoNumber = Stream.generate(() -> random.nextInt(MAXIMUM_VALUE) + 1)
-                .limit(6)
-                .distinct()
+        Collections.shuffle(LOTTO_BALLS);
+        return LOTTO_BALLS.stream()
+                .limit(PICK_LOTTO)
                 .sorted()
                 .collect(Collectors.toList());
-
-        while (autoLottoNumber.size() < 6) {
-            if (!autoLottoNumber.contains(random.nextInt(MAXIMUM_VALUE))) {
-                autoLottoNumber.add(random.nextInt(MAXIMUM_VALUE) + 1);
-                Collections.sort(autoLottoNumber);
-            }
-        }
-        return autoLottoNumber;
     }
 }

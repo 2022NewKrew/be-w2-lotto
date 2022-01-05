@@ -1,25 +1,26 @@
 package controller;
 
-import domain.Lotto;
-import domain.LottoGenerator;
-import domain.LottoRepository;
-import service.LottoGameService;
+import domain.*;
 import view.InputView;
 import view.OutputView;
 
-import java.util.List;
+import java.util.Map;
 
 public class LottoGame {
     public void run() {
-        int purchasedLottoNumbers = InputView.inputPurchaseAmount();
 
-        LottoGenerator lottoGenerator = new LottoGenerator();
-        LottoRepository autuLottos = lottoGenerator.createAutoLottos(purchasedLottoNumbers);
+        int purchasedAmount = InputView.purchaseAmount();
 
-        OutputView.printAutuLottos(autuLottos);
-        List<Integer> inputLastWeekWinNumber = InputView.inputLastWeekWinNumber();
+        LottoMachine lottoMachine = new LottoMachine();
+        LottoRepository autoLottos = lottoMachine.createAutoLottos(LottoCashier.buyLottos(purchasedAmount));
 
-        LottoGameService.createResult(autuLottos, inputLastWeekWinNumber);
+        OutputView.printAutoLottos(autoLottos);
+        LottoBonus inputLastWeekWinNumber = InputView.bonusNumber();
+//        Integer bonusNumber = InputView.bonusNumber();
+
+        Map<LottoRank, Integer> lottoRankResult = LottoRankMatch.createResult(autoLottos, inputLastWeekWinNumber);
+
+        OutputView.printProfit(lottoRankResult, purchasedAmount);
 
     }
 }
