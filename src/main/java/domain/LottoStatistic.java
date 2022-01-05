@@ -1,7 +1,5 @@
 package domain;
 
-import domain.Lotto;
-
 public class LottoStatistic {
 
     private final int TREE_WINNING_AMOUNT = 5000;

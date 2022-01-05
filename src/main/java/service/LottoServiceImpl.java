@@ -32,8 +32,9 @@ public class LottoServiceImpl implements LottoService {
         int autoLottoCount = purchaseCount - normalLottoCount;
         lottos.addAll(createAutoLottoList(autoLottoCount));
         lottoRepository.save(lottos); // inMemory database save
-        printLottoList(lottos);
+        printLottoList(normalLottoCount, autoLottoCount, lottos);
         List<Integer> winningNumbers = inputWinningNumbers();
+
         int winningBonusNumber = inputWinningBonusNumber();
         updateLottoStatus(lottos, winningNumbers, winningBonusNumber);
         LottoStatistic lottoStatistic = getLottoStatic(purchaseCount, lottos);
@@ -41,8 +42,16 @@ public class LottoServiceImpl implements LottoService {
 
     }
 
+    private void printLottoList(int normalLottoCount, int autoLottoCount, List<Lotto> lottos) {
+        System.out.println("수동으로 " + normalLottoCount + "장, 자동으로 " + autoLottoCount + "개를 구매했습니다.");
+        lottos.forEach(System.out::println);
+        System.out.println();
+    }
+
     private List<Lotto> inputNormalLottoList(int normalLottoCount) {
+
         List<Lotto> lottos = new ArrayList<>();
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
 
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -130,14 +139,9 @@ public class LottoServiceImpl implements LottoService {
         return result;
     }
 
-    private void printLottoList(List<Lotto> lottos) {
-        lottos.forEach(System.out::println);
-        System.out.println();
-    }
-
     private int calculateLottoCount(int purchasePrice) {
-        if(purchasePrice == 0) {
-            throw  new IllegalArgumentException("0원 입니다.");
+        if (purchasePrice == 0) {
+            throw new IllegalArgumentException("0원 입니다.");
         }
 
         if (purchasePrice % 1000 != 0) {

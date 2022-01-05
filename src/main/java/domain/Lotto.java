@@ -8,6 +8,12 @@ public class Lotto {
     protected static int LOTTO_END_NUMBER = 45;
     protected static int LOTTO_START_NUMBER = 1;
 
+    public Lotto() {}
+
+    public Lotto(List<Integer> numbers) {
+        this.numbers = numbers;
+    }
+
     protected List<Integer> numbers;
 
     protected LottoWinningStatus status = LottoWinningStatus.NORMAL;
