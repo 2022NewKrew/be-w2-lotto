@@ -18,9 +18,7 @@ public class HomeView {
         System.out.println("구입금액을 입력해 주세요.");
     }
 
-    public void printInputManualSize() {
-        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
-    }
+    public void printInputManualSize() { System.out.println("수동으로 구매할 로또 수를 입력해 주세요."); }
 
     public void printInputManualLotto() {
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
@@ -47,8 +45,8 @@ public class HomeView {
 
     private String getViewOfLotto(Lotto lotto) {
         return lotto.getNumber().stream()
-                                .map(integer -> String.valueOf(integer))
-                                .collect(Collectors.joining(", ", "[", "]"));
+                .map(lottoNumber -> String.valueOf(lottoNumber.getNumber()))
+                .collect(Collectors.joining(", ", "[", "]"));
     }
 
     public void printResults() {
