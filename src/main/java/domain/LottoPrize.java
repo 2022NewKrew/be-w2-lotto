@@ -29,9 +29,16 @@ public enum LottoPrize {
         return prizeMoney;
     }
 
-    public static LottoPrize getLottoRank(long numberOfMatches, boolean matchesBonusBall) {
+    public boolean getAllowBonusBall() {
+        return allowBonusBall;
+    }
+
+    public static LottoPrize getLottoRank(long numberOfMatches, boolean isMatchBonusBall) {
+        if(numberOfMatches == SECOND_PLACE.numberOfMatches && isMatchBonusBall == SECOND_PLACE.allowBonusBall)
+            return SECOND_PLACE;
+
         return Arrays.stream(values())
-                .filter(value -> value.numberOfMatches == numberOfMatches && value.allowBonusBall && matchesBonusBall)
+                .filter(value -> value.numberOfMatches == numberOfMatches)
                 .findFirst()
                 .orElse(NOTHING);
     }

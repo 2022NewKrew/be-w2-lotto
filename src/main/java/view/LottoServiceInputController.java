@@ -1,10 +1,11 @@
 package view;
 
-import java.util.InputMismatchException;
 import java.util.List;
 
 public interface LottoServiceInputController {
-    int getPurchaseAmount() throws InputMismatchException, IllegalArgumentException;
-    List<Integer> getLastWeekWinningNumber() throws InputMismatchException, IllegalArgumentException;
-    int getBonusBallNumber() throws InputMismatchException, IllegalArgumentException;
+    int getPurchaseAmount();
+    int getNumberOfManualPurchase();
+    List<Integer> getManualLottoNumber();
+    List<Integer> getLastWeekWinningNumbers();
+    int getBonusBallNumber();
 }

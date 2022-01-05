@@ -1,7 +1,5 @@
 package view;
 
-import valid.ConditionCheck;
-
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -18,45 +16,74 @@ public final class StandardInLottoServiceInputController implements LottoService
         this.scan = new Scanner(System.in);
     }
 
-    @Override
-    public int getPurchaseAmount() throws InputMismatchException, IllegalArgumentException {
-        System.out.println(PURCHASE_AMOUNT_REQUEST.getString());
+    private int getInteger() throws InputMismatchException {
         int amount = scan.nextInt();
         scan.nextLine();
-
-        if(!ConditionCheck.isPositiveInteger(amount)) {
-            throw new IllegalArgumentException(INPUT_ERROR.getString() + NEWLINE.getString() + PLEASE_INPUT_POSITIVE_NUMBER.getString());
-        }
 
         return amount;
     }
 
-    @Override
-    public List<Integer> getLastWeekWinningNumber() throws InputMismatchException, IllegalArgumentException {
-        System.out.println(LAST_WEEK_WINNING_NUMBER_REQUEST.getString());
-        List<Integer> numbers = Arrays.stream(scan.nextLine().split(COMMA.getString())).map(Integer::valueOf).collect(Collectors.toList());
-
-        if(!numbers.stream().allMatch(ConditionCheck::isLottoNumber)) {
-            throw new IllegalArgumentException(INPUT_ERROR.getString() + NEWLINE.getString() + PLEASE_INPUT_LOTTO_NUMBER.getString());
-        }
-
-        if(!ConditionCheck.isDistinctNumbers(numbers)) {
-            throw new IllegalArgumentException(INPUT_ERROR.getString() + NEWLINE.getString() + PLEASE_INPUT_NUMBER_UNIQUE.getString());
-        }
-
-        return numbers;
+    private List<Integer> getNumbers() throws  IllegalArgumentException {
+        return Arrays.stream(scan.nextLine().replaceAll(" ", "").split(COMMA.getString()))
+                .map(Integer::valueOf).collect(Collectors.toUnmodifiableList());
     }
 
     @Override
-    public int getBonusBallNumber() throws InputMismatchException, IllegalArgumentException {
-        System.out.println(BONUS_BALL_REQUEST.getString());
-        int number = scan.nextInt();
-        scan.nextLine();
-
-        if(!ConditionCheck.isLottoNumber(number)) {
-            throw new IllegalArgumentException(INPUT_ERROR.getString() + NEWLINE.getString() + PLEASE_INPUT_LOTTO_NUMBER.getString());
+    public int getPurchaseAmount() {
+        System.out.println(PURCHASE_AMOUNT_REQUEST.getString());
+        try {
+            return getInteger();
+        } catch(InputMismatchException e) {
+            scan.nextLine();
+            System.out.println(INPUT_ERROR.getString());
+            return getPurchaseAmount();
         }
+    }
 
-        return number;
+    @Override
+    public int getNumberOfManualPurchase() {
+        System.out.println(NUMBER_OF_MANUAL_PURCHASE_REQUEST.getString());
+        try {
+            return getInteger();
+        } catch (InputMismatchException e) {
+            scan.nextLine();
+            System.out.println(INPUT_ERROR.getString());
+            return getNumberOfManualPurchase();
+        }
+    }
+
+    @Override
+    public List<Integer> getManualLottoNumber() {
+        try {
+            return getNumbers();
+        } catch (IllegalArgumentException e) {
+            System.out.println(INPUT_ERROR.getString());
+            System.out.println(PLEASE_INPUT_NUMBERS.getString());
+            return getManualLottoNumber();
+        }
+    }
+
+    @Override
+    public List<Integer> getLastWeekWinningNumbers() {
+        System.out.println(LAST_WEEK_WINNING_NUMBER_REQUEST.getString());
+        try {
+            return getNumbers();
+        } catch (IllegalArgumentException e) {
+            System.out.println(INPUT_ERROR.getString());
+            System.out.println(PLEASE_INPUT_NUMBERS.getString());
+            return getLastWeekWinningNumbers();
+        }
+    }
+
+    @Override
+    public int getBonusBallNumber() {
+        System.out.println(BONUS_BALL_REQUEST.getString());
+        try {
+            return getInteger();
+        } catch (InputMismatchException e) {
+            scan.nextLine();
+            System.out.println(INPUT_ERROR.getString());
+            return getPurchaseAmount();
+        }
     }
 }
