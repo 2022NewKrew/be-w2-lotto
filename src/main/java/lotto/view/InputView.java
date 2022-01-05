@@ -33,13 +33,8 @@ public class InputView {
         return userInput;
     }
 
-    public static List<List<Integer>> getManualPurchaseNumberList(int manualPurchaseCount) {
-        List<List<Integer>> result = new ArrayList<>();
-        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
-        for (int i = 0; i < manualPurchaseCount; i++) {
-            result.add(inputToIntegerList());
-        }
-        return result;
+    public static List<Integer> getManualPurchaseNumberList() {
+        return inputToIntegerList();
     }
 
     public static int getBonusNumber() {

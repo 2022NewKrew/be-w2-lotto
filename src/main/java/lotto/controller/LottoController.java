@@ -25,8 +25,10 @@ public class LottoController {
     public void buyLotto() {
         int purchaseAmount = InputView.getPurchaseAmount();
         int manualPurchaseCount = InputView.getManualPurchaseCount();
-        List<List<Integer>> manualPurchaseNumberList = InputView.getManualPurchaseNumberList(manualPurchaseCount);
-        lottos.addLotto(manualPurchaseCount * LOTTO_PRICE, new ManualIssuePolicy(manualPurchaseNumberList));
+        OutputView.printManualInputGuide();
+        for (int i = 0; i < manualPurchaseCount; i++) {
+            lottos.addLotto(LOTTO_PRICE, new ManualIssuePolicy(InputView.getManualPurchaseNumberList()));
+        }
         lottos.addLotto(purchaseAmount - manualPurchaseCount * LOTTO_PRICE, new RandomIssuePolicy());
         OutputView.printLottos(manualPurchaseCount, lottos.size(), lottos.printLottos());
     }
