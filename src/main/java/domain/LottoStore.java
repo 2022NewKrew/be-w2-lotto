@@ -29,9 +29,8 @@ public class LottoStore {
                 .collect(Collectors.toList()));
     }
 
-    public static Lottos purchase(Money money) {
+    public static Lottos purchase(long lottoCount) {
         Lottos lottos = new Lottos();
-        long lottoCount = money.lottoCount();
         for (int i = 0; i < lottoCount; i++) {
             lottos.addLotto(createLotto());
         }
