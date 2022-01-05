@@ -19,7 +19,7 @@ public class LottoOutputPrinter {
         System.out.print(msg);
     }
 
-    public void printPurchaseResult(int numOfManualLottos, @NotNull List<Lotto> purchasedLottoList) {
+    public void printPurchaseResult(long numOfManualLottos, @NotNull List<Lotto> purchasedLottoList) {
         System.out.println("\n수동으로 " + numOfManualLottos + "장, 자동으로 " + (purchasedLottoList.size() - numOfManualLottos) + "개를 구매했습니다.");
         purchasedLottoList.forEach(this::printLotto);
     }

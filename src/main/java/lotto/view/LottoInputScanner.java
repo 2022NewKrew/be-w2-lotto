@@ -15,17 +15,17 @@ public class LottoInputScanner {
     public long getPurchaseAmount() {
         System.out.println("구입금액을 입력해 주세요.");
         long purchaseAmount = Long.parseLong(sc.nextLine());
-        if (!checker.checkPositiveNumber(purchaseAmount) || !checker.checkAmountUnit(purchaseAmount)) {
+        if (checker.checkPositiveNumber(purchaseAmount) || checker.checkAmountUnit(purchaseAmount)) {
             throw new InputMismatchException("금액을 확인해주십시오.(lotto는 1000원 단위로 구매 가능합니다.)");
         }
         return purchaseAmount;
     }
 
-    public int getNumOfManualLottos() {
+    public long getNumOfManualLottos() {
         System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
-        int numOfManualLottos = Integer.parseInt(sc.nextLine());
+        long numOfManualLottos = Long.parseLong(sc.nextLine());
 
-        if (!checker.checkPositiveNumber(numOfManualLottos)) {
+        if (checker.checkPositiveNumber(numOfManualLottos)) {
             throw new InputMismatchException("구매할 로또 수는 0이상 정수여야 합니다.");
         }
         return numOfManualLottos;
