@@ -8,19 +8,28 @@ public class Person {
     private static final int LOTTO_PRICE = 1000;
 
     private final int spendPrice;
-    private final int lottoCount;
+    private final int autoLottoCount;
     private int incomeRate;
 
     private final List<Lotto> lottoList;
 
     public Person(int inputPrice) {
         this.spendPrice = inputPrice;
-        this.lottoCount = inputPrice / LOTTO_PRICE;
+        this.autoLottoCount = inputPrice / LOTTO_PRICE;
         this.lottoList = createLottoList();
     }
 
+    public Person(int inputPrice, List<String> manualInput) {
+        this.spendPrice = inputPrice;
+        this.autoLottoCount = inputPrice / LOTTO_PRICE - manualInput.size();
+        this.lottoList = createLottoList();
+
+        List<Lotto> manualLottoList = manualInput.stream().map(Lotto::new).collect(Collectors.toList());
+        this.lottoList.addAll(manualLottoList);
+    }
+
     private List<Lotto> createLottoList() {
-        return IntStream.range(0, lottoCount).mapToObj(s -> new Lotto()).collect(Collectors.toList());
+        return IntStream.range(0, autoLottoCount).mapToObj(s -> new Lotto()).collect(Collectors.toList());
     }
 
     public void setLottoResult() {
@@ -29,14 +38,18 @@ public class Person {
     }
 
     public void calcIncomeRate() {
-        this.incomeRate = (int)((double)(Rank.getIncome() - spendPrice)/(double)spendPrice * 100);
+        this.incomeRate = (int) ((double) (Rank.getIncome() - spendPrice) / (double) spendPrice * 100);
     }
 
     public int getIncomeRate() {
         return incomeRate;
     }
 
-    public List<Lotto> getLottoList(){
+    public List<Lotto> getLottoList() {
         return lottoList;
+    }
+
+    public int getAutoLottoCount(){
+        return autoLottoCount;
     }
 }
