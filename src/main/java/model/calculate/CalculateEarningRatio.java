@@ -5,16 +5,15 @@ import constants.RankInfo;
 import parameters.LottoResult;
 
 public class CalculateEarningRatio {
-    public CalculateEarningRatio() { }
+    public CalculateEarningRatio() {
+    }
 
-    public static double calculateEarningRatio(LottoResult lottoResult, int amountOfLotto){
+    public static double calculateEarningRatio(LottoResult lottoResult, int amountOfLotto) {
         long earned = RankInfo.valuesStream()
                 .mapToLong((rankInfo -> rankInfo.getEarned(lottoResult.getResult(rankInfo))))
                 .sum();
 
-        double ratio = (float)(earned - (1.0 * amountOfLotto * LottoRule.PRICE_PER_LOTTO))
+        return (float) (earned - (1.0 * amountOfLotto * LottoRule.PRICE_PER_LOTTO))
                 / (amountOfLotto * LottoRule.PRICE_PER_LOTTO);
-
-        return ratio;
     }
 }

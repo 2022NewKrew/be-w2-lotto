@@ -1,6 +1,5 @@
 package model.scan;
 
-import exception.LottoException;
 import validator.AmountOfLottoValidator;
 import validator.ValidatorInterface;
 

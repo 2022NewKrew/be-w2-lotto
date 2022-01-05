@@ -7,13 +7,21 @@ import java.util.stream.Stream;
 public class LottoLine {
     private final List<Integer> numbers;
 
-    public LottoLine(List<Integer> numbers) { this.numbers = numbers; }
+    public LottoLine(List<Integer> numbers) {
+        this.numbers = numbers;
+    }
 
-    public Stream<Integer> getNumbersStream() { return numbers.stream(); }
-    public boolean checkBonus(int bonus) { return numbers.contains(bonus); }
+    public Stream<Integer> getNumbersStream() {
+        return numbers.stream();
+    }
+
+    public boolean checkBonus(int bonus) {
+        return numbers.contains(bonus);
+    }
+
     public String getViewString() {
         StringJoiner sj = new StringJoiner(", ", "[", "]");
-        for(int number : numbers){
+        for (int number : numbers) {
             sj.add(Integer.toString(number));
         }
         return sj.toString();

@@ -18,14 +18,15 @@ public class LottoController {
     private List<Integer> winningNumbers;
     private int bonus;
 
-    public LottoController() { }
+    public LottoController() {
+    }
 
-    public void lottoFlow(){
+    public void lottoFlow() {
         scanInput();
         renderView(calulateResult());
     }
 
-    private void scanInput(){
+    private void scanInput() {
         userLottoLines = UserLottoLineBuilder.makeUserLottoLines();
         UserLottoViewer.viewUserLottoList(userLottoLines);
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
@@ -33,11 +34,11 @@ public class LottoController {
         bonus = BonusNumberScanner.getBonusNumber(winningNumbers);
     }
 
-    private LottoResult calulateResult(){
+    private LottoResult calulateResult() {
         return CalculateResult.getLottoResult(userLottoLines, winningNumbers, bonus);
     }
 
-    private void renderView(LottoResult lottoResult){
+    private void renderView(LottoResult lottoResult) {
         UserResultViewer.viewResult(lottoResult);
         LottoEarningRatioViewer.viewEarningRatio(
                 CalculateEarningRatio.calculateEarningRatio(lottoResult, userLottoLines.getAmoutOfLotto())

@@ -1,6 +1,7 @@
 package parameters;
 
 import constants.RankInfo;
+
 import java.util.HashMap;
 
 public class LottoResult {
@@ -17,8 +18,16 @@ public class LottoResult {
         addResult(RankInfo.FAIL);
     }
 
-    private void addResult(RankInfo rankInfo) { results.put(rankInfo, 0); }
-    public void addCountToResult(RankInfo rankInfo) { results.put(rankInfo, getResult(rankInfo) + 1); }
-    public int getResult(RankInfo rankInfo) { return results.get(rankInfo); }
+    private void addResult(RankInfo rankInfo) {
+        results.put(rankInfo, 0);
+    }
+
+    public void addCountToResult(RankInfo rankInfo) {
+        results.put(rankInfo, getResult(rankInfo) + 1);
+    }
+
+    public int getResult(RankInfo rankInfo) {
+        return results.get(rankInfo);
+    }
 
 }
