@@ -8,14 +8,22 @@ public class LottoNumber {
     private final List<Number> numbers;
 
     public LottoNumber(List<Number> numbers) {
+        checkLottoNumberSize(numbers);
         this.numbers = numbers;
+    }
+
+    private void checkLottoNumberSize(List<Number> numbers) {
+        if(numbers.size() != 6) {
+            throw new IllegalArgumentException("로또는 6가지 숫자로 구성되어 있어야 합니다.");
+        }
     }
 
     public void sortNumbers() {
         Collections.sort(numbers);
     }
 
-    public String numbersToString() {
+    @Override
+    public String toString() {
         return numbers.stream()
                 .map(Number::getValue)
                 .map(n -> Integer.toString(n))
