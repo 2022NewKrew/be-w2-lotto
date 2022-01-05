@@ -37,16 +37,18 @@ class LottoResultTest {
         lottoList.add(createLottoNumbers(13, 14, 18, 21, 23, 35));
         lottoList.add(createLottoNumbers(17, 21, 29, 37, 42, 45));
         lottoList.add(createLottoNumbers(3, 8, 27, 30, 35, 44));
-        EnumMap<Prize, Integer> lottoResult_Answer = new EnumMap<>(Prize.class);
-        lottoResult_Answer.put(Prize.THREE, 1);
-        lottoResult_Answer.put(Prize.FOUR, 0);
-        lottoResult_Answer.put(Prize.FIVE, 0);
-        lottoResult_Answer.put(Prize.SIX, 0);
+        EnumMap<Prize, Integer> winningLottoCount_Answer = new EnumMap<>(Prize.class);
+        winningLottoCount_Answer.put(Prize.THREE, 1);
+        winningLottoCount_Answer.put(Prize.FOUR, 0);
+        winningLottoCount_Answer.put(Prize.FIVE, 0);
+        winningLottoCount_Answer.put(Prize.SIX, 0);
+        LottoResult lottoResult = new LottoResult(winningNumbers);
 
-        EnumMap<Prize, Integer> lottoResult = LottoResult.winningLottoCount(winningNumbers, lottoList);
+        EnumMap<Prize, Integer> winningLottoCount = lottoResult.winningLottoCount(lottoList);
 
-        lottoResult_Answer.forEach((key, value) -> {
-            Assertions.assertEquals(lottoResult.get(key), value);
+        winningLottoCount_Answer.forEach((key, value) -> {
+            System.out.println(key + " " + value);
+            Assertions.assertEquals(winningLottoCount.get(key), value);
         });
     }
 
@@ -55,8 +57,9 @@ class LottoResultTest {
     void rateOfReturn() {
         int purchaseAmount = 14000;
         double rateOfReturn_Answer = -64.28;
+        LottoResult lottoResult = new LottoResult(winningNumbers);
 
-        double rateOfReturn = LottoResult.rateOfReturn(winningNumbers, purchaseAmount);
+        double rateOfReturn = lottoResult.rateOfReturn(purchaseAmount);
 
         Assertions.assertEquals(rateOfReturn, rateOfReturn_Answer);
     }
