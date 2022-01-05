@@ -1,72 +1,84 @@
 package be.w2.lotto.domain.winningresult;
 
 import be.w2.lotto.domain.lottonumber.BonusNumber;
+import be.w2.lotto.domain.lottoticket.LottoTicket;
 import be.w2.lotto.domain.lottoticket.LottoTickets;
 import be.w2.lotto.domain.lottoticket.WinningLottoTicket;
 
 import java.math.BigInteger;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
-
-import static be.w2.lotto.common.exception.ExceptionMessages.DIVIDE_BY_ZERO_EXCEPTION;
 
 public class WinningResult {
-    private final List<WinningMatchResult> winningMatchResults;
-    private final BigInteger profitRate;
+    private final int matchedNumber;
+    private final int reward;
+    private final boolean isBonusRound;
+    private final int count;
 
-    private WinningResult(List<WinningMatchResult> winningMatchResults, BigInteger profitRate) {
-        this.winningMatchResults = winningMatchResults;
-        this.profitRate = profitRate;
+    private WinningResult(Reward reward, int count) {
+        this.matchedNumber = reward.getMatchedNumber();
+        this.reward = reward.getReward();
+        this.isBonusRound = reward.isBonus();
+        this.count = count;
     }
 
     public static WinningResult valueOf(
+            Reward reward,
             LottoTickets lottoTickets,
             WinningLottoTicket winningLottoTicket,
-            int purchaseAmount,
             BonusNumber bonusNumber
     ) {
-        List<WinningMatchResult> winningMatchResults = getWinningMatchResult(lottoTickets, winningLottoTicket, bonusNumber);
-        BigInteger profitRate = calculateProfitRate(winningMatchResults, purchaseAmount);
-        return new WinningResult(winningMatchResults, profitRate);
+        int count = countMatchingResult(reward, lottoTickets, winningLottoTicket, bonusNumber);
+        return new WinningResult(reward, count);
     }
 
-    public BigInteger getProfitRate() {
-        return profitRate;
+    public BigInteger calculateProfit() {
+        BigInteger reward = BigInteger.valueOf(this.reward);
+        BigInteger count = BigInteger.valueOf(this.count);
+        return reward.multiply(count);
     }
 
-    public List<WinningMatchResult> getWinningMatchResults() {
-        return winningMatchResults;
+    public int getMatchedNumber() {
+        return matchedNumber;
     }
 
-    private static BigInteger calculateProfitRate(List<WinningMatchResult> winningMatchResults, int purchaseAmount)
-            throws NoSuchElementException, ArithmeticException
-    {
-        BigInteger profitSum = winningMatchResults.stream()
-                .map(WinningMatchResult::calculateProfit)
-                .reduce(BigInteger::add).orElseThrow(NoSuchElementException::new);
+    public int getReward() {
+        return reward;
+    }
 
-        if (purchaseAmount == 0) {
-            throw new ArithmeticException(DIVIDE_BY_ZERO_EXCEPTION);
+    public int getCount() {
+        return count;
+    }
+
+    public boolean isBonusRound() {
+        return isBonusRound;
+    }
+
+    private static int countMatchingResult(
+            Reward reward,
+            LottoTickets lottoTickets,
+            WinningLottoTicket winningLottoTicket,
+            BonusNumber bonusNumber
+    ) {
+        return Long.valueOf(lottoTickets.getLottoTickets().stream()
+                .filter(lottoTicket -> matchesByMatchedNumber(reward, lottoTicket, winningLottoTicket, bonusNumber))
+                .count()).intValue();
+    }
+
+    private static boolean matchesByMatchedNumber(
+            Reward reward,
+            LottoTicket lottoTicket,
+            WinningLottoTicket winningLottoTicket,
+            BonusNumber bonusNumber
+    ) {
+        List<Integer> listedTicket = lottoTicket.getLottoNumbers();
+        List<Integer> listedWinningTicket = winningLottoTicket.getLottoNumbers();
+
+        boolean ticketContainsBonus = bonusNumber.isContainedIn(listedTicket);
+        if (reward.isBonus() && !ticketContainsBonus) {
+            return false;
         }
 
-        return profitSum.multiply(MULTIPLY_BY_PERCENTAGE).divide(BigInteger.valueOf(purchaseAmount));
+        listedTicket.retainAll(listedWinningTicket);
+        return reward.hasSameMatchedNumber(listedTicket.size());
     }
-
-    private static List<WinningMatchResult> getWinningMatchResult(
-            LottoTickets lottoTickets,
-            WinningLottoTicket winningLottoTicket,
-            BonusNumber bonusNumber
-    ) {
-        return Reward.stream()
-                .map(reward -> WinningMatchResult.valueOf(
-                        reward,
-                        lottoTickets,
-                        winningLottoTicket,
-                        bonusNumber
-                ))
-                .collect(Collectors.toList());
-    }
-
-    private static final BigInteger MULTIPLY_BY_PERCENTAGE = BigInteger.valueOf(100);
 }

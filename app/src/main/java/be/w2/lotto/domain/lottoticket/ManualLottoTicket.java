@@ -16,6 +16,7 @@ public class ManualLottoTicket extends LottoTicket {
         List<LottoNumber> lottoNumber = lottoNumbersInput.stream()
                 .map(LottoNumber::from)
                 .collect(Collectors.toList());
+
         return new ManualLottoTicket(lottoNumber);
     }
 

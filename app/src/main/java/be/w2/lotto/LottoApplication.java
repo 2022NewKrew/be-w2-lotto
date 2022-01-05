@@ -6,10 +6,10 @@ package be.w2.lotto;
 import be.w2.lotto.domain.lottonumber.BonusNumber;
 import be.w2.lotto.domain.lottoticket.LottoTickets;
 import be.w2.lotto.domain.lottoticket.WinningLottoTicket;
-import be.w2.lotto.domain.winningresult.WinningResult;
+import be.w2.lotto.domain.winningresult.WinningResults;
 import be.w2.lotto.dto.InputPurchaseAmountDto;
 import be.w2.lotto.dto.LottoTicketsDto;
-import be.w2.lotto.dto.WinningResultDto;
+import be.w2.lotto.dto.WinningResultsDto;
 import be.w2.lotto.view.InputView;
 
 import java.util.List;
@@ -32,10 +32,10 @@ public class LottoApplication {
 
         WinningLottoTicket winningLottoTicket = inputWinningNumbers();
         BonusNumber bonusNumber = inputBonusNumber(winningLottoTicket);
-        WinningResult winningResult = WinningResult.valueOf(lottoTickets, winningLottoTicket, purchaseAmount, bonusNumber);
+        WinningResults winningResult = WinningResults.valueOf(lottoTickets, winningLottoTicket, purchaseAmount, bonusNumber);
 
-        WinningResultDto winningResultDto = WinningResultDto.from(winningResult);
-        outputWinningResult(winningResultDto);
+        WinningResultsDto winningResultsDto = WinningResultsDto.from(winningResult);
+        outputWinningResult(winningResultsDto);
     }
 
     private static InputPurchaseAmountDto inputPurchaseAmountDto() {
