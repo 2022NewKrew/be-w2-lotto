@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.*;
 
 class PrizeTest {
 
-    @DisplayName("abc")
+    @DisplayName("번호 맞힌 개수, 보너스볼 맞힌 여부에 맞게 등수 계산 되는지 확인")
     @ParameterizedTest
     @MethodSource("provideLottoNumbersAndExpectations")
     void of(int matchedCount, boolean bonusBallMatched, Prize expected) {
