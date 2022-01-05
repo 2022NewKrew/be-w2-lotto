@@ -45,7 +45,7 @@ class WinningLottoTest {
 
         //when then
         assertThatIllegalArgumentException().isThrownBy(()->{
-                WinningLotto winningLotto = new WinningLotto(sample, bonusBall);;})
+                WinningLotto winningLotto = new WinningLotto(sample, bonusBall);})
                 .withMessage("지난 주 당첨 번호 갯수 오류");
     }
 }

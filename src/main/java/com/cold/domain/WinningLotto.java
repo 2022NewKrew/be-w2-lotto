@@ -16,31 +16,31 @@ public class WinningLotto {
     private List<Integer> lastWinningNums;
     private Integer bonusBall;
 
-    public WinningLotto(List<Integer> lastWinningNums, Integer bonusBall) throws Exception {
+    public WinningLotto(List<Integer> lastWinningNums, Integer bonusBall) throws IllegalArgumentException {
         validateRangeEachNum(bonusBall);
         this.bonusBall = bonusBall;
         validateLastWinningNums(lastWinningNums);
         this.lastWinningNums = lastWinningNums;
     }
 
-    public void validateLastWinningNums(List<Integer> lastWinningNums) throws Exception {
+    public void validateLastWinningNums(List<Integer> lastWinningNums) throws IllegalArgumentException {
         validateCount(lastWinningNums);
         validateRange(lastWinningNums);
     }
 
-    private void validateRange(List<Integer> lastWinningNums) throws Exception {
+    private void validateRange(List<Integer> lastWinningNums) throws IllegalArgumentException {
         for (Integer num : lastWinningNums) {
             validateRangeEachNum(num);
         }
     }
 
-    private void validateRangeEachNum(int num) throws Exception {
+    private void validateRangeEachNum(int num) throws IllegalArgumentException {
         if (num < MIN_LOTTO_NUMBER || num > MAX_LOTTO_NUMBER) {
             throw new IllegalArgumentException(INVALID_LAST_WINNING_NUMS_RANGE);
         }
     }
 
-    public void validateCount(List<Integer> lastWinningNums) throws Exception {
+    public void validateCount(List<Integer> lastWinningNums) throws IllegalArgumentException {
         if (lastWinningNums.size() != NUMS_OF_LOTTO_NUMBERS) {
             throw new IllegalArgumentException(INVALID_LAST_WINNING_NUMS_COUNT);
         }

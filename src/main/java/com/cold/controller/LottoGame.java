@@ -1,6 +1,7 @@
 package com.cold.controller;
 
 import com.cold.domain.GameLogic;
+import com.cold.domain.SingleTicket;
 import com.cold.domain.WinningLotto;
 import com.cold.domain.WholeTickets;
 import com.cold.view.InputView;
@@ -10,24 +11,30 @@ import java.util.List;
 
 public class LottoGame {
 
-    public static void playLotto() throws Exception {
-        WholeTickets wholeTickets = new WholeTickets();
-        GameLogic gameLogic = new GameLogic();
+    public static void playLotto() {
 
-        int purchasedCount = InputView.purchase();
+        int purchaseMoney = InputView.inputPurchaseMoney();
+        int manualLottoCount = InputView.inputManualPurchaseCount();
+        int autoLottoCount = GameLogic.calculateAutoLottoCount(purchaseMoney, manualLottoCount);
 
-        wholeTickets.purchaseTickets(purchasedCount);
+        WholeTickets wholeTickets = new WholeTickets(autoLottoCount);
 
-        OutputView.printPurchaseResult(wholeTickets, purchasedCount);
+        if (manualLottoCount > 0) {
+            List<SingleTicket> manualLotto = InputView.inputManualLottoNumbers(manualLottoCount);
+            wholeTickets.addManualLotto(manualLotto);
+        }
+
+        OutputView.printPurchaseResult(wholeTickets, autoLottoCount, manualLottoCount);
 
         List<Integer> lastWinningNums = InputView.inputLastWinningNums();
-        Integer bonusBall = InputView.inputBonusBall();
+        int bonusBall = InputView.inputBonusBall();
 
         WinningLotto winningLotto = new WinningLotto(lastWinningNums, bonusBall);
 
-        gameLogic.setResult(wholeTickets, winningLotto);
-        gameLogic.setProfitRate(purchasedCount);
+        wholeTickets.calculateResult(winningLotto);
+        double profitRate = GameLogic.calculateProfitRate(wholeTickets);
+        wholeTickets.setProfitRate(profitRate);
 
-        OutputView.printGameResult(gameLogic);
+        OutputView.printGameResult(wholeTickets);
     }
 }

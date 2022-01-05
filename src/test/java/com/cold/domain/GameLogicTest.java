@@ -12,7 +12,7 @@ class GameLogicTest {
     @DisplayName("수익률 설정 테스트")
     void setProfitRate() {
         //given
-        GameLogic gameLogic = new GameLogic();
+        WholeTickets wholeTickets = new WholeTickets(5);
         Map sampleMap = new HashMap<Integer, Integer>() {
             {
                 put(3, 0);
@@ -23,14 +23,13 @@ class GameLogicTest {
             }
         };
 
-        gameLogic.result = sampleMap;
-
-        int purchasedCount = 5;
+        wholeTickets.wholeResult = sampleMap;
 
         //when
-        gameLogic.setProfitRate(purchasedCount);
+        double profitRate = GameLogic.calculateProfitRate(wholeTickets);
+        wholeTickets.setProfitRate(profitRate);
 
         //then
-        assertThat(gameLogic.getProfitRate()).isEqualTo((double) 600900);
+        assertThat(wholeTickets.getProfitRate()).isEqualTo((double) 600900);
     }
 }

@@ -1,54 +1,73 @@
 package com.cold.view;
 
+import com.cold.domain.SingleTicket;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class InputView {
     private static String INPUT_PURCHASE_PRICE = "구매금액을 입력해 주세요.";
+    private static String INPUT_MANUAL_LOTTO_COUNT = "수동으로 구매할 로또 수를 입력해 주세요.";
+    private static String INPUT_MANUAL_LOTTO_NUMBER_SET = "수동으로 구매할 번호를 입력해 주세요.";
     private static String INPUT_LAST_WINNING_NUMS = "지난 주 당첨 번호를 입력해 주세요.";
-    private static String INVALID_PURCHASED_PRICE = "구입 금액이 음수일 수는 없습니다.";
     private static String INPUT_BONUS_BALL = "보너스 볼을 입력해 주세요.";
 
     private static Scanner scanner = new Scanner(System.in);
 
-    public static int purchase() throws Exception {
+    public static int inputPurchaseMoney() {
         System.out.println(INPUT_PURCHASE_PRICE);
-        int purchasedPrice = scanner.nextInt();
-        validatePurchasedPrice(purchasedPrice);
-        int purchasedCount = calculateCount(purchasedPrice);
-        return purchasedCount;
+        int purchaseMoney = Integer.parseInt(scanner.nextLine());
+        return purchaseMoney;
     }
 
-    private static void validatePurchasedPrice(int purchasedPrice) throws Exception {
-        if (purchasedPrice < 0) {
-            throw new Exception(INVALID_PURCHASED_PRICE);
+    public static List<SingleTicket> inputManualLottoNumbers(int manualLottoCount) {
+        List<SingleTicket> manualLotto;
+        manualLotto = inputWholeManualLottoNumbers(manualLottoCount);
+        return manualLotto;
+    }
+
+    private static List<SingleTicket> inputWholeManualLottoNumbers(int manualLottoCount) {
+        System.out.println(INPUT_MANUAL_LOTTO_NUMBER_SET);
+        List<SingleTicket> wholeManualLotto = new ArrayList<>();
+        for (int i = 0; i < manualLottoCount; i++) {
+            List<Integer> manualNumberSet = inputNumberSet();
+            wholeManualLotto.add(new SingleTicket(manualNumberSet));
         }
+        return wholeManualLotto;
     }
 
-    private static int calculateCount(int purchasedPrice) {
-        return purchasedPrice / 1000;
+    private static List<Integer> inputNumberSet() {
+        String numberSetString = scanner.nextLine();
+        List<Integer> numberSet = parseNumberSet(numberSetString);
+        return numberSet;
     }
 
-    public static List<Integer> inputLastWinningNums() throws Exception {
+    public static List<Integer> inputLastWinningNums() {
         System.out.println(INPUT_LAST_WINNING_NUMS);
-        String lastWinningNumsString = scanner.next();
-        List<Integer> lastWinningNums = parseLastWinningNums(lastWinningNumsString);
+        String lastWinningNumsString = scanner.nextLine();
+        List<Integer> lastWinningNums = parseNumberSet(lastWinningNumsString);
         return lastWinningNums;
     }
 
-    private static List<Integer> parseLastWinningNums(String lastWinningNumsString) throws Exception {
-        List<Integer> lastWinningNums = new ArrayList<>();
-        for (String num : lastWinningNumsString.split(",")) {
-            num.trim();
-            lastWinningNums.add(Integer.parseInt(num));
+    private static List<Integer> parseNumberSet(String numberSetString) {
+        List<Integer> numberSet = new ArrayList<>();
+        for (String num : numberSetString.split(",")) {
+            numberSet.add(Integer.parseInt(num.trim()));
         }
-        return lastWinningNums;
+        return numberSet;
     }
 
-    public static int inputBonusBall() throws Exception {
+    public static int inputBonusBall() {
         System.out.println(INPUT_BONUS_BALL);
-        int bonusBall = scanner.nextInt();
+        int bonusBall = Integer.parseInt(scanner.nextLine());
         return bonusBall;
     }
+
+    public static int inputManualPurchaseCount() {
+        System.out.println(INPUT_MANUAL_LOTTO_COUNT);
+        int manualLottoCount = Integer.parseInt(scanner.nextLine());
+        return manualLottoCount;
+    }
+
 }
