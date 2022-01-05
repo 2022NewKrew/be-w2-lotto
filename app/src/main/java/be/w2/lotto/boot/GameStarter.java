@@ -2,8 +2,12 @@ package be.w2.lotto.boot;
 
 import be.w2.lotto.cashier.Cashier;
 import be.w2.lotto.cashier.OrderSheet;
+import be.w2.lotto.exceptions.NonValidNumberOfLottoException;
+import be.w2.lotto.exceptions.NonValidPurchaseAmountException;
 import be.w2.lotto.lottos.Lotto;
+import be.w2.lotto.messages.ErrorMessage;
 import be.w2.lotto.messages.GameMessage;
+import be.w2.lotto.precondition.Precondition;
 import be.w2.lotto.view.input.Input;
 import be.w2.lotto.view.output.Output;
 
@@ -41,16 +45,20 @@ public final class GameStarter {
         return Cashier.createOrderSheet(purchaseAmount, numOfManual);
     }
 
-    private List<Lotto> createLottosBy(OrderSheet orderSheet) {
-        return Cashier.createLottoByOrder(orderSheet);
-    }
-
     private int inputPurchaseAmount() {
-        return Input.inputIntWithMessage(GameMessage.INPUT_PURCHASE_AMOUNT);
+        int purchaseAmount = Input.inputIntWithMessage(GameMessage.INPUT_PURCHASE_AMOUNT);
+        Precondition.notLessThanInt(purchaseAmount, 0, new NonValidPurchaseAmountException(ErrorMessage.PURCHASE_AMOUNT_SHOULD_BE_POSITIVE));
+        return purchaseAmount;
     }
 
     private int inputNumOfManual() {
-        return Input.inputIntWithMessage(GameMessage.INPUT_NUM_OF_MANUAL);
+        int numOfManual = Input.inputIntWithMessage(GameMessage.INPUT_NUM_OF_MANUAL);
+        Precondition.notLessThanInt(numOfManual, 0, new NonValidNumberOfLottoException(ErrorMessage.NUM_OF_LOTTO_CAN_NOT_BE_NEGATIVE));
+        return numOfManual;
+    }
+
+    private List<Lotto> createLottosBy(OrderSheet orderSheet) {
+        return Cashier.createLottoByOrder(orderSheet);
     }
 
     private void outputOrder(OrderSheet orderSheet) {
