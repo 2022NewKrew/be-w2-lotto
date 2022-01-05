@@ -8,7 +8,6 @@ public enum LottoPrize {
     오등(5, 3, 5000, false),
     꽝(6, 0, 0, false);
 
-    public final static int[] PRICES = {0, 2000000000, 3000000, 1500000, 50000, 5000};
     private final static LottoPrize[] lottoPrizeFromRanking = {꽝, 일등, 이등, 삼등, 사등, 오등};
     private final int ranking;
     private final int matchingNum;
@@ -29,6 +28,10 @@ public enum LottoPrize {
         return lottoPrizeFromRanking[ranking];
     }
 
+    public final static int getMoneyWithRanking(int ranking) {
+        if (ranking > 5) return 0;
+        return getWithRanking(ranking).getMoney();
+    }
     LottoPrize(int ranking, int matchingNum, int money, boolean isBonusBallMatch) {
         this.ranking = ranking;
         this.matchingNum = matchingNum;
@@ -42,6 +45,9 @@ public enum LottoPrize {
 
     public int getRanking() {
         return ranking;
+    }
+    public int getMoney() {
+        return money;
     }
 }
 

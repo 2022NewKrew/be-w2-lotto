@@ -5,6 +5,7 @@ import domain.LottoPrize;
 import service.LottoService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HomeView {
     private final LottoService lottoService;
@@ -17,9 +18,7 @@ public class HomeView {
         System.out.println("구입금액을 입력해 주세요.");
     }
 
-    public void printInputManualSize() {
-        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
-    }
+    public void printInputManualSize() { System.out.println("수동으로 구매할 로또 수를 입력해 주세요."); }
 
     public void printInputManualLotto() {
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
@@ -40,10 +39,15 @@ public class HomeView {
 
     private void printLottos() {
         for (Lotto lotto : lottoService.getLottos()) {
-            System.out.println(lotto.toString());
+            System.out.println(getViewOfLotto(lotto));
         }
     }
 
+    private String getViewOfLotto(Lotto lotto) {
+        return lotto.getNumber().stream()
+                .map(lottoNumber -> String.valueOf(lottoNumber.getNumber()))
+                .collect(Collectors.joining(", ", "[", "]"));
+    }
     public void printResults() {
         List<Integer> results = lottoService.getWinningResult();
         System.out.println("당첨 통계 =====");
@@ -52,9 +56,9 @@ public class HomeView {
                     , i
                     , LottoPrize.getWithRanking(i).getMatchingNum()
                     , (i == 2) ? "보너스 볼 일치" : ""
-                    , LottoPrize.PRICES[i]
+                    , LottoPrize.getMoneyWithRanking(i)
                     , results.get(i));
         }
-        System.out.printf("총 수익률은 %d%%입니다.%n", (int) (lottoService.getProfit() / (double) lottoService.getBuyPrice() * 100.0));
+        System.out.printf("총 수익률은 %d %d%%입니다.%n", lottoService.getProfit(), (int) (lottoService.getProfit() / (double) lottoService.getBuyPrice() * 100.0));
     }
 }
