@@ -20,14 +20,8 @@ class LottoTicketTest {
     @Test
     void from() {
         Random random = new Random(1234L);
-        Rule rule = new Rule.Builder()
-                .minNumber(1)
-                .maxNumber(45)
-                .numberCount(6)
-                .random(random)
-                .build();
 
-        LottoTicket result = LottoTicket.from(rule);
+        LottoTicket result = LottoTicket.from(random);
 
         assertEquals(subject, result);
     }

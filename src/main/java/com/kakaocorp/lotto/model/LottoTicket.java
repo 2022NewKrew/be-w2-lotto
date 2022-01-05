@@ -1,13 +1,15 @@
 package com.kakaocorp.lotto.model;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LottoTicket {
+
+    public static final int NUMBER_COUNT = 6;
+    public static final int MIN_NUMBER = 1;
+    public static final int MAX_NUMBER = 45;
+    public static final int PRICE = 1000;
 
     private final Set<Integer> numbers;
 
@@ -15,11 +17,10 @@ public class LottoTicket {
         this.numbers = numbers;
     }
 
-    public static LottoTicket from(Rule rule) {
-        IntStream rng = rule.getRandom()
-                .ints(rule.getMinNumber(), rule.getMaxNumber())
+    public static LottoTicket from(Random random) {
+        IntStream rng = random.ints(MIN_NUMBER, MAX_NUMBER)
                 .distinct()
-                .limit(rule.getNumberCount());
+                .limit(NUMBER_COUNT);
         Set<Integer> numbers = rng.boxed().collect(Collectors.toSet());
         return new LottoTicket(numbers);
     }

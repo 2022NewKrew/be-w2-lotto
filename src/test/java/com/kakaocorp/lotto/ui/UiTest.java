@@ -3,7 +3,6 @@ package com.kakaocorp.lotto.ui;
 import com.kakaocorp.lotto.domain.LottoDispenser;
 import com.kakaocorp.lotto.domain.ProfitCalculator;
 import com.kakaocorp.lotto.domain.ResultCounter;
-import com.kakaocorp.lotto.model.Rule;
 import com.kakaocorp.lotto.test.StringInputStream;
 import com.kakaocorp.lotto.test.StringPrintStream;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,14 +28,7 @@ class UiTest {
     @BeforeEach
     void setUp() {
         Random random = new Random(RANDOM_SEED);
-        Rule rule = new Rule.Builder()
-                .minNumber(1)
-                .maxNumber(45)
-                .numberCount(6)
-                .price(1000)
-                .random(random)
-                .build();
-        dispenser = new LottoDispenser(rule);
+        dispenser = new LottoDispenser(random);
         calculator = new ProfitCalculator();
         counter = new ResultCounter();
     }

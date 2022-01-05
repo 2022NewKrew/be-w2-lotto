@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public enum LottoResult {
-    // FIXME 당첨금 등을 주입받고 싶은데 enum을 사용하는 구조로는 해결할 수 없는지 고민
     FIRST(6, false, 2000000000),
     SECOND(5, true, 30000000),
     THIRD(5, false, 1500000),

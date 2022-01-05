@@ -1,7 +1,6 @@
 package com.kakaocorp.lotto.domain;
 
 import com.kakaocorp.lotto.model.LottoTicket;
-import com.kakaocorp.lotto.model.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,21 +14,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class LottoDispenserTest {
 
     private static final long RANDOM_SEED = 1234L;
-    private static final int PRICE = 10;
+    private static final int PRICE = LottoTicket.PRICE;
 
     private LottoDispenser subject;
 
     @BeforeEach
     void setUp() {
         Random random = new Random(RANDOM_SEED);
-        Rule rule = new Rule.Builder()
-                .minNumber(1)
-                .maxNumber(45)
-                .numberCount(6)
-                .price(PRICE)
-                .random(random)
-                .build();
-        subject = new LottoDispenser(rule);
+        subject = new LottoDispenser(random);
     }
 
     @Test
@@ -47,7 +39,7 @@ class LottoDispenserTest {
 
         List<LottoTicket> result = subject.purchase((int) (count * PRICE), List.of());
 
-        assertEquals(Math.floor(count), result.size());
+        assertEquals((int) Math.floor(count), result.size());
     }
 
     @Test
