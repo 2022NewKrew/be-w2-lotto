@@ -16,8 +16,8 @@ public class Results {
     private static List<Result> generate(List<Lotto> lottos, List<Integer> winningNumbers, int bonusNum) {
         validateBonusNumNotDuplicate(winningNumbers, bonusNum);
 
-        List<Result> results = new ArrayList<>();
         List<Rank> resultRanks = getResultRanks(lottos, winningNumbers, bonusNum);
+        List<Result> results = new ArrayList<>();
 
         for (Rank rank : Rank.values()) {
             int count = (int) resultRanks.stream().filter(rank::equals).count();
