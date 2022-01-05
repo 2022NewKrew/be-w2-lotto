@@ -6,14 +6,20 @@ import java.util.EnumMap;
 import java.util.List;
 
 public class LottoResult {
+    private static void InitializeMap(EnumMap<Prize, Integer> lottoResult) {
+        for (Prize prize : Prize.values()) {
+            lottoResult.put(prize, 0);
+        }
+    }
+
     public static EnumMap<Prize, Integer> winningLottoCount(List<Integer> lastWeekWinningNumbers, List<Lotto> lottoList) {
         EnumMap<Prize, Integer> lottoResult = new EnumMap<>(Prize.class);
-        // TODO - 당첨 개수 계산
-        // TODO - Lotto의 checkMatchCount() 활용
-        lottoResult.put(Prize.FIFTH, 1);
-        lottoResult.put(Prize.FOURTH, 0);
-        lottoResult.put(Prize.THIRD, 0);
-        lottoResult.put(Prize.FIRST, 0);
+
+        InitializeMap(lottoResult);
+        for (Lotto lotto : lottoList) {
+            int matchCount = lotto.checkMatchCount(lastWeekWinningNumbers);
+            lottoResult.put(Prize.valueOf(matchCount), lottoResult.get(Prize.valueOf(matchCount)) + 1);
+        }
         return lottoResult;
     }
 

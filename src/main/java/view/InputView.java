@@ -20,7 +20,8 @@ public class InputView {
 
     public static List<Integer> inputLastWeekWinningNumber() {
         System.out.println(GameMessage.INPUT_LAST_WEEK_WINNING_NUMBER.getMessage());
-        String input = in.next();
+        in.nextLine(); // For Buffer
+        String input = in.nextLine();
 
         return Arrays.stream(input.split(","))
                 .filter(str -> !str.isEmpty())

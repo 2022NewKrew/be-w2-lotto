@@ -38,10 +38,10 @@ class LottoResultTest {
         lottoList.add(createLottoNumbers(17, 21, 29, 37, 42, 45));
         lottoList.add(createLottoNumbers(3, 8, 27, 30, 35, 44));
         EnumMap<Prize, Integer> lottoResult_Answer = new EnumMap<>(Prize.class);
-        lottoResult_Answer.put(Prize.FIFTH, 1);
-        lottoResult_Answer.put(Prize.FOURTH, 0);
-        lottoResult_Answer.put(Prize.THIRD, 0);
-        lottoResult_Answer.put(Prize.FIRST, 0);
+        lottoResult_Answer.put(Prize.THREE, 1);
+        lottoResult_Answer.put(Prize.FOUR, 0);
+        lottoResult_Answer.put(Prize.FIVE, 0);
+        lottoResult_Answer.put(Prize.SIX, 0);
 
         EnumMap<Prize, Integer> lottoResult = LottoResult.winningLottoCount(winningNumbers, lottoList);
 
