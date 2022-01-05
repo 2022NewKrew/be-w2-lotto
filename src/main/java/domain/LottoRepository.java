@@ -6,23 +6,39 @@ import java.util.List;
 public class LottoRepository {
 
     private List<List<Integer>> list = new ArrayList<>();
-    private int quantity;
+    private int autoQuantity;
+    private int manualQuantity;
 
-    public LottoRepository(int quantity) {
-        this.quantity = quantity;
-        lottoPick();
+    public LottoRepository(int autoQuantity, int manualQuantity) {
+        this.autoQuantity = autoQuantity;
+        this.manualQuantity = manualQuantity;
+        checkEmptyList();
+        auto();
+        manual();
     }
 
-    private void lottoPick() {
-        for (int i = 0; i < quantity; i++) {
+    private void auto() {
+        for (int i = 0; i < autoQuantity; i++) {
             Lotto lotto = new Lotto();
-            list.add(lotto.pick());
+            list.add(lotto.autoPick());
         }
+    }
 
+    private void manual() {
+        for (int i = 0; i < manualQuantity; i++) {
+            Lotto lotto = new Lotto();
+            list.add(lotto.manuallyPick());
+        }
     }
 
     public List<List<Integer>> getList() {
         return list;
+    }
+
+    private void checkEmptyList(){
+        if(manualQuantity + autoQuantity == 0){
+            throw new IllegalArgumentException("로또를 구매하지 않았습니다. 수익률 계산이 불가합니다");
+        }
     }
 
     @Override

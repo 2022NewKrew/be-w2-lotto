@@ -1,15 +1,17 @@
-domain/LottoRepository.java
- domain.LottoRepository
-Main.java
- Main
-enums/Rank.java
- enums.Rank
+domain/LottoValidation.java
+ domain.LottoValidation
 domain/Lotto.java
  domain.Lotto
-view/ResultView.java
- view.ResultView
+enums/Rank.java
+ enums.Rank
+domain/LottoRepository.java
+ domain.LottoRepository
 view/PurchaseView.java
  view.PurchaseView
+Main.java
+ Main
+view/ResultView.java
+ view.ResultView
 domain/Result.java
  domain.Result
 controller/LottoController.java

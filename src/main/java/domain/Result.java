@@ -12,7 +12,7 @@ public class Result {
     private final List<Integer> winningNums;
     private final int bonusBall;
     private final int quantity;
-    private Map<Rank, Integer> prizeList = new EnumMap<>(Rank.class);
+    private final Map<Rank, Integer> prizeList = new EnumMap<>(Rank.class);
 
     public Result(LottoRepository lottoRepository, List<Integer> winningNums, int bonusBall) {
         this.lottoRepository = lottoRepository;
@@ -35,7 +35,7 @@ public class Result {
 
     private void setPrizeList() {
         for (List<Integer> lotto : lottoRepository.getList()) {
-            Rank rank = Rank.valueOf(numberMatch(lotto), bonusMatch(lotto, bonusBall));
+            Rank rank = Rank.valueOf(bonusMatch(lotto, bonusBall), numberMatch(lotto));
             int size = prizeList.get(rank);
             prizeList.put(rank, size + 1);
         }
