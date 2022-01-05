@@ -10,7 +10,6 @@ public enum Rank {
     FIFTH(3, 5000),
     ZERO(-1, 0);
 
-
     private int countOfMatch;
     private int winningMoney;
 
