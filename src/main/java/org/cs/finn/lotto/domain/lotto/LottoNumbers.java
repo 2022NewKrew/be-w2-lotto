@@ -12,7 +12,7 @@ public class LottoNumbers {
     private final List<LottoNumber> list;
 
     public LottoNumbers(List<LottoNumber> list)
-            throws NullPointerException
+            throws IllegalArgumentException
     {
         this.list = Objects.requireNonNull(list);
         if (list.size() != SIZE) {
