@@ -9,6 +9,7 @@ import com.kakaocorp.lotto.model.LottoTicket;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class LottoPresenter {
 
@@ -37,8 +38,21 @@ public class LottoPresenter {
     }
 
     public void onPaymentInput(LottoContext context, int payment) {
-        List<LottoTicket> tickets = dispenser.purchase(payment);
         context.setPayment(payment);
+        view.showManualCountPrompt(context);
+    }
+
+    public void onManualCountInput(LottoContext context, int count) {
+        view.showManualTicketsPrompt(context, count);
+    }
+
+    public void onManualTicketsInput(LottoContext context, List<List<Integer>> numbersList) {
+        int payment = context.getPayment();
+        List<LottoTicket> manual = numbersList.stream()
+                .map(Set::copyOf)
+                .map(LottoTicket::new)
+                .collect(Collectors.toList());
+        List<LottoTicket> tickets = dispenser.purchase(payment, manual);
         context.setTickets(tickets);
 
         view.printTicketHeader(tickets.size());

@@ -5,7 +5,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.util.Random;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -13,20 +12,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LottoRecordTest {
 
-    private static final long RANDOM_SEED = 1234L;
-
     private LottoTicket ticket;
 
     @BeforeEach
     void setUp() {
-        Random random = new Random(RANDOM_SEED);
-        Rule rule = new Rule.Builder()
-                .minNumber(1)
-                .maxNumber(45)
-                .numberCount(6)
-                .random(random)
-                .build();
-        ticket = LottoTicket.from(rule);
+        ticket = new LottoTicket(Set.of(17, 18, 22, 30, 31, 41));
     }
 
     @ParameterizedTest

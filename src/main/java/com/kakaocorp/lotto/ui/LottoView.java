@@ -12,6 +12,8 @@ public abstract class LottoView {
     }
 
     public abstract void showPaymentPrompt(LottoContext context);
+    public abstract void showManualCountPrompt(LottoContext context);
+    public abstract void showManualTicketsPrompt(LottoContext context, int count);
     public abstract void printTicketHeader(int size);
     public abstract void printTicket(LottoTicket tickets);
     public abstract void showWinningNumbersPrompt(LottoContext context);

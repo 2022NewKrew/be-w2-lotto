@@ -29,9 +29,9 @@ class ProfitCalculatorTest {
     private static Stream<Arguments> provideCalculateParameters() {
         return Stream.of(
                 Arguments.of(1000, 5000, 5f),
-                Arguments.of(1000, 0, 0),
+                Arguments.of(1000, 0, -1.0f),
                 Arguments.of(23450, 4500000, 191.89766f),
-                Arguments.of(2000000, 55000, 0.0275f)
+                Arguments.of(100, 30, -0.7f)
         );
     }
 }
