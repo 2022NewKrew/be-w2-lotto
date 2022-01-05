@@ -12,18 +12,14 @@ public enum Prize {
     private final boolean matchingBonus;
     private final int prizeMoney;
 
-    Prize(int matchingNumber, int prizeMoney) {
-        this.matchingNumber = matchingNumber;
-        this.matchingBonus = false;
-        this.prizeMoney = prizeMoney;
-    }
-
     Prize(int matchingNumber, boolean matchingBonus, int prizeMoney) {
         this.matchingNumber = matchingNumber;
         this.matchingBonus = matchingBonus;
         this.prizeMoney = prizeMoney;
     }
-
+    Prize(int matchingNumber, int prizeMoney) {
+        this(matchingNumber,false,prizeMoney);
+    }
     public int getMatchingNumber() {
         return matchingNumber;
     }
