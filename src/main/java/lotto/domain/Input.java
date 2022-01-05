@@ -1,9 +1,6 @@
 package lotto.domain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public abstract class Input {
@@ -38,6 +35,10 @@ class MultipleInput extends Input {
         return Arrays.stream(numInput.replaceAll(" ","").split(","))
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
+    }
+
+    protected void validation(){
+        ValidInput.wrongLottoNumber(numList);
     }
 }
 
@@ -102,7 +103,10 @@ class WinningInput extends MultipleInput {
     WinningInput(){
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         numList = getIntegers();
+        Collections.sort(numList);
+        validation();
     }
+
     public List<Integer> getInput(){ return numList; }
 }
 
@@ -119,6 +123,8 @@ class ManualNumberInput extends MultipleInput{
     public void convertToList(){
         for(int i=0;i<numOfManual;i++){
             numList = getIntegers();
+            Collections.sort(numList);
+            validation();
             LottoNumber ln = new LottoNumber(numList);
             manualNumbers.add(ln);
         }
