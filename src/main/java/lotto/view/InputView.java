@@ -39,7 +39,7 @@ public class InputView {
     }
 
     private Set<Integer> getNumbers() {
-        Set<Integer> result = new TreeSet<>();
+        Set<Integer> result = new HashSet<>();
         try {
             String input;
             input = scanner.nextLine();
