@@ -1,5 +1,7 @@
 package domain;
 
+import enums.Prize;
+
 import java.util.EnumMap;
 import java.util.List;
 

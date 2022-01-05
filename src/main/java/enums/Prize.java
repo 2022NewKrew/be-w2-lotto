@@ -1,4 +1,4 @@
-package domain;
+package enums;
 
 public enum Prize {
     BLANK(0, 0),

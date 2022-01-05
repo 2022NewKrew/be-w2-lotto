@@ -1,7 +1,7 @@
 package view;
 
 import domain.Lotto;
-import domain.Prize;
+import enums.Prize;
 import messages.GameMessage;
 
 import java.util.EnumMap;

@@ -1,5 +1,6 @@
 package domain;
 
+import enums.Prize;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -43,7 +44,7 @@ class LottoResultTest {
         lottoResult_Answer.put(Prize.FIRST, 0);
 
         EnumMap<Prize, Integer> lottoResult = LottoResult.winningLottoCount(winningNumbers, lottoList);
-        
+
         lottoResult_Answer.forEach((key, value) -> {
             Assertions.assertEquals(lottoResult.get(key), value);
         });
