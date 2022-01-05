@@ -10,6 +10,7 @@ public class Lotto {
     private static final Random random = new Random();
     private final List<Integer> lotto;
 
+    //자동으로 구매할 때
     public Lotto() {
         this.lotto = random
                 .ints(LOTTO_START_NUM, LOTTO_END_NUM + 1)
@@ -19,6 +20,11 @@ public class Lotto {
                 .boxed()
                 .collect(Collectors.toList());
     }
+    //수동으로 구매할 때
+    public Lotto(List<Integer> manualNubmer){
+        this.lotto = manualNubmer;
+    }
+
 
     public List<Integer> getLotto() {
         return lotto;

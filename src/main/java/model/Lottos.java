@@ -10,13 +10,32 @@ import static CONST.Const.*;
 public class Lottos {
     private final List<Lotto> lottos;
 
-    public Lottos(int buyPrice) {
-        int numLotto = buyPrice / LOTTO_PRICE;
-        this.lottos = IntStream
-                .range(0, numLotto)
+    public Lottos(Lottos manualLottos, int buyPrice) {
+        int numManualLotto = manualLottos.getLottos().size();
+        int numAutoLotto = (buyPrice / LOTTO_PRICE) - manualLottos.size();
+        this.lottos = manualLottos.getLottos();
+        this.lottos.addAll(IntStream
+                .range(0, numAutoLotto)
                 .mapToObj(i -> new Lotto())
-                .collect(Collectors.toList());
-        System.out.println(numLotto + BUY_COUNT);
+                .collect(Collectors.toList()));
+
+        System.out.println(BUY_COUNT_PREFIX
+                + numManualLotto
+                + BUY_COUNT_INFIX
+                + numAutoLotto
+                + BUY_COUNT_POSTFIX);
+    }
+
+    private int size() {
+        return lottos.size();
+    }
+
+    public Lottos(List<Lotto> lottos) {
+        this.lottos = lottos;
+    }
+
+    public List<Lotto> getLottos() {
+        return lottos;
     }
 
     @Override
