@@ -6,8 +6,9 @@ public class OutputView {
 
     private OutputView() {}
 
-    public static void printLottos(int size, String stringLottos) {
-        System.out.println(size + "개를 구매했습니다.");
+    public static void printLottos(int manualPurchaseCount, int size, String stringLottos) {
+        int randomPurchaseCount = size - manualPurchaseCount;
+        System.out.printf("수동으로 %s장, 자동으로 %s개를 구매했습니다.%n", manualPurchaseCount, randomPurchaseCount);
         System.out.println(stringLottos);
     }
 
