@@ -1,7 +1,7 @@
 package com.upperleaf.view;
 
 import com.upperleaf.domain.LottoPaymentInfo;
-import com.upperleaf.domain.LottoWinningNumber;
+import com.upperleaf.domain.lotto.LottoWinningNumber;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +19,11 @@ public class LottoInput {
     public LottoPaymentInfo inputPaymentInfoByUser() {
         System.out.println("구입 금액을 입력해 주세요.");
         long paymentAmount = Long.parseLong(sc.nextLine());
-        return new LottoPaymentInfo(paymentAmount);
+
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        int manualNum = Integer.parseInt(sc.nextLine());
+
+        return new LottoPaymentInfo(paymentAmount, manualNum);
     }
 
     /**
@@ -29,7 +33,11 @@ public class LottoInput {
     public LottoWinningNumber inputWinningNumber() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         String winningNumbers = sc.nextLine();
-        return new LottoWinningNumber(splitAndConvertToInt(winningNumbers));
+
+        System.out.println("보너스 볼을 입력해 주세요.");
+        String winningBonusNumbers = sc.nextLine();
+
+        return new LottoWinningNumber(splitAndConvertToInt(winningNumbers), Integer.parseInt(winningBonusNumbers));
     }
 
     private List<Integer> splitAndConvertToInt(String numbers) {
