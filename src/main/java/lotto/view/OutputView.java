@@ -40,7 +40,8 @@ public class OutputView {
         printLottoResult(lottoResult, Reward.FIFTH);
         printLottoResult(lottoResult, Reward.FOURTH);
         printLottoResult(lottoResult, Reward.THIRD);
-        System.out.printf("5개 일치, 보너스 볼 일치(30000000원) - %d개%s", lottoResult.get(Reward.SECOND), NEW_LINE);
+        System.out.printf("5개 일치, 보너스 볼 일치(30000000원) - %d개%s", lottoResult.get(Reward.SECOND),
+            NEW_LINE);
         printLottoResult(lottoResult, Reward.FIRST);
     }
 

@@ -19,7 +19,7 @@ class LottosTest {
         // given
 
         // when
-        Lottos lottos = Lottos.valueOf(count);
+        Lottos lottos = Lottos.from(count);
 
         // then
         assertThat(lottos.getLottos()).hasSize(count);
@@ -39,7 +39,7 @@ class LottosTest {
         LottoResult lottoResult = lottos.matchCounts(winningLotto);
 
         // then
-        assertThat(item.getReward()).isEqualTo(item.getReward());
+        assertThat(lottoResult.get(item.getReward())).isEqualTo(item.getRewardCount());
     }
 
     private List<Lotto> getLottoList() {
@@ -59,7 +59,7 @@ class LottosTest {
             new Item(new Lotto(List.of(1, 2, 3, 4, 5, 7)), Reward.SECOND, 1),
             new Item(new Lotto(List.of(1, 2, 3, 4, 5, 16)), Reward.THIRD, 2),
             new Item(new Lotto(List.of(1, 2, 3, 4, 15, 16)), Reward.FOURTH, 3),
-            new Item(new Lotto(List.of(1, 2, 3, 14, 15, 16)), Reward.FIFTH, 2)
+            new Item(new Lotto(List.of(1, 2, 3, 14, 15, 16)), Reward.FIFTH, 3)
         );
     }
 

@@ -19,7 +19,7 @@ public class LottoController {
 
     public static LottoController valueOf(long money) {
         LottoMoney lottoMoney = new LottoMoney(money);
-        Lottos lottos = Lottos.valueOf(lottoMoney.purchase());
+        Lottos lottos = Lottos.from(lottoMoney.purchase());
         return new LottoController(lottos, lottoMoney);
     }
 
