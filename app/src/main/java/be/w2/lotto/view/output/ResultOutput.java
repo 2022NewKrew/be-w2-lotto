@@ -5,46 +5,33 @@ import be.w2.lotto.result.RewardForCorrect;
 
 import java.util.Map;
 
-final class ResultOutput {
+final class ResultOutput extends ClassOutput<Result> {
 
-    private ResultOutput() {
+    ResultOutput() {
     }
 
-    public static String getOutput(Result result, int investment) {
+    @Override
+    String getOutput(Result result) {
         StringBuilder sb = new StringBuilder();
         writeOpenWordTo(sb);
         writeResultTo(sb, result);
-        writeYieldTo(sb, result, investment);
         return sb.toString();
     }
 
-    private static void writeOpenWordTo(StringBuilder sb) {
+    private void writeOpenWordTo(StringBuilder sb) {
         sb.append("당첨 통계\n---------\n");
     }
 
-    private static void writeResultTo(StringBuilder sb, Result result) {
+    private void writeResultTo(StringBuilder sb, Result result) {
         Map<RewardForCorrect, Integer> winningStat = result.getStat();
         for (RewardForCorrect rewardForCorrect : winningStat.keySet()) {
             writeHowManyCorrectTo(sb, rewardForCorrect, winningStat.get(rewardForCorrect));
         }
     }
 
-    private static void writeHowManyCorrectTo(StringBuilder sb, RewardForCorrect rewardForCorrect, Integer howMany) {
-        sb.append(rewardForCorrect.getDescription())
-                .append("(")
-                .append(rewardForCorrect.getReward())
-                .append(")- ")
+    private void writeHowManyCorrectTo(StringBuilder sb, RewardForCorrect rewardForCorrect, Integer howMany) {
+        sb.append(new RewardForCorrectOutput().getOutput(rewardForCorrect))
                 .append(howMany)
                 .append("개\n");
-    }
-
-    private static void writeYieldTo(StringBuilder sb, Result result, int investment) {
-        sb.append("총 수익률은 ")
-                .append(calculateYield(result, investment))
-                .append("%입니다.");
-    }
-
-    private static int calculateYield(Result result, int investment) {
-        return ((result.getRevenue() - investment) / investment) * 100;
     }
 }
