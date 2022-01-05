@@ -1,6 +1,7 @@
 package view;
 
 import domain.Lotto;
+import domain.Rank;
 import domain.Result;
 import domain.Results;
 
@@ -40,7 +41,19 @@ public class ResultView {
         System.out.println("---------");
         List<Result> copiedResults = new ArrayList<>(results.getResults());
         Collections.reverse(copiedResults);
-        copiedResults.forEach(copiedResult -> System.out.println(copiedResult.toString()));
+        copiedResults.forEach(copiedResult -> System.out.println(resultToString(copiedResult)));
+    }
+
+    private static String resultToString(Result result){
+        Rank rank = result.getRank();
+        int count = result.getCount();
+
+        String resultString = "" + rank.getCountOfMatch() + "개 일치";
+        if (rank == Rank.SECOND) {
+            resultString += ",보너스 볼 일치";
+        }
+        resultString += "(" + rank.getWinningMoney() + "원) - " + count + "개";
+        return resultString;
     }
 
 
