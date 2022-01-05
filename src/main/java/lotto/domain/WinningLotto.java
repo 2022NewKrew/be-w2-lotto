@@ -10,34 +10,17 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class LottoChecker {
-    private List<Integer> winningNumbers;
+public class WinningLotto extends Lotto {
     private int bonusNumber;
 
-    public static LottoChecker getInstance() {
-        return LazyHolder.lottoChecker;
-    }
-
-    private static class LazyHolder {
-        private static final LottoChecker lottoChecker = new LottoChecker();
-    }
-
-    public void init(List<Integer> winningNumbers, int bonusNumber) {
-        winningNumbers.forEach(this::verifyBounds);
+    public WinningLotto(List<Integer> winningNumbers, int bonusNumber) throws IllegalArgumentException {
+        super(winningNumbers);
         verifyBounds(bonusNumber);
         verifyDuplication(winningNumbers, bonusNumber);
-
-        this.winningNumbers = winningNumbers;
         this.bonusNumber = bonusNumber;
     }
 
-    private void verifyBounds(int value) {
-        if (1 > value || value > 45) {
-            throw new IllegalArgumentException(LottoMessage.NUMBER_OUT_OF_BOUND_ERROR.toString());
-        }
-    }
-
-    private void verifyDuplication(List<Integer> numbers, int bonusNumber) {
+    private void verifyDuplication(List<Integer> numbers, int bonusNumber) throws IllegalArgumentException {
         Set<Integer> numberSet = new HashSet<>(numbers);
         if (numbers.size() != numberSet.size() || numberSet.contains(bonusNumber)) {
             throw new IllegalArgumentException(LottoMessage.NUMBER_DUPLECATED_ERROR.toString());
@@ -55,9 +38,8 @@ public class LottoChecker {
     private Rank checkLotto(Lotto lotto) {
         List<Integer> numbers = lotto.getNumbers();
         boolean bonus = numbers.contains(bonusNumber);
-        numbers.retainAll(winningNumbers);
+        numbers.retainAll(this.getNumbers());
         int numberOfMatches = numbers.size();
         return Rank.of(numberOfMatches, bonus);
     }
-
 }

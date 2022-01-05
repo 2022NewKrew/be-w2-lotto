@@ -1,6 +1,6 @@
 package lotto.manager;
 
-import lotto.domain.LottoChecker;
+import lotto.domain.WinningLotto;
 import lotto.domain.constant.LottoMessage;
 import lotto.domain.model.Lotto;
 import lotto.domain.model.LottoResult;
@@ -16,7 +16,7 @@ public class LottoManager {
     private CustomScanner customScanner;
     private LottoCliView lottoCliView;
 
-    private LottoChecker lottoChecker;
+    private WinningLotto winningLotto;
 
     private List<Lotto> lottoList;
     private LottoResult lottoResult;
@@ -28,7 +28,6 @@ public class LottoManager {
     private LottoManager() {
         customScanner = new CustomScanner();
         lottoCliView = LottoCliView.getInstance();
-        lottoChecker = LottoChecker.getInstance();
         lottoList = new ArrayList<>();
     }
 
@@ -57,16 +56,26 @@ public class LottoManager {
         }
     }
 
-    private void purchasedManualLotto() {
-        lottoCliView.printMessage(LottoMessage.INPUT_WINNING_NUMBERS.toString());
+    private void manualPurchaseAllLotto() {
+        lottoCliView.printMessage(LottoMessage.INPUT_MANUAL_NUMBERS.toString());
         for (int i = 0; i < manualAmount && remainingMoney / 1000 > 0; i++) {
-            List<Integer> numbers = customScanner.readCommaSeparatedInt();
-            lottoList.add(new Lotto(numbers));
-            remainingMoney -= 1000;
+            manualPurchaseLotto();
+
         }
     }
 
-    private void purchasedAutomaticLotto() {
+    private void manualPurchaseLotto() {
+        List<Integer> numbers = customScanner.readCommaSeparatedInt();
+        try {
+            lottoList.add(new Lotto(numbers));
+            remainingMoney -= 1000;
+        } catch (IllegalArgumentException e) {
+            lottoCliView.printMessage(e.getMessage());
+            manualPurchaseLotto();
+        }
+    }
+
+    private void purchaseAutomaticLotto() {
         while (remainingMoney / 1000 > 0) {
             lottoList.add(new Lotto());
             remainingMoney -= 1000;
@@ -89,7 +98,7 @@ public class LottoManager {
             List<Integer> numbers = customScanner.readCommaSeparatedInt();
             lottoCliView.printMessage(LottoMessage.INPUT_BONUS_NUMBER.toString());
             int bonusNumber = customScanner.readInt();
-            lottoChecker.init(numbers, bonusNumber);
+            winningLotto = new WinningLotto(numbers, bonusNumber);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             initializeLottoChecker();
@@ -99,11 +108,11 @@ public class LottoManager {
     public void run() {
         getMoney();
         getManualAmount();
-        purchasedManualLotto();
-        purchasedAutomaticLotto();
+        manualPurchaseAllLotto();
+        purchaseAutomaticLotto();
         showPurchasedResults();
         initializeLottoChecker();
-        lottoResult = lottoChecker.checkAll(lottoList);
+        lottoResult = winningLotto.checkAll(lottoList);
         lottoCliView.printLottoResult(lottoResult);
         lottoCliView.printEarningsRate(lottoResult.getEarningsRate(money));
     }
