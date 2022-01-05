@@ -8,8 +8,9 @@ import java.util.List;
 
 public class LottoGameOutput {
 
-    public static void printLottoNumbers(int numberOfLotto, PlayerLottoList playerLottoList) {
-        System.out.println(numberOfLotto + "개를 구매했습니다.");
+    public static void printLottoNumbers(int numberOfManualLotto, int numberOfAutoLotto, PlayerLottoList playerLottoList) {
+        System.out.print("수동으로 " + numberOfManualLotto + "장,");
+        System.out.println("자동으로 " + numberOfAutoLotto + "장을 구매했습니다.");
         playerLottoList.getPlayerLottoList().forEach(lotto -> System.out.println(lotto.getNumbers()));
     }
 
@@ -28,6 +29,10 @@ public class LottoGameOutput {
         sb.append(" (").append(lottoResult.rank.getReward()).append("원)- ")
                 .append(lottoResult.numberOfWinningLotteryPaper).append("개");
         System.out.println(sb);
+    }
+
+    public static void printInputManualLottoComment(){
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
     }
 }
 
