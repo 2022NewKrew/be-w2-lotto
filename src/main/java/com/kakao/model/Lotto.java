@@ -62,10 +62,18 @@ public class Lotto {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> edb2074 (1일차 중간 PR)
 =======
 >>>>>>> 4f43f8b (1차 Commit)
+=======
+    // 보너스볼 여부 확인
+    public boolean matchBonusBall(Integer bonusBall) {
+        return pickedNumbersOfLotto.contains(bonusBall);
+    }
+
+>>>>>>> d64e878 (- bonusBall 관련 로직 추가처리 (출력 분기 / getter,setter))
     private final String TO_STRING_OPENER = "[";
     private final String TO_STRING_CLOSER = "]";
     private final String TO_STRING_SEPARATOR = ",";

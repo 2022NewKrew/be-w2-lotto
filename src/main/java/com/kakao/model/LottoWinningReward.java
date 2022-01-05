@@ -36,4 +36,5 @@ public class LottoWinningReward {
     public int getRewardPrice() {
         return rewardPrice;
     }
+    public boolean getUseBaseBall() { return this.useBonusBall; }
 }

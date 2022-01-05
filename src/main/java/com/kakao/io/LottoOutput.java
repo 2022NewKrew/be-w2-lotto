@@ -132,7 +132,12 @@ class LottoOutput {
         int rewardPrice = winningReward.getRewardPrice();
         int count = countOfWinningLottos.get(countOfMatchNumber);
 
-        return String.format(LottoOutputData.RESULT_FORMAT_OF_WINNING_MATCH, countOfMatchNumber, rewardPrice, count);
+        String resultFormat = LottoOutputData.RESULT_FORMAT_OF_WINNING_MATCH;
+        if(winningReward.getUseBaseBall()){
+            resultFormat = LottoOutputData.RESULT_FORMAT_OF_WINNING_MATCH_WITH_BONUS_BALL;
+        }
+
+        return String.format(resultFormat, countOfMatchNumber, rewardPrice, count);
     }
 
     // 이득 비율 출력

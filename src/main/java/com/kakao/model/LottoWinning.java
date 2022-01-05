@@ -86,6 +86,9 @@ public class LottoWinning {
         }
         this.bonusBall = bonusBall;
     }
+    public Integer getBonusBall(){
+        return this.bonusBall;
+    }
 
     // 번호 보유 여부 확인
     public boolean hasNumber(int number) {
