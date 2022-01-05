@@ -11,12 +11,14 @@ public class LottoInput {
 
     public static void getBuyLottoPrize(){
         System.out.println("구입 금액을 입력해 주세요.");
-        sc.nextInt();
+        int prize = sc.nextInt();
+
     }
 
     public static void getLastPrizeNum(){
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        sc.next();
+        String lastNumbersString = sc.next();
+
 
     }
     private List<Integer> parseLottoNumbers(String numberString){
