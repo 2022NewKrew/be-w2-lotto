@@ -2,12 +2,10 @@ package lotto;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class LottoMachineTest {
 
@@ -15,7 +13,7 @@ class LottoMachineTest {
     void buyLotto() {
         LottoMachine lottoMachine = new LottoMachine();
         lottoMachine.buyLotto(14000);
-        assertThat(lottoMachine.getLottos().size()).isEqualTo(14);
+        assertThat(lottoMachine.getAutomaticLottos().size()).isEqualTo(14);
     }
 
     @Test

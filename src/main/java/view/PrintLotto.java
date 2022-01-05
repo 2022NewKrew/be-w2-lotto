@@ -15,9 +15,12 @@ public class PrintLotto {
 
     public static void start() {
         int money = getMoney();
+        int manualCount = getManualCount();
+        List<Lotto> manualLottos = getManualLottos(manualCount);
         LottoMachine lottoMachine = new LottoMachine();
-        lottoMachine.buyLotto(money);
-        printLottos(lottoMachine.getLottos());
+        lottoMachine.addManualLottos(manualLottos);
+        lottoMachine.buyLotto(money - manualCount*1000);
+        printLottos(lottoMachine.getManualLottos(), lottoMachine.getAutomaticLottos());
         WinningLotto winLotto = getWinLotto();
         List<Integer> result = lottoMachine.getLottoMatchResults(winLotto);
         printLottoResult(money, result);
@@ -29,9 +32,28 @@ public class PrintLotto {
         return in.nextInt();
     }
 
-    private static void printLottos(List<Lotto> lottos) {
-        System.out.println(lottos.size() + "개를 구매했습니다.");
-        for(Lotto lotto: lottos) {
+    private static int getManualCount() {
+        Scanner in = new Scanner(System.in).useDelimiter("\n");
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        return in.nextInt();
+    }
+
+    private static List<Lotto> getManualLottos(int manualCount) {
+        Scanner in = new Scanner(System.in).useDelimiter("\n");
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        List<Lotto> manualLottos = new ArrayList<>();
+        for (int i = 0; i < manualCount; i++) {
+            manualLottos.add(new Lotto(splitNumbers(in.next())));
+        }
+        return manualLottos;
+    }
+
+    private static void printLottos(List<Lotto> manualLottos, List<Lotto> automaticLottos) {
+        System.out.println("수동으로 " + manualLottos.size() + "장, 자동으로 " + automaticLottos.size() + "장을 구매했습니다.");
+        for(Lotto lotto: manualLottos) {
+            System.out.println(lotto.getLottoNumbers().stream().map(x -> x.ordinal() + 1).collect(Collectors.toList()));
+        }
+        for(Lotto lotto: automaticLottos) {
             System.out.println(lotto.getLottoNumbers().stream().map(x -> x.ordinal() + 1).collect(Collectors.toList()));
         }
     }
@@ -61,7 +83,7 @@ public class PrintLotto {
         System.out.println("총 수익률은 " + calcProfit(matchCounts) * 100 / money + "%입니다.");
     }
 
-    private static int calcProfit(List<Integer> matchCounts) {
+    private static long calcProfit(List<Integer> matchCounts) {
         return matchCounts.get(4) * 5000
                 + matchCounts.get(3) * 50000
                 + matchCounts.get(2) * 1500000
