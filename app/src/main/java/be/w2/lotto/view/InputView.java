@@ -17,10 +17,6 @@ public class InputView {
         return scanner.nextLine();
     }
 
-    public static void emptyBuffer() {
-        scanner.nextLine();
-    }
-
     public static int inputBonusNumbers() {
         System.out.println("보너스 볼을 입력해 주세요.");
         return scanner.nextInt();
@@ -33,9 +29,11 @@ public class InputView {
 
     public static List<String> inputManualLottoNumbers(int manualLottoAmount) {
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        scanner.nextLine();
         List<String> manualLottoNumbers = new ArrayList<>();
         for(int i = 0; i < manualLottoAmount; i++) {
-            manualLottoNumbers.add(scanner.nextLine());
+            String numbers = scanner.nextLine();
+            manualLottoNumbers.add(numbers);
         }
         return manualLottoNumbers;
     }

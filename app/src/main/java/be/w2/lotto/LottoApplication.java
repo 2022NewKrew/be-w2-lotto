@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static be.w2.lotto.common.util.Parser.parseInputNumbers;
-import static be.w2.lotto.view.ErrorView.throwErrorMessage;
+import static be.w2.lotto.view.ErrorView.errorMessage;
 import static be.w2.lotto.view.InputView.*;
 import static be.w2.lotto.view.OutputView.*;
 
@@ -31,7 +31,6 @@ public class LottoApplication {
 
         outputLottoAmounts(lottoTicketsDto.getLottoTicketAmount());
         outputLottoTickets(lottoTicketsDto.lottoTickets);
-        emptyBuffer();
 
         WinningLottoTicket winningLottoTicket = inputWinningNumbers();
         BonusNumber bonusNumber = inputBonusNumber(winningLottoTicket);
@@ -51,8 +50,8 @@ public class LottoApplication {
                         .collect(Collectors.toList());
                 LottoTickets lottoTickets = LottoTickets.valueOf(purchaseAmount, manualLottoNumbers);
                 return InputPurchaseAmountDto.of(lottoTickets, purchaseAmount);
-            } catch (IllegalArgumentException e) {
-                throwErrorMessage(e);
+            } catch (Exception e) {
+                errorMessage(e);
             }
         }
     }
@@ -61,8 +60,8 @@ public class LottoApplication {
             try {
                 String winningNumbers = InputView.inputWinningNumbers();
                 return WinningLottoTicket.valueOf(parseInputNumbers(winningNumbers));
-            } catch (IllegalArgumentException e) {
-                throwErrorMessage(e);
+            } catch (Exception e) {
+                errorMessage(e);
             }
         }
     }
@@ -72,8 +71,8 @@ public class LottoApplication {
             try {
                 int bonusNumber = inputBonusNumbers();
                 return BonusNumber.valueOf(bonusNumber, winningLottoTicket);
-            } catch (IllegalArgumentException e) {
-                throwErrorMessage(e);
+            } catch (Exception e) {
+                errorMessage(e);
             }
         }
     }
