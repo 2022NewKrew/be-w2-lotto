@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import lotto.domain.userinput.WinningLottoInput;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -22,12 +23,12 @@ class LottoResultTest {
     @Test
     void 결과는_5등_3개() {
         //given
-        WinningLotto winningLotto = new WinningLotto(List.of(1, 2, 3, 11, 12, 13), 10);
+        WinningLottoInput winningLottoInput = new WinningLottoInput(new Lotto(List.of(1, 2, 3, 11, 12, 13)), 10);
         int expectedFifthCount = 3;
         int expectedProfit = Rank.FIFTH.getWinningMoney() * expectedFifthCount;
 
         //when
-        LottoResult lottoResult = new LottoResult(lottoList, winningLotto);
+        LottoResult lottoResult = new LottoResult(lottoList, winningLottoInput);
 
         //then
         assertEquals(expectedFifthCount, lottoResult.getCountOfRank(Rank.FIFTH));
@@ -37,12 +38,12 @@ class LottoResultTest {
     @Test
     void 결과는_2등_3등_5등_1개씩() {
         //given
-        WinningLotto winningLotto = new WinningLotto(List.of(1, 2, 3, 7, 8, 10), 9);
+        WinningLottoInput winningLottoInput = new WinningLottoInput(new Lotto(List.of(1, 2, 3, 7, 8, 10)), 9);
         int expectedCount = 1;
         int expectedProfit = Rank.SECOND.getWinningMoney() + Rank.THIRD.getWinningMoney() + Rank.FIFTH.getWinningMoney();
 
         //when
-        LottoResult lottoResult = new LottoResult(lottoList, winningLotto);
+        LottoResult lottoResult = new LottoResult(lottoList, winningLottoInput);
 
         //then
         assertEquals(expectedCount, lottoResult.getCountOfRank(Rank.SECOND));

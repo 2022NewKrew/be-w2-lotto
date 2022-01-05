@@ -1,8 +1,9 @@
 package lotto.domain.generator;
 
-import lotto.domain.LottoInfo;
+import lotto.domain.Lotto;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,26 +12,29 @@ class LottoGeneratorTest {
     @Test
     void 로또_자동_생성() {
         //given
-        LottoGenerator lottoGenerator = new AutoLotto();
+        int countOfAutoLotto = 3;
+        LottoGenerator lottoGenerator = new AutoLotto(countOfAutoLotto);
 
         //when
-        List<Integer> lottoNums = lottoGenerator.generateNumbers(null);
+        List<Lotto> lottoList = lottoGenerator.generateTickets();
 
         //then
-        assertEquals(LottoInfo.COUNT_OF_NUMBER.getValue(), lottoNums.size());
-        lottoNums.forEach(num -> assertTrue(num >= LottoInfo.MIN_NUMBER.getValue() && num <= LottoInfo.MAX_NUMBER.getValue()));
+        assertEquals(countOfAutoLotto, lottoList.size());
     }
 
     @Test
     void 로또_수동_생성() {
         //given
-        LottoGenerator lottoGenerator = new ManualLotto();
-        List<Integer> inputNums = List.of(1, 2, 3, 4, 5, 6);
+        List<Lotto> lottoInputList = new ArrayList<>();
+        lottoInputList.add(new Lotto(List.of(1, 2, 3, 4, 5, 6)));
+        lottoInputList.add(new Lotto(List.of(1, 2, 3, 4, 5, 7)));
+
+        LottoGenerator lottoGenerator = new ManualLotto(lottoInputList);
 
         //when
-        List<Integer> lottoNums = lottoGenerator.generateNumbers(inputNums);
+        List<Lotto> lottoList = lottoGenerator.generateTickets();
 
         //then
-        assertArrayEquals(inputNums.toArray(), lottoNums.toArray());
+        assertArrayEquals(lottoInputList.toArray(), lottoList.toArray());
     }
 }

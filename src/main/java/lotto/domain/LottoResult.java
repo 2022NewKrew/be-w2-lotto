@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import lotto.domain.userinput.WinningLottoInput;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,15 +13,15 @@ public class LottoResult {
     private final Map<Rank, Integer> countOfRank;
     private final int lottoProfit;
 
-    public LottoResult(List<Lotto> lottoList, WinningLotto winningLotto) {
+    public LottoResult(List<Lotto> lottoList, WinningLottoInput winningLottoInput) {
         countOfRank = new HashMap<>();
-        initCountOfRank(lottoList, winningLotto);
+        initCountOfRank(lottoList, winningLottoInput);
         lottoProfit = calculateProfit();
     }
 
-    private void initCountOfRank(List<Lotto> lottoList, WinningLotto winningLotto) {
+    private void initCountOfRank(List<Lotto> lottoList, WinningLottoInput winningLottoInput) {
         lottoList.forEach(lotto -> {
-            LottoMatchResult lottoMatchResult = lotto.countMatchedNumber(winningLotto);
+            LottoMatchResult lottoMatchResult = lotto.countMatchedNumber(winningLottoInput);
             plusCountOfRank(lottoMatchResult);
         });
     }
