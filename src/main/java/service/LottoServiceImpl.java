@@ -30,6 +30,8 @@ public class LottoServiceImpl implements LottoService {
 
         lottoStatistic = new LottoStatistic(purchaseCount, normalLottoCount, autoLottoCount);
 
+        createLottoStatic();
+
         List<Lotto> normalLottos = inputNormalLottoList(normalLottoCount);
 
         List<Lotto> autoLottoList = createAutoLottoList(autoLottoCount);
@@ -37,7 +39,6 @@ public class LottoServiceImpl implements LottoService {
         lottoStatistic.addLottos(normalLottos);
         lottoStatistic.addLottos(autoLottoList);
 
-//        lottoRepository.save(lottos); // inMemory database save
         printLottoList();
 
         List<Integer> winningNumbers = inputWinningNumbers();
@@ -46,6 +47,9 @@ public class LottoServiceImpl implements LottoService {
         lottoStatistic.updateLottoStatus(winningNumbers, winningBonusNumber);
         printLottoStatic();
 
+    }
+
+    private void createLottoStatic() {
     }
 
     private void printLottoStatic() {

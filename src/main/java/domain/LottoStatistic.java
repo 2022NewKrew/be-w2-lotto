@@ -21,9 +21,7 @@ public class LottoStatistic {
     private int purchaseCount = 0;
     private int normalLottoCount = 0;
     private int autoLottoCount = 0;
-
     private int winningBonusNumber = 0;
-
 
     private List<Lotto> normalLottos;
     private List<Lotto> autoLottos;
