@@ -6,7 +6,7 @@ import domain.lotto.WinningLotto;
 
 import java.util.Scanner;
 
-import static util.LottoConst.LOTTO_NUMBERS;
+import static util.LottoConst.*;
 
 public class LottoInputService {
 
@@ -38,7 +38,10 @@ public class LottoInputService {
 
     private void validateBonusLottoNumber(int bonusNumber) {
         if (!LOTTO_NUMBERS.contains(bonusNumber)) {
-            throw new IllegalArgumentException("[에러] 보너스 번호는 1 ~ 45 사이의 숫자를 입력해야 합니다.");
+            throw new IllegalArgumentException(
+                    String.format("[에러] 보너스 번호는 %s ~ %s 사이의 숫자를 입력해야 합니다.",
+                            MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER)
+            );
         }
     }
 
