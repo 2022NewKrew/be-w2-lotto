@@ -47,7 +47,7 @@ public class LottoServiceImpl implements LottoService {
     private void createLottoStatic() {
 
         purchasePrice = inputPurchasePrice();
-        purchaseCount = calculateLottoCount(purchasePrice);
+        purchaseCount = calculateLottoCount();
         normalLottoCount = inputNormalPurchaseCount();
         autoLottoCount = purchaseCount - normalLottoCount;
 
@@ -73,7 +73,6 @@ public class LottoServiceImpl implements LottoService {
     }
 
     private List<Lotto> inputNormalLottoList(int normalLottoCount) {
-
         List<Lotto> lottos = new ArrayList<>();
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
 
@@ -108,8 +107,8 @@ public class LottoServiceImpl implements LottoService {
     }
 
     private List<Integer> inputWinningNumbers() {
-
         List<Integer> result = new ArrayList<>();
+
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("지난 주 당첨 번호를 입력해 주세요.");
@@ -142,7 +141,7 @@ public class LottoServiceImpl implements LottoService {
         return result;
     }
 
-    private int calculateLottoCount(int purchasePrice) {
+    private int calculateLottoCount() {
         if (purchasePrice == 0) {
             throw new IllegalArgumentException("0원 입니다.");
         }
@@ -170,10 +169,10 @@ public class LottoServiceImpl implements LottoService {
         return result;
     }
 
-    private List<Lotto> createAutoLottoList(int purchaseCount) {
+    private List<Lotto> createAutoLottoList(int count) {
         List<Lotto> lottos = new ArrayList<>();
 
-        for (int count = 0; count < purchaseCount; count++) {
+        for (int i = 0; i < count; i++) {
             LottoAuto lottoAuto = new LottoAuto();
             lottoAuto.createRandomNumber();
             lottos.add(lottoAuto);
