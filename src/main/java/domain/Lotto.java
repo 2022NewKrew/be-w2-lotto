@@ -1,10 +1,16 @@
 package domain;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
     private final List<Integer> numbers;
+
+    @Override
+    public String toString() {
+        return Arrays.toString(numbers.toArray());
+    }
 
     Lotto(List<Integer> numbers) {
         if (numbers == null)
