@@ -180,5 +180,4 @@ public class LottoServiceImpl implements LottoService {
 
         return lottos;
     }
-
 }

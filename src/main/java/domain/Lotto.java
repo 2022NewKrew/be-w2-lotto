@@ -5,6 +5,7 @@ import common.LottoWinningStatus;
 import java.util.List;
 
 public class Lotto {
+
     protected static final int LOTTO_END_NUMBER = 45;
     protected static final int LOTTO_START_NUMBER = 1;
 
@@ -29,6 +30,16 @@ public class Lotto {
 
     public LottoWinningStatus getStatus() {
         return status;
+    }
+
+    public void updateStatus(List<Integer> winningNumbers, int winningBonusNumber) {
+        this.status = getWinningStatus(getCountWinning(winningNumbers), hasBonusNumber(winningBonusNumber));
+    }
+
+    protected void validationOfkNumbers() {
+
+        hasSixSizeOfNumbers();
+        hasValidNumbers();
     }
 
     private LottoWinningStatus getWinningStatus(int count, boolean bonusCheck) {
@@ -57,12 +68,6 @@ public class Lotto {
 
     }
 
-    protected void validationOfkNumbers() {
-
-        hasSixSizeOfNumbers();
-        hasValidNumbers();
-    }
-
     private void hasSixSizeOfNumbers() {
         if(numbers.size() != 6) throw new IllegalArgumentException("6자리 숫자가 아닙니다.");
     }
@@ -75,7 +80,7 @@ public class Lotto {
         }
     }
 
-    private int getCountWinning(List<Integer> winningNumbers, int winningBonusNumber) {
+    private int getCountWinning(List<Integer> winningNumbers) {
         int count = 0;
 
         for (int number : this.getNumbers()) {
@@ -88,10 +93,6 @@ public class Lotto {
 
     private boolean hasBonusNumber(int winningBonusNumber) {
         return this.getNumbers().contains(winningBonusNumber);
-    }
-
-    public void updateStatus(List<Integer> winningNumbers, int winningBonusNumber) {
-        this.status = getWinningStatus(getCountWinning(winningNumbers, winningBonusNumber), hasBonusNumber(winningBonusNumber));
     }
 
 }

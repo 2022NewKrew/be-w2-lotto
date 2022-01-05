@@ -146,7 +146,6 @@ public class LottoStatistic {
         }
     }
 
-
     private int getAllWinningAmount() {
         int amount = 0;
 
