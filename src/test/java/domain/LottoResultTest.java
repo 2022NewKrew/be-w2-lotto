@@ -2,6 +2,7 @@ package domain;
 
 import domain.lottonumber.BasicNumber;
 import domain.lottonumber.BonusNumber;
+import dto.LottoMatchResultDto;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

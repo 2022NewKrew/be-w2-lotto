@@ -3,7 +3,10 @@ import domain.lottonumber.BasicNumber;
 import domain.lottonumber.BonusNumber;
 import domain.lottonumber.LottoNumber;
 import domain.LottoShop;
+import dto.LottoDto;
+import dto.LottoResultsDto;
 import service.LottoGenerator;
+import view.LottoPrinter;
 
 import java.util.List;
 import java.util.Scanner;
@@ -14,13 +17,14 @@ public class LottoApp {
 
     private static final Scanner sc = new Scanner(System.in);
     private static final LottoShop lottoShop = new LottoShop(new LottoGenerator());
+    private static final LottoPrinter lottoPrinter = new LottoPrinter();
 
     public static void main(String[] args) {
         Lotto lotto = lottoShop.sell(inputMoney());
-        lotto.print();
+        lottoPrinter.printLotto(lotto.getLottoTicketsView());
         lotto.checkLottoResult(inputWinningNumbers());
-        printLottoResult(lotto);
-
+        lottoPrinter.printLottoResults(new LottoResultsDto(lotto.getResult()));
+        lottoPrinter.printYield(new LottoDto(lotto));
     }
 
     private static int inputMoney() {
@@ -47,9 +51,4 @@ public class LottoApp {
         return new BonusNumber(Integer.parseInt(sc.nextLine()));
     }
 
-    private static void printLottoResult(Lotto lotto) {
-        System.out.println("당첨 통계");
-        System.out.println("---------");
-        lotto.printResult();
-    }
 }
