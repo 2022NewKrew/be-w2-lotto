@@ -18,12 +18,12 @@ public class LottoView {
         }
     }
 
-    public static List<Long> inputLastWeekLottoNumbers(InputStream inputStream) {
+    public static List<Integer> inputLastWeekLottoNumbers(InputStream inputStream) {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        List<Long> lastWeekLottoNumbers = new ArrayList<>();
+        List<Integer> lastWeekLottoNumbers = new ArrayList<>();
         Scanner scanner = new Scanner(inputStream);
         for (int i = 0; i < LottoDto.NUMBERS_SIZE; i++) {
-            lastWeekLottoNumbers.add(Long.parseLong(scanner.next().replace(",","").strip()));
+            lastWeekLottoNumbers.add(Integer.parseInt(scanner.next().replace(",","").strip()));
         }
         lastWeekLottoNumbers.sort(Comparator.naturalOrder());
         return lastWeekLottoNumbers;
@@ -46,7 +46,7 @@ public class LottoView {
             long count = Collections.frequency(lottoResults, lottoResult);
             totalProfit += count * reward;
             System.out.printf("%d개 일치 ", hit);
-            if (lottoResult.isCheckBonusBall()) System.out.printf("보너스 볼 일치");
+            if (lottoResult.isCheckBonusBall()) System.out.print("보너스 볼 일치");
             System.out.printf("(%d원)- %d개\n", reward, count);
         }
         long totalLoss = (long)LottoDto.LOTTO_PRICE * lottoResults.size();

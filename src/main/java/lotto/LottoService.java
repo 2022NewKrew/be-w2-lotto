@@ -3,7 +3,7 @@ package lotto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LottoSevice {
+public class LottoService {
 
     public List<Lotto> purchaseLottos(int count){
         List<Lotto> lottos = new ArrayList<>();

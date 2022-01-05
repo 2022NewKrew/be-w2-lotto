@@ -2,6 +2,6 @@ package lotto;
 
 public class LottoMain {
     public static void main(String[] args){
-        LottoApplicatiion.run();
+        LottoApplication.run();
     }
 }
