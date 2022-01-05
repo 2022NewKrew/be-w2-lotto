@@ -5,5 +5,5 @@ import step2.domain.LottoSheetWithId;
 
 public interface LottoSheetIssuer<T extends LottoSheetWithId> {
     int PRICE = 1000;
-    T issueLottoSheet(LottoConfig lottoConfig);
+    <M extends LottoConfig> T issueLottoSheet(M lottoConfig);
 }
