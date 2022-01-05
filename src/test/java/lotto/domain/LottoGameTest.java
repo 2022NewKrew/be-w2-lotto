@@ -27,12 +27,16 @@ class LottoGameTest {
 
     @DisplayName("로또 게임 실행 테스트 - readPurchaseAmountForLotto verify 진행")
     @Test
-    void run() {
+    void run_mannualLottoNumberTextsAndWinningNumbers_verifyReadPurchaseAmountForLotto() {
         // Given
-        Mockito.when(view.readPurchaseAmountForLotto()).thenReturn(14000);
+        Mockito.when(view.readPurchaseAmountForLotto()).thenReturn(2000);
+        Mockito.when(view.readManualPurchaseCountForLotto()).thenReturn(1);
 
-        LottoTicket lottoTicket = new LottoTicket(14000);
-        Mockito.doNothing().when(view).printLottoCount(lottoTicket.getLottoCount());
+        List<String> manualLottoNumberTexts = new ArrayList<>();
+        manualLottoNumberTexts.add("1, 2, 3, 4, 5, 6");
+
+        LottoTicket lottoTicket = new LottoTicket(2000, manualLottoNumberTexts);
+        Mockito.doNothing().when(view).printLottoCount(lottoTicket.getManualLottoCount(), lottoTicket.getAutomaticLottoCount());
         Mockito.doNothing().when(view).printLotto(lottoTicket.getLottoList());
 
         List<Integer> winningNumbers = new ArrayList<>();
