@@ -1,23 +1,25 @@
 package domain;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class RandomLottoNumberGenerator {
     private static final Integer LOTTO_NUMBER_SIZE = 6;
-    private static final Integer MIN_NUMBER = 1;
-    private static final Integer MAX_NUMBER = 45;
+    private static final Integer MIN_NUMBER_RANGE= 1;
+    private static final Integer MAX_NUMBER_RANGE = 46;
 
-    public static List<Integer> generate() {
-        Set<Integer> numbers = new TreeSet<>(); // 정렬하려고 TreeSet 사용했습니다.
+    public static LottoNumbers generate() {
+        List<Integer> lottoNumberList = IntStream.range(MIN_NUMBER_RANGE, MAX_NUMBER_RANGE)
+                .boxed()
+                .collect(Collectors.toList());
 
-        while (numbers.size() < LOTTO_NUMBER_SIZE) {
-            numbers.add(generateRandomNumber());
-        }
+        Collections.shuffle(lottoNumberList);
 
-        return List.copyOf(numbers);
-    }
-
-    private static Integer generateRandomNumber() {
-        return (int) (Math.random() * MAX_NUMBER + MIN_NUMBER);
+        return new LottoNumbers(
+                lottoNumberList.stream()
+                .limit(LOTTO_NUMBER_SIZE)
+                .map(LottoNumber::of)
+                .collect(Collectors.toUnmodifiableList()));
     }
 }
