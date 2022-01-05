@@ -16,21 +16,23 @@ public class GameInput {
         try {
             System.out.println("구입금액을 입력해 주세요. (로또는 1장에 1000원 입니다.)");
             int money = Integer.parseInt(sc.nextLine());
-            checkGameInput.checkMoney(money);
+            checkGameInput.checkNegativeNumber(money);
             return money;
         } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
             return inputMoney();
         }
     }
 
     public WinningLotto inputWinningLotto() {
         try {
-            System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
+            System.out.println("지난 주 당첨 번호를 입력해 주세요.");
             String[] input = sc.nextLine().split(",");
             List<Integer> winningLotto = checkGameInput.checkLottoInput(input);
             int bonusNumber = inputBonusNumber(winningLotto);
             return new WinningLotto(winningLotto, bonusNumber);
         } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
             return inputWinningLotto();
         }
     }
@@ -43,6 +45,7 @@ public class GameInput {
             checkGameInput.checkBonusNumber(winningLotto, bonusNumber);
             return bonusNumber;
         } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
             return inputBonusNumber(winningLotto);
         }
     }
@@ -54,6 +57,7 @@ public class GameInput {
             checkGameInput.checkLottoCount(totalLottoCount, customLottoCount);
             return customLottoCount;
         } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
             return inputCustomLottoCount(totalLottoCount);
         }
     }

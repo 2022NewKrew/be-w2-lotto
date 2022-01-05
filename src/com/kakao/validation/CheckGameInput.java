@@ -4,11 +4,11 @@ import java.util.*;
 
 public class CheckGameInput {
 
-    private static final int LOTTO_NUM_CNT = 6;
+    private static final int LOTTO_NUMBER_COUNT = 6;
 
-    public void checkMoney(int input) {
+    public void checkNegativeNumber(int input) {
         if (input < 0) {
-            throw new RuntimeException();
+            throw new RuntimeException(ExceptionMessage.MONEY.getMessage());
         }
     }
 
@@ -20,14 +20,13 @@ public class CheckGameInput {
             Collections.sort(lotto);
             return lotto;
         } catch (RuntimeException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e.getMessage());
         }
     }
 
     private void checkNumberCount(String[] input) {
-        if (input.length != LOTTO_NUM_CNT) {
-            System.out.printf("%d개의 번호를 입력해 주세요.\n", LOTTO_NUM_CNT);
-            throw new RuntimeException();
+        if (input.length != LOTTO_NUMBER_COUNT) {
+            throw new RuntimeException(ExceptionMessage.NUMBER_COUNT.getMessage());
         }
     }
 
@@ -43,30 +42,28 @@ public class CheckGameInput {
 
     public void checkNumberValidation(int num) {
         if (num < 1 || num > 45) {
-            System.out.println("1 ~ 45 사이의 번호를 입력해 주세요.");
-            throw new RuntimeException();
+            throw new RuntimeException(ExceptionMessage.NUMBER_VALIDATION.getMessage());
         }
     }
 
     private void checkNumberOverlap(List<Integer> lotto) {
         Set<Integer> lottoSet = new HashSet<>(lotto);
-        if (lottoSet.size() != LOTTO_NUM_CNT) {
-            System.out.println("중복된 번호가 존재합니다.");
-            throw new RuntimeException();
+        if (lottoSet.size() != LOTTO_NUMBER_COUNT) {
+            throw new RuntimeException(ExceptionMessage.NUMBER_OVERLAP.getMessage());
         }
     }
 
     public void checkLottoCount(int totalLottoCount, int lottoCount) {
+        checkNegativeNumber(lottoCount);
         if (totalLottoCount < lottoCount) {
-            System.out.printf("최대 %d개를 구입하실 수 있습니다.\n", totalLottoCount);
-            throw new RuntimeException();
+            String message = "(최대 " + totalLottoCount + "개 구매가능)";
+            throw new RuntimeException(ExceptionMessage.COUNT_OVERFLOW.getMessage() + message);
         }
     }
 
     public void checkBonusNumber(List<Integer> winningLotto, int bonusNumber) {
         if (winningLotto.contains(bonusNumber)) {
-            System.out.println("이미 존재하는 당첨 번호입니다.");
-            throw new RuntimeException();
+            throw new RuntimeException(ExceptionMessage.NUMBER_OVERLAP.getMessage());
         }
     }
 }
