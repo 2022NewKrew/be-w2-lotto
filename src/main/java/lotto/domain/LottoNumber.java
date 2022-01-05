@@ -20,6 +20,10 @@ public class LottoNumber {
         generateNumbers();
     }
 
+    public LottoNumber(List<Integer> manualNumbers){
+        numbers = manualNumbers;
+    }
+
 
     private void generateNumbers(){
         Collections.shuffle(allNumbers);

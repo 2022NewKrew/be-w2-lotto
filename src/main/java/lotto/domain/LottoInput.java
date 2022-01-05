@@ -3,12 +3,29 @@ package lotto.domain;
 import java.util.List;
 
 public class LottoInput {
-    private static int inputPrice;
+    private final LottoPaper lp;
 
-    public static int prePurchase(){
+
+    public LottoInput(LottoPaper lp) { this.lp = lp; }
+
+
+    public void prePurchase(){
         PriceInput pi = new PriceInput();
-        inputPrice = pi.getInput();
-        return pi.getNumOfPaper();
+        pi.init();
+        lp.inputPrice = pi.getInput();
+        lp.numOfNumbers = pi.getNumOfNumbers();
+    }
+
+    public int manualPurchase(){
+        ManualInput mi = new ManualInput(lp.numOfNumbers);
+        mi.init();
+        return mi.getInput();
+    }
+
+    public static List<LottoNumber> getManualNumbers(int numOfManual){
+        ManualNumberInput mni = new ManualNumberInput(numOfManual);
+        mni.convertToList();
+        return mni.getInput();
     }
 
     public static List<Integer> postPurchase(){
@@ -18,11 +35,9 @@ public class LottoInput {
 
     public static int getBonusNumber(){
         BonusNumberInput bni = new BonusNumberInput();
-        System.out.println();
+        bni.init();
         return bni.getInput();
     }
 
-    public static int getInputPrice(){
-        return inputPrice;
-    }
+    public LottoPaper getLottoPaper() { return lp; }
 }
