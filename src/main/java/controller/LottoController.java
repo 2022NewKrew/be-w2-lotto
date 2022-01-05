@@ -20,7 +20,7 @@ public class LottoController {
 
         final WinningNumbers winningNumbers = inputWinningNumbers();
 
-        final Map<Rank, Integer> winningStatistics = winningNumbers.winningConfirmation(lottos);
+        final Map<Rank, Integer> winningStatistics = lottos.winningConfirm(winningNumbers);
         final float profitRate = calculateProfitRate(winningStatistics,
             money.moneyOfPurchaseLotto());
         OutputView.outputWinning(winningStatistics, profitRate);
