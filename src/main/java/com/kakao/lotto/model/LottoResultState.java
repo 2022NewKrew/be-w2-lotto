@@ -1,17 +1,17 @@
 package com.kakao.lotto.model;
 
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static com.kakao.lotto.model.ConstLottoConfig.LOTTO_PICK_NUMBER;
 
 /**
  * author    : brody.moon
- * version   : 1.0
+ * version   : 1.1
  * 로또 당첨 등수를 보여주는 Enum 클래스입니다.
  */
 public enum LottoResultState {
+    NOTMATCH(0, 0),
     FIFTH(LOTTO_PICK_NUMBER - 3, ConstLottoConfig.FIFTH_PRICE),
     FOURTH(LOTTO_PICK_NUMBER - 2, ConstLottoConfig.FOURTH_PRICE),
     THIRD(LOTTO_PICK_NUMBER - 1, ConstLottoConfig.THIRD_PRICE),
@@ -36,19 +36,32 @@ public enum LottoResultState {
      * @param winningLottoNumber 당첨 로또 번호
      * @param curLottoNumber     유저 로또 번호
      * @param winningLottoBonus  보너스 구슬 번호
-     * @return 현재 Enum 상수가 가지고 있는 등수와 매치할 수 있는지 여부
+     * @return 현재 유저 로또가 몇등인지 enum객체 반환
      */
-    public boolean isIncludedCurrentState(int[] winningLottoNumber, int[] curLottoNumber, int winningLottoBonus) {
+    public static LottoResultState calcMatchResult(LottoNumber winningLottoNumber, LottoNumber curLottoNumber, int winningLottoBonus) {
         Set<Integer> winningLottoNumberDiffSet = createDiffSet(winningLottoNumber, curLottoNumber);
         Set<Integer> curLottoNumberDiffSet = createDiffSet(curLottoNumber, winningLottoNumber);
 
-        if (winningLottoNumberDiffSet.size() == LOTTO_PICK_NUMBER - this.getNumOfMatchs() && this != LottoResultState.SECOND)
-            return true;
+        LottoResultState resultState = mapResultToState(winningLottoNumberDiffSet.size());
+        if(resultState != LottoResultState.SECOND)
+            return resultState;
 
-        if (this == LottoResultState.SECOND && winningLottoNumberDiffSet.size() == 1 && winningLottoBonus == curLottoNumberDiffSet.iterator().next())
-            return true;
+        return winningLottoBonus == curLottoNumberDiffSet.iterator().next() ? LottoResultState.SECOND : LottoResultState.THIRD;
+    }
 
-        return false;
+    private static LottoResultState mapResultToState(int matchResult) {
+        switch (matchResult) {
+            case 0:
+                return LottoResultState.FIRST;
+            case 1:
+                return LottoResultState.SECOND;
+            case 2:
+                return LottoResultState.FOURTH;
+            case 3:
+                return LottoResultState.FIFTH;
+            default:
+                return LottoResultState.NOTMATCH;
+        }
     }
 
     /**
@@ -58,13 +71,14 @@ public enum LottoResultState {
      * @param target target 배열
      * @return
      */
-    private Set<Integer> createDiffSet(int[] source, int[] target) {
-        Set<Integer> sourceSet = Arrays.stream(source).boxed().collect(Collectors.toSet());
-        Set<Integer> targetSet = Arrays.stream(target).boxed().collect(Collectors.toSet());
+    private static Set<Integer> createDiffSet(LottoNumber source, LottoNumber target) {
+        Set<Integer> sourceSet = new HashSet<>(source.getAll());
+        Set<Integer> targetSet = new HashSet<>(target.getAll());
 
         sourceSet.removeAll(targetSet);
         return sourceSet;
     }
+
 
     public int getNumOfMatchs() {
         return numOfMatchs;
