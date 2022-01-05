@@ -16,6 +16,7 @@ public class ConsoleInputView implements InputView {
         return new Scanner(System.in).nextInt();
     }
 
+    // TODO: 원시값을 넘기고 도메인 객체 생성은 컨트롤러에서 하도록 수정
     public LottoNumbers getWinningNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         Set<LottoNumber> numbers = new HashSet<>();
@@ -28,6 +29,7 @@ public class ConsoleInputView implements InputView {
         return LottoNumbers.from(numbers);
     }
 
+    // TODO: 원시값을 넘기고 도메인 객체 생성은 컨트롤러에서 하도록 수정
     public LottoNumber getBonusNumber() {
         System.out.println("보너스 볼을 입력해 주세요.");
         int bonusNumber = new Scanner(System.in).nextInt();

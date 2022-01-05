@@ -24,6 +24,7 @@ public class ConsoleOutputView implements OutputView {
         System.out.println();
     }
 
+    // TODO: 로또 번호 오름차순 출력
     private void printLottoNumbers(LottoNumbers lottoNumbers) {
         StringBuilder stringBuilder = new StringBuilder(LOTTO_TICKET_START_DELIMITER);
 

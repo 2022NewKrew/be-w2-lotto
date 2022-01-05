@@ -6,6 +6,7 @@ import java.util.Map;
 public class LottoStatistics {
     private final Map<LottoResult, Integer> resultMap = new EnumMap<>(LottoResult.class);
 
+    // TODO: 팩토리 메서드에서 다음 작업을 하도록 수정
     public LottoStatistics (WinningNumbers winningNumbers, LottoTickets lottoTickets) {
         initResultMap();
         match(winningNumbers, lottoTickets);
@@ -25,6 +26,8 @@ public class LottoStatistics {
 
     private void putResult(WinningNumbers winningNumbers, LottoTicket ticket) {
         int count = 0;
+        // TODO: 번호와 보너스 볼 매칭을 구하는 것을 LottoTicket에 메세지로 넘기기
+        // TODO: LottoResult result = lottoTicket.result(winningNumbers)로 합쳐보기
         int matchCountPerTicket = getMatchCount(winningNumbers, ticket);
         boolean matchBonus = isMatchedBonus(winningNumbers, ticket);
         LottoResult result = LottoResult.valueOf(matchCountPerTicket, matchBonus);
@@ -53,6 +56,7 @@ public class LottoStatistics {
         return resultMap;
     }
 
+    // TODO: totalReward, revenueRate을 LottoStatistics의 상태값으로 가지고 있도록 수정
     public int calculateRevenueRate(Money inputMoney) {
         long totalPrice = 0;
 
