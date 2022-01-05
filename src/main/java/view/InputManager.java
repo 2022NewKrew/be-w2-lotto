@@ -9,9 +9,29 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+import static CONST.Const.INPUT_ALLOWED_COUNT;
+import static CONST.Const.LOTTO_PRICE;
+
 public class InputManager {
     private static final Scanner scanner = new Scanner(System.in);
 
+    public static List<Integer> inputManualNumber(){
+        boolean pass = false;
+        List<Integer> manualNumber = null;
+        do {
+            System.out.println(Const.INPUT_MANUAL_NUMBER);
+            String stringManualNumber = scanner.nextLine();
+            try {
+                manualNumber = Arrays.stream(stringManualNumber.split(Const.DELIMITER))
+                        .map(Integer::parseInt)
+                        .collect(Collectors.toList());
+                pass = checkWinningNumber(manualNumber);
+            } catch (NumberFormatException e) {
+                System.out.println(Const.INPUT_INTEGER);
+            }
+        } while (!pass);
+        return manualNumber;
+    }
     public static List<Integer> inputWinningNumber() {
         boolean pass = false;
         List<Integer> winningNumber = null;
@@ -60,6 +80,32 @@ public class InputManager {
         } while (!pass);
         return inputIntPrice;
     }
+    public static int inputManualCount(int buyPrice) {
+        boolean pass = false;
+        int inputManualCount = 0;
+        do {
+            System.out.println(Const.INPUT_MANUAL_COUNT);
+            try {
+                inputManualCount = scanner.nextInt();
+                // Flush Buffer
+                scanner.nextLine();
+                pass = isAllowedNumber(buyPrice, inputManualCount);
+            } catch (InputMismatchException e) {
+                System.out.println(Const.INPUT_INTEGER);
+                // Flush Buffer
+                scanner.nextLine();
+            }
+        } while (!pass);
+        return inputManualCount;
+    }
+
+    private static boolean isAllowedNumber(int buyPrice, int inputManualCount) {
+        if(inputManualCount*LOTTO_PRICE <= buyPrice && inputManualCount>=0){
+            return true;
+        }
+        System.out.println(INPUT_ALLOWED_COUNT);
+        return false;
+    }
 
     public static int inputBonusNumber(List<Integer> winningNumber) {
         boolean pass = false;
@@ -99,4 +145,5 @@ public class InputManager {
         System.out.println(Const.INPUT_LOTTO_BONUS_NUMBER);
         return false;
     }
+
 }

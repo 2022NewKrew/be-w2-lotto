@@ -26,7 +26,7 @@ public class PrintManager {
     public static void printWinRate(double winRate) {
         StringBuilder winRateString = new StringBuilder();
         DecimalFormat form = new DecimalFormat("#.##");
-        winRateString.append(Const.WIN_RATE_HEAD).append(form.format(winRate)).append(Const.WIN_RATE_TAIL);
+        winRateString.append(Const.WIN_RATE_PREFIX).append(form.format(winRate)).append(Const.WIN_RATE_POSTFIX);
         System.out.println(winRateString);
     }
 }

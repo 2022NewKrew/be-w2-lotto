@@ -2,7 +2,9 @@ package CONST;
 
 public class Const {
     // Lottos
-    public static final String BUY_COUNT = "개를 구매했습니다.";
+    public static final String BUY_COUNT_PREFIX = "수동으로 ";
+    public static final String BUY_COUNT_INFIX = "장, 자동으로 ";
+    public static final String BUY_COUNT_POSTFIX = "장을 구매했습니다.";
 
     // InputManager
     public static final String DELIMITER = ",";
@@ -13,6 +15,9 @@ public class Const {
     public static final String INPUT_SIX_DISTINCT_NUMBER = "1~45의 서로 다른 수 6개를 입력해 주세요.";
     public static final String INPUT_BONUS_NUMBER = "보너스 볼을 입력해 주세요.";
     public static final String INPUT_LOTTO_BONUS_NUMBER = "1~45사이의 당첨번호와 겹치지 않는 숫자를 입력해 주세요.";
+    public static final String INPUT_MANUAL_COUNT = "수동으로 구매할 로또 수를 입력해 주세요.";
+    public static final String INPUT_ALLOWED_COUNT = "구입금액으로 살 수 있는 0이상의 숫자를 입력해주세요.";
+    public static final String INPUT_MANUAL_NUMBER = "수동으로 구매할 번호를 입력해 주세요.";
 
     // PrintManager
     public static final String SHOW_RESULT = "당첨 통계\n---------";
@@ -21,8 +26,8 @@ public class Const {
     public static final String CORRECT_FIVE = "5개 일치 (1,500,000원)- ";
     public static final String CORRECT_FIVE_BONUS = "5개 일치, 보너스 볼 일치(30,000,000원)- ";
     public static final String CORRECT_SIX = "6개 일치 (2,000,000,000원)- ";
-    public static final String WIN_RATE_HEAD = "총 수익률은 ";
-    public static final String WIN_RATE_TAIL = "%입니다.";
+    public static final String WIN_RATE_PREFIX = "총 수익률은 ";
+    public static final String WIN_RATE_POSTFIX = "%입니다.";
 
     // Lotto
     public static final int LOTTO_START_NUM = 1;
