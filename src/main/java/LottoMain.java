@@ -15,6 +15,10 @@ public class LottoMain {
 
         LottoService lottoService = new LottoService();
 
+        int manualLottoCount = InputView.getManualLottoCount();
+        List<List<Integer>> manualNumbers = InputView.getManualLottoNumbers(manualLottoCount);
+        System.out.println(manualNumbers.toString());
+
         List<Lotto> lottos = lottoService.buyLottos(money);
 
         ResultView.printPurchaseResult(lottos);
