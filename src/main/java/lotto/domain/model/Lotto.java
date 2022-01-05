@@ -22,6 +22,12 @@ public class Lotto {
         Collections.sort(numbers);
     }
 
+    public Lotto(List<Integer> numbers) {
+        // TODO: numbers의 원소 수 검증
+        Collections.sort(numbers);
+        this.numbers = numbers;
+    }
+
     public List<Integer> getNumbers() {
         return numbers;
     }
