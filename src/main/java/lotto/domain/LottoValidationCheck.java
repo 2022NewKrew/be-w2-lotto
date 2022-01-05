@@ -2,8 +2,7 @@ package lotto.domain;
 
 import java.util.List;
 
-import static lotto.domain.LottoSetting.LOTTO_LENGTH;
-import static lotto.domain.LottoSetting.LOTTO_PRICE;
+import static lotto.domain.LottoSetting.*;
 
 public class LottoValidationCheck {
     static Integer userMakeCountValidation(Integer payment, Integer userMakeCount){
@@ -20,5 +19,23 @@ public class LottoValidationCheck {
                 throw new IllegalArgumentException("중복된 번호가 존재합니다.");
             }
         }
+
+        for(int i = 0 ; i <stringLottoList.size() ; i++){
+            if(!isValidInteger(stringLottoList.get(i))){
+                throw new IllegalArgumentException("유효하지 않은 로또 값이 입력됌.");
+            }
+            if(Integer.valueOf(stringLottoList.get(i)) < LOTTO_NUMBER_RANGE_START || LOTTO_NUMBER_RANGE_LAST < Integer.valueOf(stringLottoList.get(i))){
+                throw new IllegalArgumentException("유효하지 않은 로또 값이 입력됌.");
+            }
+        }
+    }
+
+    private static boolean isValidInteger(String strInteger){
+        for(int i = 0 ; i < strInteger.length() ; i++){
+            if(strInteger.charAt(i) < '0' || strInteger.charAt(i) > '9'){
+                return false;
+            }
+        }
+        return (strInteger.length() > 0);
     }
 }

@@ -50,6 +50,36 @@ class LottoViewInputTest {
     }
 
     @Test
+    @DisplayName("로또 번호의 숫자가 아닌 값이 포함될 때 예외 발생")
+    void resultToList_3() {
+        //given
+        String stringAry = "1,2,3,4,5,a";
+
+        //when
+        //사용자가 입력한 번호의 로또 객체생성시
+
+        //then
+        assertThatThrownBy( () -> {
+            LottoViewInput.resultToList(stringAry);
+        }).isInstanceOf(IllegalArgumentException.class).hasMessageContaining("유효하지 않은 로또 값이 입력됌.");
+    }
+
+    @Test
+    @DisplayName("로또 번호의 숫자 범위가 아닌 값이 포함될 때 예외 발생")
+    void resultToList_4() {
+        //given
+        String stringAry = "1,2,3,4,5,100";
+
+        //when
+        //사용자가 입력한 번호의 로또 객체생성시
+
+        //then
+        assertThatThrownBy( () -> {
+            LottoViewInput.resultToList(stringAry);
+        }).isInstanceOf(IllegalArgumentException.class).hasMessageContaining("유효하지 않은 로또 값이 입력됌.");
+    }
+
+    @Test
     void lottoInputResultBonus() {}
 
 }
