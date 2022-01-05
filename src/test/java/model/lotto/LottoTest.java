@@ -18,20 +18,23 @@ public class LottoTest {
     @DisplayName("테스트를 위한 Lotto 인스턴스가 2개를 가지고 countDuplicateNumberWith 메서드를 실행했을 때 기대값과 실제 값이 같다")
     @ParameterizedTest
     @MethodSource("getTestNumbers")
-    void countDuplicateNumberWith(List<Integer> testList1, List<Integer> testList2, long expectedNumber) {
+    void countDuplicateNumberWith(List<Integer> testList1, List<Integer> testList2, int expectedNumber) {
         //Give
-        Lotto testLotto1 = new DefinedLotto(testList1);
-        Lotto testLotto2 = new DefinedLotto(testList2);
+        DefinedLotto testLotto1 = new DefinedLotto(testList1);
+        DefinedLotto testLotto2 = new DefinedLotto(testList2);
         //When
-        long result = testLotto1.countDuplicateNumberWith(testLotto2);
+        int result = testLotto1.countDuplicateNumberWith(testLotto2.getLotto());
         //Then
         assertThat(result).isEqualTo(expectedNumber);
     }
 
     static Stream<Arguments> getTestNumbers() {
         return Stream.of(
-                Arguments.of(Arrays.asList(1, 2, 3, 4, 5, 6), Arrays.asList(1, 2, 3, 4, 5, 7), 5L),
-                Arguments.of(Arrays.asList(1, 2, 3, 4, 5, 6), Arrays.asList(1, 2, 3, 4, 5, 6), 6L)
+                Arguments.of(Arrays.asList(1, 2, 3, 4, 5, 6), Arrays.asList(7, 8, 9, 10, 11, 12), 0),
+                Arguments.of(Arrays.asList(1, 2, 3, 4, 5, 6), Arrays.asList(6, 7, 8, 9, 10, 11), 1),
+                Arguments.of(Arrays.asList(1, 2, 3, 4, 5, 6), Arrays.asList(1, 2, 3, 4, 7, 8), 4),
+                Arguments.of(Arrays.asList(1, 2, 3, 4, 5, 6), Arrays.asList(1, 2, 3, 4, 5, 7), 5),
+                Arguments.of(Arrays.asList(1, 2, 3, 4, 5, 6), Arrays.asList(1, 2, 3, 4, 5, 6), 6)
         );
     }
 }

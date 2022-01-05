@@ -10,22 +10,22 @@ import java.util.List;
 
 public class SellLottoController {
 
-    public static List<Lotto> buyLottos() {
-        long numberOfLotto = calculateNumberOfLotto(UserInput.getMoney());
+    public static List<RandomLotto> buyLottos(int money) {
+        int numberOfLotto = calculateNumberOfLotto(money);
         UserOutput.printBuyMessage(numberOfLotto);
 
-        List<Lotto> lottos = new ArrayList<>();
+        List<RandomLotto> lottos = new ArrayList<>();
         for (long i = 0; i < numberOfLotto; i++) {
             lottos.add(buyLotto());
         }
         return lottos;
     }
 
-    private static Lotto buyLotto() {
+    private static RandomLotto buyLotto() {
         return new RandomLotto();
     }
 
-    private static long calculateNumberOfLotto(long money) {
+    private static int calculateNumberOfLotto(int money) {
         return money / Lotto.LOTTO_PRICE;
     }
 }
