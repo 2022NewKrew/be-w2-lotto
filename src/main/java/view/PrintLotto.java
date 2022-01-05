@@ -2,40 +2,61 @@ package view;
 
 import lotto.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class PrintLotto {
 
     public static void start() {
-        int money = getMoney();
-        int manualCount = getManualCount();
-        List<UserLotto> manualLottos = getManualLottos(manualCount);
+        int money = 0;
+        try {
+            money = getMoney();
+        } catch(RuntimeException e) {
+            System.out.println("구입금액이 잘못 입력되었습니다.");
+            System.exit(1);
+        }
+        int manualCount = 0;
+        try {
+            manualCount = getManualCount();
+        } catch(RuntimeException e) {
+            System.out.println("수동으로 구매할 로또 수가 잘못 입력되었습니다.");
+            System.exit(2);
+        }
+        List<UserLotto> manualLottos = new ArrayList<>();
+        try {
+            manualLottos = getManualLottos(manualCount);
+        } catch(RuntimeException e) {
+            System.out.println("수동으로 구매할 번호가 잘못 입력되었습니다.");
+            System.exit(3);
+        }
         LottoMachine lottoMachine = new LottoMachine();
         lottoMachine.addManualLottos(manualLottos);
         lottoMachine.buyLotto(money - manualCount*1000);
         printLottos(lottoMachine.getManualLottos(), lottoMachine.getAutomaticLottos());
-        WinningLotto winLotto = getWinLotto();
+        WinningLotto winLotto = null;
+        try {
+            winLotto = getWinLotto();
+        } catch (RuntimeException e) {
+            System.out.println("당첨 번호 및 보너스 볼이 잘못 입력되었습니다.");
+            System.exit(4);
+        }
         RankCount rankCount = lottoMachine.getRankCount(winLotto);
         printLottoResult(money, rankCount);
     }
 
-    private static int getMoney() {
+    private static int getMoney() throws NoSuchElementException, IllegalStateException {
         Scanner in = new Scanner(System.in).useDelimiter("\n");
         System.out.println("구입금액을 입력해 주세요.");
         return in.nextInt();
     }
 
-    private static int getManualCount() {
+    private static int getManualCount() throws NoSuchElementException, IllegalStateException {
         Scanner in = new Scanner(System.in).useDelimiter("\n");
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
         return in.nextInt();
     }
 
-    private static List<UserLotto> getManualLottos(int manualCount) {
+    private static List<UserLotto> getManualLottos(int manualCount) throws NoSuchElementException, IllegalStateException {
         Scanner in = new Scanner(System.in).useDelimiter("\n");
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
         List<UserLotto> manualLottos = new ArrayList<>();
@@ -55,7 +76,7 @@ public class PrintLotto {
         }
     }
 
-    private static WinningLotto getWinLotto() {
+    private static WinningLotto getWinLotto() throws NoSuchElementException, IllegalStateException {
         Scanner in = new Scanner(System.in).useDelimiter("\n");
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         List<LottoBall> winningNumbers = splitNumbers(in.next());
