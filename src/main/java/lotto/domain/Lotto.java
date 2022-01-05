@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import lotto.dto.OutputDTO;
 import lotto.view.LottoViewInput;
 import lotto.view.LottoViewOutput;
 
@@ -16,6 +17,10 @@ public class Lotto {
 
     public Lotto(){
         lottos = new ArrayList<>();
+        lottoResult = new LottoResult();
+
+        //initialize Hashmap to lottoWinner.
+        initLottoWinner();
     }
 
     //getter
@@ -27,22 +32,7 @@ public class Lotto {
         return lottoWinner;
     }
 
-    public Long getPayment(){
-        return Long.valueOf(lottos.size() * LOTTO_PRICE) ;
-    }
-
-    public Long getEarning(){
-        Long totalEarning = Long.valueOf(0);
-
-        for(Rank rank : List.of(Rank.values())){
-            totalEarning += rank.getWinningMoney() * lottoWinner.get(rank).size();
-        }
-
-        return totalEarning;
-    }
-
     public void setLottoResult(LottoNumber lottoNumber, Integer bonusNumber) {
-        lottoResult = new LottoResult();
         lottoResult.setLottoNumber(lottoNumber);
         lottoResult.setBonusNumber(bonusNumber);
     }
@@ -64,8 +54,6 @@ public class Lotto {
     }
 
     public void makeTotal(){
-        //initialize Hashmap to lottoWinner.
-        initLottoWinner();
 
         //add win numbers to lottoWinner
         for(int i = 0 ; i < lottos.size() ; i++){
@@ -94,5 +82,8 @@ public class Lotto {
         return new LottoNumber( newLotto );
     }
 
+    public OutputDTO getOutputDTO(){
+       return new OutputDTO(lottos, lottoResult, lottoWinner);
+    }
 
 }
