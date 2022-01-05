@@ -4,7 +4,6 @@ import lotto.domain.Lotto;
 import lotto.domain.Round;
 import lotto.util.Rank;
 import lotto.util.Util;
-
 import java.util.*;
 
 public class View {
@@ -18,7 +17,7 @@ public class View {
     }
 
     public static List<Integer> inputIntegerArrayList(String message, String gubun){
-        System.out.println(message);
+        if (!message.equals("")) System.out.println(message);
         String input = sc.nextLine();
         List<Integer> inputIntegerArrayList = new ArrayList<>();
         for (String string : input.split(gubun)){
