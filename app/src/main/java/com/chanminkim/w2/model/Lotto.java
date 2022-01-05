@@ -42,11 +42,9 @@ public class Lotto {
     }
 
     public int countMatchedNumbers(Lotto other) {
-        int count = 0;
-        for (int i = 0; i < this.lottoNumbers.size(); i++) {
-            count += this.lottoNumbers.get(i).equals(other.lottoNumbers.get(i)) ? 1 : 0;
-        }
-        return count;
+        Set<LottoNumber> intersection = new HashSet<>(this.lottoNumbers);
+        intersection.retainAll(other.lottoNumbers);
+        return intersection.size();
     }
 
     @Override
