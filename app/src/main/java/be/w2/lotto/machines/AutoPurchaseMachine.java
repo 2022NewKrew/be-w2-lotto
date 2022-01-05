@@ -7,7 +7,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Singleton
+ */
 public class AutoPurchaseMachine extends PurchaseMachine {
+
+    private static AutoPurchaseMachine INSTANCE;
+
+    private AutoPurchaseMachine() {
+    }
+
+    public static AutoPurchaseMachine getInstance() {
+        if(INSTANCE == null)
+            INSTANCE = new AutoPurchaseMachine();
+        return INSTANCE;
+    }
 
     @Override
     protected void addNewLottosTo(List<Lotto> lottos, int numOfLotto) {

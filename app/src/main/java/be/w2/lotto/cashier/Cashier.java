@@ -25,10 +25,10 @@ public class Cashier {
     public static List<Lotto> createLottoByOrder(OrderSheet orderSheet) {
         List<Lotto> lottos = new ArrayList<>(orderSheet.getNumOfLotto());
 
-        List<Lotto> lottosByManual = createLottoByMachine(new ManualPurchaseMachine(), orderSheet.getNumOfManual());
+        List<Lotto> lottosByManual = createLottoByMachine(ManualPurchaseMachine.getInstance(), orderSheet.getNumOfManual());
         lottos.addAll(lottosByManual);
 
-        List<Lotto> lottsByAuto = createLottoByMachine(new AutoPurchaseMachine(), orderSheet.getNumOfAuto());
+        List<Lotto> lottsByAuto = createLottoByMachine(AutoPurchaseMachine.getInstance(), orderSheet.getNumOfAuto());
         lottos.addAll(lottsByAuto);
         return lottos;
     }
