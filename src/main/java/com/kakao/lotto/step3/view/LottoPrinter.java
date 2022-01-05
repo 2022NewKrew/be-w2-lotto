@@ -12,8 +12,10 @@ public class LottoPrinter {
     }
 
     // 구매한 로또의 개수를 출력해줍니다.
-    public void printBuyLottoNumber(int lottoNumber) {
-        System.out.println(lottoNumber + "개를 구매했습니다.");
+    public void printBuyLottoNumber(int lottoNumber, int manualLottoNumber) {
+        System.out.println("\n수동으로 " + String.valueOf(manualLottoNumber)+ "장, 자동으로 "
+                + String.valueOf(lottoNumber - manualLottoNumber) + "개를 구매했습니다.");
+
     }
 
 }

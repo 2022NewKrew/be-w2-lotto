@@ -11,15 +11,21 @@ public class Lotto {
     private int LOTTO_NUMBER = 6;
     private static List<Integer> lottoNumbers = Stream.iterate(1, number -> number + 1).limit(45).collect(Collectors.toList());
 
-    private List<Integer> lotto = new ArrayList<>();
+    private List<Integer> lotto;
 
     public Lotto() {
+        lotto = new ArrayList<>();
         makeRandomLotto();
+    }
+    public Lotto(List<Integer> lotto) {
+        this.lotto = lotto;
     }
 
     // lottoNumber 만큼의 Lotto를 랜덤하게 만들어 lottos List를 만들어줍니다.
-    public static List<Lotto> makeLottos(int lottoNumber) {
-        return Stream.generate(() -> new Lotto()).limit(lottoNumber).collect(Collectors.toList());
+    public static List<Lotto> makeLottos(int lottoNumber, List<Lotto> manualLottos) {
+        List<Lotto> lottos = new ArrayList<Lotto>(manualLottos);
+        lottos.addAll(Stream.generate(() -> new Lotto()).limit(lottoNumber - manualLottos.size()).collect(Collectors.toList()));
+        return lottos;
     }
 
     // 랜덤하게 하나의 로또를 만들어줍니다
