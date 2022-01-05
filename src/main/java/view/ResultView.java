@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 
 public class ResultView {
 
-    public static void printPurchaseResult(List<Lotto> lottos) {
-        printLottoCount(lottos);
+    public static void printPurchaseResult(List<Lotto> lottos, int manualLottoCount) {
+        printLottoCount(lottos, manualLottoCount);
         printLottos(lottos);
     }
 
@@ -23,8 +23,8 @@ public class ResultView {
         System.out.println("총 수익률은 " + earnedRate + "% 입니다.");
     }
 
-    private static void printLottoCount(List<Lotto> lottos) {
-        System.out.printf("%d개 구매했습니다.\n", lottos.size());
+    private static void printLottoCount(List<Lotto> lottos, int manualLottoCount) {
+        System.out.println("수동으로 " + manualLottoCount + "개, 자동으로 " + (lottos.size() -manualLottoCount) + "개를 구매했습니다.");
     }
 
     private static void printLottos(List<Lotto> lottos) {

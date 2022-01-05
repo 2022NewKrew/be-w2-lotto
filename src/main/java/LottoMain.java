@@ -19,7 +19,7 @@ public class LottoMain {
 
         List<Lotto> lottos = LottoService.buyLottos(money, manualLottoCount, manualNumbers);
 
-        ResultView.printPurchaseResult(lottos);
+        ResultView.printPurchaseResult(lottos, manualLottoCount);
 
         List<Integer> winningNumbers = InputView.getWinningNumbers();
         int bonusNum = InputView.getBounusNum();
