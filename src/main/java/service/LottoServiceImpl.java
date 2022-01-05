@@ -136,6 +136,10 @@ public class LottoServiceImpl implements LottoService {
     }
 
     private int calculateLottoCount(int purchasePrice) {
+        if(purchasePrice == 0) {
+            throw  new IllegalArgumentException("0원 입니다.");
+        }
+
         if (purchasePrice % 1000 != 0) {
             throw new IllegalArgumentException("1000원 단위가 아닙니다.");
         }
