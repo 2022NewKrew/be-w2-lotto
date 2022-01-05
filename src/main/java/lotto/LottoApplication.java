@@ -6,9 +6,14 @@ import lotto.view.View;
 public class LottoApplication {
 
     public static void main(String[] args) {
-        View view = new View();
-        LottoGame lottoGame = new LottoGame(view);
-        lottoGame.run();
+        try {
+            View view = new View();
+            LottoGame lottoGame = new LottoGame(view);
+            lottoGame.run();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
 }
