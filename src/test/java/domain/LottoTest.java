@@ -20,6 +20,20 @@ class LottoTest {
     }
 
     @Test
+    @DisplayName("[성공] Lotto 객체를 생성한다")
+    void Lotto() {
+        List<Integer> numbers = new ArrayList<>(NUMBER_OF_LOTTERY_NUMBERS);
+        numbers.add(1);
+        numbers.add(2);
+        numbers.add(3);
+        numbers.add(4);
+        numbers.add(5);
+        numbers.add(6);
+
+        new Lotto(numbers);
+    }
+
+    @Test
     @DisplayName("[실패] 생성자에 null을 넣을 시 IllegalArgumentException을 던져야 한다")
     void Lotto_Failed() {
         Assertions.assertThrows(IllegalArgumentException.class,
