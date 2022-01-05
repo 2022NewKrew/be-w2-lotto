@@ -13,7 +13,7 @@ public enum LottoRank {
 	FIRST(6, 2000000000, false, "6개 일치");
 
 	private final int numberOfMatches;
-	private final int reward;
+	private final long reward;
 	private final boolean bonus;
 	private final String message;
 
@@ -28,7 +28,7 @@ public enum LottoRank {
 		return numberOfMatches;
 	}
 
-	public int getReward() {
+	public long getReward() {
 		return reward;
 	}
 

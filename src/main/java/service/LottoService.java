@@ -10,10 +10,16 @@ import domain.LottoGenerator;
 import domain.LottoInfo;
 import domain.LottoRank;
 import domain.WinningLotto;
+import dto.request.LottoPurchaseInfo;
+import dto.response.LottoPurchaseAmount;
 
 public class LottoService {
-	public int getPurchaseAmount(int purchaseMoney) {
-		return LottoGenerator.getAmountOfLotto(purchaseMoney);
+	public LottoPurchaseAmount getPurchaseAmount(LottoPurchaseInfo lottoPurchaseInfo) {
+		int totalAmount = LottoGenerator.getAmountOfLotto(lottoPurchaseInfo.getPurchaseMoney());
+		int customAmount = lottoPurchaseInfo.getCustomAmount();
+		int autoAmount = totalAmount - customAmount;
+
+		return new LottoPurchaseAmount(totalAmount, customAmount, autoAmount);
 	}
 
 	public List<Lotto> createLottoList(int amount) {
@@ -42,7 +48,7 @@ public class LottoService {
 	}
 
 	public double calculateProfit(List<Lotto> lottoList, Map<LottoRank, Integer> rankMap) {
-		int profit = 0;
+		long profit = 0;
 		int purchaseMoney = lottoList.size() * LottoInfo.PRICE;
 
 		for (LottoRank rank : LottoRank.getValidLottoRankList()) {

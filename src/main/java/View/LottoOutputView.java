@@ -4,12 +4,19 @@ import java.util.List;
 
 import domain.Lotto;
 import domain.LottoRank;
-import domain.LottoStatistics;
+import dto.response.LottoPurchaseAmount;
+import dto.response.LottoStatistics;
 import util.Message;
 
 public class LottoOutputView {
-	public static void printPurchaseAmount(int purchaseAmount) {
-		System.out.println(purchaseAmount + Message.PURCHASE_LOTTO_NUMBER);
+	public static void printPurchaseAmount(LottoPurchaseAmount purchaseAmount) {
+		System.out.println(
+			String.format(
+				Message.PURCHASE_LOTTO_AMOUNT,
+				purchaseAmount.getCustomAmount(),
+				purchaseAmount.getAutoAmount()
+			)
+		);
 	}
 
 	public static void printLotto(List<Lotto> lottoList) {
