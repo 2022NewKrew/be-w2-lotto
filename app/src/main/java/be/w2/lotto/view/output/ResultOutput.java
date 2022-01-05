@@ -30,7 +30,7 @@ final class ResultOutput {
     }
 
     private static void writeHowManyCorrectTo(StringBuilder sb, RewardForCorrect rewardForCorrect, Integer howMany) {
-        sb.append(rewardForCorrect.getDescription())
+        sb.append(RewardForCorrectOutput.getOutput(rewardForCorrect))
                 .append("(")
                 .append(rewardForCorrect.getReward())
                 .append(")- ")
