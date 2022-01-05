@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static lotto.domain.LottoConstant.*;
+
 public class RandomIssuePolicy implements IssuePolicy {
 
     private static final List<Integer> numberList = IntStream.rangeClosed(START, END)
