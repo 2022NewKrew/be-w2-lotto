@@ -11,12 +11,12 @@ public class LottoInput {
     private static Scanner sc = new Scanner(System.in);
     private static final String NUMBER_SPLIT_REGEX = ", ";
 
-    public static void getBuyLottoPrize(){
+    public static void inputBuyLottoPrize(){
         System.out.println("구입 금액을 입력해 주세요.");
         BuyLotto buyLotto = new BuyLotto(sc.nextInt());
     }
 
-    public static void getLastPrizeNum(){
+    public static void inputLastPrizeNum(){
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         String lastNumbersString = sc.next();
 
