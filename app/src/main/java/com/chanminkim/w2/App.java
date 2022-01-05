@@ -25,7 +25,7 @@ public class App {
     }
 
     private static List<Lotto> buildRandomLottoList(int payment) {
-        int availableNumberOfLotto = payment / Lotto.LOTTO_PRICE;
+        int availableNumberOfLotto = payment / Lotto.PRICE;
         List<Lotto> lottoList = new ArrayList<>();
         for (int i = 0; i < availableNumberOfLotto; i++) {
             lottoList.add(RandomLottoGenerator.generateLotto());

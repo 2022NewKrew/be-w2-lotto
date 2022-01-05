@@ -8,7 +8,7 @@ public class WinningStatistics {
     private final int payment;
 
     public WinningStatistics(List<Lotto> lottoList, Lotto winningLotto, LottoNumber bonus) {
-        this.payment = lottoList.size() * Lotto.LOTTO_PRICE;
+        this.payment = lottoList.size() * Lotto.PRICE;
         this.countMap = initializeCountMap();
         buildCountMap(lottoList, winningLotto, bonus);
     }

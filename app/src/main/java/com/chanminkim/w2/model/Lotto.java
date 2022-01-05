@@ -9,8 +9,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Lotto {
-    public static final int LOTTO_PRICE = 1000;
-    public static final int LOTTO_NUMBERS_LENGTH_LIMIT = 6;
+    public static final int PRICE = 1000;
+    public static final int NUMBERS_LENGTH = 6;
 
     private final List<LottoNumber> lottoNumbers;
 
@@ -36,7 +36,7 @@ public class Lotto {
     }
 
     private void validateLottoNumbersLength(int length) {
-        if (length != LOTTO_NUMBERS_LENGTH_LIMIT) {
+        if (length != NUMBERS_LENGTH) {
             throw new InvalidLottoNumbersLengthException(length);
         }
     }

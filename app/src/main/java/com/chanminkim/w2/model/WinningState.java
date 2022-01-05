@@ -1,11 +1,11 @@
 package com.chanminkim.w2.model;
 
 public enum WinningState {
-    FIRST_PRIZE(Lotto.LOTTO_NUMBERS_LENGTH_LIMIT, 2_000_000_000, false),
-    SECOND_PRIZE(Lotto.LOTTO_NUMBERS_LENGTH_LIMIT - 1, 3_000_000, true),
-    THIRD_PRIZE(Lotto.LOTTO_NUMBERS_LENGTH_LIMIT - 1, 1_500_000, false),
-    FORTH_PRIZE(Lotto.LOTTO_NUMBERS_LENGTH_LIMIT - 2, 50_000, false),
-    FIFTH_PRIZE(Lotto.LOTTO_NUMBERS_LENGTH_LIMIT - 3, 5_000, false);
+    FIRST_PRIZE(Lotto.NUMBERS_LENGTH, 2_000_000_000, false),
+    SECOND_PRIZE(Lotto.NUMBERS_LENGTH - 1, 3_000_000, true),
+    THIRD_PRIZE(Lotto.NUMBERS_LENGTH - 1, 1_500_000, false),
+    FORTH_PRIZE(Lotto.NUMBERS_LENGTH - 2, 50_000, false),
+    FIFTH_PRIZE(Lotto.NUMBERS_LENGTH - 3, 5_000, false);
 
     private final int matchedCount;
     private final int prizeMoney;

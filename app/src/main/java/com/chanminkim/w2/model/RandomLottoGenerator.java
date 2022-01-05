@@ -22,7 +22,7 @@ public class RandomLottoGenerator {
     private static List<Integer> pickLottoNumbersRandomly() {
         List<Integer> allLottoNumbers = new ArrayList<>(ALL_LOTTO_NUMBERS);
         Collections.shuffle(allLottoNumbers);
-        List<Integer> pickedNumbers = allLottoNumbers.subList(0, Lotto.LOTTO_NUMBERS_LENGTH_LIMIT);
+        List<Integer> pickedNumbers = allLottoNumbers.subList(0, Lotto.NUMBERS_LENGTH);
         pickedNumbers.sort(Integer::compareTo);
         return pickedNumbers;
     }
