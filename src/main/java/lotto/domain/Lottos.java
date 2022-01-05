@@ -3,10 +3,11 @@ package lotto.domain;
 import lotto.model.Lotto;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class Lottos {
+public class Lottos implements Iterable<Lotto>{
     private final List<Lotto> lottos;
 
     public Lottos() {
@@ -17,8 +18,9 @@ public class Lottos {
         this.lottos.add(lotto);
     }
 
-    public List<Lotto> toList() {
-        return this.lottos;
+    @Override
+    public Iterator<Lotto> iterator(){
+        return lottos.iterator();
     }
 
     public String toString() {

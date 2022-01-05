@@ -36,7 +36,8 @@ public class LottoWebView extends LottoView {
 
                 Map<String, Object> data = new HashMap<>();
                 data.put("lottosSize", app.getLottos().size());
-                data.put("lottos", app.getLottos().toList());
+                //TO DO : render lotto.numbers to string
+                data.put("lottos", app.getLottos());
 
                 return render(data, "show.html");
             } catch (IllegalArgumentException e) {

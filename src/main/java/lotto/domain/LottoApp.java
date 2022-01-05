@@ -65,7 +65,7 @@ public class LottoApp {
 
     public void compareHowManyMatch() {
         this.resultManager = new LottoResultManager();
-        for (Lotto lotto : this.lottos.toList()) {
+        for (Lotto lotto : this.lottos) {
             int countOfMatch = howManyMatch(lotto);
             boolean matchBonus = isMatchBonus(lotto);
             this.resultManager.addResult(countOfMatch, matchBonus);
