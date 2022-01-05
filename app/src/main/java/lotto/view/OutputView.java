@@ -11,11 +11,9 @@ public class OutputView {
     private OutputView() {
     }
 
-    public static void printCountLotto(int countLotto) {
-        System.out.println(countLotto + "개를 구매했습니다.");
-    }
-
     public static void printLottoList(List<Lotto> lottoList) {
+        System.out.println(lottoList.size() + "개를 구매했습니다.");
+
         for(Lotto lotto : lottoList) {
             System.out.println(lotto);
         }

@@ -15,20 +15,20 @@ import java.util.Map;
 public class LottoBuyer {
     private static final int LOTTO_PRICE = 1000;
     private final List<Lotto> lottoList = new ArrayList<>();                // 구매한 로또 리스트
-    private final Map<LottoPrize, Integer> result = new HashMap<>(Map.of(      // key : 맞은 개수, value : 일치하는 숫자가 key개인 로또 개수
+    private final Map<LottoPrize, Integer> result = new HashMap<>(Map.of(   // key : 등수 , value : 'key'등에 당첨된 로또 개수
             LottoPrize.FIFTH_PLACE,0,
             LottoPrize.FOURTH_PLACE,0,
             LottoPrize.THIRD_PLACE,0,
             LottoPrize.SECOND_PLACE,0,
             LottoPrize.FIRST_PLACE,0
     ));
-    private int purchaseAmount; // 구매 금액
 
     public final void start() {
         InputView.openScanner();
 
-        purchaseAmount = InputView.getMoney();
-        buyLotto(purchaseAmount);
+        buyLotto(InputView.getPurchaseAmount());
+        InputView.getLottoNumbersManually(lottoList);
+
         OutputView.printLottoList(lottoList);
 
         checkAllLotto();
@@ -39,19 +39,23 @@ public class LottoBuyer {
     }
 
     /**
-     * 구매 금액 (price)에 해당하는 로또를 생성해 반환하는 메소드
+     * 구매 금액 (purchaseAmount)에 해당하는 로또를 생성해 반환하는 메소드
      *
-     * @param price : 구매 금액
+     * @param purchaseAmount : 구매 금액
      */
-    private void buyLotto(final int price) {
-        final int countLotto = price / LOTTO_PRICE;
+    private void buyLotto(final int purchaseAmount) {
+        final int countLotto = purchaseAmount / LOTTO_PRICE;
 
-        OutputView.printCountLotto(countLotto);
         for(int i = 0; i < countLotto; i++) {
-            lottoList.add(LottoMachine.generateLotto());
+            lottoList.add(LottoMachine.generateLottoAuto());
         }
     }
 
+    /**
+     * 구매한 로또들의 당첨 여부를 확인하는 메소드
+     *
+     * Map<LottoPrize, Integer> result 에 결과 저장
+     */
     private void checkAllLotto() {
         final List<Integer> winningNumbers = InputView.getLastWinningNumbers();
         final Integer bonusBall = InputView.getBonusBall();
@@ -63,12 +67,13 @@ public class LottoBuyer {
     }
 
     private void putResult(final int matchCount) {
-        if(matchCount < 3) return;
+        if(matchCount < 3) return; // 3개 미만 일치는 무시
         result.put(LottoPrize.of(matchCount), result.get(LottoPrize.of(matchCount)) + 1);
     }
 
     private int totalReward() {
         int totalReward = 0;
+
         for(LottoPrize lottoPrize : result.keySet()){
             totalReward += result.get(lottoPrize) * lottoPrize.getReward();
         }
@@ -76,6 +81,10 @@ public class LottoBuyer {
     }
 
     private double calculateYield() { // 수익률 계산
-        return (double) (totalReward() - purchaseAmount) / purchaseAmount * 100;
+        final int totalPurchase = lottoList.size() * LOTTO_PRICE;
+
+        if(totalPurchase == 0)
+            return 0;
+        return (double) (totalReward() - totalPurchase) / totalPurchase * 100;
     }
 }
