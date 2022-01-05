@@ -8,6 +8,8 @@ import java.util.stream.IntStream;
 
 public class RandomNumbers {
 
+    private static final int LOTTO_SIZE_MIN = 0;
+    private static final int LOTTO_SIZE_MAX = 6;
     private static final int LOTTO_NUMBER_MIN = 1;
     private static final int LOTTO_NUMBER_MAX = 45;
 
@@ -27,6 +29,6 @@ public class RandomNumbers {
 
     public List<Integer> shuffle() {
         Collections.shuffle(this.randomNumbers);
-        return this.randomNumbers;
+        return this.randomNumbers.subList(LOTTO_SIZE_MIN, LOTTO_SIZE_MAX);
     }
 }
