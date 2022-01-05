@@ -1,6 +1,5 @@
 package com.chanminkim.w2.model;
 
-import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
 
@@ -9,7 +8,7 @@ public class WinningStatistics {
     private final int payment;
 
     public WinningStatistics(List<Lotto> lottoList, Lotto winningLotto, LottoNumber bonus) {
-        this.payment = lottoList.size() * Lotto.LOTTO_PRICE;
+        this.payment = lottoList.size() * Lotto.PRICE;
         this.countMap = initializeCountMap();
         buildCountMap(lottoList, winningLotto, bonus);
     }
@@ -34,16 +33,14 @@ public class WinningStatistics {
 
     private void increaseWinningStateCount(int matchedCount, boolean isContainingBonus) {
         WinningState winningState = WinningState.findByMatchedCountAndBonus(matchedCount, isContainingBonus);
-        if (winningState == null) {
-            return;
-        }
         this.countMap.merge(winningState, 1, Integer::sum);
     }
 
     private EnumMap<WinningState, Integer> initializeCountMap() {
         EnumMap<WinningState, Integer> countMap = new EnumMap<>(WinningState.class);
-        Arrays.stream(WinningState.values())
-                .forEach(state -> countMap.put(state, 0));
+        for (WinningState state : WinningState.values()) {
+            countMap.put(state, 0);
+        }
         return countMap;
     }
 

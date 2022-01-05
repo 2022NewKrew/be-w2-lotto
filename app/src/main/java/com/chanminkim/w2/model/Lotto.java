@@ -9,8 +9,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Lotto {
-    public static final int LOTTO_PRICE = 1000;
-    public static final int LOTTO_NUMBERS_LENGTH_LIMIT = 6;
+    public static final int PRICE = 1000;
+    public static final int NUMBERS_LENGTH = 6;
 
     private final List<LottoNumber> lottoNumbers;
 
@@ -19,6 +19,7 @@ public class Lotto {
         validateNoDuplicates(lottoNumbers);
         this.lottoNumbers = lottoNumbers.stream()
                 .map(LottoNumber::new)
+                .sorted()
                 .collect(Collectors.toUnmodifiableList());
     }
 
@@ -36,17 +37,15 @@ public class Lotto {
     }
 
     private void validateLottoNumbersLength(int length) {
-        if (length != LOTTO_NUMBERS_LENGTH_LIMIT) {
+        if (length != NUMBERS_LENGTH) {
             throw new InvalidLottoNumbersLengthException(length);
         }
     }
 
     public int countMatchedNumbers(Lotto other) {
-        int count = 0;
-        for (int i = 0; i < this.lottoNumbers.size(); i++) {
-            count += this.lottoNumbers.get(i).equals(other.lottoNumbers.get(i)) ? 1 : 0;
-        }
-        return count;
+        Set<LottoNumber> intersection = new HashSet<>(this.lottoNumbers);
+        intersection.retainAll(other.lottoNumbers);
+        return intersection.size();
     }
 
     @Override

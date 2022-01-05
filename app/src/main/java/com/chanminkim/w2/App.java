@@ -8,24 +8,36 @@ import com.chanminkim.w2.view.InputView;
 import com.chanminkim.w2.view.OutputView;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class App {
+    private static final InputView INPUT_VIEW = new InputView();
+    private static final OutputView OUTPUT_VIEW = new OutputView();
+
     public static void main(String[] args) {
-        InputView inputView = new InputView();
-        OutputView outputView = new OutputView();
+        List<Lotto> boughtLottoList = buyLotto();
+        Lotto winningLotto = new Lotto(INPUT_VIEW.getWinningLottoNumbers());
+        LottoNumber bonus = new LottoNumber(INPUT_VIEW.getBonusNumber());
+        WinningStatistics winningStatistics = new WinningStatistics(boughtLottoList, winningLotto, bonus);
+        OUTPUT_VIEW.printWinningStatistics(winningStatistics);
+    }
 
-        List<Lotto> lottoList = buildRandomLottoList(inputView.getPayment());
-        outputView.printPurchasedLottoList(lottoList);
-
-        Lotto winningLotto = new Lotto(inputView.getWinningLottoNumbers());
-        LottoNumber bonus = new LottoNumber(inputView.getBonusNumber());
-        WinningStatistics winningStatistics = new WinningStatistics(lottoList, winningLotto, bonus);
-        outputView.printWinningStatistics(winningStatistics);
+    private static List<Lotto> buyLotto() {
+        int payment = INPUT_VIEW.getPayment();
+        List<Lotto> manualLottoList = INPUT_VIEW.getManualLottoList(payment);
+        int remainPayment = payment - manualLottoList.size() * Lotto.PRICE;
+        List<Lotto> randomLottoList = buildRandomLottoList(remainPayment);
+        App.OUTPUT_VIEW.printPurchasedLottoList(manualLottoList, randomLottoList);
+        return Stream.of(manualLottoList, randomLottoList)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 
     private static List<Lotto> buildRandomLottoList(int payment) {
-        int availableNumberOfLotto = payment / Lotto.LOTTO_PRICE;
+        int availableNumberOfLotto = payment / Lotto.PRICE;
         List<Lotto> lottoList = new ArrayList<>();
         for (int i = 0; i < availableNumberOfLotto; i++) {
             lottoList.add(RandomLottoGenerator.generateLotto());

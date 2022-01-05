@@ -5,7 +5,7 @@ import com.google.common.collect.Range;
 
 import java.util.Objects;
 
-public class LottoNumber {
+public class LottoNumber implements Comparable<LottoNumber> {
     public static final Range<Integer> LOTTO_NUMBER_RANGE = Range.closed(1, 45);
 
     private final int value;
@@ -37,5 +37,10 @@ public class LottoNumber {
     @Override
     public String toString() {
         return String.valueOf(value);
+    }
+
+    @Override
+    public int compareTo(LottoNumber o) {
+        return Integer.compare(this.value, o.value);
     }
 }

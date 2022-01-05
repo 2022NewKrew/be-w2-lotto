@@ -1,34 +1,37 @@
 package com.chanminkim.w2.model;
 
-public enum WinningState {
-    FIRST_PRIZE(Lotto.LOTTO_NUMBERS_LENGTH_LIMIT, 2_000_000_000, false),
-    SECOND_PRIZE(Lotto.LOTTO_NUMBERS_LENGTH_LIMIT - 1, 3_000_000, true),
-    THIRD_PRIZE(Lotto.LOTTO_NUMBERS_LENGTH_LIMIT - 1, 1_500_000, false),
-    FORTH_PRIZE(Lotto.LOTTO_NUMBERS_LENGTH_LIMIT - 2, 50_000, false),
-    FIFTH_PRIZE(Lotto.LOTTO_NUMBERS_LENGTH_LIMIT - 3, 5_000, false);
+import com.google.common.collect.Range;
 
-    private final int matchedCount;
+public enum WinningState {
+    FIRST_PRIZE(Range.singleton(Lotto.NUMBERS_LENGTH), 2_000_000_000, false),
+    SECOND_PRIZE(Range.singleton(Lotto.NUMBERS_LENGTH - 1), 3_000_000, true),
+    THIRD_PRIZE(Range.singleton(Lotto.NUMBERS_LENGTH - 1), 1_500_000, false),
+    FORTH_PRIZE(Range.singleton(Lotto.NUMBERS_LENGTH - 2), 50_000, false),
+    FIFTH_PRIZE(Range.singleton(Lotto.NUMBERS_LENGTH - 3), 5_000, false),
+    NONE(Range.closed(0, Lotto.NUMBERS_LENGTH - 4), 0, false);
+
+    private final Range<Integer> matchedCountRange;
     private final int prizeMoney;
     private final boolean isCountingBonus;
 
-    WinningState(int matchedCount, int prizeMoney, boolean isCountingBonus) {
-        this.matchedCount = matchedCount;
+    WinningState(Range<Integer> matchedCountRange, int prizeMoney, boolean isCountingBonus) {
+        this.matchedCountRange = matchedCountRange;
         this.prizeMoney = prizeMoney;
         this.isCountingBonus = isCountingBonus;
     }
 
     public static WinningState findByMatchedCountAndBonus(int matchedCount, boolean isContainingBonus) {
         for (WinningState value : values()) {
-            if (value.matchedCount == matchedCount
+            if (value.matchedCountRange.contains(matchedCount)
                     && value.isCountingBonus == isContainingBonus) {
                 return value;
             }
         }
-        return null;
+        return NONE;
     }
 
-    public int getMatchedCount() {
-        return matchedCount;
+    public Range<Integer> getMatchedCountRange() {
+        return matchedCountRange;
     }
 
     public int getPrizeMoney() {
