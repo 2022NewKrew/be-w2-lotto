@@ -18,6 +18,14 @@ public class LottoGameView {
         return userInputScreen.queryPurchaseAmount();
     }
 
+    public int queryManualLottoCount() throws IOException {
+        return userInputScreen.queryManualLottoCount();
+    }
+
+    public List<List<Integer>> queryManualLottoNumbers(int lottoCount) throws IOException {
+        return userInputScreen.queryManualLottoNumbers(lottoCount);
+    }
+
     public List<Integer> queryWinningLotto() throws IOException {
         return userInputScreen.queryWinningLotto();
     }

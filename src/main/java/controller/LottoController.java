@@ -6,6 +6,7 @@ import common.model.LottoRank;
 import domain.model.WinningLottoTicket;
 import domain.LottoGameService;
 import view.LottoGameView;
+import view.dto.LottoPurchaseRequest;
 import view.dto.WinningResultResponse;
 import view.model.WinningStatisticalData;
 
@@ -18,18 +19,21 @@ import java.util.stream.Collectors;
 public class LottoController {
 
     private static LottoGameView lottoGameView = new LottoGameView();
-
     private static LottoGameService lottoGame = new LottoGameService();
 
     /**
      * 1. 구매 금액 입력받기
-     * 2. 로또 복권 구매하기
-     * 3. 당첨 번호 입력받기
-     * 4. 보너스 볼 입력받기
-     * 5. 당첨 결과 출력하기
+     * 2. 수동 로또 입력받기
+     * 3. 로또 복권 구매하기
+     * 4. 당첨 번호 입력받기
+     * 5. 보너스 볼 입력받기
+     * 6. 당첨 결과 출력하기
      */
     public void run() throws IOException {
         int amount = lottoGameView.queryPurchaseAmount();
+        int lottoCount = lottoGameView.queryManualLottoCount();
+        List<List<Integer>> manualLottoTickets = lottoGameView.queryManualLottoNumbers(lottoCount);
+
         LottoTickets lottoTickets = lottoGame.purchase(amount);
         lottoGameView.printLottoTickets(lottoTickets);
 
@@ -49,6 +53,5 @@ public class LottoController {
                 .collect(Collectors.toList());
         return new WinningResultResponse(statDataList, winningResult.getProfitRatio());
     }
-
 
 }

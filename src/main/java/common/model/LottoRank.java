@@ -47,6 +47,6 @@ public enum LottoRank {
     }
 
     private static boolean isSecond(int winningCount, boolean matchBonus) {
-        return winningCount == 5 && matchBonus;
+        return winningCount == SECOND.winningCount && matchBonus;
     }
 }
