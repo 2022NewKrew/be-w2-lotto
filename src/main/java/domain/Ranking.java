@@ -1,6 +1,6 @@
 package domain;
 
-public enum Ranking {
+public enum Ranking implements Comparable<Ranking> {
     NONE(0,0),
     THREE(3,5000),
     FOUR(4,50000),
