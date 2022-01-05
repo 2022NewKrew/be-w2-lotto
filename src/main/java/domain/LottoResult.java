@@ -6,13 +6,21 @@ import java.util.EnumMap;
 import java.util.List;
 
 public class LottoResult {
-    private static void InitializeMap(EnumMap<Prize, Integer> lottoResult) {
+    private final List<Integer> lastWeekWinningNumbers;
+
+    public LottoResult(List<Integer> lastWeekWinningNumbers) {
+        if (lastWeekWinningNumbers == null)
+            throw new IllegalArgumentException();
+        this.lastWeekWinningNumbers = lastWeekWinningNumbers;
+    }
+
+    private void InitializeMap(EnumMap<Prize, Integer> lottoResult) {
         for (Prize prize : Prize.values()) {
             lottoResult.put(prize, 0);
         }
     }
 
-    public static EnumMap<Prize, Integer> winningLottoCount(List<Integer> lastWeekWinningNumbers, List<Lotto> lottoList) {
+    public EnumMap<Prize, Integer> winningLottoCount(List<Lotto> lottoList) {
         EnumMap<Prize, Integer> lottoResult = new EnumMap<>(Prize.class);
 
         InitializeMap(lottoResult);
@@ -23,7 +31,7 @@ public class LottoResult {
         return lottoResult;
     }
 
-    public static double rateOfReturn(List<Integer> lastWeekWinningNumbers, int purchaseAmount) {
+    public double rateOfReturn(int purchaseAmount) {
         // TODO - 수익률을 계산하는 메소드
         return -64.28;
     }

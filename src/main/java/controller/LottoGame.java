@@ -21,7 +21,8 @@ public class LottoGame {
 
         List<Integer> lastWeekWinningNumbers = InputView.inputLastWeekWinningNumber();
         Validation.lengthShouldBe(lastWeekWinningNumbers, 6, new InvalidPurchaseAmount(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
-        ResultView.printLottoResult(LottoResult.winningLottoCount(lastWeekWinningNumbers, lottoList));
-        ResultView.printRateOfReturn(LottoResult.rateOfReturn(lastWeekWinningNumbers, purchaseAmount));
+        LottoResult lottoResult = new LottoResult(lastWeekWinningNumbers);
+        ResultView.printLottoResult(lottoResult.winningLottoCount(lottoList));
+        ResultView.printRateOfReturn(lottoResult.rateOfReturn(purchaseAmount));
     }
 }
