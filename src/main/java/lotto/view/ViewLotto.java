@@ -1,15 +1,15 @@
 package lotto.view;
 
 import lotto.domain.LottoNumber;
+import lotto.domain.LottoPaper;
 import lotto.domain.LottoRank;
 
-import java.util.List;
 import java.util.Map;
 
 public class ViewLotto {
 
-    public static void printLotto(List<LottoNumber> lottoNumbers){
-        for(LottoNumber ln : lottoNumbers){
+    public static void printLotto(LottoPaper lp){
+        for(LottoNumber ln : lp.lottoNumbers){
             System.out.println(ln.getNumbers());
         }
         System.out.println();
@@ -35,7 +35,7 @@ public class ViewLotto {
         return sb.toString();
     }
 
-    public static void printPriceRatio(int ratio){
+    public static void printPriceRatio(long ratio){
         System.out.println("총 수익률은 " + ratio + "%입니다.");
     }
 }

@@ -1,17 +1,14 @@
 package lotto;
 
 
-import lotto.domain.LottoGenerator;
-import lotto.domain.LottoInput;
-import lotto.domain.LottoNumber;
-import lotto.domain.LottoRank;
+import lotto.domain.*;
 import lotto.view.ViewLotto;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class LottoGame {
-    private List<LottoNumber> lottoNumbers;
+    private LottoPaper lp;
     private List<Integer> preWeekNumber;
     private int bonusNumber;
     private final Map<Integer, Integer> rank = new HashMap<>(Map.of(
@@ -24,28 +21,31 @@ public class LottoGame {
 
     public LottoGame() {}
 
-    public void proceed(){
-        LottoGenerator lg = new LottoGenerator(LottoInput.prePurchase());
-        lg.generateLotto();
-        lottoNumbers = lg.getLottoPapers();
 
-        ViewLotto.printLotto(lottoNumbers);
+    public void proceed(){
+        LottoPaper emptyLottoPaper = new LottoPaper();
+
+        LottoInput li = new LottoInput(emptyLottoPaper);
+        li.prePurchase();
+
+        LottoGenerator lg = new LottoGenerator(li.getLottoPaper());
+        lg.generateLotto(LottoInput.manualPurchase());
+        lp = lg.getLottoPaper();
+
+        ViewLotto.printLotto(lp);
         preWeekNumber = LottoInput.postPurchase();
         bonusNumber = LottoInput.getBonusNumber();
 
         searchResult();
         ViewLotto.printResult(rank);
-        ViewLotto.printPriceRatio(calculatePrize(LottoInput.getInputPrice()));
+        ViewLotto.printPriceRatio(calculatePrize(lp.inputPrice));
     }
 
     private void searchResult(){
-        int countofMatch;
-        boolean matchBonus;
-        LottoRank lr;
-        for(LottoNumber ln : lottoNumbers){
-            countofMatch = intersection(ln.getNumbers());
-            matchBonus = ln.getNumbers().contains(bonusNumber);
-            lr = LottoRank.valueOf(countofMatch, matchBonus);
+        for(LottoNumber ln : lp.lottoNumbers){
+            int countOfMatch = intersection(ln.getNumbers());
+            boolean matchBonus = ln.getNumbers().contains(bonusNumber);
+            LottoRank lr = LottoRank.valueOf(countOfMatch, matchBonus);
             updateRank(lr);
         }
     }
@@ -65,12 +65,12 @@ public class LottoGame {
         return intSet.size();
     }
 
-    private int calculatePrize(int inputPrice){
-        int sum = 0;
+    private long calculatePrize(int inputPrice){
+        long sum = 0;
         for(LottoRank lr : LottoRank.values()){
             int matchPrize = lr.getWinningPrize();
             int resultRank = lr.getResultRank();
-            sum += matchPrize * rank.get(resultRank);
+            sum += (long) matchPrize * rank.get(resultRank);
         }
         return (sum-inputPrice) / inputPrice * 100;
     }
