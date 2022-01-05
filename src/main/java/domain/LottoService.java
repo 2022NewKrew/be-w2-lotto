@@ -18,7 +18,7 @@ public class LottoService {
 
         List<Lotto> lottos = new ArrayList<>();
 
-        Stream.generate(LottoNumberGenerator::generate)
+        Stream.generate(RandomLottoNumberGenerator::generate)
                 .limit(calcLottoCount(money))
                 .map(Lotto::new)
                 .forEach(lottos::add);

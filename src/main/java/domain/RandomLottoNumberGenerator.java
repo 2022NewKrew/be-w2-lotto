@@ -2,7 +2,7 @@ package domain;
 
 import java.util.*;
 
-public class LottoNumberGenerator {
+public class RandomLottoNumberGenerator {
     private static final Integer LOTTO_NUMBER_SIZE = 6;
     private static final Integer MIN_NUMBER = 1;
     private static final Integer MAX_NUMBER = 45;
