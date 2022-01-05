@@ -1,17 +1,16 @@
-package lotto.model;
+package lotto.domain;
 
 public enum LottoPrize {
-    FIRST_PLACE(2_000_000_000, "6개 일치"),
-    SECOND_PLACE(30_000_000, "5개 일치, 보너스 볼 일치"),
-    THIRD_PLACE(1_500_000, "5개 일치"),
-    FOURTH_PLACE(50_000, "4개 일치"),
-    FIFTH_PLACE(5_000, "3개 일치");
+    FIRST_PLACE(2_000_000_000),
+    SECOND_PLACE(30_000_000),
+    THIRD_PLACE(1_500_000),
+    FOURTH_PLACE(50_000),
+    FIFTH_PLACE(5_000);
 
     private final int reward;
-    private final String msg;
-    LottoPrize(int reward, String msg) {
+
+    LottoPrize(int reward) {
         this.reward = reward;
-        this.msg = msg;
     }
 
     public static LottoPrize of(int matchedCount) {
@@ -26,6 +25,4 @@ public enum LottoPrize {
     }
 
     public final int getReward() { return reward; }
-
-    public final String getMessage() { return msg;}
 }
