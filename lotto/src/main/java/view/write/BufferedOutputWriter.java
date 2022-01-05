@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 /**
- * 출력을 담당. OutputWriter 의 구현체.
- * BufferedWriter 를 사용해 데이터를 출력한다.
+ * 출력을 담당. OutputWriter 의 구현체. BufferedWriter 를 사용해 데이터를 출력한다.
  *
  * @author leo.jung
  * @since 1.0

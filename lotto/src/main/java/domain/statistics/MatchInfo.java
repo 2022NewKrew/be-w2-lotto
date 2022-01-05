@@ -29,4 +29,5 @@ public class MatchInfo {
   public boolean isBonusMatched() {
     return isBonusMatched;
   }
+
 }

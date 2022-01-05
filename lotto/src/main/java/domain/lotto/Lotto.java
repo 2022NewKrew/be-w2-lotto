@@ -8,9 +8,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 로또 객체. 6가지 숫자를 보관하며, 로또에 관한 기본정보들을 static 으로 보관
- * 객체의 랜덤 생성 및 외부로 부터 주입받아 로또 객체가 생성된다.
- * 위닝 로또와 비교하여 매칭 정보를 반환한다.
+ * 로또 객체. 6가지 숫자를 보관하며, 로또에 관한 기본정보들을 static 으로 보관 객체의 랜덤 생성 및 외부로 부터 주입받아 로또 객체가 생성된다. 위닝 로또와 비교하여
+ * 매칭 정보를 반환한다.
  *
  * @author leo.jung
  * @since 1.0
@@ -32,13 +31,16 @@ public class Lotto {
     this.holder = generateRandomNumbers(LOTTO_COUNT);
   }
 
+
   protected Lotto(List<Integer> holder) {
     this.holder = holder;
   }
 
+
   public static Lotto of(List<Integer> holder) {
     return new Lotto(holder);
   }
+
 
   public static Lotto ofRandom() {
     return new Lotto();

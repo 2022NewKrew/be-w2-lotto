@@ -27,7 +27,7 @@ public class LottoWallet implements Iterable<Lotto> {
 
 
   public void addLotto(int quantity) {
-    if(quantity < 0) {
+    if (quantity < 0) {
       return;
     }
     lottoHolder.addAll(generateLottoList(quantity));
@@ -65,4 +65,5 @@ public class LottoWallet implements Iterable<Lotto> {
   public void forEach(Consumer<? super Lotto> action) {
     lottoHolder.forEach(action);
   }
+
 }

@@ -1,7 +1,7 @@
 package domain.lotto;
 
 import domain.lottery.LotteryMachine;
-import domain.statistics.Statistics;
+import domain.statistics.YieldStatistics;
 import java.io.IOException;
 import view.read.BufferedInputReader;
 import view.read.InputReader;
@@ -60,10 +60,9 @@ public class LottoManager {
 
 
   private void reportWinningStatistics() throws IOException {
-    Statistics statistics = Statistics.of(lotteryMachine.getCurrentWinningLottery(), wallet);
+    YieldStatistics statistics = YieldStatistics.of(lotteryMachine.getCurrentWinningLottery(),
+        wallet);
     writer.write(statistics);
   }
-
-
 
 }

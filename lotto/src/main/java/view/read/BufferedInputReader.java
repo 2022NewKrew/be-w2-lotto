@@ -12,8 +12,7 @@ import java.util.stream.Collectors;
 import utils.StringUtils;
 
 /**
- * 입력 객체로 InputReader 인터페이스의 구현체.
- * BufferedReader 를 사용하여 입력 값을 받음.
+ * 입력 객체로 InputReader 인터페이스의 구현체. BufferedReader 를 사용하여 입력 값을 받음.
  *
  * @author leo.jung
  * @since 1.0
@@ -24,7 +23,7 @@ public class BufferedInputReader implements InputReader {
   private final BufferedReader reader;
   private final BufferedWriter writer;
 
-  private  BufferedInputReader() {
+  private BufferedInputReader() {
     this.reader = new BufferedReader(new InputStreamReader(System.in));
     this.writer = new BufferedWriter(new OutputStreamWriter(System.out));
   }
@@ -71,7 +70,7 @@ public class BufferedInputReader implements InputReader {
 
   //TODO: 조금더 상세한 valid check, Integer 는 맞는 지, 45 이내인지 등등
   private void validCheck(List<Integer> numbers) {
-    if(numbers.size() != Lotto.LOTTO_COUNT) {
+    if (numbers.size() != Lotto.LOTTO_COUNT) {
       throw new IllegalArgumentException();
     }
   }

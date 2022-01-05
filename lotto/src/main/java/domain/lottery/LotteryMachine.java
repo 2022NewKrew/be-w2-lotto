@@ -13,19 +13,24 @@ public class LotteryMachine {
 
   private WinningLotto winningLotto;
 
+
   private LotteryMachine() {
     this.winningLotto = null;
   }
+
 
   public static LotteryMachine createEmpty() {
     return new LotteryMachine();
   }
 
+
   public void generateWinningLottery(InputReader reader) throws IOException {
     this.winningLotto = reader.getLastWinningLottery();
   }
 
+
   public WinningLotto getCurrentWinningLottery() {
     return winningLotto;
   }
+
 }

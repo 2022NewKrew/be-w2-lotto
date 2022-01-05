@@ -10,21 +10,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 통계 담당
- * 구매한 로또와 WinningLottery 를 기반으로
- * LottoPrize 당 당첨 로또를 보관하며, 당첨 금액과 수익률 통계를 낸다.
+ * 통계 담당 구매한 로또와 WinningLottery 를 기반으로 LottoPrize 당 당첨 로또를 보관하며, 당첨 금액과 수익률 통계를 낸다. ==> Statistics
+ * 추상 클래스로 변환, Statistics 는 기본적으로 winningLottery 에 대한 판단 및 보관 하는 역할을 하며 이에 대해 구체적인 통계를 내기 위해서는 총 구매
+ * 금액 등의 부가적인 항목이 필요해 보인다. 이는 추후 Statistics 를 상속한 구현체가 구현하도록 정의.
  *
  * @author leo.jung
- * @since 1.0
+ * @since 1.1
  */
-public class Statistics {
+public abstract class Statistics {
 
   private final Map<LottoPrize, List<Lotto>> winningLotteryHolder;
-  private final int buyAmount;
 
-  private Statistics(WinningLotto winningLotto, LottoWallet wallet) {
+  protected Statistics(WinningLotto winningLotto, LottoWallet wallet) {
     this.winningLotteryHolder = new EnumMap<>(LottoPrize.class);
-    this.buyAmount = calculateBuyAmount(wallet);
     setupHolder();
     setupMatchMap(winningLotto, wallet);
   }
@@ -37,18 +35,8 @@ public class Statistics {
   }
 
 
-  private int calculateBuyAmount(LottoWallet wallet) {
-    return wallet.size() * Lotto.LOTTO_PRICE;
-  }
-
-
-  public static Statistics of(WinningLotto winningLotto, LottoWallet wallet) {
-    return new Statistics(winningLotto, wallet);
-  }
-
-
   private void setupMatchMap(WinningLotto winningLotto, LottoWallet wallet) {
-    for(Lotto candidateLotto : wallet) {
+    for (Lotto candidateLotto : wallet) {
       MatchInfo matchInfo = candidateLotto.compareWith(winningLotto);
       addLottoIfMatched(matchInfo, candidateLotto);
     }
@@ -69,12 +57,7 @@ public class Statistics {
   }
 
 
-  private int getProfitRate() {
-    return (int)((double) getProfitAmount() / buyAmount * 100 - 100);
-  }
-
-
-  private int getProfitAmount() {
+  protected int getProfitAmount() {
     return winningLotteryHolder.entrySet().stream()
         .map(matcherIntegerEntry -> {
           int reward = matcherIntegerEntry.getKey().getReward();
@@ -89,8 +72,7 @@ public class Statistics {
   public String toString() {
     return "당첨 통계" + '\n'
         + "---------" + '\n'
-        + stringifyMatchMap()
-        + "총 수익률은 " + getProfitRate() + "%입니다." + '\n';
+        + stringifyMatchMap();
   }
 
 

@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
  */
 public final class StringUtils {
 
-  private StringUtils() {}
+  private StringUtils() {
+  }
 
   private static final String DEFAULT_DELIMITER = ",";
 
