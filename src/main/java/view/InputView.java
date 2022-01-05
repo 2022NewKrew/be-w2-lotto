@@ -8,13 +8,10 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-
-import static domain.Lotto.END_NUMBER;
-import static domain.Lotto.START_NUMBER;
-
 public class InputView {
     private static final Scanner sc = new Scanner(System.in);
-
+    public static final int START_NUMBER = 1;
+    public static final int END_NUMBER = 45;
     public static int getPayPriceInput() {
         int result = -1;
         System.out.println("구입금액을 입력해 주세요.");

@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static domain.Lotto.END_NUMBER;
-import static domain.Lotto.START_NUMBER;
+import static view.InputView.END_NUMBER;
+import static view.InputView.START_NUMBER;
 
 public class LottoGenerator {
     private static List<Integer> shuffleNumbers = IntStream.rangeClosed(START_NUMBER, END_NUMBER).boxed().collect(Collectors.toList());

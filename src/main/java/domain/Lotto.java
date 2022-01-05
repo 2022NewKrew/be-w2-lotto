@@ -5,8 +5,6 @@ import java.util.List;
 
 public class Lotto {
     private final List<Integer> numberList;
-    public static final int START_NUMBER = 1;
-    public static final int END_NUMBER = 45;
     /*자동 생성 하는 경우*/
     public Lotto() {
         numberList = LottoGenerator.getLottoNumbers();
