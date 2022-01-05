@@ -2,17 +2,16 @@ package lotto.domain;
 
 import java.util.List;
 
+import static lotto.domain.LottoConstants.COUNT_OF_LOTTO_NUMBER;
+import static lotto.domain.LottoConstants.MAX_OF_LOTTO_NUMBER;
+
 public class LottoCheck {
     private final List<Integer> numbers;
     private final int bonusNum;
-    private final int cntOfNum;
-    private final int maxOfNum;
 
-    LottoCheck(List<Integer> numbers, int bonusNum, int cntOfNum, int maxOfNum) {
+    LottoCheck(List<Integer> numbers, int bonusNum) {
         this.numbers = numbers;
         this.bonusNum = bonusNum;
-        this.cntOfNum = cntOfNum;
-        this.maxOfNum = maxOfNum;
     }
 
     public void checkWinningLottoNumbers() throws IllegalArgumentException {
@@ -34,7 +33,7 @@ public class LottoCheck {
     }
 
     private void checkNumRange(Integer num) throws IllegalArgumentException {
-        if (num < 1 || num > maxOfNum) {
+        if (num < 1 || num > MAX_OF_LOTTO_NUMBER) {
             throw new IllegalArgumentException("잘못된 범위의 로또 당첨 번호입니다!");
         }
     }
@@ -52,7 +51,7 @@ public class LottoCheck {
     }
 
     private void checkNumCount() throws IllegalArgumentException{
-        if (numbers.size() != cntOfNum) {
+        if (numbers.size() != COUNT_OF_LOTTO_NUMBER) {
             throw new IllegalArgumentException("잘못된 개수의 로또 당첨 번호입니다!");
         }
     }

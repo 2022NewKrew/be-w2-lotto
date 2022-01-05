@@ -5,27 +5,30 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import static lotto.domain.LottoConstants.COUNT_OF_LOTTO_NUMBER;
+import static lotto.domain.LottoConstants.MAX_OF_LOTTO_NUMBER;
+
 public class LottoNumbers {
     private List<Integer> lottoNumbers;
 
-    LottoNumbers(int maxOfNum, int cntOfNum) {
+    LottoNumbers() {
         ArrayList<Integer> randomNumList;
-        randomNumList = makeRandomNumList(maxOfNum);
-        lottoNumbers = chooseLottoNumbers(cntOfNum, randomNumList);
+        randomNumList = makeRandomNumList();
+        lottoNumbers = chooseLottoNumbers(randomNumList);
         sortLottoNumbers();
     }
 
-    private ArrayList<Integer> makeRandomNumList(int maxOfNum) {
+    private ArrayList<Integer> makeRandomNumList() {
         ArrayList<Integer> randomNums = new ArrayList<>();
-        for (int i = 0; i < maxOfNum; i++) {
+        for (int i = 0; i < MAX_OF_LOTTO_NUMBER; i++) {
             randomNums.add(i + 1);
         }
         Collections.shuffle(randomNums);
         return randomNums;
     }
 
-    private List<Integer> chooseLottoNumbers(int cntOfNum, ArrayList<Integer> randomNumList) {
-        return randomNumList.subList(0, cntOfNum);
+    private List<Integer> chooseLottoNumbers(ArrayList<Integer> randomNumList) {
+        return randomNumList.subList(0, COUNT_OF_LOTTO_NUMBER);
     }
 
     private void sortLottoNumbers() {

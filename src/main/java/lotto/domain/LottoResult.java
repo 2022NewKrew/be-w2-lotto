@@ -4,6 +4,9 @@ import lotto.view.LottoView;
 
 import java.util.*;
 
+import static lotto.domain.LottoConstants.COUNT_OF_LOTTO_NUMBER;
+import static lotto.domain.LottoConstants.MAX_OF_LOTTO_NUMBER;
+
 public class LottoResult {
     private List<Integer> winningLottoNumbers = new ArrayList<>();
     private final HashMap<Rank, Integer> matchMap = new HashMap<>();
@@ -21,17 +24,17 @@ public class LottoResult {
         }
     }
 
-    public void inputWinningLottoNumbers(final int COUNT_OF_LOTTO_NUMBER, final int MAX_OF_LOTTO_NUMBER) {
+    public void inputWinningLottoNumbers() {
         try {
             askWinningLottoNumbers();
             winningLottoNumbers = readWinningLottoNumbers();
             askBonusWinningLottoNumber();
             bonusNum = readBonusWinningLottoNumber();
-            LottoCheck lc = new LottoCheck(winningLottoNumbers, bonusNum, COUNT_OF_LOTTO_NUMBER, MAX_OF_LOTTO_NUMBER);
+            LottoCheck lc = new LottoCheck(winningLottoNumbers, bonusNum);
             lc.checkWinningLottoNumbers();
         } catch (Exception e) {
             System.out.println("잘못된 당첨 번호입니다! 다시 입력해주세요.");
-            inputWinningLottoNumbers(COUNT_OF_LOTTO_NUMBER, MAX_OF_LOTTO_NUMBER);
+            inputWinningLottoNumbers();
         }
     }
 

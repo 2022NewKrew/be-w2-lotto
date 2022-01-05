@@ -4,10 +4,9 @@ import lotto.view.LottoView;
 
 import java.util.*;
 
+import static lotto.domain.LottoConstants.*;
+
 public class LottoManager {
-    private final int MAX_OF_LOTTO_NUMBER = 45;
-    private final int COUNT_OF_LOTTO_NUMBER = 6;
-    private final int PRICE_OF_LOTTO = 1000;
     private int moneyAmount;
     private int numOfLottos;
     private List<LottoNumbers> lottos = new ArrayList<>();
@@ -44,7 +43,7 @@ public class LottoManager {
 
     private void createLottos() {
         for (int i = 0; i < numOfLottos; i++) {
-            LottoNumbers ln = new LottoNumbers(MAX_OF_LOTTO_NUMBER, COUNT_OF_LOTTO_NUMBER);
+            LottoNumbers ln = new LottoNumbers();
             lottos.add(ln);
         }
     }
@@ -56,7 +55,7 @@ public class LottoManager {
 
     private void makeLottoResult() {
         LottoResult lr = new LottoResult();
-        lr.inputWinningLottoNumbers(COUNT_OF_LOTTO_NUMBER, MAX_OF_LOTTO_NUMBER);
+        lr.inputWinningLottoNumbers();
         lr.evaluateResult(lottos, moneyAmount);
         lr.printResult();
     }
