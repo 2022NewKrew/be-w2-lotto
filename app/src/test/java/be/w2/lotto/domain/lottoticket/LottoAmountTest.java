@@ -1,4 +1,4 @@
-package be.w2.lotto.domain;
+package be.w2.lotto.domain.lottoticket;
 
 import be.w2.lotto.domain.lottoticket.LottoTicketAmount;
 import org.junit.jupiter.api.Test;

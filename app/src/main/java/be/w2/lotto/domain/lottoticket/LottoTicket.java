@@ -5,7 +5,7 @@ import be.w2.lotto.domain.lottonumber.LottoNumber;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static be.w2.lotto.common.exception.ExceptionMessages.INVALID_WINNING_NUMBERS_EXCEPTION;
+import static be.w2.lotto.common.exception.ExceptionMessages.INVALID_LOTTO_TICKET_SIZE_EXCEPTION;
 import static be.w2.lotto.common.exception.ExceptionMessages.NUMBERS_DUPLICATION_NOT_ALLOWED_EXCEPTION;
 import static be.w2.lotto.domain.lottoticket.LottoTickets.LOTTO_TICKET_SIZE;
 
@@ -23,7 +23,7 @@ public abstract class LottoTicket {
     }
 
     protected static void validateLottoNumbers(List<Integer> winningNumbers) throws IllegalArgumentException {
-        validateNumbersSize(winningNumbers);
+        validateTicketSize(winningNumbers);
         validateNumbersDuplication(winningNumbers);
     }
 
@@ -33,9 +33,9 @@ public abstract class LottoTicket {
         }
     }
 
-    private static void validateNumbersSize(List<Integer> winningNumbers) throws IllegalArgumentException {
+    private static void validateTicketSize(List<Integer> winningNumbers) throws IllegalArgumentException {
         if (winningNumbers.size() != LOTTO_TICKET_SIZE) {
-            throw new IllegalArgumentException(INVALID_WINNING_NUMBERS_EXCEPTION);
+            throw new IllegalArgumentException(INVALID_LOTTO_TICKET_SIZE_EXCEPTION);
         }
     }
 

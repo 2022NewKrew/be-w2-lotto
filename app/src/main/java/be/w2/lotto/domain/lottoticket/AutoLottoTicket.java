@@ -5,7 +5,7 @@ import be.w2.lotto.domain.lottonumber.LottoNumber;
 import java.util.List;
 
 public class AutoLottoTicket extends LottoTicket {
-    public AutoLottoTicket(List<LottoNumber> lottoNumbers) {
+    private AutoLottoTicket(List<LottoNumber> lottoNumbers) {
         super(lottoNumbers);
     }
 
