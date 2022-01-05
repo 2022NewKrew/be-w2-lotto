@@ -2,6 +2,7 @@ package lotto.controller;
 
 import lotto.domain.lotto.Lotto;
 import lotto.domain.player.PlayerLotto;
+import lotto.domain.purchase.LottoPurchaseMachine;
 import lotto.domain.result.LottoResult;
 import lotto.domain.result.LottoResultChecker;
 import lotto.domain.player.PlayerLottoList;
@@ -9,7 +10,6 @@ import lotto.domain.result.WinningLotto;
 import lotto.view.LottoGameInput;
 import lotto.view.LottoGameOutput;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,22 +30,29 @@ public class LottoGame {
 
     private void purchase(Scanner scanner){
         purchaseAmount = LottoGameInput.inputPurchaseAmount(scanner);
-        purchaseLotto(scanner);
-        LottoGameOutput.printLottoNumbers(numberOfLotto, playerLottoList);
+        numberOfLotto = purchaseAmount / Lotto.LOTTO_PRICE;
+        int numberOfManualLotto = LottoGameInput.inputNumberOfManualLotto(scanner);
+        purchaseManualLotto(scanner, numberOfManualLotto);
+
+        int numberOfAutoLotto = numberOfLotto - numberOfManualLotto;
+        purchaseAutoLotto(numberOfAutoLotto);
+
+        LottoGameOutput.printLottoNumbers(numberOfManualLotto, numberOfAutoLotto, playerLottoList);
     }
 
-    private void purchaseLotto(Scanner scanner) {
-        numberOfLotto = purchaseAmount / Lotto.LOTTO_PRICE;
-
-        int numberOfManualLotto = LottoGameInput.inputNumberOfManualLotto(scanner);
-        List<PlayerLotto> manualLottoList = LottoGameInput.inputListOfManualLotto(scanner, numberOfManualLotto);
-
-        for(PlayerLotto manualLotto : manualLottoList){
-            playerLottoList.purchaseManualLotto(manualLotto);
+    private void purchaseManualLotto(Scanner scanner, int numberOfManualLotto){
+        LottoGameOutput.printInputManualLottoComment();
+        for (int i =0 ; i < numberOfManualLotto; i++) {
+            List<Integer> inputManualNumbers = LottoGameInput.inputOneManualLotto(scanner);
+            PlayerLotto manualLotto = LottoPurchaseMachine.purchaseManualLotto(inputManualNumbers);
+            playerLottoList.addPlayerLotto(manualLotto);
         }
+    }
 
-        for (int i = 0; i < numberOfLotto - numberOfManualLotto; i++) {
-            playerLottoList.purchaseAutoLotto();
+    private void purchaseAutoLotto(int numberOfAutoLotto){
+        for (int i = 0; i < numberOfAutoLotto; i++) {
+            PlayerLotto autoLotto = LottoPurchaseMachine.purchaseAutoLotto();
+            playerLottoList.addPlayerLotto(autoLotto);
         }
     }
 

@@ -1,6 +1,5 @@
 package lotto.view;
 
-import lotto.domain.player.PlayerLotto;
 import lotto.domain.result.WinningLotto;
 
 import java.util.ArrayList;
@@ -41,18 +40,9 @@ public class LottoGameInput {
         return numberOfManualLotto;
     }
 
-    public static List<PlayerLotto> inputListOfManualLotto(Scanner scanner, int numberOfManualLotto){
-        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
-        List<PlayerLotto> manualLottoList = new ArrayList<>();
-        for (int i = 0; i < numberOfManualLotto; i++) {
-            manualLottoList.add(inputOneManualLotto(scanner));
-        }
-        return manualLottoList;
-    }
-
-    public static PlayerLotto inputOneManualLotto(Scanner scanner){
-        return new PlayerLotto(Arrays.stream(scanner.nextLine().split(","))
+    public static List<Integer> inputOneManualLotto(Scanner scanner){
+        return Arrays.stream(scanner.nextLine().split(","))
                 .map(Integer::parseInt)
-                .collect(Collectors.toCollection(ArrayList::new)));
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }
