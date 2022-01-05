@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import java.util.Collections;
 import java.util.List;
 
 public class WinningLotto {
@@ -15,11 +16,11 @@ public class WinningLotto {
         this.bonusDigit = bonusDigit;
     }
 
-    public LottoNumber getBonusDigit() {
-        return bonusDigit;
+    public List<LottoNumber> getNumberList() {
+        return Collections.unmodifiableList(numberList);
     }
 
-    public boolean containsLottoNumber(LottoNumber lottoNumber) {
-        return numberList.stream().anyMatch(number -> number.getDigit() == lottoNumber.getDigit());
+    public LottoNumber getBonusDigit() {
+        return bonusDigit;
     }
 }

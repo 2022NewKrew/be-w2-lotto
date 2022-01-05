@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class PurchasedLotto {
+public class PurchasedLottos {
     private final List<Lotto> lottoList;
 
-    public PurchasedLotto(List<Lotto> lottoList) {
+    public PurchasedLottos(List<Lotto> lottoList) {
         this.lottoList = lottoList;
     }
 

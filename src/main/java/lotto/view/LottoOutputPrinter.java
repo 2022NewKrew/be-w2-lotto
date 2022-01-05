@@ -37,7 +37,7 @@ public class LottoOutputPrinter {
         for (LottoResult result : LottoResult.values()) {
             StringBuilder resultStr = new StringBuilder();
             System.out.println(resultStr.append(result.getNumOfMatchingDigits()).append("개 일치")
-                    .append(result.equals(LottoResult.BONUS) ? ", 보너스 볼 일치" : " ")
+                    .append(result.equals(LottoResult.SECOND) ? ", 보너스 볼 일치" : " ")
                     .append("(").append(result.getReward()).append("원) - ")
                     .append(winningResult.getCountOf(result)).append("개"));
         }

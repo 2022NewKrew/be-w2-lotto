@@ -3,6 +3,7 @@ package lotto.domain;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 public class Lotto {
@@ -21,9 +22,11 @@ public class Lotto {
     }
 
     public int getNumOfMatchingDigits(@NotNull WinningLotto winningLotto) {
-        return (int) numberList.stream()
-                .filter(winningLotto::containsLottoNumber)
-                .count();
+        HashSet<LottoNumber> currentLottoNumberSet = new HashSet<>(numberList);
+        HashSet<LottoNumber> winningLottoNumberSet = new HashSet<>(winningLotto.getNumberList());
+
+        winningLottoNumberSet.retainAll(currentLottoNumberSet);
+        return winningLottoNumberSet.size();
     }
 
     public boolean containsBonusNumber(LottoNumber bonusNumber) {

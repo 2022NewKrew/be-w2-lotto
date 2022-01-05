@@ -24,7 +24,7 @@ public class DomainValidationChecker {
         checkDigitsInLotto(tmpList);
     }
 
-    private boolean checkDigit(LottoNumber lottoNumber) {
+    private boolean checkDigit(@NotNull LottoNumber lottoNumber) {
         return MIN_DIGIT <= lottoNumber.getDigit() && lottoNumber.getDigit() <= MAX_DIGIT;
     }
 
