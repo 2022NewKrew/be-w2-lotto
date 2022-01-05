@@ -12,8 +12,6 @@ public class Validation {
     }
 
     public static <T> void lengthShouldBe(List<T> object, int length, RuntimeException runtimeException) {
-        System.out.println("--------------");
-        System.out.println(object.size());
         condition(object.size() == length, runtimeException);
     }
 
