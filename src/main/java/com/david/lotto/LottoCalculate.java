@@ -7,8 +7,7 @@ import java.util.stream.Collectors;
 
 public class LottoCalculate {
 
-    private static final Map<Rank, Integer> totalCount = new LinkedHashMap<>();
-    private static double revenue;
+    private final Map<Rank, Integer> totalCount = new LinkedHashMap<>();
 
     public LottoCalculate() {
         totalCount.put(Rank.FIFTH, 0);
@@ -32,15 +31,17 @@ public class LottoCalculate {
         }
     }
 
-    private void calculateRevenue() {
+    private double calculateRevenue() {
+        double revenue = 0;
         for (Rank rank : totalCount.keySet()) {
             revenue += (rank.getWinningMoney() * totalCount.get(rank));
         }
+        return revenue;
     }
 
     public double calculateProfitRate(List<Lotto> lottoList, List<Integer> winningNumber, int count, int bonusNumber) {
         calculateCount(lottoList, winningNumber, bonusNumber);
-        calculateRevenue();
+        double revenue = calculateRevenue();
         int amount = count * LottoMachine.lottoPrice;
         return ((revenue - amount) / amount) * 100;
     }

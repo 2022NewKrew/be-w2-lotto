@@ -1,23 +1,13 @@
 package com.david.lotto;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Lotto {
 
-    private final List<Integer> allLottoNumber = IntStream.range(1, 46).boxed().collect(Collectors.toList());
-    private final List<Integer> lottoNumber = new ArrayList<>();
+    private final List<Integer> lottoNumber;
 
-    public Lotto() {
-        Collections.shuffle(allLottoNumber);
-        for (int i = 0; i < 6; i++) {
-            int number = allLottoNumber.get(i);
-            lottoNumber.add(number);
-        }
-        Collections.sort(lottoNumber);
+    public Lotto(List<Integer> lottoNumber) {
+        this.lottoNumber = lottoNumber;
     }
 
     public int calculateCountOfMatch(List<Integer> winningNumber) {
