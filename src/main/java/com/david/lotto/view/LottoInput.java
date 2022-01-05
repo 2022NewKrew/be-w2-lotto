@@ -21,14 +21,14 @@ public class LottoInput {
         boolean isDone = false;
         int amount = 0;
         while (!isDone) {
-            try{
+            try {
                 System.out.println("구입금액을 입력해 주세요.");
                 amount = Integer.parseInt(scanner.nextLine());
                 inputValidator.validateAmount(amount);
                 isDone = true;
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.out.println("잘못 입력하였습니다.");
-            }catch (AmountException e){
+            } catch (AmountException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -43,7 +43,7 @@ public class LottoInput {
                 System.out.println("지난 주 당첨 번호를 입력해 주세요.");
                 lottoNumber = convertToNumberList(scanner.nextLine());
                 isDone = true;
-            }catch (LottoNumberException e) {
+            } catch (LottoNumberException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -57,11 +57,11 @@ public class LottoInput {
             try {
                 System.out.println("보너스 볼을 입력해 주세요.");
                 bonusNumber = Integer.parseInt(scanner.nextLine());
-                inputValidator.validateBonusNumber(bonusNumber,winningNumber);
+                inputValidator.validateBonusNumber(bonusNumber, winningNumber);
                 isDone = true;
-            }catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("잘못 입력하였습니다.");
-            }catch (BonusNumberException e) {
+            } catch (BonusNumberException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -72,14 +72,14 @@ public class LottoInput {
         boolean isDone = false;
         int manualCount = 0;
         while (!isDone) {
-            try{
+            try {
                 System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
                 manualCount = Integer.parseInt(scanner.nextLine());
-                inputValidator.validateManualCount(manualCount,amount);
+                inputValidator.validateManualCount(manualCount, amount);
                 isDone = true;
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.out.println("잘못 입력하였습니다.");
-            }catch (ManualCountException e){
+            } catch (ManualCountException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -92,10 +92,10 @@ public class LottoInput {
         int addCount = 0;
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
         while (addCount < manualCount) {
-            try{
+            try {
                 lottoList.add(convertToNumberList(scanner.nextLine()));
                 addCount++;
-            }catch (NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("잘못 입력하였습니다.");
                 System.out.println("수동으로 구매할 번호를 입력해 주세요.");
             } catch (LottoNumberException e) {

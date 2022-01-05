@@ -15,7 +15,7 @@ public class LottoMachine {
     public static final int lottoPrice = 1000;
     private final List<Lotto> lottoList = new ArrayList<>();
 
-    private void generateLottoList(int countOfLotto, int manualCount,List<List<Integer>> manualLottoList) {
+    private void generateLottoList(int countOfLotto, int manualCount, List<List<Integer>> manualLottoList) {
         LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator();
         for (List<Integer> lottoNumber : manualLottoList) {
             lottoList.add(new Lotto(lottoNumber));
@@ -33,8 +33,8 @@ public class LottoMachine {
         int manualCount = lottoInput.inputManualCount(amount);
         int autoCount = countOfLotto - manualCount;
         List<List<Integer>> manualLottoList = lottoInput.inputLottoNumber(manualCount);
-        generateLottoList(countOfLotto,manualCount,manualLottoList);
-        lottoOutput.printLottoCount(manualCount,autoCount);
+        generateLottoList(countOfLotto, manualCount, manualLottoList);
+        lottoOutput.printLottoCount(manualCount, autoCount);
         lottoOutput.printLottoInfo(lottoList);
         List<Integer> winningNumber = lottoInput.inputWinningNumber();
         int bonusNumber = lottoInput.inputBonusNumber(winningNumber);

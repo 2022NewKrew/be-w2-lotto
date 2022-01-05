@@ -10,7 +10,7 @@ public class LottoNumberGenerator {
     public List<Integer> generateLottoNumber() {
         List<Integer> allLottoNumber = IntStream.range(1, 46).boxed().collect(Collectors.toList());
         Collections.shuffle(allLottoNumber);
-        List<Integer> lottoNumber = allLottoNumber.subList(0,6);
+        List<Integer> lottoNumber = allLottoNumber.subList(0, 6);
         Collections.sort(lottoNumber);
         return lottoNumber;
     }
