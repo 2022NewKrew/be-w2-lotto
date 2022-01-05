@@ -33,15 +33,29 @@ public enum MatchingStatus {
         if (matchCount == NUMBER_MATCH_BALLS_2ND && isBonusMatched) {
             return FIVE_MATCHES_AND_BONUS;
         }
-        if (matchCount < MIN_MATCH_NUM_FOR_WINNING) {
+        if (isStatusInvalid(matchCount, isBonusMatched)) {
+            return INVALID;
+        }
+        if (isStatusNothing(matchCount)) {
             return NOTHING;
         }
-        for (var status: MatchingStatus.values()) {
-            if (status.getMatchCount() == matchCount) {
+        for (var status : MatchingStatus.values()) {
+            if (status.matchCount == matchCount) {
                 return status;
             }
         }
         return INVALID;
+    }
+
+    private static boolean isStatusNothing(int matchCount) {
+        return (matchCount < MIN_MATCH_NUM_FOR_WINNING) && (matchCount >= 0);
+    }
+
+    private static boolean isStatusInvalid(int matchCount, boolean isBonusMatched) {
+        if (matchCount < 0 || matchCount > Lotto.NUMBER) {
+            return true;
+        }
+        return (matchCount == Lotto.NUMBER && isBonusMatched);
     }
 
     public int getMatchCount() {
