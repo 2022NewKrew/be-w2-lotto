@@ -8,25 +8,21 @@ import java.util.stream.Collectors;
 
 public class WinningNumbers {
 
-    private final static String NUMBER_RANGE_ERROR_MESSAGE = "번호는 1이상 45이하이어야 합니다.";
     private final static String NUMBER_SIZE_ERROR_MESSAGE = "6개의 번호를 입력해주세요.";
-    private static final int LOTTO_NUMBER_MIN = 1;
-    private static final int LOTTO_NUMBER_MAX = 45;
 
     private static final int WINNING_NUMBERS_SIZE = 6;
 
     private final List<LottoNumber> winningNumbers;
     private final LottoNumber bonusNumber;
 
-    public WinningNumbers(List<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
+    private WinningNumbers(List<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
         this.winningNumbers = new ArrayList<>(winningNumbers);
         this.bonusNumber = bonusNumber;
     }
 
     public static WinningNumbers createWinningNumbers(List<Integer> inputWinningNumbers,
         int inputBonusNumber) {
-        validateWinningNumbers(inputWinningNumbers);
-        validateNumber(inputBonusNumber);
+        validate(inputWinningNumbers);
 
         List<LottoNumber> winningNumbers = inputWinningNumbers.stream()
             .map(LottoNumber::new)
@@ -37,19 +33,9 @@ public class WinningNumbers {
         return new WinningNumbers(winningNumbers, bonusNumber);
     }
 
-    private static void validateWinningNumbers(List<Integer> winningNumbers) {
+    private static void validate(List<Integer> winningNumbers) {
         if (winningNumbers.size() != WINNING_NUMBERS_SIZE) {
             throw new IllegalArgumentException(NUMBER_SIZE_ERROR_MESSAGE);
-        }
-
-        for (int winningNumber : winningNumbers) {
-            validateNumber(winningNumber);
-        }
-    }
-
-    private static void validateNumber(int number) {
-        if (number < LOTTO_NUMBER_MIN || number > LOTTO_NUMBER_MAX) {
-            throw new IllegalArgumentException(NUMBER_RANGE_ERROR_MESSAGE);
         }
     }
 
