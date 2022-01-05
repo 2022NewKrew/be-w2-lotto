@@ -1,30 +1,18 @@
 package presentation.view.output;
 
-<<<<<<< HEAD
-import dto.output.PurchaseResultDto;
 
-public class PurchaseOutputView implements OutputView{
-    private final PurchaseResultDto purchaseResultDto;
-
-    public PurchaseOutputView(PurchaseResultDto purchaseResultDto) {
-        this.purchaseResultDto = purchaseResultDto;
-=======
 import dto.output.PurchaseOutputDto;
 
 public class PurchaseOutputView implements OutputView{
-    private final PurchaseOutputDto purchaseDto;
+    private final PurchaseOutputDto purchaseOutputDto;
 
-    public PurchaseOutputView(PurchaseOutputDto purchaseDto) {
-        this.purchaseDto = purchaseDto;
->>>>>>> a030324 (refactor : 구조개선)
+
+    public PurchaseOutputView(PurchaseOutputDto purchaseOutputDto) {
+        this.purchaseOutputDto = purchaseOutputDto;
     }
 
     @Override
     public void print() {
-<<<<<<< HEAD
-        System.out.println(purchaseResultDto);
-=======
-
->>>>>>> a030324 (refactor : 구조개선)
+        System.out.println(purchaseOutputDto);
     }
 }
