@@ -23,7 +23,7 @@ public class LottoController {
 
         WinningNumbers winningNumbers = createWinningNumbers(inputView);
 
-        LottoStatistics lottoStatistics = new LottoStatistics(winningNumbers, lottoTickets);
+        LottoStatistics lottoStatistics = LottoStatistics.of(winningNumbers, lottoTickets, inputMoney);
         outputView.printLottoStatistics(inputMoney, lottoStatistics);
     }
 

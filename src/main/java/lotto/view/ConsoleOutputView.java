@@ -54,7 +54,7 @@ public class ConsoleOutputView implements OutputView {
             stringBuilder.append(String.format("%d개 일치 (%d)원- %d개\n", matchCount, reward, count));
         }
 
-        int revenueRate = lottoStatistics.calculateRevenueRate(inputMoney);
+        long revenueRate = lottoStatistics.getRevenueRate();
         stringBuilder.append(String.format("총 수익률은 %d%%입니다.\n", revenueRate));
 
         System.out.println(stringBuilder);

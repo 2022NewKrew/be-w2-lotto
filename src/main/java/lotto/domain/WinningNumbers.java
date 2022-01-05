@@ -1,8 +1,6 @@
 package lotto.domain;
 
-import java.util.Iterator;
-
-public class WinningNumbers implements Iterable<LottoNumber> {
+public class WinningNumbers {
     private final LottoNumbers winningNumbers;
     private final LottoNumber bonusNumber;
 
@@ -18,16 +16,24 @@ public class WinningNumbers implements Iterable<LottoNumber> {
         return new WinningNumbers(winningNumbers, bonusNumber);
     }
 
-    public LottoNumbers getWinningNumbers() {
-        return winningNumbers;
+
+    public LottoResult result(LottoTicket ticket) {
+        int matchCount = getMatchCount(ticket);
+        boolean matchBonus = isMatchedBonus(ticket);
+        return LottoResult.valueOf(matchCount, matchBonus);
     }
 
-    public LottoNumber getBonusNumber() {
-        return bonusNumber;
+    private int getMatchCount(LottoTicket ticket) {
+        int matchCount = 0;
+
+        for (LottoNumber number : winningNumbers.getLottoNumbers()) {
+            matchCount += ticket.contains(number) ? 1 : 0;
+        }
+
+        return matchCount;
     }
 
-    @Override
-    public Iterator<LottoNumber> iterator() {
-        return winningNumbers.getLottoNumbers().iterator();
+    private boolean isMatchedBonus(LottoTicket ticket) {
+        return ticket.contains(bonusNumber);
     }
 }

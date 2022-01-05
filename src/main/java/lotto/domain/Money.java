@@ -14,9 +14,9 @@ public class Money {
         return price < 0;
     }
 
-    public int getRevenueRate(Money inputMoney) {
+    public long divideBy(Money inputMoney) {
         double revenueRate = (double) this.price / inputMoney.price;
-        return (int) Math.round(revenueRate * 100);
+        return Math.round(revenueRate * 100);
     }
 
     public int getNumberOfTickets(int ticketPrice) {

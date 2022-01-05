@@ -4,60 +4,47 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class LottoStatistics {
-    private final Map<LottoResult, Integer> resultMap = new EnumMap<>(LottoResult.class);
+    private final Map<LottoResult, Integer> resultMap;
+    private final long revenueRate;
 
-    // TODO: 팩토리 메서드에서 다음 작업을 하도록 수정
-    public LottoStatistics (WinningNumbers winningNumbers, LottoTickets lottoTickets) {
-        initResultMap();
-        match(winningNumbers, lottoTickets);
+    private LottoStatistics(Map<LottoResult, Integer> resultMap, long revenueRate) {
+        this.resultMap = resultMap;
+        this.revenueRate = revenueRate;
     }
 
-    private void initResultMap() {
+    public static LottoStatistics of(WinningNumbers winningNumbers, LottoTickets lottoTickets, Money inputMoney) {
+        Map<LottoResult, Integer> resultMap = new EnumMap<>(LottoResult.class);
+        initResultMap(resultMap);
+
+        match(resultMap, winningNumbers, lottoTickets);
+        Money totalReward = calculateTotalReward(resultMap);
+        long revenueRate = totalReward.divideBy(inputMoney);
+
+        return new LottoStatistics(resultMap, revenueRate);
+    }
+
+    private static void initResultMap(Map<LottoResult, Integer> resultMap) {
         for (LottoResult lottoResult : LottoResult.values()) {
             resultMap.put(lottoResult, 0);
         }
     }
 
-    private void match(WinningNumbers winningNumbers, LottoTickets lottoTickets) {
+    private static void match(Map<LottoResult, Integer> resultMap, WinningNumbers winningNumbers, LottoTickets lottoTickets) {
         for (LottoTicket ticket : lottoTickets) {
-            putResult(winningNumbers, ticket);
+            putResult(resultMap, winningNumbers, ticket);
         }
     }
 
-    private void putResult(WinningNumbers winningNumbers, LottoTicket ticket) {
+    private static void putResult(Map<LottoResult, Integer> resultMap, WinningNumbers winningNumbers, LottoTicket ticket) {
         int count = 0;
-        // TODO: 번호와 보너스 볼 매칭을 구하는 것을 LottoTicket에 메세지로 넘기기
-        // TODO: LottoResult result = lottoTicket.result(winningNumbers)로 합쳐보기
-        int matchCountPerTicket = getMatchCount(winningNumbers, ticket);
-        boolean matchBonus = isMatchedBonus(winningNumbers, ticket);
-        LottoResult result = LottoResult.valueOf(matchCountPerTicket, matchBonus);
+        LottoResult result = winningNumbers.result(ticket);
         if (resultMap.containsKey(result)) {
             count = resultMap.get(result);
         }
-
         resultMap.put(result, count + 1);
     }
 
-    private int getMatchCount(WinningNumbers winningNumbers, LottoTicket lottoTicket) {
-        int matchCount = 0;
-
-        for (LottoNumber number : winningNumbers) {
-            matchCount += lottoTicket.contains(number) ? 1 : 0;
-        }
-
-        return matchCount;
-    }
-
-    private boolean isMatchedBonus(WinningNumbers winningNumbers, LottoTicket lottoTicket) {
-        return lottoTicket.contains(winningNumbers.getBonusNumber());
-    }
-
-    public Map<LottoResult, Integer> getResultMap() {
-        return resultMap;
-    }
-
-    // TODO: totalReward, revenueRate을 LottoStatistics의 상태값으로 가지고 있도록 수정
-    public int calculateRevenueRate(Money inputMoney) {
+    private static Money calculateTotalReward(Map<LottoResult, Integer> resultMap) {
         long totalPrice = 0;
 
         for (Map.Entry<LottoResult, Integer> resultEntry : resultMap.entrySet()) {
@@ -66,8 +53,14 @@ public class LottoStatistics {
             totalPrice += lottoResult.getTotalReward(count);
         }
 
-        Money totalMoney = new Money(totalPrice);
+        return new Money(totalPrice);
+    }
 
-        return totalMoney.getRevenueRate(inputMoney);
+    public Map<LottoResult, Integer> getResultMap() {
+        return resultMap;
+    }
+
+    public long getRevenueRate() {
+        return revenueRate;
     }
 }
