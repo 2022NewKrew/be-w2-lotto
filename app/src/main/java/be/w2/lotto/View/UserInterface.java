@@ -62,7 +62,6 @@ public class UserInterface {
         return manualInputList;
     }
 
-
     public List<Integer> readIntList() {
         String intListStr = readStr();
         return strToIntList(intListStr);
