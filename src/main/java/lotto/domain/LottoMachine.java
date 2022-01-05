@@ -22,11 +22,17 @@ public class LottoMachine {
             .boxed().collect(Collectors.toList());
     }
 
+    public static LottoMachine create() {
+        return new LottoMachine();
+    }
+
+    private LottoMachine() {}
+
     public WinningLotto generateWinningLotto(Lotto lotto, int bonusNumber) {
         if (!isValidBonusNumber(lotto, bonusNumber)) {
             throw new IllegalArgumentException(LOTTO_BONUS_ERROR_MESSAGE);
         }
-        return new WinningLotto(lotto, bonusNumber);
+        return WinningLotto.of(lotto, bonusNumber);
     }
 
     private boolean isValidBonusNumber(Lotto lotto, int bonusNumber) {
@@ -41,7 +47,7 @@ public class LottoMachine {
         if (!isValidNumbersForLotto(numbers)) {
             throw new IllegalArgumentException(LOTTO_ERROR_MESSAGE);
         }
-        return new Lotto(numbers);
+        return Lotto.of(numbers);
     }
 
     private boolean isValidNumbersForLotto(List<Integer> numbers) {
@@ -64,7 +70,7 @@ public class LottoMachine {
     public List<Lotto> purchaseLottoTickets(int numberOfTickets) {
         return IntStream.range(0, numberOfTickets).boxed()
             .map(x -> generateRandomNumbers())
-            .map(Lotto::new)
+            .map(Lotto::of)
             .collect(Collectors.toList());
     }
 

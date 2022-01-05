@@ -18,14 +18,14 @@ class LottoGameResultTest {
 
     @Test
     void getLottoRankCount() {
-        WinningLotto winningLotto = new WinningLotto(new Lotto(WINNING_LOTTO_NUMBERS),
+        WinningLotto winningLotto = WinningLotto.of(Lotto.of(WINNING_LOTTO_NUMBERS),
             BONUS_NUMBER);
 
-        Lotto first = new Lotto(FIRST_RANK_NUMBERS);
-        Lotto second = new Lotto(SECOND_RANK_NUMBERS);
-        Lotto third = new Lotto(THIRD_RANK_NUMBERS);
-        Lotto fourth = new Lotto(FOURTH_RANK_NUMBERS);
-        Lotto fifth = new Lotto(FIFTH_RANK_NUMBERS);
+        Lotto first = Lotto.of(FIRST_RANK_NUMBERS);
+        Lotto second = Lotto.of(SECOND_RANK_NUMBERS);
+        Lotto third = Lotto.of(THIRD_RANK_NUMBERS);
+        Lotto fourth = Lotto.of(FOURTH_RANK_NUMBERS);
+        Lotto fifth = Lotto.of(FIFTH_RANK_NUMBERS);
 
         List<Lotto> lottoList = List.of(first, first,
             second, second,
@@ -33,7 +33,7 @@ class LottoGameResultTest {
             fourth, fourth,
             fifth, fifth);
 
-        LottoGameResult lottoGameResult = new LottoGameResult(winningLotto,
+        LottoGameResult lottoGameResult = LottoGameResult.of(winningLotto,
             lottoList,
             5000);
 

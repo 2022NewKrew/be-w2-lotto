@@ -26,7 +26,11 @@ public class LottoGame {
 
     private LottoGameStatus lottoGameStatus;
 
-    public LottoGame(LottoMachine lottoMachine, LottoGameView lottoGameView) {
+    public static LottoGame of(LottoMachine lottoMachine, LottoGameView lottoGameView) {
+        return new LottoGame(lottoMachine, lottoGameView);
+    }
+
+    private LottoGame(LottoMachine lottoMachine, LottoGameView lottoGameView) {
         this.lottoMachine = lottoMachine;
         this.lottoGameView = lottoGameView;
     }
@@ -41,7 +45,7 @@ public class LottoGame {
         int numberOfTickets = purchasePriceInput / TICKET_PRICE;
         List<Lotto> lottoTickets = lottoMachine.purchaseLottoTickets(numberOfTickets);
 
-        lottoGameStatus = new LottoGameStatus(purchasePriceInput, lottoTickets);
+        lottoGameStatus = LottoGameStatus.of(purchasePriceInput, lottoTickets);
         lottoGameView.printLottoTickets(convertTicketsToDTOs(lottoTickets));
     }
 
@@ -73,14 +77,14 @@ public class LottoGame {
     }
 
     private List<LottoDTO> convertTicketsToDTOs(List<Lotto> lottoTickets) {
-        return lottoTickets.stream().map(lotto -> new LottoDTO(lotto.getLottoNumbers()))
+        return lottoTickets.stream().map(LottoDTO::from)
             .collect(Collectors.toList());
     }
 
     private void makeGameResult() {
         WinningLotto winningLottoInput = getWinningLottoInLoop();
 
-        LottoGameResult lottoGameResult = new LottoGameResult(winningLottoInput,
+        LottoGameResult lottoGameResult = LottoGameResult.of(winningLottoInput,
             lottoGameStatus.getLottoTickets(),
             lottoGameStatus.getPurchasePrice());
 
@@ -134,7 +138,6 @@ public class LottoGame {
     }
 
     private LottoResultDTO generateLottoResultDTO(LottoGameResult lottoGameResult) {
-        return new LottoResultDTO(lottoGameResult.getLottoRankCount(),
-            lottoGameResult.getProfitRate());
+        return LottoResultDTO.from(lottoGameResult);
     }
 }

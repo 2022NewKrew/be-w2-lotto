@@ -7,7 +7,11 @@ public class Lotto {
 
     private final List<Integer> lottoNumbers;
 
-    public Lotto(List<Integer> lottoNumbers) {
+    public static Lotto of(List<Integer> lottoNumbers) {
+        return new Lotto(lottoNumbers);
+    }
+
+    private Lotto(List<Integer> lottoNumbers) {
         this.lottoNumbers = lottoNumbers;
     }
 

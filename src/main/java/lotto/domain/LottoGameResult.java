@@ -14,7 +14,13 @@ public class LottoGameResult {
     private final Map<LottoRank, Long> lottoRankCount;
     private final double profitRate;
 
-    public LottoGameResult(WinningLotto winningLotto, List<Lotto> lottoTickets, int purchasePrice) {
+    public static LottoGameResult of(WinningLotto winningLotto, List<Lotto> lottoTickets,
+        int purchasePrice) {
+        return new LottoGameResult(winningLotto, lottoTickets, purchasePrice);
+    }
+
+    private LottoGameResult(WinningLotto winningLotto, List<Lotto> lottoTickets,
+        int purchasePrice) {
         lottoRankCount = lottoTickets.stream()
             .map(lottoTicket -> LottoRank.valueOf(winningLotto, lottoTicket))
             .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));

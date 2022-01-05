@@ -8,7 +8,11 @@ public class LottoGameStatus {
     private final int purchasePrice;
     private final List<Lotto> lottoTickets;
 
-    public LottoGameStatus(int purchasePrice, List<Lotto> lottoTickets) {
+    public static LottoGameStatus of(int purchasePrice, List<Lotto> lottoTickets) {
+        return new LottoGameStatus(purchasePrice, lottoTickets);
+    }
+
+    private LottoGameStatus(int purchasePrice, List<Lotto> lottoTickets) {
         this.purchasePrice = purchasePrice;
         this.lottoTickets = lottoTickets;
     }

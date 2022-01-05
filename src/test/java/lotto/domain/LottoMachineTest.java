@@ -28,7 +28,7 @@ class LottoMachineTest {
 
     @BeforeEach
     void initTest() {
-        lottoMachine = new LottoMachine();
+        lottoMachine = LottoMachine.create();
     }
 
     @Test

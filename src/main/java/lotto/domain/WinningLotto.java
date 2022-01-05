@@ -7,7 +7,11 @@ public class WinningLotto {
     private final Lotto lotto;
     private final int bonusNumber;
 
-    public WinningLotto(Lotto lotto, int bonusNumber) {
+    public static WinningLotto of(Lotto lotto, int bonusNumber) {
+        return new WinningLotto(lotto, bonusNumber);
+    }
+
+    private WinningLotto(Lotto lotto, int bonusNumber) {
         if (validateBonusNumber(lotto, bonusNumber)) {
             throw new IllegalArgumentException(BONUS_ERROR_MESSAGE);
         }

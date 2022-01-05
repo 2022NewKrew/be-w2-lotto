@@ -5,8 +5,7 @@ import lotto.view.LottoGameView;
 public class LottoGameApplication {
 
     public static void main(String[] args) {
-        LottoGame lottoGame = new LottoGame(new LottoMachine(),
-            new LottoGameView());
+        LottoGame lottoGame = LottoGame.of(LottoMachine.create(), LottoGameView.create());
         lottoGame.run();
     }
 }

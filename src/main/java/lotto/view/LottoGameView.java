@@ -9,6 +9,7 @@ import static lotto.domain.LottoRank.THIRD;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import lotto.controller.LottoGame;
 import lotto.dto.LottoDTO;
 import lotto.dto.LottoResultDTO;
 
@@ -29,6 +30,13 @@ public class LottoGameView {
     private static final String LOTTO_DELIMITER = ", ";
 
     private static final Scanner scanner = new Scanner(System.in);
+
+    public static LottoGameView create() {
+        return new LottoGameView();
+    }
+
+    private LottoGameView() {
+    }
 
     public String inputPurchasePrice() {
         System.out.println("구매금액을 입력해주세요.");
