@@ -1,23 +1,26 @@
 package lotto.controller;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import lotto.domain.Lotto;
-import lotto.domain.LottoGameResult;
-import lotto.domain.LottoGameStatus;
+import lotto.domain.model.Lotto;
+import lotto.domain.game.LottoGameResult;
+import lotto.domain.game.LottoGameStatus;
 import lotto.domain.LottoMachine;
-import lotto.domain.WinningLotto;
-import lotto.dto.LottoDTO;
+import lotto.domain.model.LottoNumber;
+import lotto.domain.game.LottoPurchasePrice;
+import lotto.domain.game.LottoRankCount;
+import lotto.domain.model.LottoTickets;
+import lotto.domain.model.WinningLotto;
 import lotto.dto.LottoResultDTO;
+import lotto.dto.LottoTicketsDTO;
 import lotto.view.LottoGameView;
 
 public class LottoGame {
 
     private static final String NUMBER_FORMAT_ERROR_MESSAGE = "숫자만 입력해주세요.";
     private static final String PRICE_ERROR_MESSAGE = "로또 한 장 당 %d원 입니다.%n"
-        + "남은 금액 %d원은 지갑에 다시 넣어드리겠습니다.%n";
+        + "남은 금액은 지갑에 다시 넣어드리겠습니다.%n";
 
     private static final int TICKET_PRICE = 1000;
 
@@ -41,16 +44,17 @@ public class LottoGame {
     }
 
     private void initializeGame() {
-        int purchasePriceInput = getPurchasePriceInLoop();
-        int numberOfTickets = purchasePriceInput / TICKET_PRICE;
-        List<Lotto> lottoTickets = lottoMachine.purchaseLottoTickets(numberOfTickets);
+        LottoPurchasePrice purchasePriceInput = getPurchasePriceInLoop();
 
-        lottoGameStatus = LottoGameStatus.of(purchasePriceInput, lottoTickets);
-        lottoGameView.printLottoTickets(convertTicketsToDTOs(lottoTickets));
+        LottoTickets lottoTickets = lottoMachine.purchaseLottoTickets(
+            purchasePriceInput.availableNumberOfTickets());
+
+        lottoGameStatus = LottoGameStatus.of(lottoTickets, purchasePriceInput);
+        lottoGameView.printLottoTickets(LottoTicketsDTO.from(lottoTickets));
     }
 
-    private int getPurchasePriceInLoop() {
-        Optional<Integer> purchasePriceInput;
+    private LottoPurchasePrice getPurchasePriceInLoop() {
+        Optional<LottoPurchasePrice> purchasePriceInput;
         do {
             purchasePriceInput = getPurchasePriceFromUser();
         } while (purchasePriceInput.isEmpty());
@@ -58,34 +62,26 @@ public class LottoGame {
         return purchasePriceInput.get();
     }
 
-    private Optional<Integer> getPurchasePriceFromUser() {
+    private Optional<LottoPurchasePrice> getPurchasePriceFromUser() {
         String input = lottoGameView.inputPurchasePrice();
         try {
-            return Optional.of(cutOffLessThanOneThousand(Integer.parseInt(input)));
+            return Optional.of(LottoPurchasePrice.from(Integer.parseInt(input)));
         } catch (NumberFormatException e) {
             System.err.println(NUMBER_FORMAT_ERROR_MESSAGE);
             return Optional.empty();
+        } catch (IllegalArgumentException e) {
+            System.err.println(e.getMessage());
+            return Optional.empty();
         }
-    }
-
-    private int cutOffLessThanOneThousand(int value) {
-        int remainingAmount = value % TICKET_PRICE;
-        if (remainingAmount > 0) {
-            System.err.printf(PRICE_ERROR_MESSAGE, TICKET_PRICE, remainingAmount);
-        }
-        return value - remainingAmount;
-    }
-
-    private List<LottoDTO> convertTicketsToDTOs(List<Lotto> lottoTickets) {
-        return lottoTickets.stream().map(LottoDTO::from)
-            .collect(Collectors.toList());
     }
 
     private void makeGameResult() {
         WinningLotto winningLottoInput = getWinningLottoInLoop();
 
-        LottoGameResult lottoGameResult = LottoGameResult.of(winningLottoInput,
-            lottoGameStatus.getLottoTickets(),
+        LottoRankCount lottoRankCount = LottoRankCount.of(winningLottoInput,
+            lottoGameStatus.getLottoTickets());
+
+        LottoGameResult lottoGameResult = LottoGameResult.of(lottoRankCount,
             lottoGameStatus.getPurchasePrice());
 
         lottoGameView.printLottoResult(generateLottoResultDTO(lottoGameResult));
@@ -114,9 +110,10 @@ public class LottoGame {
     private Optional<Lotto> getLottoNumbersFromUser() {
         String[] input = lottoGameView.inputWinningLottoNumbers();
         try {
-            return Optional.of(lottoMachine.generateLottoTicketWithNumbers(
+            return Optional.of(lottoMachine.issueLottoTicketWithNumbers(
                 Arrays.stream(input)
                     .map(Integer::valueOf)
+                    .map(LottoNumber::from)
                     .collect(Collectors.toList())));
         } catch (IllegalArgumentException e) {
             System.err.println(e.getMessage());
@@ -127,7 +124,8 @@ public class LottoGame {
     private Optional<WinningLotto> getWinningLottoFromUser(Lotto lotto) {
         String input = lottoGameView.inputBonusNumber();
         try {
-            return Optional.of(lottoMachine.generateWinningLotto(lotto, Integer.parseInt(input)));
+            return Optional.of(
+                lottoMachine.issueWinningLotto(lotto, LottoNumber.from(Integer.parseInt(input))));
         } catch (NumberFormatException e) {
             System.err.println(NUMBER_FORMAT_ERROR_MESSAGE);
             return Optional.empty();

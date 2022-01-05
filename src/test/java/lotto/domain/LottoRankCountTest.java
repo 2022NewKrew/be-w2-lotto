@@ -1,21 +1,16 @@
 package lotto.domain;
 
-import static lotto.domain.game.LottoRank.FIFTH;
-import static lotto.domain.game.LottoRank.FIRST;
-import static lotto.domain.game.LottoRank.FOURTH;
-import static lotto.domain.game.LottoRank.SECOND;
-import static lotto.domain.game.LottoRank.THIRD;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+import lotto.domain.game.LottoRankCount;
 import lotto.domain.model.Lotto;
 import lotto.domain.model.LottoNumber;
-import lotto.domain.game.LottoRank;
+import lotto.domain.model.LottoTickets;
 import lotto.domain.model.WinningLotto;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class LottoRankTest {
+class LottoRankCountTest {
 
     private static final LottoNumber NUM_1 = LottoNumber.from(1);
     private static final LottoNumber NUM_2 = LottoNumber.from(2);
@@ -42,8 +37,7 @@ class LottoRankTest {
         List.of(NUM_1, NUM_2, NUM_3, NUM_7, NUM_8, NUM_9);
 
     @Test
-    @DisplayName("로또 등수 테스트")
-    void valueOf() {
+    void getLottoRankCount() {
         WinningLotto winningLotto = WinningLotto.of(Lotto.from(WINNING_LOTTO_NUMBERS),
             NUM_7);
 
@@ -53,15 +47,15 @@ class LottoRankTest {
         Lotto fourth = Lotto.from(FOURTH_RANK_NUMBERS);
         Lotto fifth = Lotto.from(FIFTH_RANK_NUMBERS);
 
-        assertThat(LottoRank.valueOf(winningLotto, first))
-            .isEqualTo(FIRST);
-        assertThat(LottoRank.valueOf(winningLotto, second))
-            .isEqualTo(SECOND);
-        assertThat(LottoRank.valueOf(winningLotto, third))
-            .isEqualTo(THIRD);
-        assertThat(LottoRank.valueOf(winningLotto, fourth))
-            .isEqualTo(FOURTH);
-        assertThat(LottoRank.valueOf(winningLotto, fifth))
-            .isEqualTo(FIFTH);
+        LottoTickets lottoTickets = LottoTickets.from(List.of(first, first,
+            second, second,
+            third, third,
+            fourth, fourth,
+            fifth, fifth));
+
+        LottoRankCount lottoRankCount = LottoRankCount.of(winningLotto, lottoTickets);
+
+        lottoRankCount.getLottoRankCount()
+            .forEach(((lottoRank, count) -> assertThat(count).isEqualTo(2L)));
     }
 }

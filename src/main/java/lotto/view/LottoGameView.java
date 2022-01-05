@@ -1,17 +1,17 @@
 package lotto.view;
 
-import static lotto.domain.LottoRank.FIFTH;
-import static lotto.domain.LottoRank.FIRST;
-import static lotto.domain.LottoRank.FOURTH;
-import static lotto.domain.LottoRank.SECOND;
-import static lotto.domain.LottoRank.THIRD;
+import static lotto.domain.game.LottoRank.FIFTH;
+import static lotto.domain.game.LottoRank.FIRST;
+import static lotto.domain.game.LottoRank.FOURTH;
+import static lotto.domain.game.LottoRank.SECOND;
+import static lotto.domain.game.LottoRank.THIRD;
 
-import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-import lotto.controller.LottoGame;
 import lotto.dto.LottoDTO;
+import lotto.dto.LottoNumberDTO;
 import lotto.dto.LottoResultDTO;
+import lotto.dto.LottoTicketsDTO;
 
 public class LottoGameView {
 
@@ -55,23 +55,24 @@ public class LottoGameView {
 
     public void printLottoResult(LottoResultDTO lottoResultDTO) {
         System.out.printf(PRINT_RESULT_FORMAT,
-            FIFTH.getPrizeMoney(), lottoResultDTO.getLottoRankCount().getOrDefault(FIFTH, 0L),
-            FOURTH.getPrizeMoney(), lottoResultDTO.getLottoRankCount().getOrDefault(FOURTH, 0L),
-            THIRD.getPrizeMoney(), lottoResultDTO.getLottoRankCount().getOrDefault(THIRD, 0L),
-            SECOND.getPrizeMoney(), lottoResultDTO.getLottoRankCount().getOrDefault(SECOND, 0L),
-            FIRST.getPrizeMoney(), lottoResultDTO.getLottoRankCount().getOrDefault(FIRST, 0L),
-            lottoResultDTO.getProfitRate());
+            FIFTH.getPrizeMoney(), lottoResultDTO.getLottoRankCountDTO().getCountByRank(FIFTH),
+            FOURTH.getPrizeMoney(), lottoResultDTO.getLottoRankCountDTO().getCountByRank(FOURTH),
+            THIRD.getPrizeMoney(), lottoResultDTO.getLottoRankCountDTO().getCountByRank(THIRD),
+            SECOND.getPrizeMoney(), lottoResultDTO.getLottoRankCountDTO().getCountByRank(SECOND),
+            FIRST.getPrizeMoney(), lottoResultDTO.getLottoRankCountDTO().getCountByRank(FIRST),
+            lottoResultDTO.getLottoProfitRateDTO().getProfitRate());
     }
 
-    public void printLottoTickets(List<LottoDTO> lottoDTOs) {
+    public void printLottoTickets(LottoTicketsDTO lottoTicketsDTO) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.append(lottoDTOs.size())
+        stringBuilder.append(lottoTicketsDTO.lottoTicketSize())
             .append(PRINT_PURCHASE_COUNT)
             .append(System.lineSeparator());
 
-        lottoDTOs.forEach(lottoDTO -> stringBuilder.append(printLottoTicket(lottoDTO))
-            .append(System.lineSeparator()));
+        lottoTicketsDTO.getLottoDTOs()
+            .forEach(lottoDTO -> stringBuilder.append(printLottoTicket(lottoDTO))
+                .append(System.lineSeparator()));
 
         System.out.println(stringBuilder);
     }
@@ -79,6 +80,7 @@ public class LottoGameView {
     private String printLottoTicket(LottoDTO lottoDTO) {
         return LOTTO_PRINT_START
             + lottoDTO.getLottoNumbers().stream()
+            .map(LottoNumberDTO::getNumber)
             .map(String::valueOf)
             .collect(Collectors.joining(LOTTO_DELIMITER))
             + LOTTO_PRINT_END;
