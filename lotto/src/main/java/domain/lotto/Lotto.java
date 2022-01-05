@@ -1,6 +1,6 @@
 package domain.lotto;
 
-import domain.lottery.WinningLottery;
+import domain.lottery.WinningLotto;
 import domain.statistics.MatchInfo;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,9 +45,9 @@ public class Lotto {
   }
 
 
-  public MatchInfo compareWith(WinningLottery winningLottery) {
-    int matchCount = getMatchCount(winningLottery);
-    boolean isBonusMatched = isBonusMatched(winningLottery.getBonusNumber());
+  public MatchInfo compareWith(WinningLotto winningLotto) {
+    int matchCount = getMatchCount(winningLotto);
+    boolean isBonusMatched = isBonusMatched(winningLotto.getBonusNumber());
     return MatchInfo.of(matchCount, isBonusMatched);
   }
 

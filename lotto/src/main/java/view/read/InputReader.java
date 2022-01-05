@@ -1,6 +1,6 @@
 package view.read;
 
-import domain.lottery.WinningLottery;
+import domain.lottery.WinningLotto;
 import java.io.IOException;
 
 /**
@@ -14,6 +14,6 @@ import java.io.IOException;
 public interface InputReader {
 
   int getPurchaseAmount() throws IOException;
-  WinningLottery getLastWinningLottery() throws IOException;
+  WinningLotto getLastWinningLottery() throws IOException;
 
 }

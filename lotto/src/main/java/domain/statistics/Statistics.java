@@ -1,6 +1,6 @@
 package domain.statistics;
 
-import domain.lottery.WinningLottery;
+import domain.lottery.WinningLotto;
 import domain.lotto.Lotto;
 import domain.lotto.LottoPrize;
 import domain.lotto.LottoWallet;
@@ -22,11 +22,11 @@ public class Statistics {
   private final Map<LottoPrize, List<Lotto>> winningLotteryHolder;
   private final int buyAmount;
 
-  private Statistics(WinningLottery winningLottery, LottoWallet wallet) {
+  private Statistics(WinningLotto winningLotto, LottoWallet wallet) {
     this.winningLotteryHolder = new EnumMap<>(LottoPrize.class);
     this.buyAmount = calculateBuyAmount(wallet);
     setupHolder();
-    setupMatchMap(winningLottery, wallet);
+    setupMatchMap(winningLotto, wallet);
   }
 
 
@@ -42,14 +42,14 @@ public class Statistics {
   }
 
 
-  public static Statistics of(WinningLottery winningLottery, LottoWallet wallet) {
-    return new Statistics(winningLottery, wallet);
+  public static Statistics of(WinningLotto winningLotto, LottoWallet wallet) {
+    return new Statistics(winningLotto, wallet);
   }
 
 
-  private void setupMatchMap(WinningLottery winningLottery, LottoWallet wallet) {
+  private void setupMatchMap(WinningLotto winningLotto, LottoWallet wallet) {
     for(Lotto candidateLotto : wallet) {
-      MatchInfo matchInfo = candidateLotto.compareWith(winningLottery);
+      MatchInfo matchInfo = candidateLotto.compareWith(winningLotto);
       addLottoIfMatched(matchInfo, candidateLotto);
     }
   }

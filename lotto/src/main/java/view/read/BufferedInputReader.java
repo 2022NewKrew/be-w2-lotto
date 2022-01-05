@@ -1,6 +1,6 @@
 package view.read;
 
-import domain.lottery.WinningLottery;
+import domain.lottery.WinningLotto;
 import domain.lotto.Lotto;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -43,10 +43,10 @@ public class BufferedInputReader implements InputReader {
 
 
   @Override
-  public WinningLottery getLastWinningLottery() throws IOException {
+  public WinningLotto getLastWinningLottery() throws IOException {
     List<Integer> winningLotto = getWinningLotto();
     int bonusNumber = getBonusNumber();
-    return WinningLottery.of(winningLotto, bonusNumber);
+    return WinningLotto.of(winningLotto, bonusNumber);
   }
 
 
