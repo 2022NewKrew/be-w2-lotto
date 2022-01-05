@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
  */
 public class Lotto {
 
-  private static final List<Integer> NUMBERS_POOL = new ArrayList<>(){{
-    for(int num = MIN_NUMBER; num <= MAX_NUMBER; num++) {
+  private static final List<Integer> NUMBERS_POOL = new ArrayList<>() {{
+    for (int num = MIN_NUMBER; num <= MAX_NUMBER; num++) {
       add(num);
     }
   }};
@@ -44,13 +44,14 @@ public class Lotto {
 
 
   public static void validCheck(List<Integer> holder) {
-    if(holder.size() != TOTAL_NUMBER) {
-      throw new IllegalArgumentException("로또 생성 시 필요한 Integer 의 개수는 " + TOTAL_NUMBER + " 입니다. [입력 인자 : " + holder + "]");
+    if (holder.size() != TOTAL_NUMBER) {
+      throw new IllegalArgumentException(
+          "로또 생성 시 필요한 Integer 의 개수는 " + TOTAL_NUMBER + " 입니다. [입력 인자 : " + holder + "]");
     }
-    if(hasNonLottoNumber(holder)) {
+    if (hasNonLottoNumber(holder)) {
       throw new IllegalArgumentException("로또 생성 시 범위를 벗어난 숫자가 있습니다. [입력 인자 : " + holder + "]");
     }
-    if(hasDuplicatedNumber(holder)) {
+    if (hasDuplicatedNumber(holder)) {
       throw new IllegalArgumentException("로또 의 각 숫자는 중복되어서는 안됩니다. [입력 인자 : " + holder + "]");
     }
   }

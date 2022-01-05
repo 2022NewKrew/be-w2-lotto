@@ -104,12 +104,12 @@ public class BufferedInputReader implements InputReader {
   private int getIntegerFromReader() throws IOException {
     String input = reader.readLine().strip();
     int parsedNumber;
-    try{
+    try {
       parsedNumber = Integer.parseUnsignedInt(input);
-    }catch(NumberFormatException e) {
+    } catch (NumberFormatException e) {
       throw new IllegalArgumentException(
           "입력 값은 0 이상의 정수이어야 합니다."
-          + "[입력 값 : " + input + "]"
+              + "[입력 값 : " + input + "]"
       );
     }
     return parsedNumber;

@@ -19,7 +19,7 @@ public class MatchInfo {
 
 
   private void validCheck(int matchCount) {
-    if(matchCount < 0) {
+    if (matchCount < 0) {
       throw new IllegalArgumentException("matchCount 는 음수가 될 수 없습니다. [입력값 : " + matchCount + "]");
     }
   }

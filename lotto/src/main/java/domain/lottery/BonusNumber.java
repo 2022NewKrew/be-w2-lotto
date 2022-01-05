@@ -9,8 +9,9 @@ public class BonusNumber {
 
   private BonusNumber(Integer bonusNumber) {
     this.bonusNumber = Objects.requireNonNull(bonusNumber, "bonusNumber 값이 null 입니다.");
-    if(Lotto.isNonLottoNumber(bonusNumber)) {
-      throw new IllegalArgumentException("bonusNumber 값이 로또 범위에 유효하지 않습니다. [입력값 : " + bonusNumber + "]");
+    if (Lotto.isNonLottoNumber(bonusNumber)) {
+      throw new IllegalArgumentException(
+          "bonusNumber 값이 로또 범위에 유효하지 않습니다. [입력값 : " + bonusNumber + "]");
     }
   }
 
@@ -22,10 +23,11 @@ public class BonusNumber {
 
   public static BonusNumber of(String strBonusNumber) {
     int parsedNumber;
-    try{
+    try {
       parsedNumber = Integer.parseInt(strBonusNumber);
-    }catch(NumberFormatException e) {
-      throw new IllegalArgumentException("bonusNumber 값이 제대로 된 숫자 형식이 아닙니다. [입력값 : " + strBonusNumber + "]");
+    } catch (NumberFormatException e) {
+      throw new IllegalArgumentException(
+          "bonusNumber 값이 제대로 된 숫자 형식이 아닙니다. [입력값 : " + strBonusNumber + "]");
     }
     return new BonusNumber(parsedNumber);
   }
