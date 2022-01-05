@@ -31,5 +31,6 @@
 - 팀원들간의 코드리뷰중 한 팀원이 Arraylist를 stream으로 다루어 코드를 깔끔하게 작성한 것을 보았습니다. 시간이 남으면 이 부분을 수정해 보아야겠습니다.
 
 # step3 
-- [x] 전체적인 변수 리네이밍
+- [x] 전체적인 변수 리네이밍 및 코드 indent 정리완료
 - [x] 로또 수동 생성(ManualGenerator) 추가
+- [x] step1 todo사항이던 inputview의 getNumberList()함수에 stream적용 완료

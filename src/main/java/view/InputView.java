@@ -7,7 +7,10 @@ import domain.WinningLottoManual;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static utils.Symbol.*;
 
@@ -39,23 +42,23 @@ public class InputView {
     }
 
     public Lotto getManualLotto(String message) {
-        ArrayList<Number> inputNumberList = getNumberList(message);
-        return new Lotto(inputNumberList);
+        List<Number> inputNumberList = getNumberList(message);
+        ArrayList<Number> inputNumberArrayList = new ArrayList<Number>();
+        inputNumberArrayList.addAll(inputNumberList);
+        return new Lotto(inputNumberArrayList);
     }
 
-    public ArrayList<Number> getNumberList(String Message) {
+    public List<Number> getNumberList(String Message) {
         System.out.println();
         System.out.println(Message);
         String str = sc.nextLine();
-        String[] strList = str.replace(SPACE, BLANK).split(COMMA);
-        int[] nums = Arrays.stream(strList)
-                .mapToInt(Integer::parseInt).toArray();
 
-        ArrayList<Number> numberList = new ArrayList<>();
-        for (int num : nums) {
-            numberList.add(new Number(num));
-        }
-        return numberList;
+        return Arrays.stream(str.split(COMMA))
+                .filter(s -> !s.isEmpty())
+                .map(String::trim)
+                .mapToInt(Integer::parseInt)
+                .mapToObj(n -> new Number(n))
+                .collect(Collectors.toList());
     }
 
     public Number getBonusNumber() {
