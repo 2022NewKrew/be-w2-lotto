@@ -4,17 +4,15 @@ import com.yapark97.lottoapplication.domain.lotto.Lotto;
 
 public class SimpleWinningPolicy implements WinningPolicy{
     // winningCondition 개를 맞추면 winningPrize 원을 받는 당첨 정책
-    private final int winningCondition;
-    private final int winningPrize;
+    private final WinningRank winningRank;
 
-    public SimpleWinningPolicy(int winningCondition, int winningPrize) {
-        this.winningCondition = winningCondition;
-        this.winningPrize = winningPrize;
+    public SimpleWinningPolicy(WinningRank winningRank) {
+        this.winningRank = winningRank;
     }
 
     @Override
     public int getWinningPrize() {
-        return winningPrize;
+        return winningRank.getWinningPrize();
     }
 
     @Override
@@ -24,16 +22,16 @@ public class SimpleWinningPolicy implements WinningPolicy{
                 .filter(c -> c)
                 .count();
 
-        return count == winningCondition;
+        return count == winningRank.getWinningCondition();
     }
 
     @Override
     public String toString() {
-        return winningCondition + "개 일치 (" + winningPrize + "원)";
+        return winningRank.getWinningCondition() + "개 일치 (" + winningRank.getWinningPrize() + "원)";
     }
 
     @Override
     public int compareTo(WinningPolicy o) {
-        return winningPrize - o.getWinningPrize();
+        return winningRank.getWinningPrize() - o.getWinningPrize();
     }
 }

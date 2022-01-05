@@ -5,18 +5,16 @@ import com.yapark97.lottoapplication.domain.lotto.Lotto;
 public class BonusBallWinningPolicy implements WinningPolicy{
     // winningCondition 개를 맞추고 bonasBall도 맞추면 winningPrize 원을 받는 당첨 정책
     private final int bonusBall;
-    private final int winningCondition;
-    private final int winningPrize;
+    private final WinningRank winningRank;
 
-    public BonusBallWinningPolicy(int bonusBall, int winningCondition, int winningPrize) {
+    public BonusBallWinningPolicy(int bonusBall, WinningRank winningRank) {
         this.bonusBall = bonusBall;
-        this.winningCondition = winningCondition;
-        this.winningPrize = winningPrize;
+        this.winningRank = winningRank;
     }
 
     @Override
     public int getWinningPrize() {
-        return winningPrize;
+        return winningRank.getWinningPrize();
     }
 
     @Override
@@ -26,16 +24,16 @@ public class BonusBallWinningPolicy implements WinningPolicy{
                 .filter(c -> c)
                 .count();
 
-        return count == winningCondition && lotto.getNumbers().contains(bonusBall);
+        return count == winningRank.getWinningCondition() && lotto.getNumbers().contains(bonusBall);
     }
 
     @Override
     public String toString() {
-        return winningCondition + "개 일치, 보너스 볼 일치 (" + winningPrize + "원)";
+        return winningRank.getWinningCondition() + "개 일치, 보너스 볼 일치 (" + winningRank.getWinningPrize() + "원)";
     }
 
     @Override
     public int compareTo(WinningPolicy o) {
-        return winningPrize - o.getWinningPrize();
+        return winningRank.getWinningPrize() - o.getWinningPrize();
     }
 }

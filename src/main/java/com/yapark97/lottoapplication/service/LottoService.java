@@ -3,9 +3,11 @@ package com.yapark97.lottoapplication.service;
 import com.yapark97.lottoapplication.domain.lotto.LottoConst;
 import com.yapark97.lottoapplication.domain.lotto.LottoSet;
 import com.yapark97.lottoapplication.domain.lotto.WinningLotto;
+import com.yapark97.lottoapplication.domain.lottocreatestrategy.RandomLottoCreateStrategy;
 import com.yapark97.lottoapplication.domain.winningPolicy.BonusBallWinningPolicy;
 import com.yapark97.lottoapplication.domain.winningPolicy.SimpleWinningPolicy;
 import com.yapark97.lottoapplication.domain.winningPolicy.WinningPolicy;
+import com.yapark97.lottoapplication.domain.winningPolicy.WinningRank;
 import com.yapark97.lottoapplication.view.LottoInput;
 import com.yapark97.lottoapplication.view.LottoOutput;
 
@@ -18,6 +20,8 @@ public class LottoService {
     private LottoSet lottoSet;
     private WinningLotto winningLotto;
     private Set<WinningPolicy> winningPolicies;
+
+    private final RandomLottoCreateStrategy randomLottoCreateStrategy = new RandomLottoCreateStrategy();
 
     public LottoService(LottoInput lottoInput, LottoOutput lottoOutput) {
         this.lottoInput = lottoInput;
@@ -33,17 +37,20 @@ public class LottoService {
     }
 
     private void initLottoSet() {
-        int lottoSetNum = lottoInput.takeLottoSetNumInput();
+        int price = lottoInput.takeLottoPriceInput();
+        lottoSet = new LottoSet();
 
-        lottoSet = new LottoSet(lottoSetNum);
+        int lottoNum = price / LottoConst.LOTTO_PRICE;
+        lottoSet.createLottos(lottoNum, randomLottoCreateStrategy);
     }
 
     private void initWinningPolicy() {
         winningPolicies = new TreeSet<>(); // 상금 순서로 정렬된 set
 
-        for (int i=0; i< LottoConst.WINNING_CONDITION.size(); i++) {
-            winningPolicies.add(new SimpleWinningPolicy(LottoConst.WINNING_CONDITION.get(i), LottoConst.WINNING_PRIZE.get(i)));
-        }
+        winningPolicies.add(new SimpleWinningPolicy(WinningRank.FIRST));
+        winningPolicies.add(new SimpleWinningPolicy(WinningRank.THIRD));
+        winningPolicies.add(new SimpleWinningPolicy(WinningRank.FOURTH));
+        winningPolicies.add(new SimpleWinningPolicy(WinningRank.FIFTH));
     }
 
     private void showLottoSet() {
@@ -58,7 +65,7 @@ public class LottoService {
     }
 
     private void addBonusBallWinningPolicy() {
-        winningPolicies.add(new BonusBallWinningPolicy(winningLotto.getBonusBall(), LottoConst.BONUS_BALL_WINNING_CONDITION, LottoConst.BONUS_BALL_WINNING_PRIZE));
+        winningPolicies.add(new BonusBallWinningPolicy(winningLotto.getBonusBall(), WinningRank.SECOND));
     }
 
     private void showStatistic() {
