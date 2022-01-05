@@ -158,3 +158,6 @@ gradle-app.setting
 .classpath
 
 # End of https://www.toptal.com/developers/gitignore/api/java,gradle,intellij
+
+# Ignore DS_Store
+.DS_Store
