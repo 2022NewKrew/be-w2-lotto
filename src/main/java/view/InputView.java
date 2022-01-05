@@ -1,6 +1,7 @@
 package view;
 
 import domain.Lotto;
+import domain.LottoBonus;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +15,7 @@ public class InputView {
     //    private static final String INPUT_LOTTO_MANUAL_NUMBER = "수동으로 구매할 로또 수를 입력해 주세요.";
 //    private static final String INPUT_LOTTO_AUTO_NUMBER = "자동으로 구매할 로또 수를 입력해 주세요.";
     private static final String INPUT_LAST_WEEK_WIN_NUMBER = "지난 주 당험 번호를 입력해 주세요.";
+    private static final String INPUT_BONUS_NUMBER = "보너스 볼을 입력해 주세요.";
     private static final Scanner scanner = new Scanner(System.in);
 
     public static int purchaseAmount() {
@@ -30,5 +32,12 @@ public class InputView {
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
         return new Lotto(numbersAfterDefined);
+    }
+
+    public static LottoBonus bonusNumber() {
+        Lotto withoutBonus = numbers();
+        System.out.println(INPUT_BONUS_NUMBER);
+        int bonus = scanner.nextInt();
+        return new LottoBonus(withoutBonus.getLotto(), bonus);
     }
 }
