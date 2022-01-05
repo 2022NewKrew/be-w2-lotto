@@ -2,12 +2,10 @@ package domain.model.ticket;
 
 import domain.model.LottoNumber;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
-public abstract class CommonLottoTicket {
+public class CommonLottoTicket {
 
     protected final List<LottoNumber> lottoNumbers;
 
