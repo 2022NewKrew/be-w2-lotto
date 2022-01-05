@@ -24,6 +24,10 @@ public class Lotto {
         return numbers;
     }
 
+    public Grade getGrade() {
+        return grade;
+    }
+
     public void rank(Grade grade) {
         this.grade = grade;
         this.isClosed = true;
