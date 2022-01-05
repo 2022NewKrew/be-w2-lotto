@@ -125,7 +125,8 @@ public class InputLotto {
     }
 
     private List<Lotto> inputManualLottos(int manualLottoNumber) {
-        System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
+        if(manualLottoNumber > 0)
+            System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
         return Stream.generate(() -> new Lotto(getLottoNumbers())).limit(manualLottoNumber).collect(Collectors.toList());
     }
 

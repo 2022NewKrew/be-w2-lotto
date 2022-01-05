@@ -1,11 +1,11 @@
 package com.kakao.lotto.step3.core;
 
 public enum Rank {
-    FIRST(6, 2000000000),
-    SECOND_BONUS(5, 30000000),
-    SECOND(5, 1500000),
-    THIRD(4, 50000),
-    FOURTH(3, 5000);
+    FIFTH(3, 5000),
+    FOURTH(4, 50000),
+    THIRD(5, 1500000),
+    SECOND(5, 30000000),
+    FIRST(6, 2000000000);
 
     private int countOfMatch;
     private int winningMoney;
@@ -15,6 +15,8 @@ public enum Rank {
         this.winningMoney = winningMoney;
     }
 
+    public int getCountOfMatch() { return countOfMatch; }
+
     public int getWinningMoney() {
         return winningMoney;
     }
@@ -23,7 +25,7 @@ public enum Rank {
         Rank[] ranks = values();
         for (Rank rank : ranks) {
             if (countOfMatch == SECOND.countOfMatch) {
-                return matchBonus ? SECOND_BONUS : SECOND;
+                return matchBonus ? SECOND : THIRD;
             }
 
             if (rank.countOfMatch == countOfMatch) {

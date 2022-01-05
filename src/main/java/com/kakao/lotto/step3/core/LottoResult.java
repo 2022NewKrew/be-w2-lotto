@@ -23,11 +23,7 @@ public class LottoResult {
     }
 
     private void initResults() {
-        results.put(Rank.FIRST, 0);
-        results.put(Rank.SECOND, 0);
-        results.put(Rank.SECOND_BONUS, 0);
-        results.put(Rank.THIRD, 0);
-        results.put(Rank.FOURTH, 0);
+        Arrays.stream(Rank.values()).forEach(rank -> results.put(rank, 0));
     }
 
     private void makeResult(Rank rank) {
