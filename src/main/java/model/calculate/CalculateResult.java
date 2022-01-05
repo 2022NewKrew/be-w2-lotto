@@ -1,6 +1,5 @@
 package model.calculate;
 
-import constants.LottoRule;
 import constants.RankInfo;
 import parameters.LottoResult;
 import parameters.UserLottoLines;

@@ -17,12 +17,11 @@ public class LottoNumberGenerator {
         }
     }
 
-    public UserLottoLines makeLines(UserLottoLines userLottoLines, int amount){
+    public void makeLines(UserLottoLines userLottoLines, int amount){
         for(int line = 0; line < amount; line++){
             userLottoLines.addLottoLine(makeLine());
         }
 
-        return userLottoLines;
     }
 
     private LottoLine makeLine(){
