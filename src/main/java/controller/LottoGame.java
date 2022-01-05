@@ -12,13 +12,11 @@ import view.ResultView;
 import java.util.List;
 
 public class LottoGame {
-    private List<Lotto> lottoList;
-    private int purchaseAmount;
 
     public void start() {
-        purchaseAmount = InputView.inputPurchaseAmount();
+        int purchaseAmount = InputView.inputPurchaseAmount();
         Validation.notLessThanInt(purchaseAmount, 0, new InvalidPurchaseAmount(ErrorMessage.NEGATIVE_PURCHASE_AMOUNT.getMessage()));
-        lottoList = LottoMachine.buySeveralLotto(purchaseAmount);
+        List<Lotto> lottoList = LottoMachine.buySeveralLotto(purchaseAmount);
         ResultView.printLottoList(lottoList);
 
         List<Integer> lastWeekWinningNumbers = InputView.inputLastWeekWinningNumber();
