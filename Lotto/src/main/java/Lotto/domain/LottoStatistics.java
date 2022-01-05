@@ -9,14 +9,14 @@ public class LottoStatistics {
     private long profit;
     private long rateOfProfit;
 
-    public LottoStatistics(int investmentAmount, List<Ticket> tickets, List<Integer> results, int bonusNumber){
+    public LottoStatistics(int investmentAmount, List<Ticket> manualTickets, List<Ticket> randomTickets, List<Integer> results, int bonusNumber){
         this.countOfWining.put(Rank.FIRST, 0);
         this.countOfWining.put(Rank.SECOND, 0);
         this.countOfWining.put(Rank.THIRD, 0);
         this.countOfWining.put(Rank.FOURTH, 0);
         this.countOfWining.put(Rank.FIFTH, 0);
         this.rateOfProfit = 0;
-        this.calculateStatistics(investmentAmount, tickets, results, bonusNumber);
+        this.calculateStatistics(investmentAmount, manualTickets, randomTickets, results, bonusNumber);
     }
 
     public Map<Rank, Integer> getCountOfWining(){return this.countOfWining;}
@@ -55,9 +55,12 @@ public class LottoStatistics {
     }
 
     // 로또 통계를 계산하는 메소드
-    private void calculateStatistics(int investmentAmount, List<Ticket> tickets, List<Integer> results, int bonusNumber){
-        for(Ticket ticket : tickets) {
-            this.increaseMatchedNum(matchingResults(ticket.getTicket(), results), ticket.checkBonusNum(bonusNumber));
+    private void calculateStatistics(int investmentAmount, List<Ticket> manualTickets, List<Ticket> randomTickets, List<Integer> winingNumber, int bonusNumber){
+        for(Ticket ticket : manualTickets) {
+            this.increaseMatchedNum(matchingResults(ticket.getTicket(), winingNumber), ticket.checkBonusNum(bonusNumber));
+        }
+        for(Ticket ticket : randomTickets) {
+            this.increaseMatchedNum(matchingResults(ticket.getTicket(), winingNumber), ticket.checkBonusNum(bonusNumber));
         }
         this.calculateProfit();
         this.rateOfProfit = this.profit * 100 / investmentAmount;

@@ -10,9 +10,14 @@ public class Ticket {
     private final List<Integer> numberCards = IntStream.range(1, 46).boxed().collect(Collectors.toList());
     private final List<Integer> ticket;
 
-    Ticket(){
+    public Ticket(){
         this.ticket = new ArrayList<>();
         this.makeRandomNum();
+    }
+    public Ticket(List<Integer> numbers){
+        this.ticket = new ArrayList<>();
+        for(int number : numbers)
+            this.ticket.add(number);
     }
 
     public List<Integer> getTicket(){return this.ticket;}
