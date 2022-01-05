@@ -11,13 +11,22 @@ public class LottoViewInput {
     static public Integer lottoInputPayment(){
         Scanner sc = new Scanner(System.in);
         System.out.println("구매금액을 입력해 주세요.");
-        return sc.nextInt();
+
+        try {
+            return sc.nextInt();
+        } catch(Exception e){
+            return 0;
+        }
     }
 
     static public Integer lottoInputUserMakeCount(){
         Scanner sc = new Scanner(System.in);
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
-        return sc.nextInt();
+        try {
+            return sc.nextInt();
+        } catch(Exception e){
+            return 0;
+        }
     }
 
     static private List<Integer> resultToList(String stringAry){
