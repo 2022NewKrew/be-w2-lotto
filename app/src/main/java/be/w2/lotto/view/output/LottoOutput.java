@@ -1,10 +1,8 @@
 package be.w2.lotto.view.output;
 
 import be.w2.lotto.lottos.Lotto;
-import be.w2.lotto.lottos.LottoNumber;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 final class LottoOutput {
 
@@ -34,10 +32,7 @@ final class LottoOutput {
     }
 
     private static void writeContentsOfLottoTo(StringBuilder sb, Lotto lotto) {
-        List<LottoNumber> numbers = lotto.getNumbers();
-        List<String> stringOfNumbers = numbers.stream()
-                .map(LottoNumber::toString)
-                .collect(Collectors.toList());
+        List<String> stringOfNumbers = lotto.getListOfStringForLottoNumbers();
         sb.append(String.join(", ", stringOfNumbers));
     }
 

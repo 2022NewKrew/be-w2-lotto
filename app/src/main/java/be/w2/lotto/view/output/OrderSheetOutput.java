@@ -2,7 +2,7 @@ package be.w2.lotto.view.output;
 
 import be.w2.lotto.cashier.OrderSheet;
 
-public final class OrderSheetOutput {
+final class OrderSheetOutput {
 
     private OrderSheetOutput() {
     }

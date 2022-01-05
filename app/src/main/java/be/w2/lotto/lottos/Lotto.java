@@ -2,6 +2,7 @@ package be.w2.lotto.lottos;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Lotto {
 
@@ -13,8 +14,10 @@ public class Lotto {
         this.numbers = Collections.unmodifiableList(numbers);
     }
 
-    public List<LottoNumber> getNumbers() {
-        return numbers;
+    public List<String> getListOfStringForLottoNumbers() {
+        return numbers.stream()
+                .map(LottoNumber::toString)
+                .collect(Collectors.toUnmodifiableList());
     }
 
     public boolean isContain(LottoNumber target) {

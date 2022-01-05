@@ -6,6 +6,7 @@ import be.w2.lotto.messages.GameMessage;
 import be.w2.lotto.view.output.Output;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,6 +18,8 @@ public final class Input {
     }
 
     public static synchronized List<Lotto> inputManualLottoNumbers(int numOfManual) {
+        if(numOfManual <= 0)
+            return Collections.emptyList();
         List<String> inputs = inputStringsWithMessage(GameMessage.INPUT_MANUAL_NUMBER, numOfManual);
         return LottoInput.getManualLottosBy(inputs);
     }
