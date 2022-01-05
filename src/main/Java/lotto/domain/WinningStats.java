@@ -4,12 +4,11 @@ import lotto.domain.lottobundle.lotto.Lotto;
 import lotto.domain.lottobundle.LottoBundle;
 import lotto.domain.winningprice.WinningPrice;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class WinningStats {
-    private final int SECOND_RANK_CORRECT_NUMBER = 5;
-    private final List<WinningPrice> winningPriceList;
+    private final HashMap<WinningState,WinningPrice> winningPriceHashMap;
     private final LottoBundle lottoBundle;
     private final int lottoPurchaseMoney;
     private final LastWeekNumber lastWeekNumber;
@@ -17,18 +16,18 @@ public class WinningStats {
     public WinningStats(LottoBundle lottoBundle, List<Integer> lastWeekLottoNumberList, int lottoPurchaseMoney, int bonusBall) {
         this.lottoBundle = lottoBundle;
         this.lottoPurchaseMoney = lottoPurchaseMoney;
-        this.winningPriceList = new ArrayList<>();
+        this.winningPriceHashMap = new HashMap<>();
         this.lastWeekNumber = new LastWeekNumber(lastWeekLottoNumberList, bonusBall);
-        setWinningPriceList();
-        addCountInWinningPriceListAllLotto();
+        setWinningPriceHashMap();
+        addCountInWinningPriceHashMapAllLotto();
     }
 
-    private void setWinningPriceList() {
-        winningPriceList.add(WinningPrice.THREE);
-        winningPriceList.add(WinningPrice.FOUR);
-        winningPriceList.add(WinningPrice.FIVE);
-        winningPriceList.add(WinningPrice.FIVE_BONUS);
-        winningPriceList.add(WinningPrice.SIX);
+    private void setWinningPriceHashMap() {
+        winningPriceHashMap.put(new WinningState(3),WinningPrice.THREE);
+        winningPriceHashMap.put(new WinningState(4),WinningPrice.FOUR);
+        winningPriceHashMap.put(new WinningState(5,false),WinningPrice.FIVE);
+        winningPriceHashMap.put(new WinningState(5,true),WinningPrice.FIVE_BONUS);
+        winningPriceHashMap.put(new WinningState(6),WinningPrice.SIX);
     }
 
     private double getProfitRatePercent() {
@@ -37,16 +36,16 @@ public class WinningStats {
 
     private long getProfit() {
         long profit = 0;
-        for (WinningPrice winningPrice : winningPriceList) {
+        for (WinningPrice winningPrice : winningPriceHashMap.values()) {
             profit += winningPrice.calculateProfit();
         }
         return profit;
     }
 
-    private void addCountInWinningPriceListAllLotto() {
+    private void addCountInWinningPriceHashMapAllLotto() {
         List<Lotto> LottoList = this.lottoBundle.getLottoList();
         for (Lotto lotto : LottoList) {
-            addCountInWinningPriceList(getLottoCorrectCount(lotto), isBonusBall(lotto));
+            addCountInWinningPrice(getLottoCorrectCount(lotto), isBonusBall(lotto));
         }
     }
 
@@ -54,26 +53,10 @@ public class WinningStats {
         return lotto.getLottoNumberList().contains(lastWeekNumber.getBonusBall());
     }
 
-    private void addCountInWinningPriceList(int lottoCorrectCount, boolean isBonusBallInLotto) {
-        for (WinningPrice winningPrice : winningPriceList) {
-            addCountInWinningPriceListByIndex(lottoCorrectCount, isBonusBallInLotto, winningPrice);
-        }
-    }
-
-    private boolean isSecondRank(int lottoCorrectCount, boolean isBonusBallInLotto) {
-        return (lottoCorrectCount == SECOND_RANK_CORRECT_NUMBER && isBonusBallInLotto);
-    }
-
-    private void addCountInWinningPriceListByIndex(int lottoCorrectCount, boolean isBonusBallInLotto, WinningPrice winningPrice) {
-        if (isSecondRank(lottoCorrectCount, isBonusBallInLotto) && lottoCorrectCount == winningPrice.getCorrectCount()) {
-            winningPrice.addCount();
-            return;
-        }
-
-        if (lottoCorrectCount == winningPrice.getCorrectCount()) {
-            winningPrice.addCount();
-            return;
-        }
+    private void addCountInWinningPrice(int lottoCorrectCount, boolean isBonusBallInLotto) {
+            WinningState winningStateKey = new WinningState(lottoCorrectCount, isBonusBallInLotto);
+            if(winningPriceHashMap.containsKey(winningStateKey))
+                winningPriceHashMap.get(winningStateKey).addCount();
     }
 
     private int getLottoCorrectCount(Lotto lotto) {
@@ -88,7 +71,7 @@ public class WinningStats {
         StringBuilder stringBuilder = new StringBuilder();
         double profitRatePercent = getProfitRatePercent();
 
-        for (WinningPrice winningPrice : winningPriceList) {
+        for (WinningPrice winningPrice : winningPriceHashMap.values()) {
             stringBuilder.append(winningPrice.printWinningPrice());
         }
 
