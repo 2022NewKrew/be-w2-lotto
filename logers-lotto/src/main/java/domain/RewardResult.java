@@ -3,6 +3,7 @@ package domain;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.EnumMap;
 import java.util.Map;
 
 import static java.util.stream.Collectors.toMap;
@@ -14,7 +15,9 @@ public class RewardResult {
 
     public RewardResult(){
         rewardToCount = Arrays.stream(RewardType.values())
-                .collect(toMap(rewardType -> rewardType, rewardType -> 0));
+                .collect(toMap(rewardType -> rewardType, rewardType -> 0
+                        ,(rewardType1, rewardType2) -> rewardType1
+                        ,()->new EnumMap<>(RewardType.class)));
     }
 
     public void addMatched(RewardType rewardType){
@@ -28,12 +31,12 @@ public class RewardResult {
     }
 
     public int getProfitPercent(){
-        return (getTotalReward() - purchaseAmount) / purchaseAmount * 100;
+        return (int) ((getTotalReward() - purchaseAmount) / purchaseAmount * 100);
     }
 
-    private int getTotalReward(){
+    private long getTotalReward(){
         return rewardToCount.entrySet().stream()
                 .map(entry -> entry.getKey().getReward() * entry.getValue())
-                .reduce(0, Integer::sum);
+                .reduce(0L, Long::sum);
     }
 }

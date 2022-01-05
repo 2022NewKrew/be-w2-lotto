@@ -14,6 +14,8 @@ import presentation.view.output.OutputView;
 import presentation.view.output.PurchaseOutputView;
 import presentation.view.output.ResultOutputView;
 
+import java.util.List;
+
 public class LottoController {
     public OutputView getPurchaseResult(PurchaseDto purchaseDto){
         try{
@@ -25,7 +27,8 @@ public class LottoController {
 
     private OutputView getPurchaseResultView(PurchaseDto purchaseDto){
         int purchaseAmount = purchaseDto.getPurchaseAmount();
-        LottoOrder lottoOrder = LottoOrderFactory.getInstance(purchaseAmount).orElseThrow();
+        List<List<Integer>> manualLottoNumberLists = purchaseDto.getManualLottoNumbers();
+        LottoOrder lottoOrder = LottoOrderFactory.getInstance(purchaseAmount, manualLottoNumberLists).orElseThrow();
 
         PurchaseResultDto purchaseResultDto = new PurchaseResultDto(lottoOrder.getLottos());
         return new PurchaseOutputView(purchaseResultDto);

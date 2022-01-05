@@ -22,7 +22,7 @@ public class WinningNumbers {
                 .mapToInt(isInside -> isInside ? 1 : 0)
                 .reduce(Integer::sum).getAsInt();
 
-        return RewardType.getRewardType(matched, numbers.contains(bonusNumber));
+        return RewardType.of(matched, numbers.contains(bonusNumber));
     }
 
     public List<Integer> getNumbers() {

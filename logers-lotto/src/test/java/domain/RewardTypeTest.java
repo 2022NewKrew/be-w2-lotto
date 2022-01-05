@@ -15,7 +15,7 @@ class RewardTypeTest {
     @DisplayName("매칭 갯수와 보너스 여부에 따른 리워드 타입 반환 성공 확인")
     @MethodSource("inputAndExpected")
     void successWhenGetRewardType(int matched, boolean hasBonus, RewardType expectedType){
-        assertThat(RewardType.getRewardType(matched, hasBonus)).isEqualTo(expectedType);
+        assertThat(RewardType.of(matched, hasBonus)).isEqualTo(expectedType);
     }
 
     private static Stream<Arguments> inputAndExpected(){

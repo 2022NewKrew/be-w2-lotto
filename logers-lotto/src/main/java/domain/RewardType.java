@@ -16,9 +16,9 @@ public enum RewardType {
 
     private final int matched;
     private final boolean hasBonus;
-    private final int reward;
+    private final long reward;
 
-    RewardType(int matched, boolean hasBonus, int reward) {
+    RewardType(int matched, boolean hasBonus, long reward) {
         this.matched = matched;
         this.hasBonus = hasBonus;
         this.reward = reward;
@@ -28,11 +28,7 @@ public enum RewardType {
         return matched;
     }
 
-    public boolean getHasBonus() {
-        return hasBonus;
-    }
-
-    public int getReward() {
+    public long getReward() {
         return reward;
     }
 
@@ -44,7 +40,7 @@ public enum RewardType {
         return this.matched == matched && this.hasBonus == hasBonus;
     }
 
-    public static RewardType getRewardType(int matched, boolean hasBonus){
+    public static RewardType of(int matched, boolean hasBonus){
         List<RewardType> rewardTypes
                 = Arrays.stream(RewardType.values())
                 .filter(rewardType -> rewardType.equals(matched, hasBonus))
