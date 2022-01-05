@@ -1,5 +1,9 @@
 package domain;
 
+
+import dto.ResultDto;
+import factory.LottoFactory;
+
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -17,29 +21,13 @@ public class LottoOrder {
                 .collect(toList());
     }
 
-    private void validate(int purchaseAmount) {
-        if(purchaseAmount % Lotto.PRICE != 0){
-            throw new IllegalArgumentException(
-                    "로또 가격의 단위는 ".concat(String.valueOf(Lotto.PRICE)).concat("입니다."));
-        }
 
-        if(purchaseAmount <= 0){
-            throw new IllegalArgumentException("구매 금액은 양수로 적어주세요.");
-        }
-    }
-
-    public RewardResult getResult(WinningNumbers winningNumbers){
-        RewardResult rewardResult = new RewardResult();
+    public ResultDto getResult(WinningNumber winningNumber){
+        ResultDto resultDto = new ResultDto();
         for(Lotto lotto : lottos){
-            rewardResult.addMatched(winningNumbers.matching(lotto.getNumbers()));
+            resultDto.addMatched(winningNumber.getMatchedNumber(lotto));
         }
-        return rewardResult;
-    }
-
-    public List<List<Integer>> getLottos(){
-        return lottos.stream()
-                .map(Lotto::getNumbers)
-                .collect(toList());
+        return resultDto;
     }
 
     public int getPurchaseAmount(){

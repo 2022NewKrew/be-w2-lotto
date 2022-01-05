@@ -1,10 +1,9 @@
-import dto.input.PurchaseDto;
-import dto.input.WinningNumbersDto;
+import dto.InputResultDto;
+import factory.ValidatorServiceFactory;
 import presentation.controller.LottoController;
-import presentation.view.input.PurchaseInputView;
-import presentation.view.input.WinningNumberInputView;
-import presentation.view.output.ErrorOutputView;
-import presentation.view.output.OutputView;
+import validate.ValidatorService;
+import presentation.view.InputView;
+import presentation.view.OutputView;
 
 import java.util.Scanner;
 
@@ -18,23 +17,14 @@ public class LottoDriver {
         }
     }
 
-    private static void inputPurchaseAndPrintResult(Scanner scanner){
-        PurchaseDto purchaseDto = new PurchaseInputView(scanner).input();
-        OutputView outputView = lottoController.getPurchaseResult(purchaseDto);
-        outputView.print();
-        exitProgramIfErrorOutputView(outputView);
-    }
-
-    private static void inputWinningNumbersAndPrintResult(Scanner scanner){
-        WinningNumbersDto winningNumbersDto =  new WinningNumberInputView(scanner).input();
-        OutputView outputView = lottoController.getLottoResult(winningNumbersDto);
-        outputView.print();
-        exitProgramIfErrorOutputView(outputView);
-    }
-
-    private static void exitProgramIfErrorOutputView(OutputView outputView){
-        if(outputView instanceof  ErrorOutputView){
-            System.exit(0);
+    private static void startLotto(Scanner scanner, ValidatorService validatorService){
+        Optional<InputResultDto> inputResultDto = InputView.input(scanner, validatorService);
+        if(inputResultDto.isEmpty()){
+            System.out.println("다시 시작해주세요.");
+            return;
         }
+
+        OutputView outputView = lottoController.getLottoResult(inputResultDto.get());
+        outputView.showResult();
     }
 }
