@@ -36,7 +36,7 @@ public enum RankInfo {
         StringBuilder sb = new StringBuilder();
         sb.append(count);
         sb.append("개 일치");
-        if(count == SECOND.count) sb.append(", 보너스 볼 일치");
+        if(this == SECOND) sb.append(", 보너스 볼 일치");
         sb.append("(");
         sb.append(reward);
         sb.append(")- ");

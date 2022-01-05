@@ -17,8 +17,7 @@ public class LottoNumberGenerator {
         }
     }
 
-    public UserLottoLines makeLines(int amount){
-        UserLottoLines userLottoLines = new UserLottoLines(amount);
+    public UserLottoLines makeLines(UserLottoLines userLottoLines, int amount){
         for(int line = 0; line < amount; line++){
             userLottoLines.addLottoLine(makeLine());
         }

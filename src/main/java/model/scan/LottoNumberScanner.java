@@ -6,14 +6,13 @@ import validator.ValidatorInterface;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WinningNumberScanner extends InputData {
-    public WinningNumberScanner() { }
+public class LottoNumberScanner extends InputData {
+    public LottoNumberScanner() { }
 
-    public static List<Integer> getWinningNumbers(){
+    public static List<Integer> getLottoNumbers(){
         ValidatorInterface validatorInterface = new LottoNumberValidator();
         String winningNumbers;
         do {
-            System.out.println("지난 주 당첨 번호를 입력해 주세요.");
             winningNumbers = getInput();
         }while(!validatorInterface.validateData(winningNumbers));
 

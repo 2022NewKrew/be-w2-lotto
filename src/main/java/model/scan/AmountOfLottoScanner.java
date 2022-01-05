@@ -13,8 +13,6 @@ public class AmountOfLottoScanner extends InputData{
             System.out.println("구입 금액을 입력해주세요.");
             amountOfLotto = getInput();
         }while(!validatorInterface.validateData(amountOfLotto));
-        int amount = Integer.parseInt(amountOfLotto) / 1000;
-        System.out.println(amount + "개를 구매했습니다.");
-        return amount;
+        return Integer.parseInt(amountOfLotto) / 1000;
     }
 }

@@ -11,4 +11,5 @@ public class UserLottoLines {
 
     public void addLottoLine(LottoLine lottoLine) { userLottoLines.add(lottoLine); }
     public Stream<LottoLine> getUserLottoLinesStream() { return userLottoLines.stream(); }
+    public int getAmoutOfLotto() { return userLottoLines.size(); }
 }

@@ -15,6 +15,6 @@ public class CalculateEarningRatio {
         double ratio = (float)(earned - (1.0 * amountOfLotto * LottoRule.PRICE_PER_LOTTO))
                 / (amountOfLotto * LottoRule.PRICE_PER_LOTTO);
 
-        return Math.round(ratio * 10000) / 100.0;
+        return ratio;
     }
 }
