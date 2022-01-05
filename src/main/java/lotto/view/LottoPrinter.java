@@ -16,7 +16,7 @@ public class LottoPrinter {
         Map<Prize, Long> matchingResult = gambler.getMatchingResult(winnerNumber, bonusBall);
 
         printLottoMatchingResult(matchingResult);
-        printLottoEarningsRate(gambler, matchingResult);
+        printLottoEarningsRate(matchingResult);
     }
 
     private void printLottoMatchingResult(Map<Prize, Long> matchingResult) {
@@ -29,7 +29,7 @@ public class LottoPrinter {
         }
     }
 
-    private void printLottoEarningsRate(Gambler gambler, Map<Prize, Long> matchingResult) {
+    private void printLottoEarningsRate(Map<Prize, Long> matchingResult) {
         long prizeMoneySum = 0L;
         for (var entry : matchingResult.entrySet()) {
             Prize prize = entry.getKey();
@@ -37,7 +37,7 @@ public class LottoPrinter {
             prizeMoneySum += prize.getMoney() * occurrence;
         }
 
-        int purchaseCosts = PRICE * gambler.getTickets().size();
+        long purchaseCosts = PRICE * matchingResult.values().stream().reduce(0L, Long::sum);
         System.out.println();
         System.out.printf("총 수익률은 %2.0f%%입니다.%n", ((float)(prizeMoneySum - purchaseCosts) / purchaseCosts) * 100);
     }

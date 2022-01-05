@@ -5,14 +5,10 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Gambler {
-    private final List<LottoTicket> tickets = new ArrayList<>();
+    private final List<LottoTicket> tickets;
 
-    public List<LottoTicket> getTickets() {
-        return Collections.unmodifiableList(tickets);
-    }
-
-    public void addLottoTicket(LottoTicket lottoTicket) {
-        tickets.add(lottoTicket);
+    public Gambler(List<LottoTicket> tickets) {
+        this.tickets = tickets;
     }
 
     /**
