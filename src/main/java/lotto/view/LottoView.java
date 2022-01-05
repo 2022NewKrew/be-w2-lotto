@@ -2,11 +2,8 @@ package lotto.view;
 
 import lotto.domain.Lotto;
 import lotto.domain.LottoApp;
-<<<<<<< HEAD
-import lotto.domain.LottoGenerator;
-=======
+
 import lotto.domain.Money;
->>>>>>> 73407950a993c8ab02b196cc1f9fecf44a984723
 import lotto.domain.WinningLotto;
 
 import java.util.Arrays;
@@ -48,11 +45,9 @@ public class LottoView {
     }
 
 
-<<<<<<< HEAD
-    public int inputPrice() {
-=======
+
     public Money inputMoney() throws IllegalArgumentException{
->>>>>>> 73407950a993c8ab02b196cc1f9fecf44a984723
+
         System.out.println("구매금액을 입력해 주세요.");
         Integer inputNumber = inputPositiveNumber();
         if (inputNumber % 100 != 0){
@@ -76,25 +71,12 @@ public class LottoView {
 
     public WinningLotto inputWinLotto() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-<<<<<<< HEAD
-        return new WinningLotto(inputIntegerList(), inputBonusNumber());
-=======
         return new WinningLotto(inputLotto(), inputBonusNumber());
->>>>>>> 73407950a993c8ab02b196cc1f9fecf44a984723
     }
 
     public Integer inputBonusNumber() {
         System.out.println("보너스 볼을 입력해 주세요");
-<<<<<<< HEAD
-        return Integer.parseInt(SCANNER.nextLine().trim());
-    }
 
-    public Lotto inputLotto() {
-        return new Lotto(inputIntegerList());
-    }
-
-    public List<Integer> inputIntegerList() {
-=======
         return validateLottoNumber(Integer.parseInt(SCANNER.nextLine().trim()));
     }
 
@@ -121,7 +103,6 @@ public class LottoView {
     }
 
     public Stream<Integer> inputIntegerStream() throws IllegalArgumentException{
->>>>>>> 73407950a993c8ab02b196cc1f9fecf44a984723
         return Arrays.stream(SCANNER.nextLine().split(","))
                 .map(String::trim)
                 .map(Integer::parseInt);

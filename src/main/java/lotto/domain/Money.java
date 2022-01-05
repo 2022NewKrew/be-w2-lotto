@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-package lotto.domain;public class Money {
-=======
 package lotto.domain;
 
 public class Money {
@@ -22,5 +19,5 @@ public class Money {
         }
         this.amount -= decAmount;
     }
->>>>>>> 73407950a993c8ab02b196cc1f9fecf44a984723
+
 }
