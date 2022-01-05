@@ -1,8 +1,8 @@
-package lotto.domain;
+package lotto.domain.winningstats.winningstate;
 
 public class WinningState {
-    enum BonusState{
-        TRUE,FALSE,NO_MATTER
+    enum BonusState {
+        TRUE, FALSE, NO_MATTER
     }
 
     final int lottoCorrectCnt;
@@ -23,9 +23,8 @@ public class WinningState {
 
     @Override
     public boolean equals(Object winningState) {
-        if (winningState instanceof WinningState){
-            if (this.lottoCorrectCnt == ((WinningState) winningState).lottoCorrectCnt && (((WinningState) winningState).isBonus.equals(BonusState.NO_MATTER)) || this.isBonus==((WinningState) winningState).isBonus)
-                return true;
+        if (winningState instanceof WinningState) {
+            return this.lottoCorrectCnt == ((WinningState) winningState).lottoCorrectCnt && (((WinningState) winningState).isBonus.equals(BonusState.NO_MATTER)) || this.isBonus == ((WinningState) winningState).isBonus;
         }
         return false;
     }

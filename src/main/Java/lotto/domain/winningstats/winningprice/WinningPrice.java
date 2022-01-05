@@ -1,4 +1,4 @@
-package lotto.domain.winningprice;
+package lotto.domain.winningstats.winningprice;
 
 public enum WinningPrice {
 

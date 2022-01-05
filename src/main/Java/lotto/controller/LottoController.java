@@ -1,8 +1,8 @@
 package lotto.controller;
 
 import lotto.domain.LottoDTO;
-import lotto.domain.WinningStats;
-import lotto.domain.lottobundle.LottoBundle;
+import lotto.domain.winningstats.WinningStats;
+import lotto.domain.winningstats.lottobundle.LottoBundle;
 import lotto.view.ConsoleInputView;
 import lotto.view.ConsoleOutputView;
 

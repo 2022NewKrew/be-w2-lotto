@@ -1,14 +1,15 @@
-package lotto.domain;
+package lotto.domain.winningstats;
 
-import lotto.domain.lottobundle.lotto.Lotto;
-import lotto.domain.lottobundle.LottoBundle;
-import lotto.domain.winningprice.WinningPrice;
+import lotto.domain.winningstats.lottobundle.lottoticket.Lotto;
+import lotto.domain.winningstats.lottobundle.LottoBundle;
+import lotto.domain.winningstats.winningstate.WinningState;
+import lotto.domain.winningstats.winningprice.WinningPrice;
 
 import java.util.HashMap;
 import java.util.List;
 
 public class WinningStats {
-    private final HashMap<WinningState,WinningPrice> winningPriceHashMap;
+    private final HashMap<WinningState, WinningPrice> winningPriceHashMap;
     private final LottoBundle lottoBundle;
     private final int lottoPurchaseMoney;
     private final LastWeekNumber lastWeekNumber;
@@ -23,11 +24,11 @@ public class WinningStats {
     }
 
     private void setWinningPriceHashMap() {
-        winningPriceHashMap.put(new WinningState(3),WinningPrice.THREE);
-        winningPriceHashMap.put(new WinningState(4),WinningPrice.FOUR);
-        winningPriceHashMap.put(new WinningState(5,false),WinningPrice.FIVE);
-        winningPriceHashMap.put(new WinningState(5,true),WinningPrice.FIVE_BONUS);
-        winningPriceHashMap.put(new WinningState(6),WinningPrice.SIX);
+        winningPriceHashMap.put(new WinningState(3), WinningPrice.THREE);
+        winningPriceHashMap.put(new WinningState(4), WinningPrice.FOUR);
+        winningPriceHashMap.put(new WinningState(5, false), WinningPrice.FIVE);
+        winningPriceHashMap.put(new WinningState(5, true), WinningPrice.FIVE_BONUS);
+        winningPriceHashMap.put(new WinningState(6), WinningPrice.SIX);
     }
 
     private double getProfitRatePercent() {
@@ -54,9 +55,9 @@ public class WinningStats {
     }
 
     private void addCountInWinningPrice(int lottoCorrectCount, boolean isBonusBallInLotto) {
-            WinningState winningStateKey = new WinningState(lottoCorrectCount, isBonusBallInLotto);
-            if(winningPriceHashMap.containsKey(winningStateKey))
-                winningPriceHashMap.get(winningStateKey).addCount();
+        WinningState winningStateKey = new WinningState(lottoCorrectCount, isBonusBallInLotto);
+        if (winningPriceHashMap.containsKey(winningStateKey))
+            winningPriceHashMap.get(winningStateKey).addCount();
     }
 
     private int getLottoCorrectCount(Lotto lotto) {

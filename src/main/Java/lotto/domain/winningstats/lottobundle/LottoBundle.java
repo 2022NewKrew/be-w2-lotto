@@ -1,43 +1,43 @@
-package lotto.domain.lottobundle;
+package lotto.domain.winningstats.lottobundle;
 
-import lotto.domain.lottobundle.lotto.Lotto;
+import lotto.domain.winningstats.lottobundle.lottoticket.Lotto;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class LottoBundle {
-    private static final String SEPERATOR = "\n";
-    private final int LOTTO_PRICE = 1000;
+    private static final String SEPARATOR = "\n";
     private final int totalMoney;
     private final List<Lotto> lottoList;
 
     public LottoBundle(int totalMoney) {
+        List<Lotto> lottoListTemp;
         this.totalMoney = totalMoney;
-        this.lottoList = new ArrayList<>();
+        lottoListTemp = new ArrayList<>();
         int count = getCount();
 
         for (int i = 0; i < count; i++) {
             Lotto lotto = new Lotto();
-            lottoList.add(lotto);
+            lottoListTemp.add(lotto);
         }
-        Collections.unmodifiableList(lottoList);
+        this.lottoList = Collections.unmodifiableList(lottoListTemp);
     }
 
-    public int getCount(){
-        return totalMoney/LOTTO_PRICE;
+    public int getCount() {
+        final int LOTTO_PRICE = 1000;
+        return totalMoney / LOTTO_PRICE;
     }
 
     public List<Lotto> getLottoList() {
         return lottoList;
     }
 
-    @Override
-    public String toString() {
+    public String printLottoBundle() {
         StringBuilder stringBuilder = new StringBuilder();
         for (Lotto lotto : lottoList) {
-            stringBuilder.append(lotto);
-            stringBuilder.append(SEPERATOR);
+            stringBuilder.append(lotto.printLotto());
+            stringBuilder.append(SEPARATOR);
         }
         return stringBuilder.toString();
     }
