@@ -21,7 +21,8 @@ public class LottoGame {
         Map<LottoRank, Integer> lottoRankResult = LottoRankMatch.createResult(autoLottos, inputLastWeekWinNumber);
         System.out.println(lottoRankResult);
 
-        Double a = LottoProfitRate.createProfitRate(lottoRankResult, purchasedAmount);
+        OutputView.printProfit(lottoRankResult, purchasedAmount);
+//        Double a = LottoProfitRate.createProfitRate(lottoRankResult, purchasedAmount);
 
     }
 }

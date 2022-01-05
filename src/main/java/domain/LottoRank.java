@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public enum LottoRank {
     MISS(0, 0),
-    ONE(1, 0),
-    TWO(2, 0),
+    ONE(1, 500),
+    TWO(2, 1_000),
     THREE(3, 5_000),
     FOUR(4, 50_000),
     FIFTH(5, 1_500_000),
