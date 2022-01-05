@@ -66,7 +66,7 @@ public class UserLottoInput {
          * @return builder 클래스 자신
          */
         public Builder setNumberOfAllNumber() {
-            this.numberOfAllNumber = ChangeVaildInput.inputIntStringManufactor(ConstStringSpace.HOW_MUCH_IS_IT, number -> number / ConstLottoConfig.LOTTO_PRICE);
+            this.numberOfAllNumber = ChangeVaildInput.inputIntStringManufactor(ConstStringSpace.HOW_MUCH_IS_IT, number -> number / ConstLottoConfig.LOTTO_PRICE, number -> number < 0);
             ChangeVaildInput.bufferClear();
 
             return this;
@@ -79,7 +79,7 @@ public class UserLottoInput {
          * @return builder 클래스 자신
          */
         public Builder setNumberOfCustomNumber() {
-            this.numberOfCustomNumber = ChangeVaildInput.inputIntStringManufactor(ConstStringSpace.INPUT_NUMBER_OF_CUSTOMLOTTOS, number -> number);
+            this.numberOfCustomNumber = ChangeVaildInput.inputIntStringManufactor(ConstStringSpace.INPUT_NUMBER_OF_CUSTOMLOTTOS, number -> number, number -> number < 0);
             this.numberOfCustomNumber = Math.min(numberOfAllNumber, numberOfCustomNumber);
 
             ChangeVaildInput.bufferClear();
@@ -97,8 +97,6 @@ public class UserLottoInput {
                 createdCustomLotto = Stream.generate(ChangeVaildInput::inputIntArrayStringManufactor)
                         .limit(this.numberOfCustomNumber)
                         .collect(Collectors.toList());
-
-            ChangeVaildInput.close();
 
             return this;
         }

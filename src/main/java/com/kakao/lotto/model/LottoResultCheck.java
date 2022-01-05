@@ -54,7 +54,7 @@ public class LottoResultCheck {
      */
     private void visitAllState(Map<LottoResultState, Integer> result, LottoNumber userLotto) {
         for (LottoResultState state : LottoResultState.values()) {
-            addResultHaskMap(result, userLotto, state);
+            addResultHashMap(result, userLotto, state);
         }
     }
 
@@ -65,7 +65,7 @@ public class LottoResultCheck {
      * @param userLotto 결과를 확인하고 있는 로또 번호
      * @param state     현재 확인중인 Enum 상수
      */
-    private void addResultHaskMap(Map<LottoResultState, Integer> result, LottoNumber userLotto, LottoResultState state) {
+    private void addResultHashMap(Map<LottoResultState, Integer> result, LottoNumber userLotto, LottoResultState state) {
         if (state.isIncludedCurrentState(winningLotto, userLotto, bonus)) {
             result.put(state, result.get(state) + 1);
         }

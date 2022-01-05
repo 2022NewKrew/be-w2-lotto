@@ -5,6 +5,7 @@ import com.kakao.lotto.model.LottoNumber;
 
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.function.IntPredicate;
 import java.util.function.IntUnaryOperator;
 import java.util.stream.Collectors;
 
@@ -29,14 +30,14 @@ public class ChangeVaildInput {
      * @param operator    여러 입력에 대해 다른 기능을 수행할 함수형 파라메터
      * @return 유효한 정수값
      */
-    public static int inputIntStringManufactor(String printString, IntUnaryOperator operator) {
+    public static int inputIntStringManufactor(String printString, IntUnaryOperator operator, IntPredicate predicate) {
         int validInput = -1;
 
         do {
             System.out.println(printString);
 
             validInput = readInt();
-        } while (validInput < 0);
+        } while (predicate.test(validInput));
 
         return operator.applyAsInt(validInput);
     }
@@ -70,6 +71,22 @@ public class ChangeVaildInput {
 
         do {
             System.out.println(ConstStringSpace.INPUT_CUSTOMLOTTOS_NUMBER);
+
+            tempLottoNumber = createLottoStream();
+        } while (tempLottoNumber.size() != ConstLottoConfig.LOTTO_PICK_NUMBER);
+        return tempLottoNumber;
+    }
+
+    /**
+     * 위 메서드랑 같은 기능인데 Stream.generate 가 Supplier 를 매개변수로 받아 따로 만들어주었습니다.
+     * @param printString   출력할 문자열
+     * @return              유효한 로또 번호
+     */
+    public static LottoNumber inputIntArrayStringManufactor(String printString) {
+        LottoNumber tempLottoNumber;
+
+        do {
+            System.out.println(printString);
 
             tempLottoNumber = createLottoStream();
         } while (tempLottoNumber.size() != ConstLottoConfig.LOTTO_PICK_NUMBER);

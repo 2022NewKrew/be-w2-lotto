@@ -85,11 +85,11 @@ public class PrintResult {
      * @param sumPerchaseLottoPrice 총 구매 금액
      */
     private void printProfitRate(int sumProfitPrice, int sumPerchaseLottoPrice) {
-        if (sumProfitPrice == 0) {
+        if (sumPerchaseLottoPrice == 0) {
             System.out.println(String.format(ConstStringSpace.PROFIT_RATE, 0));
             return;
         }
 
-        System.out.println(String.format(ConstStringSpace.PROFIT_RATE, (int) (sumProfitPrice / (double) sumPerchaseLottoPrice * 100)));
+        System.out.println(String.format(ConstStringSpace.PROFIT_RATE, (int) ((sumProfitPrice - sumPerchaseLottoPrice) / (double) sumPerchaseLottoPrice * 100)));
     }
 }

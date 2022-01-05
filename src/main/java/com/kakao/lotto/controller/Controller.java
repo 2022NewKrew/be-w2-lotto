@@ -3,6 +3,8 @@ package com.kakao.lotto.controller;
 import com.kakao.lotto.model.LottoResultCheck;
 import com.kakao.lotto.model.SystemLotto;
 import com.kakao.lotto.model.UserLotto;
+import com.kakao.lotto.view.ChangeVaildInput;
+import com.kakao.lotto.view.PreLottoResultInput;
 import com.kakao.lotto.view.PrintResult;
 import com.kakao.lotto.view.UserLottoInput;
 
@@ -28,7 +30,15 @@ public class Controller {
                 .setCustomLottos()
                 .build());
 
-        systemLotto = new SystemLotto();
+        // 번호 자동 생성
+        //systemLotto = new SystemLotto();
+
+        // 유저 입력 생성
+        systemLotto = new SystemLotto(new PreLottoResultInput.Builder()
+                .setPreLottoNumber()
+                .setBonusNumber().build());
+
+        ChangeVaildInput.close();
 
         printResult = new PrintResult(userLotto.getLottoNumbers(), userLotto.getNumOfCustomLotto(), systemLotto.getWinningLottoNumbers(), systemLotto.getBonus());
     }
