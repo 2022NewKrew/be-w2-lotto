@@ -10,16 +10,14 @@ import java.util.*;
 public class GameOutput {
 
     public void printLottos(List<Lotto> lottos) {
-        int lottoCount = lottos.size();
-        System.out.printf("\n%d개를 구매했습니다.\n", lottoCount);
-        for (Lotto lotto : lottos) {
-            System.out.println(lotto);
-        }
+        int customLottoCount = Result.getCutomLottoCount(lottos);
+        int autoLottoCount = lottos.size() - customLottoCount;
+        System.out.printf("\n수동으로 %d장, 자동으로 %d개를 구매했습니다.\n", customLottoCount, autoLottoCount);
+        lottos.forEach(System.out::println);
     }
 
     public void printTotalResult(int money, List<Lotto> lottos, WinningLotto winningLotto) {
         Result result = new Result(money, lottos, winningLotto);
-
         System.out.println("\n당첨 통계\n----------");
         printResult(result.getResult());
         System.out.printf("총 수익률은 %d%% 입니다.\n", result.getProfitRatio());

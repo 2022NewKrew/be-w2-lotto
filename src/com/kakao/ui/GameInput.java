@@ -25,7 +25,7 @@ public class GameInput {
         List<List<Integer>> lottoNumbersList = new ArrayList<>();
         int totalLottoCnt = money / 1000;
         int customLottoCount = inputCustomLottoCount(totalLottoCnt);
-        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
         for (int i = 0; i < customLottoCount; i++) {
             lottoNumbersList.add(inputCustomLottoNumbers());
         }
@@ -34,7 +34,7 @@ public class GameInput {
 
     private int inputCustomLottoCount(int totalLottoCount) {
         try {
-            System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+            System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
             int customLottoCount = Integer.parseInt(sc.nextLine());
             checkGameInput.checkLottoCount(totalLottoCount, customLottoCount);
             return customLottoCount;
@@ -58,7 +58,7 @@ public class GameInput {
 
     public List<Integer> inputWinningLotto() {
         try {
-            System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+            System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
             String[] input = sc.nextLine().split(",");
             List<Integer> winningLottoNumbers = mapToInt(input);
             checkGameInput.checkLottoInput(winningLottoNumbers);

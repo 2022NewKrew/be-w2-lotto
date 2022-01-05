@@ -44,4 +44,10 @@ public class Result {
         int count = result.get(rank);
         return rank.getWinningMoney() * count;
     }
+
+    public static int getCutomLottoCount(List<Lotto> lottos) {
+        return (int) lottos.stream()
+                .filter(lotto -> lotto.getType().equals("custom"))
+                .count();
+    }
 }
