@@ -22,7 +22,7 @@ public class WinningLotto {
     private boolean validateBonusNumber(Lotto lotto, LottoNumber bonusNumber) {
         return !lotto.hasNumber(bonusNumber);
     }
-    
+
     public int ticketMatchCount(Lotto ticket) {
         return lotto.calculateMatchCountWith(ticket);
     }

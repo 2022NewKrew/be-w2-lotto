@@ -7,7 +7,8 @@ public class LottoGameStatus {
     private final LottoTickets lottoTickets;
     private final LottoPurchasePrice lottoPurchasePrice;
 
-    public static LottoGameStatus of(LottoTickets lottoTickets, LottoPurchasePrice lottoPurchasePrice) {
+    public static LottoGameStatus of(LottoTickets lottoTickets,
+        LottoPurchasePrice lottoPurchasePrice) {
         return new LottoGameStatus(lottoTickets, lottoPurchasePrice);
     }
 

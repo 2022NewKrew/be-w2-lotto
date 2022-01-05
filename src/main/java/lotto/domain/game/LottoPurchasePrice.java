@@ -2,7 +2,7 @@ package lotto.domain.game;
 
 public class LottoPurchasePrice {
 
-    private static final String PURCHASE_PRICE_ERROR_MESSAGE = "로또 한 장당 1000원 입니다. "
+    private static final String PURCHASE_PRICE_ERROR_MESSAGE = "로또 한 장의 가격은 1000원 입니다. "
         + "1000원의 배수로 금액을 입력해 주세요.";
 
     private static final double RATE_BASE = 100.0;
