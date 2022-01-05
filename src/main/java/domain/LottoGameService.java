@@ -2,53 +2,33 @@ package domain;
 
 import common.model.LottoRank;
 import controller.dto.WinningResult;
-import domain.LottoTicket;
-import domain.LottoTickets;
 import domain.model.*;
+import domain.model.ticket.WinningLottoTicket;
+import view.dto.LottoPurchaseRequest;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 public class LottoGameService {
 
     private static final int LOTTO_PRICE = 1000;
 
-    private static final List<Integer> BASE_LOTTO_NUMBERS = new ArrayList<>();
+    public LottoTickets purchase(LottoPurchaseRequest lottoPurchaseRequest) {
+        int manualLottoCount = lottoPurchaseRequest.getManualLottoCount();
+        int amount = lottoPurchaseRequest.getAmount() - (manualLottoCount * LOTTO_PRICE);
+        int autoLottoCount = calculateLottoQuantity(amount);
 
-    public LottoGameService() {
-        for(int num = 1; num < 46; num++) {
-            BASE_LOTTO_NUMBERS.add(num);
-        }
-    }
-
-    public LottoTickets purchase(int amount) {
-        int quantity = calculateLottoQuantity(amount);
-        List<LottoTicket> lottoTicketList = new ArrayList<>();
-        for(int q = 0; q < quantity; q++) {
-            lottoTicketList.add(createLottoTicket());
-        }
-        return new LottoTickets(lottoTicketList);
+        PurchaseInfo purchaseInfo = new PurchaseInfo(autoLottoCount, manualLottoCount, lottoPurchaseRequest.getManualLottoTickets());
+        return LottoTickets.createLottoTickets(purchaseInfo);
     };
 
-    private int calculateLottoQuantity(int amount) {
-        return amount / LOTTO_PRICE;
-    }
-
-    private LottoTicket createLottoTicket() {
-        Collections.shuffle(BASE_LOTTO_NUMBERS);
-        List<Integer> lottoNumbers = new ArrayList<>(BASE_LOTTO_NUMBERS.subList(0, 6));
-        Collections.sort(lottoNumbers);
-        return new LottoTicket(lottoNumbers);
-    }
-
-    /**
-     * 당첨된 복권을 확인하고, 결과를 리턴한다.
-     */
     public WinningResult checkWinningLotto(LottoTickets lottoTickets, WinningLottoTicket winningTicket) {
         Map<LottoRank, Integer> countMap = lottoTickets.getCountMapByRank(winningTicket);
         return new WinningResult(countMap, calculateProfitRatio(countMap, lottoTickets.getSize()));
+    }
+
+    private int calculateLottoQuantity(int amount) {
+        if(amount < 0) { throw new IllegalArgumentException("수동 금액은 구입 금액보다 작거나 같아야 합니다."); }
+        return amount / LOTTO_PRICE;
     }
 
     private Integer calculateProfitRatio(Map<LottoRank, Integer> countMap, Integer countOfTicket) {
@@ -58,7 +38,8 @@ public class LottoGameService {
     }
 
     private Long calculateProfit(Map<LottoRank, Integer> countMap) {
-        return countMap.entrySet().stream()
+        return countMap.entrySet()
+                .stream()
                 .mapToLong((entry) -> entry.getValue() * entry.getKey().getWinnings())
                 .sum();
     }

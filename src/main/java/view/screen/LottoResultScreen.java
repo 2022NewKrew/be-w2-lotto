@@ -13,8 +13,10 @@ public class LottoResultScreen {
     private static final String PROFIT_RATIO_PRINT_FORMAT = "총 수익률은 %d%%입니다.";
 
     public void printLottoResults(WinningResultResponse lottoGameResponse) {
+        System.out.println();
         System.out.println("당첨 통계");
         System.out.println("---------");
+
         List<WinningStatisticalData> statisticalDataList = lottoGameResponse.getWinningStatisticalDataList();
         Collections.sort(statisticalDataList);
         statisticalDataList.forEach(this::printLottoResultRow);
