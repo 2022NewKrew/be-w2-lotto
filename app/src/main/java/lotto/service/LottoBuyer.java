@@ -62,6 +62,9 @@ public class LottoBuyer {
     private void checkAllLotto() {
         final LottoWinningNumber lottoWinningNumber = InputView.getLastWinningNumbers();
 
+        if(winningNumbers.contains(bonusBall))
+            throw new IllegalArgumentException();
+
         for(Lotto lotto : lottoList) {
             putResult(lottoWinningNumber.match(lotto));
         }
