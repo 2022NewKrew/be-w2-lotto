@@ -5,9 +5,9 @@ import lotto.domain.issue.IssuePolicy;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LottoMachine {
+import static lotto.domain.LottoConstant.LOTTO_PRICE;
 
-    private static final int LOTTO_PRICE = 1000;
+public class LottoMachine {
 
     public LottoMachine() {}
 
