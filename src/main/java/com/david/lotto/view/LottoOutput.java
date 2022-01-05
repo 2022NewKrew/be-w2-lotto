@@ -7,8 +7,8 @@ import java.util.List;
 
 public class LottoOutput {
 
-    public void printLottoCount(int count) {
-        System.out.println(count + "개를 구매했습니다.");
+    public void printLottoCount(int manualCount, int autoCount) {
+        System.out.printf("수동으로 %d장 , 자동으로 %d개를 구매했습니다.%n",manualCount,autoCount);
     }
 
     public void printLottoInfo(List<Lotto> lottoList) {
