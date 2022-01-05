@@ -33,19 +33,19 @@ public class InputView {
     }
 
     public WinningLotto getWinningLotto(){
-        return getWinningLottoManual();
-    }
-
-    public WinningLottoManual getWinningLottoManual(){
-        ArrayList<Number> inputNumberList = getNumberList();
-        Lotto lotto = new Lotto(inputNumberList);
+        Lotto winningLotto = getManualLotto(LAST_WEEK_WINNING_NUMBER_MESSAGE);
         Number bonusNumber = getBonusNumber();
-        return new WinningLottoManual(lotto, bonusNumber);
+        return new WinningLottoManual(winningLotto, bonusNumber);
     }
 
-    public ArrayList<Number> getNumberList(){
+    public Lotto getManualLotto(String message){
+        ArrayList<Number> inputNumberList = getNumberList(message);
+        return new Lotto(inputNumberList);
+    }
+
+    public ArrayList<Number> getNumberList(String Message){
         System.out.println();
-        System.out.println(LAST_WEEK_WINNING_NUMBER_MESSAGE);
+        System.out.println(Message);
         String str = sc.nextLine();
         String[] strList = str.replace(SPACE,BLANK).split(COMMA);
         int[] nums = Arrays.stream(strList)

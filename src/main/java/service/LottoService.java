@@ -9,8 +9,12 @@ public class LottoService {
 
     public LottoService(int purchaseAmount, int manualLottoCount){
         int automaticLottoCount = purchaseAmount / LOTTO_PRICE - manualLottoCount;
+        ManualGenerator manualGenerator = new ManualGenerator();
         AutomaticGenerator automaticGenerator = new AutomaticGenerator();
 
+        for(int i = 0; i < manualLottoCount; i++){
+            lottoList.add(generate(manualGenerator));
+        }
         for(int i = 0; i < automaticLottoCount; i++){
             lottoList.add(generate(automaticGenerator));
         }

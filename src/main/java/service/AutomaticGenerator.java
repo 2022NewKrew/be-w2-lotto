@@ -18,6 +18,7 @@ public class AutomaticGenerator implements LottoGenerator {
         generate();
     }
 
+    @Override
     public Lotto generate(){
         Collections.shuffle(numberList);
         ArrayList<Number> subNumberList = new ArrayList<Number>(numberList.subList(0,LOTTO_SIZE));
