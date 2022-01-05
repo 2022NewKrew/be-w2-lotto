@@ -2,6 +2,10 @@ package lotto.domain;
 
 import java.util.List;
 
+/**
+ *  로또 당첨 번호 정보를 담고있는 클래스입니다.
+ *  Lotto를 상속받아 bonusBall 필드를 추가했습니다.
+ */
 public class LottoWinningNumber extends Lotto {
     private final LottoNumber bonusBall;
 
@@ -11,6 +15,12 @@ public class LottoWinningNumber extends Lotto {
         this.bonusBall = bonusBall;
     }
 
+    /**
+     *  lotto가 당첨 번호와 몇 개 숫자만큼 일치하는지 확인해서 반환
+     *
+     * @param lotto : 당첨여부 확인하고 싶은 로또 정보
+     * @return count : 몇 개 일치하는가 반환. (단, 보너스볼 제외 6개 일치는 7개 일치로 반환 - 1등)
+     */
     public final int match(Lotto lotto) {
         int count = 0;
         for(LottoNumber number : lottoNumbers)
