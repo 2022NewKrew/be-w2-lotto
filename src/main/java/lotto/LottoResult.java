@@ -15,9 +15,9 @@ public enum LottoResult {
     SECOND(5, true,30000000),
     FIRST(6, false,2000000000);
 
-    private int countOfMatch;
-    private boolean checkBonusBall;
-    private int winningMoney;
+    private final int countOfMatch;
+    private final boolean checkBonusBall;
+    private final int winningMoney;
 
     LottoResult(int countOfMatch, boolean checkBonusBall, int winningMoney) {
         this.countOfMatch = countOfMatch;
@@ -37,19 +37,19 @@ public enum LottoResult {
         return winningMoney;
     }
 
-    public static LottoResult valueOf(int countOfMatch, boolean isbonusBall) {
+    public static LottoResult valueOf(int countOfMatch, boolean isBonusBall) {
         return Arrays.stream(values())
-                .filter(x -> x.countOfMatch == countOfMatch && (!x.checkBonusBall || isbonusBall))
+                .filter(x -> x.countOfMatch == countOfMatch && (!x.checkBonusBall || isBonusBall))
                 .collect(Collectors.toList()).get(0);
     }
 
-    public static List<LottoResult> calLottoResults(List<LottoDto> lottos, List<Long> lastWeekLottoNumbers, int bonusBall) {
+    public static List<LottoResult> createLottoResults(List<LottoDto> lottos, List<Integer> lastWeekLottoNumbers, int bonusBall) {
         List<LottoResult> lottoResults = new ArrayList<>();
         for (LottoDto lotto : lottos) {
             int matchCount = (int) lotto.getNumbers().stream()
                     .filter(lastWeekLottoNumbers::contains).count();
-            boolean isbonusBall = lotto.getNumbers().contains(bonusBall);
-            lottoResults.add(valueOf(matchCount, isbonusBall));
+            boolean isBonusBall = lotto.getNumbers().contains(bonusBall);
+            lottoResults.add(valueOf(matchCount, isBonusBall));
         }
         return lottoResults;
     }

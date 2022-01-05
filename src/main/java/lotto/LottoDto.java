@@ -2,7 +2,6 @@ package lotto;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class LottoDto {
 
@@ -11,10 +10,10 @@ public class LottoDto {
     public final static int NUMBERS_SIZE = 6;
     public final static int LOTTO_PRICE = 1000;
 
-    private List<Integer> numbers;
+    private final List<Integer> numbers;
 
     public LottoDto(Lotto lotto) {
-        numbers = new ArrayList<>(lotto.getNumbers());
+        numbers = new ArrayList<>(lotto.getNumbers().orElseThrow());
     }
 
     public List<Integer> getNumbers() {
