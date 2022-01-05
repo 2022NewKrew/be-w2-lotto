@@ -1,5 +1,6 @@
 package lotto.domain.winningstats;
 
+import lotto.domain.winningstats.lastweeknumber.LastWeekNumber;
 import lotto.domain.winningstats.lottobundle.lottoticket.Lotto;
 import lotto.domain.winningstats.lottobundle.LottoBundle;
 import lotto.domain.winningstats.winningstate.WinningState;

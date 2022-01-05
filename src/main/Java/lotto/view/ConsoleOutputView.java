@@ -5,8 +5,8 @@ import lotto.domain.winningstats.WinningStats;
 
 public class ConsoleOutputView {
 
-    public static void printLottoCount(int count) {
-        System.out.println(Integer.toString(count) + "개를 구매했습니다.");
+    public static void printLottoCount(long count) {
+        System.out.println(Long.toString(count) + "개를 구매했습니다.");
     }
 
     public static void printLottoBundle(LottoBundle lottoBundle) {

@@ -8,14 +8,14 @@ import java.util.List;
 
 public class LottoBundle {
     private static final String SEPARATOR = "\n";
-    private final int totalMoney;
+    private final long totalMoney;
     private final List<Lotto> lottoList;
 
-    public LottoBundle(int totalMoney) {
+    public LottoBundle(long totalMoney) {
         List<Lotto> lottoListTemp;
         this.totalMoney = totalMoney;
         lottoListTemp = new ArrayList<>();
-        int count = getCount();
+        long count = getCount();
 
         for (int i = 0; i < count; i++) {
             Lotto lotto = new Lotto();
@@ -24,8 +24,8 @@ public class LottoBundle {
         this.lottoList = Collections.unmodifiableList(lottoListTemp);
     }
 
-    public int getCount() {
-        final int LOTTO_PRICE = 1000;
+    public long getCount() {
+        final long LOTTO_PRICE = 1000;
         return totalMoney / LOTTO_PRICE;
     }
 
