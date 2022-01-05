@@ -7,15 +7,15 @@ import java.util.List;
 public class Lotto {
     private final List<Integer> numbers;
 
-    @Override
-    public String toString() {
-        return Arrays.toString(numbers.toArray());
-    }
-
     Lotto(List<Integer> numbers) {
         if (numbers == null)
             throw new IllegalArgumentException();
         this.numbers = Collections.unmodifiableList(numbers);
+    }
+
+    @Override
+    public String toString() {
+        return Arrays.toString(numbers.toArray());
     }
 
     public Integer checkMatchCount(List<Integer> winningNumbers) {
