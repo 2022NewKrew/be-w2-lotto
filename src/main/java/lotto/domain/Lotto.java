@@ -7,6 +7,8 @@ import java.util.List;
 public class Lotto {
     public static final int N_NUMBERS = 6;
     public static final int PRICE = 1000;
+    public static final int MIN_NUMBER = 1;
+    public static final int MAX_NUMBER = 45;
 
     private final List<Integer> numbers;
 
@@ -18,6 +20,13 @@ public class Lotto {
         Collections.sort(numbers);
     }
 
+<<<<<<< HEAD
+=======
+    public Lotto(Lotto lotto){
+        this(lotto.getNumbers());
+    }
+
+>>>>>>> 73407950a993c8ab02b196cc1f9fecf44a984723
     public int howManyMatch(WinningLotto winningLotto) {
         int count = 0;
         List<Integer> winningLottoNumbers = winningLotto.getNumbers();

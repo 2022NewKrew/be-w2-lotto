@@ -9,6 +9,13 @@ public class WinningLotto extends Lotto {
         super(numbers);
     }
 
+<<<<<<< HEAD
+=======
+    public WinningLotto(Lotto lotto, Integer bonusNumber){
+        super(lotto);
+    }
+
+>>>>>>> 73407950a993c8ab02b196cc1f9fecf44a984723
     public Integer getBonusNumber() {
         return this.bonusNumber;
     }

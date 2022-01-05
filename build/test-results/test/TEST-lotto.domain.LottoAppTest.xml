@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="lotto.domain.LottoAppTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-01-04T07:39:26" hostname="ethan337-pc.local" time="0.072">
+  <properties/>
+  <testcase name="주어진 금액 만큼 로또를 구매합니다." classname="lotto.domain.LottoAppTest" time="0.072"/>
+  <system-out><![CDATA[14개를 구매했습니다.
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
