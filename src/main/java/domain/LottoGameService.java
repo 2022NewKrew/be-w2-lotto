@@ -2,9 +2,8 @@ package domain;
 
 import common.model.LottoRank;
 import controller.dto.WinningResult;
-import domain.LottoTicket;
-import domain.LottoTickets;
 import domain.model.*;
+import view.dto.LottoPurchaseRequest;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -23,12 +22,20 @@ public class LottoGameService {
         }
     }
 
-    public LottoTickets purchase(int amount) {
-        int quantity = calculateLottoQuantity(amount);
+    public LottoTickets purchase(LottoPurchaseRequest lottoPurchaseRequest) {
         List<LottoTicket> lottoTicketList = new ArrayList<>();
-        for(int q = 0; q < quantity; q++) {
-            lottoTicketList.add(createLottoTicket());
+
+        int manualLottoCount = lottoPurchaseRequest.getManualLottoCount();
+        for(List<Integer> lottoNumbers : lottoPurchaseRequest.getManualLottoTickets()) {
+            lottoTicketList.add(LottoTicket.from(lottoNumbers));
         }
+
+        int amount = lottoPurchaseRequest.getAmount() - (manualLottoCount * LOTTO_PRICE);
+        int quantity = calculateLottoQuantity(amount);
+        for(int q = 0; q < quantity; q++) {
+            lottoTicketList.add(createAutoLottoTicket());
+        }
+
         return new LottoTickets(lottoTicketList);
     };
 
@@ -36,11 +43,11 @@ public class LottoGameService {
         return amount / LOTTO_PRICE;
     }
 
-    private LottoTicket createLottoTicket() {
+    private LottoTicket createAutoLottoTicket() {
         Collections.shuffle(BASE_LOTTO_NUMBERS);
         List<Integer> lottoNumbers = new ArrayList<>(BASE_LOTTO_NUMBERS.subList(0, 6));
         Collections.sort(lottoNumbers);
-        return new LottoTicket(lottoNumbers);
+        return LottoTicket.from(lottoNumbers);
     }
 
     /**

@@ -34,7 +34,7 @@ public class LottoController {
         int lottoCount = lottoGameView.queryManualLottoCount();
         List<List<Integer>> manualLottoTickets = lottoGameView.queryManualLottoNumbers(lottoCount);
 
-        LottoTickets lottoTickets = lottoGame.purchase(amount);
+        LottoTickets lottoTickets = lottoGame.purchase(new LottoPurchaseRequest(amount, lottoCount, manualLottoTickets));
         lottoGameView.printLottoTickets(lottoTickets);
 
         List<Integer> winningLottoNumbers = lottoGameView.queryWinningLotto();
