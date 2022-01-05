@@ -13,7 +13,7 @@ public class PrintLotto {
     public static void start() {
         int money = getMoney();
         int manualCount = getManualCount();
-        List<Lotto> manualLottos = getManualLottos(manualCount);
+        List<UserLotto> manualLottos = getManualLottos(manualCount);
         LottoMachine lottoMachine = new LottoMachine();
         lottoMachine.addManualLottos(manualLottos);
         lottoMachine.buyLotto(money - manualCount*1000);
@@ -35,22 +35,22 @@ public class PrintLotto {
         return in.nextInt();
     }
 
-    private static List<Lotto> getManualLottos(int manualCount) {
+    private static List<UserLotto> getManualLottos(int manualCount) {
         Scanner in = new Scanner(System.in).useDelimiter("\n");
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
-        List<Lotto> manualLottos = new ArrayList<>();
+        List<UserLotto> manualLottos = new ArrayList<>();
         for (int i = 0; i < manualCount; i++) {
-            manualLottos.add(new Lotto(splitNumbers(in.next())));
+            manualLottos.add(new UserLotto(splitNumbers(in.next())));
         }
         return manualLottos;
     }
 
-    private static void printLottos(List<Lotto> manualLottos, List<Lotto> automaticLottos) {
+    private static void printLottos(List<UserLotto> manualLottos, List<UserLotto> automaticLottos) {
         System.out.println("수동으로 " + manualLottos.size() + "장, 자동으로 " + automaticLottos.size() + "장을 구매했습니다.");
-        List<Lotto> lottos = new ArrayList<>();
+        List<UserLotto> lottos = new ArrayList<>();
         lottos.addAll(manualLottos);
         lottos.addAll(automaticLottos);
-        for(Lotto lotto: lottos) {
+        for(UserLotto lotto: lottos) {
             System.out.println(lotto.getLottoNumbers().stream().map(x -> x.ordinal() + 1).collect(Collectors.toList()));
         }
     }
