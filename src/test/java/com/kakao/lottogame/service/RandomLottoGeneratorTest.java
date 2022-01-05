@@ -13,7 +13,7 @@ class RandomLottoGeneratorTest {
     private final long SEED = 1L;
     private final RandomLottoGenerator lottoGenerator = new RandomLottoGenerator(SEED);
 
-    @DisplayName("제한된 범위 내의 중복하지 않는 랜덤 숫자 6개를 생성한다.")
+    @DisplayName("제한된 범위 내의 중복하지 않는 랜덤 번호 6개를 생성한다.")
     @Test
     void generate_Random_SixNumbers() {
         Lotto lotto = lottoGenerator.generate();

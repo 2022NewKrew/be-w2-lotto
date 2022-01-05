@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 
 class RankTest {
 
-    @DisplayName("숫자를 맞춘 개수에 따라 보상이 달라진다.")
+    @DisplayName("맞춘 번호(보너스 포함)에 따라 Rank가 달라진다.")
     @Test
-    void of_Match_Reward() {
+    void of_Criteria_Rank() {
         assertThat(Rank.of(Criteria.of(0, false))).isEqualTo(Rank.NONE);
         assertThat(Rank.of(Criteria.of(3, false))).isEqualTo(Rank.FIFTH);
         assertThat(Rank.of(Criteria.of(4, false))).isEqualTo(Rank.FOURTH);
