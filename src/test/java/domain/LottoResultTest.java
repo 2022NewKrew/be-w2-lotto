@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,17 +25,15 @@ class LottoResultTest {
         Lotto winningLotto = new Lotto(new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6)));
         int bonusNumber = 7;
 
-        Lotto firstGradeLotto = new Lotto(new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6)));
-        Lotto secondGradeLotto = new Lotto(new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 7)));
-        Lotto thirdGradeLotto = new Lotto(new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 9)));
-        Lotto fourthGradeLotto = new Lotto(new ArrayList<>(Arrays.asList(1, 2, 3, 4, 8, 9)));
-        Lotto fifthGradeLotto = new Lotto(new ArrayList<>(Arrays.asList(1, 2, 3, 8, 9, 10)));
+        List<Lotto> manualLottoList = new ArrayList<>();
 
-        lottoList.createManualLottoList(firstGradeLotto);
-        lottoList.createManualLottoList(secondGradeLotto);
-        lottoList.createManualLottoList(thirdGradeLotto);
-        lottoList.createManualLottoList(fourthGradeLotto);
-        lottoList.createManualLottoList(fifthGradeLotto);
+        manualLottoList.add(new Lotto(new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6))));
+        manualLottoList.add(new Lotto(new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 7))));
+        manualLottoList.add(new Lotto(new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 9))));
+        manualLottoList.add(new Lotto(new ArrayList<>(Arrays.asList(1, 2, 3, 4, 8, 9))));
+        manualLottoList.add(new Lotto(new ArrayList<>(Arrays.asList(1, 2, 3, 8, 9, 10))));
+
+        lottoList.createManualLottoList(manualLottoList);
 
         LottoResult lottoResult = new LottoResult(lottoList, winningLotto, bonusNumber);
 
