@@ -17,7 +17,7 @@ public class ConsoleView {
     public void start() {
         // 로또 구매
         List<Lotto> lottoList = lottoGameConsoleController.buy();
-        printPurchaseList(lottoList);
+        printBuyList(lottoList);
 
         // 당첨 통계
         printResults(lottoGameConsoleController.result(lottoList));
@@ -47,7 +47,7 @@ public class ConsoleView {
         System.out.println(key.getMatchIndex() + "개 일치 (" + key.getWinningMoney() + "원)- " + value + "개");
     }
 
-    private void printPurchaseList(List<Lotto> purchaseList) {
+    private void printBuyList(List<Lotto> purchaseList) {
         System.out.println(purchaseList.size() + "개를 구매했습니다.");
         purchaseList.forEach(lotto -> System.out.println(lotto.toString()));
     }
