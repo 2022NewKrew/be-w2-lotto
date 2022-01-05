@@ -2,6 +2,8 @@ package lotto.domain;
 
 import lotto.dto.LottoResultDTO;
 
+import java.util.Arrays;
+
 public enum PrizeType {
     FIRST_PRIZE(6, 2000000000) {
         @Override
@@ -45,20 +47,24 @@ public enum PrizeType {
     public abstract void count(LottoResultDTO lottoResultDTO);
 
     public static PrizeType valueOf(int matchCount, boolean matchBonus) {
-        PrizeType prizeType = null;
-        for (PrizeType prize : values()) {
-            prizeType = selectPrizeType(prize, matchCount, matchBonus);
+        if (matchCount == SECOND_PRIZE.value) {
+            return isSecondOrThirdPrize(matchBonus);
         }
-        return prizeType;
+        return Arrays.stream(values())
+                .filter(prizeType -> selectPrizeType(prizeType, matchCount) != null)
+                .findAny()
+                .orElse(null);
     }
 
-    private static PrizeType selectPrizeType(PrizeType prizeType, int matchCount, boolean matchBonus) {
-        if (matchCount == SECOND_PRIZE.value) {
-            return matchBonus ? SECOND_PRIZE : THIRD_PRIZE;
-        } else if (matchCount == prizeType.value) {
+    private static PrizeType selectPrizeType(PrizeType prizeType, int matchCount) {
+        if (matchCount == prizeType.value) {
             return prizeType;
         }
         return null;
+    }
+
+    private static PrizeType isSecondOrThirdPrize(boolean matchBonus) {
+        return matchBonus ? SECOND_PRIZE : THIRD_PRIZE;
     }
 
     public int getValue() {
