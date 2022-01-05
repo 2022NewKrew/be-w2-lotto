@@ -40,11 +40,12 @@ public class Main {
         printPurchasedTickets(allTickets);
 
         Set<Integer> winnerNumber = inputView.getWinnerNumbersFromScanner("당첨 번호를 입력해주세요: ");
-        lottoShop.setWinnerNumber(winnerNumber);
         int bonusBall = getBonusBall(inputView, winnerNumber);
+        lottoShop.setWinnerNumber(winnerNumber);
+        lottoShop.setBonusBall(bonusBall);
 
         LottoPrinter printer = new LottoPrinter();
-        printer.printLottoResult(lottoShop, gambler, bonusBall);
+        printer.printLottoResult(lottoShop, gambler);
     }
 
     private static List<LottoTicket> purchaseLottoTickets(LottoShop lottoShop, InputView inputView, int manualBuyCount, int autoBuyCount) {

@@ -9,8 +9,12 @@ import java.util.Set;
 
 public class LottoPrinter {
 
-    public void printLottoResult(LottoShop lottoShop, Gambler gambler, int bonusBall) {
+    /**
+     * 로또 당첨 결과 출력
+     */
+    public void printLottoResult(LottoShop lottoShop, Gambler gambler) {
         Set<Integer> winnerNumber = lottoShop.getWinnerNumber();
+        int bonusBall = lottoShop.getBonusBall();
         LottoMatchingResult matchingResult = gambler.getMatchingResult(winnerNumber, bonusBall);
 
         printLottoMatchingResult(matchingResult);
