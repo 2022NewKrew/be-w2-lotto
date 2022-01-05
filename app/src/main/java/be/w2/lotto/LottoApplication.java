@@ -45,9 +45,7 @@ public class LottoApplication {
             try {
                 int purchaseAmount = inputPurchaseAmount();
                 int manualLottoAmount = inputManualLottoAmount();
-                List<List<Integer>> manualLottoNumbers = inputManualLottoNumbers(manualLottoAmount).stream()
-                        .map(Parser::parseInputNumbers)
-                        .collect(Collectors.toList());
+                List<List<Integer>> manualLottoNumbers = parseInputNumbers(inputManualLottoNumbers(manualLottoAmount));
                 LottoTickets lottoTickets = LottoTickets.valueOf(purchaseAmount, manualLottoNumbers);
                 return InputPurchaseAmountDto.of(lottoTickets, purchaseAmount);
             } catch (Exception e) {
