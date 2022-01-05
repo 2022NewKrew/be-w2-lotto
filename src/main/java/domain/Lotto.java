@@ -8,11 +8,9 @@ import static service.LottoService.INIT_LOTTO;
 public class Lotto {
 
     private final List<Integer> number;
-    private String view;
 
     public Lotto() {
         number = generateRandomNumber();
-        view = generateView();
     }
 
     private List<Integer> generateRandomNumber() {
@@ -26,18 +24,11 @@ public class Lotto {
         return number;
     }
 
-    private String generateView() {
-        return number.stream()
-                .map(integer -> String.valueOf(integer))
-                .collect(Collectors.joining(", ", "[", "]"));
-    }
-
     public Lotto(String numbers) {
         validationStringNumber(numbers);
         number = Arrays.stream(numbers.split(","))
                 .map(stringInt -> Integer.valueOf(stringInt.trim()))
                 .collect(Collectors.toList());
-        view = generateView();
     }
 
     private void validationStringNumber(String numbers) {
@@ -69,9 +60,5 @@ public class Lotto {
             //같은 숫자가 other에도 존재하면 1, 아니면 0을 ret에 더한다.
         }
         return ret;
-    }
-
-    public String toString() {
-        return view;
     }
 }

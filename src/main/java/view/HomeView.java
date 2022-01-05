@@ -5,6 +5,7 @@ import domain.LottoPrize;
 import service.LottoService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class HomeView {
     private final LottoService lottoService;
@@ -40,8 +41,14 @@ public class HomeView {
 
     private void printLottos() {
         for (Lotto lotto : lottoService.getLottos()) {
-            System.out.println(lotto.toString());
+            System.out.println(getViewOfLotto(lotto));
         }
+    }
+
+    private String getViewOfLotto(Lotto lotto) {
+        return lotto.getNumber().stream()
+                                .map(integer -> String.valueOf(integer))
+                                .collect(Collectors.joining(", ", "[", "]"));
     }
 
     public void printResults() {
