@@ -58,7 +58,8 @@ public class LottoServiceImpl implements LottoService {
 
             for (int i = 0; i < normalLottoCount; i++) {
                 String line = bufferedReader.readLine();
-                lottos.add(LottoNormal.createStringToLottoNumbers(line));
+                LottoNormal lottoNormal = LottoNormal.createStringToLottoNumbers(line);
+                lottos.add(lottoNormal);
             }
 
         } catch (IOException e) {

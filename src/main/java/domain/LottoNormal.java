@@ -15,7 +15,9 @@ public class LottoNormal extends Lotto {
 
         List<Integer> list = stream(numbers.split(",")).map(s -> Integer.parseInt(s.trim())).collect(Collectors.toList());
 
-        return new LottoNormal(list);
+        LottoNormal lottoNormal = new LottoNormal(list);
+        lottoNormal.validationOfkNumbers();
+        return lottoNormal;
     }
 
 }

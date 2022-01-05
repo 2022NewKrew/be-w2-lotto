@@ -21,30 +21,11 @@ public class LottoStatistic {
 
     }
 
-    private void increaseTreeMatch() {
-        treeMatch++;
-    }
-
-    private void increaseFourMatch() {
-        fourMatch++;
-    }
-
-    private void increaseFiveMatch() {
-        fiveMatch++;
-    }
-
-    private void increaseFiveAndBonusMatch() {
-        fiveAndBonusMatch++;
-    }
-
-    private void increaseSixMatch() {
-        sixMatch++;
-    }
-
     public void calculateProfitRate() {
         int purchasePrice = purchaseCount * 1000;
         int allWinningAmount = getAllWinningAmount();
-        profitRate = (allWinningAmount * 100 / purchasePrice);
+        // (평가금액 - 원금) / 원금 * 100
+        profitRate = (allWinningAmount - purchasePrice) / purchasePrice * 100;
     }
 
     private int getAllWinningAmount() {
@@ -63,18 +44,18 @@ public class LottoStatistic {
 
         switch (lotto.getStatus()) {
             case TREE_WINNING:
-                increaseTreeMatch();
+                treeMatch++;
                 break;
             case FOUR_WINNING:
-                increaseFourMatch();
+                fourMatch++;
                 break;
             case FIVE_WINNING:
-                increaseFiveMatch();
+                fiveMatch++;
                 break;
             case FIVE_AND_BONUS_WINNING:
-                increaseFiveAndBonusMatch();
+                fiveAndBonusMatch++;
             case SIX_WINNING:
-                increaseSixMatch();
+                sixMatch++;
                 break;
         }
     }

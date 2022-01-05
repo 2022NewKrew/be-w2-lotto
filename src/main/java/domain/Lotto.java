@@ -58,7 +58,7 @@ public class Lotto {
 
     }
 
-    private void validationOfkNumbers() {
+    protected void validationOfkNumbers() {
         for (int num : numbers) {
             if (LOTTO_START_NUMBER < num || num > LOTTO_END_NUMBER) {
                 throw new IllegalArgumentException("1~45숫자를 입력해주세요!");
