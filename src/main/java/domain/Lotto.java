@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,11 +11,15 @@ public class Lotto {
     public static final int NUM_OF_LOTTO = 6;
 
     public Lotto(List<Integer> numbers){
-        this.numbers.addAll(numbers);
+        sortAndAdd(numbers);
     }
 
     public Lotto(){
-        this.numbers.addAll(makeRandomLottoNum());
+        sortAndAdd(makeRandomLottoNum());
+    }
+    void sortAndAdd(List<Integer> rawNumbers){
+        Collections.sort(rawNumbers);
+        numbers.addAll(rawNumbers);
     }
 
     private List<Integer> makeRandomLottoNum(){
