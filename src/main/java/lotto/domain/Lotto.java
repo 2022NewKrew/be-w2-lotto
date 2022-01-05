@@ -22,11 +22,9 @@ public class Lotto {
     }
 
     public int getNumOfMatchingDigits(@NotNull WinningLotto winningLotto) {
-        HashSet<LottoNumber> currentLottoNumberSet = new HashSet<>(numberList);
-        HashSet<LottoNumber> winningLottoNumberSet = new HashSet<>(winningLotto.getNumberList());
-
-        winningLottoNumberSet.retainAll(currentLottoNumberSet);
-        return winningLottoNumberSet.size();
+        HashSet<LottoNumber> lottoNumberSet = new HashSet<>(numberList);
+        lottoNumberSet.retainAll(new HashSet<>(winningLotto.getNumberList()));
+        return lottoNumberSet.size();
     }
 
     public boolean containsBonusNumber(LottoNumber bonusNumber) {
