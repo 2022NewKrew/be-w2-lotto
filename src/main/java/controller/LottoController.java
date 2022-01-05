@@ -4,7 +4,7 @@ import domain.LottoTickets;
 import view.dto.LottoPurchaseResponse;
 import controller.dto.WinningResult;
 import common.model.LottoRank;
-import domain.model.WinningLottoTicket;
+import domain.model.ticket.WinningLottoTicket;
 import domain.LottoGameService;
 import view.LottoGameView;
 import view.dto.LottoPurchaseRequest;
@@ -32,9 +32,12 @@ public class LottoController {
      */
     public void run() throws IOException {
         int amount = lottoGameView.queryPurchaseAmount();
-        int manualLottoCount = lottoGameView.queryManualLottoCount();
-        List<List<Integer>> manualLottoTickets = lottoGameView.queryManualLottoNumbers(manualLottoCount);
+        validatePurchaseAmount(amount);
 
+        int manualLottoCount = lottoGameView.queryManualLottoCount();
+        validateManualLottoCount(manualLottoCount);
+
+        List<List<Integer>> manualLottoTickets = lottoGameView.queryManualLottoNumbers(manualLottoCount);
         LottoTickets lottoTickets = lottoGame.purchase(new LottoPurchaseRequest(amount, manualLottoCount, manualLottoTickets));
         lottoGameView.printLottoTickets(makeLottoPurchaseResponse(lottoTickets, manualLottoCount));
 
@@ -43,6 +46,14 @@ public class LottoController {
 
         WinningResult winningResult = lottoGame.checkWinningLotto(lottoTickets, new WinningLottoTicket(winningLottoNumbers, bonusNumber));
         lottoGameView.printLottoResults(makeWinningResultResponse(winningResult, amount));
+    }
+
+    private void validatePurchaseAmount(int amount) {
+        if(amount < 0) { throw new IllegalArgumentException("구입 금액은 0이상 입력해야합니다."); }
+    }
+
+    private void validateManualLottoCount(int count) {
+        if(count < 0) { throw new IllegalArgumentException("수동 구매 수는 0이상의 수만 가능합니다."); }
     }
 
     private WinningResultResponse makeWinningResultResponse(WinningResult winningResult, int amount) {

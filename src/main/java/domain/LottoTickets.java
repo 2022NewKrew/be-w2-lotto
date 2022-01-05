@@ -1,8 +1,9 @@
 package domain;
 
 import common.model.LottoRank;
+import domain.model.ticket.LottoTicket;
 import domain.model.PurchaseInfo;
-import domain.model.WinningLottoTicket;
+import domain.model.ticket.WinningLottoTicket;
 
 import java.util.HashMap;
 import java.util.List;

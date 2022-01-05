@@ -3,24 +3,14 @@ package domain;
 import common.model.LottoRank;
 import controller.dto.WinningResult;
 import domain.model.*;
+import domain.model.ticket.WinningLottoTicket;
 import view.dto.LottoPurchaseRequest;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 public class LottoGameService {
 
     private static final int LOTTO_PRICE = 1000;
-
-    private static final List<Integer> BASE_LOTTO_NUMBERS = new ArrayList<>();
-
-    public LottoGameService() {
-        for(int num = 1; num < 46; num++) {
-            BASE_LOTTO_NUMBERS.add(num);
-        }
-    }
 
     public LottoTickets purchase(LottoPurchaseRequest lottoPurchaseRequest) {
         int manualLottoCount = lottoPurchaseRequest.getManualLottoCount();
@@ -37,6 +27,7 @@ public class LottoGameService {
     }
 
     private int calculateLottoQuantity(int amount) {
+        if(amount < 0) { throw new IllegalArgumentException("수동 금액은 구입 금액보다 작거나 같아야 합니다."); }
         return amount / LOTTO_PRICE;
     }
 

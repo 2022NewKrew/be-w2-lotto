@@ -1,7 +1,6 @@
-package domain;
+package domain.model.ticket;
 
 import common.model.LottoRank;
-import domain.model.WinningLottoTicket;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,16 +8,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class LottoTicket {
-
-    private final List<Integer> lottoNumbers;
+public class LottoTicket extends CommonLottoTicket{
 
     public LottoTicket(List<Integer> lottoNumbers) {
-        this.lottoNumbers = lottoNumbers;
-    }
-
-    private boolean contains(Integer number) {
-        return lottoNumbers.contains(number);
+        super(lottoNumbers);
     }
 
     public LottoRank checkRank(WinningLottoTicket winningTicket) {
