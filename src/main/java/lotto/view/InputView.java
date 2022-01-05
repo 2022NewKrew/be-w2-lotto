@@ -1,11 +1,13 @@
 package lotto.view;
 
 
+
 import lotto.controller.LottoController;
 import lotto.domain.component.*;
 import lotto.domain.result.LottoResult;
 import lotto.dto.GetLottoResultDTO;
 import lotto.dto.PurChasingLottoDTO;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,10 +17,12 @@ import java.util.List;
 
 import static lotto.domain.component.LottoPrice.LOTTO_MIN_PRICE;
 
+
 public class InputView {
 
     static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     private static final LottoController lottoController = new LottoController();
+
 
     private InputView() {
 
@@ -47,6 +51,7 @@ public class InputView {
         System.out.println("구매금액을 입력해 주세요.");
         return new LottoPrice(stoi(br.readLine()));
     }
+
 
     private static LottoTicket inputWinningNumber() throws IOException {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");

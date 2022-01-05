@@ -1,5 +1,6 @@
 package lotto.service;
 
+
 import lotto.domain.AutoIssuingLottoMachine;
 import lotto.domain.component.LottoNumber;
 import lotto.domain.component.LottoTicket;

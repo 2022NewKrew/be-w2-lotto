@@ -3,6 +3,7 @@ package lotto.domain.component;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
 public class LottoTicket {
 
     public static final int LOTTO_NUMBERS_COUNT = 6;
@@ -32,6 +33,7 @@ public class LottoTicket {
                 .collect(Collectors.toList());
     }
 
+
     private void validateLottoNumberCount(List<LottoNumber> numbers) throws IllegalArgumentException {
         if (numbers.size() != LOTTO_NUMBERS_COUNT) {
             throw new IllegalArgumentException("로또 번호의 수는 최소" + LOTTO_NUMBERS_COUNT + "개 입력해야합니다.");
@@ -47,4 +49,5 @@ public class LottoTicket {
     private boolean isDuplicateNumber(List<LottoNumber> numbers) {
         return !numbers.stream().allMatch(new HashSet<>()::add);
     }
+
 }

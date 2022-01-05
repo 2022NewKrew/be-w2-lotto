@@ -7,6 +7,7 @@ import lotto.dto.PurChasingLottoDTO;
 
 import java.io.IOException;
 
+
 import static lotto.view.printer.OutputPrinter.*;
 
 public class OutputView {

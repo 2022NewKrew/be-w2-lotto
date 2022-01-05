@@ -3,6 +3,7 @@ package lotto.domain.result;
 import lotto.domain.component.WinningLottoTicket;
 import lotto.domain.component.LottoNumber;
 import lotto.domain.component.LottoTicket;
+
 import lotto.dto.GetLottoResultDTO;
 
 import java.util.HashMap;
@@ -16,11 +17,13 @@ public class LottoResult {
     private final Map<LottoResultType, Integer> matchingResult = new HashMap<>();
 
 
+
     public LottoResult(GetLottoResultDTO getLottoResultDTO) {
         this.purchasePrice = getLottoResultDTO.getPurchasePrice();
         initialize();
         compareLottoNumber(getLottoResultDTO.getWinningLottoTicket(),
                 getLottoResultDTO.getLottoTickets());
+
     }
 
     public int getPurchasePrice() {
