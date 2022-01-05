@@ -15,16 +15,19 @@ public enum RankInfo {
 
     private final int count;
     private final int reward;
+
     RankInfo(int count, int reward) {
         this.count = count;
         this.reward = reward;
     }
 
-    public int getCount() { return count; }
+    public int getCount() {
+        return count;
+    }
 
     public static RankInfo valueOf(int count, boolean bonus) {
-        if(count == SECOND.count) {
-            return bonus? SECOND : THIRD;
+        if (count == SECOND.count) {
+            return bonus ? SECOND : THIRD;
         }
         return valuesStream()
                 .filter(rankInfo -> rankInfo.count == count)
@@ -36,7 +39,7 @@ public enum RankInfo {
         StringBuilder sb = new StringBuilder();
         sb.append(count);
         sb.append("개 일치");
-        if(count == SECOND.count) sb.append(", 보너스 볼 일치");
+        if (this == SECOND) sb.append(", 보너스 볼 일치");
         sb.append("(");
         sb.append(reward);
         sb.append(")- ");
