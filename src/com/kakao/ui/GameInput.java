@@ -1,7 +1,5 @@
 package com.kakao.ui;
 
-import com.kakao.domain.Lotto;
-import com.kakao.domain.WinningLotto;
 import com.kakao.validation.CheckGameInput;
 
 import java.util.*;
@@ -10,7 +8,6 @@ public class GameInput {
 
     private final CheckGameInput checkGameInput = new CheckGameInput();
     private final Scanner sc = new Scanner(System.in);
-    private final List<Lotto> lottos = new ArrayList<>();
 
     public int inputMoney() {
         try {
@@ -59,21 +56,20 @@ public class GameInput {
         }
     }
 
-    public WinningLotto inputWinningLotto() {
+    public List<Integer> inputWinningLotto() {
         try {
             System.out.println("지난 주 당첨 번호를 입력해 주세요.");
             String[] input = sc.nextLine().split(",");
-            List<Integer> winningLotto = mapToInt(input);
-            checkGameInput.checkLottoInput(winningLotto);
-            int bonusNumber = inputBonusNumber(winningLotto);
-            return new WinningLotto(winningLotto, bonusNumber);
+            List<Integer> winningLottoNumbers = mapToInt(input);
+            checkGameInput.checkLottoInput(winningLottoNumbers);
+            return winningLottoNumbers;
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
             return inputWinningLotto();
         }
     }
 
-    private int inputBonusNumber(List<Integer> winningLotto) {
+    public int inputBonusNumber(List<Integer> winningLotto) {
         try {
             System.out.println("보너스 볼을 입력해 주세요.");
             int bonusNumber = Integer.parseInt(sc.nextLine());
@@ -94,24 +90,5 @@ public class GameInput {
         }
         Collections.sort(list);
         return list;
-    }
-
-    public List<Lotto> buyLottos(int money) {
-        int totalLottoCount = money / 1000;
-        int customLottoCount = inputCustomLottoCount(totalLottoCount);
-        int autoLottoCount = totalLottoCount - customLottoCount;
-        buyCustomLotto(customLottoCount);
-        buyAutoLotto(autoLottoCount);
-        return lottos;
-    }
-
-    private void buyCustomLotto(int lottoCount) {
-
-    }
-
-    private void buyAutoLotto(int lottoCount) {
-        for (int i = 0; i < lottoCount; i++) {
-            lottos.add(new Lotto());
-        }
     }
 }
