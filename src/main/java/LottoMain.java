@@ -13,11 +13,13 @@ public class LottoMain {
     public static void startGame() {
         int money = InputView.getMoney();
 
-        LottoService lottoService = new LottoService();
+        int manualLottoCount = InputView.getManualLottoCount();
+        List<List<Integer>> manualNumbers = InputView.getManualLottoNumbers(manualLottoCount);
+        System.out.println(manualNumbers.toString());
 
-        List<Lotto> lottos = lottoService.buyLottos(money);
+        List<Lotto> lottos = LottoService.buyLottos(money, manualLottoCount, manualNumbers);
 
-        ResultView.printPurchaseResult(lottos);
+        ResultView.printPurchaseResult(lottos, manualLottoCount);
 
         List<Integer> winningNumbers = InputView.getWinningNumbers();
         int bonusNum = InputView.getBounusNum();

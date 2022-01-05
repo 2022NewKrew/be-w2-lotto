@@ -7,6 +7,12 @@ public class Result {
     public Result(Rank rank, int count) {
         this.rank = rank;
         this.count = count;
+
+        validateCount(count);
+    }
+
+    private void validateCount(int count){
+       if(count<0) throw new IllegalArgumentException();
     }
 
     public Rank getRank() {
@@ -17,13 +23,4 @@ public class Result {
         return count;
     }
 
-    @Override
-    public String toString() {
-        String resultString = "" + rank.getCountOfMatch() + "개 일치";
-        if (rank == Rank.SECOND) {
-            resultString += ",보너스 볼 일치";
-        }
-        resultString += "(" + rank.getWinningMoney() + "원) - " + count + "개";
-        return resultString;
-    }
 }
