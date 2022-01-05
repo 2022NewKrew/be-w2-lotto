@@ -23,10 +23,8 @@ public class TextHelper {
         return new ArrayList<>(Arrays.asList(str.split(regex)));
     }
 
-    public static <T,U> List<U> convertListType (List<T> strList, Function<T,U> function) {
-        return new ArrayList<>(
-                strList.stream()
-                        .map(function)
-                        .collect(Collectors.toList()));
+    public static <T,U> List<U> convertListType (List<T> list, Function<T,U> function) {
+        return list.stream()
+                .map(function).collect(Collectors.toList());
     }
 }

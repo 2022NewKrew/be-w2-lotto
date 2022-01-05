@@ -1,6 +1,7 @@
 package com.kakao.model;
 
 public class LottoWinningReward {
+<<<<<<< HEAD
     int countOfMatchNumber;
 <<<<<<< HEAD
     int rewardPrice;
@@ -14,8 +15,13 @@ public class LottoWinningReward {
 =======
     boolean useBonusBall;
 >>>>>>> 231c634 (1차 PR 리뷰 개선)
+=======
+    private int countOfMatchNumber;
+    private boolean useBonusBall;
+>>>>>>> c32dcda (- TestCode 추가)
 
     public LottoWinningReward(int countOfMatchNumber) {
+
         this.countOfMatchNumber = countOfMatchNumber;
     }
 <<<<<<< HEAD

@@ -3,6 +3,7 @@ package com.kakao.model;
 import com.kakao.data.LottoData;
 import com.kakao.data.MatchBall;
 import com.kakao.exception.MoneyRangeException;
+import com.kakao.exception.PickedNumberException;
 import com.kakao.exception.PickedNumbersFormatException;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class Lottos {
     private List<Lotto> lottoList;
 
     // 생성자
-    public Lottos(final int moneyToBuyLottos) throws MoneyRangeException {
+    public Lottos(final Integer moneyToBuyLottos) throws MoneyRangeException {
         checkMoneyRange(moneyToBuyLottos);
 
         int numberOfLotto = moneyToBuyLottos/LottoData.PRICE_OF_LOTTO;
@@ -33,6 +34,7 @@ public class Lottos {
     }
 
     // 유효성 검사
+<<<<<<< HEAD
     private void checkMoneyRange(final int moneyToBuyLottos) throws MoneyRangeException {
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -43,6 +45,10 @@ public class Lottos {
 =======
         if(moneyToBuyLottos < LottoData.PRICE_OF_LOTTO ) {
 >>>>>>> 231c634 (1차 PR 리뷰 개선)
+=======
+    private void checkMoneyRange(final Integer moneyToBuyLottos) throws MoneyRangeException {
+        if( moneyToBuyLottos == null || moneyToBuyLottos < LottoData.PRICE_OF_LOTTO ) {
+>>>>>>> c32dcda (- TestCode 추가)
             throw new MoneyRangeException();
         }
     }
@@ -68,7 +74,7 @@ public class Lottos {
         Lotto newLotto = null;
         try {
             newLotto = new Lotto(LottoData.generatePickedNumber());
-        } catch (PickedNumbersFormatException e) {
+        } catch (PickedNumberException e) {
             e.printStackTrace();
         } finally {
             return newLotto;
@@ -81,6 +87,9 @@ public class Lottos {
     public Map<LottoWinningReward, Integer> matchLottosAreWinning(LottoWinning lottoWinning) {
         // 해시맵 사용
         Map<LottoWinningReward, Integer> countOfWinningLottos = new HashMap<>();
+        if( lottoWinning == null ){
+            return countOfWinningLottos;
+        }
         for(Lotto lotto: this.lottoList) {
             int winningNumber = lotto.matchNumberIsWinning(lottoWinning); // 일치한 갯수
             boolean bonusBallIsMatched = lotto.matchBonusBall(lottoWinning.getBonusBall());

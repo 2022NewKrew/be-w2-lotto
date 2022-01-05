@@ -44,6 +44,9 @@ class LottoOutput {
     private static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
     public static void printString (String str) {
+        if(str == null) {
+            return;
+        }
         try {
             bw.write(str);
             bw.flush();
@@ -53,6 +56,10 @@ class LottoOutput {
     }
 
     public static void printResult (Lottos lottos) {
+        if(lottos == null) {
+            return;
+        }
+
         List<Lotto> lottoList = lottos.getLottoList();
 
         StringBuilder sb = new StringBuilder();
@@ -85,6 +92,10 @@ class LottoOutput {
 
     // winning 정보 출력
     public static void printLottoWinning(Integer moneyToBuyLotto, Lottos lottos, LottoWinning lottoWinning){
+        if(moneyToBuyLotto == null || lottos == null || lottoWinning == null) {
+            return;
+        }
+
         StringBuilder sb = new StringBuilder();
         sb.append(LottoOutputData.RESULT_COMMENT_OF_WINNING);
         sb.append(LottoOutputData.RESULT_DIVISION_LINE_OF_WINNING);

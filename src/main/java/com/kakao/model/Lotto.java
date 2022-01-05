@@ -1,6 +1,8 @@
 package com.kakao.model;
 
 import com.kakao.data.LottoData;
+import com.kakao.exception.PickedNumberException;
+import com.kakao.exception.PickedNumberRangeException;
 import com.kakao.exception.PickedNumbersFormatException;
 
 import java.util.List;
@@ -11,11 +13,13 @@ public class Lotto {
 
     private List<Integer> pickedNumbersOfLotto;
 
-    Lotto(List<Integer> pickedNumbersOfLotto) throws PickedNumbersFormatException {
+    Lotto(List<Integer> pickedNumbersOfLotto) throws PickedNumberException {
         checkFormatOfPickedNumbers(pickedNumbersOfLotto);
+        checkRangeOfPickedNumbers(pickedNumbersOfLotto);
         this.pickedNumbersOfLotto = pickedNumbersOfLotto;
     }
 
+    // 유효셩 검사
     private void checkFormatOfPickedNumbers(List<Integer> pickedNumbersOfLotto) throws PickedNumbersFormatException {
 =======
     // innerClass
@@ -40,6 +44,21 @@ public class Lotto {
             throw new PickedNumbersFormatException();
         }
     }
+    private void checkRangeOfPickedNumbers(List<Integer> pickedNumbersOfWinning) throws PickedNumberRangeException {
+        // 숫자 유효성 검사
+        boolean allResult = pickedNumbersOfWinning.stream()
+                .map(this::checkEachRangeOfPickedNumber)
+                .reduce(true, this::checkAllNumbersAreExistInRange);
+        if(!allResult) {
+            throw new PickedNumberRangeException();
+        }
+    }
+    private boolean checkEachRangeOfPickedNumber (Integer pickedNumber) {
+        return ( LottoData.MIN_LOTTO_NUMBER <= pickedNumber ) && (pickedNumber <= LottoData.MAX_LOTTO_NUMBER);
+    }
+    private boolean checkAllNumbersAreExistInRange(boolean allResult, boolean isInRnage) {
+        return allResult && isInRnage;
+    }
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -49,6 +68,10 @@ public class Lotto {
     public int matchNumberIsWinning(LottoWinning lottoWinning) {
         // 당첨번호, 매치여부를 확인할 숫자
         int matchCount = 0;
+        if( lottoWinning == null ) {
+            return matchCount;
+        }
+
         for(Integer lottoNumber: pickedNumbersOfLotto){
             matchCount = updateWinningNumber(matchCount, lottoWinning.hasNumber(lottoNumber));
         }
