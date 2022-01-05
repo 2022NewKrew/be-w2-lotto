@@ -1,4 +1,4 @@
-package domain.lottery;
+package domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class NumbersFactory {
+public class LotteryNumbersFactory {
     private static final int NUMBER_DOMAIN_START = 1;
     private static final int NUMBER_DOMAIN_END = 45;
     private static final List<Integer> NUMBERS_DOMAIN = IntStream.rangeClosed(NUMBER_DOMAIN_START, NUMBER_DOMAIN_END).boxed().collect(Collectors.toList());

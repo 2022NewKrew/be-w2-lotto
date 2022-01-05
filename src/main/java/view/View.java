@@ -1,8 +1,8 @@
 package view;
 
-import domain.Prize;
-import dto.ReportDTO;
-import dto.TicketsDTO;
+import domain.LotteryPrize;
+import dto.LotteryReportDTO;
+import dto.LotteryTicketsDTO;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,10 +27,10 @@ public class View {
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
     }
 
-    public void showBoughtTickets(TicketsDTO nonRandomTicketsDTO, TicketsDTO randomTicketsDTO) {
-        System.out.println("수동으로 " + nonRandomTicketsDTO.size + "장, 자동으로 " + randomTicketsDTO.size + "개를 구매했습니다.");
-        System.out.println(nonRandomTicketsDTO.ticketDTOs.stream().map(ticketDTO -> ticketDTO.numbers.toString()).collect(Collectors.joining(System.lineSeparator())));
-        System.out.println(randomTicketsDTO.ticketDTOs.stream().map(ticketDTO -> ticketDTO.numbers.toString()).collect(Collectors.joining(System.lineSeparator())));
+    public void showBoughtTickets(LotteryTicketsDTO nonRandomLotteryTicketsDTO, LotteryTicketsDTO randomLotteryTicketsDTO) {
+        System.out.println("수동으로 " + nonRandomLotteryTicketsDTO.size + "장, 자동으로 " + randomLotteryTicketsDTO.size + "개를 구매했습니다.");
+        System.out.println(nonRandomLotteryTicketsDTO.lotteryTicketDTOS.stream().map(ticketDTO -> ticketDTO.numbers.toString()).collect(Collectors.joining(System.lineSeparator())));
+        System.out.println(randomLotteryTicketsDTO.lotteryTicketDTOS.stream().map(ticketDTO -> ticketDTO.numbers.toString()).collect(Collectors.joining(System.lineSeparator())));
         System.out.println();
     }
 
@@ -48,16 +48,16 @@ public class View {
         return Integer.parseInt(scanner.nextLine());
     }
 
-    public void showReport(ReportDTO reportDTO) {
+    public void showReport(LotteryReportDTO lotteryReportDTO) {
         System.out.println();
         System.out.println("당첨 통계");
         System.out.println("---------");
-        System.out.println(Prize.FIFTH.getWinningMatchingCount() + "개 일치 (" + Prize.FIFTH.getValue() + "원)- " + reportDTO.prizeCount.get(Prize.FIFTH) + "개");
-        System.out.println(Prize.FOURTH.getWinningMatchingCount() + "개 일치 (" + Prize.FOURTH.getValue() + "원)- " + reportDTO.prizeCount.get(Prize.FOURTH) + "개");
-        System.out.println(Prize.THIRD.getWinningMatchingCount() + "개 일치 (" + Prize.THIRD.getValue() + "원)- " + reportDTO.prizeCount.get(Prize.THIRD) + "개");
-        System.out.println(Prize.SECOND.getWinningMatchingCount() + "개 일치, 보너스 볼 일치(" + Prize.SECOND.getValue() + "원)- " + reportDTO.prizeCount.get(Prize.SECOND) + "개");
-        System.out.println(Prize.FIRST.getWinningMatchingCount() + "개 일치 (" + Prize.FIRST.getValue() + "원)- " + reportDTO.prizeCount.get(Prize.FIRST) + "개");
-        System.out.println("총 수익률은 " + toPercentage(reportDTO.profitRate, 2) + "입니다.");
+        System.out.println(LotteryPrize.FIFTH.getWinningMatchingCount() + "개 일치 (" + LotteryPrize.FIFTH.getValue() + "원)- " + lotteryReportDTO.prizeCount.get(LotteryPrize.FIFTH) + "개");
+        System.out.println(LotteryPrize.FOURTH.getWinningMatchingCount() + "개 일치 (" + LotteryPrize.FOURTH.getValue() + "원)- " + lotteryReportDTO.prizeCount.get(LotteryPrize.FOURTH) + "개");
+        System.out.println(LotteryPrize.THIRD.getWinningMatchingCount() + "개 일치 (" + LotteryPrize.THIRD.getValue() + "원)- " + lotteryReportDTO.prizeCount.get(LotteryPrize.THIRD) + "개");
+        System.out.println(LotteryPrize.SECOND.getWinningMatchingCount() + "개 일치, 보너스 볼 일치(" + LotteryPrize.SECOND.getValue() + "원)- " + lotteryReportDTO.prizeCount.get(LotteryPrize.SECOND) + "개");
+        System.out.println(LotteryPrize.FIRST.getWinningMatchingCount() + "개 일치 (" + LotteryPrize.FIRST.getValue() + "원)- " + lotteryReportDTO.prizeCount.get(LotteryPrize.FIRST) + "개");
+        System.out.println("총 수익률은 " + toPercentage(lotteryReportDTO.profitRate, 2) + "입니다.");
     }
 
     private static String toPercentage(double rate, int numOfDigits) {

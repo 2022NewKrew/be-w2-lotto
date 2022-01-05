@@ -1,6 +1,6 @@
 package dto;
 
-import domain.Prize;
+import domain.LotteryPrize;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class ReportDTOTest {
+class LotteryLotteryReportDTOTest {
 
     @Test
     @DisplayName("수익률은 총상금액/투자액이다.")
@@ -21,18 +21,18 @@ class ReportDTOTest {
         final int THIRD_PRIZE_COUNT = 3;
         final int FOURTH_PRIZE_COUNT = 4;
         final int FIFTH_PRIZE_COUNT = 5;
-        Map<Prize, Integer> prizeCount = new EnumMap<>(Prize.class);
-        prizeCount.put(Prize.FIRST, FIRST_PRIZE_COUNT);
-        prizeCount.put(Prize.SECOND, SECOND_PRIZE_COUNT);
-        prizeCount.put(Prize.THIRD, THIRD_PRIZE_COUNT);
-        prizeCount.put(Prize.FOURTH, FOURTH_PRIZE_COUNT);
-        prizeCount.put(Prize.FIFTH, FIFTH_PRIZE_COUNT);
+        Map<LotteryPrize, Integer> prizeCount = new EnumMap<>(LotteryPrize.class);
+        prizeCount.put(LotteryPrize.FIRST, FIRST_PRIZE_COUNT);
+        prizeCount.put(LotteryPrize.SECOND, SECOND_PRIZE_COUNT);
+        prizeCount.put(LotteryPrize.THIRD, THIRD_PRIZE_COUNT);
+        prizeCount.put(LotteryPrize.FOURTH, FOURTH_PRIZE_COUNT);
+        prizeCount.put(LotteryPrize.FIFTH, FIFTH_PRIZE_COUNT);
 
         // When
-        ReportDTO reportDTO = new ReportDTO(INVESTMENT, prizeCount);
+        LotteryReportDTO lotteryReportDTO = new LotteryReportDTO(INVESTMENT, prizeCount);
 
         // Then
         final double PROFIT_RATE = 1.064725;
-        assertEquals(PROFIT_RATE, reportDTO.profitRate);
+        assertEquals(PROFIT_RATE, lotteryReportDTO.profitRate);
     }
 }

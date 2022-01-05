@@ -1,7 +1,7 @@
-import domain.Report;
-import domain.lottery.Result;
-import domain.lottery.Ticket;
-import domain.lottery.Tickets;
+import domain.LotteryReport;
+import domain.LotteryResult;
+import domain.LotteryTicket;
+import domain.LotteryTickets;
 import view.View;
 
 public class App {
@@ -18,29 +18,29 @@ public class App {
             throw new IllegalArgumentException();
         }
 
-        Tickets nonRandomTickets = new Tickets(TICKET_PRICE);
+        LotteryTickets nonRandomLotteryTickets = new LotteryTickets(TICKET_PRICE);
         view.promptToInputLotteryNumbersToBuy();
         for (int i = 0; i < numberOfNonRandomTickets; i++) {
-            nonRandomTickets.add(new Ticket(view.getLotteryNumbers()));
+            nonRandomLotteryTickets.add(new LotteryTicket(view.getLotteryNumbers()));
         }
 
-        Tickets randomTickets = new Tickets(TICKET_PRICE);
-        addRandomTicketsUnderBudget(randomTickets, budget);
+        LotteryTickets randomLotteryTickets = new LotteryTickets(TICKET_PRICE);
+        addRandomTicketsUnderBudget(randomLotteryTickets, budget);
 
-        view.showBoughtTickets(nonRandomTickets.toDTO(), randomTickets.toDTO());
+        view.showBoughtTickets(nonRandomLotteryTickets.toDTO(), randomLotteryTickets.toDTO());
 
-        Result result = new Result(view.getResultNumbers(), view.getResultBonusBall());
+        LotteryResult lotteryResult = new LotteryResult(view.getResultNumbers(), view.getResultBonusBall());
 
-        nonRandomTickets.add(randomTickets);
-        Tickets boughtTickets = nonRandomTickets;
-        Report report = new Report(boughtTickets, result);
+        nonRandomLotteryTickets.add(randomLotteryTickets);
+        LotteryTickets boughtLotteryTickets = nonRandomLotteryTickets;
+        LotteryReport lotteryReport = new LotteryReport(boughtLotteryTickets, lotteryResult);
 
-        view.showReport(report.toDTO());
+        view.showReport(lotteryReport.toDTO());
     }
 
-    private static void addRandomTicketsUnderBudget(Tickets tickets, int budget) {
+    private static void addRandomTicketsUnderBudget(LotteryTickets lotteryTickets, int budget) {
         while (budget >= TICKET_PRICE) {
-            tickets.add(new Ticket());
+            lotteryTickets.add(new LotteryTicket());
             budget -= TICKET_PRICE;
         }
     }
