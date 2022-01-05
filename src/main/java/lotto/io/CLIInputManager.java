@@ -23,6 +23,9 @@ public class CLIInputManager implements InputManager {
     }
 
     public List<Lotto> getManualLotto(Scanner scanner, int count) {
+        if (count == 0) {
+            return new ArrayList<>();
+        }
         System.out.println(MANUAL_LOTTO_TITLE);
         List<Lotto> result = new ArrayList<>();
         for (int i = 0; i < count; i++) {

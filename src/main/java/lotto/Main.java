@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             int purchaseAmount = getPurchaseAmountAndCheck(scanner);
-            int totalNumOfPurchase = PurchaseInfo.getNumOfPurchases(purchaseAmount);
+            int totalNumOfPurchase = PurchaseInfo.getInitialNumOfPurchase(purchaseAmount);
             int manualLottoCount = getManualLottoCountAndCheck(scanner, totalNumOfPurchase);
             List<Lotto> manualLottoList = getManualLottoAndCheck(scanner, manualLottoCount);
 

@@ -1,6 +1,7 @@
 package lotto.io;
 
 import lotto.domain.Lotto;
+import lotto.domain.PurchaseInfo;
 
 import java.util.List;
 
@@ -8,6 +9,8 @@ public class ExceptionCheck {
     public static void checkValidPurchaseAmount(int purchaseAmount) {
         if (purchaseAmount < 0) {
             throw new IllegalArgumentException("잘못된 구매금액입니다!");
+        } else if (purchaseAmount < PurchaseInfo.PRICE) {
+            throw new IllegalArgumentException("입력한 구매금액이 로또의 가격보다 작습니다!");
         }
     }
 
