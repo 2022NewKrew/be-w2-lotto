@@ -1,6 +1,7 @@
 package lotto.view;
 
 import lotto.domain.Lotto;
+import lotto.domain.LottoValidationCheck;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,8 +30,11 @@ public class LottoViewInput {
         }
     }
 
-    static private List<Integer> resultToList(String stringAry){
+    static public List<Integer> resultToList(String stringAry){
         List<String> resultListString = new ArrayList<>(Arrays.asList(stringAry.split(",")));
+
+        LottoValidationCheck.stringLottoValidationCheck(resultListString); //올바른 입력인지 체크
+
         List<Integer> resultListInteger = new ArrayList<>();
         for(int i = 0 ; i < resultListString.size() ; i++){
             resultListInteger.add(Integer.parseInt(resultListString.get(i)));
