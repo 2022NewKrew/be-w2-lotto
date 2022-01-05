@@ -12,8 +12,8 @@ public class Lotto{
 
     @Override
     public String toString(){
-        String lottoList = Arrays.toString(numberList.toArray());
-        return lottoList;
+        String lotto = Arrays.toString(numberList.toArray());
+        return lotto;
     }
 
     public ArrayList<Number> getNumberList(){
@@ -22,15 +22,15 @@ public class Lotto{
 
     public int getHitCount(Lotto winningLotto){
         int hitCount = 0;
-        ArrayList<Number> winningLottos = winningLotto.getNumberList();
-        for(Number number : winningLottos){
+        ArrayList<Number> winningLottoNumberList = winningLotto.getNumberList();
+        for(Number number : winningLottoNumberList){
             hitCount += isHit(number);
         }
         return hitCount;
     }
 
     public int isHit(Number bonusNumber){
-        int hitCount = (numberList.contains(bonusNumber))? 1 : 0;
-        return hitCount;
+        int hit = (numberList.contains(bonusNumber))? 1 : 0;
+        return hit;
     }
 }

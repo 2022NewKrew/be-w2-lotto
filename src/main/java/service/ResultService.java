@@ -20,14 +20,16 @@ public class ResultService {
             int count = lotto.getHitCount(winningLotto.getLotto());
             Number bonusNumber = winningLotto.getBonusNumber();
             Boolean isBonus = (lotto.isHit(bonusNumber) != 0);
-            results.add(new Result(count, isBonus));
+
+            Result result = new Result(count, isBonus);
+            results.add(result);
         }
     }
 
     public int getCountRank(Rank rank){
         int count = 0;
         for(Result result : results){
-            Rank resultRank = result.getHitRank();
+            Rank resultRank = result.getResultRank();
             count += isSameRank(resultRank, rank);
         }
         return count;
@@ -41,7 +43,7 @@ public class ResultService {
     public int getProfit(){
         int sum = 0;
         for(Result result : results){
-            Rank rank = result.getHitRank();
+            Rank rank = result.getResultRank();
             sum += rank.getWinningMoney();
         }
         return sum;

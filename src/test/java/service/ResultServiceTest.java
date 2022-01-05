@@ -43,11 +43,12 @@ class ResultServiceTest {
         lotto1 = new Lotto(numberList1);
         lotto2 = new Lotto(numberList2);
         lotto3 = new Lotto(numberList3);
-
         winningLotto = new WinningLottoManual(lotto3, new Number(13));
+
         lottoList = new ArrayList<>();
         lottoList.add(lotto1);
         lottoList.add(lotto2);
+        
         resultService.generateResult(lottoList, winningLotto);
     }
 

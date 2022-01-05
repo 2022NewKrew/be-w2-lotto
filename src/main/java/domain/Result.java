@@ -3,12 +3,12 @@ import enums.Rank;
 
 public class Result {
     private int hitCount ;
-    private boolean hitBonus;
-    private Rank hitRank;
+    private boolean Bonus;
+    private Rank resultRank;
 
     public Result(int hitCount,Boolean hitBonus){
         this.hitCount = hitCount;
-        this.hitBonus = hitBonus;
+        this.Bonus = hitBonus;
         getRank();
     }
 
@@ -17,18 +17,18 @@ public class Result {
         for(Rank rank : ranks){
             isHitRank(rank, hitCount);
         }
-        if( hitRank.equals(Rank.THIRD) && hitBonus){
-            hitRank = Rank.SECOND;
+        if( resultRank.equals(Rank.THIRD) && Bonus){
+            resultRank = Rank.SECOND;
         }
     }
 
     public void isHitRank(Rank rank, int hitCount){
         if(rank.getCountOfMatch() == hitCount){
-            this.hitRank = rank;
+            this.resultRank = rank;
         }
     }
 
-    public Rank getHitRank(){
-        return hitRank;
+    public Rank getResultRank(){
+        return resultRank;
     }
 }

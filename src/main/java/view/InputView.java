@@ -27,9 +27,9 @@ public class InputView {
     public int getManualLottoCount(){
         System.out.println();
         System.out.println(MANNUAL_COUNT_MESSAGE);
-        int ManualLottoCount = sc.nextInt();
+        int manualLottoCount = sc.nextInt();
         sc.nextLine();
-        return ManualLottoCount;
+        return manualLottoCount;
     }
 
     public WinningLotto getWinningLotto(){

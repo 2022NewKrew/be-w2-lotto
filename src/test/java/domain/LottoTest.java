@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class LottoTest {
     static ArrayList<Number> numberList;
     static Lotto lotto;
+
     @BeforeEach
     void setUp(){
         numberList = new ArrayList<>(Arrays.asList(new Number(1),new Number(2),
