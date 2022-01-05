@@ -4,22 +4,20 @@ import domain.*;
 import view.InputView;
 import view.OutputView;
 
-import java.util.List;
 import java.util.Map;
 
 public class LottoGame {
     public void run() {
+
         int purchasedAmount = InputView.purchaseAmount();
-        int purchasedLottoNumbers = purchasedAmount / 1000;
 
         LottoMachine lottoMachine = new LottoMachine();
-        LottoRepository autoLottos = lottoMachine.createAutoLottos(purchasedLottoNumbers);
+        LottoRepository autoLottos = lottoMachine.createAutoLottos(LottoCashier.buyLottos(purchasedAmount));
 
         OutputView.printAutoLottos(autoLottos);
         Lotto inputLastWeekWinNumber = InputView.numbers();
 
         Map<LottoRank, Integer> lottoRankResult = LottoRankMatch.createResult(autoLottos, inputLastWeekWinNumber);
-//        System.out.println(lottoRankResult);
 
         OutputView.printProfit(lottoRankResult, purchasedAmount);
 
