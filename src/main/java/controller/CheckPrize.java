@@ -1,8 +1,6 @@
 package controller;
 
-import domain.Lotto;
-import domain.LottoPack;
-import domain.Ranking;
+import domain.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -18,8 +16,9 @@ public class CheckPrize {
         this.lottoPack = lottoPack;
         lottoPrize = parseLottoNumbers(prizeString);
     }
-    public void countMatchLotto(Ranking ranking){
-
+    public void countMatchLotto(){
+        RankingPack rankingPack = lottoPack.makeRankingPack(lottoPrize);
+        WinningStats winningStats = rankingPack.makeWiningStats();
     }
 
     private Lotto parseLottoNumbers(String prizeString){

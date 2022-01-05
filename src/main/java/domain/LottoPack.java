@@ -18,9 +18,8 @@ public class LottoPack {
         lottoList.stream().forEach(e -> System.out.print(e+"\n"));
     }
 
-    public void makeLottoRankingList(Lotto prize){
-        RankingPack rankingPack = new RankingPack(lottoList.stream().map(lotto -> lotto.makeLottoRank(prize)).collect(Collectors.toList()));
-
+    public RankingPack makeRankingPack(Lotto prize){
+        return new RankingPack(lottoList.stream().map(lotto -> lotto.makeLottoRank(prize)).collect(Collectors.toList()));
     }
 
 
