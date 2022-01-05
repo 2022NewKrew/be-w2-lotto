@@ -14,7 +14,7 @@ public class LottoGameInfo {
     private final List<Lotto> manualPurchaseLottoList;
 
     public LottoGameInfo(int inputMoney) {
-        validateInputMoney(inputMoney);
+        LottoValidator.validateInputMoney(inputMoney);
         this.inputMoney = inputMoney;
         this.manualPurchaseLottoList = Collections.emptyList();
         this.lottoQuantity = inputMoney / LOTTO_PRICE;
@@ -23,18 +23,12 @@ public class LottoGameInfo {
     }
 
     public LottoGameInfo(int inputMoney, List<Lotto> manualPurchaseLottoList) {
-        validateInputMoney(inputMoney);
+        LottoValidator.validateInputMoney(inputMoney);
         this.inputMoney = inputMoney;
         this.manualPurchaseLottoList = manualPurchaseLottoList;
         this.lottoQuantity = inputMoney / LOTTO_PRICE;
         this.manualLottoQuantity = manualPurchaseLottoList.size();
         this.autoLottoQuantity = this.lottoQuantity - manualLottoQuantity;
-    }
-
-    private void validateInputMoney(int money) {
-        if (money < LOTTO_PRICE) {
-            throw new IllegalArgumentException(String.format("[에러] 구입 금액은 반드시 %s원 이상이어야 합니다.", LOTTO_PRICE));
-        }
     }
 
     public int getInputMoney() {

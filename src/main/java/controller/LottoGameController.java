@@ -15,16 +15,50 @@ public class LottoGameController {
     }
 
     public void start() {
-        LottoGameInfo lottoGameInfo = lottoInputService.inputPurchaseParam();
+        LottoGameInfo lottoGameInfo = inputPurchaseParamAndValidate();
 
         List<Lotto> lottoList = lottoGameInfo.getManualPurchaseLottoList();
         lottoList.addAll(LottoGenerator.generateAllLotto(lottoGameInfo));
         LottoRenderer.renderLotto(lottoList, lottoGameInfo);
 
-        WinningLotto winningLotto = lottoInputService.inputWinLottoNumbers();
+        WinningLotto winningLotto = inputWinningLottoNumbersAndValidate();
 
         LottoTotalResult lottoTotalResult = LottoCalculator.calculate(lottoGameInfo.getInputMoney(), lottoList, winningLotto);
         renderResult(lottoTotalResult);
+    }
+
+    private LottoGameInfo inputPurchaseParamAndValidate() {
+        LottoGameInfo lottoGameInfo = null;
+        while (lottoGameInfo == null) {
+            lottoGameInfo = inputPurchaseParam();
+        }
+        return lottoGameInfo;
+    }
+
+    private LottoGameInfo inputPurchaseParam() {
+        try {
+            return lottoInputService.inputPurchaseParam();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    private WinningLotto inputWinningLottoNumbersAndValidate() {
+        WinningLotto winningLotto = null;
+        while (winningLotto == null) {
+            winningLotto = inputWinningLottoNumbers();
+        }
+        return winningLotto;
+    }
+
+    private WinningLotto inputWinningLottoNumbers() {
+        try {
+            return lottoInputService.inputWinningLottoNumbers();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     private void renderResult(LottoTotalResult lottoTotalResult) {
