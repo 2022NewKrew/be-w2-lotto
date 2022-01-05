@@ -30,11 +30,11 @@ public class LottoSimulator {
 
     private List<Result> checkLottoResult(List<Lotto> lottos, Winning winning) {
         List<Prize> prizes = lottos.stream()
-                .map(lotto -> lotto.getPrize(winning))
+                .map(lotto -> Prize.getLottoPrize(lotto, winning))
                 .collect(Collectors.toUnmodifiableList());
 
         return Arrays.stream(Prize.values())
-                .filter(prize -> prize != Prize.BLANK)
+                .filter(prize -> prize != Prize.NONE)
                 .map(prize -> new Result(prize, Collections.frequency(prizes, prize)))
                 .collect(Collectors.toUnmodifiableList());
     }

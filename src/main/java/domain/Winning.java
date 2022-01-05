@@ -18,11 +18,11 @@ public class Winning {
             throw new IllegalArgumentException("로또 당첨번호의 입력이 올바르지 않습니다.");
 
         numbers.forEach(number -> {
-            if (number < 1 || number > LottoGenerator.LottoInclusiveRangeEnd)
+            if (number < 1 || number > LottoGenerator.LOTTO_INCLUSIVE_RANGE_END)
                 throw new IllegalArgumentException("로또 범위가 올바르지 않습니다.");
         });
 
-        if (bonusNumber < 1 || bonusNumber > LottoGenerator.LottoInclusiveRangeEnd)
+        if (bonusNumber < 1 || bonusNumber > LottoGenerator.LOTTO_INCLUSIVE_RANGE_END)
             throw new IllegalArgumentException("로또 범위가 올바르지 않습니다.");
     }
 

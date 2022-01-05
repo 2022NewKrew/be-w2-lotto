@@ -49,14 +49,13 @@ public class LottoInterface {
 
     public void printEarningRate(int cost, List<Result> results) {
         long prizeMoneySum = results.stream().mapToInt(Result::getPrizeMoney).sum();
-        int earningRate = (int) Math.floor((double) prizeMoneySum / cost * 100);
-        
-        if (prizeMoneySum < cost) earningRate *= -1;
+        int earningRate = (int) Math.floor((double) (prizeMoneySum - cost) / cost * 100);
+
         System.out.printf("총 수익률은 %d%%입니다.%n", earningRate);
     }
 
     private String PrizeToString(Prize prize) {
-        if (prize == Prize.SECOND)
+        if (prize == Prize.SECOND_BONUS)
             return String.format("%d개 일치, 보너스 볼 일 (%d원)", prize.getMatchCount(), prize.getMoney());
 
         return String.format("%d개 일치 (%d원)", prize.getMatchCount(), prize.getMoney());
