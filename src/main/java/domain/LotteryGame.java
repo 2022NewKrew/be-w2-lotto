@@ -5,21 +5,23 @@ import java.util.*;
 public class LotteryGame {
     private static final int PRICE = 1000;
 
-    private static int quantity;
+    private final int quantity;
+    private int numberOfManual;
+    private int numberOfAutomatic;
 
-    private List<Integer> allNumbers;
     private final List<Lottery> lotteries;
-
-    private long profit = 0;
+    private List<Integer> allNumbers;
 
     public LotteryGame(int totalPrice) {
+        validateTotalPrice(totalPrice);
         setAllNumbers();
         lotteries = new ArrayList<>();
         quantity = totalPrice / PRICE;
-        for (int i = 0; i < quantity; i++) {
-            List<Integer> selectedNumbers = selectLotteryNumber();
-            Lottery lotteryNumber = new Lottery(selectedNumbers);
-            lotteries.add(lotteryNumber);
+    }
+
+    private void validateTotalPrice(int totalPrice) {
+        if (totalPrice < PRICE) {
+            throw new IllegalArgumentException("Error: 구입금액이 최소 1,000원 이상이어야합니다.");
         }
     }
 
@@ -27,6 +29,30 @@ public class LotteryGame {
         allNumbers = new ArrayList<>();
         for (int i = 1; i <= 45; i++) {
             allNumbers.add(i);
+        }
+    }
+
+    public void setManualLottery(int numberOfManual) {
+        validateNumberOfManual(numberOfManual);
+        this.numberOfManual = numberOfManual;
+    }
+
+    private void validateNumberOfManual(int numberOfManual) {
+        if (numberOfManual > quantity) {
+            throw new IllegalArgumentException("Error: 구입금액을 초과하여 구매할 수 없습니다.");
+        }
+    }
+
+    public void startLotteryGame(List<List<Integer>> manualLotteries) {
+        numberOfAutomatic = quantity - numberOfManual;
+        for (int i = 0; i < numberOfManual; i++) {
+            Lottery lotteryNumber = new Lottery(manualLotteries.get(i));
+            lotteries.add(lotteryNumber);
+        }
+        for (int i = 0; i < numberOfAutomatic; i++) {
+            List<Integer> selectedNumbers = selectLotteryNumber();
+            Lottery lotteryNumber = new Lottery(selectedNumbers);
+            lotteries.add(lotteryNumber);
         }
     }
 
@@ -40,8 +66,7 @@ public class LotteryGame {
         return selectedNumbers;
     }
 
-    public Map<Rank, Integer> compareLotteries(List<Integer> winningNumbers, int bonusNumber) {
-        WinningLottery winningLottery = new WinningLottery(winningNumbers, bonusNumber);
+    public Map<Rank, Integer> compareLotteries(WinningLottery winningLottery) {
         Map<Rank, Integer> results = new EnumMap<>(Rank.class);
 
         for (Rank rank : Rank.values()) {
@@ -62,7 +87,7 @@ public class LotteryGame {
             totalRewards += (long) count * rank.getWinningMoney();
         }
 
-        profit = ((totalRewards - (long) quantity * PRICE) * 100) / ((long) quantity * PRICE);
+        long profit = ((totalRewards - (long) quantity * PRICE) * 100) / ((long) quantity * PRICE);
 
         return profit;
     }
@@ -71,7 +96,15 @@ public class LotteryGame {
         return lotteries;
     }
 
-    public static int getQuantity() {
+    public int getQuantity() {
         return quantity;
+    }
+
+    public int getNumberOfManual() {
+        return numberOfManual;
+    }
+
+    public int getNumberOfAutomatic() {
+        return numberOfAutomatic;
     }
 }

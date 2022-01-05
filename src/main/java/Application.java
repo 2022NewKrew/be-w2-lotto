@@ -11,18 +11,21 @@ public class Application {
     public static void main(String[] args) {
 
         int totalPrice = InputView.inputTotalPrice();
-
         LotteryGameController lotteryGameController = new LotteryGameController(totalPrice);
-        LotteryGame lotteryGame = lotteryGameController.getLotteryGame();
 
+        int numberOfManual = InputView.inputNumberOfManual();
+        lotteryGameController.setManualLottery(numberOfManual);
+
+        List<List<Integer>> manualLotteries = InputView.inputManualLotteries();
+        lotteryGameController.startLotteryGame(manualLotteries);
+
+        LotteryGame lotteryGame = lotteryGameController.getLotteryGame();
         OutputView.outputLotteryNumbers(lotteryGame);
 
         List<Integer> winningNumbers = InputView.inputWinningNumbers();
         int bonusNumber = InputView.inputBonusNumber();
-
         Map<Rank, Integer> results = lotteryGameController.getResult(winningNumbers, bonusNumber);
         long profit = lotteryGameController.getProfit(results);
-
         OutputView.outputResults(results, profit);
     }
 }
