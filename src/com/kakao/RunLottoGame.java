@@ -1,7 +1,9 @@
-package com.kakao.ui;
+package com.kakao;
 
 import com.kakao.domain.Lotto;
 import com.kakao.domain.WinningLotto;
+import com.kakao.ui.GameInput;
+import com.kakao.ui.GameOutput;
 
 import java.util.*;
 

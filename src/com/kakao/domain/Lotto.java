@@ -15,9 +15,9 @@ public class Lotto {
     public List<Integer> getLotto() { return lotto; }
 
     private void makeAutoLotto() {
-        List<Integer> LOTTO_NUMS = IntStream.range(1, 46).boxed().collect(Collectors.toList());
-        Collections.shuffle(LOTTO_NUMS);
-        lotto = LOTTO_NUMS.subList(0, 6);
+        List<Integer> lottoNumberList = IntStream.range(1, 46).boxed().collect(Collectors.toList());
+        Collections.shuffle(lottoNumberList);
+        lotto = lottoNumberList.subList(0, 6);
         Collections.sort(lotto);
     }
 

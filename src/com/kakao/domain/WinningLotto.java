@@ -5,30 +5,30 @@ import java.util.*;
 public class WinningLotto {
 
     private final List<Integer> winningLotto;
-    private final int bonusNum;
+    private final int bonusNumber;
 
-    public WinningLotto(List<Integer> winningLotto, int bonusNum) {
+    public WinningLotto(List<Integer> winningLotto, int bonusNumber) {
         this.winningLotto = winningLotto;
-        this.bonusNum = bonusNum;
+        this.bonusNumber = bonusNumber;
     }
 
     public Rank checkRank(Lotto lotto) {
-        int matchCnt = 0;
-        boolean matchBonus = checkBonusNum(lotto);
-        for (int num : lotto.getLotto()) {
-            matchCnt += checkNum(num);
+        int countOfMatch = 0;
+        boolean matchBonus = checkBonusNumber(lotto);
+        for (int number : lotto.getLotto()) {
+            countOfMatch += checkNumber(number);
         }
-        return Rank.valueOf(matchCnt, matchBonus);
+        return Rank.valueOf(countOfMatch, matchBonus);
     }
 
-    private int checkNum(int num) {
-        if (winningLotto.contains(num)) {
+    private int checkNumber(int number) {
+        if (winningLotto.contains(number)) {
             return 1;
         }
         return 0;
     }
 
-    private boolean checkBonusNum(Lotto lotto) {
-        return lotto.getLotto().contains(bonusNum);
+    private boolean checkBonusNumber(Lotto lotto) {
+        return lotto.getLotto().contains(bonusNumber);
     }
 }

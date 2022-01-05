@@ -17,8 +17,8 @@ public class GameOutput {
     }
 
     public void printLottos(List<Lotto> lottos) {
-        int lottoCnt = lottos.size();
-        System.out.printf("\n%d개를 구매했습니다.\n", lottoCnt);
+        int lottoCount = lottos.size();
+        System.out.printf("\n%d개를 구매했습니다.\n", lottoCount);
         for (Lotto lotto : lottos) {
             System.out.println(lotto);
         }
@@ -29,10 +29,10 @@ public class GameOutput {
         checkResults(lottos, winningLotto);
 
         List<Rank> ranks = new ArrayList<>(results.keySet());
-        ranks.sort(Comparator.comparingInt(Rank::getCntOfMatch));
+        ranks.sort(Comparator.comparingInt(Rank::getCountOfMatch));
         ranks.forEach(rank -> {
-            int cnt = results.get(rank);
-            System.out.printf("%d개 일치 (%d원) - %d개\n", rank.getCntOfMatch(), rank.getWinningMoney(), cnt);
+            int count = results.get(rank);
+            System.out.printf("%s (%d원) - %d개\n", rank.getExplanation(), rank.getWinningMoney(), count);
         });
 
         printProfitRatio(money);
