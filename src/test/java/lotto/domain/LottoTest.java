@@ -12,6 +12,7 @@ import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -98,5 +99,19 @@ class LottoTest {
 
         // then
         assertThat(numbers.size()).isNotEqualTo(pivot);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"1:true", "7:false"}, delimiter = ':')
+    @DisplayName("로또에 숫자의 포함여부를 확인한다.")
+    void contains(int number, boolean expected) {
+        // given
+        Lotto lotto = new Lotto(List.of(1,2,3,4,5,6));
+
+        // when
+        boolean isContains = lotto.contains(number);
+
+        // then
+        assertThat(isContains).isEqualTo(expected);
     }
 }
