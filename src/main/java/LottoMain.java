@@ -1,10 +1,9 @@
-import controller.Controller;
-import view.InputOutputManager;
+import back.DIFactory.DIFactory;
+import front.View;
 
 public class LottoMain {
     public static void main(String[] args) {
-        InputOutputManager inputOutputManager = new InputOutputManager();
-        Controller controller = new Controller(inputOutputManager);
-        controller.run();
+        View view = new View(DIFactory.makeDependency());
+        view.main();
     }
 }

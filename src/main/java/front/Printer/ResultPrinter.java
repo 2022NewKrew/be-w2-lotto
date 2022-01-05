@@ -1,7 +1,7 @@
-package view.Printer;
+package front.Printer;
 
-import domain.Lotto;
-import domain.Prize;
+import back.domain.Prize;
+import Constant.Constant;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +30,7 @@ public class ResultPrinter {
     }
 
     private static int getEarningRatio(List<Prize> prizes, int money) {
-        int moneySpent = (int) (money / Lotto.cost) * Lotto.cost;
+        int moneySpent = (int) (money / Constant.LOTTO_COST) * Constant.LOTTO_COST;
         if (moneySpent == 0)
             return 0;
 
