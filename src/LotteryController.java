@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class LotteryPrinter {
+public class LotteryController {
     private Scanner scanner = new Scanner(System.in);
 
     public void print(Object object) {
@@ -29,6 +29,11 @@ public class LotteryPrinter {
         return stringListToIntegerList(parseWinningNumbers(inputString));
     }
 
+    public int inputBonusBall() {
+        this.print("보너스 볼을 입력해 주세요.");
+        return this.inputInt();
+    }
+
     private List<Integer> stringListToIntegerList(List<String> stringList) {
         return stringList.stream()
                 .map(s -> Integer.parseInt(s))
@@ -43,12 +48,23 @@ public class LotteryPrinter {
         this.print(String.format("%d개를 구매했습니다.", numOfLotto));
     }
 
-    public void showStatistics(List<Integer> rewards, int rewardLeftBound, int rewardRightBound, List<Integer> numberOfWinnings, int yeild) {
+    public void showStatistics(List<Integer> numberOfWinnings, int yeild) {
         this.print("당첨 통계");
         this.print("---------");
-        for (int i = rewardLeftBound; i < rewardRightBound + 1; i++) {
-            this.print(String.format("%d개 일치 (%d원) - %d개", i, rewards.get(i), numberOfWinnings.get(i)));
+        for (int i = 0; i < numberOfWinnings.size(); i++) {
+            showNumberOfWinnings(i, numberOfWinnings.get(i));
         }
         this.print(String.format("총 수익률은 %d%%입니다.", yeild));
+    }
+
+    private void showNumberOfWinnings(int rewardIndex, int numberOfWinning) {
+        String rewardName = RewardRule.getRewardName().get(rewardIndex);
+        if (RewardRule.valueOf(rewardName).getIsBonus()) {
+            print(String.format("%d개 일치, 보너스 볼 일치 (%d원) - %d개",
+                    RewardRule.valueOf(rewardName).getNumOfMatch(), RewardRule.valueOf(rewardName).getReward(), numberOfWinning));
+            return;
+        }
+        print(String.format("%d개 일치, (%d원) - %d개",
+                RewardRule.valueOf(rewardName).getNumOfMatch(), RewardRule.valueOf(rewardName).getReward(), numberOfWinning));
     }
 }
