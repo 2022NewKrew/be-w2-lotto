@@ -1,7 +1,6 @@
 package lotto.step3.model;
 
 import lotto.step1.dto.request.LottoPurchaseSheetDTO;
-import lotto.step1.dto.response.PurchasedLottoDTO;
 import lotto.step1.exception.LottoGameException;
 import lotto.step1.model.Lotto;
 import lotto.step1.model.LottoNumbers;

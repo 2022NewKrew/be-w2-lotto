@@ -18,6 +18,7 @@ import java.util.stream.IntStream;
 
 public class NonAutoPurchaseLottoView implements ConsoleView {
     private final LottoController lottoController;
+
     private final InputConsole<Integer> purchaseAmountInputConsole = new PurchaseAmountInputConsole();
     private final InputConsole<Integer> numOfNonAutoInputConsole = new NumOfNonAutoInputConsole();
     private final InputConsole<List<Integer>> lottoNumbersInputConsole = new LottoNumbersListInputConsole();

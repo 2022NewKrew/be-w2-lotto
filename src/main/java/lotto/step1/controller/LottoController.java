@@ -26,6 +26,11 @@ public class LottoController {
         this.lottoRepository = new LottoRepository();
     }
 
+    protected LottoController(LottoGenerator lottoGenerator, LottoRepository repository) {
+        this.lottoGenerator = lottoGenerator;
+        this.lottoRepository = repository;
+    }
+
     public PurchasedLottoDTO purchase(LottoPurchaseSheetDTO lottoPurchaseSheetDTO) {
         final Lotto lotto = lottoGenerator.generate(lottoPurchaseSheetDTO);
 

@@ -6,6 +6,7 @@ import lotto.step1.model.LottoResult;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class LottoResultsDTO {
     private final Map<LottoResult, Integer> numOfWinsMap;
@@ -27,8 +28,7 @@ public class LottoResultsDTO {
     public static LottoResultsDTO of(Lotto lotto, EnumSet<LottoResult> baseEntity) {
         final double yield = calcYield(lotto);
 
-        final Map<LottoResult, Integer> numOfWinsMap = new HashMap<>();
-
+        final Map<LottoResult, Integer> numOfWinsMap = new TreeMap<>();
         baseEntity.forEach(lottoResult -> numOfWinsMap.put(lottoResult, 0));
 
         addLottoResultsToNumOfWinsMap(numOfWinsMap, lotto);

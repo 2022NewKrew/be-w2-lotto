@@ -18,7 +18,7 @@ public class TypeConverter {
         }
     }
 
-    public static long strToLong(String inputStr, Validator<Void> validator) {
+    public static long strToLong(String inputStr, Validator<Long> validator) {
         try {
             final long result = Long.parseLong(inputStr);
             validator.validate(null);

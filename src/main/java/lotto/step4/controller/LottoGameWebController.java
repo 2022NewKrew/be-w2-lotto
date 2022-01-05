@@ -9,6 +9,7 @@ import lotto.step1.util.Validator;
 import lotto.step2.controller.LottoAddBonusBallController;
 import lotto.step3.model.NonAutoLottoAddBonusBallGenerator;
 import lotto.step4.mapper.DTOMapper;
+import org.eclipse.jetty.http.HttpHeader;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
@@ -32,6 +33,8 @@ public class LottoGameWebController extends LottoAddBonusBallController {
         model.put("lottoId", purchasedLottoDTO.getId());
         model.put("lottoNumbersList", purchasedLottoDTO.getLottoNumbersList());
 
+        res.status(200);
+        res.header(HttpHeader.CONTENT_TYPE.toString(), "text/html");
         return render(model, "show.html");
     }
 
@@ -45,6 +48,8 @@ public class LottoGameWebController extends LottoAddBonusBallController {
         model.put("results", lottoResultsDTO.getNumOfWinsMap());
         model.put("yield", lottoResultsDTO.getYield());
 
+        res.status(200);
+        res.header(HttpHeader.CONTENT_TYPE.toString(), "text/html");
         return render(model, "result.html");
     }
 
