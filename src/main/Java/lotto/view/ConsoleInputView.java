@@ -16,5 +16,10 @@ public class ConsoleInputView {
         System.out.println("지난 주 당첨 로또 번호를 입력해주세요.");
         return sc.next();
     }
+
+    public static String getBonusBall() {
+        System.out.println("보너스볼을 입력해주세요.");
+        return sc.next();
+    }
 }
 

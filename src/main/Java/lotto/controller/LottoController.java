@@ -14,6 +14,7 @@ public class LottoController {
     private WinningStats winningStats;
     private int lottoPurchaseMoney;
     List<Integer> lastWeekLottoNumberList;
+    private int bonusBall;
 
     public LottoController() {
     }
@@ -38,10 +39,15 @@ public class LottoController {
     }
 
     public void constructWinningStats() {
-        this.winningStats = new WinningStats(lottoBundle, lastWeekLottoNumberList, lottoPurchaseMoney);
+        this.winningStats = new WinningStats(lottoBundle, lastWeekLottoNumberList, lottoPurchaseMoney, bonusBall);
     }
 
     public void printWinningStats() {
         ConsoleOutputView.printWinningStats(winningStats);
+    }
+
+    public void getBonusBall() {
+        String bonusBall = ConsoleInputView.getBonusBall();
+        this.bonusBall = Integer.parseInt(bonusBall);
     }
 }

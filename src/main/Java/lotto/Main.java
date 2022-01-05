@@ -14,6 +14,7 @@ public class Main {
         lottoController.purchaseLottoBundleInView();
         lottoController.printLottoBundle();
         lottoController.getLastWeekLottoNumberList();
+        lottoController.getBonusBall();
         lottoController.constructWinningStats();
         lottoController.printWinningStats();
     }

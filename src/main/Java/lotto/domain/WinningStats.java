@@ -8,20 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WinningStats {
-    private final static int START_CORRECT_COUNT_BY_PRINT = 3;
-
+    private final int SECOND_RANK_CORRECT_NUMBER = 5;
     private final List<WinningPrice> winningPriceList;
     private final LottoBundle lottoBundle;
-    private final List<Integer> lastWeekLottoNumberList;
     private final int lottoPurchaseMoney;
-    private List<Integer> correctCountList;
+    private final LastWeekNumber lastWeekNumber;
 
-    public WinningStats(LottoBundle lottoBundle, List<Integer> lastWeekLottoNumberList, int lottoPurchaseMoney) {
+    public WinningStats(LottoBundle lottoBundle, List<Integer> lastWeekLottoNumberList, int lottoPurchaseMoney, int bonusBall) {
         this.lottoBundle = lottoBundle;
-        this.lastWeekLottoNumberList = lastWeekLottoNumberList;
         this.lottoPurchaseMoney = lottoPurchaseMoney;
         this.winningPriceList = new ArrayList<>();
-
+        this.lastWeekNumber = new LastWeekNumber(lastWeekLottoNumberList, bonusBall);
         setWinningPriceList();
         addCountInWinningPriceListAllLotto();
     }
@@ -30,11 +27,12 @@ public class WinningStats {
         winningPriceList.add(WinningPrice.THREE);
         winningPriceList.add(WinningPrice.FOUR);
         winningPriceList.add(WinningPrice.FIVE);
+        winningPriceList.add(WinningPrice.FIVE_BONUS);
         winningPriceList.add(WinningPrice.SIX);
     }
 
     private double getProfitRatePercent() {
-        return getProfit() * 100 / lottoPurchaseMoney;
+        return ((getProfit() - lottoPurchaseMoney) * 100) / lottoPurchaseMoney;
     }
 
     private long getProfit() {
@@ -48,31 +46,42 @@ public class WinningStats {
     private void addCountInWinningPriceListAllLotto() {
         List<Lotto> LottoList = this.lottoBundle.getLottoList();
         for (Lotto lotto : LottoList) {
-            addCountInWinningPriceList(getLottoCorrectCount(lotto));
+            addCountInWinningPriceList(getLottoCorrectCount(lotto), isBonusBall(lotto));
         }
     }
 
-    private void addCountInWinningPriceList(int lottoCorrectCount) {
-        for (int i = 0; i < winningPriceList.size(); i++) {
-            addCountInWinningPriceListByIndex(lottoCorrectCount, i);
+    private boolean isBonusBall(Lotto lotto) {
+        return lotto.getLottoNumberList().contains(lastWeekNumber.getBonusBall());
+    }
+
+    private void addCountInWinningPriceList(int lottoCorrectCount, boolean isBonusBallInLotto) {
+        for (WinningPrice winningPrice : winningPriceList) {
+            addCountInWinningPriceListByIndex(lottoCorrectCount, isBonusBallInLotto, winningPrice);
         }
     }
 
-    private void addCountInWinningPriceListByIndex(int lottoCorrectCount, int index) {
-        if (lottoCorrectCount == index + START_CORRECT_COUNT_BY_PRINT) winningPriceList.get(index).addCount();
+    private boolean isSecondRank(int lottoCorrectCount, boolean isBonusBallInLotto) {
+        return (lottoCorrectCount == SECOND_RANK_CORRECT_NUMBER && isBonusBallInLotto);
+    }
+
+    private void addCountInWinningPriceListByIndex(int lottoCorrectCount, boolean isBonusBallInLotto, WinningPrice winningPrice) {
+        if (isSecondRank(lottoCorrectCount, isBonusBallInLotto) && lottoCorrectCount == winningPrice.getCorrectCount()) {
+            winningPrice.addCount();
+            return;
+        }
+
+        if (lottoCorrectCount == winningPrice.getCorrectCount()) {
+            winningPrice.addCount();
+            return;
+        }
     }
 
     private int getLottoCorrectCount(Lotto lotto) {
         int correctCount = 0;
         List<Integer> lottoNumberList = lotto.getLottoNumberList();
         for (int lottoNumber : lottoNumberList)
-            correctCount += addCorrectCountOne(lottoNumber);
+            correctCount += lastWeekNumber.addOneIfContains(lottoNumber);
         return correctCount;
-    }
-
-    private int addCorrectCountOne(int lottoNumber) {
-        if (lastWeekLottoNumberList.contains(lottoNumber)) return 1;
-        return 0;
     }
 
     public String printWinningStats() {
@@ -84,7 +93,7 @@ public class WinningStats {
         }
 
         stringBuilder.append("총 수익률은 ");
-        stringBuilder.append((long)profitRatePercent);
+        stringBuilder.append((long) profitRatePercent);
         stringBuilder.append("%입니다.\n");
 
         return stringBuilder.toString();

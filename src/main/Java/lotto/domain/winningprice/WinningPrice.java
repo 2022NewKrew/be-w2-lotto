@@ -16,6 +16,10 @@ public enum WinningPrice {
         this.printSentence = printSentence;
     }
 
+    public int getCorrectCount() {
+        return correctCount;
+    }
+
     public long calculateProfit() {
         return lottoCount * price;
     }
