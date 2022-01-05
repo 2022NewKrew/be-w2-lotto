@@ -21,6 +21,10 @@ public class Lotto {
         this.lottoNumbers = createLottoNumbers();
     }
 
+    public Lotto(String manualInput) {
+        this.lottoNumbers = splitLottoNumbers(manualInput);
+    }
+
     private List<Integer> createLottoNumbers() {
         List<Integer> list = IntStream.range(LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER).boxed().collect(Collectors.toList());
         Collections.shuffle(list);
@@ -31,11 +35,32 @@ public class Lotto {
 
     public static void setLottoWinningNumbers(String lottoInput, int bonusNumber) {
         Lotto.lottoWinningNumbers = splitLottoNumbers(lottoInput);
+        validateBonusNumber(bonusNumber);
         Lotto.bonusNumber = bonusNumber;
     }
 
+    private static void validateBonusNumber(int bonusNumber) {
+        if (bonusNumber < LOTTO_MAX_NUMBER || bonusNumber > LOTTO_MAX_NUMBER) {
+            throw new IllegalArgumentException("보너스 볼 번호는 1~45여야 합니다.");
+        }
+    }
+
     private static List<Integer> splitLottoNumbers(String lottoInput) {
-        return Arrays.stream(lottoInput.split(",")).map(Integer::parseInt).collect(Collectors.toList());
+        List<Integer> lottoNumbers = Arrays.stream(lottoInput.split(",")).map(Integer::parseInt).collect(Collectors.toList());
+        validateLottoNumbers(lottoNumbers);
+        return lottoNumbers;
+    }
+
+    private static void validateLottoNumbers(List<Integer> inputLottoNumbers) {
+        if (inputLottoNumbers.size() != inputLottoNumbers.stream().distinct().count()) {
+            throw new IllegalArgumentException("중복된 번호를 입력할 수 없습니다.");
+        }
+        if (inputLottoNumbers.stream().anyMatch((number) -> number < LOTTO_MIN_NUMBER || number > LOTTO_MAX_NUMBER)) {
+            throw new IllegalArgumentException("복권 번호는 1~45까지여야만 합니다.");
+        }
+        if (inputLottoNumbers.size() != LOTTO_LENGTH) {
+            throw new IllegalArgumentException("복권 번호는 6개 입력해야 합니다.");
+        }
     }
 
     public void compareLottoNumbers() {
@@ -45,7 +70,7 @@ public class Lotto {
         Rank.addRankCount(correctCount, bonusCorrect);
     }
 
-    public List<Integer> getLottoNumbers(){
+    public List<Integer> getLottoNumbers() {
         return lottoNumbers;
     }
 
