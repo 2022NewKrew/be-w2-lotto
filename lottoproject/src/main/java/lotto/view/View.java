@@ -18,7 +18,7 @@ public class View {
     }
 
     public static List<Integer> inputIntegerArrayList(String message, String gubun){
-        System.out.println(message);
+        if (!message.equals("")) System.out.println(message);
         String input = sc.nextLine();
         List<Integer> inputIntegerArrayList = new ArrayList<>();
         for (String string : input.split(gubun)){
