@@ -5,8 +5,12 @@ public class PlayerLottoList {
 
     private final List<PlayerLotto> lottoList = new ArrayList<>();
 
-    public void purchaseLotto() {
+    public void purchaseAutoLotto() {
         lottoList.add(new PlayerLotto());
+    }
+
+    public void purchaseManualLotto(PlayerLotto manualLotto) {
+        lottoList.add(manualLotto);
     }
 
     public List<PlayerLotto> getPlayerLottoList() {

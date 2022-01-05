@@ -1,6 +1,7 @@
 package lotto.controller;
 
 import lotto.domain.lotto.Lotto;
+import lotto.domain.player.PlayerLotto;
 import lotto.domain.result.LottoResult;
 import lotto.domain.result.LottoResultChecker;
 import lotto.domain.player.PlayerLottoList;
@@ -8,6 +9,7 @@ import lotto.domain.result.WinningLotto;
 import lotto.view.LottoGameInput;
 import lotto.view.LottoGameOutput;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -28,14 +30,22 @@ public class LottoGame {
 
     private void purchase(Scanner scanner){
         purchaseAmount = LottoGameInput.inputPurchaseAmount(scanner);
-        purchaseLotto();
+        purchaseLotto(scanner);
         LottoGameOutput.printLottoNumbers(numberOfLotto, playerLottoList);
     }
 
-    private void purchaseLotto() {
+    private void purchaseLotto(Scanner scanner) {
         numberOfLotto = purchaseAmount / Lotto.LOTTO_PRICE;
-        for (int i = 0; i < numberOfLotto; i++) {
-            playerLottoList.purchaseLotto();
+
+        int numberOfManualLotto = LottoGameInput.inputNumberOfManualLotto(scanner);
+        List<PlayerLotto> manualLottoList = LottoGameInput.inputListOfManualLotto(scanner, numberOfManualLotto);
+
+        for(PlayerLotto manualLotto : manualLottoList){
+            playerLottoList.purchaseManualLotto(manualLotto);
+        }
+
+        for (int i = 0; i < numberOfLotto - numberOfManualLotto; i++) {
+            playerLottoList.purchaseAutoLotto();
         }
     }
 

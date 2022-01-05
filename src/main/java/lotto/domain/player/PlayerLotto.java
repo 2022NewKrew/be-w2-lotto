@@ -13,6 +13,10 @@ public class PlayerLotto implements Lotto {
         this.numbers = RandomNumbers.getRandomLottoNumbers();
     }
 
+    public PlayerLotto(List<Integer> numbers){
+        this.numbers = numbers;
+    }
+
     @Override
     public List<Integer> getNumbers() {
         return numbers;
