@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.Arrays;
+
 public enum Prize {
     NO_PRIZE(0, 0),
     FIFTH_PRIZE(3, 5000),
@@ -12,16 +14,14 @@ public enum Prize {
     private final boolean matchingBonus;
     private final int prizeMoney;
 
-    Prize(int matchingNumber, int prizeMoney) {
-        this.matchingNumber = matchingNumber;
-        this.matchingBonus = false;
-        this.prizeMoney = prizeMoney;
-    }
-
     Prize(int matchingNumber, boolean matchingBonus, int prizeMoney) {
         this.matchingNumber = matchingNumber;
         this.matchingBonus = matchingBonus;
         this.prizeMoney = prizeMoney;
+    }
+
+    Prize(int matchingNumber, int prizeMoney) {
+        this(matchingNumber, false, prizeMoney);
     }
 
     public int getMatchingNumber() {
@@ -32,27 +32,12 @@ public enum Prize {
         return prizeMoney;
     }
 
-    public static Prize getPrize(Integer num, Boolean bonus) {
-        if(num == FIRST_PRIZE.matchingNumber)
-        {
-            return FIRST_PRIZE;
-        }
-        if(num == SECOND_PRIZE.matchingNumber && bonus == SECOND_PRIZE.matchingBonus)
-        {
-            return SECOND_PRIZE;
-        }
-        if(num == THIRD_PRIZE.matchingNumber && bonus == THIRD_PRIZE.matchingBonus)
-        {
-            return THIRD_PRIZE;
-        }
-        if(num == FOURTH_PRIZE.matchingNumber)
-        {
-            return FOURTH_PRIZE;
-        }
-        if(num == FIFTH_PRIZE.matchingNumber)
-        {
-            return FIFTH_PRIZE;
-        }
-        return NO_PRIZE;
+    public static Prize getPrize(Integer matchingNumber, Boolean matchingBonus) {
+        return Arrays.stream(values())
+                        .filter(prize -> prize.matchingNumber == matchingNumber)
+                        .filter(prize -> prize.matchingNumber == SECOND_PRIZE.getMatchingNumber() ?
+                                prize.matchingBonus == matchingBonus : true)    // matchingNumber가 5개일때만 bonus를 비교한다.
+                        .findFirst()
+                        .orElse(NO_PRIZE);
     }
 }
