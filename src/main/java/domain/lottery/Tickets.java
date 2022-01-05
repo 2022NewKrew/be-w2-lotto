@@ -1,6 +1,7 @@
 package domain.lottery;
 
 import domain.Prize;
+import dto.TicketsDTO;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,10 +16,6 @@ public class Tickets {
 
     public Tickets() {
         tickets = new ArrayList<>();
-    }
-
-    public List<Ticket> getTickets() {
-        return tickets;
     }
 
     public Map<Prize, Integer> getPrizeCount(Result result) {
@@ -37,9 +34,11 @@ public class Tickets {
     public void add(Ticket ticket) {
         tickets.add(ticket);
     }
+
     public void add(Tickets tickets) {
         this.tickets.addAll(tickets.tickets);
     }
+
     public void addRandomTicketsUnderBudget(int budget) {
         while (budget >= TICKET_PRICE) {
             tickets.add(new Ticket());
@@ -49,5 +48,9 @@ public class Tickets {
 
     public int getCost() {
         return TICKET_PRICE * tickets.size();
+    }
+
+    public TicketsDTO toDTO() {
+        return new TicketsDTO(tickets.stream().map(ticket -> ticket.toDTO()).collect(Collectors.toList()));
     }
 }

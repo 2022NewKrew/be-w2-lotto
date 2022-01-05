@@ -10,7 +10,7 @@ public class App {
         Tickets boughtTickets = new Tickets();
 
         boughtTickets.addRandomTicketsUnderBudget(view.getBudgetByPrompt());
-        view.showBoughtTickets(boughtTickets);
+        view.showBoughtTickets(boughtTickets.toDTO());
 
         Result result = new Result(new NumbersFactory().getValidatedNumbers(view.getResultNumbersByPrompt()), view.getResultBonusBallByPrompt());
         Report report = new Report(boughtTickets, result);

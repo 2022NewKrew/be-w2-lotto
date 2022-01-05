@@ -1,9 +1,8 @@
 package view;
 
 import domain.Prize;
-import domain.lottery.Tickets;
 import dto.ReportDTO;
-import domain.lottery.Ticket;
+import dto.TicketsDTO;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,19 +10,16 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class View {
-    private final static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public int getBudgetByPrompt() {
         System.out.println("구입금액을 입력해 주세요.");
         return Integer.parseInt(scanner.nextLine());
     }
 
-    public void showBoughtTickets(Tickets tickets) {
-        // This is a quick fix.
-        // Later add TicketsDTO for this view.
-        List<Ticket> listOfTickets = tickets.getTickets();
-        System.out.println(listOfTickets.size() + "개를 구매했습니다.");
-        System.out.println(listOfTickets.stream().map(ticket -> ticket.getNumbers().toString()).collect(Collectors.joining(System.lineSeparator())));
+    public void showBoughtTickets(TicketsDTO ticketsDTO) {
+        System.out.println(ticketsDTO.ticketDTOs.size() + "개를 구매했습니다.");
+        System.out.println(ticketsDTO.ticketDTOs.stream().map(ticketDTO -> ticketDTO.numbers.toString()).collect(Collectors.joining(System.lineSeparator())));
         System.out.println();
     }
 

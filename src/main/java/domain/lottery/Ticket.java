@@ -1,5 +1,7 @@
 package domain.lottery;
 
+import dto.TicketDTO;
+
 import java.util.List;
 
 public class Ticket {
@@ -18,7 +20,7 @@ public class Ticket {
         return numbers.contains(number);
     }
 
-    public List<Integer> getNumbers() {
-        return numbers;
+    public TicketDTO toDTO() {
+        return new TicketDTO(numbers);
     }
 }
