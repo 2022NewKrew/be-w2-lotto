@@ -3,7 +3,7 @@ package domain;
 import java.util.List;
 
 public class Lotto {
-    public static final int PRICE = 1000;
+    public static final int PRICE = 1_000;
     public static final int NUMBER_OF_WRITE_NUMBER = 6;
 
     private final LottoNumbers lottoNumbers;

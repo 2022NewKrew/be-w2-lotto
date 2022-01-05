@@ -8,10 +8,10 @@ import static java.util.stream.Collectors.toList;
 
 public enum RewardType {
     NONE(0, false, 0),
-    FOURTH_PLACE(4, false, 5000),
-    THIRD_PLACE(5, false, 50000),
-    SECOND_PLACE(5, true, 1500000),
-    FIRST_PLACE(6, false, 2000000000);
+    FOURTH_PLACE(4, false, 5_000),
+    THIRD_PLACE(5, false, 50_000),
+    SECOND_PLACE(5, true, 1_500_000),
+    FIRST_PLACE(6, false, 2_000_000_000);
 
     private final int matched;
     private final boolean hasBonus;
