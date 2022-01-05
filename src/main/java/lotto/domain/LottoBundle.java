@@ -11,19 +11,22 @@ import java.util.List;
  * Time: 오후 6:12
  */
 public class LottoBundle {
-    private final Integer lottoCount;
-    private final Integer manualLottoCount;
+    private final int lottoCount;
+    private final int manualLottoCount;
     private final List<Lotto> lottos;
 
-    public LottoBundle(Integer lottoCount, Integer manualLottoCount) {
-        this.lottoCount = lottoCount;
+    public LottoBundle(int purchaseAmount, int manualLottoCount) {
+        Validator.validatePurchaseAmount(purchaseAmount);
+
+        this.lottoCount = purchaseAmount / Constants.LOTTO_PRICE;
         this.manualLottoCount = manualLottoCount;
+        Validator.validateManualLottoCount(lottoCount, manualLottoCount);
 
         lottos = new ArrayList<>();
         generateLottos(lottoCount, manualLottoCount);
     }
 
-    private void generateLottos(Integer lottoCount, Integer manualLottoCount) {
+    private void generateLottos(int lottoCount, int manualLottoCount) {
         LottoPrinter.printManualLotto();
         for (int i = 0; i < manualLottoCount; i++) {
             List<Integer> manualLottoNumbers = LottoGenerator.generateManualLotto();

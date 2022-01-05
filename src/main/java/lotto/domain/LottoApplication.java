@@ -12,23 +12,17 @@ import java.util.List;
 public class LottoApplication {
 
     public static void start() {
-        LottoBundle lottoBundle = createLottoBundle();
+        int purchaseAmount = LottoScanner.getPurchaseAmount();
+        int manualLottoCount = LottoScanner.getManualLottoCount();
+        LottoBundle lottoBundle = new LottoBundle(purchaseAmount, manualLottoCount);
         lottoBundle.printLottos();
 
         List<Integer> lastWeekWinningNumbers = LottoScanner.getLastWeekWinningNumbers();
-        Integer bonusBall = LottoScanner.getBonusBall();
+        int bonusBall = LottoScanner.getBonusBall();
         WinningLotto winningLotto = new WinningLotto(lastWeekWinningNumbers, bonusBall);
 
         LottoGame lottoGame = new LottoGame();
         lottoGame.createLottoResult(lottoBundle, winningLotto);
         lottoGame.printStatistics(lottoBundle);
-    }
-
-    public static LottoBundle createLottoBundle() {
-        Integer purchaseAmount = LottoScanner.getPurchaseAmount();
-        Integer lottoCount = purchaseAmount / Constants.LOTTO_PRICE;
-        Integer manualLottoCount = LottoScanner.getManualLottoCount();
-
-        return new LottoBundle(lottoCount, manualLottoCount);
     }
 }

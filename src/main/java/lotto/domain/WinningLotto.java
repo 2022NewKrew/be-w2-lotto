@@ -12,6 +12,8 @@ public class WinningLotto {
     private final Integer bonusBall;
 
     public WinningLotto(List<Integer> lastWeekWinningNumbers, Integer bonusBall) {
+        Validator.validateLottoNumbers(lastWeekWinningNumbers);
+        Validator.validateLottoBonusDuplicate(lastWeekWinningNumbers, bonusBall);
         this.lastWeekWinningNumbers = lastWeekWinningNumbers;
         this.bonusBall = bonusBall;
     }

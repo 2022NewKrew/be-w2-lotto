@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import java.util.Arrays;
+
 /**
  * Created by melodist
  * Date: 2022-01-03 003
@@ -14,7 +16,7 @@ public enum Rank {
 
     private final int countOfMatch;
     private final String matchString;
-    private final int winningMoney;
+    private final long winningMoney;
 
     Rank(int countOfMatch, String matchString, int winningMoney) {
         this.countOfMatch = countOfMatch;
@@ -22,26 +24,22 @@ public enum Rank {
         this.winningMoney = winningMoney;
     }
 
-    public int getCountOfMatch() {
-        return countOfMatch;
-    }
     public String getMatchString() { return matchString; }
-    public int getWinningMoney() {
+    public long getWinningMoney() {
         return winningMoney;
     }
 
     public static Rank valueOf(int countOfMatch, boolean matchBonus) {
-        Rank[] ranks = values();
-        for (Rank rank : ranks) {
-            if (countOfMatch == SECOND.countOfMatch) {
-                return matchBonus ? SECOND : THIRD;
-            }
-
-            if (rank.countOfMatch == countOfMatch) {
-                return rank;
-            }
+        if (countOfMatch == SECOND.countOfMatch) {
+            return validateSecondOrThird(matchBonus);
         }
 
-        return null;
+        return Arrays.stream(values())
+                .filter(rank -> rank.countOfMatch == countOfMatch)
+                .findFirst().orElse(null);
+    }
+
+    private static Rank validateSecondOrThird(boolean matchBonus) {
+        return matchBonus ? SECOND : THIRD;
     }
 }

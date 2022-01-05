@@ -21,3 +21,19 @@
 ### 피어세션 및 자체 피드백
 
 - 오버플로우 방지
+
+## 로또 3단계 구현
+
+### 구현 내용
+
+- 입력 예외 처리 추가
+- 테스트 코드 추가
+- `Rank.valueOf()` indent depth 감소
+- 일부 변수 자료형 `Integer`에서 `int`로 변경, 불필요한 Boxing 제거
+- `winningMoney` 자료형 변경으로 불필요한 캐스팅 제거
+- String parsing 에 사용되는 delimiter 변경
+
+### 피어세션 및 자체 피드백
+
+- 예외 처리의 범위 고려
+- for-if 패턴 처리 방법 고려 
