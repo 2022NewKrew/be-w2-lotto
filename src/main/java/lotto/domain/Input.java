@@ -7,6 +7,8 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public abstract class Input {
+    protected static final int LOTTO_START_NUMBER = 1;
+    protected static final int LOTTO_LAST_NUMBER = 45;
     protected final Scanner sc = new Scanner(System.in);
 }
 
@@ -81,9 +83,16 @@ class ManualInput extends SingleInput{
 
 
 class BonusNumberInput extends SingleInput {
+
+
     @Override
     protected void printMessage() {
         System.out.println("보너스 볼을 입력해 주세요.");
+    }
+
+    @Override
+    protected void validValueCheck() {
+        ValidInput.wrongRangeValue(LOTTO_START_NUMBER, LOTTO_LAST_NUMBER, input);
     }
 }
 

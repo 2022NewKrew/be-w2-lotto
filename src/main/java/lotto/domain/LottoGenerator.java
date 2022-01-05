@@ -10,7 +10,9 @@ public class LottoGenerator {
 
     public void generateLotto(int manualInput){
         int numOfAuto = lp.numOfNumbers - manualInput;
-        manualGenerate(manualInput);
+        if(manualInput != 0){
+            manualGenerate(manualInput);
+        }
         autoGenerate(numOfAuto);
         System.out.printf("수동으로 %d장, 자동으로 %d장 구매했습니다.\n", manualInput, numOfAuto);
     }
