@@ -24,7 +24,8 @@ public class LottoController {
      */
     public void buyLotto() {
         int purchaseAmount = InputView.getPurchaseAmount();
-        int manualPurchaseCount = InputView.getManualPurchaseCount();
+        int maximumPurchaseCount = purchaseAmount / LOTTO_PRICE;
+        int manualPurchaseCount = InputView.getManualPurchaseCount(maximumPurchaseCount);
         OutputView.printManualInputGuide();
         for (int i = 0; i < manualPurchaseCount; i++) {
             lottos.addLotto(LOTTO_PRICE, new ManualIssuePolicy(InputView.getManualPurchaseNumberList()));
