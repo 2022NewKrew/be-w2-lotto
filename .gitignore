@@ -186,4 +186,8 @@ gradle-app.setting
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
+<<<<<<< HEAD
 # End of https://www.toptal.com/developers/gitignore/api/gradle,java,macos,intellij
+=======
+# End of https://www.toptal.com/developers/gitignore/api/gradle,java,macos,intellij
+>>>>>>> 76873bc ([setting] gitignore 파일 이전단계랑 동일하게 사용)

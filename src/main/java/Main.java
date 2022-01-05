@@ -1,7 +1,8 @@
-import controller.GameManager;
+import controller.LottoGame;
 
 public class Main {
     public static void main(String[] args) {
-        GameManager.start();
+        LottoGame lottoGame = new LottoGame();
+        lottoGame.start();
     }
 }
