@@ -2,6 +2,7 @@ package lotto.view;
 
 import lotto.domain.Lotto;
 import lotto.domain.LottoNumber;
+import lotto.domain.LottoWinningNumber;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -39,9 +40,9 @@ public class InputView {
         return purchase;
     }
 
-    public static List<LottoNumber> getLastWinningNumbers() {
+    public static LottoWinningNumber getLastWinningNumbers() {
         System.out.println(MSG_INPUT_WINNING_NUMBERS);
-        return getNumbers();
+        return new LottoWinningNumber(getNumbers(), getBonusBall());
     }
 
     public static void getLottoNumbersManually(final List<Lotto> lottoList) {

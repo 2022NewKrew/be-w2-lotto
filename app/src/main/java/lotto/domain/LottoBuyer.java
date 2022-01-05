@@ -57,15 +57,10 @@ public class LottoBuyer {
      * Map<LottoPrize, Integer> result 에 결과 저장
      */
     private void checkAllLotto() {
-        final List<LottoNumber> winningNumbers = InputView.getLastWinningNumbers();
-        final LottoNumber bonusBall = InputView.getBonusBall();
-
-        if(winningNumbers.contains(bonusBall))
-            throw new IllegalArgumentException();
+        final LottoWinningNumber lottoWinningNumber = InputView.getLastWinningNumbers();
 
         for(Lotto lotto : lottoList) {
-            int matchCount = lotto.match(winningNumbers, bonusBall);
-            putResult(matchCount);
+            putResult(lottoWinningNumber.match(lotto));
         }
     }
 
