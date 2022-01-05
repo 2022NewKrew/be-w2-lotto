@@ -53,6 +53,7 @@ public class LottoService {
 
         return lottoNumberList.stream()
                 .limit(LOTTO_NUMBER_SIZE)
+                .sorted()
                 .collect(Collectors.toUnmodifiableList());
     }
 
