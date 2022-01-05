@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import static lotto.constant.Msg.INPUT_PURCHASE_PRICE;
-import static lotto.constant.Msg.INPUT_WINNING_NUMBERS;
+import static lotto.constant.Msg.*;
 
 // 예외처리 추가하기
 public class InputUtil {
@@ -23,5 +22,10 @@ public class InputUtil {
                 .mapToInt(Integer::parseInt)
                 .boxed()
                 .collect(Collectors.toList());
+    }
+
+    public int inputBonusNumber() {
+        System.out.println(INPUT_BONUS_NUMBER.getMsg());
+        return Integer.parseInt(sc.nextLine());
     }
 }

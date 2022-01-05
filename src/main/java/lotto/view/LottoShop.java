@@ -1,5 +1,6 @@
 package lotto.view;
 
+import lotto.constant.Rank;
 import lotto.domain.LottoController;
 import lotto.dto.LottoPurchaseDto;
 import lotto.util.InputUtil;
@@ -17,7 +18,7 @@ public class LottoShop {
         outputUtil.PrintPurchaseGameCnt(lotto.getPurchaseGameCnt());
         outputUtil.printPurchaseGames(lotto.getLottoGames());
 
-        Map<Integer, Integer> ranks = lottoController.checkRank(lotto, inputUtil.inputWinningNumber());
+        Map<Rank, Integer> ranks = lottoController.checkRank(lotto, inputUtil.inputWinningNumber(), inputUtil.inputBonusNumber());
         Long totalWinningMoney = lottoController.getTotalWinningMoney(ranks);
         outputUtil.printRank(ranks);
         outputUtil.printBenefit(getBenefit(lotto, totalWinningMoney));

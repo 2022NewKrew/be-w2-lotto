@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import lotto.constant.Rank;
 import lotto.dto.LottoPurchaseDto;
 
 import java.util.List;
@@ -12,11 +13,11 @@ public class LottoController {
         return lottoService.autoBuy(money);
     }
 
-    public Map<Integer, Integer> checkRank(LottoPurchaseDto lotto, List<Integer> winningNumber) {
-        return lottoService.checkRank(lotto, winningNumber);
+    public Map<Rank, Integer> checkRank(LottoPurchaseDto lotto, List<Integer> winningNumber, int bonusNumber) {
+        return lottoService.checkRank(lotto, winningNumber, bonusNumber);
     }
 
-    public Long getTotalWinningMoney(Map<Integer, Integer> ranks) {
+    public Long getTotalWinningMoney(Map<Rank, Integer> ranks) {
         return lottoService.getTotalWinningMoney(ranks);
     }
 }

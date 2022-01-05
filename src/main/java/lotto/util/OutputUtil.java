@@ -1,5 +1,6 @@
 package lotto.util;
 
+import lotto.constant.Msg;
 import lotto.constant.Rank;
 import lotto.dto.LottoGameDto;
 
@@ -18,15 +19,15 @@ public class OutputUtil {
         }
     }
 
-    public void printRank(Map<Integer, Integer> ranks) {
+    public void printRank(Map<Rank, Integer> ranks) {
         System.out.println("당첨 통계");
         System.out.println("---------");
 
-        for (Map.Entry<Integer, Integer> entry : ranks.entrySet()) {
-            int winningMoney = Rank.valueOf(entry.getKey()).getWinningMoney();
-            System.out.println(String.format("%d개 일치 (%d원)- %d개"
-                    ,entry.getKey()
-                    ,winningMoney
+        for (Map.Entry<Rank, Integer> entry : ranks.entrySet()) {
+            System.out.println(String.format(
+                    entry.getKey() != Rank.SECOND ? Msg.OUTPUT_RANK.getMsg() : Msg.OUTPUT_RANK_2ND.getMsg()
+                    ,entry.getKey().getCountOfMatch()
+                    ,entry.getKey().getWinningMoney()
                     ,entry.getValue()));
         }
     }
