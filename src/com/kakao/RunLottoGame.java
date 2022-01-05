@@ -18,7 +18,7 @@ public class RunLottoGame {
         gameOutput.printLottos(lottos);
 
         WinningLotto winningLotto = gameInput.inputWinningLotto();
-        gameOutput.printResult(money, lottos, winningLotto);
+        gameOutput.printTotalResult(money, lottos, winningLotto);
     }
 
     public static void main(String[] args) {

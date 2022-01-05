@@ -13,19 +13,15 @@ public class WinningLotto {
     }
 
     public Rank checkRank(Lotto lotto) {
-        int countOfMatch = 0;
+        int countOfMatch = (int) lotto.getLotto().stream()
+                .filter(this::checkNumber)
+                .count();
         boolean matchBonus = checkBonusNumber(lotto);
-        for (int number : lotto.getLotto()) {
-            countOfMatch += checkNumber(number);
-        }
         return Rank.valueOf(countOfMatch, matchBonus);
     }
 
-    private int checkNumber(int number) {
-        if (winningLotto.contains(number)) {
-            return 1;
-        }
-        return 0;
+    private boolean checkNumber(int number) {
+        return winningLotto.contains(number);
     }
 
     private boolean checkBonusNumber(Lotto lotto) {
