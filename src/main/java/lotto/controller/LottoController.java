@@ -17,7 +17,6 @@ public class LottoController {
         lottoObject = new Lotto(); //로또 객체 생성
 
         lottoObject.lottoBuy(LottoViewInput.lottoInputPayment()); //로또를 구매할 가격을 먼저 입력받음
-        //lottoObject.addRandomLottos( / LOTTO_PRICE); //구매 비용을 통해 자동으로 가격에 맞춰 로또를 생성
 
         OutputDTO outputDTO = lottoObject.getOutputDTO(); //출력을 위한 DTO를 받음
         LottoViewOutput lottoViewOutput = new LottoViewOutput();

@@ -60,11 +60,11 @@ public class Lotto {
         }
     }
 
-    public static LottoNumber addRandomLottos(boolean isPrinting){
+    static private LottoNumber addRandomLottos(boolean isPrinting){
         return LottoNumber.createRandomLotto(isPrinting); //lottoCount만큼 랜덤으로 로또를 생성
     }
 
-    public static LottoNumber addUserMakeLottos(boolean isPrinting){
+    static private LottoNumber addUserMakeLottos(boolean isPrinting){
         return LottoNumber.createUserMakeLotto(isPrinting); //lottoCount만큼 사용자가 로또를 입력하여 생성
     }
 
@@ -78,7 +78,6 @@ public class Lotto {
     }
 
     public void makeTotal(){
-
         //add win numbers to lottoWinner
         for(int i = 0 ; i < lottos.size() ; i++){
             LottoNumber curLotto = lottos.get(i);
@@ -90,5 +89,4 @@ public class Lotto {
     public OutputDTO getOutputDTO(){
        return new OutputDTO(lottos, lottoResult, lottoWinner);
     }
-
 }
