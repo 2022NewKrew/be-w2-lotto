@@ -12,23 +12,38 @@ import java.util.stream.Collectors;
 public class View {
     private static final Scanner scanner = new Scanner(System.in);
 
-    public int getBudgetByPrompt() {
+    public int getBudget() {
         System.out.println("구입금액을 입력해 주세요.");
         return Integer.parseInt(scanner.nextLine());
     }
 
-    public void showBoughtTickets(TicketsDTO ticketsDTO) {
-        System.out.println(ticketsDTO.ticketDTOs.size() + "개를 구매했습니다.");
-        System.out.println(ticketsDTO.ticketDTOs.stream().map(ticketDTO -> ticketDTO.numbers.toString()).collect(Collectors.joining(System.lineSeparator())));
+    public int getNumberOfNonRandomTickets() {
+        System.out.println();
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public void promptToInputLotteryNumbersToBuy() {
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+    }
+
+    public void showBoughtTickets(TicketsDTO nonRandomTicketsDTO, TicketsDTO randomTicketsDTO) {
+        System.out.println("수동으로 " + nonRandomTicketsDTO.size + "장, 자동으로 " + randomTicketsDTO.size + "개를 구매했습니다.");
+        System.out.println(nonRandomTicketsDTO.ticketDTOs.stream().map(ticketDTO -> ticketDTO.numbers.toString()).collect(Collectors.joining(System.lineSeparator())));
+        System.out.println(randomTicketsDTO.ticketDTOs.stream().map(ticketDTO -> ticketDTO.numbers.toString()).collect(Collectors.joining(System.lineSeparator())));
         System.out.println();
     }
 
-    public List<Integer> getResultNumbersByPrompt() {
+    public List<Integer> getResultNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+        return getLotteryNumbers();
+    }
+
+    public List<Integer> getLotteryNumbers() {
         return Arrays.asList(scanner.nextLine().split(",")).stream().map(String::strip).map(Integer::valueOf).collect(Collectors.toList());
     }
 
-    public int getResultBonusBallByPrompt() {
+    public int getResultBonusBall() {
         System.out.println("보너스 볼을 입력해 주세요.");
         return Integer.parseInt(scanner.nextLine());
     }

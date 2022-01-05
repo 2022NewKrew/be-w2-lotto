@@ -5,8 +5,8 @@ import dto.TicketDTO;
 import java.util.List;
 
 public class Ticket {
-    private final List<Integer> numbers;
     private static final NumbersFactory numbersFactory = new NumbersFactory();
+    private final List<Integer> numbers;
 
     public Ticket(List<Integer> numbers) {
         this.numbers = numbersFactory.getValidatedNumbers(numbers);

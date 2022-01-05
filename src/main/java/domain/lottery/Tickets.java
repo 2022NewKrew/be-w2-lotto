@@ -11,10 +11,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Tickets {
-    private static final int TICKET_PRICE = 1000;
     private final List<Ticket> tickets;
+    private final int ticketPrice;
 
-    public Tickets() {
+    public Tickets(int ticketPrice) {
+        this.ticketPrice = ticketPrice;
         tickets = new ArrayList<>();
     }
 
@@ -39,15 +40,8 @@ public class Tickets {
         this.tickets.addAll(tickets.tickets);
     }
 
-    public void addRandomTicketsUnderBudget(int budget) {
-        while (budget >= TICKET_PRICE) {
-            tickets.add(new Ticket());
-            budget -= TICKET_PRICE;
-        }
-    }
-
     public int getCost() {
-        return TICKET_PRICE * tickets.size();
+        return ticketPrice * tickets.size();
     }
 
     public TicketsDTO toDTO() {

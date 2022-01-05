@@ -3,9 +3,9 @@ package domain.lottery;
 import java.util.List;
 
 public class Result {
+    private static final NumbersFactory numbersFactory = new NumbersFactory();
     private final List<Integer> numbers;
     private final int bonusBall;
-    private static final NumbersFactory numbersFactory = new NumbersFactory();
 
     public Result(List<Integer> numbers, int bonusBall) {
         if (numbers.contains(bonusBall)) {
