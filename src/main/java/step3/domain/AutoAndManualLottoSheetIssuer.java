@@ -5,7 +5,6 @@ import step2.domain.LottoConfig;
 import step2.domain.LottoSheetWithId;
 import step2.domain.service.LottoSheetIssuerWithRepo;
 import step2.repository.LottoSheetRepository;
-import step3.exception.TypeMissMatchException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,7 @@ public class AutoAndManualLottoSheetIssuer extends LottoSheetIssuerWithRepo {
 
     private LottoConfigWithManual checkLottoConfigType(LottoConfig lottoConfig){
         if(!(lottoConfig instanceof LottoConfigWithManual))
-            throw new TypeMissMatchException();
+            throw new ClassCastException("타입이 일치하지 않습니다.");
         return (LottoConfigWithManual) lottoConfig;
     }
 }

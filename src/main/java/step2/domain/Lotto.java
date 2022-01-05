@@ -1,5 +1,7 @@
 package step2.domain;
 
+import step3.util.Validator;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -15,16 +17,12 @@ public class Lotto {
     private final List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
-        verifyNumbers(numbers);
+        numbers.stream().forEach(Validator::FROM_1_TO_45);
+        Validator.SIX_NUMBER_LIST(numbers);
         Collections.sort(numbers);
         this.numbers = numbers;
     }
 
-    // 로또 번호 검증
-    private void verifyNumbers(List<Integer> numbers) {
-        numbers.stream()
-                .forEach(num -> { if (num < 1 || num > 45) throw new NumberFormatException("1 ~ 45의 숫자만 허용됩니다.");});
-    }
 
     public List<Integer> getNumbers() {
         return numbers;

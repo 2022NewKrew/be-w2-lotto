@@ -5,6 +5,7 @@ import step2.dto.LottoSheetDto;
 import step2.view.ConsoleConfigView;
 import step3.domain.LottoConfigWithManual;
 import step3.domain.ManualLottoInnerConfig;
+import step3.util.Validator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,14 +13,14 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class ConsoleConfigWithManual extends ConsoleConfigView {
-    public ConsoleConfigWithManual(LottoController lottoController) {
+public class ConsoleConfigWithManualView extends ConsoleConfigView {
+    public ConsoleConfigWithManualView(LottoController lottoController) {
         super(lottoController);
     }
 
     @Override
     public void print(Scanner sc) {
-        LottoConfigWithManual lottoConfigWithManual = (LottoConfigWithManual) readConfig(sc);
+        LottoConfigWithManual lottoConfigWithManual = readConfig(sc);
         ManualLottoInnerConfig manualLottoInnerConfig = readManualLotto(sc);
         lottoConfigWithManual.setManualLottoInnerConfig(manualLottoInnerConfig);
         printNumberOfLotto(lottoConfigWithManual);
@@ -37,7 +38,7 @@ public class ConsoleConfigWithManual extends ConsoleConfigView {
     }
 
     protected void printNumberOfLotto(LottoConfigWithManual lottoConfigWithManual) {
-        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.%n",lottoConfigWithManual.getNumberOfAuto(), lottoConfigWithManual.getNumberOfManual());
+        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.%n",lottoConfigWithManual.getNumberOfManual(), lottoConfigWithManual.getNumberOfAuto());
     }
 
     private ManualLottoInnerConfig readManualLotto(Scanner sc){
@@ -53,9 +54,10 @@ public class ConsoleConfigWithManual extends ConsoleConfigView {
     private List<List<Integer>> readInputLottoList (Scanner sc, int numberOfManualLotto){
         List<List<Integer>> userInputLottoList = new ArrayList<>();
         for(int i = 0; i < numberOfManualLotto; i++){
-            List<Integer> inputLotto = Arrays.stream(sc.nextLine().split(", "))
+            List<Integer> inputLotto = Arrays.stream(sc.nextLine().split(","))
                     .map(str -> Integer.parseInt(str.trim()))
                     .collect(Collectors.toList());
+            Validator.SIX_NUMBER_LIST(inputLotto);
             userInputLottoList.add(inputLotto);
         }
         return userInputLottoList;

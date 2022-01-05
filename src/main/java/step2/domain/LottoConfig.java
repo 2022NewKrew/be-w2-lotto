@@ -1,6 +1,7 @@
 package step2.domain;
 
 import step2.domain.service.LottoSheetIssuer;
+import step3.util.Validator;
 
 public class LottoConfig {
 
@@ -8,7 +9,7 @@ public class LottoConfig {
     private Integer purchaseAmount;
 
     public LottoConfig(Integer purchaseAmount) {
-        this.purchaseAmount = purchaseAmount;
+        this.purchaseAmount = Validator.GRATER_THAN_1000(purchaseAmount);
     }
 
     public Integer getPurchaseAmount() {
