@@ -1,19 +1,20 @@
-import domain.Purchase;
+import domain.Report;
+import domain.lottery.NumbersFactory;
+import domain.lottery.Result;
 import domain.lottery.Tickets;
 import view.View;
 
 public class App {
     public static void main(String[] args) {
-        final int TICKET_PRICE = 1000;
-
         View view = new View();
-        Purchase purchase = new Purchase(TICKET_PRICE);
+        Tickets boughtTickets = new Tickets();
 
-        Tickets boughtTickets = purchase.buyRandomTicketsUnderBudget(view.getBudgetByPrompt());
+        boughtTickets.addRandomTicketsUnderBudget(view.getBudgetByPrompt());
         view.showBoughtTickets(boughtTickets);
 
-        purchase.setResult(view.getResultNumbersByPrompt(), view.getResultBonusBallByPrompt());
+        Result result = new Result(new NumbersFactory().getValidatedNumbers(view.getResultNumbersByPrompt()), view.getResultBonusBallByPrompt());
+        Report report = new Report(boughtTickets, result);
 
-        view.showReport(purchase.getReport());
+        view.showReport(report.toDTO());
     }
 }

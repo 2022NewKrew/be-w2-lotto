@@ -10,6 +10,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Tickets {
+    private static final int TICKET_PRICE = 1000;
     private final List<Ticket> tickets;
 
     public Tickets() {
@@ -35,5 +36,18 @@ public class Tickets {
 
     public void add(Ticket ticket) {
         tickets.add(ticket);
+    }
+    public void add(Tickets tickets) {
+        this.tickets.addAll(tickets.tickets);
+    }
+    public void addRandomTicketsUnderBudget(int budget) {
+        while (budget >= TICKET_PRICE) {
+            tickets.add(new Ticket());
+            budget -= TICKET_PRICE;
+        }
+    }
+
+    public int getCost() {
+        return TICKET_PRICE * tickets.size();
     }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 public class Result {
     private final List<Integer> numbers;
     private final int bonusBall;
+    private static final NumbersFactory numbersFactory = new NumbersFactory();
 
     public Result(List<Integer> numbers, int bonusBall) {
         if (numbers.contains(bonusBall)) {
@@ -12,7 +13,7 @@ public class Result {
         }
 
         // bonusBall의 값 범위 검증 추가해야 됨
-        this.numbers = numbers;
+        this.numbers = numbersFactory.getValidatedNumbers(numbers);
         this.bonusBall = bonusBall;
     }
 
