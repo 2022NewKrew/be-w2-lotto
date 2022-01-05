@@ -20,7 +20,7 @@ class RewardTest {
         // given
 
         // when
-        Reward reward = Reward.valueOf(expected.getMatchCount());
+        Reward reward = Reward.valueOf(expected.getMatchCount(), expected.isHitBonus());
 
         // then
         assertThat(reward).isEqualTo(expected);
@@ -38,7 +38,7 @@ class RewardTest {
         // given
 
         // when
-        ThrowingCallable callable = () -> Reward.valueOf(matchCount);
+        ThrowingCallable callable = () -> Reward.valueOf(matchCount, false);
 
         // then
         assertThatThrownBy(callable).isExactlyInstanceOf(IllegalArgumentException.class);

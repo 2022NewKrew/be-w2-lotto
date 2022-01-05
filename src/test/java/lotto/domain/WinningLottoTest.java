@@ -17,20 +17,22 @@ class WinningLottoTest {
         // given
         Lotto lotto = item.getLotto();
         Reward reward = item.getReward();
+        WinningLotto winningLotto = new WinningLotto(List.of(1, 2, 3, 4, 5, 6), 7);
 
         // when
-        WinningLotto winningLotto = new WinningLotto(List.of(1, 2, 3, 4, 5, 6));
+        Reward matchResult = winningLotto.matchResult(lotto);
 
         // then
-        assertThat(winningLotto.matchResult(lotto)).isEqualTo(reward);
+        assertThat(matchResult).isEqualTo(reward);
     }
 
     private static Stream<Item> getTestLotto() {
         return Stream.of(
             new Item(new Lotto(List.of(1, 2, 3, 4, 5, 6)), Reward.FIRST),
-            new Item(new Lotto(List.of(1, 2, 3, 4, 5, 16)), Reward.SECOND),
-            new Item(new Lotto(List.of(1, 2, 3, 4, 15, 16)), Reward.THIRD),
-            new Item(new Lotto(List.of(1, 2, 3, 14, 15, 16)), Reward.FOURTH),
+            new Item(new Lotto(List.of(1, 2, 3, 4, 5, 7)), Reward.SECOND),
+            new Item(new Lotto(List.of(1, 2, 3, 4, 5, 16)), Reward.THIRD),
+            new Item(new Lotto(List.of(1, 2, 3, 4, 15, 16)), Reward.FOURTH),
+            new Item(new Lotto(List.of(1, 2, 3, 14, 15, 16)), Reward.FIFTH),
             new Item(new Lotto(List.of(1, 2, 13, 14, 15, 16)), Reward.NONE)
         );
     }

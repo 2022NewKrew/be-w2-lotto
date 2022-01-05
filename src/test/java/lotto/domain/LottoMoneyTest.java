@@ -42,7 +42,7 @@ class LottoMoneyTest {
     @ParameterizedTest
     @CsvSource(value = {"10000:3000:-70.00", "1000:10000:900.00", "10000:15121:51.21",
         "1000:0:-100.00"}, delimiter = ':')
-    @DisplayName("구매 금액을 천원 단위로 절삭한 만큼 로또를 구매한다.")
+    @DisplayName("수익률을 계산한다.")
     void test_Profit(int beforeMoney, int afterMoney, double expectedProfit) {
         // given
         LottoMoney lottoMoney = new LottoMoney(beforeMoney);

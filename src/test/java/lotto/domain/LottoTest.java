@@ -12,6 +12,7 @@ import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -35,7 +36,7 @@ class LottoTest {
     @ParameterizedTest
     @ValueSource(ints = {0, 46})
     @DisplayName("로또 숫자가 1~45를 벗어나면 에러가 발생한다.")
-    void createWithBoundOver(int number) {
+    void createWhenBoundOver(int number) {
         // given
         List<Integer> numbers = new ArrayList<>(List.of(1, 2, 3, 4, 5));
         numbers.add(number);
@@ -50,7 +51,7 @@ class LottoTest {
     @ParameterizedTest
     @MethodSource("getLottoNums")
     @DisplayName("로또의 숫자가 6개가 아니면 에러가 발생한다.")
-    void createWithSizeIsNotSix(List<Integer> numbers) {
+    void createWhenSizeIsNotSix(List<Integer> numbers) {
         // given
 
         // when
@@ -71,7 +72,7 @@ class LottoTest {
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 3, 4, 5})
     @DisplayName("로또의 숫자 중 중복된 값이 있다면 에러가 발생한다.")
-    void createWithDuplicateNumber(int number) {
+    void createWhenDuplicateNumber(int number) {
         // given
         List<Integer> numbers = new ArrayList<>(List.of(1, 2, 3, 4, 5));
         numbers.add(number);
@@ -85,7 +86,7 @@ class LottoTest {
 
     @Test
     @DisplayName("매번 랜덤하게 숫자가 생성되어야 한다.")
-    void createWithRepeatTest() {
+    void createWhenRepeat() {
         // given
         Set<Integer> numbers = new HashSet<>();
         int repeat = 10;
@@ -98,5 +99,19 @@ class LottoTest {
 
         // then
         assertThat(numbers.size()).isNotEqualTo(pivot);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"1:true", "7:false"}, delimiter = ':')
+    @DisplayName("로또에 숫자의 포함여부를 확인한다.")
+    void contains(int number, boolean expected) {
+        // given
+        Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 6));
+
+        // when
+        boolean isContains = lotto.contains(number);
+
+        // then
+        assertThat(isContains).isEqualTo(expected);
     }
 }

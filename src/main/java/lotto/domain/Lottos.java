@@ -13,7 +13,7 @@ public class Lottos {
         this.lottos = new ArrayList<>(lottos);
     }
 
-    public static Lottos valueOf(int lottoCount) {
+    public static Lottos from(int lottoCount) {
         final List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < lottoCount; i++) {
             lottos.add(new Lotto());

@@ -59,9 +59,13 @@ public class Lotto {
         return new ArrayList<>(numbers);
     }
 
-    public int matchCount(Lotto lotto) {
+    public int matchCount(Lotto targetLotto) {
         Set<Integer> set = new HashSet<>(numbers);
-        set.retainAll(lotto.getNumbers());
+        set.retainAll(targetLotto.numbers);
         return set.size();
+    }
+
+    public boolean contains(int number) {
+        return numbers.contains(number);
     }
 }
