@@ -18,9 +18,9 @@ public class LottoNumbersFactory {
     private static List<Integer> randomLottoNumbers() {
         return random.ints(Constants.MIN_LOTTO_NUMBER, Constants.MAX_LOTTO_NUMBER_BOUND)
                 .distinct()
-                .boxed()
                 .limit(Constants.LOTTO_SIZE)
                 .sorted()
+                .boxed()
                 .collect(Collectors.toList());
     }
 }
