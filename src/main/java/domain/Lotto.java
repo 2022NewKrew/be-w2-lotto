@@ -58,6 +58,16 @@ public class Lotto {
     }
 
     protected void validationOfkNumbers() {
+
+        hasSixSizeOfNumbers();
+        hasValidNumbers();
+    }
+
+    private void hasSixSizeOfNumbers() {
+        if(numbers.size() != 6) throw new IllegalArgumentException("6자리 숫자가 아닙니다.");
+    }
+
+    private void hasValidNumbers() {
         for (int num : numbers) {
             if (num <LOTTO_START_NUMBER || num > LOTTO_END_NUMBER) {
                 throw new IllegalArgumentException("1~45숫자를 입력해주세요!");

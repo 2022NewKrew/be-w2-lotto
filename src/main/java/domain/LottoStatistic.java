@@ -109,13 +109,9 @@ public class LottoStatistic {
         this.winningBonusNumber = winningBonusNumber;
 
         validationWinningNumberAndWinningBonusNumber();
-
         updateLottosStatus();
-
         updateLottoInfo();
-
         calculateProfitRate();
-
     }
 
     private void updateLottoInfo() {

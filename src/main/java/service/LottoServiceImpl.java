@@ -17,39 +17,51 @@ public class LottoServiceImpl implements LottoService {
     private final LottoRepository lottoRepository;
     private LottoStatistic lottoStatistic;
 
+    private int purchasePrice;
+    private int purchaseCount;
+    private int normalLottoCount;
+    private int autoLottoCount;
+
     public LottoServiceImpl(LottoRepository lottoRepository) {
         this.lottoRepository = lottoRepository;
     }
 
     @Override
     public void run() {
-        int purchasePrice = inputPurchasePrice();
-        int purchaseCount = calculateLottoCount(purchasePrice);
-        int normalLottoCount = inputNormalPurchaseCount();
-        int autoLottoCount = purchaseCount - normalLottoCount;
-
-        lottoStatistic = new LottoStatistic(purchaseCount, normalLottoCount, autoLottoCount);
 
         createLottoStatic();
-
-        List<Lotto> normalLottos = inputNormalLottoList(normalLottoCount);
-
-        List<Lotto> autoLottoList = createAutoLottoList(autoLottoCount);
-
-        lottoStatistic.addLottos(normalLottos);
-        lottoStatistic.addLottos(autoLottoList);
-
+        createLottoList();
         printLottoList();
-
-        List<Integer> winningNumbers = inputWinningNumbers();
-        int winningBonusNumber = inputWinningBonusNumber();
-
-        lottoStatistic.updateStatus(winningNumbers, winningBonusNumber);
+        createWinningNumbersAndBonusNumber();
         printLottoStatic();
 
     }
 
+    private void createWinningNumbersAndBonusNumber() {
+        List<Integer> winningNumbers = inputWinningNumbers();
+        int winningBonusNumber = inputWinningBonusNumber();
+
+        lottoStatistic.updateStatus(winningNumbers, winningBonusNumber);
+    }
+
     private void createLottoStatic() {
+
+        purchasePrice = inputPurchasePrice();
+        purchaseCount = calculateLottoCount(purchasePrice);
+        normalLottoCount = inputNormalPurchaseCount();
+        autoLottoCount = purchaseCount - normalLottoCount;
+
+        lottoStatistic = new LottoStatistic(purchaseCount, normalLottoCount, autoLottoCount);
+    }
+
+    private void createLottoList() {
+
+        List<Lotto> normalLottoList = inputNormalLottoList(normalLottoCount);
+
+        List<Lotto> autoLottoList = createAutoLottoList(autoLottoCount);
+
+        lottoStatistic.addLottos(normalLottoList);
+        lottoStatistic.addLottos(autoLottoList);
     }
 
     private void printLottoStatic() {
