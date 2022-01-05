@@ -15,10 +15,10 @@ public class WinningNumbers {
 
     private static final int WINNING_NUMBERS_SIZE = 6;
 
-    private final List<WinningNumber> winningNumbers;
-    private final WinningNumber bonusNumber;
+    private final List<LottoNumber> winningNumbers;
+    private final LottoNumber bonusNumber;
 
-    public WinningNumbers(List<WinningNumber> winningNumbers, WinningNumber bonusNumber) {
+    public WinningNumbers(List<LottoNumber> winningNumbers, LottoNumber bonusNumber) {
         this.winningNumbers = new ArrayList<>(winningNumbers);
         this.bonusNumber = bonusNumber;
     }
@@ -28,11 +28,11 @@ public class WinningNumbers {
         validateWinningNumbers(inputWinningNumbers);
         validateNumber(inputBonusNumber);
 
-        List<WinningNumber> winningNumbers = inputWinningNumbers.stream()
-            .map(WinningNumber::new)
+        List<LottoNumber> winningNumbers = inputWinningNumbers.stream()
+            .map(LottoNumber::new)
             .collect(Collectors.toList());
 
-        WinningNumber bonusNumber = new WinningNumber(inputBonusNumber);
+        LottoNumber bonusNumber = new LottoNumber(inputBonusNumber);
 
         return new WinningNumbers(winningNumbers, bonusNumber);
     }
@@ -69,7 +69,7 @@ public class WinningNumbers {
 
     private int countMatchNumber(Lotto lotto) {
         List<Integer> winningNumbers = this.winningNumbers.stream()
-            .map(WinningNumber::getNumber)
+            .map(LottoNumber::getNumber)
             .collect(Collectors.toList());
 
         return (int) lotto.getLottoNumbers().stream()
