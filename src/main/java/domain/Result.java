@@ -7,9 +7,9 @@ import java.util.Map;
 
 public class Result {
     private final Map<Rank, Integer> resultMap;
-    private final float yieldPercent;
+    private final double yieldPercent;
 
-    private Result(Map<Rank, Integer> resultMap, float yieldPercent) {
+    private Result(Map<Rank, Integer> resultMap, double yieldPercent) {
         this.resultMap = Collections.unmodifiableMap(resultMap);
         this.yieldPercent = yieldPercent;
     }
@@ -34,14 +34,14 @@ public class Result {
         for (Rank rank : resultMap.keySet()) {
             prize += (rank.getPrize() * resultMap.get(rank));
         }
-        return new Result(resultMap, ((float) (100 * (prize - baseMoney))) / baseMoney);
+        return new Result(resultMap, ((double) (100 * (prize - baseMoney))) / baseMoney);
     }
 
     public int getCountOf(Rank rank) {
         return resultMap.get(rank);
     }
 
-    public float getYieldPercent() {
+    public double getYieldPercent() {
         return this.yieldPercent;
     }
 }

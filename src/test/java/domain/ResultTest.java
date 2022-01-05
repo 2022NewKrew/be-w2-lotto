@@ -70,7 +70,7 @@ public class ResultTest {
         assertThat(result.getCountOf(Rank.SECOND)).isEqualTo(1);
         assertThat(result.getCountOf(Rank.FIRST)).isEqualTo(1);
 
-        assertThat(result.getYieldPercent()).usingComparator(Float::compare)
+        assertThat(result.getYieldPercent()).usingComparator(Double::compare)
                 .isEqualTo(40600900);
     }
 }
