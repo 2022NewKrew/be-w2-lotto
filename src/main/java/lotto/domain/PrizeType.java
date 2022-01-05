@@ -47,17 +47,17 @@ public enum PrizeType {
     public abstract void count(LottoResultDTO lottoResultDTO);
 
     public static PrizeType valueOf(int matchCount, boolean matchBonus) {
+        if (matchCount == SECOND_PRIZE.value) {
+            return isSecondOrThirdPrize(matchBonus);
+        }
         return Arrays.stream(values())
-                .filter(prizeType -> selectPrizeType(prizeType, matchCount, matchBonus) != null)
+                .filter(prizeType -> selectPrizeType(prizeType, matchCount) != null)
                 .findAny()
-                .map(prizeType -> selectPrizeType(prizeType, matchCount, matchBonus))
                 .orElse(null);
     }
 
-    private static PrizeType selectPrizeType(PrizeType prizeType, int matchCount, boolean matchBonus) {
-        if (matchCount == SECOND_PRIZE.value) {
-            return isSecondOrThirdPrize(matchBonus);
-        } else if (matchCount == prizeType.value) {
+    private static PrizeType selectPrizeType(PrizeType prizeType, int matchCount) {
+        if (matchCount == prizeType.value) {
             return prizeType;
         }
         return null;
