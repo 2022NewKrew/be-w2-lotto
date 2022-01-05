@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoList {
-    private static final int ONE_LOTTO_PRICE = 1000;
-
     private final LottoGenerator lottoGenerator;
     private final List<Lotto> lottoList;
     private int lottoPrice;
@@ -20,7 +18,7 @@ public class LottoList {
 
     public void createAutoLottoList(int lottoPrice){
         this.lottoPrice += lottoPrice;
-        int quantity = lottoPrice / ONE_LOTTO_PRICE;
+        int quantity = lottoPrice / LottoConst.ONE_LOTTO_PRICE;
 
         for(int i=0; i<quantity; i++){
             lottoList.add(lottoGenerator.createLotto());
@@ -29,7 +27,7 @@ public class LottoList {
 
     public void createManualLottoList(List<Lotto> lottos){
         for (Lotto lotto : lottos) {
-            lottoPrice += ONE_LOTTO_PRICE;
+            lottoPrice += LottoConst.ONE_LOTTO_PRICE;
             manualCount++;
             lottoList.add(lotto);
         }
