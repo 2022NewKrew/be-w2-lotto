@@ -60,7 +60,7 @@ public class LottoSimulator {
         lottoOutputPrinter.printDescription("\n수동으로 구매할 번호를 입력해 주세요.\n");
         try {
             return LongStream.range(0, numOfManualLottos)
-                    .mapToObj(i -> new Lotto(lottoInputScanner.getDigits()))
+                    .mapToObj(i -> new Lotto(lottoInputScanner.getLottoNumbers()))
                     .collect(Collectors.toList());
         } catch (IllegalArgumentException iae) {
             lottoOutputPrinter.printDescription(iae.getMessage());
@@ -95,9 +95,9 @@ public class LottoSimulator {
     private @NotNull WinningLotto getWinningInfo() {
         lottoOutputPrinter.printDescription("\n지난주 당첨 정보를 입력해 주세요.\n");
         try {
-            List<LottoNumber> winningLottoNumberList = lottoInputScanner.getDigits();
-            LottoNumber bonusDigit = lottoInputScanner.getWinningBonusDigit();
-            return new WinningLotto(winningLottoNumberList, bonusDigit);
+            List<LottoNumber> winningLottoNumberList = lottoInputScanner.getLottoNumbers();
+            LottoNumber bonusNumber = lottoInputScanner.getWinningBonusDigit();
+            return new WinningLotto(new Lotto(winningLottoNumberList), bonusNumber);
         } catch (IllegalArgumentException iae) {
             lottoOutputPrinter.printDescription(iae.getMessage());
             return getWinningInfo();

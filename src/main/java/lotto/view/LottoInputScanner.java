@@ -33,7 +33,7 @@ public class LottoInputScanner {
         return numOfManualLottos;
     }
 
-    public List<LottoNumber> getDigits() {
+    public List<LottoNumber> getLottoNumbers() {
         return Arrays.stream(sc.nextLine().split(SEPARATOR))
                 .map(s -> new LottoNumber(Integer.parseInt(s.trim())))
                 .collect(Collectors.toList());

@@ -1,7 +1,5 @@
 package lotto.domain;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -11,8 +9,8 @@ public class Lotto {
 
     public Lotto(List<LottoNumber> numberList) {
         DomainValidationChecker checker = new DomainValidationChecker();
-        checker.checkNumOfDigits(numberList);
-        checker.checkDigitsInLotto(numberList);
+        checker.checkNumOfLottoNumbers(numberList);
+        checker.checkLottoNumbersInLotto(numberList);
         checker.checkDuplicationInLotto(numberList);
         this.numberList = numberList;
     }
@@ -21,13 +19,13 @@ public class Lotto {
         return Collections.unmodifiableList(numberList);
     }
 
-    public int getNumOfMatchingDigits(@NotNull WinningLotto winningLotto) {
+    public int getNumOfMatchingNumbersWith(Lotto lotto) {
         HashSet<LottoNumber> lottoNumberSet = new HashSet<>(numberList);
-        lottoNumberSet.retainAll(new HashSet<>(winningLotto.getNumberList()));
+        lottoNumberSet.retainAll(new HashSet<>(lotto.getNumberList()));
         return lottoNumberSet.size();
     }
 
-    public boolean containsBonusNumber(LottoNumber bonusNumber) {
+    public boolean containsLottoNumber(LottoNumber bonusNumber) {
         return numberList.stream().anyMatch(number -> number.getDigit() == bonusNumber.getDigit());
     }
 }

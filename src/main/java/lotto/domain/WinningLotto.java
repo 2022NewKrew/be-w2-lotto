@@ -1,26 +1,22 @@
 package lotto.domain;
 
-import java.util.Collections;
-import java.util.List;
-
 public class WinningLotto {
-    private final List<LottoNumber> numberList;
-    private final LottoNumber bonusDigit;
+    private final Lotto lotto;
+    private final LottoNumber bonusNumber;
 
-    public WinningLotto(List<LottoNumber> numberList, LottoNumber bonusDigit) {
+    public WinningLotto(Lotto lotto, LottoNumber bonusNumber) {
         DomainValidationChecker checker = new DomainValidationChecker();
-        checker.checkNumOfDigits(numberList);
-        checker.checkDigitsInWinningLotto(numberList, bonusDigit);
-        checker.checkDuplicationInWinningLotto(numberList, bonusDigit);
-        this.numberList = numberList;
-        this.bonusDigit = bonusDigit;
+        checker.checkDuplicationInWinningLotto(lotto, bonusNumber);
+        checker.checkLottoNumber(bonusNumber);
+        this.lotto = lotto;
+        this.bonusNumber = bonusNumber;
     }
 
-    public List<LottoNumber> getNumberList() {
-        return Collections.unmodifiableList(numberList);
+    public Lotto getLotto() {
+        return lotto;
     }
 
-    public LottoNumber getBonusDigit() {
-        return bonusDigit;
+    public LottoNumber getBonusNumber() {
+        return bonusNumber;
     }
 }
