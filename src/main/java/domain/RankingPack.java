@@ -13,12 +13,14 @@ public class RankingPack {
     }
     public WinningStats makeWiningStats(){
         WinningStats winningStats = new WinningStats(calculatePrize());
-        Arrays.stream(Ranking.values()).forEach(ranking -> winningStats.addStats(ranking,calculateRanking(ranking)));
+        Arrays.stream(Ranking.values()).forEach(ranking ->
+                winningStats.addStats(ranking,calculateRanking(ranking))
+        );
         return winningStats;
     }
 
     private int calculateRanking(Ranking targetRank){
-        return rankingList.stream().filter(ranking -> ranking.getMatchCount()!=0 && ranking==targetRank).collect(Collectors.toList()).size();
+        return rankingList.stream().filter(ranking -> ranking==targetRank).collect(Collectors.toList()).size();
     }
     private int calculatePrize(){
         return rankingList.stream().map(ranking -> ranking.getWiningPrize()).reduce((prize, total) -> prize+total).get();

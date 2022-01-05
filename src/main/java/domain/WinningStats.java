@@ -13,13 +13,14 @@ public class WinningStats {
         this.winningPrize = winningPrize;
     }
     public void addStats(Ranking ranking, int num){
-        prizeMap.put(ranking,num);
+        if(ranking!=Ranking.NONE){
+            prizeMap.put(ranking,num);
+        }
     }
     public void printMap(){
         prizeMap.forEach((ranking, count) -> System.out.println(String.format(LottoOutput.PRIZE_STR_FORMAT,ranking.getMatchCount(),ranking.getWiningPrize(),count)));
     }
     public double getTotalIncome(){
-        System.out.println(winningPrize);
         return ((double)(winningPrize - BuyLotto.buyPrice)) * 100 / BuyLotto.buyPrice;
     }
 }
