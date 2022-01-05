@@ -2,12 +2,15 @@ package org.cs.finn.lotto.domain.lotto;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class LottoNumbers {
     public static final LottoNumbers NONE = new LottoNumbers();
     public static final int SIZE = 6;
+    public static final int ADDITIVE = 1;
 
     private final List<LottoNumber> list;
 
@@ -21,17 +24,6 @@ public class LottoNumbers {
         validateNumbers();
     }
 
-    private void validateNumbers() {
-        boolean illegal = false;
-        for (LottoNumber lottoNumber : list) {
-            illegal |= contains(lottoNumber);
-        }
-
-        if (illegal) {
-            throw new IllegalArgumentException("list have duplicate LottoNumber!");
-        }
-    }
-
     public LottoNumbers(final String[] numbers)
             throws IllegalArgumentException
     {
@@ -42,6 +34,22 @@ public class LottoNumbers {
 
         this.list = lottoNumberList;
         validateNumbers();
+    }
+
+    private void validateNumbers() {
+        final Map<LottoNumber, Integer> mapCount = new HashMap<>();
+        for (LottoNumber lottoNumber : list) {
+            mapCount.put(lottoNumber, mapCount.getOrDefault(lottoNumber, 0) + ADDITIVE);
+        }
+
+        int maxCount = 0;
+        for (LottoNumber lottoNumber : list) {
+            maxCount = Math.max(maxCount, mapCount.getOrDefault(lottoNumber, 0));
+        }
+
+        if (maxCount > 1) {
+            throw new IllegalArgumentException("list have duplicate LottoNumber!");
+        }
     }
 
     private LottoNumbers() {
