@@ -3,6 +3,7 @@ package be.w2.lotto.boot;
 import be.w2.lotto.cashier.Cashier;
 import be.w2.lotto.lottos.LastWinningLotto;
 import be.w2.lotto.lottos.Lotto;
+import be.w2.lotto.result.Report;
 import be.w2.lotto.result.Result;
 import be.w2.lotto.result.ResultCalculator;
 import be.w2.lotto.view.input.Input;
@@ -30,9 +31,13 @@ public final class ResultMaker {
 
     public void proceedBy(List<Lotto> purchaseLotto) {
         inputLastWinningLotto();
+
         Result result = getResult(purchaseLotto);
+        outputResult(result);
+
         int investment = getInvestment(purchaseLotto);
-        outputResult(result, investment);
+        Report report = createReportBy(result, investment);
+        outputReport(report);
     }
 
     private void inputLastWinningLotto() {
@@ -47,7 +52,15 @@ public final class ResultMaker {
         return purchaseLotto.size() * Cashier.PRICE_PER_LOTTO;
     }
 
-    private void outputResult(Result result, int investment) {
-        Output.OutputResult(result, investment);
+    private void outputResult(Result result) {
+        Output.outputResult(result);
+    }
+
+    private void outputReport(Report report) {
+        Output.outputReport(report);
+    }
+
+    private Report createReportBy(Result result, int investment) {
+        return new Report(investment, result.getRevenue());
     }
 }

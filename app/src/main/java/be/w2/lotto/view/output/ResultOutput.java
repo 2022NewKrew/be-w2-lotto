@@ -10,11 +10,10 @@ final class ResultOutput {
     private ResultOutput() {
     }
 
-    public static String getOutput(Result result, int investment) {
+    public static String getOutput(Result result) {
         StringBuilder sb = new StringBuilder();
         writeOpenWordTo(sb);
         writeResultTo(sb, result);
-        writeYieldTo(sb, result, investment);
         return sb.toString();
     }
 
@@ -33,15 +32,5 @@ final class ResultOutput {
         sb.append(RewardForCorrectOutput.getOutput(rewardForCorrect))
                 .append(howMany)
                 .append("개\n");
-    }
-
-    private static void writeYieldTo(StringBuilder sb, Result result, int investment) {
-        sb.append("총 수익률은 ")
-                .append(calculateYield(result, investment))
-                .append("%입니다.");
-    }
-
-    private static int calculateYield(Result result, int investment) {
-        return ((result.getRevenue() - investment) / investment) * 100;
     }
 }
