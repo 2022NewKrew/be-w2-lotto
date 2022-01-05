@@ -1,30 +1,32 @@
 package lotto.domain;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
-    private final List<Integer> digits;
+    private final List<LottoNumber> numberList;
 
-    public Lotto(List<Integer> digits) {
+    public Lotto(List<LottoNumber> numberList) {
         DomainValidationChecker checker = new DomainValidationChecker();
-        checker.checkNumOfDigits(digits);
-        checker.checkDigitsInLotto(digits);
-        checker.checkDuplicationInLotto(digits);
-        this.digits = digits;
+        checker.checkNumOfDigits(numberList);
+        checker.checkDigitsInLotto(numberList);
+        checker.checkDuplicationInLotto(numberList);
+        this.numberList = numberList;
     }
 
-    public List<Integer> getDigits() {
-        return Collections.unmodifiableList(digits);
+    public List<LottoNumber> getNumberList() {
+        return Collections.unmodifiableList(numberList);
     }
 
-    public int getNumOfMatchingDigits(WinningLotto winningLotto) {
-        return (int) digits.stream()
-                .filter(digit -> winningLotto.getDigits().contains(digit))
+    public int getNumOfMatchingDigits(@NotNull WinningLotto winningLotto) {
+        return (int) numberList.stream()
+                .filter(winningLotto::containsLottoNumber)
                 .count();
     }
 
-    public boolean isContainBonus(WinningLotto winningLotto) {
-        return digits.contains(winningLotto.getBonusDigit());
+    public boolean containsBonusNumber(LottoNumber bonusNumber) {
+        return numberList.stream().anyMatch(number -> number.getDigit() == bonusNumber.getDigit());
     }
 }

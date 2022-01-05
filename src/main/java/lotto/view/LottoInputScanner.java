@@ -1,5 +1,7 @@
 package lotto.view;
 
+import lotto.domain.LottoNumber;
+
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -31,14 +33,14 @@ public class LottoInputScanner {
         return numOfManualLottos;
     }
 
-    public List<Integer> getDigits() {
+    public List<LottoNumber> getDigits() {
         return Arrays.stream(sc.nextLine().split(SEPARATOR))
-                .map(s -> Integer.parseInt(s.trim()))
+                .map(s -> new LottoNumber(Integer.parseInt(s.trim())))
                 .collect(Collectors.toList());
     }
 
-    public int getWinningBonusDigit() {
+    public LottoNumber getWinningBonusDigit() {
         System.out.println("보너스 볼을 입력해 주세요.");
-        return Integer.parseInt(sc.nextLine());
+        return new LottoNumber(Integer.parseInt(sc.nextLine()));
     }
 }

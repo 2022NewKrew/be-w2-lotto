@@ -2,7 +2,6 @@ package lotto.domain;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,11 +19,14 @@ public class LottoAutoGenerator {
                 .collect(Collectors.toList());
     }
 
-    private @NotNull List<Integer> getRandomDigits() {
+    private @NotNull List<LottoNumber> getRandomDigits() {
         List<Integer> randomDigits = IntStream.rangeClosed(MIN_DIGIT, MAX_DIGIT)
                 .boxed()
                 .collect(Collectors.toList());
         Collections.shuffle(randomDigits);
-        return new ArrayList<>(randomDigits.subList(0, NUM_OF_DIGITS));
+        return randomDigits.subList(0, NUM_OF_DIGITS)
+                .stream()
+                .map(LottoNumber::new)
+                .collect(Collectors.toList());
     }
 }

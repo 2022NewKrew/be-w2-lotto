@@ -25,10 +25,10 @@ public class LottoOutputPrinter {
     }
 
     private void printLotto(@NotNull Lotto lotto) {
-        System.out.println(lotto.getDigits()
+        System.out.println(lotto.getNumberList()
                 .stream()
                 .sorted()
-                .map(digit -> Integer.toString(digit))
+                .map(lottoNumber -> Integer.toString(lottoNumber.getDigit()))
                 .collect(Collectors.joining(SEPARATOR + SPACE, PREFIX, SUFFIX)));
     }
 
