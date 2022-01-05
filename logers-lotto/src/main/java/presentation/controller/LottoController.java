@@ -45,7 +45,7 @@ public class LottoController {
                 winningNumbersDto.getWinningNumbers(), winningNumbersDto.getBonusNumbers()).orElseThrow();
 
         RewardResult rewardResult = lottoOrder.getResult(winningNumbers);
-        RewardResultDto rewardResultDto = new RewardResultDto(rewardResult.getMatchedToCount(), rewardResult.getProfitPercent());
+        RewardResultDto rewardResultDto = new RewardResultDto(rewardResult.getRewardToCount(), rewardResult.getProfitPercent());
         return new ResultOutputView(rewardResultDto);
     }
 }

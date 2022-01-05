@@ -32,7 +32,7 @@ public class LottoOrder {
     public RewardResult getResult(WinningNumbers winningNumbers){
         RewardResult rewardResult = new RewardResult();
         for(Lotto lotto : lottos){
-            rewardResult.addMatched(winningNumbers.getMatchedNumber(lotto));
+            rewardResult.addMatched(winningNumbers.getMatchedNumber(lotto.getNumbers()));
         }
         return rewardResult;
     }

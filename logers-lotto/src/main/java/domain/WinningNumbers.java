@@ -6,38 +6,32 @@ import java.util.List;
 
 public class WinningNumbers {
     private final List<Integer> numbers;
+    private final int bonusNumber;
 
     public WinningNumbers(List<Integer> numbers, int bonusNumber) {
         Validator.validate(numbers, bonusNumber);
+
         this.numbers = new ArrayList<>(numbers);
         Collections.sort(this.numbers);
+        this.bonusNumber = bonusNumber;
     }
 
-    public int getMatchedNumber(Lotto lotto){
-        List<Integer> lottoNumbers = lotto.getNumbers();
-        if(lottoNumbers.size() != numbers.size()){
-            throw new IllegalArgumentException("당첨번호의 갯수와 로또번호의 갯수가 다릅니다.");
-        }
+    public RewardType getMatchedNumber(List<Integer> numbers){
+        int matched = numbers.stream()
+                .map(this.numbers::contains)
+                .mapToInt(isInside -> isInside ? 1 : 0)
+                .reduce(Integer::sum).getAsInt();
 
-        int matchedNumber = 0;
-        for(int i=0; i<numbers.size(); i++){
-            matchedNumber += numOfSame(numbers.get(i), lottoNumbers.get(i));
-        }
-        return matchedNumber;
-    }
-
-    private int numOfSame(int number1, int number2){
-        if(number1 == number2){
-            return 1;
-        }
-
-        return 0;
+        return RewardType.getRewardType(matched, numbers.contains(bonusNumber));
     }
 
     public List<Integer> getNumbers() {
         return Collections.unmodifiableList(numbers);
     }
 
+    public int getBonusNumber() {
+        return bonusNumber;
+    }
 
     private static class Validator{
         static void validate(List<Integer> numbers, int bonusNumber) {
