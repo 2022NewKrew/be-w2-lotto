@@ -14,6 +14,8 @@ public class Person {
     private final List<Lotto> lottoList;
 
     public Person(int inputPrice) {
+        checkInputPrice(inputPrice);
+
         this.spendPrice = inputPrice;
         this.autoLottoCount = inputPrice / LOTTO_PRICE;
         this.lottoList = createLottoList();
@@ -22,10 +24,27 @@ public class Person {
     public Person(int inputPrice, List<String> manualInput) {
         this.spendPrice = inputPrice;
         this.autoLottoCount = inputPrice / LOTTO_PRICE - manualInput.size();
+
+        checkValidManualLottoCount(inputPrice, manualInput);
         this.lottoList = createLottoList();
 
         List<Lotto> manualLottoList = manualInput.stream().map(Lotto::new).collect(Collectors.toList());
         this.lottoList.addAll(manualLottoList);
+    }
+
+    private void checkInputPrice(int inputPrice) {
+        System.out.println(inputPrice);
+        if (inputPrice < LOTTO_PRICE) {
+            throw new IllegalArgumentException("구입금액은 1000원 이상이여야 합니다.");
+        }
+    }
+
+    private void checkValidManualLottoCount(int inputPrice, List<String> manualInput) {
+        int manualLottoCount = manualInput.size();
+        int maxLottoCount = inputPrice / LOTTO_PRICE;
+        if (manualLottoCount > maxLottoCount) {
+            throw new IllegalArgumentException("수동 복권 구매는 " + maxLottoCount + "개 이상 할 수 없습니다.");
+        }
     }
 
     private List<Lotto> createLottoList() {
@@ -49,7 +68,7 @@ public class Person {
         return lottoList;
     }
 
-    public int getAutoLottoCount(){
+    public int getAutoLottoCount() {
         return autoLottoCount;
     }
 }
