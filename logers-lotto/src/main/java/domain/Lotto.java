@@ -28,14 +28,4 @@ public class Lotto {
                     "로또 번호의 갯수는 ".concat(String.valueOf(Lotto.NUMBER_OF_WRITE_NUMBER)).concat("개 입력해주세요."));
         }
     }
-
-    private void validateOneValue(Integer number) throws IllegalArgumentException{
-        if(number <= 0 || number > 45){
-            throw new IllegalArgumentException("로또 번호는 1이상 45 이하입니다.");
-        }
-    }
-
-    public List<Integer> getNumbers() {
-        return Collections.unmodifiableList(numbers);
-    }
 }

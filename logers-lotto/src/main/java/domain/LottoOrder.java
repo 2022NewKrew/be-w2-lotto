@@ -1,8 +1,8 @@
 package domain;
 
-import factory.LottoFactory;
 
 import java.util.List;
+
 
 import static java.util.stream.Collectors.toList;
 
@@ -28,7 +28,9 @@ public class LottoOrder {
         return rewardResult;
     }
 
-    public int getPurchaseAmount(){
-        return purchaseAmount;
+    public List<List<Integer>> getLottos(){
+        return lottos.stream()
+                .map(Lotto::getNumbers)
+                .collect(toList());
     }
 }

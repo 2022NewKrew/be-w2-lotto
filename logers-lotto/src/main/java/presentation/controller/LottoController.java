@@ -27,7 +27,7 @@ public class LottoController {
         int purchaseAmount = purchaseDto.getPurchaseAmount();
         LottoOrder lottoOrder = LottoOrderFactory.getInstance(purchaseAmount).orElseThrow();
 
-        PurchaseResultDto purchaseResultDto = new PurchaseResultDto(lottoOrder);
+        PurchaseResultDto purchaseResultDto = new PurchaseResultDto(lottoOrder.getLottos());
         return new PurchaseOutputView(purchaseResultDto);
     }
 
