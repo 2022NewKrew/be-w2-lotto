@@ -3,7 +3,7 @@ package domain;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Lotto {
+public class Lotto{
     private ArrayList<Number> numberList;
 
     public Lotto(ArrayList<Number> numberList) {
@@ -33,4 +33,7 @@ public class Lotto {
         int hit = (numberList.contains(bonusNumber)) ? 1 : 0;
         return hit;
     }
+
+
+
 }
