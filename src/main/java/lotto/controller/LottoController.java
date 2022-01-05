@@ -2,12 +2,14 @@ package lotto.controller;
 
 import lotto.domain.Lottos;
 import lotto.domain.Rank;
-import lotto.domain.issue.IssuePolicy;
+import lotto.domain.issue.ManualIssuePolicy;
 import lotto.domain.issue.RandomIssuePolicy;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
 import java.util.List;
+
+import static lotto.domain.LottoConstant.LOTTO_PRICE;
 
 public class LottoController {
 
@@ -22,9 +24,11 @@ public class LottoController {
      */
     public void buyLotto() {
         int purchaseAmount = InputView.getPurchaseAmount();
-        IssuePolicy issuePolicy = new RandomIssuePolicy();
-        lottos.addLotto(purchaseAmount, issuePolicy);
-        OutputView.printLottos(lottos.size(), lottos.printLottos());
+        int manualPurchaseCount = InputView.getManualPurchaseCount();
+        List<List<Integer>> manualPurchaseNumberList = InputView.getManualPurchaseNumberList(manualPurchaseCount);
+        lottos.addLotto(manualPurchaseCount * LOTTO_PRICE, new ManualIssuePolicy(manualPurchaseNumberList));
+        lottos.addLotto(purchaseAmount - manualPurchaseCount * LOTTO_PRICE, new RandomIssuePolicy());
+        OutputView.printLottos(manualPurchaseCount, lottos.size(), lottos.printLottos());
     }
 
     /**
