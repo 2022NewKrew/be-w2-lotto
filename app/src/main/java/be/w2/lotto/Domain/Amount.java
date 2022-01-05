@@ -30,7 +30,7 @@ public class Amount {
 
     public List<LottoTicket> makeManualLottoTicket(List<List<Integer>> inputs) throws IllegalArgumentException {
         if (inputs == null || amount != inputs.size())
-            throw new IllegalArgumentException("입력받은 값의 크기가 옳지 않습니다!");
+            throw new IllegalArgumentException();
         List<LottoTicket> lottoTickets = new ArrayList<>();
         for (List<Integer> input : inputs)
             lottoTickets.add(LottoTicket.getInstanceByIntList(input));

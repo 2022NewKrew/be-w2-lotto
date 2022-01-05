@@ -22,21 +22,86 @@ public class LottoApplication {
     }
 
     private void makeLottoTickets() {
-        userInterface.queryBuyMoney();
-        int moneyInput = userInterface.readInt();
-        int amount = lottoService.calculateAmount(moneyInput);
-        userInterface.printBuyAmount(amount);
-        lottoService.sell(moneyInput);
+        makeMoney();
+        makeAmount();
+        makeManualInputs();
+        userInterface.printBuyAmount(lottoService.getLottoTickets());
         userInterface.printTickets(lottoService.getLottoTickets());
     }
 
-    private void makeAnswer() {
-        userInterface.queryLastNumber();
-        List<Integer> nums = userInterface.readIntList();
-        userInterface.queryBonusNumber();
-        int bonusNum = userInterface.readInt();
-        int benefit = lottoService.calculateBenefit(nums, bonusNum);
-        userInterface.printStatistics(lottoService.getStatistics());
-        userInterface.printBenefit(benefit);
+    private void makeManualInputs() {
+        while (!isValidManualInputs()) ;
     }
+
+    private boolean isValidManualInputs() {
+        boolean isValid = false;
+        try {
+            userInterface.queryManualNumbers();
+            List<List<Integer>> manualInputs = userInterface.readManualInputs(lottoService.getManualAmount());
+            lottoService.sell(manualInputs);
+            isValid = true;
+        } catch (IllegalArgumentException e) {
+            userInterface.printString(e.getMessage());
+        }
+        return isValid;
+    }
+
+    private void makeAmount() {
+        while (!isValidAmount()) ;
+    }
+
+    private boolean isValidAmount() {
+        boolean isValid = false;
+        try {
+            userInterface.queryManualAmount();
+            lottoService.makeAmount(userInterface.readInt());
+            isValid = true;
+        } catch (IllegalArgumentException e) {
+            userInterface.printString(e.getMessage());
+        }
+        return isValid;
+    }
+
+
+    private void makeMoney() {
+        while (!isValidMoney()) ;
+    }
+
+    private boolean isValidMoney() {
+        boolean isValid = false;
+        try {
+            userInterface.queryBuyMoney();
+            lottoService.makeMoney(userInterface.readInt());
+            isValid = true;
+        } catch (IllegalArgumentException e) {
+            userInterface.printString(e.getMessage());
+        }
+        return isValid;
+    }
+
+    private void makeAnswer() {
+        makeBenefit();
+        userInterface.printStatistics(lottoService.getStatistics());
+        userInterface.printBenefit(lottoService.calculateBenefit());
+    }
+
+    private void makeBenefit() {
+        while (!isValidBenefit()) ;
+    }
+
+    private boolean isValidBenefit() {
+        boolean isValid = false;
+        try {
+            userInterface.queryAnswerNumber();
+            List<Integer> nums = userInterface.readIntList();
+            userInterface.queryBonusNumber();
+            int bonusNum = userInterface.readInt();
+            lottoService.makeLottoResult(nums, bonusNum);
+            isValid = true;
+        } catch (IllegalArgumentException e) {
+            userInterface.printString(e.getMessage());
+        }
+        return isValid;
+    }
+
 }

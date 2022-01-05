@@ -1,18 +1,27 @@
 package be.w2.lotto.Domain;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-public class LottoTickets implements Iterable<LottoTicket> {
+public class LottoTickets {
 
     private List<LottoTicket> lottoTickets;
+    Amount manualAmount;
+    Amount autoAmount;
 
-    public LottoTickets(int amount, LottoMaker lottoMaker) {
-        lottoTickets = new ArrayList<>();
-        for (int i = 0; i < amount; i++) {
-            lottoTickets.add(lottoMaker.makeLottoTicket());
-        }
+    public LottoTickets() {
+        this.lottoTickets = new ArrayList<>();
+    }
+
+    public void addAutoTickets(Money money, LottoMaker lottoMaker) {
+        autoAmount = new Amount(LottoTicket.calculateAmount(money));
+        lottoTickets.addAll(autoAmount.makeRandomLottoTicket(lottoMaker));
+    }
+
+    public void addManualTickets(List<List<Integer>> inputs, Money money, Amount manualAmount) throws IllegalArgumentException {
+        LottoTicket.subMoney(manualAmount, money);
+        this.manualAmount = manualAmount;
+        lottoTickets.addAll(manualAmount.makeManualLottoTicket(inputs));
     }
 
     public LottoTickets(List<LottoTicket> lottoTickets) {
@@ -27,8 +36,21 @@ public class LottoTickets implements Iterable<LottoTicket> {
         return lottoTickets.toString();
     }
 
-    @Override
-    public Iterator<LottoTicket> iterator() {
-        return lottoTickets.iterator();
+    public LottoResult calculateResult(LottoNumbers answers, LottoNumber bonusNumber) {
+        LottoResult lottoResult = new LottoResult();
+        for (LottoTicket lottoTicket : lottoTickets) {
+            int hit = lottoTicket.calculateTicket(answers);
+            boolean isBonus = lottoTicket.contains(bonusNumber);
+            lottoResult.add(HitCount.valueOf(hit, isBonus));
+        }
+        return lottoResult;
+    }
+
+    public int getManualAmount() {
+        return manualAmount.getAmount();
+    }
+
+    public int getAutoAmount() {
+        return autoAmount.getAmount();
     }
 }
