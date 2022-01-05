@@ -1,10 +1,8 @@
 package domain.lotto;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static util.LottoConst.*;
 
@@ -13,19 +11,15 @@ public class LottoGenerator {
     public static List<Lotto> generateAllLotto(LottoGameInfo lottoGameInfo) {
         List<Lotto> lottoList = new ArrayList<>();
 
-        for (int currentLotto = 0; currentLotto < lottoGameInfo.getPurchasedQuantity(); currentLotto++) {
+        for (int currentLotto = 0; currentLotto < lottoGameInfo.getAutomaticallyPurchaseQuantity(); currentLotto++) {
             Lotto lotto = createNewLotto();
             lottoList.add(lotto);
         }
         return lottoList;
     }
 
-    public static Lotto generateOneLotto(String[] inputNumbers) {
-        List<Integer> numbers = Arrays.stream(inputNumbers)
-                .map(Integer::parseInt)
-                .sorted(Integer::compareTo)
-                .collect(Collectors.toList());
-        return new Lotto(numbers);
+    public static Lotto generateOneLotto(List<Integer> inputNumbers) {
+        return new Lotto(inputNumbers);
     }
 
     private static Lotto createNewLotto() {
@@ -34,6 +28,10 @@ public class LottoGenerator {
         numbers.sort(Integer::compareTo);
 
         return new Lotto(numbers);
+    }
+
+    public static WinningLotto generateWinningLotto(List<Integer> inputNumbers, int bonusNumber) {
+        return new WinningLotto(inputNumbers, bonusNumber);
     }
 
 }

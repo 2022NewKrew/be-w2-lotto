@@ -7,7 +7,7 @@ public class LottoResult {
     private final Prize lottoPrize;
 
     public LottoResult(int matchedNum, boolean bonusMatched) {
-        lottoPrize = getPrizeByMatchedResult(matchedNum, bonusMatched);
+        this.lottoPrize = getPrizeByMatchedResult(matchedNum, bonusMatched);
     }
 
     private Prize getPrizeByMatchedResult(int matchedNum, boolean bonusMatched) {

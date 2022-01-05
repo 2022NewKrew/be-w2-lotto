@@ -7,18 +7,18 @@ import java.util.List;
 
 public class LottoCalculator {
 
-    public static LottoTotalResult calculate(int inputMoney, List<Lotto> lottoList, Lotto winLotto, int bonusLottoNumber) {
+    public static LottoTotalResult calculate(int inputMoney, List<Lotto> lottoList, WinningLotto winningLotto) {
         List<LottoResult> lottoResults = new ArrayList<>();
 
         for (Lotto lotto : lottoList) {
-            createNewLottoResult(lottoResults, lotto, winLotto, bonusLottoNumber);
+            createNewLottoResult(lottoResults, lotto, winningLotto);
         }
         return new LottoTotalResult(lottoResults, inputMoney);
     }
 
-    private static void createNewLottoResult(List<LottoResult> lottoResults, Lotto lotto, Lotto winLotto, int bonusLottoNumber) {
-        int matchedNum = lotto.getNumOfMatched(winLotto);
-        boolean bonusMatched = lotto.isBonusMatched(bonusLottoNumber);
+    private static void createNewLottoResult(List<LottoResult> lottoResults, Lotto lotto, WinningLotto winningLotto) {
+        int matchedNum = lotto.getNumOfMatched(winningLotto);
+        boolean bonusMatched = lotto.isBonusMatched(winningLotto.getBonusNumber());
         LottoResult lottoResult = new LottoResult(matchedNum, bonusMatched);
 
         if (lottoResult.getPrizeType() != Prize.NO_PRIZE) {

@@ -1,31 +1,64 @@
 package controller;
 
 import domain.lotto.*;
-import service.LottoGameService;
 import service.LottoInputService;
 import view.LottoRenderer;
 
+import java.util.List;
+
 public class LottoGameController {
 
-    private LottoInputService lottoInputService;
-    private LottoGameService lottoGameService;
+    private final LottoInputService lottoInputService;
 
-    public void initialize() {
-        lottoInputService = new LottoInputService();
-        lottoGameService = new LottoGameService();
+    public LottoGameController() {
+        this.lottoInputService = new LottoInputService();
     }
 
     public void start() {
-        LottoGameInfo lottoGameInfo = lottoInputService.inputPurchaseParam();
+        LottoGameInfo lottoGameInfo = inputPurchaseParamAndValidate();
 
-        lottoGameService.generateLotto(lottoGameInfo);
-        lottoGameService.renderLottoList();
+        List<Lotto> lottoList = lottoGameInfo.getManualPurchaseLottoList();
+        lottoList.addAll(LottoGenerator.generateAllLotto(lottoGameInfo));
+        LottoRenderer.renderLotto(lottoList, lottoGameInfo);
 
-        Lotto winLotto = lottoInputService.inputWinLottoNumbers();
-        int bonusLottoNumber = lottoInputService.inputBonusLottoNumber();
+        WinningLotto winningLotto = inputWinningLottoNumbersAndValidate();
 
-        LottoTotalResult lottoTotalResult = lottoGameService.calcLottoResult(winLotto, bonusLottoNumber, lottoGameInfo.getInputMoney());
+        LottoTotalResult lottoTotalResult = LottoCalculator.calculate(lottoGameInfo.getInputMoney(), lottoList, winningLotto);
         renderResult(lottoTotalResult);
+    }
+
+    private LottoGameInfo inputPurchaseParamAndValidate() {
+        LottoGameInfo lottoGameInfo = null;
+        while (lottoGameInfo == null) {
+            lottoGameInfo = inputPurchaseParam();
+        }
+        return lottoGameInfo;
+    }
+
+    private LottoGameInfo inputPurchaseParam() {
+        try {
+            return lottoInputService.inputPurchaseParam();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    private WinningLotto inputWinningLottoNumbersAndValidate() {
+        WinningLotto winningLotto = null;
+        while (winningLotto == null) {
+            winningLotto = inputWinningLottoNumbers();
+        }
+        return winningLotto;
+    }
+
+    private WinningLotto inputWinningLottoNumbers() {
+        try {
+            return lottoInputService.inputWinningLottoNumbers();
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     private void renderResult(LottoTotalResult lottoTotalResult) {

@@ -1,6 +1,7 @@
 package view;
 
 import domain.lotto.Lotto;
+import domain.lotto.LottoGameInfo;
 import domain.lotto.LottoTotalResult;
 import domain.prize.Prize;
 
@@ -11,12 +12,14 @@ public class LottoRenderer {
 
     private static final String NEW_LINE = "\n";
 
-    public static void renderLotto(List<Lotto> lottoList) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(lottoList.size());
-        sb.append("개를 구매했습니다.");
-        sb.append(NEW_LINE);
+    public static void renderLotto(List<Lotto> lottoList, LottoGameInfo lottoGameInfo) {
 
+        System.out.printf("수동으로 %s장, 자동으로 %s장을 구매했습니다.%n",
+                lottoGameInfo.getManuallyPurchaseQuantity(),
+                lottoGameInfo.getAutomaticallyPurchaseQuantity()
+        );
+
+        StringBuilder sb = new StringBuilder();
         for (Lotto lotto : lottoList) {
             sb.append(lotto.toString());
             sb.append(NEW_LINE);
@@ -29,8 +32,10 @@ public class LottoRenderer {
 
         System.out.println("당첨 통계");
         System.out.println("----------");
-        totalResultMap.forEach((k, v) ->
-                System.out.print(getResultString(k, v)));
+        for (Prize prize : Prize.getTypeList()) {
+            Long prizeCount = totalResultMap.getOrDefault(prize, 0L);
+            System.out.print(getResultString(prize, prizeCount));
+        }
     }
 
     private static String getResultString(Prize prize, long prizeCount) {
@@ -41,7 +46,7 @@ public class LottoRenderer {
     }
 
     public static void renderEarningRatio(LottoTotalResult lottoTotalResult) {
-        System.out.println("총 수익률은 " + lottoTotalResult.getEarningRatio() + "%입니다.");
+        System.out.printf("총 수익률은 %.2f%%입니다.%n", lottoTotalResult.getEarningRatio());
     }
 
 }

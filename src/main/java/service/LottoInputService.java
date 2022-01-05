@@ -1,12 +1,11 @@
 package service;
 
-import domain.lotto.Lotto;
-import domain.lotto.LottoGameInfo;
-import domain.lotto.LottoGenerator;
+import domain.lotto.*;
 
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
-import static util.LottoConst.LOTTO_NUMBERS;
+import static domain.lotto.LottoValidator.*;
 
 public class LottoInputService {
 
@@ -20,29 +19,65 @@ public class LottoInputService {
 
     public LottoGameInfo inputPurchaseParam() {
         System.out.println("구입금액을 입력해 주세요.");
-        int money = sc.nextInt();
+        int money = inputInt();
+        validatePositiveNumber(money);
 
-        return new LottoGameInfo(money);
+        List<Lotto> manualPurchaseLottoList = inputManualLottoList(money);
+
+        return new LottoGameInfo(money, manualPurchaseLottoList);
     }
 
-    public Lotto inputWinLottoNumbers() {
+    private List<Lotto> inputManualLottoList(int money) {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        int numOfPurchaseManually = inputInt();
+        validatePositiveNumber(numOfPurchaseManually);
+        validateNumOfPurchaseManually(money, numOfPurchaseManually);
+        List<Lotto> manualPurchaseLottoList = new ArrayList<>();
+
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        for (int currentLottoNum = 0; currentLottoNum < numOfPurchaseManually; currentLottoNum++) {
+            manualPurchaseLottoList.add(createNewManualLotto());
+        }
+        return manualPurchaseLottoList;
+    }
+
+    private Lotto createNewManualLotto() {
+        List<Integer> inputNumbers = inputNumbersToList();
+        validateInputNumbers(inputNumbers);
+        return LottoGenerator.generateOneLotto(inputNumbers);
+    }
+
+    public WinningLotto inputWinningLottoNumbers() {
+        List<Integer> inputWinningNumbers;
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        String[] inputLottoNumbers = sc.next().split(INPUT_DELIMITER);
+        inputWinningNumbers = inputNumbersToList();
+        validateInputNumbers(inputWinningNumbers);
 
-        return LottoGenerator.generateOneLotto(inputLottoNumbers);
-    }
-
-    public int inputBonusLottoNumber() {
         System.out.println("보너스 볼을 입력해 주세요.");
-        int bonusLottoNumber = sc.nextInt();
+        int bonusLottoNumber = inputInt();
+        validateBonusLottoNumber(inputWinningNumbers, bonusLottoNumber);
 
-        validateBonusLottoNumber(bonusLottoNumber);
-        return bonusLottoNumber;
+        return LottoGenerator.generateWinningLotto(inputWinningNumbers, bonusLottoNumber);
     }
 
-    private void validateBonusLottoNumber(int bonusNumber) {
-        if (!LOTTO_NUMBERS.contains(bonusNumber)) {
-            throw new IllegalArgumentException("[에러] 보너스 번호는 1 ~ 45 사이의 숫자를 입력해야 합니다.");
+    private int inputInt() {
+        try {
+            return sc.nextInt();
+        } catch (InputMismatchException e) {
+            sc.next();
+            throw new IllegalArgumentException("[에러] 반드시 숫자를 입력해야 합니다.");
+        }
+    }
+
+    private List<Integer> inputNumbersToList() {
+        String[] inputStrings = sc.next().split(INPUT_DELIMITER);
+        try {
+            return Arrays.stream(inputStrings)
+                    .map(String::trim)
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("[에러] 반드시 숫자를 입력해야 합니다.");
         }
     }
 
