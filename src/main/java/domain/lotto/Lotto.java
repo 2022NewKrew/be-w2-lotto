@@ -7,12 +7,10 @@ import static util.LottoConst.MAX_LOTTO_COUNT;
 public class Lotto {
 
     private final List<Integer> numbers;
-    private Integer matchedNum;
 
     public Lotto(List<Integer> numbers) {
         validateInputNumbers(numbers);
         this.numbers = numbers;
-        this.matchedNum = null;
     }
 
     private void validateInputNumbers(List<Integer> numbers) {
@@ -25,26 +23,14 @@ public class Lotto {
         }
     }
 
-    public int getNumOfMatched(Lotto winLotto) {
-        if (matchedNum != null) {
-            return matchedNum;
-        }
-
-        matchedNum = 0;
-        for (Integer number : numbers) {
-            plusIfMatched(number, winLotto);
-        }
-        return matchedNum;
+    public int getNumOfMatched(WinningLotto winningLotto) {
+        return (int) numbers.stream()
+                .filter(winningLotto::isContainsNumber)
+                .count();
     }
 
     public boolean isBonusMatched(int bonusLottoNumber) {
         return numbers.contains(bonusLottoNumber);
-    }
-
-    private void plusIfMatched(int number, Lotto winLotto) {
-        if (winLotto.numbers.contains(number)) {
-            matchedNum++;
-        }
     }
 
     @Override

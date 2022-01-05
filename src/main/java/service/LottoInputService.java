@@ -1,8 +1,8 @@
 package service;
 
-import domain.lotto.Lotto;
 import domain.lotto.LottoGameInfo;
 import domain.lotto.LottoGenerator;
+import domain.lotto.WinningLotto;
 
 import java.util.Scanner;
 
@@ -25,19 +25,15 @@ public class LottoInputService {
         return new LottoGameInfo(money);
     }
 
-    public Lotto inputWinLottoNumbers() {
+    public WinningLotto inputWinLottoNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         String[] inputLottoNumbers = sc.next().split(INPUT_DELIMITER);
 
-        return LottoGenerator.generateOneLotto(inputLottoNumbers);
-    }
-
-    public int inputBonusLottoNumber() {
         System.out.println("보너스 볼을 입력해 주세요.");
         int bonusLottoNumber = sc.nextInt();
-
         validateBonusLottoNumber(bonusLottoNumber);
-        return bonusLottoNumber;
+
+        return LottoGenerator.generateWinningLotto(inputLottoNumbers, bonusLottoNumber);
     }
 
     private void validateBonusLottoNumber(int bonusNumber) {

@@ -21,10 +21,7 @@ public class LottoGenerator {
     }
 
     public static Lotto generateOneLotto(String[] inputNumbers) {
-        List<Integer> numbers = Arrays.stream(inputNumbers)
-                .map(Integer::parseInt)
-                .sorted(Integer::compareTo)
-                .collect(Collectors.toList());
+        List<Integer> numbers = stringArrayToIntegerList(inputNumbers);
         return new Lotto(numbers);
     }
 
@@ -34,6 +31,18 @@ public class LottoGenerator {
         numbers.sort(Integer::compareTo);
 
         return new Lotto(numbers);
+    }
+
+    public static WinningLotto generateWinningLotto(String[] inputNumbers, int bonusNumber) {
+        List<Integer> winningNumbers = stringArrayToIntegerList(inputNumbers);
+        return new WinningLotto(winningNumbers, bonusNumber);
+    }
+
+    private static List<Integer> stringArrayToIntegerList(String[] stringArray) {
+        return Arrays.stream(stringArray)
+                .map(Integer::parseInt)
+                .sorted(Integer::compareTo)
+                .collect(Collectors.toList());
     }
 
 }

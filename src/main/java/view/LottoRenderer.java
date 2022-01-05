@@ -29,8 +29,10 @@ public class LottoRenderer {
 
         System.out.println("당첨 통계");
         System.out.println("----------");
-        totalResultMap.forEach((k, v) ->
-                System.out.print(getResultString(k, v)));
+        for (Prize prize : Prize.getTypeList()) {
+            Long prizeCount = totalResultMap.getOrDefault(prize, 0L);
+            System.out.print(getResultString(prize, prizeCount));
+        }
     }
 
     private static String getResultString(Prize prize, long prizeCount) {
@@ -41,7 +43,7 @@ public class LottoRenderer {
     }
 
     public static void renderEarningRatio(LottoTotalResult lottoTotalResult) {
-        System.out.println("총 수익률은 " + lottoTotalResult.getEarningRatio() + "%입니다.");
+        System.out.printf("총 수익률은 %.2f%%입니다.%n", lottoTotalResult.getEarningRatio());
     }
 
 }

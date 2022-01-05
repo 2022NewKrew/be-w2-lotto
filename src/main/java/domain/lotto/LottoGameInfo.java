@@ -15,7 +15,7 @@ public class LottoGameInfo {
 
     private void validateInputMoney(int money) {
         if (money < LOTTO_PRICE) {
-            throw new IllegalArgumentException("[에러] 구입 금액은 반드시 1000원 이상이어야 합니다.");
+            throw new IllegalArgumentException(String.format("[에러] 구입 금액은 반드시 %s원 이상이어야 합니다.", LOTTO_PRICE));
         }
     }
 
