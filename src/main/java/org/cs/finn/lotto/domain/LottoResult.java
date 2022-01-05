@@ -9,32 +9,29 @@ import java.util.Map;
 import java.util.Objects;
 
 public class LottoResult {
+    public static final int ADDITIVE = 1;
 
-    private final Map<LottoPrize, Integer> mapCount;
-    private final Map<LottoPrize, Lottos> mapLottos;
+    private final Map<LottoPrize, Integer> mapCount = new LinkedHashMap<>();
+    private final Map<LottoPrize, Lottos> mapLottos = new LinkedHashMap<>();
 
     public LottoResult(final LottoWinnings lottoWinnings, final Lottos lottos) {
         Objects.requireNonNull(lottoWinnings);
         Objects.requireNonNull(lottos);
 
-        // Enum 정의된 순서로 삽입하여 정렬
-        final Map<LottoPrize, Integer> mapCount = new LinkedHashMap<>();
-        final Map<LottoPrize, Lottos> mapLottos = new LinkedHashMap<>();
+        initialize();
+        for (LottoNumbers lottoNumbers : lottos.getList()) {
+            countResult(lottoWinnings, lottoNumbers);
+        }
+    }
+
+    private void initialize() {
         for (LottoPrize lottoPrize : LottoPrize.values()) {
             mapCount.put(lottoPrize, 0);
             mapLottos.put(lottoPrize, new Lottos());
         }
-        for (LottoNumbers lottoNumbers : lottos.getList()) {
-            countResult(mapCount, mapLottos, lottoWinnings, lottoNumbers);
-        }
-
-        this.mapCount = mapCount;
-        this.mapLottos = mapLottos;
     }
 
     private void countResult(
-            final Map<LottoPrize, Integer> mapCount,
-            final Map<LottoPrize, Lottos> mapLottos,
             final LottoWinnings winnings,
             final LottoNumbers lottoNumbers
     )
@@ -43,7 +40,7 @@ public class LottoResult {
         final boolean bonusFound = lottoNumbers.contains(winnings.getBonusNumber());
         final LottoPrize lottoPrize = LottoPrize.find(cntMatch, bonusFound);
 
-        mapCount.put(lottoPrize, mapCount.get(lottoPrize) + 1);
+        mapCount.put(lottoPrize, mapCount.get(lottoPrize) + ADDITIVE);
         mapLottos.get(lottoPrize).add(lottoNumbers);
     }
 
