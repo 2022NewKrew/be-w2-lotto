@@ -13,7 +13,6 @@ public class Lotto {
     private LottoResult lottoResult;
     private List<LottoNumber> lottos;
     private Map<Rank, List<LottoNumber>> lottoWinner;
-    private List<Integer> lottoElement;
 
     public Lotto(){
         lottos = new ArrayList<>();
@@ -39,7 +38,7 @@ public class Lotto {
 
     public void addRandomLottos(Integer lottoCount){
         for(int i = 0 ; i < lottoCount ; i++){
-            lottos.add(createRandomLotto()); //lottoCount만큼 랜덤으로 로또를 생성
+            lottos.add(LottoNumber.createRandomLotto()); //lottoCount만큼 랜덤으로 로또를 생성
         }
     }
 
@@ -61,25 +60,6 @@ public class Lotto {
             Rank lottoRank = Rank.getRankByCount(curLotto.calculateMatchCount(lottoResult.getLottoNumber()), curLotto.num.contains(lottoResult.getBonusNumber()));
             lottoWinner.get(lottoRank).add(curLotto);
         }
-    }
-
-    private void initLottoElement(){
-        for(int i = 1 ; i <= LOTTO_NUMBER_RANGE ; i++){
-            lottoElement.add(i);
-        }
-    }
-
-    private LottoNumber createRandomLotto(){
-        //initialize only once
-        if(lottoElement == null){
-            lottoElement = new ArrayList<>();
-            initLottoElement();
-        }
-
-        Collections.shuffle(lottoElement);
-        List<Integer> newLotto = lottoElement.subList(0, LOTTO_LENGTH);
-        newLotto.sort(Integer::compareTo);
-        return new LottoNumber( newLotto );
     }
 
     public OutputDTO getOutputDTO(){

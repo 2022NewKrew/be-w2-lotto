@@ -1,12 +1,14 @@
 package lotto.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import static lotto.domain.LottoSetting.LOTTO_LENGTH;
+import static lotto.domain.LottoSetting.*;
 
 public class LottoNumber {
     public List<Integer> num;
+    static private List<Integer> lottoElement;
 
     public LottoNumber(List<Integer> newNum){
         num = new ArrayList<>();
@@ -28,5 +30,26 @@ public class LottoNumber {
             int garbageVariable = ((resultLotto.num.get(resultIdx) < this.num.get(curLottoIdx)) ? resultIdx++ : curLottoIdx++ ) ;
         }
         return matchCount;
+    }
+
+
+    static private void initLottoElement(){
+        for(int i = LOTTO_NUMBER_RANGE_START ; i <= LOTTO_NUMBER_RANGE_LAST ; i++){
+            lottoElement.add(i);
+        }
+    }
+
+
+    static public LottoNumber createRandomLotto(){
+        //initialize only once
+        if(lottoElement == null){
+            lottoElement = new ArrayList<>();
+            initLottoElement();
+        }
+
+        Collections.shuffle(lottoElement);
+        List<Integer> newLotto = lottoElement.subList(0, LOTTO_LENGTH);
+        newLotto.sort(Integer::compareTo);
+        return new LottoNumber( newLotto );
     }
 }
