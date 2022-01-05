@@ -31,9 +31,6 @@ final class ResultOutput {
 
     private static void writeHowManyCorrectTo(StringBuilder sb, RewardForCorrect rewardForCorrect, Integer howMany) {
         sb.append(RewardForCorrectOutput.getOutput(rewardForCorrect))
-                .append("(")
-                .append(rewardForCorrect.getReward())
-                .append(")- ")
                 .append(howMany)
                 .append("개\n");
     }

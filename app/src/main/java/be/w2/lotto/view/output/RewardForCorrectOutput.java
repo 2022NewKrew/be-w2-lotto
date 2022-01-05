@@ -10,6 +10,15 @@ final class RewardForCorrectOutput {
     }
 
     static String getOutput(RewardForCorrect rewardForCorrect) {
+        return new StringBuilder()
+                .append(getDescriptionOf(rewardForCorrect))
+                .append("(")
+                .append(rewardForCorrect.getReward())
+                .append(")- ")
+                .toString();
+    }
+
+    private static String getDescriptionOf(RewardForCorrect rewardForCorrect) {
         switch (rewardForCorrect) {
             case THREE:
                 return "3개 일치";
