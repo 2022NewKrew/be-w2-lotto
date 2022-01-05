@@ -2,15 +2,17 @@ package lotto.domain;
 
 import java.util.Arrays;
 
+import static lotto.domain.RandomLottoNumberGenerator.NUMBERS_TO_PICK;
+
 public enum Prize {
     NOTHING(0L, 0),
-    SEVENTH(0L, 1),
-    SIXTH(0L, 2),
-    FIFTH(5_000L, 3),
-    FOURTH(50_000L, 4),
-    THIRD(1_500_000L, 5),
-    SECOND(30_000_000L, 5, true),
-    FIRST(2_000_000_000L, 6),
+    SEVENTH(0L, NUMBERS_TO_PICK - 5),
+    SIXTH(0L, NUMBERS_TO_PICK - 4),
+    FIFTH(5_000L, NUMBERS_TO_PICK - 3),
+    FOURTH(50_000L, NUMBERS_TO_PICK - 2),
+    THIRD(1_500_000L, NUMBERS_TO_PICK - 1),
+    SECOND(30_000_000L, NUMBERS_TO_PICK - 1, true),
+    FIRST(2_000_000_000L, NUMBERS_TO_PICK),
     ;
 
     private final long money;
