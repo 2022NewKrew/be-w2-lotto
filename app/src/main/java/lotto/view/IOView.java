@@ -1,6 +1,12 @@
 package lotto.view;
 
+import lotto.util.StringParsingUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import static java.util.stream.Collectors.toList;
 
 public final class IOView {
 
@@ -9,11 +15,24 @@ public final class IOView {
 
     public static int inputToInt(String message, Scanner scanner) {
         System.out.println(message);
-        return Integer.parseInt(scanner.nextLine());
+        return Integer.parseInt(scanner.nextLine().trim());
     }
 
-    public static String inputToString(String message, Scanner scanner) {
+    public static List<List<Integer>> inputToDoubleList(String message, Scanner scanner, int iterableCount) {
         System.out.println(message);
-        return scanner.nextLine();
+        List<List<Integer>> inputList = new ArrayList<>();
+        for (int i = 0; i < iterableCount; i++) {
+            inputList.add(StringParsingUtil.parse(scanner.nextLine(), ",").stream()
+                    .map(Integer::parseInt)
+                    .collect(toList()));
+        }
+        return inputList;
+    }
+
+    public static List<Integer> inputToList(String message, Scanner scanner) {
+        System.out.println(message);
+        return StringParsingUtil.parse(scanner.nextLine(), ",").stream()
+                .map(Integer::parseInt)
+                .collect(toList());
     }
 }
