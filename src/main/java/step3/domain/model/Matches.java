@@ -46,7 +46,7 @@ public class Matches {
 
     public int calcEarningsRate(Lottos lottos) {
         int usedMoney = lottos.size() * LOTTO_PRICE;
-        return (int) Math.round(((double) calcTotalWinningMoney() / usedMoney) * 100);
+        return (int) Math.round(((double) (calcTotalWinningMoney() - usedMoney) / usedMoney) * 100);
     }
 
     private long calcTotalWinningMoney() {
@@ -64,9 +64,7 @@ public class Matches {
         StringBuilder sb = new StringBuilder();
 
         for (Map.Entry<Rank, Integer> entry : this.matches.entrySet()){
-            sb.append(String.format(
-                    entry.getKey() != Rank.SECOND ? "%d개 일치 (%d원) - %d개%n" : "%d개 일치, 보너스 볼 일치 (%d원) - %d개%n",
-                    entry.getKey().getCountOfMatch(), entry.getKey().getWinningMoney(), entry.getValue()));
+            sb.append(String.format(entry.getKey() + " - %d개\n", entry.getValue()));
         }
 
         return sb.toString();

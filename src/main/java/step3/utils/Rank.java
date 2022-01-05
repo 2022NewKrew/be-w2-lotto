@@ -8,7 +8,12 @@ public enum Rank {
     FIFTH(3, 5000),
     FOURTH(4, 50000),
     THIRD(5, 1500000),
-    SECOND(5, 30000000),
+    SECOND(5, 30000000) {
+        @Override
+        public String toString() {
+            return String.format("%d개 일치, 보너스 볼 일치 (%d원)", getCountOfMatch(), getWinningMoney());
+        }
+    },
     FIRST(6, 2000000000);
 
     private final int countOfMatch;
@@ -32,11 +37,14 @@ public enum Rank {
             return matchBonus ? SECOND : THIRD;
         }
 
-        if (Arrays.stream(values()).anyMatch(rank -> rank.countOfMatch == countOfMatch)) {
-            return Arrays.stream(values()).filter(rank -> rank.countOfMatch == countOfMatch)
-                    .collect(Collectors.toList()).get(0);
-        }
+        return Arrays.stream(values())
+                .filter(rank -> rank.countOfMatch == countOfMatch)
+                .findFirst()
+                .orElse(OTHER);
+    }
 
-        return OTHER;
+    @Override
+    public String toString() {
+        return String.format("%d개 일치 (%d원)", getCountOfMatch(), getWinningMoney());
     }
 }
