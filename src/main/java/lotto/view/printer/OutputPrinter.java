@@ -18,8 +18,8 @@ public class OutputPrinter {
     private OutputPrinter() {
     }
 
-    public static void printLottoTicketTitle(int countOfLottoTicket) throws IOException {
-        wr.append(countOfLottoTicket + "개를 구매했습니다.\n");
+    public static void printLottoTicketTitle(int numberOfManualLotto, int numberOfAutoLotto) throws IOException {
+        wr.append("수동으로" + numberOfManualLotto + " 장, 자동으로" + numberOfAutoLotto + " 장을 구매했습니다.\n");
     }
 
     public static void printLottoTicketNumbers(LottoTicket lottoTicket) throws IOException {
@@ -41,7 +41,7 @@ public class OutputPrinter {
     }
 
     public static void printLottoProfit(int purchasePrice, int lottoProfit) throws IOException {
-        String profitRate = String.format("%.2f", (((double) lottoProfit / (double) purchasePrice)*100)-100);
+        String profitRate = String.format("%.2f", (((double) lottoProfit / (double) purchasePrice) * 100) - 100);
         wr.append("총 수익률은 " + profitRate + "%입니다.");
     }
 
