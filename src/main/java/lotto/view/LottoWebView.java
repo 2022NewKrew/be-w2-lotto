@@ -37,7 +37,6 @@ public class LottoWebView extends LottoView {
                 Map<String, Object> data = new HashMap<>();
                 data.put("lottosSize", app.getLottos().size());
                 data.put("lottos", app.getLottos().toList());
-//                data.put("lottos", Arrays.asList("123","234"));
 
                 return render(data, "show.html");
             } catch (IllegalArgumentException e) {
@@ -54,7 +53,6 @@ public class LottoWebView extends LottoView {
                 app.setWinLotto(winningLotto);
                 app.compareHowManyMatch();
                 LottoResult lottoResult = app.getLottoResult();
-                float rateOfReturn = app.calculateRateOfReturn();
 
                 Map<String, Object> data = new HashMap<>();
                 Map<String, Object> dataLottoResult = new HashMap<>();
