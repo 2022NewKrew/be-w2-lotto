@@ -11,7 +11,7 @@ public final class Constants {
     public final static int LOTTO_END_NUMBER                                        = 45;
     public final static int PRICE_OF_LOTTO                                          = 1000;
 
-    public final static String SPLIT_DELIMITER                                      = ", ";
+    public final static String SPLIT_DELIMITER                                      = ", |,";
     public final static String NEW_LINE                                             = "\n";
     public final static String PURCHASE_MONEY_INPUT_MESSAGE                         = "구입금액을 입력해 주세요.";
     public final static String WINNING_NUMBERS_INPUT_MESSAGE                        = "지난 주 당첨 번호를 입력해 주세요.";
