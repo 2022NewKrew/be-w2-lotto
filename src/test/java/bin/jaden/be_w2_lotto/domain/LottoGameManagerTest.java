@@ -8,9 +8,9 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class LottoTest {
+class LottoGameManagerTest {
     @Test
-    public void lottoTest() {
+    public void lottoGameManagerTest() {
         // given
         int purchasingAmount = 202201;
         int numberOfPurchaseManually = 0;

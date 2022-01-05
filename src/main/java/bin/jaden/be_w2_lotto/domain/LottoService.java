@@ -88,7 +88,6 @@ public class LottoService {
         return Collections.unmodifiableMap(results);
     }
 
-
     private static int getCount(List<Integer> lottoGame, List<Integer> winNumbers) {
         int count = 0;
         for (int winNumber : winNumbers) {
