@@ -1,10 +1,11 @@
-import dto.input.PurchaseDto;
-import dto.input.WinningNumbersDto;
+import dto.InputResultDto;
+import factory.ValidatorServiceFactory;
 import presentation.controller.LottoController;
 import presentation.view.input.PurchaseInputView;
 import presentation.view.input.WinningNumbersInputView;
 import presentation.view.output.ErrorOutputView;
 import presentation.view.output.OutputView;
+
 
 import java.util.Scanner;
 
@@ -36,5 +37,8 @@ public class LottoDriver {
         if(outputView instanceof  ErrorOutputView){
             System.exit(0);
         }
+
+        OutputView outputView = lottoController.getLottoResult(inputResultDto.get());
+        outputView.showResult();
     }
 }
