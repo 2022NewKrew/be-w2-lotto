@@ -1,9 +1,6 @@
 package lottery.web;
 
-import lottery.web.dto.BudgetDto;
-import lottery.web.dto.LotteryDto;
-import lottery.web.dto.LotteryResultDto;
-import lottery.web.dto.LotteryWinningNumberDto;
+import lottery.web.dto.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,8 +20,13 @@ public class IOController {
             System.out.println(lotto.getNumbers().toString());
         }
 
-        LotteryWinningNumberDto winningNumberDto = new LotteryWinningNumberDto(getWinningNumbers());
+        ArrayList<Integer> winningNumbers = getWinningNumbers();
+        int bonusNumber = getBonusNumber();
+
+//        LotteryWinningNumberDto winningNumberDto = new LotteryWinningNumberDto(winningNumbers);
+        LotteryWinningNumberWithBonusDto winningNumberDto = new LotteryWinningNumberWithBonusDto(winningNumbers, bonusNumber);
         LotteryResultDto matchResult = lotteryController.match(winningNumberDto);
+
         System.out.println(matchResult.toString());
 
         close();
@@ -49,6 +51,13 @@ public class IOController {
         inputStrArr.forEach(el -> winningNumbers.add(Integer.parseInt(el.trim())));
 
         return winningNumbers;
+    }
+
+    private int getBonusNumber() {
+        printConsole("보너스 번호를 입력해 주세요.");
+        int bonusNumber = Integer.parseInt(getInputString());
+
+        return bonusNumber;
     }
 
     private void close() {

@@ -1,10 +1,7 @@
 package lottery.web;
 
 import lottery.service.lotteries.LotteryService;
-import lottery.web.dto.BudgetDto;
-import lottery.web.dto.LotteryDto;
-import lottery.web.dto.LotteryResultDto;
-import lottery.web.dto.LotteryWinningNumberDto;
+import lottery.web.dto.*;
 
 import java.util.List;
 
@@ -19,6 +16,12 @@ public class LotteryController {
     }
 
     public LotteryResultDto match(LotteryWinningNumberDto winningNumberDto) {
+
+        return lotteryService.match(winningNumberDto);
+
+    }
+
+    public LotteryResultDto match(LotteryWinningNumberWithBonusDto winningNumberDto) {
 
         return lotteryService.match(winningNumberDto);
 
