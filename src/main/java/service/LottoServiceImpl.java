@@ -44,7 +44,7 @@ public class LottoServiceImpl implements LottoService {
         List<Integer> winningNumbers = inputWinningNumbers();
         int winningBonusNumber = inputWinningBonusNumber();
 
-        lottoStatistic.updateLottoStatus(winningNumbers, winningBonusNumber);
+        lottoStatistic.updateStatus(winningNumbers, winningBonusNumber);
         printLottoStatic();
 
     }

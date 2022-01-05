@@ -28,12 +28,7 @@ public class LottoStatistic {
     List<Integer> winningNumbers;
     List<Lotto> lottos = new ArrayList<>();
 
-    public LottoStatistic() {
-    }
-
-    public LottoStatistic(int purchaseCount) {
-        this.purchaseCount = purchaseCount;
-
+    private LottoStatistic() {
     }
 
     public LottoStatistic(int purchaseCount, int normalLottoCount, int autoLottoCount) {
@@ -108,20 +103,36 @@ public class LottoStatistic {
         return stringBuilder.toString();
     }
 
-    public void updateLottoStatus(List<Integer> winningNumbers, int winningBonusNumber) {
+    public void updateStatus(List<Integer> winningNumbers, int winningBonusNumber) {
         this.winningNumbers = winningNumbers;
         this.winningBonusNumber = winningBonusNumber;
 
-        for (Lotto lotto : lottos) {
-            lotto.updateStatus(winningNumbers, winningBonusNumber);
-        }
+        validationWinningNumberAndWinningBonusNumber();
 
-        for (Lotto lotto : lottos) {
-            this.addLottoInfo(lotto);
-        }
+        updateLottosStatus();
+
+        updateLottoInfo();
 
         calculateProfitRate();
 
+    }
+
+    private void updateLottoInfo() {
+        for (Lotto lotto : lottos) {
+            this.addLottoInfo(lotto);
+        }
+    }
+
+    private void updateLottosStatus() {
+        for (Lotto lotto : lottos) {
+            lotto.updateStatus(winningNumbers, winningBonusNumber);
+        }
+    }
+
+    private void validationWinningNumberAndWinningBonusNumber() {
+        if(winningNumbers.contains(winningBonusNumber)) {
+            throw new IllegalArgumentException("로또 번호와 보너스번호가 같습니다.");
+        }
     }
 
 }
