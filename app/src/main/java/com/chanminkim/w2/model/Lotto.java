@@ -19,6 +19,7 @@ public class Lotto {
         validateNoDuplicates(lottoNumbers);
         this.lottoNumbers = lottoNumbers.stream()
                 .map(LottoNumber::new)
+                .sorted()
                 .collect(Collectors.toUnmodifiableList());
     }
 
