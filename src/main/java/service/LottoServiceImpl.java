@@ -2,6 +2,7 @@ package service;
 
 import domain.Lotto;
 import domain.LottoAuto;
+import domain.LottoNormal;
 import domain.LottoStatistic;
 import repository.LottoRepository;
 
@@ -21,21 +22,55 @@ public class LottoServiceImpl implements LottoService {
 
     @Override
     public void run() {
+        int purchasePrice = inputPurchasePrice();
+        int purchaseCount = calculateLottoCount(purchasePrice);
+        int normalLottoCount = inputNormalPurchaseCount();
+        List<Lotto> lottos = new ArrayList<>();
+        List<Lotto> normalLottos = inputNormalLottoList(normalLottoCount);
+        lottos.addAll(normalLottos);
+
+        int autoLottoCount = purchaseCount - normalLottoCount;
+        lottos.addAll(createAutoLottoList(autoLottoCount));
+        lottoRepository.save(lottos); // inMemory database save
+        printLottoList(lottos);
+        List<Integer> winningNumbers = inputWinningNumbers();
+        int winningBonusNumber = inputWinningBonusNumber();
+        updateLottoStatus(lottos, winningNumbers, winningBonusNumber);
+        LottoStatistic lottoStatistic = getLottoStatic(purchaseCount, lottos);
+        printLottoStatic(lottoStatistic);
+
+    }
+
+    private List<Lotto> inputNormalLottoList(int normalLottoCount) {
+        List<Lotto> lottos = new ArrayList<>();
+
         try {
-            int purchasePrice = inputPurchasePrice();
-            int purchaseCount = calculateLottoCount(purchasePrice);
-            List<Lotto> lottos = createLottoList(purchaseCount);
-            lottoRepository.save(lottos); // inMemory database save
-            printLottoList(lottos);
-            List<Integer> winningNumbers = inputWinningNumbers();
-            int winningBonusNumber = inputWinningBonusNumber();
-            updateLottoStatus(lottos, winningNumbers, winningBonusNumber);
-            LottoStatistic lottoStatistic = getLottoStatic(purchaseCount, lottos);
-            printLottoStatic(lottoStatistic);
-        } catch (Exception e) {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+            for (int i = 0; i < normalLottoCount; i++) {
+                String line = bufferedReader.readLine();
+                lottos.add(LottoNormal.createStringToLottoNumbers(line));
+            }
+
+        } catch (IOException e) {
             System.err.println(e.getMessage());
         }
 
+        return lottos;
+    }
+
+    private int inputNormalPurchaseCount() {
+        int result = 0;
+
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("수동으로 구매할 로또 수를 입력해 주세요");
+            result = Integer.parseInt(br.readLine());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return result;
     }
 
     private void updateLottoStatus(List<Lotto> lottos, List<Integer> winningNumbers, int winningBonusNumber) {
@@ -60,28 +95,39 @@ public class LottoServiceImpl implements LottoService {
         System.out.println(lottoStatistic.getLottoStatisticString());
     }
 
-    private List<Integer> inputWinningNumbers() throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    private List<Integer> inputWinningNumbers() {
+
         List<Integer> result = new ArrayList<>();
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+            String input = bufferedReader.readLine();
 
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        String input = bufferedReader.readLine();
-
-        for (String numberString : input.split(",")) {
-            int number = Integer.parseInt(numberString.trim());
-            if (result.contains(number)) throw new IllegalArgumentException("중복된 값이 존재 합니다.");
-            result.add(number);
+            for (String numberString : input.split(",")) {
+                int number = Integer.parseInt(numberString.trim());
+                if (result.contains(number)) throw new IllegalArgumentException("중복된 값이 존재 합니다.");
+                result.add(number);
+            }
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
         }
 
         return result;
     }
 
-    private int inputWinningBonusNumber() throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        System.out.println("보너스 볼을 입력해 주세요.");
+    private int inputWinningBonusNumber() {
+        int result = 0;
 
-        return Integer.parseInt(bufferedReader.readLine());
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            System.out.println("보너스 볼을 입력해 주세요.");
 
+            result = Integer.parseInt(bufferedReader.readLine());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return result;
     }
 
     private void printLottoList(List<Lotto> lottos) {
@@ -97,16 +143,23 @@ public class LottoServiceImpl implements LottoService {
         return purchasePrice / 1000;
     }
 
-    private int inputPurchasePrice() throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+    private int inputPurchasePrice() {
+        int result = 0;
 
-        System.out.println("구입금액을 입력해 주세요.");
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
-        return Integer.parseInt(bufferedReader.readLine());
+            System.out.println("구입금액을 입력해 주세요.");
+            result = Integer.parseInt(bufferedReader.readLine());
 
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
+        return result;
     }
 
-    private List<Lotto> createLottoList(int purchaseCount) {
+    private List<Lotto> createAutoLottoList(int purchaseCount) {
         List<Lotto> lottos = new ArrayList<>();
 
         for (int count = 0; count < purchaseCount; count++) {
