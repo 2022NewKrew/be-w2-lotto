@@ -18,7 +18,7 @@ public class Lottos {
         this.purchaseAmount += purchaseAmount;
     }
 
-    public String toString() {
+    public String printLottos() {
         StringBuilder sb = new StringBuilder();
         for (Lotto lotto : lottoList) {
             sb.append(lotto.printNumberList());

@@ -24,7 +24,7 @@ public class LottoController {
         int purchaseAmount = InputView.getPurchaseAmount();
         IssuePolicy issuePolicy = new RandomIssuePolicy();
         lottos.addLotto(purchaseAmount, issuePolicy);
-        OutputView.printLottos(lottos.size(), lottos.toString());
+        OutputView.printLottos(lottos.size(), lottos.printLottos());
     }
 
     /**
