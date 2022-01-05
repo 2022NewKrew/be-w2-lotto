@@ -58,7 +58,6 @@ public class LottoService {
             int rank = Winning.rankOfHitting(hittingCnt, bonusCnt);
 
             Integer curCnt = hittingTable.get(rank);
-
             hittingTable.set(rank, curCnt + 1);
         }
         buyer.calculateEarningInfo(hittingTable, HIGHEST_RANK, LOWEST_RANK);
@@ -92,6 +91,8 @@ public class LottoService {
     public void printCompleteMessage(int buyingCnt, int inputBuyingCnt, Buyer buyer) {
         outputView.completeBuying(buyingCnt, inputBuyingCnt);
         outputView.showLottoNumbers(buyer.getBuyingLottos());
+
+        return buyer;
     }
 
     private Result inputLastWinningNumber() {
