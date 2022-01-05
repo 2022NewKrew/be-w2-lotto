@@ -18,6 +18,18 @@ public class LottoNumbers {
         if (list.size() != SIZE) {
             throw new IllegalArgumentException("list's size is not " + SIZE + "!");
         }
+        validateNumbers();
+    }
+
+    private void validateNumbers() {
+        boolean illegal = false;
+        for (LottoNumber lottoNumber : list) {
+            illegal |= contains(lottoNumber);
+        }
+
+        if (illegal) {
+            throw new IllegalArgumentException("list have duplicate LottoNumber!");
+        }
     }
 
     public LottoNumbers(final String[] numbers)
@@ -29,6 +41,7 @@ public class LottoNumbers {
         }
 
         this.list = lottoNumberList;
+        validateNumbers();
     }
 
     private LottoNumbers() {
