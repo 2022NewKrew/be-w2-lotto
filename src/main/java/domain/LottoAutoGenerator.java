@@ -4,13 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-public class LottoGenerator {
-    public static final int NUMBER_COUNT = 6;
-    public static final int LottoInclusiveRangeEnd = 45;
-    public static final List<Integer> numbers = IntStream.rangeClosed(1, LottoInclusiveRangeEnd).boxed().collect(Collectors.toList());
+public class LottoAutoGenerator implements LottoGenerable {
 
+    @Override
     public Lotto generate() {
         List<Integer> clonedNumbers = new ArrayList<>(numbers);
         Collections.shuffle(clonedNumbers);

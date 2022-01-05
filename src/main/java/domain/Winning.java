@@ -14,15 +14,15 @@ public class Winning {
     }
 
     private void validateWinningNumbers(List<Integer> numbers, int bonusNumber) throws IllegalArgumentException {
-        if (numbers.size() != LottoGenerator.NUMBER_COUNT)
+        if (numbers.size() != LottoAutoGenerator.NUMBER_COUNT)
             throw new IllegalArgumentException("로또 당첨번호의 입력이 올바르지 않습니다.");
 
         numbers.forEach(number -> {
-            if (number < 1 || number > LottoGenerator.LottoInclusiveRangeEnd)
+            if (number < 1 || number > LottoAutoGenerator.LOTTO_INCLUSIVE_RANGE_END)
                 throw new IllegalArgumentException("로또 범위가 올바르지 않습니다.");
         });
 
-        if (bonusNumber < 1 || bonusNumber > LottoGenerator.LottoInclusiveRangeEnd)
+        if (bonusNumber < 1 || bonusNumber > LottoAutoGenerator.LOTTO_INCLUSIVE_RANGE_END)
             throw new IllegalArgumentException("로또 범위가 올바르지 않습니다.");
     }
 
