@@ -16,7 +16,7 @@ public class LottoNumbers {
     {
         this.list = Objects.requireNonNull(list);
         if (list.size() != SIZE) {
-            throw new RuntimeException("list's size is not " + SIZE + "!");
+            throw new IllegalArgumentException("list's size is not " + SIZE + "!");
         }
     }
 
