@@ -1,18 +1,18 @@
 package presentation.view.output;
 
 
-import dto.output.PurchaseOutputDto;
+import dto.output.PurchaseResultDto;
 
 public class PurchaseOutputView implements OutputView{
-    private final PurchaseOutputDto purchaseOutputDto;
+    private final PurchaseResultDto purchaseResultDto;
 
 
-    public PurchaseOutputView(PurchaseOutputDto purchaseOutputDto) {
-        this.purchaseOutputDto = purchaseOutputDto;
+    public PurchaseOutputView(PurchaseResultDto purchaseResultDto) {
+        this.purchaseResultDto = purchaseResultDto;
     }
 
     @Override
     public void print() {
-        System.out.println(purchaseOutputDto);
+        System.out.println(purchaseResultDto);
     }
 }

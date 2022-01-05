@@ -1,11 +1,12 @@
 package presentation.controller;
 
 import domain.LottoOrder;
-import domain.WinningNumber;
+import domain.WinningNumbers;
 import dto.input.PurchaseDto;
-import dto.input.WinningNumberDto;
-import dto.output.PurchaseOutputDto;
-import dto.output.ResultOutputDto;
+import dto.input.WinningNumbersDto;
+import dto.output.PurchaseResultDto;
+import domain.RewardResult;
+import dto.output.RewardResultDto;
 import factory.LottoOrderFactory;
 import factory.WinningNumberFactory;
 import presentation.view.output.ErrorOutputView;
@@ -26,23 +27,24 @@ public class LottoController {
         int purchaseAmount = purchaseDto.getPurchaseAmount();
         LottoOrder lottoOrder = LottoOrderFactory.getInstance(purchaseAmount).orElseThrow();
 
-        PurchaseOutputDto purchaseOutputDto = new PurchaseOutputDto(lottoOrder);
-        return new PurchaseOutputView(purchaseOutputDto);
+        PurchaseResultDto purchaseResultDto = new PurchaseResultDto(lottoOrder);
+        return new PurchaseOutputView(purchaseResultDto);
     }
 
-    public OutputView getLottoResult(WinningNumberDto winningNumberDto){
+    public OutputView getLottoResult(WinningNumbersDto winningNumbersDto){
         try{
-            return getLottoResultView(winningNumberDto);
+            return getLottoResultView(winningNumbersDto);
         }catch (RuntimeException exception){
             return new ErrorOutputView(exception);
         }
     }
 
-    private OutputView getLottoResultView(WinningNumberDto winningNumberDto){
+    private OutputView getLottoResultView(WinningNumbersDto winningNumbersDto){
         LottoOrder lottoOrder = LottoOrderFactory.getInstance().orElseThrow();
-        WinningNumber winningNumber = WinningNumberFactory.getInstance(winningNumberDto.getWinningNumbers()).orElseThrow();
+        WinningNumbers winningNumbers = WinningNumberFactory.getInstance(winningNumbersDto.getWinningNumbers()).orElseThrow();
 
-        ResultOutputDto resultOutputDto = lottoOrder.getResult(winningNumber);
-        return new ResultOutputView(resultOutputDto);
+        RewardResult rewardResult = lottoOrder.getResult(winningNumbers);
+        RewardResultDto rewardResultDto = new RewardResultDto(rewardResult.getMatchedToCount(), rewardResult.getProfitPercent());
+        return new ResultOutputView(rewardResultDto);
     }
 }

@@ -1,5 +1,5 @@
 import dto.input.PurchaseDto;
-import dto.input.WinningNumberDto;
+import dto.input.WinningNumbersDto;
 import factory.ValidatorServiceFactory;
 import presentation.controller.LottoController;
 import presentation.view.input.PurchaseInputView;
@@ -24,8 +24,8 @@ public class LottoDriver {
         OutputView purchaseOutputView = lottoController.getPurchaseResult(purchaseDto);
         purchaseOutputView.print();
 
-        WinningNumberDto winningNumberDto =  new WinningNumberInputView(scanner, validatorService).input();
-        OutputView resultOutputView = lottoController.getLottoResult(winningNumberDto);
+        WinningNumbersDto winningNumbersDto =  new WinningNumberInputView(scanner, validatorService).input();
+        OutputView resultOutputView = lottoController.getLottoResult(winningNumbersDto);
         resultOutputView.print();
     }
 }
