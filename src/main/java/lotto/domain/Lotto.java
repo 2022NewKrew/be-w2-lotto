@@ -7,6 +7,10 @@ public class Lotto {
     private final List<Integer> digits;
 
     public Lotto(List<Integer> digits) {
+        DomainValidationChecker checker = new DomainValidationChecker();
+        checker.checkNumOfDigits(digits);
+        checker.checkDigitsInLotto(digits);
+        checker.checkDuplicationInLotto(digits);
         this.digits = digits;
     }
 

@@ -6,6 +6,7 @@ import lotto.view.LottoOutputPrinter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -34,7 +35,8 @@ public class LottoSimulator {
             return;
         }
 
-        List<Lotto> manualLottoList = getManualLotto();
+        int numOfManualLotto = getNumOfManualLotto();
+        List<Lotto> manualLottoList = getManualLotto(numOfManualLotto);
         PurchasedLotto purchasedLotto = purchaseLotto(purchaseAmount, manualLottoList);
         WinningLotto winningLotto = getWinningInfo();
         printWinningStat(purchaseAmount, purchasedLotto, winningLotto);
@@ -43,35 +45,37 @@ public class LottoSimulator {
     private long getPurchaseAmount() {
         try {
             return lottoInputScanner.getPurchaseAmount();
-        } catch (IllegalArgumentException iae) {
-            System.out.println("금액을 확인해주십시오.(lotto는 1000원 단위로 구매 가능합니다.)");
+        } catch (NumberFormatException nfe) {
+            System.out.println("숫자만 입력가능합니다.");
+            return getPurchaseAmount();
+        } catch (InputMismatchException ime) {
+            System.out.println(ime.getMessage());
             return getPurchaseAmount();
         }
     }
 
-    private List<Lotto> getManualLotto() {
-        int numOfManualLotto = getNumOfManualLotto();
+    private List<Lotto> getManualLotto(int numOfManualLotto) {
         lottoOutputPrinter.printDescription("\n수동으로 구매할 번호를 입력해 주세요.\n");
-        return IntStream.range(0, numOfManualLotto)
-                .mapToObj(i -> new Lotto(getDigitList()))
-                .collect(Collectors.toList());
+        try {
+            return IntStream.range(0, numOfManualLotto)
+                    .mapToObj(i -> new Lotto(lottoInputScanner.getDigits()))
+                    .collect(Collectors.toList());
+        } catch (IllegalArgumentException iae) {
+            System.out.println(iae.getMessage());
+            System.out.println("처음부터 다시 입력바랍니다.");
+            return getManualLotto(numOfManualLotto);
+        }
     }
 
     private int getNumOfManualLotto() {
         try {
             return lottoInputScanner.getNumOfManualLottos();
-        } catch (IllegalArgumentException iae) {
-            System.out.println("구매할 로또 수는 0이상 정수여야 합니다.");
+        } catch (NumberFormatException nfe) {
+            System.out.println("숫자만 입력가능합니다.");
             return getNumOfManualLotto();
-        }
-    }
-
-    private List<Integer> getDigitList() {
-        try {
-            return lottoInputScanner.getDigits();
-        } catch (IllegalArgumentException iae) {
-            System.out.println("번호는 1~45사이의 숫자 6개로 중복이 없어야 합니다.");
-            return getDigitList();
+        } catch (InputMismatchException ime) {
+            System.out.println(ime.getMessage());
+            return getNumOfManualLotto();
         }
     }
 
@@ -89,17 +93,13 @@ public class LottoSimulator {
 
     private @NotNull WinningLotto getWinningInfo() {
         lottoOutputPrinter.printDescription("\n지난주 당첨 정보를 입력해 주세요.\n");
-        List<Integer> winningDigitList = getDigitList();
-        int bonusDigit = getBonusDigit(winningDigitList);
-        return new WinningLotto(winningDigitList, bonusDigit);
-    }
-
-    private int getBonusDigit(List<Integer> winningDigitList) {
         try {
-            return lottoInputScanner.getWinningBonusDigit(winningDigitList);
+            List<Integer> winningDigitList = lottoInputScanner.getDigits();
+            int bonusDigit = lottoInputScanner.getWinningBonusDigit();
+            return new WinningLotto(winningDigitList, bonusDigit);
         } catch (IllegalArgumentException iae) {
-            System.out.println("보너스 숫자는 1~45 사이의 값이며 당첨 번호와 중복될 수 없습니다.");
-            return getBonusDigit(winningDigitList);
+            System.out.println(iae.getMessage());
+            return getWinningInfo();
         }
     }
 
