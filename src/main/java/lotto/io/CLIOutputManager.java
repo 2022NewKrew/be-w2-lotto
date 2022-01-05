@@ -5,6 +5,7 @@ import lotto.domain.PurchaseInfo;
 import lotto.domain.Rank;
 import lotto.domain.WinningInfo;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class CLIOutputManager implements OutputManager {
@@ -14,18 +15,18 @@ public class CLIOutputManager implements OutputManager {
     private static final String RETURN_RATE_FORMAT = "총 수익률은 %.2f%%입니다.%n";
 
     public void printAllLotto(List<Lotto> lottoList) {
-        for (Lotto lotto : lottoList) {
+        lottoList.stream().forEach(lotto -> {
             System.out.println(lotto.getNumbers());
-        }
+        });
     }
 
     public void printPrizes(PurchaseInfo purchaseInfo, WinningInfo winningInfo) {
         System.out.println(PRIZE_TITLE);
-        for (Rank rank : Rank.values()) {
+        Arrays.stream(Rank.values()).forEach(rank -> {
             String format = setFormat(rank);
             System.out.format(format, rank.getMatchCount(), rank.getWinningMoney(), winningInfo.getWinCount().get(rank));
-        }
-        double returnRate = (double)winningInfo.getReturnAmount() / purchaseInfo.getPurchaseAmount();
+        });
+        double returnRate = (double) (winningInfo.getReturnAmount() - purchaseInfo.getPurchaseAmount()) / purchaseInfo.getPurchaseAmount();
         System.out.format(RETURN_RATE_FORMAT, returnRate * 100);
     }
 

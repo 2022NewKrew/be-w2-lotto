@@ -5,10 +5,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class PurchaseManager {
-    public List<Lotto> purchase(PurchaseInfo pi) {
-        List<Lotto> result = new ArrayList<>();
+    public List<Lotto> purchase(PurchaseInfo pi, List<Lotto> manualLottoList) {
+        List<Lotto> result = new ArrayList<>(manualLottoList);
         for (int i = 0; i < pi.getNumOfPurchase(); i++) {
-            result.add(new Lotto());
+            result.add(LottoGenerator.generateRandomLotto());
         }
         return Collections.unmodifiableList(result);
     }

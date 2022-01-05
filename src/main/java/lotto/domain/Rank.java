@@ -7,6 +7,8 @@ public enum Rank {
     SECOND(5, 30000000),
     FIRST(6, 2000000000);
 
+    private static final int MIN_MATCH_COUNT = 3;
+
     private final int matchCount;
     private final int winningMoney;
 
@@ -33,5 +35,9 @@ public enum Rank {
             return matchBonus ? SECOND : THIRD;
         }
         return result;
+    }
+
+    public static boolean isWin(int count) {
+        return count >= MIN_MATCH_COUNT;
     }
 }

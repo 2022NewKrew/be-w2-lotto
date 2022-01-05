@@ -11,14 +11,18 @@ public class LottoGenerator {
 
     private static final Random random = new Random();
 
-    public static List<Integer> generateRandomLotto() {
+    public static Lotto generateRandomLotto() {
         List<Integer> numbers = new ArrayList<>();
         for (int i = 0; i < Lotto.LENGTH; i++) {
             int nextNum = i == 0 ? randomNum() : nextNum(numbers);
             numbers.add(nextNum);
         }
         Collections.sort(numbers);
-        return Collections.unmodifiableList(numbers);
+        return new Lotto(Collections.unmodifiableList(numbers));
+    }
+
+    public static Lotto generateManualLotto(List<Integer> numbers) {
+        return new Lotto(Collections.unmodifiableList(numbers));
     }
 
     private static int randomNum() {
