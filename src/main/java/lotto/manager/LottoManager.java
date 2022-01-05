@@ -22,35 +22,63 @@ public class LottoManager {
     private LottoResult lottoResult;
 
     private int money;
+    int remainingMoney;
+    private int manualAmount;
 
     private LottoManager() {
         customScanner = new CustomScanner();
         lottoCliView = LottoCliView.getInstance();
         lottoChecker = LottoChecker.getInstance();
+        lottoList = new ArrayList<>();
     }
 
     public static LottoManager getInstance() {
         return INSTANCE;
     }
 
-    private void purchaseLotto() {
+    private void getMoney() {
         try {
             lottoCliView.printMessage(LottoMessage.INPUT_MONEY.toString());
-            money = customScanner.readInt();
+            remainingMoney = money = customScanner.readInt();
         } catch (NumberFormatException e) {
             lottoCliView.printMessage(e.getMessage());
-            purchaseLotto();
+            getMoney();
         }
     }
 
-    private void printPurchasedLotto() {
-        lottoList = new ArrayList<>();
-        int remainingMoney = money;
+    private void getManualAmount() {
+        try {
+            lottoCliView.printMessage(LottoMessage.INPUT_MANUAL_AMOUNT.toString());
+            manualAmount = customScanner.readInt();
+            // TODO: 수동으로 구매할 로또 수 검증(투입금액으로 살 수 있는지)
+        } catch (NumberFormatException e) {
+            lottoCliView.printMessage(e.getMessage());
+            getManualAmount();
+        }
+    }
+
+    private void purchasedManualLotto() {
+        lottoCliView.printMessage(LottoMessage.INPUT_WINNING_NUMBERS.toString());
+        for (int i = 0; i < manualAmount && remainingMoney / 1000 > 0; i++) {
+            List<Integer> numbers = customScanner.readCommaSeparatedInt();
+            lottoList.add(new Lotto(numbers));
+            remainingMoney -= 1000;
+        }
+    }
+
+    private void purchasedAutomaticLotto() {
         while (remainingMoney / 1000 > 0) {
             lottoList.add(new Lotto());
             remainingMoney -= 1000;
         }
-        lottoCliView.printMessage(lottoList.size() + LottoMessage.INPUT_MONEY_SUCCESS.toString());
+    }
+
+    private void showPurchasedResults() {
+        lottoCliView.printMessage(String.format(
+                LottoMessage.INPUT_MONEY_SUCCESS.toString(),
+                manualAmount,
+                lottoList.size() - manualAmount
+        ));
         lottoCliView.printLottoList(lottoList);
         lottoCliView.printMessage("");
     }
@@ -69,8 +97,11 @@ public class LottoManager {
     }
 
     public void run() {
-        purchaseLotto();
-        printPurchasedLotto();
+        getMoney();
+        getManualAmount();
+        purchasedManualLotto();
+        purchasedAutomaticLotto();
+        showPurchasedResults();
         initializeLottoChecker();
         lottoResult = lottoChecker.checkAll(lottoList);
         lottoCliView.printLottoResult(lottoResult);
