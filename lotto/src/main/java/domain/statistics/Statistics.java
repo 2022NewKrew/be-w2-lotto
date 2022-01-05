@@ -2,7 +2,7 @@ package domain.statistics;
 
 import domain.lottery.WinningLotto;
 import domain.lotto.Lotto;
-import domain.lotto.LottoPrize;
+import domain.lottery.LottoPrize;
 import domain.lotto.LottoWallet;
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -70,7 +70,7 @@ public abstract class Statistics {
 
   @Override
   public String toString() {
-    return "당첨 통계" + '\n'
+    return "\n당첨 통계" + '\n'
         + "---------" + '\n'
         + stringifyMatchMap();
   }

@@ -3,6 +3,7 @@ package domain.lotto;
 import domain.lottery.LotteryMachine;
 import domain.statistics.YieldStatistics;
 import java.io.IOException;
+import java.util.List;
 import view.read.BufferedInputReader;
 import view.read.InputReader;
 import view.write.BufferedOutputWriter;
@@ -39,8 +40,10 @@ public class LottoManager {
 
   private void buyLotto() throws IOException {
     int purchaseAmount = reader.getPurchaseAmount();
-    int quantity = getMaxPurchaseQuantity(purchaseAmount);
-    wallet.addLotto(quantity);
+    int availableQuantity = getMaxPurchaseQuantity(purchaseAmount);
+    List<Lotto> manuallyBuyLotto = reader.getManualLottoListToBuy(availableQuantity);
+    wallet.addAll(manuallyBuyLotto);
+    wallet.addRandomGenerated(availableQuantity - manuallyBuyLotto.size());
   }
 
 

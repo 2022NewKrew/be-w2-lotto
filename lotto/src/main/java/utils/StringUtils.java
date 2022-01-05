@@ -28,4 +28,17 @@ public final class StringUtils {
     return splitByDelimiter(str, DEFAULT_DELIMITER);
   }
 
+
+  public static List<Integer> integersSplitByDelimiter(String str, String delimiter) {
+    return splitByDelimiter(str, delimiter)
+        .stream()
+        .map(Integer::parseInt)
+        .collect(Collectors.toList());
+  }
+
+
+  public static List<Integer> integersSplitByDelimiter(String str) {
+    return integersSplitByDelimiter(str, DEFAULT_DELIMITER);
+  }
+
 }

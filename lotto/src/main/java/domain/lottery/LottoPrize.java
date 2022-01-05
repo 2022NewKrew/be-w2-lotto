@@ -1,4 +1,4 @@
-package domain.lotto;
+package domain.lottery;
 
 import domain.statistics.MatchInfo;
 import java.util.Arrays;
@@ -59,7 +59,7 @@ public enum LottoPrize {
   @Override
   public String toString() {
     if (needBonusNumber) {
-      return matchCount + "개 일, 보너스 볼 일치(" + reward + "원)";
+      return matchCount + "개 일치, 보너스 볼 일치(" + reward + "원)";
     }
     return matchCount + "개 일치 (" + reward + "원)";
   }
