@@ -75,7 +75,7 @@ public class LottoStatistic {
                 "3개 일치 (5000원)- " + this.treeMatch + "개\n" +
                 "4개 일치 (50000원)- " + this.fourMatch + "개\n" +
                 "5개 일치 (1500000원)- " + this.fiveMatch + "개\n" +
-                "5개 일치, 보너스 볼 일치 (30000000원)- " + this.fiveMatch + "개\n" +
+                "5개 일치, 보너스 볼 일치 (30000000원)- " + this.fiveAndBonusMatch + "개\n" +
                 "6개 일치 (2000000000원)- " + this.sixMatch + "개\n" +
                 "총 수익률은 " + this.profitRate + "%입니다.\n";
     }
