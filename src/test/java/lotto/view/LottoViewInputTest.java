@@ -1,8 +1,15 @@
 package lotto.view;
 
+import lotto.domain.Lotto;
+import lotto.domain.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static lotto.domain.LottoSetting.*;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -79,7 +86,25 @@ class LottoViewInputTest {
         }).isInstanceOf(IllegalArgumentException.class).hasMessageContaining("유효하지 않은 로또 값이 입력됌.");
     }
 
+
     @Test
-    void lottoInputResultBonus() {}
+    @DisplayName("보너스 볼과 로또번호가 중복된다면 예외 발생")
+    void setLottoResult(){
+        //given
+        Lotto lotto = new Lotto();
+        List<Integer> lottoList = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
+        Integer bonusNumber = 6;
+
+
+        //when
+        //사용자가 입력한 번호의 로또 객체생성시
+
+        //then
+
+        assertThatThrownBy( () -> {
+            lotto.setLottoResult(new LottoNumber(lottoList, LOTTO_NOT_AUTO), bonusNumber);
+        }).isInstanceOf(IllegalArgumentException.class).hasMessageContaining("보너스 볼이 로또번호와 중복됩니다.");
+
+    }
 
 }

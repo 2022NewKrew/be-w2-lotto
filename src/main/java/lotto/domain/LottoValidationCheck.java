@@ -9,6 +9,13 @@ public class LottoValidationCheck {
         return (Math.min(payment / LOTTO_PRICE, (Math.max(0, userMakeCount))   )); //유효한 유저생성 로또번호 개수로 수정
     }
 
+
+    public static void bonusNumberCheck(LottoNumber lottoNumber, Integer bonusNumber){
+        if(lottoNumber.num.contains(bonusNumber)){
+            throw new IllegalArgumentException("보너스 볼이 로또번호와 중복됩니다.");
+        }
+    }
+
     public static void stringLottoValidationCheck(List<String> stringLottoList){
         lottoCountCheck(stringLottoList);
         lottoNumCheck(stringLottoList);

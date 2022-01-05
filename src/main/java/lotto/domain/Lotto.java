@@ -51,6 +51,8 @@ public class Lotto {
     public void setLottoResult(LottoNumber lottoNumber, Integer bonusNumber) {
         lottoResult.setLottoNumber(lottoNumber);
         lottoResult.setBonusNumber(bonusNumber);
+
+        LottoValidationCheck.bonusNumberCheck(lottoNumber, bonusNumber);
     }
 
     public void addLottos(Integer lottoCount, LottoCreate lottoCreate){
