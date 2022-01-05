@@ -41,7 +41,7 @@ public class LottoSimulatorView {
         System.out.println("--- 추첨 결과 ---");
         for (LottoPrize lottoPrize : mapCount.keySet()) {
             System.out.println(lottoPrize + " - " + mapCount.get(lottoPrize) + "개");
-            printLottos(lottoPrize, mapLottos.get(lottoPrize));
+            printWonLottos(lottoPrize, mapLottos.get(lottoPrize));
 
             sumOfPrize += mapCount.get(lottoPrize) * lottoPrize.getReward();
         }
@@ -50,7 +50,7 @@ public class LottoSimulatorView {
         System.out.printf("\n총 수익률은 %.2f%% 입니다.\n", ret);
     }
 
-    private void printLottos(final LottoPrize lottoPrize, final Lottos lottos) {
+    private void printWonLottos(final LottoPrize lottoPrize, final Lottos lottos) {
         if (lottoPrize.isNone()) {
             return;
         }
