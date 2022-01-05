@@ -3,14 +3,13 @@ package domain.lotto;
 import domain.lottery.LotteryMachine;
 import domain.statistics.Statistics;
 import java.io.IOException;
-import utils.LottoUtils;
 import view.read.BufferedInputReader;
 import view.read.InputReader;
 import view.write.BufferedOutputWriter;
 import view.write.OutputWriter;
 
 /**
- * 로또 프로그램 동작 및 입출력 연계, 로또 도메인을 컨트롤 한다.
+ * 로또 구매, 입출력, 당첨로또 추첨, 통계 리포트 등 로또 흐름을 관리하는 객체
  *
  * @author leo.jung
  * @since 1.0
@@ -40,8 +39,13 @@ public class LottoManager {
 
   private void buyLotto() throws IOException {
     int purchaseAmount = reader.getPurchaseAmount();
-    int quantity = LottoUtils.getMaxPurchaseQuantity(purchaseAmount);
+    int quantity = getMaxPurchaseQuantity(purchaseAmount);
     wallet.addLotto(quantity);
+  }
+
+
+  private int getMaxPurchaseQuantity(int amount) {
+    return amount / Lotto.LOTTO_PRICE;
   }
 
 
@@ -51,12 +55,12 @@ public class LottoManager {
 
 
   private void setLastWinningNumber() throws IOException {
-    lotteryMachine.setCurrentWinningLotto(reader);
+    lotteryMachine.generateWinningLottery(reader);
   }
 
 
   private void reportWinningStatistics() throws IOException {
-    Statistics statistics = Statistics.of(lotteryMachine.getCurrentWinningLotto(), wallet);
+    Statistics statistics = Statistics.of(lotteryMachine.getCurrentWinningLottery(), wallet);
     writer.write(statistics);
   }
 

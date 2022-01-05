@@ -4,6 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * String 파싱 유틸
+ *
+ * @author leo.jung
+ * @since 1.0
+ */
 public final class StringUtils {
 
   private StringUtils() {}

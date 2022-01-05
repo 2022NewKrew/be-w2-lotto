@@ -1,39 +1,31 @@
 package domain.lottery;
 
-import domain.lotto.Lotto;
 import java.io.IOException;
 import view.read.InputReader;
 
+/**
+ * 당청 로또를 뽑는 모듈, WinningLottery 의 생성과 반환 역할을 한다.
+ *
+ * @author leo.jung
+ * @since 1.0
+ */
 public class LotteryMachine {
 
-  private Lotto currentWinningLotto;
+  private WinningLottery winningLottery;
 
-  private LotteryMachine(Lotto winningLotto) {
-    this.currentWinningLotto = winningLotto;
+  private LotteryMachine() {
+    this.winningLottery = null;
   }
-
-  public static LotteryMachine of(Lotto winningLotto) {
-    return new LotteryMachine(winningLotto);
-  }
-
 
   public static LotteryMachine createEmpty() {
-    return new LotteryMachine(null);
+    return new LotteryMachine();
   }
 
-
-  public void setCurrentWinningLotto(Lotto lotto) {
-    this.currentWinningLotto = lotto;
+  public void generateWinningLottery(InputReader reader) throws IOException {
+    this.winningLottery = reader.getLastWinningLottery();
   }
 
-
-  public void setCurrentWinningLotto(InputReader reader) throws IOException {
-    currentWinningLotto = reader.getLastWinningLotto();
+  public WinningLottery getCurrentWinningLottery() {
+    return winningLottery;
   }
-
-
-  public Lotto getCurrentWinningLotto() {
-    return currentWinningLotto;
-  }
-
 }
