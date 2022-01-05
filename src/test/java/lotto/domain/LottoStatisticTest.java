@@ -23,10 +23,10 @@ class LottoStatisticTest {
     @DisplayName("통계 초기화 후 수익률 계산")
     void initialize() {
         List<Lotto> userLottos = new ArrayList<Lotto>();
-        userLottos.add(new Lotto("1, 2, 3, 4, 5, 6"));
-        userLottos.add(new Lotto("4, 5, 6, 7, 8, 9"));
-        userLottos.add(new Lotto("4, 5, 6, 7, 11, 12"));
-        Lotto pastWinningLotto = new Lotto("4, 5, 6, 7, 8, 9");
+        userLottos.add(new DefaultLotto("1, 2, 3, 4, 5, 6"));
+        userLottos.add(new DefaultLotto("4, 5, 6, 7, 8, 9"));
+        userLottos.add(new DefaultLotto("4, 5, 6, 7, 11, 12"));
+        Lotto pastWinningLotto = new DefaultLotto("4, 5, 6, 7, 8, 9");
         lottoStatistic.initialize(userLottos, pastWinningLotto);
         Map winningCountMap = new HashMap<Integer, Long>();
         winningCountMap.put(6, 1L);
