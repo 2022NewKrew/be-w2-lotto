@@ -26,16 +26,21 @@ public class LottoService {
     }
 
     public void registerAutoLottos(int n) {
-        if (n <= 0) {
+        if (n < 0) {
             throw new IllegalArgumentException("로또 개수가 유효하지 않습니다.");
         }
-        this.size = n;
-        this.buyPrice = size * 1000;
-        lottos.addAll(Stream.generate(Lotto::new).limit(size).collect(Collectors.toList()));
+        lottos.addAll(Stream.generate(Lotto::new).limit(n).collect(Collectors.toList()));
+        updateData();
     }
 
     public void registerManualLotto(String number) {
         lottos.add(new Lotto(number));
+        updateData();
+    }
+
+    private void updateData() {
+        this.size = lottos.size();
+        this.buyPrice = lottos.size() * 1000;
     }
 
     public void registerWinningLotto(String number) {
@@ -62,23 +67,13 @@ public class LottoService {
         return Arrays.stream(ret).boxed().collect(Collectors.toList());
     }
 
-    public List<Integer> getWinningResult() {
-        return winningResult;
-    }
+    public List<Integer> getWinningResult() { return winningResult; }
 
-    public List<Lotto> getLottos() {
-        return lottos;
-    }
+    public List<Lotto> getLottos() { return lottos; }
 
-    public int getBuyPrice() {
-        return buyPrice;
-    }
+    public int getBuyPrice() { return buyPrice; }
 
-    public long getProfit() {
-        return profit;
-    }
+    public long getProfit() { return profit; }
 
-    public int getSize() {
-        return size;
-    }
+    public int getSize() { return size; }
 }

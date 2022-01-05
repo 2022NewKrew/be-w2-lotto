@@ -39,7 +39,7 @@ public class Lotto {
         if (lottoNumberList.size() != 6) {
             throw new IllegalArgumentException("로또 번호가 6개가 아닙니다.");
         }
-        Set<LottoNumber> checkDuplicated = new HashSet<>(lottoNumberList);
+        Set<LottoNumber> checkDuplicated = new TreeSet<>(lottoNumberList);
         if (checkDuplicated.size() != 6) {
             throw new IllegalArgumentException("로또 번호에 중복이 있습니다.");
         }
