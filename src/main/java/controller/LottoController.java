@@ -1,7 +1,8 @@
 package controller;
 
-import controller.dto.WinningResult;
 import domain.LottoTickets;
+import view.dto.LottoPurchaseResponse;
+import controller.dto.WinningResult;
 import common.model.LottoRank;
 import domain.model.WinningLottoTicket;
 import domain.LottoGameService;
@@ -31,17 +32,16 @@ public class LottoController {
      */
     public void run() throws IOException {
         int amount = lottoGameView.queryPurchaseAmount();
-        int lottoCount = lottoGameView.queryManualLottoCount();
-        List<List<Integer>> manualLottoTickets = lottoGameView.queryManualLottoNumbers(lottoCount);
+        int manualLottoCount = lottoGameView.queryManualLottoCount();
+        List<List<Integer>> manualLottoTickets = lottoGameView.queryManualLottoNumbers(manualLottoCount);
 
-        LottoTickets lottoTickets = lottoGame.purchase(new LottoPurchaseRequest(amount, lottoCount, manualLottoTickets));
-        lottoGameView.printLottoTickets(lottoTickets);
+        LottoTickets lottoTickets = lottoGame.purchase(new LottoPurchaseRequest(amount, manualLottoCount, manualLottoTickets));
+        lottoGameView.printLottoTickets(makeLottoPurchaseResponse(lottoTickets, manualLottoCount));
 
         List<Integer> winningLottoNumbers = lottoGameView.queryWinningLotto();
         int bonusNumber = lottoGameView.queryBonusNumber();
 
-        WinningResult winningResult = lottoGame.checkWinningLotto(
-                lottoTickets, new WinningLottoTicket(winningLottoNumbers, bonusNumber));
+        WinningResult winningResult = lottoGame.checkWinningLotto(lottoTickets, new WinningLottoTicket(winningLottoNumbers, bonusNumber));
         lottoGameView.printLottoResults(makeWinningResultResponse(winningResult, amount));
     }
 
@@ -52,6 +52,10 @@ public class LottoController {
                 .map(rank -> new WinningStatisticalData(rank.getWinningCount(), rank.isNeedBonus(), rank.getWinnings(), countMap.getOrDefault(rank, 0)))
                 .collect(Collectors.toList());
         return new WinningResultResponse(statDataList, winningResult.getProfitRatio());
+    }
+
+    private LottoPurchaseResponse makeLottoPurchaseResponse(LottoTickets lottoTickets, int manualLottoCount) {
+        return new LottoPurchaseResponse(lottoTickets, manualLottoCount);
     }
 
 }

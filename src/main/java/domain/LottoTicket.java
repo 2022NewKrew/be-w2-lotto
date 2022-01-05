@@ -28,6 +28,11 @@ public class LottoTicket {
     public static LottoTicket from(List<Integer> lottoNumbers) {
         return new LottoTicket(lottoNumbers);
     }
+
+    public List<Integer> getLottoNumbers() {
+        return lottoNumbers;
+    }
+
     @Override
     public String toString() {
         return lottoNumbers.toString();

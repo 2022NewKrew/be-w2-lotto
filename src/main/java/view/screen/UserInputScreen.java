@@ -23,21 +23,23 @@ public class UserInputScreen {
     }
 
     public int queryManualLottoCount() throws IOException {
+        System.out.println();
         return getUserInputInt(MESSAGE_QUERY_MANUAL_LOTTO_COUNT);
     }
 
     public List<List<Integer>> queryManualLottoNumbers(int lottoCount) throws IOException {
-        List<List<Integer>> manualLottoTickets = new ArrayList<>();
-        while(lottoCount-- > 0) {
-            String[] inputArray = getUserInputString(MESSAGE_QUERY_MANUAL_LOTTO_NUMBERS).split(",");
-            manualLottoTickets.add(
-                    Arrays.stream(inputArray).map(Integer::parseInt).collect(Collectors.toList())
-            );
-        }
-        return manualLottoTickets;
+        System.out.println();
+        List<String> userInputMultipleLine = getUserInputMultipleLine(MESSAGE_QUERY_MANUAL_LOTTO_NUMBERS, lottoCount);
+        return userInputMultipleLine.stream()
+                .map(line -> line.split(","))
+                .map(inner -> Arrays.stream(inner)
+                        .map(ele -> Integer.valueOf(ele))
+                        .collect(Collectors.toList())
+                ).collect(Collectors.toList());
     }
 
     public List<Integer> queryWinningLotto() throws IOException {
+        System.out.println();
         String[] inputArray = getUserInputString(MESSAGE_QUERY_WINNING_LOTTO).split(",");
         return Arrays.stream(inputArray).map(Integer::parseInt).collect(Collectors.toList());
     }
@@ -56,5 +58,12 @@ public class UserInputScreen {
         return bufferedReader.readLine();
     }
 
-
+    private List<String> getUserInputMultipleLine(String message, int numOfLine) throws IOException {
+        List<String> multipleLines = new ArrayList<>();
+        System.out.println(message);
+        for(int line = 0; line < numOfLine; line++) {
+            multipleLines.add(bufferedReader.readLine());
+        }
+        return multipleLines;
+    }
 }

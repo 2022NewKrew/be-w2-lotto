@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LottoGameService {
 
@@ -23,21 +24,25 @@ public class LottoGameService {
     }
 
     public LottoTickets purchase(LottoPurchaseRequest lottoPurchaseRequest) {
-        List<LottoTicket> lottoTicketList = new ArrayList<>();
+        List<LottoTicket> lottoTicketList = lottoPurchaseRequest
+                .getManualLottoTickets().stream()
+                .map(lottoNumbers -> LottoTicket.from(lottoNumbers))
+                .collect(Collectors.toList());
 
         int manualLottoCount = lottoPurchaseRequest.getManualLottoCount();
-        for(List<Integer> lottoNumbers : lottoPurchaseRequest.getManualLottoTickets()) {
-            lottoTicketList.add(LottoTicket.from(lottoNumbers));
-        }
-
         int amount = lottoPurchaseRequest.getAmount() - (manualLottoCount * LOTTO_PRICE);
-        int quantity = calculateLottoQuantity(amount);
-        for(int q = 0; q < quantity; q++) {
+        int autoLottoCount = calculateLottoQuantity(amount);
+        for(int q = 0; q < autoLottoCount; q++) {
             lottoTicketList.add(createAutoLottoTicket());
         }
 
         return new LottoTickets(lottoTicketList);
     };
+
+    public WinningResult checkWinningLotto(LottoTickets lottoTickets, WinningLottoTicket winningTicket) {
+        Map<LottoRank, Integer> countMap = lottoTickets.getCountMapByRank(winningTicket);
+        return new WinningResult(countMap, calculateProfitRatio(countMap, lottoTickets.getSize()));
+    }
 
     private int calculateLottoQuantity(int amount) {
         return amount / LOTTO_PRICE;
@@ -48,14 +53,6 @@ public class LottoGameService {
         List<Integer> lottoNumbers = new ArrayList<>(BASE_LOTTO_NUMBERS.subList(0, 6));
         Collections.sort(lottoNumbers);
         return LottoTicket.from(lottoNumbers);
-    }
-
-    /**
-     * 당첨된 복권을 확인하고, 결과를 리턴한다.
-     */
-    public WinningResult checkWinningLotto(LottoTickets lottoTickets, WinningLottoTicket winningTicket) {
-        Map<LottoRank, Integer> countMap = lottoTickets.getCountMapByRank(winningTicket);
-        return new WinningResult(countMap, calculateProfitRatio(countMap, lottoTickets.getSize()));
     }
 
     private Integer calculateProfitRatio(Map<LottoRank, Integer> countMap, Integer countOfTicket) {
