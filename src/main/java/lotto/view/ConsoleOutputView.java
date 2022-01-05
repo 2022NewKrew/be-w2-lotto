@@ -24,15 +24,14 @@ public class ConsoleOutputView implements OutputView {
         System.out.println();
     }
 
-    // TODO: 로또 번호 오름차순 출력
     private void printLottoNumbers(LottoNumbers lottoNumbers) {
         StringBuilder stringBuilder = new StringBuilder(LOTTO_TICKET_START_DELIMITER);
 
         Set<LottoNumber> numbers = lottoNumbers.getLottoNumbers();
-        for (LottoNumber number : numbers) {
-            stringBuilder.append(number.getNumber())
-                    .append(LOTTO_NUMBER_SPLIT_DELIMITER);
-        }
+        numbers.stream()
+                .map(LottoNumber::getNumber)
+                .sorted()
+                .forEach(number -> stringBuilder.append(number + LOTTO_NUMBER_SPLIT_DELIMITER));
         stringBuilder.append(LOTTO_TICKET_END_DELIMITER);
 
         System.out.println(stringBuilder);
