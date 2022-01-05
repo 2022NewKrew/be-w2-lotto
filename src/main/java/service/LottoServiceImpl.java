@@ -43,7 +43,7 @@ public class LottoServiceImpl implements LottoService {
         List<Integer> winningNumbers = inputWinningNumbers();
         int winningBonusNumber = inputWinningBonusNumber();
 
-        lottoStatistic.updateLottoStatus(winningNumbers, winningBonusNumber); //
+        lottoStatistic.updateLottoStatus(winningNumbers, winningBonusNumber);
         printLottoStatic();
 
     }
@@ -165,6 +165,5 @@ public class LottoServiceImpl implements LottoService {
 
         return lottos;
     }
-
 
 }

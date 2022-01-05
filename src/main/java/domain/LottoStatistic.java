@@ -5,11 +5,11 @@ import java.util.List;
 
 public class LottoStatistic {
 
-    private final int TREE_WINNING_AMOUNT = 5000;
-    private final int FOUR_WINNING_AMOUNT = 50000;
-    private final int FIVE_WINNING_AMOUNT = 1500000;
-    private final int FIVE_WINNING_AND_BONUS_AMOUNT = 30000000;
-    private final int SIX_WINNING_AMOUNT = 2000000000;
+    private static final int TREE_WINNING_AMOUNT = 5000;
+    private static final int FOUR_WINNING_AMOUNT = 50000;
+    private static final int FIVE_WINNING_AMOUNT = 1500000;
+    private static final int FIVE_WINNING_AND_BONUS_AMOUNT = 30000000;
+    private static final int SIX_WINNING_AMOUNT = 2000000000;
 
     private int treeMatch = 0;
     private int fourMatch = 0;
@@ -122,7 +122,8 @@ public class LottoStatistic {
             this.addLottoInfo(lotto);
         }
 
-        this.calculateProfitRate();
+        calculateProfitRate();
 
     }
+
 }
