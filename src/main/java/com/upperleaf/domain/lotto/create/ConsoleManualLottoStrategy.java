@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class ManualLottoStrategy implements LottoCreateStrategy {
+public class ConsoleManualLottoStrategy implements LottoCreateStrategy {
 
-    private static final Scanner sc = new Scanner(System.in);
+    private final Scanner sc = new Scanner(System.in);
 
     @Override
     public Lotto createLotto() {

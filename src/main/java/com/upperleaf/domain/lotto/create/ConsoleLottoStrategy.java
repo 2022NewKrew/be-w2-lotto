@@ -1,18 +1,19 @@
 package com.upperleaf.domain.lotto.create;
 
-import com.upperleaf.domain.LottoPaymentInfo;
 import com.upperleaf.domain.lotto.Lotto;
 
-public class CustomLottoStrategy implements LottoCreateStrategy {
+import java.util.Scanner;
+
+public class ConsoleLottoStrategy implements LottoCreateStrategy {
 
     private final LottoCreateStrategy randomStrategy = new RandomLottoStrategy();
-    private final LottoCreateStrategy manualStrategy = new LottoCreateStrategyRetry(new ManualLottoStrategy());
+    private final LottoCreateStrategy manualStrategy = new LottoCreateStrategyRetry(new ConsoleManualLottoStrategy());
 
-    private final int manualNum;
+    private int manualNum = 0;
     private int manualCount = 0;
 
-    public CustomLottoStrategy(LottoPaymentInfo paymentInfo) {
-        this.manualNum = paymentInfo.getManualNum();
+    public ConsoleLottoStrategy() {
+        initialize();
     }
 
     @Override
@@ -25,5 +26,11 @@ public class CustomLottoStrategy implements LottoCreateStrategy {
             return manualStrategy.createLotto();
         }
         return randomStrategy.createLotto();
+    }
+
+    private void initialize() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        this.manualNum = Integer.parseInt(sc.nextLine());
     }
 }
