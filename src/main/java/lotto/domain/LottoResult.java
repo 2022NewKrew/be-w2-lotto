@@ -12,12 +12,12 @@ public enum LottoResult {
     SECOND(5, true, 30000000),
     FIRST(6, false, 2000000000);
 
-    private final int numOfMatchingDigits;
+    private final int numOfMatchingNumbers;
     private final boolean bonusMatching;
     private final long reward;
 
-    LottoResult(int numOfMatchingDigits, boolean bonusMatching, long reward) {
-        this.numOfMatchingDigits = numOfMatchingDigits;
+    LottoResult(int numOfMatchingNumbers, boolean bonusMatching, long reward) {
+        this.numOfMatchingNumbers = numOfMatchingNumbers;
         this.bonusMatching = bonusMatching;
         this.reward = reward;
     }
@@ -29,14 +29,14 @@ public enum LottoResult {
     }
 
     private boolean isEqual(int numOfMatchings, boolean bonusMatching) {
-        if (numOfMatchings == SECOND.getNumOfMatchingDigits()) {
-            return this.numOfMatchingDigits == numOfMatchings && this.bonusMatching == bonusMatching;
+        if (numOfMatchings == SECOND.getNumOfMatchingNumbers()) {
+            return this.numOfMatchingNumbers == numOfMatchings && this.bonusMatching == bonusMatching;
         }
-        return this.numOfMatchingDigits == numOfMatchings;
+        return this.numOfMatchingNumbers == numOfMatchings;
     }
 
-    public int getNumOfMatchingDigits() {
-        return numOfMatchingDigits;
+    public int getNumOfMatchingNumbers() {
+        return numOfMatchingNumbers;
     }
 
     public long getReward() {

@@ -26,6 +26,6 @@ public class Lotto {
     }
 
     public boolean containsLottoNumber(LottoNumber bonusNumber) {
-        return numberList.stream().anyMatch(number -> number.getDigit() == bonusNumber.getDigit());
+        return numberList.stream().anyMatch(number -> number.getNumber() == bonusNumber.getNumber());
     }
 }

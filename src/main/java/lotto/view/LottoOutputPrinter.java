@@ -28,7 +28,7 @@ public class LottoOutputPrinter {
         System.out.println(lotto.getNumberList()
                 .stream()
                 .sorted()
-                .map(lottoNumber -> Integer.toString(lottoNumber.getDigit()))
+                .map(lottoNumber -> Integer.toString(lottoNumber.getNumber()))
                 .collect(Collectors.joining(SEPARATOR + SPACE, PREFIX, SUFFIX)));
     }
 
@@ -36,7 +36,7 @@ public class LottoOutputPrinter {
         System.out.println("\n당첨 통계\n---------");
         for (LottoResult result : LottoResult.values()) {
             StringBuilder resultStr = new StringBuilder();
-            System.out.println(resultStr.append(result.getNumOfMatchingDigits()).append("개 일치")
+            System.out.println(resultStr.append(result.getNumOfMatchingNumbers()).append("개 일치")
                     .append(result.equals(LottoResult.SECOND) ? ", 보너스 볼 일치" : " ")
                     .append("(").append(result.getReward()).append("원) - ")
                     .append(winningResult.getCountOf(result)).append("개"));

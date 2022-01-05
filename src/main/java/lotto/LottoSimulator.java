@@ -96,7 +96,7 @@ public class LottoSimulator {
         lottoOutputPrinter.printDescription("\n지난주 당첨 정보를 입력해 주세요.\n");
         try {
             List<LottoNumber> winningLottoNumberList = lottoInputScanner.getLottoNumbers();
-            LottoNumber bonusNumber = lottoInputScanner.getWinningBonusDigit();
+            LottoNumber bonusNumber = lottoInputScanner.getBonusNumber();
             return new WinningLotto(new Lotto(winningLottoNumberList), bonusNumber);
         } catch (IllegalArgumentException iae) {
             lottoOutputPrinter.printDescription(iae.getMessage());

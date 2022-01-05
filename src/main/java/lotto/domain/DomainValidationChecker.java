@@ -7,8 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static lotto.domain.LottoAutoGenerator.MAX_DIGIT;
-import static lotto.domain.LottoAutoGenerator.MIN_DIGIT;
+import static lotto.domain.LottoAutoGenerator.MAX_NUMBER;
+import static lotto.domain.LottoAutoGenerator.MIN_NUMBER;
 
 public class DomainValidationChecker {
     public static final int NUM_OF_LOTTO_NUMBERS_IN_LOTTO = 6;
@@ -19,12 +19,12 @@ public class DomainValidationChecker {
     }
 
     public boolean checkLottoNumber(@NotNull LottoNumber lottoNumber) {
-        return MIN_DIGIT <= lottoNumber.getDigit() && lottoNumber.getDigit() <= MAX_DIGIT;
+        return MIN_NUMBER <= lottoNumber.getNumber() && lottoNumber.getNumber() <= MAX_NUMBER;
     }
 
     public void checkDuplicationInLotto(List<LottoNumber> lottoNumberList) {
-        Set<LottoNumber> digitSet = new HashSet<>(lottoNumberList);
-        if (lottoNumberList.size() != digitSet.size()) {
+        Set<LottoNumber> lottoNumberSet = new HashSet<>(lottoNumberList);
+        if (lottoNumberList.size() != lottoNumberSet.size()) {
             throw new IllegalArgumentException("각 번호는 서로 중복될 수 없습니다.");
         }
     }

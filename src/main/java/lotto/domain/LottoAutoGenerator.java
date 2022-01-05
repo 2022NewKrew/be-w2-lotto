@@ -9,22 +9,22 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class LottoAutoGenerator {
-    public static final int MIN_DIGIT = 1;
-    public static final int MAX_DIGIT = 45;
-    public static final int NUM_OF_DIGITS = 6;
+    public static final int MIN_NUMBER = 1;
+    public static final int MAX_NUMBER = 45;
+    public static final int NUM_OF_LOTTO_NUMBERS = 6;
 
     public List<Lotto> getRandomLottos(long numOfLottos) {
-        return Stream.generate(() -> new Lotto(getRandomDigits()))
+        return Stream.generate(() -> new Lotto(getRandomLottoNumbers()))
                 .limit(numOfLottos)
                 .collect(Collectors.toList());
     }
 
-    private @NotNull List<LottoNumber> getRandomDigits() {
-        List<Integer> randomDigits = IntStream.rangeClosed(MIN_DIGIT, MAX_DIGIT)
+    private @NotNull List<LottoNumber> getRandomLottoNumbers() {
+        List<Integer> randomNumbers = IntStream.rangeClosed(MIN_NUMBER, MAX_NUMBER)
                 .boxed()
                 .collect(Collectors.toList());
-        Collections.shuffle(randomDigits);
-        return randomDigits.subList(0, NUM_OF_DIGITS)
+        Collections.shuffle(randomNumbers);
+        return randomNumbers.subList(0, NUM_OF_LOTTO_NUMBERS)
                 .stream()
                 .map(LottoNumber::new)
                 .collect(Collectors.toList());

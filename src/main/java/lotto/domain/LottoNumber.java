@@ -5,19 +5,19 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 
 public class LottoNumber implements Comparable<LottoNumber> {
-    private final int digit;
+    private final int number;
 
-    public LottoNumber(int digit) {
-        this.digit = digit;
+    public LottoNumber(int number) {
+        this.number = number;
     }
 
-    public int getDigit() {
-        return digit;
+    public int getNumber() {
+        return number;
     }
 
     @Override
     public int compareTo(@NotNull LottoNumber lottoNumber) {
-        return this.digit - lottoNumber.getDigit();
+        return this.number - lottoNumber.getNumber();
     }
 
     @Override
@@ -25,11 +25,11 @@ public class LottoNumber implements Comparable<LottoNumber> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LottoNumber that = (LottoNumber) o;
-        return digit == that.digit;
+        return number == that.number;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(digit);
+        return Objects.hash(number);
     }
 }

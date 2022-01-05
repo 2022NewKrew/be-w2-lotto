@@ -39,7 +39,7 @@ public class LottoInputScanner {
                 .collect(Collectors.toList());
     }
 
-    public LottoNumber getWinningBonusDigit() {
+    public LottoNumber getBonusNumber() {
         System.out.println("보너스 볼을 입력해 주세요.");
         return new LottoNumber(Integer.parseInt(sc.nextLine()));
     }
