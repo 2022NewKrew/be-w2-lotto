@@ -1,10 +1,12 @@
-package domain;
+package dto.response;
 
 import java.util.Map;
 
+import domain.LottoRank;
+
 public class LottoStatistics {
-	private Map<LottoRank, Integer> lottoRankMap;
-	private double profit;
+	private final Map<LottoRank, Integer> lottoRankMap;
+	private final double profit;
 
 	public LottoStatistics(Map<LottoRank, Integer> lottoRankMap, double profit) {
 		this.lottoRankMap = lottoRankMap;
