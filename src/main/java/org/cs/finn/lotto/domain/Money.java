@@ -15,6 +15,7 @@ public class Money {
     public static final Money DEFAULT = new Money(5_000);
 
     private final int money;
+    private final int used;
 
     public Money(final String money)
             throws IllegalArgumentException, IllegalStateException, IndexOutOfBoundsException
@@ -24,32 +25,52 @@ public class Money {
         int temp = Integer.parseInt(money.trim(), 10);
         Checker.checkInt(temp, false);
         this.money = temp;
+        this.used = 0;
     }
 
-    public Money(final int money) {
+    public Money(final int money)
+            throws IllegalArgumentException
+    {
         Checker.checkInt(money, false);
         this.money = money;
+        this.used = 0;
+    }
+
+    public Money(final int money, final int used)
+            throws IllegalArgumentException
+    {
+        Checker.checkIntMinMax(used, money);
+        this.money = money;
+        this.used = used;
     }
 
     public boolean notEnoughToBuyOneLotto() {
-        return money < Lottos.PRICE;
+        return (money - used) < Lottos.PRICE;
     }
 
-    // 추후 작성 예정
-//    public LottoNumbers buyLottoManual(final String[] numbers)
-//            throws IllegalArgumentException
-//    {
-//        if (money < Lottos.PRICE) {
-//            return LottoNumbers.NONE;
-//        }
-//
-//        return new LottoNumbers(numbers);
-//    }
+    public int maxNumberToBuyLottos() {
+        return (money - used) / Lottos.PRICE;
+    }
+
+    public boolean notEnoughToBuyLottos(final int count) {
+        Checker.checkInt(count, false);
+        return maxNumberToBuyLottos() < count;
+    }
+
+    public Money buyLottoManual(final int count)
+            throws IllegalArgumentException
+    {
+        Checker.checkInt(count, false);
+        if (notEnoughToBuyLottos(count)) {
+            throw new IllegalArgumentException("Not enough money to buy " + count + " lottos!");
+        }
+        return new Money(money, count * Lottos.PRICE);
+    }
 
     public List<LottoNumbers> buyLottoAutoAll(final SecureRandom sRand) {
         final List<LottoNumbers> list = new ArrayList<>();
         Objects.requireNonNull(sRand);
-        for (int i = (money / Lottos.PRICE); i > 0; i--) {
+        for (int i = maxNumberToBuyLottos(); i > 0; i--) {
             list.add(
                     LottoNumbersGenerator.getLottoNumbers(sRand)
             );

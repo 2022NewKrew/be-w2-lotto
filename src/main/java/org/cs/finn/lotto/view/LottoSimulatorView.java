@@ -1,13 +1,11 @@
 package org.cs.finn.lotto.view;
 
-import org.cs.finn.lotto.domain.Lottos;
 import org.cs.finn.lotto.domain.LottoResult;
+import org.cs.finn.lotto.domain.Lottos;
 import org.cs.finn.lotto.domain.Money;
 import org.cs.finn.lotto.domain.lotto.LottoNumbers;
 import org.cs.finn.lotto.domain.lotto.LottoPrize;
 
-import java.security.SecureRandom;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -21,24 +19,15 @@ public class LottoSimulatorView {
         return false;
     }
 
-    public void buyLottos(
-            final SecureRandom sRand,
-            final Lottos lottos,
-            final Money money
-    )
-    {
-        Objects.requireNonNull(sRand);
-        Objects.requireNonNull(money);
+    public void printLottos(final Lottos lottos, final int manuals, final int autos) {
+        Objects.requireNonNull(lottos);
 
-        final List<LottoNumbers> list = money.buyLottoAutoAll(sRand);
-        System.out.println("자동 " + list.size() + "개를 구매했습니다.");
+        System.out.println("수동 " + manuals + "개, 자동 " + autos + "개를 구매했습니다.");
 
-        for (LottoNumbers lottoNumbers : list) {
+        for (LottoNumbers lottoNumbers : lottos.getList()) {
             System.out.println(lottoNumbers);
         }
         System.out.println();
-
-        Objects.requireNonNull(lottos).addAll(list);
     }
 
     public void printResult(final LottoResult lottoResult, final Money money) {

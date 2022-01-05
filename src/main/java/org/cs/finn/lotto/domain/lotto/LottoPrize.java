@@ -3,8 +3,6 @@ package org.cs.finn.lotto.domain.lotto;
 import org.cs.finn.lotto.util.Checker;
 import org.cs.finn.lotto.util.NumberFormatter;
 
-import java.util.Arrays;
-
 public enum LottoPrize {
     NONE("꽝", 0),
     MATCH3("3개 일치", 5_000),
