@@ -9,13 +9,11 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
-
-class BonusValidatorTest {
+class BonusValidatorTest extends ValidatorTest {
     ValidatorInterface validatorInterface;
 
     @BeforeEach
-    void initialize(){
+    void initialize() {
         List<Integer> winningNumbers = new ArrayList<>();
         winningNumbers.add(1);
         winningNumbers.add(2);
@@ -29,14 +27,14 @@ class BonusValidatorTest {
     @ParameterizedTest
     @ValueSource(strings = {"abcd", "0", "46", "1"})
     @DisplayName("보너스 볼 입력 실패 테스트")
-    void ValidateFalseTest(String input){
-        assertThat(validatorInterface.validateData(input)).isFalse();
+    void ValidateFalseTest(String input) {
+        ValidateFalse(validatorInterface, input);
     }
 
     @Test
     @DisplayName("보너스 볼 입력 성공 테스트")
     void ValidateTrueTest() {
-        assertThat(validatorInterface.validateData("10")).isTrue();
+        ValidateTrue(validatorInterface, "10");
     }
 
 }
