@@ -1,17 +1,15 @@
 package view;
 
-import domain.Rule;
+import property.LottoProperties;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class ConsoleInputView implements InputView {
     private final Scanner scanner;
-    private final Rule lotteryRule;
 
-    public ConsoleInputView(Rule lotteryRule) {
+    public ConsoleInputView() {
         scanner = new Scanner(System.in);
-        this.lotteryRule = lotteryRule;
     }
 
     @Override
@@ -77,20 +75,20 @@ public class ConsoleInputView implements InputView {
     }
 
     private void validateLotteryBuyPrice(int value) throws IllegalArgumentException {
-        if (value <= 0 || value % lotteryRule.getLotteryUnitPrice() != 0) {
-            throw new IllegalArgumentException(String.format("%d원 단위의 양수만 입력 가능합니다.", lotteryRule.getLotteryUnitPrice()));
+        if (value <= 0 || value % LottoProperties.LOTTERY_UNIT_PRICE != 0) {
+            throw new IllegalArgumentException(String.format("%d원 단위의 양수만 입력 가능합니다.", LottoProperties.LOTTERY_UNIT_PRICE));
         }
     }
 
     private void validateLotteryNumber(int value) throws IllegalArgumentException {
-        if (value < lotteryRule.getLotteryNumberStart() || value > lotteryRule.getLotteryNumberEnd()) {
-            throw new IllegalArgumentException(String.format("%d에서 %d 사이의 숫자만 입력 가능합니다.", lotteryRule.getLotteryNumberStart(), lotteryRule.getLotteryNumberEnd()));
+        if (value < LottoProperties.LOTTERY_NUMBER_START || value > LottoProperties.LOTTERY_NUMBER_END) {
+            throw new IllegalArgumentException(String.format("%d에서 %d 사이의 숫자만 입력 가능합니다.", LottoProperties.LOTTERY_NUMBER_START, LottoProperties.LOTTERY_NUMBER_END));
         }
     }
 
     private void validateLotteryNumberSet(Set<Integer> lotteryNumberSet) throws IllegalArgumentException {
-        if (lotteryNumberSet.size() != lotteryRule.getLotteryNumberCount()) {
-            throw new IllegalArgumentException(String.format("서로 다른 %d개의 숫자만 입력 가능합니다.", lotteryRule.getLotteryNumberCount()));
+        if (lotteryNumberSet.size() != LottoProperties.LOTTERY_NUMBER_COUNT) {
+            throw new IllegalArgumentException(String.format("서로 다른 %d개의 숫자만 입력 가능합니다.", LottoProperties.LOTTERY_NUMBER_COUNT));
         }
     }
 }
