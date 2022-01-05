@@ -32,4 +32,9 @@ public class LottoNumber implements Comparable {
     public int compareTo(Object o) {
         return Integer.compare(this.number, ((LottoNumber)o).number);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return number == ((LottoNumber) obj).number;
+    }
 }

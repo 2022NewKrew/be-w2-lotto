@@ -38,8 +38,7 @@ public class Lotto {
     }
 
     public boolean hasNumber(LottoNumber number) {
-        return lottoNumbers.stream().map(LottoNumber::getNumber)
-            .collect(Collectors.toList()).contains(number.getNumber());
+        return lottoNumbers.contains(number);
     }
 
     public int calculateMatchCountWith(Lotto ticket) {
