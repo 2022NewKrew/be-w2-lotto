@@ -11,7 +11,7 @@ import static lotto.domain.LottoSetting.*;
 public class LottoNumber {
     static private List<Integer> lottoElement;
     public List<Integer> num;
-    private Boolean isAutoMade;
+    final private Boolean isAutoMade;
 
     public LottoNumber(List<Integer> newNum, Boolean isAutoMade){
         num = new ArrayList<>();
@@ -21,6 +21,9 @@ public class LottoNumber {
         this.isAutoMade = isAutoMade;
     }
 
+    public Boolean getAutoMade() {
+        return isAutoMade;
+    }
 
     public Integer calculateMatchCount(LottoNumber resultLotto){
         int resultIdx = 0;

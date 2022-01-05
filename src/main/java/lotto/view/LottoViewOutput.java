@@ -8,6 +8,8 @@ import lotto.dto.OutputDTO;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import static lotto.domain.LottoSetting.*;
 
@@ -15,7 +17,8 @@ public class LottoViewOutput {
     public LottoViewOutput(){}
 
     public void printLottoCount(OutputDTO outputDTO){
-        System.out.println(outputDTO.getLottos().size() + "개를 구매했습니다.");
+        int autoMadeCount = (int) outputDTO.getLottos().stream().filter((lotto) -> {return lotto.getAutoMade().equals(LOTTO_AUTO);}).count();
+        System.out.println("수동으로 " + (outputDTO.getLottos().size() - autoMadeCount) + "장, 자동으로 " + autoMadeCount + "개를 구매했습니다.");
     }
 
     private void printLotto(LottoNumber singleLotto){
