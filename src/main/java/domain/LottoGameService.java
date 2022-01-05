@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class LottoGameService {
 
@@ -24,19 +23,12 @@ public class LottoGameService {
     }
 
     public LottoTickets purchase(LottoPurchaseRequest lottoPurchaseRequest) {
-        List<LottoTicket> lottoTicketList = lottoPurchaseRequest
-                .getManualLottoTickets().stream()
-                .map(lottoNumbers -> LottoTicket.from(lottoNumbers))
-                .collect(Collectors.toList());
-
         int manualLottoCount = lottoPurchaseRequest.getManualLottoCount();
         int amount = lottoPurchaseRequest.getAmount() - (manualLottoCount * LOTTO_PRICE);
         int autoLottoCount = calculateLottoQuantity(amount);
-        for(int q = 0; q < autoLottoCount; q++) {
-            lottoTicketList.add(createAutoLottoTicket());
-        }
 
-        return new LottoTickets(lottoTicketList);
+        PurchaseInfo purchaseInfo = new PurchaseInfo(autoLottoCount, manualLottoCount, lottoPurchaseRequest.getManualLottoTickets());
+        return LottoTickets.createLottoTickets(purchaseInfo);
     };
 
     public WinningResult checkWinningLotto(LottoTickets lottoTickets, WinningLottoTicket winningTicket) {
@@ -48,13 +40,6 @@ public class LottoGameService {
         return amount / LOTTO_PRICE;
     }
 
-    private LottoTicket createAutoLottoTicket() {
-        Collections.shuffle(BASE_LOTTO_NUMBERS);
-        List<Integer> lottoNumbers = new ArrayList<>(BASE_LOTTO_NUMBERS.subList(0, 6));
-        Collections.sort(lottoNumbers);
-        return LottoTicket.from(lottoNumbers);
-    }
-
     private Integer calculateProfitRatio(Map<LottoRank, Integer> countMap, Integer countOfTicket) {
         Long profit = calculateProfit(countMap);
         Long purchaseAmount = Long.valueOf(countOfTicket * LOTTO_PRICE);
@@ -62,7 +47,8 @@ public class LottoGameService {
     }
 
     private Long calculateProfit(Map<LottoRank, Integer> countMap) {
-        return countMap.entrySet().stream()
+        return countMap.entrySet()
+                .stream()
                 .mapToLong((entry) -> entry.getValue() * entry.getKey().getWinnings())
                 .sum();
     }
