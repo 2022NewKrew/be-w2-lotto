@@ -1,5 +1,7 @@
 package domain;
 
+import view.InputView;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -40,5 +42,16 @@ public class Matching {
     public long getTotalPrizeSum() {
         return matchingMap.entrySet().stream().map(e -> e.getKey().getPrizeMoney() * e.getValue()).
                 mapToLong(Long::longValue).sum();
+    }
+
+    public void addMatchingLotto(Player player) {
+        List<Integer> winningNumber = InputView.getWinningInput();
+        Integer bonusNumber = InputView.getBonusWinningInput();
+        List<Integer> matchingLottos = player.matchingLotto(winningNumber);
+        List<Boolean> matchingBonusLottos = player.matchingBonusLotto(bonusNumber);
+        for (int i = 0; i < matchingLottos.size(); i++) {
+            Prize prize = Prize.getPrize(matchingLottos.get(i), matchingBonusLottos.get(i));
+            addMatchingMap(prize);
+        }
     }
 }

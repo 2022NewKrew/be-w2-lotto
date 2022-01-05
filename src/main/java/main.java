@@ -24,19 +24,9 @@ public class main {
         OutputView.printLottoList(player);
         OutputView.PrintLottoSize(payAutoCount, payManualCount);
 
-        addMatchingLotto();
+        matching.addMatchingLotto(player);
 
         OutputView.printMatchResult(matching, playerMoney);
     }
 
-    private static void addMatchingLotto() {
-        List<Integer> winningNumber = InputView.getWinningInput();
-        Integer bonusNumber = InputView.getBonusWinningInput();
-        List<Integer> matchingLottos = player.matchingLotto(winningNumber);
-        List<Boolean> matchingBonusLottos = player.matchingBonusLotto(bonusNumber);
-        for (int i = 0; i < matchingLottos.size(); i++) {
-            Prize prize = Prize.getPrize(matchingLottos.get(i), matchingBonusLottos.get(i));
-            matching.addMatchingMap(prize);
-        }
-    }
 }
