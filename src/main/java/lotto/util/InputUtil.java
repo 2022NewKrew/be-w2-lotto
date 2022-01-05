@@ -1,19 +1,27 @@
 package lotto.util;
 
-import lotto.dto.LottoGameDto;
-
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
-// 예외처리
+import static lotto.constant.Msg.INPUT_PURCHASE_PRICE;
+import static lotto.constant.Msg.INPUT_WINNING_NUMBERS;
+
+// 예외처리 추가하기
 public class InputUtil {
     private static final Scanner sc = new Scanner(System.in);
     public int inputPrice() {
-        System.out.println("구입금액을 입력해 주세요.");
-        return sc.nextInt();
+        System.out.println(INPUT_PURCHASE_PRICE.getMsg());
+        return Integer.parseInt(sc.nextLine());
     }
 
-    public String inputWinningNumber() {
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        return sc.nextLine();
+    public List<Integer> inputWinningNumber() {
+        System.out.println(INPUT_WINNING_NUMBERS.getMsg());
+        return Arrays.stream(sc.nextLine().split(","))
+                .map(String::trim)
+                .mapToInt(Integer::parseInt)
+                .boxed()
+                .collect(Collectors.toList());
     }
 }

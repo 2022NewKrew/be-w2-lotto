@@ -1,9 +1,9 @@
 package lotto;
 
-import lotto.view.Lotto;
+import lotto.view.LottoShop;
 
 public class LottoMain {
     public static void main(String[] args) {
-        new Lotto().buy();
+        new LottoShop().buy();
     }
 }
