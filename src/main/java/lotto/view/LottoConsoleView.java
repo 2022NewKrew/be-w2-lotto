@@ -1,12 +1,11 @@
 package lotto.view;
 
 import lotto.VO.Rank;
-import lotto.domain.LottoResultManager;
 import lotto.model.Lotto;
 import lotto.domain.LottoApp;
 
 import lotto.domain.Money;
-import lotto.model.LottoResult;
+import lotto.domain.LottoResult;
 import lotto.model.WinningLotto;
 
 import java.util.*;
@@ -17,10 +16,11 @@ import java.util.stream.Stream;
 public class LottoConsoleView extends LottoView {
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    private LottoApp app;
+    public LottoConsoleView() {
+        super();
+    }
 
     public void start() {
-        app = new LottoApp();
         try {
             //금액과 개수를 입력받아 수동 로또를 구매한다.
             Money money = inputMoney();
@@ -76,17 +76,17 @@ public class LottoConsoleView extends LottoView {
     public void purchaseCustomLotto(Money money, int countOfCustomLotto) {
         System.out.println("수동으로 구매할 번호를 입력해주세요.");
         for (int i = 0; i < countOfCustomLotto; i++) {
-            app.purchaseCustomLotto(money, _inputLotto());
+            app.purchaseCustomLotto(money, inputLotto());
         }
     }
 
-    public Money inputMoney() throws IllegalArgumentException {
+    public Money inputMoney() throws InvalidFormatException {
         System.out.println("구매금액을 입력해 주세요.");
         int inputNumber = Integer.parseInt(SCANNER.nextLine().trim());
         return new Money(validatedMoneyNumber(inputNumber));
     }
 
-    public int inputCountOfCustomLotto() throws IllegalArgumentException {
+    public int inputCountOfCustomLotto() throws InvalidFormatException {
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
         int inputNumber = Integer.parseInt(SCANNER.nextLine().trim());
         return validatedPositiveNumber(inputNumber);
@@ -94,27 +94,32 @@ public class LottoConsoleView extends LottoView {
 
     public WinningLotto inputWinLotto() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        return new WinningLotto(_inputLotto(), inputBonusNumber());
+        return new WinningLotto(inputLotto(), inputBonusNumber());
     }
 
-    public Integer inputBonusNumber() throws IllegalArgumentException {
+    public Integer inputBonusNumber() throws InvalidFormatException {
         System.out.println("보너스 볼을 입력해 주세요");
         return validatedLottoNumber(Integer.parseInt(SCANNER.nextLine().trim()));
     }
 
-    public Lotto _inputLotto() throws IllegalArgumentException {
+    public Lotto inputLotto() throws InvalidFormatException {
         List<Integer> numbers = validatedLottoNumbers(_inputLottoNumbers());
         return new Lotto(numbers);
     }
 
-    public List<Integer> _inputLottoNumbers() throws IllegalArgumentException {
-        return _inputIntegerStream()
-                .distinct()
-                .map(x -> validatedLottoNumber(x))
-                .collect(Collectors.toList());
+    public List<Integer> _inputLottoNumbers() throws InvalidFormatException {
+        try {
+            return _inputIntegerStream()
+                    .distinct()
+                    .map(x -> validatedLottoNumber(x))
+                    .collect(Collectors.toList());
+        } catch (InvalidFormatException e) {
+            throw e;
+        }
+
     }
 
-    public Stream<Integer> _inputIntegerStream() throws IllegalArgumentException {
+    public Stream<Integer> _inputIntegerStream() {
         return Arrays.stream(SCANNER.nextLine().trim().split(","))
                 .map(String::trim)
                 .map(Integer::parseInt);

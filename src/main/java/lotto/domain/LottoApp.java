@@ -1,7 +1,6 @@
 package lotto.domain;
 
 import lotto.model.Lotto;
-import lotto.model.LottoResult;
 import lotto.model.WinningLotto;
 
 import java.util.*;
@@ -10,7 +9,7 @@ public class LottoApp {
     public static final LottoGenerator GENERATOR = new LottoGenerator();
 
 
-    private final List<Lotto> lottos = new ArrayList<>();
+    private final Lottos lottos = new Lottos();
     private WinningLotto winningLotto;
     private LottoResultManager resultManager;
     private int accumPayment;
@@ -66,7 +65,7 @@ public class LottoApp {
 
     public void compareHowManyMatch() {
         this.resultManager = new LottoResultManager();
-        for (Lotto lotto : this.lottos) {
+        for (Lotto lotto : this.lottos.toList()) {
             int countOfMatch = howManyMatch(lotto);
             boolean matchBonus = isMatchBonus(lotto);
             this.resultManager.addResult(countOfMatch, matchBonus);
@@ -106,13 +105,12 @@ public class LottoApp {
         return this.getCountOfLottos() - getCountOfCustomLotto();
     }
 
+    public Lottos getLottos(){
+        return this.lottos;
+    }
+
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        for (Lotto lotto : lottos) {
-            builder.append(lotto.toString());
-            builder.append("\n");
-        }
-        return builder.toString();
+        return this.lottos.toString();
     }
 
 }

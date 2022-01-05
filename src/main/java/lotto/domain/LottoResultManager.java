@@ -1,7 +1,6 @@
 package lotto.domain;
 
 import lotto.VO.Rank;
-import lotto.model.LottoResult;
 
 
 public class LottoResultManager {
