@@ -78,6 +78,7 @@ class LottoResultManagerTest {
         );
         LottoResultManager resultManager = new LottoResultManager(winningLotto, lottoList);
 
+        resultManager.getMatchingResult();
         Long totalPrizeMoney = resultManager.getTotalPrizeMoney();
 
         assertThat(totalPrizeMoney)
