@@ -12,7 +12,7 @@ public class LottoMachine {
     private static final int MAXIMUM_VALUE = 46;
     private static final int MINIMUM_VALUE = 1;
     private static final int PICK_LOTTO = 6;
-    private static final List<Integer> ALL_POSSIBLE_LOTTO_NUMBERS = IntStream.range(MINIMUM_VALUE, MAXIMUM_VALUE)
+    private static final List<Integer> LOTTO_BALLS = IntStream.range(MINIMUM_VALUE, MAXIMUM_VALUE)
             .boxed()
             .collect(Collectors.toList());
 
@@ -28,8 +28,8 @@ public class LottoMachine {
      }
 
     private List<Integer> createAutoLottoNumber() {
-        Collections.shuffle(ALL_POSSIBLE_LOTTO_NUMBERS);
-        return ALL_POSSIBLE_LOTTO_NUMBERS.stream()
+        Collections.shuffle(LOTTO_BALLS);
+        return LOTTO_BALLS.stream()
                 .limit(PICK_LOTTO)
                 .sorted()
                 .collect(Collectors.toList());

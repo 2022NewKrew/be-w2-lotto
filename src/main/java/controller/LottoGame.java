@@ -12,15 +12,15 @@ import java.util.Map;
 
 public class LottoGame {
     public void run() {
-        int purchasedLottoNumbers = InputView.inputPurchaseAmount();
+        int purchasedLottoNumbers = InputView.purchaseAmount();
 
         LottoMachine lottoMachine = new LottoMachine();
         LottoRepository autoLottos = lottoMachine.createAutoLottos(purchasedLottoNumbers);
 
-        OutputView.printAutuLottos(autoLottos);
-        List<Integer> inputLastWeekWinNumber = InputView.inputLastWeekWinNumber();
+        OutputView.printAutoLottos(autoLottos);
+        List<Integer> inputLastWeekWinNumber = InputView.numbers();
 
-        Map<LottoRank, Integer> lottoRankResult = LottoRankMatch.createLottoRankResult(autoLottos, inputLastWeekWinNumber);
+        Map<LottoRank, Integer> lottoRankResult = LottoRankMatch.createResult(autoLottos, inputLastWeekWinNumber);
         System.out.println(lottoRankResult);
 
     }

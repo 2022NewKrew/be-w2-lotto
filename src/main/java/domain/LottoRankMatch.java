@@ -8,10 +8,12 @@ public class LottoRankMatch {
     private static final Map<LottoRank, Integer> lottoResult = new EnumMap<>(LottoRank.class);
 
 
-    public static Map<LottoRank, Integer> createLottoRankResult(LottoRepository autoLottos, List<Integer> inputLastWeekWinNumber) {
+    public static Map<LottoRank, Integer> createResult(LottoRepository autoLottos, List<Integer> inputLastWeekWinNumber) {
         for (Lotto autoLotto : autoLottos.getLottos()) {
             LottoRank lottoRank = createLottoRank(autoLotto, inputLastWeekWinNumber);
-//            (lottoResult.containsKey(lottoRank) == true) ? lottoResult.put(lottoRank, lottoResult.get(lottoRank) + 1) : lottoResult.put(createLottoRank(autoLotto, inputLastWeekWinNumber), 1));
+//            Integer integer = (lottoResult.containsKey(lottoRank)) ? lottoResult.put(lottoRank, lottoResult.get(lottoRank) + 1) : lottoResult.put(createLottoRank(autoLotto, inputLastWeekWinNumber), 1);
+//            System.out.println(integer);
+
             if (lottoResult.containsKey(lottoRank)) {
                 lottoResult.put(lottoRank, lottoResult.get(lottoRank) + 1);
             } else {
