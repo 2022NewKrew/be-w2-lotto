@@ -1,6 +1,6 @@
-import domain.Lotto;
-import domain.Prize;
-import domain.WinningLotto;
+import back.domain.Lotto;
+import back.domain.Prize;
+import back.domain.WinningLotto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

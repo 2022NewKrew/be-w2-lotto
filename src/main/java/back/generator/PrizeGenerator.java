@@ -1,6 +1,6 @@
-package domain.generator;
+package back.generator;
 
-import domain.Prize;
+import back.domain.Prize;
 
 import java.util.Arrays;
 

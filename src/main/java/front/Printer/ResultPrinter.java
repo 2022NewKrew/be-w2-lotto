@@ -1,7 +1,7 @@
-package view.Printer;
+package front.Printer;
 
-import domain.Lotto;
-import domain.Prize;
+import back.domain.Lotto;
+import back.domain.Prize;
 
 import java.util.Arrays;
 import java.util.List;

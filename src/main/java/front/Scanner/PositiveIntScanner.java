@@ -1,4 +1,4 @@
-package view.Scanner;
+package front.Scanner;
 
 import exception.IllegalInputException;
 
@@ -39,6 +39,20 @@ public class PositiveIntScanner {
 
     public static List<Integer> getPositiveIntList(String message) {
         System.out.println(message);
+        while (true) {
+            try {
+                String[] input = sc.nextLine().split(", ");
+                return Arrays
+                        .stream(input)
+                        .map(PositiveIntScanner::parseInt)
+                        .collect(Collectors.toList());
+            } catch (IllegalInputException e) {
+                System.out.println("오류 발생: " + e.getMessage());
+            }
+        }
+    }
+
+    public static List<Integer> getPositiveIntList() {
         while (true) {
             try {
                 String[] input = sc.nextLine().split(", ");

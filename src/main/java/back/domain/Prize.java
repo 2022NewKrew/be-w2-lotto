@@ -1,8 +1,4 @@
-package domain;
-
-import exception.IllegalInputException;
-
-import java.util.Arrays;
+package back.domain;
 
 public enum Prize {
     FOURTH(5000, 3, false),

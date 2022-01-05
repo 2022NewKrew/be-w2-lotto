@@ -1,9 +1,9 @@
-package view.Printer;
+package front.Printer;
 
-import domain.Lotto;
+import dto.LottoDto;
 
 public class LottoPrinter {
-    public static void print(Lotto lotto) {
+    public static void print(LottoDto lotto) {
         System.out.println(String.join(", ", lotto.getLottoSequence().toString()));
     }
 }

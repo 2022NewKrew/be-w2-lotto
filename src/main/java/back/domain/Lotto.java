@@ -1,19 +1,30 @@
-package domain;
+package back.domain;
 
-import domain.generator.PrizeGenerator;
+import back.generator.PrizeGenerator;
 
 import java.util.List;
 
 public class Lotto {
     public static final int cost = 1000;
     private final List<Integer> lottoSequence;
+    private boolean autoCreated;
 
     public Lotto(List<Integer> lottoSequence) {
         this.lottoSequence = lottoSequence;
     }
 
+    public Lotto(List<Integer> lottoSequence,
+                 boolean autoCreated) {
+        this.lottoSequence = lottoSequence;
+        this.autoCreated = autoCreated;
+    }
+
     public List<Integer> getLottoSequence() {
         return lottoSequence;
+    }
+
+    public boolean getAutoCreated() {
+        return autoCreated;
     }
 
     public Prize getResult(WinningLotto winningLotto) {
