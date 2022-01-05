@@ -6,8 +6,16 @@ import java.util.List;
 import java.util.Set;
 
 public class WinningLotto extends Lotto {
-    public WinningLotto(List<Integer> stringToList) {
+
+    private int bonusNumber;
+
+    public WinningLotto(List<Integer> stringToList, int bonusNumber) {
         super(stringToList);
+        this.bonusNumber = bonusNumber;
+    }
+
+    public boolean mathBonus(Lotto lotto){
+        return lotto.getNumbers().contains(bonusNumber);
     }
 
     public int getCountOfSame(Lotto lotto) {
