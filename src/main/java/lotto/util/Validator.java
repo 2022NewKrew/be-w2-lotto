@@ -6,9 +6,13 @@ import java.util.List;
 import java.util.Set;
 
 public class Validator {
-    public static void checkBudget(long budget) throws IllegalArgumentException{
+    public static void checkNaturalNumber(long budget) throws IllegalArgumentException{
         if(budget < 0)
-            throw new IllegalArgumentException("구입금액은 0 이상이어야합니다.");
+            throw new IllegalArgumentException("0 이상의 자연수를 입력해야합니다.");
+    }
+    public static void checkNaturalNumber(int numberOfManualBuy) throws IllegalArgumentException{
+        if(numberOfManualBuy < 0)
+            throw new IllegalArgumentException("0 이상의 자연수를 입력해야합니다.");
     }
 
     public static void checkLottoNumbersFormat(List<Integer> numbers) throws IllegalArgumentException{
@@ -25,15 +29,18 @@ public class Validator {
         checkLottoNumberRange(numbers.get(LottoConstantValue.NUMBER_OF_PICK-1));
     }
 
-    public static void checkLottoNumberRange(int number) throws IllegalArgumentException{
+    public static void checkBonusNumberAndWinningNumbersDuplication(List<Integer> winningNumbers, int bonusNumber){
+        checkLottoNumberRange(bonusNumber);
+        if( winningNumbers.contains(bonusNumber) )
+            throw new IllegalArgumentException("보너스볼은 당첨번호에 포함되지 않는 번호를 입력해야합니다.");
+    }
+
+    private static void checkLottoNumberRange(int number) throws IllegalArgumentException{
         if(number > LottoConstantValue.MAX_NUMBER || number < LottoConstantValue.MIN_NUMBER)
             throw new IllegalArgumentException(
                     LottoConstantValue.MIN_NUMBER + "과 " +
                     LottoConstantValue.MAX_NUMBER + "사이의 숫자를 입력해야합니다.");
     }
 
-    public static void checkBonusNumberAndWinningNumbersDuplication(List<Integer> winningNumbers, int bonusNumber){
-        if( winningNumbers.contains(bonusNumber) )
-            throw new IllegalArgumentException("보너스볼은 당첨번호에 포함되지 않는 번호를 입력해야합니다.");
-    }
+
 }

@@ -1,92 +1,60 @@
 package lotto.service;
 
-import lotto.service.domain.LottoGame;
-import lotto.service.domain.LottoPrizeDetails;
-import lotto.service.domain.LottoResult;
-import lotto.service.domain.LottoTicket;
+import lotto.service.domain.*;
 import lotto.util.LottoConstantValue;
-import lotto.util.Validator;
 
 import java.util.*;
 
 public class LottoService {
-    private final LottoGenerator lottoGenerator;
-
-    public LottoService() {
-        lottoGenerator = new LottoGenerator();
-    }
 
     public LottoGame purchaseLottoGame(long budget){
-        LottoGame lottoGame = new LottoGame(generateLottoTickets(budget));
-        printPurchaseHistory(lottoGame);
+        long gameCount = budget / LottoConstantValue.LOTTO_PRICE;
+        LottoGame lottoGame = new LottoGame(autoPurchaseTickets((int)gameCount));
         return lottoGame;
     }
 
-    private List<LottoTicket> generateLottoTickets(long budget){
+    public LottoGame purchaseLottoGame(long budget, List<List<Integer>> manualNumbersList){
         long gameCount = budget / LottoConstantValue.LOTTO_PRICE;
-        List<LottoTicket> lottoTickets = new ArrayList<>();
-
-        for(int i = 0; i < gameCount; ++i){
-            LottoTicket ticket = new LottoTicket(lottoGenerator.autoGenerate());
-            lottoTickets.add(ticket);
+        List<LottoTicket> tickets = new ArrayList<>();
+        for(List<Integer> manualNumbers : manualNumbersList){
+            gameCount--;
+            LottoNumbers lottoNumbers = new LottoNumbers(manualNumbers);
+            tickets.add(new LottoTicket(lottoNumbers));
         }
-        return lottoTickets;
-    }
-    private void printPurchaseHistory(LottoGame lottoGame){
-        System.out.println(lottoGame.getLottoTickets().size() + "개를 구매했습니다.");
-        lottoGame.getLottoTickets().stream().forEach(LottoTicket::print);
+        tickets.addAll(autoPurchaseTickets((int)gameCount));
+        return new LottoGame(tickets);
     }
 
-    public LottoResult getWholeGameResult(LottoGame lottoGame, List<Integer> winningNumbers){
-        long wholePrizeMoney = getWholePrize(lottoGame, winningNumbers);
+    private List<LottoTicket> autoPurchaseTickets(int gameCount){
+        List<LottoTicket> tickets = new ArrayList<>();
+        for(int i = 0 ;i < gameCount; ++i){
+            tickets.add(new LottoTicket());
+        }
+        return tickets;
+    }
+
+    public LottoResult getWholeGameResult(LottoGame lottoGame){
         Map<LottoPrizeDetails, Integer> wholeGameResult = new HashMap<>();
-        mapInit(wholeGameResult);
 
-        for(LottoTicket ticket : lottoGame.getLottoTickets()){
-            LottoPrizeDetails key = ticket.getPrizeDetails();
-            if(key == LottoPrizeDetails.NO_PRIZE || key == LottoPrizeDetails.UNIDENTIFIED) continue;
-            if(!wholeGameResult.containsKey(key))
-                wholeGameResult.put(key, 1);
-            else
-                wholeGameResult.put(key, wholeGameResult.get(key)+1);
-        }
-        return new LottoResult(wholeGameResult, wholePrizeMoney);
+        lottoGame.getLottoTickets().forEach(ticket -> {
+            wholeGameResult.putIfAbsent(ticket.getPrizeDetails(), 0);
+            wholeGameResult.computeIfPresent(ticket.getPrizeDetails(), (LottoPrizeDetails prizeDetails, Integer count) -> ++count);
+        });
+
+        long wholePrize = getWholePrize(lottoGame);
+        double yield = getGameYield(lottoGame.getLottoTickets().size(), wholePrize);
+        return new LottoResult(wholeGameResult, yield);
     }
 
-    protected void mapInit(Map<LottoPrizeDetails, Integer> map){
-        map.put(LottoPrizeDetails.FIRST_PRIZE, 0);
-        map.put(LottoPrizeDetails.THIRD_PRIZE, 0);
-        map.put(LottoPrizeDetails.FOURTH_PRIZE, 0);
-        map.put(LottoPrizeDetails.FIFTH_PRIZE, 0);
-    }
-
-    protected long getWholePrize(LottoGame lottoGame, List<Integer> winningNumbers){
-        Validator.checkLottoNumbersFormat(winningNumbers);
-
-        long wholePrize = 0;
-        for(LottoTicket ticket : lottoGame.getLottoTickets()){
-            if(ticket.getPrizeDetails() == LottoPrizeDetails.UNIDENTIFIED)
-                ticket.setPrizeDetails(findPrizeDetails(ticket, winningNumbers));
-            wholePrize += ticket.getPrizeMoney();
-        }
+    private long getWholePrize(LottoGame lottoGame){
+        final long wholePrize = lottoGame.getLottoTickets().stream().mapToLong(LottoTicket::getPrizeMoney).sum();
         return wholePrize;
     }
 
-    protected LottoPrizeDetails findPrizeDetails(LottoTicket ticket, List<Integer> winningNumbers){
-        int score = getLottoScore(ticket, winningNumbers);
-        if(score >= 6)
-            return LottoPrizeDetails.FIRST_PRIZE;
-        else if(score == 5)
-            return LottoPrizeDetails.THIRD_PRIZE;
-        else if(score == 4)
-            return LottoPrizeDetails.FOURTH_PRIZE;
-        else if(score == 3)
-            return LottoPrizeDetails.FIFTH_PRIZE;
-        return LottoPrizeDetails.NO_PRIZE;
+    private double getGameYield(int gameCount, long wholePrize){
+        final double purchasedMoney = ((long)gameCount)*LottoConstantValue.LOTTO_PRICE;
+        final double yield = (double) (wholePrize - purchasedMoney) / (double) purchasedMoney * 100;
+        return yield;
     }
-    protected int getLottoScore(LottoTicket ticket, List<Integer> winningNumbers){
-        return (int)winningNumbers.stream().filter(ticket.getLottoNumbers().getNumbers()::contains).count();
-    }
-
 
 }
