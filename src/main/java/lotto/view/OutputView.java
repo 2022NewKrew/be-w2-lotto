@@ -3,9 +3,10 @@ package lotto.view;
 import lotto.domain.result.LottoResult;
 import lotto.domain.result.LottoResultType;
 import lotto.domain.component.LottoTicket;
+import lotto.dto.PurChasingLottoDTO;
 
 import java.io.IOException;
-import java.util.List;
+
 
 import static lotto.view.printer.OutputPrinter.*;
 
@@ -14,9 +15,9 @@ public class OutputView {
     private OutputView() {
     }
 
-    public static void printLottoTickets(List<LottoTicket> tickets) throws IOException {
-        printLottoTicketTitle(tickets.size());
-        for (LottoTicket ticket : tickets) {
+    public static void printLottoTickets(PurChasingLottoDTO purChasingLottoDTO) throws IOException {
+        printLottoTicketTitle(purChasingLottoDTO.getNumberOfManualLotto(), purChasingLottoDTO.getNumberOfAutoLotto());
+        for (LottoTicket ticket : purChasingLottoDTO.getLottoTickets()) {
             printLottoTicketNumbers(ticket);
         }
         printFlush();

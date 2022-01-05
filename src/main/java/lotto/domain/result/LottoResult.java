@@ -4,6 +4,8 @@ import lotto.domain.component.WinningLottoTicket;
 import lotto.domain.component.LottoNumber;
 import lotto.domain.component.LottoTicket;
 
+import lotto.dto.GetLottoResultDTO;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,10 +17,13 @@ public class LottoResult {
     private final Map<LottoResultType, Integer> matchingResult = new HashMap<>();
 
 
-    public LottoResult(WinningLottoTicket winningLottoTicket, List<LottoTicket> lottoTickets, int purchasePrice) {
-        this.purchasePrice = purchasePrice;
+
+    public LottoResult(GetLottoResultDTO getLottoResultDTO) {
+        this.purchasePrice = getLottoResultDTO.getPurchasePrice();
         initialize();
-        compareLottoNumber(winningLottoTicket, lottoTickets);
+        compareLottoNumber(getLottoResultDTO.getWinningLottoTicket(),
+                getLottoResultDTO.getLottoTickets());
+
     }
 
     public int getPurchasePrice() {
