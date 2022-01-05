@@ -9,9 +9,10 @@ public class LottoController {
         LottoCount lottoCount = new LottoCount(InputView.enterPurchasingAmount(), InputView.enterLottoManualCount());
 
         Lottos lottos = new Lottos();
-        InputView.messageLottoManualCount(lottoCount.manualLottoCount());
-        for (int i = 0; i < lottoCount.manualLottoCount(); i++) {
-            lottos.addLotto(LottoStore.purchase(InputView.enterLottoManualNumbers()));
+
+        if(lottoCount.manualLottoCount() > 0) {
+            InputView.messageLottoManualCount();
+            addManualLotto(lottos, lottoCount.manualLottoCount());
         }
         lottos.addLottos(LottoStore.purchase(lottoCount.autoLottoCount()));
 
@@ -19,5 +20,11 @@ public class LottoController {
 
         WinningNumbers winningNumbers = new WinningNumbers(InputView.enterWinningNumbers(), InputView.enterBonusNumber());
         ResultView.printResult(new WinningStatistics(lottos, winningNumbers));
+    }
+
+    public void addManualLotto(Lottos lottos, long manualLottoCount) {
+        for (int i = 0; i < manualLottoCount; i++) {
+            lottos.addLotto(LottoStore.purchase(InputView.enterLottoManualNumbers()));
+        }
     }
 }

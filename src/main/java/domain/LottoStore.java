@@ -1,16 +1,15 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class LottoStore {
     private static final int MIN_LOTTO_NUMBER = 1;
     private static final int MAX_LOTTO_NUMBER = 45;
     private static final int LOTTO_SIZE = 6;
-
+    private static final String DELIMITER_COMMA = ",";
+    private static final String ILLEGAL_LOTTO = "로또는 6개의 서로 다른 숫자(1~45)로 만들어져야 합니다";
     private static List<LottoNumber> allLottoNumbers = new ArrayList<>();
 
     static {
@@ -37,13 +36,20 @@ public class LottoStore {
         return lottos;
     }
 
-    public static Lotto purchase(String[] numbers) {
-        List<LottoNumber> lottoNumbers = Arrays.stream(numbers)
+    public static Lotto purchase(String input) {
+        String[] lottoInput = input.split(DELIMITER_COMMA);
+        validateLottoSize(lottoInput);
+        List<LottoNumber> lottoNumbers = Arrays.stream(lottoInput)
                 .map(LottoNumber::new)
                 .collect(Collectors.toList());
-        Lotto lotto = new Lotto(allLottoNumbers.stream()
+        return new Lotto(allLottoNumbers.stream()
                 .filter(number -> lottoNumbers.contains(number))
                 .collect(Collectors.toList()));
-        return lotto;
+    }
+
+    private static void validateLottoSize(String[] lottoNumbers) {
+        if (lottoNumbers.length != LOTTO_SIZE) {
+            throw new IllegalArgumentException(ILLEGAL_LOTTO);
+        }
     }
 }
