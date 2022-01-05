@@ -12,7 +12,7 @@ public class LotteryGenerator {
         Collections.shuffle(lottoNums);
         ArrayList<Integer> numbers = new ArrayList<>(lottoNums.subList(0, 6)); // 같은 참조값을 사용하지 않게 하기 위해 deep copy
         Collections.sort(numbers);
-        return new Lottery(numbers);
+        return new Lottery(numbers, LotteryDiv.AUTO);
     }
 
     private LotteryGenerator() {

@@ -16,6 +16,10 @@ public class IOUtil {
 
     public List<Integer> inputSplitInt(String msg, String regex) {
         System.out.println(msg);
+        return inputSplitInt(regex);
+    }
+
+    public List<Integer> inputSplitInt(String regex) {
         return Arrays.stream(sc.nextLine().split(regex))
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());

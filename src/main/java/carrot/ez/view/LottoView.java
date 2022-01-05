@@ -4,9 +4,12 @@ import carrot.ez.controller.LottoController;
 import carrot.ez.dto.LotteryStatisticsDto;
 import carrot.ez.dto.WinningNumberDto;
 import carrot.ez.lotto.Lotteries;
+import carrot.ez.lotto.Lottery;
+import carrot.ez.lotto.LotteryDiv;
 import carrot.ez.lotto.Rank;
 import carrot.ez.util.IOUtil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,11 +39,27 @@ public class LottoView {
     }
 
     private Lotteries purchaseLotteries(long amount) {
-        return lottoController.purchaseLotteries(amount);
+        int manualQuantity = inputManualQuantity();
+        List<Lottery> manualLotteries = inputManualLotteries(manualQuantity);
+        return lottoController.purchaseLotteries(amount, manualLotteries);
+    }
+
+    private int inputManualQuantity() {
+        return io.inputInt("수동으로 구매할 로또 수를 입력해주세요.");
+    }
+
+    private List<Lottery> inputManualLotteries(int manualQuantity) {
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        List<Lottery> manualLotteries = new ArrayList<>();
+        for (int i = 0; i < manualQuantity; i++) {
+            List<Integer> numbers = io.inputSplitInt("\\s*[,]\\s*");
+            manualLotteries.add(new Lottery(numbers, LotteryDiv.MANUAL));
+        }
+        return manualLotteries;
     }
 
     private void printLotteries(Lotteries lotteries) {
-        System.out.println(lotteries.getSize() + "개를 구매했습니다.");
+        System.out.printf("수동으로 %d장, 자동으로 %d장을 구매했습니다.\n", lotteries.getManualSize(), lotteries.getAutoSize());
         lotteries.getLotteries().forEach(System.out::println);
         System.out.println();
     }
