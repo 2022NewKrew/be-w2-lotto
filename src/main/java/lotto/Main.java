@@ -6,31 +6,69 @@ import lotto.domain.LottoTicket;
 import lotto.view.InputView;
 import lotto.view.LottoPrinter;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import static lotto.domain.LottoShop.PRICE;
 
 public class Main {
     public static void main(String[] args) {
-        LottoShop lottoShop = new LottoShop();
-        InputView inputView = new InputView();
-        Gambler gambler = new Gambler();
-
-        purchaseLotto(lottoShop, inputView, gambler);
-
-        Set<Integer> winnerNumber = inputView.getWinnerNumbersFromScanner("당첨 번호를 입력해주세요: ");
-        lottoShop.setWinnerNumber(winnerNumber);
-        int bonusBall = getBonusBall(inputView, winnerNumber);
-
-        LottoPrinter printer = new LottoPrinter();
-        printer.printLottoResult(lottoShop, gambler, bonusBall);
+        try {
+            run();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    private static void purchaseLotto(LottoShop lottoShop, InputView inputView, Gambler gambler) {
-        int moneyToBuy = inputView.getPositiveIntFromScanner("구입 금액을 입력해주세요: ");
-        lottoShop.sellLottoTicket(gambler, moneyToBuy);
+    private static void run() {
+        LottoShop lottoShop = new LottoShop();
+        InputView inputView = new InputView();
 
-        List<LottoTicket> purchasedTickets = gambler.getTickets();
-        System.out.printf("로또 %d장을 구매했습니다.%n", purchasedTickets.size());
+        int moneyToBuy = inputView.getPositiveIntFromScanner("구입 금액을 입력해주세요: ");
+        int manualBuyCount = inputView.getPositiveIntFromScanner("수동으로 구매할 로또 수를 입력해주세요: ");
+        if (moneyToBuy < PRICE || moneyToBuy < manualBuyCount * PRICE)
+            throw new RuntimeException("돈이 부족합니다!");
+
+        int autoBuyCount = (moneyToBuy - manualBuyCount * PRICE) / PRICE;
+        List<LottoTicket> allTickets = purchaseLottoTickets(lottoShop, inputView, manualBuyCount, autoBuyCount);
+
+        Gambler gambler = new Gambler(allTickets);
+        printPurchasedTickets(allTickets);
+
+        Set<Integer> winnerNumber = inputView.getWinnerNumbersFromScanner("당첨 번호를 입력해주세요: ");
+        int bonusBall = getBonusBall(inputView, winnerNumber);
+        lottoShop.setWinnerNumber(winnerNumber);
+        lottoShop.setBonusBall(bonusBall);
+
+        LottoPrinter printer = new LottoPrinter();
+        printer.printLottoResult(lottoShop, gambler);
+    }
+
+    private static List<LottoTicket> purchaseLottoTickets(LottoShop lottoShop, InputView inputView, int manualBuyCount, int autoBuyCount) {
+        List<LottoTicket> manualTickets = purchaseManualLotto(lottoShop, inputView, manualBuyCount);
+        List<LottoTicket> autoTickets = purchaseAutoLotto(lottoShop, autoBuyCount);
+        System.out.printf("수동으로 %d장, 자동으로 %d장을 구매했습니다.%n", manualTickets.size(), autoTickets.size());
+        return Stream.of(autoTickets, manualTickets)
+                .flatMap(Collection::stream).collect(Collectors.toList());
+    }
+
+    private static List<LottoTicket> purchaseAutoLotto(LottoShop lottoShop, int numOfPurchase) {
+        return lottoShop.sellAutoLottoTicket(numOfPurchase);
+    }
+
+    private static List<LottoTicket> purchaseManualLotto(LottoShop lottoShop, InputView inputView, int numOfPurchase) {
+        System.out.println("수동으로 구매할 번호를 입력해주세요:");
+        List<Set<Integer>> pickedNumbers = IntStream.rangeClosed(1, numOfPurchase)
+                .mapToObj(i -> inputView.getWinnerNumbersFromScanner(String.format("%d번째장: ", i)))
+                .collect(Collectors.toList());
+        return lottoShop.sellManualLottoTicket(pickedNumbers);
+    }
+
+    private static void printPurchasedTickets(List<LottoTicket> purchasedTickets) {
         purchasedTickets.forEach(System.out::println);
         System.out.println();
     }

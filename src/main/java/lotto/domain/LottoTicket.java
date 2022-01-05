@@ -22,7 +22,7 @@ public class LottoTicket {
         int matchedCount = intersection.size();
         boolean bonusBallMatched = numbers.contains(bonusBall);
 
-        return Prize.getPrize(matchedCount, bonusBallMatched);
+        return Prize.of(matchedCount, bonusBallMatched);
     }
 
     @Override

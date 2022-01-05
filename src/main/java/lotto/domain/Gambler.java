@@ -5,14 +5,10 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Gambler {
-    private final List<LottoTicket> tickets = new ArrayList<>();
+    private final List<LottoTicket> tickets;
 
-    public List<LottoTicket> getTickets() {
-        return Collections.unmodifiableList(tickets);
-    }
-
-    public void addLottoTicket(LottoTicket lottoTicket) {
-        tickets.add(lottoTicket);
+    public Gambler(List<LottoTicket> tickets) {
+        this.tickets = tickets;
     }
 
     /**
@@ -23,9 +19,11 @@ public class Gambler {
      *     Map<Prize, 횟수>
      * }</pre>
      */
-    public Map<Prize, Long> getMatchingResult(Set<Integer> winnerNumber, int bonusBall) {
-        return tickets.stream()
-                .map(ticket -> ticket.matchWithWinnerNumber(winnerNumber, bonusBall))
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+    public LottoMatchingResult getMatchingResult(Set<Integer> winnerNumber, int bonusBall) {
+        return new LottoMatchingResult(
+            tickets.stream()
+                    .map(ticket -> ticket.matchWithWinnerNumber(winnerNumber, bonusBall))
+                    .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+        );
     }
 }

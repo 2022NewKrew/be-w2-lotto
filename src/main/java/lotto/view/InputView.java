@@ -30,15 +30,26 @@ public class InputView {
      */
     public Set<Integer> getWinnerNumbersFromScanner(String prompt) {
         System.out.print(prompt);
-        Set<Integer> result = new HashSet<>();
+        Set<Integer> result = new TreeSet<>();
         String input;
         while (result.size() < NUMBERS_TO_PICK) {
+            result = getNumbers();
+        }
+        return result;
+    }
+
+    private Set<Integer> getNumbers() {
+        Set<Integer> result = new HashSet<>();
+        try {
+            String input;
             input = scanner.nextLine();
             result = Arrays.stream(input.split(","))
                     .map(String::trim)
                     .mapToInt(Integer::parseInt)
                     .boxed()
                     .collect(Collectors.toSet());
+        } catch (NumberFormatException e) {
+            System.out.println("** 컴마(,)로 구분된 숫자만 입력해주세요 **");
         }
         return result;
     }
