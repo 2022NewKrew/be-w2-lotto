@@ -84,7 +84,7 @@ public class Money {
 
     @Override
     public String toString() {
-        return NumberFormatter.strNumberWithSeparator(money) + "원";
+        return NumberFormatter.strNumberWithComma(money) + "원";
     }
 
     // Auto-generated code

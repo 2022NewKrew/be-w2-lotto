@@ -40,7 +40,7 @@ public class UserInput {
     }
 
     private LottoNumbers getLottoNumbers() {
-        System.out.println("보너스 번호를 제외한 당첨 번호 " + LottoNumbers.SIZE + "개를 " +
+        System.out.println("당첨 번호 " + LottoNumbers.SIZE + "개를 " +
                 "[" + Separator.DEFAULT_SEPARATOR + "]로 구분해서 중복 없이 입력해 주세요. " +
                 "[" + LottoNumber.MIN + " ~ " + LottoNumber.MAX + "]");
 

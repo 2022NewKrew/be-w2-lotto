@@ -16,7 +16,8 @@ public class LottoSimulator {
 
     public void run() {
         final Money money = userInput.requestMoney();
-        if (lottoSimulatorView.checkNotEnoughMoney(money)) {
+        if (money.notEnoughToBuyOneLotto()) {
+            lottoSimulatorView.printNotEnoughMoney(money);
             return;
         }
 

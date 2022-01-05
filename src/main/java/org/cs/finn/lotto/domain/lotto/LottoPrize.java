@@ -4,7 +4,7 @@ import org.cs.finn.lotto.util.Checker;
 import org.cs.finn.lotto.util.NumberFormatter;
 
 public enum LottoPrize {
-    NONE("꽝", 0),
+    NONE("낙첨", 0),
     MATCH3("3개 일치", 5_000),
     MATCH4("4개 일치", 50_000),
     MATCH5("5개 일치", 1_500_000),
@@ -52,6 +52,6 @@ public enum LottoPrize {
 
     @Override
     public String toString() {
-        return condition + " (" + NumberFormatter.strNumberWithSeparator(reward) + "원)";
+        return condition + " (" + NumberFormatter.strNumberWithComma(reward) + "원)";
     }
 }
