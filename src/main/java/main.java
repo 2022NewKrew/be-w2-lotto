@@ -5,16 +5,27 @@ import view.PlayerView;
 
 import java.util.*;
 
+import static domain.Lotto.lottoPrice;
+
 public class main {
+    private static int playerMoney;
+    private static int payManualCount;
+    private static int payAutoCount;
+
     private static Player player;
-    private static int payPrice;
     private static PlayerView playerView = new PlayerView();
     private static LottoView lottoView = new LottoView();
     private static Matching matching = new Matching();
     private static MatchingView matchingView = new MatchingView();
 
     public static void main(String[] args) {
-        player = new Player(payPrice = UserInput.getPayPriceInput());
+        playerMoney = UserInput.getPayPriceInput();
+        payManualCount = UserInput.getManualCountInput(playerMoney/lottoPrice);
+        payAutoCount = (playerMoney - payManualCount*lottoPrice) / lottoPrice;
+
+        List<Lotto> manualLottoList  = UserInput.getManualLottoInput(payManualCount);
+
+        player = new Player(payAutoCount, manualLottoList);
         printLottoList();
         printLottoSize();
         addMatchingLotto();
@@ -29,7 +40,7 @@ public class main {
     }
 
     private static void printLottoSize() {
-        playerView.PrintLottoSize(player.getLottoList().size());
+        playerView.PrintLottoSize(payAutoCount, payManualCount);
     }
 
     private static void addMatchingLotto() {
@@ -45,6 +56,6 @@ public class main {
 
     private static void printMatchingResult() {
         EnumMap<Prize, Long> matchingMap = matching.getMatchingMap();
-        matchingView.PrintMatchResult(matchingMap, payPrice);
+        matchingView.PrintMatchResult(matchingMap, playerMoney);
     }
 }
