@@ -16,6 +16,10 @@ public class LottoTickets {
         this.lottoTickets = lottoTickets;
     }
 
+    public void addAllTickets(LottoTickets tickets) {
+        lottoTickets.addAll(tickets.lottoTickets);
+    }
+
     public List<LottoRank> toLottoRanks(WinningLotto winningLotto) {
         return lottoTickets.stream()
             .map(lottoTicket -> LottoRank.valueOf(winningLotto, lottoTicket))

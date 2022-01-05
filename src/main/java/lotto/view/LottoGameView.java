@@ -15,7 +15,7 @@ import lotto.dto.LottoTicketsDTO;
 
 public class LottoGameView {
 
-    private static final String PRINT_PURCHASE_COUNT = "개를 구매했습니다.";
+    private static final String PRINT_PURCHASE_FORMAT = "수동으로 %d장, 자동으로 %d개를 구매했습니다.%n";
     private static final String PRINT_RESULT_FORMAT = "%n당첨 통계%n"
         + "---------%n"
         + "3개 일치 (%d원) - %d개%n"
@@ -43,14 +43,26 @@ public class LottoGameView {
         return scanner.nextLine();
     }
 
-    public String[] inputWinningLottoNumbers() {
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+    public String inputManualPurchaseAmount() {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        return scanner.nextLine();
+    }
+
+    public String[] inputLottoNumbers() {
         return scanner.nextLine().split(LOTTO_DELIMITER);
     }
 
     public String inputBonusNumber() {
         System.out.println("보너스 볼을 입력해 주세요.");
         return scanner.nextLine();
+    }
+
+    public void printManualLottoTicketMessage() {
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+    }
+
+    public void printWinningLottoNumbersMessage() {
+        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
     }
 
     public void printLottoResult(LottoResultDTO lottoResultDTO) {
@@ -63,14 +75,20 @@ public class LottoGameView {
             lottoResultDTO.getLottoProfitRateDTO().getProfitRate());
     }
 
-    public void printLottoTickets(LottoTicketsDTO lottoTicketsDTO) {
+    public void printLottoTickets(LottoTicketsDTO manualTicketsDTO,
+        LottoTicketsDTO autoTicketsDTO) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.append(lottoTicketsDTO.lottoTicketSize())
-            .append(PRINT_PURCHASE_COUNT)
+        stringBuilder.append(String.format(PRINT_PURCHASE_FORMAT,
+                manualTicketsDTO.lottoTicketSize(),
+                autoTicketsDTO.lottoTicketSize()))
             .append(System.lineSeparator());
 
-        lottoTicketsDTO.getLottoDTOs()
+        manualTicketsDTO.getLottoDTOs()
+            .forEach(lottoDTO -> stringBuilder.append(printLottoTicket(lottoDTO))
+                .append(System.lineSeparator()));
+
+        autoTicketsDTO.getLottoDTOs()
             .forEach(lottoDTO -> stringBuilder.append(printLottoTicket(lottoDTO))
                 .append(System.lineSeparator()));
 
