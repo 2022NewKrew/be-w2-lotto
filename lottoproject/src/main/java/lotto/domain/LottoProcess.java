@@ -37,7 +37,7 @@ public class LottoProcess {
         inputMoney = Validator.checkInputMoney(inputMoney);
         int totalCount = inputMoney/Util.LOTTO_PRICE;
         List<Lotto> result = new ArrayList<>();
-        result.addAll(generateLottosByManual(manualCount));
+        if(manualCount>1) result.addAll(generateLottosByManual(manualCount));
         result.addAll(generateLottosByAuto(totalCount-manualCount));
         return result;
     }
