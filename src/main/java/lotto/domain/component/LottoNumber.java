@@ -1,5 +1,7 @@
 package lotto.domain.component;
 
+import java.util.Objects;
+
 public class LottoNumber {
 
     public static final int LOTTO_MIN_NUMBER = 1;
@@ -22,6 +24,11 @@ public class LottoNumber {
             return false;
         LottoNumber n = (LottoNumber) o;
         return n.number == number;
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(number);
     }
 
     private void validateLottoNumber(int number) throws IllegalArgumentException {
