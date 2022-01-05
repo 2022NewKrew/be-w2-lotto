@@ -25,6 +25,9 @@ public class LottoTicket {
         return LottoRank.findLottoRankByWinningCountAndMatchBonus(winningCount, matchBonus);
     }
 
+    public static LottoTicket from(List<Integer> lottoNumbers) {
+        return new LottoTicket(lottoNumbers);
+    }
     @Override
     public String toString() {
         return lottoNumbers.toString();
