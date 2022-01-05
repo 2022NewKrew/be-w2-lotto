@@ -18,7 +18,7 @@ public class ResultView {
     public static void printLottoResult(EnumMap<Prize, Integer> lottoResult) {
         System.out.println(GameMessage.WINNING_STATISTICS.getMessage());
         // TODO - 금액 포함 출력
-        lottoResult.forEach((key, value) -> System.out.printf("%d개 일치 (%d원)- %d개", key.getMatchCount(), key.getMoney(), value));
+        lottoResult.forEach((key, value) -> System.out.printf("%d개 일치 (%d원)- %d개\n", key.getMatchCount(), key.getMoney(), value));
     }
 
     public static void printRateOfReturn(double rateOfReturn) {
