@@ -59,5 +59,4 @@ public enum LottoPrize {
     public String toString() {
         return condition + " (" + NumberFormatter.strNumberWithSeparator(reward) + "원)";
     }
-
 }

@@ -27,5 +27,4 @@ public class LottoSimulator {
         final LottoResult lottoResult = new LottoResult(lottoWinnings, lottos);
         lottoSimulatorView.printResult(lottoResult, money);
     }
-
 }

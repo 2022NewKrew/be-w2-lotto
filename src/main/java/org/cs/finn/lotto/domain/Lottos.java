@@ -23,5 +23,4 @@ public class Lottos {
     public List<LottoNumbers> getList() {
         return Collections.unmodifiableList(list);
     }
-
 }
