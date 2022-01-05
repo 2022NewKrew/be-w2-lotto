@@ -1,4 +1,4 @@
-package dto;
+package dto.output;
 
 import domain.Lotto;
 
@@ -6,12 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class ResultDto {
+public class ResultOutputDto {
     private final Map<Integer, Integer> numOfMatchedToReward;
     private final Map<Integer, Integer> numOfMatchedToCount;
     private int purchaseAmount = 0;
 
-    public ResultDto(){
+    public ResultOutputDto(){
         numOfMatchedToReward = Map.of(
                 0, 0,
                 1, 0,

@@ -1,9 +1,12 @@
-import dto.InputResultDto;
+import dto.input.PurchaseDto;
+import dto.input.WinningNumberDto;
 import factory.ValidatorServiceFactory;
 import presentation.controller.LottoController;
+import presentation.view.input.PurchaseInputView;
+import presentation.view.input.WinningNumberInputView;
+import presentation.view.output.PurchaseOutputView;
+import presentation.view.output.ResultOutputView;
 import validate.ValidatorService;
-import presentation.view.InputViewz;
-import presentation.view.LottoResultOutputView;
 
 import java.util.Scanner;
 
@@ -18,13 +21,12 @@ public class LottoDriver {
     }
 
     private static void startLotto(Scanner scanner, ValidatorService validatorService){
-        Optional<InputResultDto> inputResultDto = InputViewz.input(scanner, validatorService);
-        if(inputResultDto.isEmpty()){
-            System.out.println("다시 시작해주세요.");
-            return;
-        }
+        PurchaseDto purchaseDto = new PurchaseInputView(scanner,validatorService).input();
+        PurchaseOutputView purchaseOutputView = lottoController.getPurchaseResult(purchaseDto);
+        purchaseOutputView.print();
 
-        LottoResultOutputView lottoResultOutputView = lottoController.getLottoResult(inputResultDto.get());
-        lottoResultOutputView.print();
+        WinningNumberDto winningNumberDto =  new WinningNumberInputView(scanner, validatorService).input();
+        ResultOutputView resultOutputView = lottoController.getLottoResult(purchaseDto, winningNumberDto);
+        resultOutputView.print();
     }
 }

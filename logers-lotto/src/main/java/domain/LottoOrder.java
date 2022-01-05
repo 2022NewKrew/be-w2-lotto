@@ -1,7 +1,7 @@
 package domain;
 
 
-import dto.ResultDto;
+import dto.output.ResultOutputDto;
 import factory.LottoFactory;
 
 import java.util.List;
@@ -22,12 +22,12 @@ public class LottoOrder {
     }
 
 
-    public ResultDto getResult(WinningNumber winningNumber){
-        ResultDto resultDto = new ResultDto();
+    public ResultOutputDto getResult(WinningNumber winningNumber){
+        ResultOutputDto resultOutputDto = new ResultOutputDto();
         for(Lotto lotto : lottos){
-            resultDto.addMatched(winningNumber.getMatchedNumber(lotto));
+            resultOutputDto.addMatched(winningNumber.getMatchedNumber(lotto));
         }
-        return resultDto;
+        return resultOutputDto;
     }
 
     public int getPurchaseAmount(){
