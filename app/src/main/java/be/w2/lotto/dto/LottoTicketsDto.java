@@ -1,7 +1,7 @@
 package be.w2.lotto.dto;
 
-import be.w2.lotto.domain.LottoTickets;
-import be.w2.lotto.domain.LottoTicket;
+import be.w2.lotto.domain.lottoticket.LottoTickets;
+import be.w2.lotto.domain.lottoticket.LottoTicket;
 
 import java.util.List;
 import java.util.stream.Collectors;

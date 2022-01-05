@@ -1,6 +1,6 @@
 package be.w2.lotto.dto;
 
-import be.w2.lotto.domain.LottoTickets;
+import be.w2.lotto.domain.lottoticket.LottoTickets;
 
 public class InputPurchaseAmountDto {
     public LottoTickets lottoTickets;

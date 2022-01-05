@@ -1,6 +1,5 @@
-package be.w2.lotto.domain;
+package be.w2.lotto.domain.winningresult;
 
-import java.util.List;
 import java.util.stream.Stream;
 
 public enum Reward {

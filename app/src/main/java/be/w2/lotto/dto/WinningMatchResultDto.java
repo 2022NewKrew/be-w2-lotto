@@ -1,6 +1,6 @@
 package be.w2.lotto.dto;
 
-import be.w2.lotto.domain.WinningMatchResult;
+import be.w2.lotto.domain.winningresult.WinningMatchResult;
 
 public class WinningMatchResultDto {
     public final int matchedNumber;

@@ -3,14 +3,18 @@
  */
 package be.w2.lotto;
 
-import be.w2.lotto.domain.BonusNumber;
-import be.w2.lotto.domain.LottoTickets;
-import be.w2.lotto.domain.WinningLottoTicket;
-import be.w2.lotto.domain.WinningResult;
+import be.w2.lotto.common.util.Parser;
+import be.w2.lotto.domain.lottonumber.BonusNumber;
+import be.w2.lotto.domain.lottoticket.LottoTickets;
+import be.w2.lotto.domain.lottoticket.WinningLottoTicket;
+import be.w2.lotto.domain.winningresult.WinningResult;
 import be.w2.lotto.dto.InputPurchaseAmountDto;
 import be.w2.lotto.dto.LottoTicketsDto;
 import be.w2.lotto.dto.WinningResultDto;
 import be.w2.lotto.view.InputView;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static be.w2.lotto.common.util.Parser.parseInputNumbers;
 import static be.w2.lotto.view.ErrorView.throwErrorMessage;
@@ -41,7 +45,12 @@ public class LottoApplication {
         while (true) {
             try {
                 int purchaseAmount = inputPurchaseAmount();
-                return InputPurchaseAmountDto.of(LottoTickets.valueOf(purchaseAmount), purchaseAmount);
+                int manualLottoAmount = inputManualLottoAmount();
+                List<List<Integer>> manualLottoNumbers = inputManualLottoNumbers(manualLottoAmount).stream()
+                        .map(Parser::parseInputNumbers)
+                        .collect(Collectors.toList());
+                LottoTickets lottoTickets = LottoTickets.valueOf(purchaseAmount, manualLottoNumbers);
+                return InputPurchaseAmountDto.of(lottoTickets, purchaseAmount);
             } catch (IllegalArgumentException e) {
                 throwErrorMessage(e);
             }

@@ -1,12 +1,14 @@
-package be.w2.lotto.domain;
+package be.w2.lotto.domain.lottoticket;
+
+import be.w2.lotto.domain.lottonumber.LottoNumber;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LottoTicket {
+public abstract class LottoTicket {
     private final List<LottoNumber> lottoNumbers;
 
-    private LottoTicket(List<LottoNumber> lottoNumbers) {
+    public LottoTicket(List<LottoNumber> lottoNumbers) {
         this.lottoNumbers = lottoNumbers;
     }
 
@@ -14,10 +16,6 @@ public class LottoTicket {
         return this.lottoNumbers.stream()
                 .map(LottoNumber::getNumber)
                 .collect(Collectors.toList());
-    }
-
-    public static LottoTicket from(List<LottoNumber> lottoNumbers) {
-        return new LottoTicket(lottoNumbers);
     }
 
     public static final int LOTTO_TICKET_PRICE = 1000;

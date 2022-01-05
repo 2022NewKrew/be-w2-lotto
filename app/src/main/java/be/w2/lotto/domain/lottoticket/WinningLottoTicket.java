@@ -1,23 +1,17 @@
-package be.w2.lotto.domain;
+package be.w2.lotto.domain.lottoticket;
+
+import be.w2.lotto.domain.lottonumber.LottoNumber;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static be.w2.lotto.common.exception.ExceptionMessages.INVALID_WINNING_NUMBERS_EXCEPTION;
 import static be.w2.lotto.common.exception.ExceptionMessages.WINNING_NUMBER_DUPLICATION_NOT_ALLOWED_EXCEPTION;
-import static be.w2.lotto.domain.LottoTickets.LOTTO_TICKET_SIZE;
+import static be.w2.lotto.domain.lottoticket.LottoTickets.LOTTO_TICKET_SIZE;
 
-public class WinningLottoTicket {
-    private final List<LottoNumber> winningNumbers;
-
+public class WinningLottoTicket extends LottoTicket {
     private WinningLottoTicket(List<LottoNumber> winningNumbers) {
-        this.winningNumbers = winningNumbers;
-    }
-
-    public List<Integer> getLottoNumbers() {
-        return this.winningNumbers.stream()
-                .map(LottoNumber::getNumber)
-                .collect(Collectors.toList());
+        super(winningNumbers);
     }
 
     public static WinningLottoTicket valueOf(List<Integer> winningNumbers) {

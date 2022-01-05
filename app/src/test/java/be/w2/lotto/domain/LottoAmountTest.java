@@ -3,7 +3,7 @@ package be.w2.lotto.domain;
 import org.junit.jupiter.api.Test;
 
 import static be.w2.lotto.common.exception.ExceptionMessages.PURCHASE_AMOUNT_LOWERBOUND_EXCEPTION;
-import static be.w2.lotto.domain.LottoTicket.LOTTO_TICKET_PRICE;
+import static be.w2.lotto.domain.lottoticket.LottoTicket.LOTTO_TICKET_PRICE;
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.junit.jupiter.api.Assertions.*;
 

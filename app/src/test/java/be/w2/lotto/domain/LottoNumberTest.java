@@ -1,5 +1,6 @@
 package be.w2.lotto.domain;
 
+import be.w2.lotto.domain.lottonumber.LottoNumber;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

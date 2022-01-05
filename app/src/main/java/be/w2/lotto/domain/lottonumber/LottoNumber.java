@@ -1,4 +1,4 @@
-package be.w2.lotto.domain;
+package be.w2.lotto.domain.lottonumber;
 
 import static be.w2.lotto.common.exception.ExceptionMessages.INVALID_NUMBER_RANGE_EXCEPTION;
 

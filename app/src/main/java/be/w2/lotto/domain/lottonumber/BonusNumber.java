@@ -1,4 +1,6 @@
-package be.w2.lotto.domain;
+package be.w2.lotto.domain.lottonumber;
+
+import be.w2.lotto.domain.lottoticket.WinningLottoTicket;
 
 import java.util.List;
 

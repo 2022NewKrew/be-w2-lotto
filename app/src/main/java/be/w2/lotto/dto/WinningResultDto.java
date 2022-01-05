@@ -1,6 +1,6 @@
 package be.w2.lotto.dto;
 
-import be.w2.lotto.domain.WinningResult;
+import be.w2.lotto.domain.winningresult.WinningResult;
 
 import java.math.BigInteger;
 import java.util.List;
