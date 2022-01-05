@@ -1,5 +1,6 @@
 package lotto.domain.model;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import lotto.domain.game.LottoRank;
@@ -27,6 +28,6 @@ public class LottoTickets {
     }
 
     public List<Lotto> getLottoTickets() {
-        return lottoTickets;
+        return Collections.unmodifiableList(lottoTickets);
     }
 }
