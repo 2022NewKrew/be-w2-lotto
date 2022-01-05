@@ -22,4 +22,12 @@ public class Money {
     public int getNumberOfTickets(int ticketPrice) {
         return (int) (price / ticketPrice);
     }
+
+    public long multiplyBy(int count) {
+        return price * count;
+    }
+
+    public long getPrice() {
+        return price;
+    }
 }

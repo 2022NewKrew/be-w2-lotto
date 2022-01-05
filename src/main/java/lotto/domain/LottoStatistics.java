@@ -63,8 +63,7 @@ public class LottoStatistics {
         for (Map.Entry<LottoResult, Integer> resultEntry : resultMap.entrySet()) {
             LottoResult lottoResult = resultEntry.getKey();
             int count = resultEntry.getValue();
-
-            totalPrice += (long) lottoResult.getReward() * count;
+            totalPrice += lottoResult.getTotalReward(count);
         }
 
         Money totalMoney = new Money(totalPrice);
