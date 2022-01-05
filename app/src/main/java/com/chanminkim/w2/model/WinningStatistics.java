@@ -33,9 +33,6 @@ public class WinningStatistics {
 
     private void increaseWinningStateCount(int matchedCount, boolean isContainingBonus) {
         WinningState winningState = WinningState.findByMatchedCountAndBonus(matchedCount, isContainingBonus);
-        if (winningState == null) {
-            return;
-        }
         this.countMap.merge(winningState, 1, Integer::sum);
     }
 
