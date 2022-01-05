@@ -5,7 +5,6 @@ import back.generator.PrizeGenerator;
 import java.util.List;
 
 public class Lotto {
-    public static final int cost = 1000;
     private final List<Integer> lottoSequence;
     private boolean autoCreated;
 
