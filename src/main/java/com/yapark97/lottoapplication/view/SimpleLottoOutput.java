@@ -16,7 +16,8 @@ public class SimpleLottoOutput implements LottoOutput{
     }
 
     @Override
-    public void printLottoSetInfo(LottoSet lottoSet) {
+    public void printLottoSetInfo(int manualLottoNum, int randomLottoNum, LottoSet lottoSet) {
+        System.out.println("\n수동으로 " + manualLottoNum + "장, 자동으로 " + randomLottoNum + "개를 구매했습니다.");
         System.out.println(lottoSet);
     }
 

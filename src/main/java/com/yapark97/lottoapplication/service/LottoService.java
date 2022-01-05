@@ -3,9 +3,12 @@ package com.yapark97.lottoapplication.service;
 import com.yapark97.lottoapplication.domain.lotto.LottoConst;
 import com.yapark97.lottoapplication.domain.lotto.LottoSet;
 import com.yapark97.lottoapplication.domain.lotto.WinningLotto;
+import com.yapark97.lottoapplication.domain.lottocreatestrategy.ManualLottoCreateStrategy;
+import com.yapark97.lottoapplication.domain.lottocreatestrategy.RandomLottoCreateStrategy;
 import com.yapark97.lottoapplication.domain.winningPolicy.BonusBallWinningPolicy;
-import com.yapark97.lottoapplication.domain.winningPolicy.SimpleWinningPolicy;
+import com.yapark97.lottoapplication.domain.winningPolicy.DefaultWinningPolicy;
 import com.yapark97.lottoapplication.domain.winningPolicy.WinningPolicy;
+import com.yapark97.lottoapplication.domain.winningPolicy.WinningRank;
 import com.yapark97.lottoapplication.view.LottoInput;
 import com.yapark97.lottoapplication.view.LottoOutput;
 
@@ -19,35 +22,46 @@ public class LottoService {
     private WinningLotto winningLotto;
     private Set<WinningPolicy> winningPolicies;
 
+    private final RandomLottoCreateStrategy randomLottoCreateStrategy;
+    private final ManualLottoCreateStrategy manualLottoCreateStrategy;
+
     public LottoService(LottoInput lottoInput, LottoOutput lottoOutput) {
         this.lottoInput = lottoInput;
         this.lottoOutput = lottoOutput;
+        randomLottoCreateStrategy = new RandomLottoCreateStrategy();
+        manualLottoCreateStrategy = new ManualLottoCreateStrategy(lottoInput);
     }
 
     public void run() {
-        initLottoSet();
         initWinningPolicy();
-        showLottoSet();
+        initLottoSet();
         initWinnintLotto();
         showStatistic();
-    }
-
-    private void initLottoSet() {
-        int lottoSetNum = lottoInput.takeLottoSetNumInput();
-
-        lottoSet = new LottoSet(lottoSetNum);
     }
 
     private void initWinningPolicy() {
         winningPolicies = new TreeSet<>(); // 상금 순서로 정렬된 set
 
-        for (int i=0; i< LottoConst.WINNING_CONDITION.size(); i++) {
-            winningPolicies.add(new SimpleWinningPolicy(LottoConst.WINNING_CONDITION.get(i), LottoConst.WINNING_PRIZE.get(i)));
-        }
+        winningPolicies.add(new DefaultWinningPolicy(WinningRank.FIRST));
+        winningPolicies.add(new DefaultWinningPolicy(WinningRank.THIRD));
+        winningPolicies.add(new DefaultWinningPolicy(WinningRank.FOURTH));
+        winningPolicies.add(new DefaultWinningPolicy(WinningRank.FIFTH));
     }
 
-    private void showLottoSet() {
-        lottoOutput.printLottoSetInfo(lottoSet);
+    private void initLottoSet() {
+        int price = lottoInput.takeLottoPriceInput();
+        int lottoNum = price / LottoConst.LOTTO_PRICE;
+        int manualLottoNum = lottoInput.takeManualLottoNumInput(lottoNum);
+        int randomLottoNum = lottoNum - manualLottoNum;
+
+        lottoSet = new LottoSet();
+        lottoSet.createLottos(manualLottoNum, manualLottoCreateStrategy);
+        lottoSet.createLottos(randomLottoNum, randomLottoCreateStrategy);
+        showLottoSet(manualLottoNum, randomLottoNum);
+    }
+
+    private void showLottoSet(int manualLottoNum, int randomLottoNum) {
+        lottoOutput.printLottoSetInfo(manualLottoNum, randomLottoNum, lottoSet);
     }
 
     private void initWinnintLotto() {
@@ -58,7 +72,7 @@ public class LottoService {
     }
 
     private void addBonusBallWinningPolicy() {
-        winningPolicies.add(new BonusBallWinningPolicy(winningLotto.getBonusBall(), LottoConst.BONUS_BALL_WINNING_CONDITION, LottoConst.BONUS_BALL_WINNING_PRIZE));
+        winningPolicies.add(new BonusBallWinningPolicy(winningLotto.getBonusBall(), WinningRank.SECOND));
     }
 
     private void showStatistic() {
