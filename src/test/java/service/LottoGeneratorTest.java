@@ -4,6 +4,8 @@ import domain.Lotto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class LottoGeneratorTest {
@@ -17,7 +19,7 @@ class LottoGeneratorTest {
 
     @Test
     void 정해진_수만큼_로또티켓을_생성한다() {
-        Lotto lotto = lottoGenerator.makeLotto(5);
+        Lotto lotto = lottoGenerator.makeLotto(Collections.emptyList(), 5);
         assertEquals(5, lotto.getNumberOfLottoTicket());
     }
 

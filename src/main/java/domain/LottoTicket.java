@@ -1,6 +1,7 @@
 package domain;
 
 import domain.lottonumber.LottoNumber;
+import dto.LottoMatchResultDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +23,8 @@ public class LottoTicket {
 
     }
 
-    public void print() {
-        System.out.println(lottoNumbers.toString());
+    @Override
+    public String toString() {
+        return lottoNumbers.toString();
     }
 }

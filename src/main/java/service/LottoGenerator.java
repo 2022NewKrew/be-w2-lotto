@@ -25,24 +25,24 @@ public class LottoGenerator {
         }
     }
 
-    public Lotto makeLotto(int numberOfLottoTicket) {
-        return new Lotto(makeLottoTickets(numberOfLottoTicket));
+    public Lotto makeLotto(List<LottoTicket> manualLottoTickets, int numberOfAutoLottoTicket) {
+        return new Lotto(makeLottoTickets(manualLottoTickets, numberOfAutoLottoTicket));
     }
 
-    private List<LottoTicket> makeLottoTickets(int numberOfLottoTicket) {
-        List<LottoTicket> lottoTickets = new ArrayList<>();
-        for (int i = 0; i < numberOfLottoTicket; i++) {
-            lottoTickets.add(makeLottoTicket());
+    private List<LottoTicket> makeLottoTickets(List<LottoTicket> manualLottoTickets, int numberOfAutoLottoTicket) {
+        List<LottoTicket> lottoTickets = new ArrayList<>(manualLottoTickets);
+        for (int i = 0; i < numberOfAutoLottoTicket; i++) {
+            lottoTickets.add(makeAutoLottoTicket());
         }
 
         return lottoTickets;
     }
 
-    private LottoTicket makeLottoTicket() {
-        return new LottoTicket(makeLottoNumbers());
+    private LottoTicket makeAutoLottoTicket() {
+        return new LottoTicket(makeAutoLottoNumbers());
     }
 
-    private List<LottoNumber> makeLottoNumbers() {
+    private List<LottoNumber> makeAutoLottoNumbers() {
         Collections.shuffle(lottoNumbers);
         return lottoNumbers.stream()
                 .limit(Constants.SIZE_OF_LOTTO_TICKET)

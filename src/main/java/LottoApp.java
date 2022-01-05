@@ -1,10 +1,15 @@
 import domain.Lotto;
+import domain.LottoTicket;
 import domain.lottonumber.BasicNumber;
 import domain.lottonumber.BonusNumber;
 import domain.lottonumber.LottoNumber;
 import domain.LottoShop;
+import dto.LottoDto;
+import dto.LottoResultsDto;
 import service.LottoGenerator;
+import view.LottoPrinter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -14,13 +19,44 @@ public class LottoApp {
 
     private static final Scanner sc = new Scanner(System.in);
     private static final LottoShop lottoShop = new LottoShop(new LottoGenerator());
+    private static final LottoPrinter lottoPrinter = new LottoPrinter();
 
     public static void main(String[] args) {
-        Lotto lotto = lottoShop.sell(inputMoney());
-        lotto.print();
+        int money = inputMoney();
+        Lotto lotto = lottoShop.sell(inputManualLottoTickets(inputNumberOfManualLottoTicket()), money);
+        lottoPrinter.printLotto(lotto.getLottoTicketsView());
         lotto.checkLottoResult(inputWinningNumbers());
-        printLottoResult(lotto);
+        lottoPrinter.printLottoResults(new LottoResultsDto(lotto.getResult()));
+        lottoPrinter.printYield(new LottoDto(lotto));
+    }
 
+    private static List<LottoTicket> inputManualLottoTickets(int numberOfManualLottoTicket) {
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        List<LottoTicket> manualLottoTickets = createManualLottoTickets(numberOfManualLottoTicket);
+        return manualLottoTickets;
+    }
+
+    private static int inputNumberOfManualLottoTicket() {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        int numberOfManualLottoTicket = Integer.parseInt(sc.nextLine());
+        return numberOfManualLottoTicket;
+    }
+
+    private static List<LottoTicket> createManualLottoTickets(int numberOfManualLottoTicket) {
+        List<LottoTicket> lottoTickets = new ArrayList<>();
+        for (int i = 0; i < numberOfManualLottoTicket; i++) {
+            lottoTickets.add(new LottoTicket(createManualLottoTicket()));
+        }
+        return lottoTickets;
+    }
+
+    private static List<LottoNumber> createManualLottoTicket() {
+        List<String> splitManualLottoNumbers = List.of(sc.nextLine().split(","));
+        List<LottoNumber> lottoNumbers = splitManualLottoNumbers.stream()
+                .map(Integer::parseInt)
+                .map(BasicNumber::new)
+                .collect(Collectors.toUnmodifiableList());
+        return lottoNumbers;
     }
 
     private static int inputMoney() {
@@ -47,9 +83,4 @@ public class LottoApp {
         return new BonusNumber(Integer.parseInt(sc.nextLine()));
     }
 
-    private static void printLottoResult(Lotto lotto) {
-        System.out.println("당첨 통계");
-        System.out.println("---------");
-        lotto.printResult();
-    }
 }

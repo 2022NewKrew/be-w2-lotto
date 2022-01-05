@@ -19,7 +19,7 @@ public class LottoResults {
         lottoResults.put(lottoResult, lottoResults.get(lottoResult) + 1);
     }
 
-    public long getCountBy(LottoResult lottoResult) {
+    public int getCountBy(LottoResult lottoResult) {
         return lottoResults.getOrDefault(lottoResult, 0);
     }
 }

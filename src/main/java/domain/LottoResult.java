@@ -1,5 +1,7 @@
 package domain;
 
+import dto.LottoMatchResultDto;
+
 import java.util.Arrays;
 import java.util.Optional;
 
