@@ -74,6 +74,7 @@ public class LottoStatistic {
                 break;
             case FIVE_AND_BONUS_WINNING:
                 fiveAndBonusMatch++;
+                break;
             case SIX_WINNING:
                 sixMatch++;
                 break;
@@ -130,7 +131,7 @@ public class LottoStatistic {
     }
 
     private void validationWinningNumberAndWinningBonusNumber() {
-        if(winningNumbers.contains(winningBonusNumber)) {
+        if (winningNumbers.contains(winningBonusNumber)) {
             throw new IllegalArgumentException("로또 번호와 보너스번호가 같습니다.");
         }
     }
