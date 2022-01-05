@@ -31,7 +31,6 @@ public class InputLotto {
             try {
                 return inputPrice() / LOTTO_PRICE;
             } catch (Exception exception) {
-                scanner = new Scanner(System.in);
                 System.out.println("0 이상의 정수를 입력하세요");
             }
         }
@@ -98,7 +97,6 @@ public class InputLotto {
             try {
                 return inputBonusNumber(winningNumbers);
             } catch (Exception exception) {
-                scanner = new Scanner(System.in);
                 System.out.println("당첨 번호에 존재하지 않는 1 ~ 45 범위의 정수를 입력하세요");
             }
         }
@@ -121,8 +119,7 @@ public class InputLotto {
             try {
                 return inputManualLottoNumber(lottoNumber);
             } catch (Exception exception) {
-                scanner = new Scanner(System.in);
-                System.out.println("당첨 번호에 존재하지 않는 1 ~ 45 범위의 정수를 입력하세요");
+                System.out.println("구매할 수 있는 lotto의 수보다 작은 값을 입력하세요");
             }
         }
     }
