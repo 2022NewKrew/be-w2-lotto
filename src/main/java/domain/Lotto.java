@@ -1,24 +1,18 @@
 package domain;
 
+import validator.LottoValidator;
+
 import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
     public static final int NUMBER = 6;
     public static final int PRICE = 1000;
-    public static final String ILLEGAL_BALLS_NUMBER = "[ERROR] " + NUMBER + "개의 서로 다른 숫자를 입력해 주세요.\n";
     private final List<Ball> balls;
 
     public Lotto(List<Ball> balls) {
-        assertValidBalls(balls);
+        LottoValidator.assertValidBalls(balls);
         this.balls = balls;
-    }
-
-    private void assertValidBalls(List<Ball> balls) throws IllegalArgumentException {
-        if ((balls.size() != NUMBER)
-                || balls.stream().map(Ball::getNumber).distinct().count() != balls.size()) {
-            throw new IllegalArgumentException(ILLEGAL_BALLS_NUMBER);
-        }
     }
 
     public static int getPurchaseQuantity(int amount) {

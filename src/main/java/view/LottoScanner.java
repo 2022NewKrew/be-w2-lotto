@@ -3,8 +3,12 @@ package view;
 import domain.Ball;
 import domain.Lotto;
 import validator.LottoValidator;
+import validator.ScannerValidator;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
 public class LottoScanner {
@@ -14,7 +18,7 @@ public class LottoScanner {
         LottoGuidePrinter.requestPurchaseAmountInput();
         try {
             int purchaseAmount = Integer.parseInt(in.nextLine());
-            LottoValidator.assertValidPurchaseAmount(purchaseAmount);
+            ScannerValidator.assertValidPurchaseAmount(purchaseAmount);
             return Lotto.getPurchaseQuantity(purchaseAmount);
         } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
@@ -32,6 +36,18 @@ public class LottoScanner {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             return getWinningLottoNumbers();
+        }
+    }
+
+    public static int getBonusBall() {
+        LottoGuidePrinter.requestBonusBallInput();
+        try {
+            int ballNumber = Integer.parseInt(in.nextLine());
+            LottoValidator.assertValidNumber(ballNumber);
+            return ballNumber;
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return getBonusBall();
         }
     }
 }
