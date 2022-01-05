@@ -1,11 +1,6 @@
-<<<<<<< HEAD
 
-# Created by https://www.toptal.com/developers/gitignore/api/java,gradle,macos,intellij
-# Edit at https://www.toptal.com/developers/gitignore?templates=java,gradle,macos,intellij
-=======
-# Created by https://www.toptal.com/developers/gitignore/api/intellij,java
-# Edit at https://www.toptal.com/developers/gitignore?templates=intellij,java
->>>>>>> 2205801 (initial commit)
+# Created by https://www.toptal.com/developers/gitignore/api/intellij,macos,java,gradle
+# Edit at https://www.toptal.com/developers/gitignore?templates=intellij,macos,java,gradle
 
 ### Intellij ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
@@ -83,7 +78,6 @@ fabric.properties
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
 
-<<<<<<< HEAD
 ### Intellij Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
@@ -193,7 +187,4 @@ gradle-app.setting
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
-# End of https://www.toptal.com/developers/gitignore/api/java,gradle,macos,intellij
-=======
-.idea
->>>>>>> 2205801 (initial commit)
+# End of https://www.toptal.com/developers/gitignore/api/intellij,macos,java,gradle
