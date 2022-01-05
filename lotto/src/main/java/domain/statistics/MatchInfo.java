@@ -1,8 +1,11 @@
 package domain.statistics;
 
-import domain.lottery.WinningLottery;
-import domain.lotto.Lotto;
-
+/**
+ * Lotto 와 WinningLottery 간 비교 후 생긴 매칭 정보
+ *
+ * @author leo.jung
+ * @since 1.0
+ */
 public class MatchInfo {
 
   private final int matchCount;
@@ -13,12 +16,11 @@ public class MatchInfo {
     this.isBonusMatched = isBonusMatched;
   }
 
-  public static MatchInfo of(WinningLottery winningLottery, Lotto lotto) {
-    return new MatchInfo(
-      lotto.getMatchCount(winningLottery.getCurrentWinningLotto()),
-      lotto.isBonusMatched(winningLottery.getBonusNumber())
-    );
+
+  public static MatchInfo of(int matchCount, boolean isBonusMatched) {
+    return new MatchInfo(matchCount, isBonusMatched);
   }
+
 
   public int getMatchCount() {
     return matchCount;

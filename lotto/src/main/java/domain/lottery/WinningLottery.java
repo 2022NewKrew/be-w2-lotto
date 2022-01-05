@@ -2,6 +2,13 @@ package domain.lottery;
 
 import domain.lotto.Lotto;
 
+/**
+ * LotteryMachine 에 의해서 당첨된 로또,
+ * 당청 로또 번호와 보너스 넘버로 이루어 져있다.
+ *
+ * @author leo.jung
+ * @since 1.0
+ */
 public class WinningLottery {
 
   private final Lotto currentWinningLotto;

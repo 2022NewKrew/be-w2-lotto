@@ -11,6 +11,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import utils.StringUtils;
 
+/**
+ * 입력 객체로 InputReader 인터페이스의 구현체.
+ * BufferedReader 를 사용하여 입력 값을 받음.
+ *
+ * @author leo.jung
+ * @since 1.0
+ */
 //TODO: 예외 처리는 STEP2 에서 추가... 이후에
 public class BufferedInputReader implements InputReader {
 

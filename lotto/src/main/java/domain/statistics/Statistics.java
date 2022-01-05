@@ -9,6 +9,14 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 통계 담당
+ * 구매한 로또와 WinningLottery 를 기반으로
+ * LottoPrize 당 당첨 로또를 보관하며, 당첨 금액과 수익률 통계를 낸다.
+ *
+ * @author leo.jung
+ * @since 1.0
+ */
 public class Statistics {
 
   private final Map<LottoPrize, List<Lotto>> winningLotteryHolder;
@@ -33,6 +41,7 @@ public class Statistics {
     return wallet.size() * Lotto.LOTTO_PRICE;
   }
 
+
   public static Statistics of(WinningLottery winningLottery, LottoWallet wallet) {
     return new Statistics(winningLottery, wallet);
   }
@@ -40,14 +49,14 @@ public class Statistics {
 
   private void setupMatchMap(WinningLottery winningLottery, LottoWallet wallet) {
     for(Lotto candidateLotto : wallet) {
-      MatchInfo matchInfo = MatchInfo.of(winningLottery, candidateLotto);
+      MatchInfo matchInfo = candidateLotto.compareWith(winningLottery);
       addLottoIfMatched(matchInfo, candidateLotto);
     }
   }
 
 
   private void addLottoIfMatched(MatchInfo matchInfo, Lotto lotto) {
-    LottoPrize.get(matchInfo)
+    LottoPrize.of(matchInfo)
         .ifPresent(lottoPrize -> {
           addLottoIntoHolder(lottoPrize, lotto);
         });

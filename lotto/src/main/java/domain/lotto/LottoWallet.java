@@ -6,17 +6,18 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * 유저가 구매한 로또들의 집합.
+ *
+ * @author leo.jung
+ * @since 1.0
+ */
 public class LottoWallet implements Iterable<Lotto> {
 
   private final List<Lotto> lottoHolder;
 
   private LottoWallet(int quantity) {
     this.lottoHolder = generateLottoList(quantity);
-  }
-
-
-  public static LottoWallet create(int quantity) {
-    return new LottoWallet(quantity);
   }
 
 
@@ -33,11 +34,6 @@ public class LottoWallet implements Iterable<Lotto> {
   }
 
 
-  public void addLotto() {
-    addLotto(1);
-  }
-
-
   public int size() {
     return lottoHolder.size();
   }
@@ -45,11 +41,12 @@ public class LottoWallet implements Iterable<Lotto> {
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder().append(lottoHolder.size()).append("개를 구매했습니다.").append('\n');
+    StringBuilder sb = new StringBuilder(lottoHolder.size() + "개를 구매했습니다\n");
     lottoHolder.forEach(lotto -> sb.append(lotto).append('\n'));
     sb.append('\n');
     return sb.toString();
   }
+
 
   private List<Lotto> generateLottoList(int quantity) {
     return Stream.generate(Lotto::ofRandom)
