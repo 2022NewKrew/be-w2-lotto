@@ -23,7 +23,13 @@ public enum Rank {
         return winningMoney;
     }
 
-    public static Rank valueOf(int countOfMatch, boolean matchBonus) {
+    public static Rank of(Lotto lotto, Lotto winningNumbers, LottoNumber bonusNum) {
+        int countOfMatch = getCountOfMatch(lotto, winningNumbers);
+        boolean matchOfBonus = lotto.getNumbers().contains(bonusNum);
+        return Rank.valueOf(countOfMatch, matchOfBonus);
+    }
+
+    private static Rank valueOf(int countOfMatch, boolean matchBonus) {
         Rank[] ranks = values();
         for (Rank rank : ranks) {
             if (countOfMatch == SECOND.countOfMatch) {
@@ -36,5 +42,12 @@ public enum Rank {
         }
 
         return null;
+    }
+
+    private static int getCountOfMatch(Lotto lotto, Lotto winningNumbers) {
+        return (int) lotto.getNumbers()
+                .stream()
+                .filter(winningNumbers.getNumbers()::contains)
+                .count();
     }
 }

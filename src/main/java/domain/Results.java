@@ -16,7 +16,7 @@ public class Results {
     private static List<Result> generate(List<Lotto> lottos, List<Integer> winningNumbers, int bonusNum) {
         List<Result> results = new ArrayList<>();
         List<Rank> resultRanks = lottos.stream()
-                .map(lotto -> lotto.getRank(winningNumbers, bonusNum))
+                .map(lotto -> Rank.of(lotto, new Lotto(winningNumbers), LottoNumber.of(bonusNum)))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
 

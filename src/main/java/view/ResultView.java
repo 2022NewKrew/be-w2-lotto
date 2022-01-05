@@ -1,11 +1,9 @@
 package view;
 
-import domain.Lotto;
-import domain.Rank;
-import domain.Result;
-import domain.Results;
+import domain.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ResultView {
 
@@ -31,8 +29,15 @@ public class ResultView {
 
     private static void printLottos(List<Lotto> lottos) {
         lottos.stream()
-                .map(Object::toString)
+                .map(ResultView::lottoToString)
                 .forEach(System.out::println);
+    }
+
+    private static String lottoToString(Lotto lotto){
+        return lotto.getNumbers().stream()
+                .map(LottoNumber::getNumber)
+                .collect(Collectors.toUnmodifiableList())
+                .toString();
     }
 
     private static void printStats(Results results) {

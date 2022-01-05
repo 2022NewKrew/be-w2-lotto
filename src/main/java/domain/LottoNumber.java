@@ -21,6 +21,10 @@ public class LottoNumber {
         if(number < MIN_NUMBER || number > MAX_NUMBER) throw new IllegalArgumentException();
     }
 
+    public int getNumber() {
+        return number;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
