@@ -1,6 +1,7 @@
 package service;
 
 import domain.Lotto;
+import exception.InvalidInputException;
 
 import java.util.ArrayList;
 
@@ -9,7 +10,7 @@ import static utils.Symbol.LOTTO_PRICE;
 public class LottoService {
     private ArrayList<Lotto> lottoList = new ArrayList<>();
 
-    public LottoService(int purchaseAmount, int manualLottoCount) {
+    public LottoService(int purchaseAmount, int manualLottoCount) throws InvalidInputException {
         int automaticLottoCount = purchaseAmount / LOTTO_PRICE - manualLottoCount;
         ManualGenerator manualGenerator = new ManualGenerator();
         AutomaticGenerator automaticGenerator = new AutomaticGenerator();
@@ -22,7 +23,7 @@ public class LottoService {
         }
     }
 
-    public Lotto generate(LottoGenerator lottoGenerator) {
+    public Lotto generate(LottoGenerator lottoGenerator) throws InvalidInputException {
         return lottoGenerator.generate();
     }
 
