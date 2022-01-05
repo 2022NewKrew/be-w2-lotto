@@ -15,12 +15,13 @@ public class InputView {
 
     public static int inputPurchaseAmount() {
         System.out.println(GameMessage.INPUT_PURCHASE_AMOUNT.getMessage());
-        return in.nextInt();
+        int purchaseAmount = in.nextInt();
+        in.nextLine(); // For Buffer
+        return purchaseAmount;
     }
 
     public static List<Integer> inputLastWeekWinningNumber() {
         System.out.println(GameMessage.INPUT_LAST_WEEK_WINNING_NUMBER.getMessage());
-        in.nextLine(); // For Buffer
         String input = in.nextLine();
 
         return Arrays.stream(input.split(","))
