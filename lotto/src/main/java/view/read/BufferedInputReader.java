@@ -82,7 +82,6 @@ public class BufferedInputReader implements InputReader {
   }
 
 
-  //TODO: try-catch + while 활용하여 valid check 후 반복 수행 해야 함.
   private List<Integer> getWinningLotto() throws IOException {
     println("지난 주 당첨 번호를 입력해 주세요.");
     return getValidLottoNumbers();
@@ -91,33 +90,29 @@ public class BufferedInputReader implements InputReader {
 
   private List<Integer> getValidLottoNumbers() throws IOException {
     List<Integer> numbers = StringUtils.integersSplitByDelimiter(reader.readLine());
-    validCheck(numbers);
+    Lotto.validCheck(numbers);
     return numbers;
   }
 
 
-  //TODO: try-catch + while 활용하여 valid check 후 반복 수행 해야 함.
   private BonusNumber getBonusNumber() throws IOException {
     println("보너스 볼을 입력해 주세요.");
     return BonusNumber.of(reader.readLine());
   }
 
 
-  //TODO: 조금더 상세한 valid check, Integer 는 맞는 지, 45 이내인지 등등
-  private void validCheck(List<Integer> numbers) {
-    if (numbers.size() != Lotto.TOTAL_NUMBER) {
-      throw new IllegalArgumentException(
-          "입력한 로또 개수가 일치하지 않음."
-              + "[필요 개수 : " + Lotto.TOTAL_NUMBER
-              + " / 입력 개수 : " + numbers.size() + "]"
-      );
-    }
-  }
-
-
   private int getIntegerFromReader() throws IOException {
     String input = reader.readLine().strip();
-    return Integer.parseInt(input);
+    int parsedNumber;
+    try{
+      parsedNumber = Integer.parseUnsignedInt(input);
+    }catch(NumberFormatException e) {
+      throw new IllegalArgumentException(
+          "입력 값은 0 이상의 정수이어야 합니다."
+          + "[입력 값 : " + input + "]"
+      );
+    }
+    return parsedNumber;
   }
 
 

@@ -1,17 +1,15 @@
 package domain.lottery;
 
 import domain.lotto.Lotto;
-import java.util.Optional;
+import java.util.Objects;
 
 public class BonusNumber {
 
   private final Integer bonusNumber;
 
   private BonusNumber(Integer bonusNumber) {
-    this.bonusNumber = Optional.ofNullable(bonusNumber)
-        .orElseThrow(() -> new IllegalArgumentException("bonusNumber 값이 null 입니다."));
-
-    if(bonusNumber > Lotto.MAX_NUMBER || bonusNumber < Lotto.MIN_NUMBER) {
+    this.bonusNumber = Objects.requireNonNull(bonusNumber, "bonusNumber 값이 null 입니다.");
+    if(Lotto.isNonLottoNumber(bonusNumber)) {
       throw new IllegalArgumentException("bonusNumber 값이 로또 범위에 유효하지 않습니다. [입력값 : " + bonusNumber + "]");
     }
   }

@@ -6,8 +6,8 @@ import domain.statistics.MatchInfo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * 로또 객체. 6가지 숫자를 보관하며, 로또에 관한 기본정보들을 static 으로 보관 객체의 랜덤 생성 및 외부로 부터 주입받아 로또 객체가 생성된다. 위닝 로또와 비교하여
@@ -27,7 +27,7 @@ public class Lotto {
   public static final int MAX_NUMBER = 45;
   public static final int TOTAL_NUMBER = 6;
   public static final int PRICE = 1000;
-  private final List<Integer> holder;
+  protected final List<Integer> holder;
   private final boolean randomGenerated;
 
   private Lotto() {
@@ -37,8 +37,42 @@ public class Lotto {
 
 
   protected Lotto(List<Integer> holder) {
-    this.holder = holder;
+    this.holder = Objects.requireNonNull(holder, "holder 값이 null 입니다.");
     this.randomGenerated = false;
+    validCheck(holder);
+  }
+
+
+  public static void validCheck(List<Integer> holder) {
+    if(holder.size() != TOTAL_NUMBER) {
+      throw new IllegalArgumentException("로또 생성 시 필요한 Integer 의 개수는 " + TOTAL_NUMBER + " 입니다. [입력 인자 : " + holder + "]");
+    }
+    if(hasNonLottoNumber(holder)) {
+      throw new IllegalArgumentException("로또 생성 시 범위를 벗어난 숫자가 있습니다. [입력 인자 : " + holder + "]");
+    }
+    if(hasDuplicatedNumber(holder)) {
+      throw new IllegalArgumentException("로또 의 각 숫자는 중복되어서는 안됩니다. [입력 인자 : " + holder + "]");
+    }
+  }
+
+
+  public static boolean hasNonLottoNumber(List<Integer> holder) {
+    return holder.stream()
+        .anyMatch(Lotto::isNonLottoNumber);
+  }
+
+
+  public static boolean hasDuplicatedNumber(List<Integer> holder) {
+    int originSize = holder.size();
+    int distinctSize = (int) holder.stream()
+        .distinct()
+        .count();
+    return originSize != distinctSize;
+  }
+
+
+  public static boolean isNonLottoNumber(int number) {
+    return number > Lotto.MAX_NUMBER || number < Lotto.MIN_NUMBER;
   }
 
 
@@ -78,7 +112,7 @@ public class Lotto {
   }
 
 
-  private boolean isBonusMatched(BonusNumber bonusNumber) {
+  protected boolean isBonusMatched(BonusNumber bonusNumber) {
     return holder.contains(bonusNumber.getInteger());
   }
 

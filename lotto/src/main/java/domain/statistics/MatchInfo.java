@@ -14,6 +14,14 @@ public class MatchInfo {
   private MatchInfo(int matchCount, boolean isBonusMatched) {
     this.matchCount = matchCount;
     this.isBonusMatched = isBonusMatched;
+    validCheck(matchCount);
+  }
+
+
+  private void validCheck(int matchCount) {
+    if(matchCount < 0) {
+      throw new IllegalArgumentException("matchCount 는 음수가 될 수 없습니다. [입력값 : " + matchCount + "]");
+    }
   }
 
 
