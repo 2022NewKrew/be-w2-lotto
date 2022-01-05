@@ -2,6 +2,8 @@ package domain;
 
 import utils.RandomMaker;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -25,10 +27,11 @@ public class LottoMachine {
     }
 
     private static Lotto buy() {
-        List<Integer> numbers = Stream.generate(() -> randomMaker.getRandomNumber(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER))
-                .limit(NUMBER_OF_LOTTERY_NUMBERS)
-                .collect(Collectors.toList());
-        // TODO - 중복 검증 필요
-        return new Lotto(numbers);
+        List<Integer> numbers = new ArrayList<>();
+
+        for(int i = MIN_LOTTO_NUMBER; i <= MAX_LOTTO_NUMBER; i++)
+            numbers.add(i);
+        Collections.shuffle(numbers);
+        return new Lotto(numbers.subList(0,6));
     }
 }
