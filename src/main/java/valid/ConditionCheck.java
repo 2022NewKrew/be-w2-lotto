@@ -19,6 +19,15 @@ public final class ConditionCheck {
     }
 
     /**+
+     * 인자 값이 음의 정수인지 판단하는 메소드입니다.
+     * @param number
+     * @return 음의 정수면 true, 아니면 false
+     */
+    public static boolean isNegativeInteger(int number) {
+        return number < 0;
+    }
+
+    /**+
      * 인자 값이 로또 만들기에 적합한 수인지 판단하는 메소드입니다.
      * @param numbers
      * @return 로또 만들기에 적합하면 true, 아니면 false

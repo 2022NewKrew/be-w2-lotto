@@ -21,7 +21,7 @@ public final class StandardOutLottoServiceRenderer implements LottoServiceRender
         long numberOfManualTicket = lottoes.stream().filter(e -> e.getPurchaseWay() == LottoStatus.MANUAL).count();
         long numberOfAutoTicket = lottoes.stream().filter(e -> e.getPurchaseWay() == LottoStatus.AUTO).count();
 
-        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.", numberOfManualTicket, numberOfAutoTicket);
+        System.out.println("수동으로 " + numberOfManualTicket + "장, 자동으로 " + numberOfAutoTicket + "개를 구매했습니다.");
 
         lottoes.forEach(this::displayLotto);
     }

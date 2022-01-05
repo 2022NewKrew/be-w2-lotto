@@ -58,7 +58,7 @@ public final class LottoService {
 
     private int getNumberOfManualPurchase(int numberOfLottoes) {
         final int numberOfManualPurchase = inputController.getNumberOfManualPurchase();
-        if(ConditionCheck.isPositiveInteger(numberOfManualPurchase) && numberOfManualPurchase <= numberOfLottoes) {
+        if(!ConditionCheck.isNegativeInteger(numberOfManualPurchase) && numberOfManualPurchase <= numberOfLottoes) {
             return numberOfManualPurchase;
         }
 
