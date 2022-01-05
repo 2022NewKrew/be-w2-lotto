@@ -14,5 +14,11 @@ public class LottoValidationCheck {
         if(stringLottoList.size() != LOTTO_LENGTH){
             throw new IllegalArgumentException("로또 번호 개수가 올바르지 않습니다.");
         }
+
+        for(int i = 1 ; i < stringLottoList.size() ; i++){
+            if(stringLottoList.get(i-1).equals(stringLottoList.get(i))){
+                throw new IllegalArgumentException("중복된 번호가 존재합니다.");
+            }
+        }
     }
 }
