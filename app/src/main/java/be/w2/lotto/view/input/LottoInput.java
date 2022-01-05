@@ -16,17 +16,32 @@ final class LottoInput {
     }
 
     static LastWinningLotto getLastWinningLottoBy(String input, String inputForBonus) {
-        List<LottoNumber> numbers = convertStringToListOfNumbers(input);
-        Collections.sort(numbers);
-        return new LastWinningLotto(numbers, LottoNumber.of(inputForBonus));
+        List<LottoNumber> lottoNumbers = convertInputToListOfNumbersAndSortIt(input);
+        return new LastWinningLotto(lottoNumbers, LottoNumber.of(inputForBonus));
     }
 
-    private static List<LottoNumber> convertStringToListOfNumbers(String input) {
+    static List<Lotto> getManualLottosBy(List<String> inputs) {
+        List<Lotto> lottos = new ArrayList<>();
+        for (String input : inputs) {
+            List<LottoNumber> lottoNumbers = convertInputToListOfNumbersAndSortIt(input);
+            lottos.add(new Lotto(lottoNumbers));
+        }
+        return lottos;
+    }
+
+    private static List<LottoNumber> convertInputToListOfNumbersAndSortIt(String input) {
+        List<LottoNumber> lottoNumbers = convertInputToListOfNumbers(input);
+        Collections.sort(lottoNumbers);
+        return lottoNumbers;
+    }
+
+    private static List<LottoNumber> convertInputToListOfNumbers(String input) {
         String[] stringsOfNumber = getStringsOfNumberFrom(input);
         List<LottoNumber> numbers = new ArrayList<>(stringsOfNumber.length);
         for (String stringOfNumber : stringsOfNumber) {
             numbers.add(LottoNumber.of(stringOfNumber));
         }
+        Collections.sort(numbers);
         return numbers;
     }
 

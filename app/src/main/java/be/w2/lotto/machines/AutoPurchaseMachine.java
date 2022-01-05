@@ -10,7 +10,7 @@ import java.util.List;
 public class AutoPurchaseMachine extends PurchaseMachine {
 
     @Override
-    protected void addNewLottos(List<Lotto> lottos, int numOfLotto) {
+    protected void addNewLottosTo(List<Lotto> lottos, int numOfLotto) {
         for (int i = 0; i < numOfLotto; i++) {
             lottos.add(createLottoRandomly());
         }

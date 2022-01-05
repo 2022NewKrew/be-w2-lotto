@@ -1,5 +1,6 @@
 package be.w2.lotto.view.output;
 
+import be.w2.lotto.cashier.OrderSheet;
 import be.w2.lotto.lottos.Lotto;
 import be.w2.lotto.result.Result;
 
@@ -8,6 +9,10 @@ import java.util.List;
 public final class Output {
 
     private Output() {
+    }
+
+    public static void outputOrderSheet(OrderSheet orderSheet) {
+        output(OrderSheetOutput.getOutput(orderSheet));
     }
 
     /**

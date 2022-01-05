@@ -13,15 +13,8 @@ final class LottoOutput {
 
     static String getOutput(List<Lotto> lottos) {
         StringBuilder sb = new StringBuilder();
-        writePurchaseMessageTo(sb, lottos.size());
         writeOutputOfLottosTo(sb, lottos);
         return sb.toString();
-    }
-
-    private static void writePurchaseMessageTo(StringBuilder sb, int howMany) {
-        sb.append(howMany)
-                .append("개를 구매했습니다.")
-                .append("\n");
     }
 
     private static void writeOutputOfLottosTo(StringBuilder sb, List<Lotto> lottos) {
