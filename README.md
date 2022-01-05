@@ -159,7 +159,7 @@
 #### < 3000원 어치 구매, 모두 자동 >
 ![image](https://user-images.githubusercontent.com/31435103/148042150-3d057e4b-8349-4a82-bcaa-09492c9d855e.png)
 ---
-3단계 추가 구현
+## 3단계 추가 구현
 ### 상세 구현사항
 - `enum`인 `Rank` 수정
   - `toString` 메소드를 재정의하여 사용
