@@ -1,11 +1,11 @@
-package be.w2.lotto.domain;
+package be.w2.lotto.domain.lottoticket;
 
 import static be.w2.lotto.common.exception.ExceptionMessages.FORBIDDEN_INSTANCE_GENERATION_EXCEPTION;
 import static be.w2.lotto.common.exception.ExceptionMessages.PURCHASE_AMOUNT_LOWERBOUND_EXCEPTION;
 import static be.w2.lotto.domain.lottoticket.LottoTicket.LOTTO_TICKET_PRICE;
 
-public class LottoAmount {
-    private LottoAmount() {
+public class LottoTicketAmount {
+    private LottoTicketAmount() {
         throw new RuntimeException(FORBIDDEN_INSTANCE_GENERATION_EXCEPTION);
     }
 

@@ -1,5 +1,6 @@
 package be.w2.lotto.domain;
 
+import be.w2.lotto.domain.lottoticket.LottoTicketAmount;
 import org.junit.jupiter.api.Test;
 
 import static be.w2.lotto.common.exception.ExceptionMessages.PURCHASE_AMOUNT_LOWERBOUND_EXCEPTION;
@@ -16,7 +17,7 @@ class LottoAmountTest {
         int expected = purchaseAmount / LOTTO_TICKET_PRICE;
 
         // when
-        int lottoAmount = LottoAmount.getLottoAmount(purchaseAmount);
+        int lottoAmount = LottoTicketAmount.getLottoAmount(purchaseAmount);
 
         // then
         assertThat(lottoAmount).isEqualTo(expected);
@@ -28,7 +29,7 @@ class LottoAmountTest {
         int purchaseAmount = 15000;
 
         // when - then
-        assertDoesNotThrow(() -> LottoAmount.validatePurchaseAmount(purchaseAmount));
+        assertDoesNotThrow(() -> LottoTicketAmount.validatePurchaseAmount(purchaseAmount));
     }
 
     @Test
@@ -37,7 +38,7 @@ class LottoAmountTest {
         int purchaseAmount = 0;
 
         // when - then
-        assertThatThrownBy(() -> LottoAmount.validatePurchaseAmount(purchaseAmount))
+        assertThatThrownBy(() -> LottoTicketAmount.validatePurchaseAmount(purchaseAmount))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(PURCHASE_AMOUNT_LOWERBOUND_EXCEPTION);
     }

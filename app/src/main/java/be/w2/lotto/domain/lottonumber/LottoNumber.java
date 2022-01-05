@@ -3,18 +3,18 @@ package be.w2.lotto.domain.lottonumber;
 import static be.w2.lotto.common.exception.ExceptionMessages.INVALID_NUMBER_RANGE_EXCEPTION;
 
 public class LottoNumber {
-    private final int number;
+    protected final int number;
 
-    private LottoNumber(int lottoNumber) {
+    protected LottoNumber(int lottoNumber) {
         this.number = lottoNumber;
     }
 
     public static LottoNumber from(int lottoNumber) {
-        validate(lottoNumber);
+        validateRange(lottoNumber);
         return new LottoNumber(lottoNumber);
     }
 
-    private static void validate(int lottoNumber) throws IllegalArgumentException {
+    protected static void validateRange(int lottoNumber) throws IllegalArgumentException {
         if (lottoNumber < LOTTO_NUMBER_LOWERBOUND || lottoNumber > LOTTO_NUMBER_UPPERBOUND) {
             throw new IllegalArgumentException(INVALID_NUMBER_RANGE_EXCEPTION);
         }

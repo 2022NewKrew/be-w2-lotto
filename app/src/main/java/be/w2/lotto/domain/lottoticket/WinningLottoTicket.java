@@ -5,17 +5,13 @@ import be.w2.lotto.domain.lottonumber.LottoNumber;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static be.w2.lotto.common.exception.ExceptionMessages.INVALID_WINNING_NUMBERS_EXCEPTION;
-import static be.w2.lotto.common.exception.ExceptionMessages.WINNING_NUMBER_DUPLICATION_NOT_ALLOWED_EXCEPTION;
-import static be.w2.lotto.domain.lottoticket.LottoTickets.LOTTO_TICKET_SIZE;
-
 public class WinningLottoTicket extends LottoTicket {
     private WinningLottoTicket(List<LottoNumber> winningNumbers) {
         super(winningNumbers);
     }
 
     public static WinningLottoTicket valueOf(List<Integer> winningNumbers) {
-        validateNumbers(winningNumbers);
+        validateLottoNumbers(winningNumbers);
 
         List<LottoNumber> winningLottoNumbers = winningNumbers.stream()
                 .map(LottoNumber::from)
@@ -26,22 +22,5 @@ public class WinningLottoTicket extends LottoTicket {
 
     public boolean contains(int bonusNumber) {
         return this.getLottoNumbers().contains(bonusNumber);
-    }
-
-    private static void validateNumbers(List<Integer> winningNumbers) throws IllegalArgumentException {
-        validateNumbersSize(winningNumbers);
-        validateNumbersDuplication(winningNumbers);
-    }
-
-    private static void validateNumbersSize(List<Integer> winningNumbers) throws IllegalArgumentException {
-        if (winningNumbers.size() != LOTTO_TICKET_SIZE) {
-            throw new IllegalArgumentException(INVALID_WINNING_NUMBERS_EXCEPTION);
-        }
-    }
-
-    private static void validateNumbersDuplication(List<Integer> winningNumbers) throws IllegalArgumentException {
-        if (winningNumbers.size() != winningNumbers.stream().distinct().count()) {
-            throw new IllegalArgumentException(WINNING_NUMBER_DUPLICATION_NOT_ALLOWED_EXCEPTION);
-        }
     }
 }

@@ -3,7 +3,6 @@
  */
 package be.w2.lotto;
 
-import be.w2.lotto.common.util.Parser;
 import be.w2.lotto.domain.lottonumber.BonusNumber;
 import be.w2.lotto.domain.lottoticket.LottoTickets;
 import be.w2.lotto.domain.lottoticket.WinningLottoTicket;
@@ -14,7 +13,6 @@ import be.w2.lotto.dto.WinningResultDto;
 import be.w2.lotto.view.InputView;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static be.w2.lotto.common.util.Parser.parseInputNumbers;
 import static be.w2.lotto.view.ErrorView.errorMessage;
@@ -53,6 +51,7 @@ public class LottoApplication {
             }
         }
     }
+
     private static WinningLottoTicket inputWinningNumbers() {
         while (true) {
             try {

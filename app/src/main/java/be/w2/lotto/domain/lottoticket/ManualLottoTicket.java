@@ -10,7 +10,9 @@ public class ManualLottoTicket extends LottoTicket {
         super(lottoNumbers);
     }
 
-    public static ManualLottoTicket from(List<Integer> lottoNumbersInput) {
+    public static ManualLottoTicket valueOf(List<Integer> lottoNumbersInput) {
+        validateLottoNumbers(lottoNumbersInput);
+
         List<LottoNumber> lottoNumber = lottoNumbersInput.stream()
                 .map(LottoNumber::from)
                 .collect(Collectors.toList());

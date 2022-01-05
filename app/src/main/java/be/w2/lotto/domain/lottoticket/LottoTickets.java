@@ -1,6 +1,5 @@
 package be.w2.lotto.domain.lottoticket;
 
-import be.w2.lotto.domain.*;
 import be.w2.lotto.domain.numbergenerator.AutoLottoNumberGenerator;
 import be.w2.lotto.domain.numbergenerator.LottoNumberGeneratable;
 import be.w2.lotto.domain.numbergenerator.ManualLottoNumberGenerator;
@@ -26,8 +25,8 @@ public class LottoTickets {
     }
 
     private static int getLottoAmount(int lottoPurchaseAmountInput) {
-        LottoAmount.validatePurchaseAmount(lottoPurchaseAmountInput);
-        return LottoAmount.getLottoAmount(lottoPurchaseAmountInput);
+        LottoTicketAmount.validatePurchaseAmount(lottoPurchaseAmountInput);
+        return LottoTicketAmount.getLottoAmount(lottoPurchaseAmountInput);
     }
 
     private static List<LottoTicket> createLottoTickets(int lottoAmount, List<List<Integer>> manualLottoNumbers) {

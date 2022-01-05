@@ -12,7 +12,7 @@ public class ManualLottoNumberGenerator implements LottoNumberGeneratable {
     @Override
     public List<LottoTicket> generateLottoNumbers(int numberCount, List<List<Integer>> manualLottoTicket) {
         return manualLottoTicket.stream()
-                .map(ManualLottoTicket::from)
+                .map(ManualLottoTicket::valueOf)
                 .collect(Collectors.toList());
     }
 }
