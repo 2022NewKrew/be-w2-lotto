@@ -70,7 +70,7 @@ public class Lotto {
 =======
     // 보너스볼 여부 확인
     public boolean matchBonusBall(Integer bonusBall) {
-        return pickedNumbersOfLotto.contains(bonusBall);
+        return bonusBall != null && pickedNumbersOfLotto.contains(bonusBall);
     }
 
 >>>>>>> d64e878 (- bonusBall 관련 로직 추가처리 (출력 분기 / getter,setter))

@@ -11,7 +11,6 @@ import com.kakao.exception.PickedNumberException;
 >>>>>>> 2e87083 (- 로또 번호의 유효성 검사 추가)
 import com.kakao.helper.TextHelper;
 import com.kakao.data.io.LottoInputData;
-import com.kakao.exception.PickedNumbersFormatException;
 import com.kakao.model.LottoWinning;
 
 <<<<<<< HEAD

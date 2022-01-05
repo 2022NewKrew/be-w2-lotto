@@ -1,10 +1,12 @@
 package com.kakao.model;
 
 import com.kakao.data.LottoData;
+import com.kakao.data.MatchBall;
 import com.kakao.exception.MoneyRangeException;
 import com.kakao.exception.PickedNumbersFormatException;
 
 import java.util.ArrayList;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -12,7 +14,11 @@ import java.util.Collections;
 >>>>>>> edb2074 (1일차 중간 PR)
 =======
 >>>>>>> 4f43f8b (1차 Commit)
+=======
+import java.util.HashMap;
+>>>>>>> 5806f60 (2일차 PR)
 import java.util.List;
+import java.util.Map;
 
 public class Lottos {
 
@@ -72,20 +78,24 @@ public class Lottos {
     }
 
     // 로또의 당첨 등수 확인
-    public List<Integer> matchLottosAreWinning(LottoWinning lottoWinning) {
-        List<Integer> countOfWinningLottos = new ArrayList<>();
-        for(int i=0; i<=LottoData.NUMBER_OF_PICK; i++) {
-            countOfWinningLottos.add(0);
-        }
+    public Map<LottoWinningReward, Integer> matchLottosAreWinning(LottoWinning lottoWinning) {
+        // 해시맵 사용
+        Map<LottoWinningReward, Integer> countOfWinningLottos = new HashMap<>();
         for(Lotto lotto: this.lottoList) {
-            int winningNumber = lotto.matchNumberIsWinning(lottoWinning);
-            updateCountOfWinningLottos(countOfWinningLottos, winningNumber);
+            int winningNumber = lotto.matchNumberIsWinning(lottoWinning); // 일치한 갯수
+            boolean bonusBallIsMatched = lotto.matchBonusBall(lottoWinning.getBonusBall());
+
+            LottoWinningReward rewardKey = new LottoWinningReward(winningNumber, bonusBallIsMatched);
+            updateCountOfWinningLottos(countOfWinningLottos, rewardKey);
         }
         return countOfWinningLottos;
     }
-    private void updateCountOfWinningLottos(List<Integer> countOfWinningLottos, int winningNumber) {
-        int countOfWinningNumber = countOfWinningLottos.get(winningNumber);
-        countOfWinningLottos.set(winningNumber, countOfWinningNumber+1);
+    private void updateCountOfWinningLottos(Map<LottoWinningReward, Integer> countOfWinningLottos, LottoWinningReward rewardKey) {
+        Integer countOfWinningNumber = countOfWinningLottos.get(rewardKey);
+        if(countOfWinningNumber == null){
+            countOfWinningNumber = 0;
+        }
+        countOfWinningLottos.put(rewardKey, countOfWinningNumber+1);
     }
 =======
         }}

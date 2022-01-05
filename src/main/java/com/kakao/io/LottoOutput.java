@@ -11,6 +11,7 @@ import com.kakao.data.LottoWinningData;
 import com.kakao.data.MatchBall;
 >>>>>>> 573229f (2일차 PR)
 import com.kakao.data.io.LottoOutputData;
+import com.kakao.helper.MapHelper;
 import com.kakao.model.Lotto;
 import com.kakao.model.LottoWinning;
 import com.kakao.model.LottoWinningReward;
@@ -27,6 +28,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.List;
+import java.util.Map;
 
 class LottoOutput {
 <<<<<<< HEAD
@@ -87,7 +89,7 @@ class LottoOutput {
         sb.append(LottoOutputData.RESULT_COMMENT_OF_WINNING);
         sb.append(LottoOutputData.RESULT_DIVISION_LINE_OF_WINNING);
 
-        List<Integer> countOfWinningLottos = appendWinningResult(sb, lottos, lottoWinning);
+        Map<LottoWinningReward, Integer> countOfWinningLottos = appendWinningResult(sb, lottos, lottoWinning);
 
         sb.append(appendYieldRate(moneyToBuyLotto, countOfWinningLottos));
 
@@ -100,16 +102,21 @@ class LottoOutput {
     }
 
     // 당첨 결과 출력
+<<<<<<< HEAD
     private static List<Integer> appendWinningResult(StringBuilder sb, Lottos lottos, LottoWinning lottoWinning) {
         List<Integer> countOfWinningLottos = lottos.matchLottosAreWinning(lottoWinning);
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+    private static Map<LottoWinningReward, Integer> appendWinningResult(StringBuilder sb, Lottos lottos, LottoWinning lottoWinning) {
+        Map<LottoWinningReward, Integer> countOfWinningLottos = lottos.matchLottosAreWinning(lottoWinning);
+>>>>>>> 5806f60 (2일차 PR)
         for(MatchBall matchBall: MatchBall.values()){
             sb.append(appendEachWinningResult(matchBall, countOfWinningLottos));
         }
         return countOfWinningLottos;
     }
-    private static String appendEachWinningResult(MatchBall matchBall, List<Integer> countOfWinningLottos) {
+    private static String appendEachWinningResult(MatchBall matchBall, Map<LottoWinningReward, Integer> countOfWinningLottos) {
         LottoWinningReward winningReward = matchBall.getLottoWinningReward();
 =======
         for(LottoWinningReward winningReward: LottoWinningData.lottoWinningRewards){
@@ -129,8 +136,8 @@ class LottoOutput {
         LottoWinningReward winningReward = matchBall.getLottoWinningReward();
 >>>>>>> 573229f (2일차 PR)
         int countOfMatchNumber = winningReward.getCountOfMatchNumber();
-        int rewardPrice = winningReward.getRewardPrice();
-        int count = countOfWinningLottos.get(countOfMatchNumber);
+        int rewardPrice = matchBall.getRewardPrice();
+        int count = MapHelper.getIntegerValue(countOfWinningLottos, winningReward);
 
         String resultFormat = LottoOutputData.RESULT_FORMAT_OF_WINNING_MATCH;
         if(winningReward.getUseBaseBall()){
@@ -141,23 +148,27 @@ class LottoOutput {
     }
 
     // 이득 비율 출력
+<<<<<<< HEAD
     private static String appendYieldRate(Integer moneyToBuyLotto, List<Integer> countOfWinningLottos) {
         int sumOfReward = 0 ;
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+    private static String appendYieldRate(Integer moneyToBuyLotto, Map<LottoWinningReward, Integer> countOfWinningLottos) {
+        long sumOfReward = 0 ;
+>>>>>>> 5806f60 (2일차 PR)
         for(MatchBall matchBall: MatchBall.values()) {
             sumOfReward += sumOfWinningReward(matchBall, countOfWinningLottos);
         }
 
-        int yeildRate = (sumOfReward - moneyToBuyLotto) * 100 / moneyToBuyLotto;
+        long yeildRate = (sumOfReward - moneyToBuyLotto) * 100 / moneyToBuyLotto;
         return String.format(LottoOutputData.RESULT_FORMAT_OF_YIELD_RATE, yeildRate);
     }
-    private static int sumOfWinningReward(MatchBall matchBall, List<Integer> countOfWinningLottos) {
+    private static int sumOfWinningReward(MatchBall matchBall, Map<LottoWinningReward, Integer> countOfWinningLottos) {
         LottoWinningReward winningReward = matchBall.getLottoWinningReward();
 
-        int countOfMatchNumber = winningReward.getCountOfMatchNumber();
-        int rewardPrice = winningReward.getRewardPrice();
-        int count = countOfWinningLottos.get(countOfMatchNumber);
+        int rewardPrice = matchBall.getRewardPrice();
+        int count = MapHelper.getIntegerValue(countOfWinningLottos, winningReward);
 
         return rewardPrice * count;
     }
