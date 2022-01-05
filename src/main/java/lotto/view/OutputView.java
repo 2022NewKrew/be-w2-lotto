@@ -1,10 +1,10 @@
 package lotto.view;
 
-import java.util.Arrays;
-
 public class OutputView {
 
-    private OutputView() {}
+    private OutputView() {
+        throw new AssertionError();
+    }
 
     public static void printManualInputGuide() {
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
