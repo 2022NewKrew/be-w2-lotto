@@ -13,4 +13,11 @@ public class LottoGame {
         return lottoTickets;
     }
 
+    //TODO : winningNumber가 입력이 완료되면 자동 실행
+    public void announceLottoWinningNumber(List<Integer> winningNumbers){
+        lottoTickets.stream().forEach(t->t.setPrizeDetails(winningNumbers));
+    }
+    public void announceLottoWinningNumber(List<Integer> winningNumbers, int bonusNumber){
+        lottoTickets.stream().forEach(t->t.setPrizeDetails(winningNumbers, bonusNumber));
+    }
 }

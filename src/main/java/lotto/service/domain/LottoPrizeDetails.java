@@ -1,5 +1,7 @@
 package lotto.service.domain;
 
+import java.util.EnumSet;
+
 public enum LottoPrizeDetails implements Comparable<LottoPrizeDetails>{
     UNIDENTIFIED(-1, "미확인"),
     NO_PRIZE(0, "미당첨"),
@@ -27,5 +29,15 @@ public enum LottoPrizeDetails implements Comparable<LottoPrizeDetails>{
     @Override
     public String toString() {
         return resultStr;
+    }
+
+    public static EnumSet<LottoPrizeDetails> getEnumSetAllPrize(){
+        return EnumSet.of(
+                LottoPrizeDetails.FIFTH_PRIZE,
+                LottoPrizeDetails.FOURTH_PRIZE,
+                LottoPrizeDetails.THIRD_PRIZE,
+                LottoPrizeDetails.SECOND_PRIZE,
+                LottoPrizeDetails.THIRD_PRIZE
+        );
     }
 }
