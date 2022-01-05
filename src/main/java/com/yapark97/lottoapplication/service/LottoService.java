@@ -3,6 +3,7 @@ package com.yapark97.lottoapplication.service;
 import com.yapark97.lottoapplication.domain.lotto.LottoConst;
 import com.yapark97.lottoapplication.domain.lotto.LottoSet;
 import com.yapark97.lottoapplication.domain.lotto.WinningLotto;
+import com.yapark97.lottoapplication.domain.lottocreatestrategy.ManualLottoCreateStrategy;
 import com.yapark97.lottoapplication.domain.lottocreatestrategy.RandomLottoCreateStrategy;
 import com.yapark97.lottoapplication.domain.winningPolicy.BonusBallWinningPolicy;
 import com.yapark97.lottoapplication.domain.winningPolicy.DefaultWinningPolicy;
@@ -21,27 +22,21 @@ public class LottoService {
     private WinningLotto winningLotto;
     private Set<WinningPolicy> winningPolicies;
 
-    private final RandomLottoCreateStrategy randomLottoCreateStrategy = new RandomLottoCreateStrategy();
+    private final RandomLottoCreateStrategy randomLottoCreateStrategy;
+    private final ManualLottoCreateStrategy manualLottoCreateStrategy;
 
     public LottoService(LottoInput lottoInput, LottoOutput lottoOutput) {
         this.lottoInput = lottoInput;
         this.lottoOutput = lottoOutput;
+        randomLottoCreateStrategy = new RandomLottoCreateStrategy();
+        manualLottoCreateStrategy = new ManualLottoCreateStrategy(lottoInput);
     }
 
     public void run() {
-        initLottoSet();
         initWinningPolicy();
-        showLottoSet();
+        initLottoSet();
         initWinnintLotto();
         showStatistic();
-    }
-
-    private void initLottoSet() {
-        int price = lottoInput.takeLottoPriceInput();
-        lottoSet = new LottoSet();
-
-        int lottoNum = price / LottoConst.LOTTO_PRICE;
-        lottoSet.createLottos(lottoNum, randomLottoCreateStrategy);
     }
 
     private void initWinningPolicy() {
@@ -53,8 +48,20 @@ public class LottoService {
         winningPolicies.add(new DefaultWinningPolicy(WinningRank.FIFTH));
     }
 
-    private void showLottoSet() {
-        lottoOutput.printLottoSetInfo(lottoSet);
+    private void initLottoSet() {
+        int price = lottoInput.takeLottoPriceInput();
+        int lottoNum = price / LottoConst.LOTTO_PRICE;
+        int manualLottoNum = lottoInput.takeManualLottoNumInput(lottoNum);
+        int randomLottoNum = lottoNum - manualLottoNum;
+
+        lottoSet = new LottoSet();
+        lottoSet.createLottos(manualLottoNum, manualLottoCreateStrategy);
+        lottoSet.createLottos(randomLottoNum, randomLottoCreateStrategy);
+        showLottoSet(manualLottoNum, randomLottoNum);
+    }
+
+    private void showLottoSet(int manualLottoNum, int randomLottoNum) {
+        lottoOutput.printLottoSetInfo(manualLottoNum, randomLottoNum, lottoSet);
     }
 
     private void initWinnintLotto() {

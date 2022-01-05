@@ -10,4 +10,6 @@ public interface LottoInput {
     List<Integer> takeWinningNumbersInput();
 
     int takeBonusBallInput();
+
+    int takeManualLottoNumInput(int lottoNum);
 }

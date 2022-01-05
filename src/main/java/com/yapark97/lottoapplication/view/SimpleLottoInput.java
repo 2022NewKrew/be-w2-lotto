@@ -45,6 +45,32 @@ public class SimpleLottoInput implements LottoInput {
     }
 
     @Override
+    public int takeManualLottoNumInput(int lottoNum) {
+        System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
+        return validateManualLottoNum(sc.nextLine(), lottoNum);
+    }
+
+    private int validateManualLottoNum(String input, int lottoNum) {
+        int manualLottoNum;
+
+        try {
+            manualLottoNum = Integer.parseInt(input);
+            validateManualLottoNumRange(manualLottoNum, lottoNum);
+            System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
+            return manualLottoNum;
+        } catch (Exception e) {
+            System.out.println("수동 구매 로또 수가 잘못되었습니다.");
+            return takeManualLottoNumInput(lottoNum);
+        }
+    }
+
+    private void validateManualLottoNumRange(int manualLottoNum, int lottoNum) {
+        if (manualLottoNum > lottoNum) {
+            throw new InputMismatchException("수동 구매 로또수 > 전체 로또수");
+        }
+    }
+
+    @Override
     public List<Integer> takeWinningNumbersInput() {
         System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
         return takeLottoNumbersInput();

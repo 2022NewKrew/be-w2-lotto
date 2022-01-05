@@ -5,10 +5,10 @@ import com.yapark97.lottoapplication.view.LottoInput;
 
 import java.util.List;
 
-public class UserInputLottoCreateStrategy implements LottoCreateStrategy{
+public class ManualLottoCreateStrategy implements LottoCreateStrategy{
     private final LottoInput lottoInput;
 
-    public UserInputLottoCreateStrategy(LottoInput lottoInput) {
+    public ManualLottoCreateStrategy(LottoInput lottoInput) {
         this.lottoInput = lottoInput;
     }
 
