@@ -19,6 +19,10 @@ public enum Prize {
     private final int matchedCount;
     private final boolean bonusBallMatched;
 
+    public long getMoney() {
+        return this.money;
+    }
+
     public int getMatchedCount() {
         return matchedCount;
     }
@@ -35,10 +39,6 @@ public enum Prize {
         this.money = money;
         this.matchedCount = matchedCount;
         this.bonusBallMatched = bonusBallMatched;
-    }
-
-    public long getMoney() {
-        return this.money;
     }
 
     /**
