@@ -54,11 +54,9 @@ public class Lotto {
     }
 
     public int getSameNumber(Lotto other) {
-        int ret = 0;
-        for (Integer n : number) {
-            ret += Boolean.compare(other.getNumber().contains(n), false);
-            //같은 숫자가 other에도 존재하면 1, 아니면 0을 ret에 더한다.
-        }
-        return ret;
+        return (int) number.stream()
+                .map(num -> other.isNumberExist(num))
+                .filter(numExist -> numExist)
+                .count();
     }
 }
