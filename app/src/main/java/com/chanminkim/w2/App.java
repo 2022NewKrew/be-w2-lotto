@@ -8,7 +8,10 @@ import com.chanminkim.w2.view.InputView;
 import com.chanminkim.w2.view.OutputView;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class App {
     public static void main(String[] args) {
@@ -23,7 +26,10 @@ public class App {
 
         Lotto winningLotto = new Lotto(inputView.getWinningLottoNumbers());
         LottoNumber bonus = new LottoNumber(inputView.getBonusNumber());
-        WinningStatistics winningStatistics = new WinningStatistics(randomLottoList, winningLotto, bonus);
+        List<Lotto> wholeLottoList = Stream.of(manualLottoList, randomLottoList)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+        WinningStatistics winningStatistics = new WinningStatistics(wholeLottoList, winningLotto, bonus);
         outputView.printWinningStatistics(winningStatistics);
     }
 
