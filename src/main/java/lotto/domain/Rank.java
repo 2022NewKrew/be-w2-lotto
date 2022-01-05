@@ -38,9 +38,6 @@ public enum Rank {
     }
 
     public static boolean isWin(int count) {
-        if (count >= MIN_MATCH_COUNT) {
-            return true;
-        }
-        return false;
+        return count >= MIN_MATCH_COUNT;
     }
 }

@@ -21,6 +21,10 @@ public class LottoGenerator {
         return new Lotto(Collections.unmodifiableList(numbers));
     }
 
+    public static Lotto generateManualLotto(List<Integer> numbers) {
+        return new Lotto(Collections.unmodifiableList(numbers));
+    }
+
     private static int randomNum() {
         return random.nextInt(MAX_NUM - MIN_NUM) + MIN_NUM;
     }

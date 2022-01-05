@@ -11,21 +11,36 @@ public class ExceptionCheck {
         }
     }
 
-    public static void checkValidWinningNumberList(List<Integer> winningNumber) {
-        checkValidWinningNumberLength(winningNumber);
-        checkDuplicatedWinningNumber(winningNumber);
-    }
-
-    private static void checkValidWinningNumberLength(List<Integer> winningNumber){
-        if (winningNumber.size() != Lotto.LENGTH) {
-            throw new IllegalArgumentException("잘못된 당첨 번호 개수입니다!");
+    public static void checkValidManualLottoCount(int manualLottoCount, int totalNumOfPurchase) {
+        if (manualLottoCount > totalNumOfPurchase) {
+            throw new IllegalArgumentException("수동 구매 로또 수가 구매 가능한 로또 수보다 많습니다!");
+        }
+        if (manualLottoCount < 0) {
+            throw new IllegalArgumentException("수동 구매 로또 수는 음수가 될 수 없습니다!");
         }
     }
 
-    private static void checkDuplicatedWinningNumber(List<Integer> winningNumber) {
+    public static void checkValidManualLotto(List<Lotto> manualLottoList, int manualLottoCount) {
+        if (manualLottoCount != manualLottoList.size()) {
+            throw new IllegalArgumentException("수동 구매 로또 수와 다른 개수의 로또가 입력되었습니다!");
+        }
+    }
+
+    public static void checkValidNumberList(List<Integer> winningNumber) {
+        checkValidNumberLength(winningNumber);
+        checkDuplicatedNumber(winningNumber);
+    }
+
+    private static void checkValidNumberLength(List<Integer> winningNumber){
+        if (winningNumber.size() != Lotto.LENGTH) {
+            throw new IllegalArgumentException("잘못된 번호 개수입니다!");
+        }
+    }
+
+    private static void checkDuplicatedNumber(List<Integer> winningNumber) {
         int result = (int) winningNumber.stream().distinct().count();
         if (result != Lotto.LENGTH) {
-            throw new IllegalArgumentException("당첨 번호에 중복이 존재합니다!");
+            throw new IllegalArgumentException("번호에 중복이 존재합니다!");
         }
     }
 

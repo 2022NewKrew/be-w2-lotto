@@ -13,8 +13,13 @@ public class Main {
 
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
-            PurchaseInfo purchaseInfo = new PurchaseInfo(getPurchaseAmountAndCheck(scanner));
-            List<Lotto> lottoList = pm.purchase(purchaseInfo);
+            int purchaseAmount = getPurchaseAmountAndCheck(scanner);
+            int totalNumOfPurchase = PurchaseInfo.getNumOfPurchases(purchaseAmount);
+            int manualLottoCount = getManualLottoCountAndCheck(scanner, totalNumOfPurchase);
+            List<Lotto> manualLottoList = getManualLottoAndCheck(scanner, manualLottoCount);
+
+            PurchaseInfo purchaseInfo = new PurchaseInfo(purchaseAmount, manualLottoCount);
+            List<Lotto> lottoList = pm.purchase(purchaseInfo, manualLottoList);
             om.printAllLotto(lottoList);
 
             List<Integer> winningNumber = getWinningNumberAndCheck(scanner);
@@ -31,9 +36,21 @@ public class Main {
         return purchaseAmount;
     }
 
+    private static int getManualLottoCountAndCheck(Scanner scanner, int totalNumOfPurchase) {
+        int manualLottoCount = im.getManualLottoCount(scanner);
+        ExceptionCheck.checkValidManualLottoCount(manualLottoCount, totalNumOfPurchase);
+        return manualLottoCount;
+    }
+
+    private static List<Lotto> getManualLottoAndCheck(Scanner scanner, int manualLottoCount) {
+        List<Lotto> manualLottoList = im.getManualLotto(scanner, manualLottoCount);
+        ExceptionCheck.checkValidManualLotto(manualLottoList, manualLottoCount);
+        return manualLottoList;
+    }
+
     private static List<Integer> getWinningNumberAndCheck(Scanner scanner) {
         List<Integer> winningNumber = im.getWinningNumber(scanner);
-        ExceptionCheck.checkValidWinningNumberList(winningNumber);
+        ExceptionCheck.checkValidNumberList(winningNumber);
         return winningNumber;
     }
 
