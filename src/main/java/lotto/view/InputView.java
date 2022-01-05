@@ -24,10 +24,6 @@ public class InputView {
         return input;
     }
 
-    public Set<Integer> getWinnerNumbersFromScanner() {
-        return getWinnerNumbersFromScanner("");
-    }
-
     /**
      * @param prompt 출력할 문자열
      * @return {@value lotto.domain.RandomLottoNumberGenerator#NUMBERS_TO_PICK}개의 자연수로 구성된 {@link Set}
@@ -37,12 +33,23 @@ public class InputView {
         Set<Integer> result = new TreeSet<>();
         String input;
         while (result.size() < NUMBERS_TO_PICK) {
+            result = getNumbers();
+        }
+        return result;
+    }
+
+    private Set<Integer> getNumbers() {
+        Set<Integer> result = new TreeSet<>();
+        try {
+            String input;
             input = scanner.nextLine();
             result = Arrays.stream(input.split(","))
                     .map(String::trim)
                     .mapToInt(Integer::parseInt)
                     .boxed()
                     .collect(Collectors.toSet());
+        } catch (NumberFormatException e) {
+            System.out.println("** 컴마(,)로 구분된 숫자만 입력해주세요 **");
         }
         return result;
     }
