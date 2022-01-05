@@ -1,6 +1,5 @@
 package lotto.domain;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -34,18 +33,15 @@ public class LottoMachine {
         return !lotto.hasNumber(bonusNumber) && isValidNumber(bonusNumber);
     }
 
+    private boolean isValidNumber(int number) {
+        return number >= LOTTO_NUMBER_START && number <= LOTTO_NUMBER_END;
+    }
+
     public Lotto generateLottoTicketWithNumbers(List<Integer> numbers) {
         if (!isValidNumbersForLotto(numbers)) {
             throw new IllegalArgumentException(LOTTO_ERROR_MESSAGE);
         }
         return new Lotto(numbers);
-    }
-
-    public List<Lotto> purchaseLottoTickets(int numberOfTickets) {
-        return IntStream.range(0, numberOfTickets).boxed()
-            .map(x -> generateRandomNumbers())
-            .map(Lotto::new)
-            .collect(Collectors.toList());
     }
 
     private boolean isValidNumbersForLotto(List<Integer> numbers) {
@@ -57,10 +53,6 @@ public class LottoMachine {
             .allMatch(this::isValidNumber);
     }
 
-    private boolean isValidNumber(int number) {
-        return number >= LOTTO_NUMBER_START && number <= LOTTO_NUMBER_END;
-    }
-
     private boolean isValidSize(List<Integer> numbers) {
         return numbers.size() == LOTTO_NUMBER_SIZE;
     }
@@ -69,11 +61,16 @@ public class LottoMachine {
         return new HashSet<>(numbers).size() == LOTTO_NUMBER_SIZE;
     }
 
+    public List<Lotto> purchaseLottoTickets(int numberOfTickets) {
+        return IntStream.range(0, numberOfTickets).boxed()
+            .map(x -> generateRandomNumbers())
+            .map(Lotto::new)
+            .collect(Collectors.toList());
+    }
+
     private List<Integer> generateRandomNumbers() {
         Collections.shuffle(lottoCandidateNumbers);
-        List<Integer> randomNumber = new ArrayList<>(
-            lottoCandidateNumbers.subList(0, LOTTO_NUMBER_SIZE));
-        Collections.sort(randomNumber);
-        return randomNumber;
+        return lottoCandidateNumbers.stream().limit(LOTTO_NUMBER_SIZE)
+            .sorted().collect(Collectors.toList());
     }
 }

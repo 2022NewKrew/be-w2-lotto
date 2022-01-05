@@ -36,67 +36,6 @@ public class LottoGame {
         makeGameResult();
     }
 
-    private void makeGameResult() {
-        WinningLotto winningLottoInput = getWinningLottoInLoop();
-
-        LottoGameResult lottoGameResult = new LottoGameResult(winningLottoInput,
-            lottoGameStatus.getLottoTickets(),
-            lottoGameStatus.getPurchasePrice());
-
-        lottoGameView.printLottoResult(generateLottoResultDTO(lottoGameResult));
-    }
-
-    private LottoResultDTO generateLottoResultDTO(LottoGameResult lottoGameResult) {
-        return new LottoResultDTO(lottoGameResult.getLottoRankCount(),
-            lottoGameResult.getProfitRate());
-    }
-
-    private WinningLotto getWinningLottoInLoop() {
-        Lotto lottoInput = getLottoNumbersInLoop();
-
-        Optional<WinningLotto> winningLottoInput;
-        do {
-            winningLottoInput = getWinningLottoFromUser(lottoInput);
-        } while (winningLottoInput.isEmpty());
-
-        return winningLottoInput.get();
-    }
-
-    private Optional<WinningLotto> getWinningLottoFromUser(Lotto lotto) {
-        String input = lottoGameView.inputBonusNumber();
-        try {
-            return Optional.of(lottoMachine.generateWinningLotto(lotto, Integer.parseInt(input)));
-        } catch (NumberFormatException e) {
-            System.err.println(NUMBER_FORMAT_ERROR_MESSAGE);
-            return Optional.empty();
-        } catch (IllegalArgumentException e) {
-            System.err.println(e.getMessage());
-            return Optional.empty();
-        }
-    }
-
-    private Lotto getLottoNumbersInLoop() {
-        Optional<Lotto> winningLottoInput;
-        do {
-            winningLottoInput = getLottoNumbersFromUser();
-        } while (winningLottoInput.isEmpty());
-
-        return winningLottoInput.get();
-    }
-
-    private Optional<Lotto> getLottoNumbersFromUser() {
-        String[] input = lottoGameView.inputWinningLottoNumbers();
-        try {
-            return Optional.of(lottoMachine.generateLottoTicketWithNumbers(
-                Arrays.stream(input)
-                    .map(Integer::valueOf)
-                    .collect(Collectors.toList())));
-        } catch (IllegalArgumentException e) {
-            System.err.println(e.getMessage());
-            return Optional.empty();
-        }
-    }
-
     private void initializeGame() {
         int purchasePriceInput = getPurchasePriceInLoop();
         int numberOfTickets = purchasePriceInput / TICKET_PRICE;
@@ -104,11 +43,6 @@ public class LottoGame {
 
         lottoGameStatus = new LottoGameStatus(purchasePriceInput, lottoTickets);
         lottoGameView.printLottoTickets(convertTicketsToDTOs(lottoTickets));
-    }
-
-    private List<LottoDTO> convertTicketsToDTOs(List<Lotto> lottoTickets) {
-        return lottoTickets.stream().map(lotto -> new LottoDTO(lotto.getLottoNumbers()))
-            .collect(Collectors.toList());
     }
 
     private int getPurchasePriceInLoop() {
@@ -136,5 +70,71 @@ public class LottoGame {
             System.err.printf(PRICE_ERROR_MESSAGE, TICKET_PRICE, remainingAmount);
         }
         return value - remainingAmount;
+    }
+
+    private List<LottoDTO> convertTicketsToDTOs(List<Lotto> lottoTickets) {
+        return lottoTickets.stream().map(lotto -> new LottoDTO(lotto.getLottoNumbers()))
+            .collect(Collectors.toList());
+    }
+
+    private void makeGameResult() {
+        WinningLotto winningLottoInput = getWinningLottoInLoop();
+
+        LottoGameResult lottoGameResult = new LottoGameResult(winningLottoInput,
+            lottoGameStatus.getLottoTickets(),
+            lottoGameStatus.getPurchasePrice());
+
+        lottoGameView.printLottoResult(generateLottoResultDTO(lottoGameResult));
+    }
+
+    private WinningLotto getWinningLottoInLoop() {
+        Lotto lottoInput = getLottoNumbersInLoop();
+
+        Optional<WinningLotto> winningLottoInput;
+        do {
+            winningLottoInput = getWinningLottoFromUser(lottoInput);
+        } while (winningLottoInput.isEmpty());
+
+        return winningLottoInput.get();
+    }
+
+    private Lotto getLottoNumbersInLoop() {
+        Optional<Lotto> winningLottoInput;
+        do {
+            winningLottoInput = getLottoNumbersFromUser();
+        } while (winningLottoInput.isEmpty());
+
+        return winningLottoInput.get();
+    }
+
+    private Optional<Lotto> getLottoNumbersFromUser() {
+        String[] input = lottoGameView.inputWinningLottoNumbers();
+        try {
+            return Optional.of(lottoMachine.generateLottoTicketWithNumbers(
+                Arrays.stream(input)
+                    .map(Integer::valueOf)
+                    .collect(Collectors.toList())));
+        } catch (IllegalArgumentException e) {
+            System.err.println(e.getMessage());
+            return Optional.empty();
+        }
+    }
+
+    private Optional<WinningLotto> getWinningLottoFromUser(Lotto lotto) {
+        String input = lottoGameView.inputBonusNumber();
+        try {
+            return Optional.of(lottoMachine.generateWinningLotto(lotto, Integer.parseInt(input)));
+        } catch (NumberFormatException e) {
+            System.err.println(NUMBER_FORMAT_ERROR_MESSAGE);
+            return Optional.empty();
+        } catch (IllegalArgumentException e) {
+            System.err.println(e.getMessage());
+            return Optional.empty();
+        }
+    }
+
+    private LottoResultDTO generateLottoResultDTO(LottoGameResult lottoGameResult) {
+        return new LottoResultDTO(lottoGameResult.getLottoRankCount(),
+            lottoGameResult.getProfitRate());
     }
 }

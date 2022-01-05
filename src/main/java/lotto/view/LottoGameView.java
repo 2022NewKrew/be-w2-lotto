@@ -55,14 +55,14 @@ public class LottoGameView {
             lottoResultDTO.getProfitRate());
     }
 
-    public void printLottoTickets(List<LottoDTO> lottoDTOS) {
+    public void printLottoTickets(List<LottoDTO> lottoDTOs) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.append(lottoDTOS.size())
+        stringBuilder.append(lottoDTOs.size())
             .append(PRINT_PURCHASE_COUNT)
             .append(System.lineSeparator());
 
-        lottoDTOS.forEach(lottoDTO -> stringBuilder.append(printLottoTicket(lottoDTO))
+        lottoDTOs.forEach(lottoDTO -> stringBuilder.append(printLottoTicket(lottoDTO))
             .append(System.lineSeparator()));
 
         System.out.println(stringBuilder);

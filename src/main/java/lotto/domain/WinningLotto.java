@@ -15,6 +15,10 @@ public class WinningLotto {
         this.bonusNumber = bonusNumber;
     }
 
+    private boolean validateBonusNumber(Lotto lotto, int bonusNumber) {
+        return lotto.hasNumber(bonusNumber);
+    }
+
     public int getBonusNumber() {
         return bonusNumber;
     }
@@ -23,9 +27,5 @@ public class WinningLotto {
         return (int) lotto.getLottoNumbers().stream()
             .filter(ticket::hasNumber)
             .count();
-    }
-
-    private boolean validateBonusNumber(Lotto lotto, int bonusNumber) {
-        return lotto.hasNumber(bonusNumber);
     }
 }
