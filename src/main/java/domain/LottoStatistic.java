@@ -1,5 +1,8 @@
 package domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LottoStatistic {
 
     private final int TREE_WINNING_AMOUNT = 5000;
@@ -8,7 +11,6 @@ public class LottoStatistic {
     private final int FIVE_WINNING_AND_BONUS_AMOUNT = 30000000;
     private final int SIX_WINNING_AMOUNT = 2000000000;
 
-    private int purchaseCount = 0;
     private int treeMatch = 0;
     private int fourMatch = 0;
     private int fiveMatch = 0;
@@ -16,9 +18,34 @@ public class LottoStatistic {
     private int sixMatch = 0;
     private int profitRate = 0;
 
+    private int purchaseCount = 0;
+    private int normalLottoCount = 0;
+    private int autoLottoCount = 0;
+
+    private int winningBonusNumber = 0;
+
+
+    private List<Lotto> normalLottos;
+    private List<Lotto> autoLottos;
+    List<Integer> winningNumbers;
+    List<Lotto> lottos = new ArrayList<>();
+
+    public LottoStatistic() {
+    }
+
     public LottoStatistic(int purchaseCount) {
         this.purchaseCount = purchaseCount;
 
+    }
+
+    public LottoStatistic(int purchaseCount, int normalLottoCount, int autoLottoCount) {
+        this.purchaseCount = purchaseCount;
+        this.normalLottoCount = normalLottoCount;
+        this.autoLottoCount = autoLottoCount;
+    }
+
+    public void addLottos(List<Lotto> lottos) {
+        this.lottos.addAll(lottos);
     }
 
     public void calculateProfitRate() {
@@ -70,5 +97,32 @@ public class LottoStatistic {
                 "5개 일치, 보너스 볼 일치 (30000000원)- " + this.fiveMatch + "개\n" +
                 "6개 일치 (2000000000원)- " + this.sixMatch + "개\n" +
                 "총 수익률은 " + this.profitRate + "%입니다.\n";
+    }
+
+    public String getLottoListToString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("수동으로 ").append(normalLottoCount).append("장, 자동으로 ").append(autoLottoCount).append("개를 구매했습니다.\n");
+
+        for (Lotto lotto : lottos) {
+            stringBuilder.append(lotto).append("\n");
+        }
+
+        return stringBuilder.toString();
+    }
+
+    public void updateLottoStatus(List<Integer> winningNumbers, int winningBonusNumber) {
+        this.winningNumbers = winningNumbers;
+        this.winningBonusNumber = winningBonusNumber;
+
+        for (Lotto lotto : lottos) {
+            lotto.updateStatus(winningNumbers, winningBonusNumber);
+        }
+
+        for (Lotto lotto : lottos) {
+            this.addLottoInfo(lotto);
+        }
+
+        this.calculateProfitRate();
+
     }
 }

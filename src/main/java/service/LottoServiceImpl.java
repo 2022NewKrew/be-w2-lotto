@@ -15,6 +15,7 @@ import java.util.List;
 public class LottoServiceImpl implements LottoService {
 
     private final LottoRepository lottoRepository;
+    private LottoStatistic lottoStatistic;
 
     public LottoServiceImpl(LottoRepository lottoRepository) {
         this.lottoRepository = lottoRepository;
@@ -25,27 +26,34 @@ public class LottoServiceImpl implements LottoService {
         int purchasePrice = inputPurchasePrice();
         int purchaseCount = calculateLottoCount(purchasePrice);
         int normalLottoCount = inputNormalPurchaseCount();
-        List<Lotto> lottos = new ArrayList<>();
-        List<Lotto> normalLottos = inputNormalLottoList(normalLottoCount);
-        lottos.addAll(normalLottos);
-
         int autoLottoCount = purchaseCount - normalLottoCount;
-        lottos.addAll(createAutoLottoList(autoLottoCount));
-        lottoRepository.save(lottos); // inMemory database save
-        printLottoList(normalLottoCount, autoLottoCount, lottos);
-        List<Integer> winningNumbers = inputWinningNumbers();
 
+        lottoStatistic = new LottoStatistic(purchaseCount, normalLottoCount, autoLottoCount);
+
+        List<Lotto> normalLottos = inputNormalLottoList(normalLottoCount);
+
+        List<Lotto> autoLottoList = createAutoLottoList(autoLottoCount);
+
+        lottoStatistic.addLottos(normalLottos);
+        lottoStatistic.addLottos(autoLottoList);
+
+//        lottoRepository.save(lottos); // inMemory database save
+        printLottoList();
+
+        List<Integer> winningNumbers = inputWinningNumbers();
         int winningBonusNumber = inputWinningBonusNumber();
-        updateLottoStatus(lottos, winningNumbers, winningBonusNumber);
-        LottoStatistic lottoStatistic = getLottoStatic(purchaseCount, lottos);
-        printLottoStatic(lottoStatistic);
+
+        lottoStatistic.updateLottoStatus(winningNumbers, winningBonusNumber); //
+        printLottoStatic();
 
     }
 
-    private void printLottoList(int normalLottoCount, int autoLottoCount, List<Lotto> lottos) {
-        System.out.println("수동으로 " + normalLottoCount + "장, 자동으로 " + autoLottoCount + "개를 구매했습니다.");
-        lottos.forEach(System.out::println);
-        System.out.println();
+    private void printLottoStatic() {
+        System.out.println(lottoStatistic.getLottoStatisticString());
+    }
+
+    private void printLottoList() {
+        System.out.println(lottoStatistic.getLottoListToString());
     }
 
     private List<Lotto> inputNormalLottoList(int normalLottoCount) {
@@ -81,28 +89,6 @@ public class LottoServiceImpl implements LottoService {
         }
 
         return result;
-    }
-
-    private void updateLottoStatus(List<Lotto> lottos, List<Integer> winningNumbers, int winningBonusNumber) {
-        for (Lotto lotto : lottos) {
-            lotto.updateStatus(winningNumbers, winningBonusNumber);
-        }
-    }
-
-    private LottoStatistic getLottoStatic(int purchaseCount, List<Lotto> lottos) {
-        LottoStatistic lottoStatistic = new LottoStatistic(purchaseCount);
-
-        for (Lotto lotto : lottos) {
-            lottoStatistic.addLottoInfo(lotto);
-        }
-
-        lottoStatistic.calculateProfitRate();
-
-        return lottoStatistic;
-    }
-
-    private void printLottoStatic(LottoStatistic lottoStatistic) {
-        System.out.println(lottoStatistic.getLottoStatisticString());
     }
 
     private List<Integer> inputWinningNumbers() {
@@ -179,4 +165,6 @@ public class LottoServiceImpl implements LottoService {
 
         return lottos;
     }
+
+
 }

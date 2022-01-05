@@ -20,5 +20,6 @@ public class LottoAuto extends Lotto{
         Collections.shuffle(lottoNumberList);
         numbers = new ArrayList<>(lottoNumberList.subList(0, 6));
         Collections.sort(numbers);
+        Collections.unmodifiableList(numbers);
     }
 }
