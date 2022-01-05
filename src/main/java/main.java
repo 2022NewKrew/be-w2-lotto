@@ -5,13 +5,12 @@ import view.PlayerView;
 
 import java.util.*;
 
-import static domain.Lotto.LOTTO_PRICE;
 
 public class main {
     private static int playerMoney;
     private static int payManualCount;
     private static int payAutoCount;
-
+    public static final int LOTTO_PRICE = 1000;
     private static Player player;
     private static PlayerView playerView = new PlayerView();
     private static LottoView lottoView = new LottoView();
