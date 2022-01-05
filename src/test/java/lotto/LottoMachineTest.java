@@ -28,8 +28,11 @@ class LottoMachineTest {
                 new Lotto(Arrays.asList(LottoBall.B7,LottoBall.B8,LottoBall.B9,LottoBall.B10,LottoBall.B11,LottoBall.B12))
         );
         LottoMachine lottoMachine = new LottoMachine(lottos);
-        List<Integer> result = lottoMachine.getLottoMatchResults(new WinningLotto(Arrays.asList(LottoBall.B1,LottoBall.B2,LottoBall.B3,LottoBall.B4,LottoBall.B5,LottoBall.B6), LottoBall.B7));
-        assertThat(result).isEqualTo(Arrays.asList(1,1,1,1,1));
-
+        RankCount rankCount = lottoMachine.getRankCount(new WinningLotto(Arrays.asList(LottoBall.B1,LottoBall.B2,LottoBall.B3,LottoBall.B4,LottoBall.B5,LottoBall.B6), LottoBall.B7));
+        assertThat(rankCount.getFirstCount()).isEqualTo(1);
+        assertThat(rankCount.getSecondCount()).isEqualTo(1);
+        assertThat(rankCount.getThirdCount()).isEqualTo(1);
+        assertThat(rankCount.getFourthCount()).isEqualTo(1);
+        assertThat(rankCount.getFifthCount()).isEqualTo(1);
     }
 }

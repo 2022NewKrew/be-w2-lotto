@@ -21,7 +21,4 @@ public class Lotto {
         return lottoNumbers;
     }
 
-    public String toString() {
-        return lottoNumbers.toString();
-    }
 }

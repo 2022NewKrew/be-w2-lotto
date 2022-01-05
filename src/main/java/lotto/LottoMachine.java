@@ -1,7 +1,6 @@
 package lotto;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class LottoMachine {
@@ -37,20 +36,16 @@ public class LottoMachine {
         return automaticLottos;
     }
 
-    public List<Integer> getLottoMatchResults(WinningLotto winLotto) {
-        List<Integer> result = new ArrayList<>(Arrays.asList(0,0,0,0,0));
+    public RankCount getRankCount(WinningLotto winLotto) {
+        RankCount rankCount = new RankCount();
         for(Lotto lotto: automaticLottos) {
-            int rank = winLotto.checkMatchResult(lotto);
-            if(rank != 0) {
-                result.set(rank-1, result.get(rank-1) + 1);
-            }
+            Rank rank = winLotto.getRank(lotto);
+            rankCount.increaseRankCounts(rank);
         }
         for(Lotto lotto: manualLottos) {
-            int rank = winLotto.checkMatchResult(lotto);
-            if(rank != 0) {
-                result.set(rank-1, result.get(rank-1) + 1);
-            }
+            Rank rank = winLotto.getRank(lotto);
+            rankCount.increaseRankCounts(rank);
         }
-        return result;
+        return rankCount;
     }
 }

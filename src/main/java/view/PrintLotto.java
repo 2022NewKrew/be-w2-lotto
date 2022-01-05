@@ -1,9 +1,6 @@
 package view;
 
-import lotto.Lotto;
-import lotto.LottoBall;
-import lotto.LottoMachine;
-import lotto.WinningLotto;
+import lotto.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,8 +19,8 @@ public class PrintLotto {
         lottoMachine.buyLotto(money - manualCount*1000);
         printLottos(lottoMachine.getManualLottos(), lottoMachine.getAutomaticLottos());
         WinningLotto winLotto = getWinLotto();
-        List<Integer> result = lottoMachine.getLottoMatchResults(winLotto);
-        printLottoResult(money, result);
+        RankCount rankCount = lottoMachine.getRankCount(winLotto);
+        printLottoResult(money, rankCount);
     }
 
     private static int getMoney() {
@@ -50,10 +47,10 @@ public class PrintLotto {
 
     private static void printLottos(List<Lotto> manualLottos, List<Lotto> automaticLottos) {
         System.out.println("수동으로 " + manualLottos.size() + "장, 자동으로 " + automaticLottos.size() + "장을 구매했습니다.");
-        for(Lotto lotto: manualLottos) {
-            System.out.println(lotto.getLottoNumbers().stream().map(x -> x.ordinal() + 1).collect(Collectors.toList()));
-        }
-        for(Lotto lotto: automaticLottos) {
+        List<Lotto> lottos = new ArrayList<>();
+        lottos.addAll(manualLottos);
+        lottos.addAll(automaticLottos);
+        for(Lotto lotto: lottos) {
             System.out.println(lotto.getLottoNumbers().stream().map(x -> x.ordinal() + 1).collect(Collectors.toList()));
         }
     }
@@ -72,22 +69,22 @@ public class PrintLotto {
         return inputs.stream().map(x -> LottoBall.values()[Integer.parseInt(x.trim())-1]).collect(Collectors.toList());
     }
 
-    private static void printLottoResult(int money, List<Integer> matchCounts) {
+    private static void printLottoResult(int money, RankCount rankCount) {
         System.out.println("당첨 통계");
         System.out.println("----------");
-        System.out.println("3개 일치 (5000원)- " + matchCounts.get(4) + "개");
-        System.out.println("4개 일치 (50000원)- " + matchCounts.get(3) + "개");
-        System.out.println("5개 일치 (1500000원)- " + matchCounts.get(2) + "개");
-        System.out.println("5개 일치, 보너스 볼 일치(30000000원)- " + matchCounts.get(1) + "개");
-        System.out.println("6개 일치 (2000000000원)- " + matchCounts.get(0) + "개");
-        System.out.println("총 수익률은 " + calcProfit(matchCounts) * 100 / money + "%입니다.");
+        System.out.println("3개 일치 (5000원)- " + rankCount.getFifthCount() + "개");
+        System.out.println("4개 일치 (50000원)- " + rankCount.getFourthCount() + "개");
+        System.out.println("5개 일치 (1500000원)- " + rankCount.getThirdCount() + "개");
+        System.out.println("5개 일치, 보너스 볼 일치(30000000원)- " + rankCount.getSecondCount() + "개");
+        System.out.println("6개 일치 (2000000000원)- " + rankCount.getFirstCount() + "개");
+        System.out.println("총 수익률은 " + (calcProfit(rankCount) - money) * 100 / money + "%입니다.");
     }
 
-    private static long calcProfit(List<Integer> matchCounts) {
-        return matchCounts.get(4) * 5000
-                + matchCounts.get(3) * 50000
-                + matchCounts.get(2) * 1500000
-                + matchCounts.get(1) * 30000000
-                + matchCounts.get(0) * 200000000;
+    private static long calcProfit(RankCount rankCount) {
+        return rankCount.getFifthCount() * Rank.FIFTH.getWinningMoney()
+                + rankCount.getFourthCount() * Rank.FOURTH.getWinningMoney()
+                + rankCount.getThirdCount() * Rank.THIRD.getWinningMoney()
+                + rankCount.getSecondCount() * Rank.SECOND.getWinningMoney()
+                + rankCount.getFirstCount() * Rank.FIRST.getWinningMoney();
     }
 }
