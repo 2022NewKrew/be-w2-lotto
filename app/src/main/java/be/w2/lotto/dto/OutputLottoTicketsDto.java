@@ -1,21 +1,21 @@
 package be.w2.lotto.dto;
 
-import be.w2.lotto.domain.LottoTickets;
-import be.w2.lotto.domain.LottoTicket;
+import be.w2.lotto.domain.lottoticket.LottoTickets;
+import be.w2.lotto.domain.lottoticket.LottoTicket;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LottoTicketsDto {
+public class OutputLottoTicketsDto {
     public final List<List<Integer>> lottoTickets;
 
-    private LottoTicketsDto(List<List<Integer>> lottoTickets) {
+    private OutputLottoTicketsDto(List<List<Integer>> lottoTickets) {
         this.lottoTickets = lottoTickets;
     }
 
-    public static LottoTicketsDto from(LottoTickets lottoTickets) {
+    public static OutputLottoTicketsDto from(LottoTickets lottoTickets) {
         List<List<Integer>> listedLottoTickets = toListedLottoTickets(lottoTickets);
-        return new LottoTicketsDto(listedLottoTickets);
+        return new OutputLottoTicketsDto(listedLottoTickets);
     }
 
     public int getLottoTicketAmount() {

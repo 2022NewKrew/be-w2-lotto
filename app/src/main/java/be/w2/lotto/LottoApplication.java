@@ -3,57 +3,62 @@
  */
 package be.w2.lotto;
 
-import be.w2.lotto.domain.BonusNumber;
-import be.w2.lotto.domain.LottoTickets;
-import be.w2.lotto.domain.WinningLottoTicket;
-import be.w2.lotto.domain.WinningResult;
+import be.w2.lotto.domain.lottonumber.BonusNumber;
+import be.w2.lotto.domain.lottoticket.LottoTickets;
+import be.w2.lotto.domain.lottoticket.WinningLottoTicket;
+import be.w2.lotto.domain.winningresult.WinningResults;
 import be.w2.lotto.dto.InputPurchaseAmountDto;
-import be.w2.lotto.dto.LottoTicketsDto;
-import be.w2.lotto.dto.WinningResultDto;
+import be.w2.lotto.dto.OutputLottoTicketsDto;
+import be.w2.lotto.dto.OutputWinningResultsDto;
 import be.w2.lotto.view.InputView;
 
+import java.util.List;
+
 import static be.w2.lotto.common.util.Parser.parseInputNumbers;
-import static be.w2.lotto.view.ErrorView.throwErrorMessage;
+import static be.w2.lotto.view.ErrorView.errorMessage;
 import static be.w2.lotto.view.InputView.*;
 import static be.w2.lotto.view.OutputView.*;
 
 public class LottoApplication {
 
     public static void main(String[] args) {
-        InputPurchaseAmountDto inputPurchaseAmountDto = LottoApplication.inputPurchaseAmountDto();
+        InputPurchaseAmountDto inputPurchaseAmountDto = inputPurchaseAmountDto();
         LottoTickets lottoTickets = inputPurchaseAmountDto.lottoTickets;
         int purchaseAmount = inputPurchaseAmountDto.purchaseAmount;
-        LottoTicketsDto lottoTicketsDto = LottoTicketsDto.from(lottoTickets);
 
-        outputLottoAmounts(lottoTicketsDto.getLottoTicketAmount());
-        outputLottoTickets(lottoTicketsDto.lottoTickets);
-        emptyBuffer();
+        OutputLottoTicketsDto outputLottoTicketsDto = OutputLottoTicketsDto.from(lottoTickets);
+        outputLottoAmounts(outputLottoTicketsDto.getLottoTicketAmount(), inputPurchaseAmountDto.manualPurchaseAmount);
+        outputLottoTickets(outputLottoTicketsDto.lottoTickets);
 
         WinningLottoTicket winningLottoTicket = inputWinningNumbers();
         BonusNumber bonusNumber = inputBonusNumber(winningLottoTicket);
-        WinningResult winningResult = WinningResult.valueOf(lottoTickets, winningLottoTicket, purchaseAmount, bonusNumber);
+        WinningResults winningResult = WinningResults.valueOf(lottoTickets, winningLottoTicket, purchaseAmount, bonusNumber);
 
-        WinningResultDto winningResultDto = WinningResultDto.from(winningResult);
-        outputWinningResult(winningResultDto);
+        OutputWinningResultsDto outputWinningResultsDto = OutputWinningResultsDto.from(winningResult);
+        outputWinningResult(outputWinningResultsDto);
     }
 
     private static InputPurchaseAmountDto inputPurchaseAmountDto() {
         while (true) {
             try {
                 int purchaseAmount = inputPurchaseAmount();
-                return InputPurchaseAmountDto.of(LottoTickets.valueOf(purchaseAmount), purchaseAmount);
-            } catch (IllegalArgumentException e) {
-                throwErrorMessage(e);
+                int manualLottoAmount = inputManualLottoAmount();
+                List<List<Integer>> manualLottoNumbers = parseInputNumbers(inputManualLottoNumbers(manualLottoAmount));
+                LottoTickets lottoTickets = LottoTickets.valueOf(purchaseAmount, manualLottoNumbers);
+                return InputPurchaseAmountDto.of(lottoTickets, purchaseAmount, manualLottoAmount);
+            } catch (Exception e) {
+                errorMessage(e);
             }
         }
     }
+
     private static WinningLottoTicket inputWinningNumbers() {
         while (true) {
             try {
                 String winningNumbers = InputView.inputWinningNumbers();
                 return WinningLottoTicket.valueOf(parseInputNumbers(winningNumbers));
-            } catch (IllegalArgumentException e) {
-                throwErrorMessage(e);
+            } catch (Exception e) {
+                errorMessage(e);
             }
         }
     }
@@ -63,8 +68,8 @@ public class LottoApplication {
             try {
                 int bonusNumber = inputBonusNumbers();
                 return BonusNumber.valueOf(bonusNumber, winningLottoTicket);
-            } catch (IllegalArgumentException e) {
-                throwErrorMessage(e);
+            } catch (Exception e) {
+                errorMessage(e);
             }
         }
     }

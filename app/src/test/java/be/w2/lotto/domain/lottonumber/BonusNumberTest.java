@@ -1,5 +1,7 @@
-package be.w2.lotto.domain;
+package be.w2.lotto.domain.lottonumber;
 
+import be.w2.lotto.domain.lottonumber.BonusNumber;
+import be.w2.lotto.domain.lottoticket.WinningLottoTicket;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
