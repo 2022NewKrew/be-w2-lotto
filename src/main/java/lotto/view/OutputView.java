@@ -1,36 +1,25 @@
 package lotto.view;
 
-import lotto.domain.Rank;
-import lotto.domain.Lotto;
-
-import java.util.List;
-
 public class OutputView {
 
-    private static final String NEWLINE = "\n";
-
-    private OutputView() {}
-
-    public static void printLottos(List<Lotto> lottoList) {
-        System.out.println(lottoList.size() + "개를 구매했습니다.");
-        StringBuilder sb = new StringBuilder();
-        for (Lotto lotto : lottoList) {
-            sb.append(lotto.numberListToString());
-            sb.append(NEWLINE);
-        }
-        System.out.println(sb);
+    private OutputView() {
+        throw new AssertionError();
     }
 
-    public static void printLottoResults(int purchaseAmount, int prizeAmount) {
+    public static void printManualInputGuide() {
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+    }
+
+    public static void printLottos(int manualPurchaseCount, int size, String stringLottos) {
+        int randomPurchaseCount = size - manualPurchaseCount;
+        System.out.printf("수동으로 %s장, 자동으로 %s개를 구매했습니다.%n", manualPurchaseCount, randomPurchaseCount);
+        System.out.println(stringLottos);
+    }
+
+    public static void printLottoResults(int earningRate, String rankString) {
         System.out.println("당첨 통계");
         System.out.println("---------");
-        for (int i = 0; i < 4; i++) {
-            Rank rank = Rank.values()[i];
-            System.out.printf("%s개 일치 (%s원)- %s개%n",
-                    rank.getMatchingNumber(),
-                    rank.getPrizeAmount(),
-                    rank.getWinnerCount());
-        }
-        System.out.printf("총 수익률은 %s%%입니다.", prizeAmount / purchaseAmount * 100);
+        System.out.println(rankString);
+        System.out.printf("총 수익률은 %s%%입니다.", earningRate);
     }
 }
