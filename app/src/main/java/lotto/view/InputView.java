@@ -3,7 +3,6 @@ package lotto.view;
 import lotto.domain.Lotto;
 import lotto.domain.LottoNumber;
 import lotto.domain.LottoWinningNumber;
-
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -35,7 +34,6 @@ public class InputView {
         System.out.println(MSG_INPUT_MONEY);
         purchase = scanner.nextInt();
         checkMoney(purchase);
-
         scanner.nextLine();
         return purchase;
     }
