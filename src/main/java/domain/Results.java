@@ -14,11 +14,10 @@ public class Results {
     }
 
     private static List<Result> generate(List<Lotto> lottos, List<Integer> winningNumbers, int bonusNum) {
+        validateBonusNumNotDuplicate(winningNumbers, bonusNum);
+
         List<Result> results = new ArrayList<>();
-        List<Rank> resultRanks = lottos.stream()
-                .map(lotto -> Rank.of(lotto, new Lotto(winningNumbers), LottoNumber.of(bonusNum)))
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+        List<Rank> resultRanks = getResultRanks(lottos, winningNumbers, bonusNum);
 
         for (Rank rank : Rank.values()) {
             int count = (int) resultRanks.stream().filter(rank::equals).count();
@@ -27,6 +26,19 @@ public class Results {
 
         return results;
     }
+
+    private static void validateBonusNumNotDuplicate(List<Integer> winningNumbers, int bonusNum){
+        if(winningNumbers.contains(bonusNum)) throw new IllegalArgumentException();
+    }
+
+
+    private static List<Rank> getResultRanks(List<Lotto> lottos, List<Integer> winningNumbers, int bonusNum){
+        return lottos.stream()
+                .map(lotto -> Rank.of(lotto, new Lotto(winningNumbers), LottoNumber.of(bonusNum)))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
+
 
     public List<Result> getResults() {
         return Collections.unmodifiableList(results);
