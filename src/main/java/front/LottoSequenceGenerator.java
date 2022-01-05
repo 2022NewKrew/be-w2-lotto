@@ -1,4 +1,6 @@
-package back.generator;
+package front;
+
+import Constant.Constant;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,16 +9,12 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LottoSequenceGenerator {
-    private static final int LOTTO_SIZE = 6;
-    private static final int LOTTO_START_NUM = 1;
-    private static final int LOTTO_END_NUM = 45;
-
     public static List<Integer> generate() {
-        List<Integer> lottoNumbers = IntStream.rangeClosed(LOTTO_START_NUM, LOTTO_END_NUM).boxed()
+        List<Integer> lottoNumbers = IntStream.rangeClosed(Constant.LOTTO_START_NUM, Constant.LOTTO_END_NUM).boxed()
                 .collect(Collectors.toList());
         Collections.shuffle(lottoNumbers);
 
-        List<Integer> generatedLottoNumbers = new ArrayList<>(lottoNumbers.subList(0, LOTTO_SIZE));
+        List<Integer> generatedLottoNumbers = new ArrayList<>(lottoNumbers.subList(0, Constant.LOTTO_SIZE));
         Collections.sort(generatedLottoNumbers);
 
         return generatedLottoNumbers;

@@ -1,8 +1,8 @@
 package front;
 
+import Constant.Constant;
 import back.controller.Controller;
 import back.domain.Prize;
-import back.generator.LottoSequenceGenerator;
 import dto.LottoCreateDto;
 import dto.LottoDto;
 import dto.WinningLottoCreateDto;
@@ -20,7 +20,7 @@ public class View {
     }
 
     public void main() {
-        int budget = inputOutputManager.getMoney();
+        int budget = inputOutputManager.getBudget();
         inputLottoInfo(budget);
         printLottoInfo();
         inputWinningLottoInfo();
@@ -28,15 +28,15 @@ public class View {
     }
 
     private void inputLottoInfo(int budget) {
-        int manualAmount = inputOutputManager.getUserCreateCount();
-        int expenditure = manualAmount * Constant.lottoCost;
+        int manualAmount = inputOutputManager.getManualCount(budget);
+        int expenditure = manualAmount * Constant.LOTTO_COST;
 
-        List<LottoCreateDto> lottoList = inputOutputManager.getUserCreateLottoSequenceList(manualAmount)
+        List<LottoCreateDto> lottoList = inputOutputManager.getManualLottoSequenceList(manualAmount)
                 .stream()
                 .map(lottoSequence -> new LottoCreateDto(lottoSequence, false))
                 .collect(Collectors.toList());
 
-        for (int money = budget - expenditure; money >= Constant.lottoCost; money -= Constant.lottoCost)
+        for (int money = budget - expenditure; money >= Constant.LOTTO_COST; money -= Constant.LOTTO_COST)
             lottoList.add(new LottoCreateDto(LottoSequenceGenerator.generate(), true));
 
         lottoList.forEach(controller::createLotto);
@@ -50,7 +50,7 @@ public class View {
     private void inputWinningLottoInfo() {
         // WinningLotto 생성
         List<Integer> winningSequence = inputOutputManager.getWinningSequence();
-        int bonusNumber = inputOutputManager.getBonusNumber();
+        int bonusNumber = inputOutputManager.getBonusNumber(winningSequence);
 
         WinningLottoCreateDto winningLotto = new WinningLottoCreateDto(winningSequence, bonusNumber);
         controller.createWinningLotto(winningLotto);
