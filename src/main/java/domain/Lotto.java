@@ -8,11 +8,11 @@ public class Lotto {
     public static final int START_NUMBER = 1;
     public static final int END_NUMBER = 45;
     /*자동 생성 하는 경우*/
-    Lotto() {
+    public Lotto() {
         numberList = LottoGenerator.getLottoNumbers();
     }
     /*수동 생성 하는 경우*/
-    Lotto(List<Integer> numberList) {
+    public Lotto(List<Integer> numberList) {
         this.numberList = numberList;
     }
 

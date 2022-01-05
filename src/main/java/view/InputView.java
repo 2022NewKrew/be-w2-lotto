@@ -1,4 +1,6 @@
-package domain;
+package view;
+
+import domain.Lotto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,10 +8,11 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
+
 import static domain.Lotto.END_NUMBER;
 import static domain.Lotto.START_NUMBER;
 
-public class UserInput {
+public class InputView {
     private static final Scanner sc = new Scanner(System.in);
 
     public static int getPayPriceInput() {
