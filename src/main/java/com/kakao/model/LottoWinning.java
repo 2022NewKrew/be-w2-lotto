@@ -17,6 +17,7 @@ import java.util.List;
 
 // 이번주 당첨정보
 public class LottoWinning {
+    private Integer bonusBall;
     private List<Integer> numberOfWinning;
 
 <<<<<<< HEAD
@@ -58,6 +59,7 @@ public class LottoWinning {
 =======
 >>>>>>> 2e87083 (- 로또 번호의 유효성 검사 추가)
     private void checkRangeOfPickedNumbers(List<Integer> pickedNumbersOfWinning) throws PickedNumberRangeException {
+        // 숫자 유효성 검사
         boolean allResult = pickedNumbersOfWinning.stream()
                 .map(this::checkEachRangeOfPickedNumber)
                 .reduce(true, this::checkAllNumbersAreExistInRange);
@@ -76,6 +78,14 @@ public class LottoWinning {
 >>>>>>> 4f43f8b (1차 Commit)
 =======
 >>>>>>> 2e87083 (- 로또 번호의 유효성 검사 추가)
+
+    // BonusBall 세팅
+    public void setBonusBall(Integer bonusBall) throws PickedNumberRangeException {
+        if(bonusBall == null || !checkEachRangeOfPickedNumber(bonusBall)) {
+            throw new PickedNumberRangeException();
+        }
+        this.bonusBall = bonusBall;
+    }
 
     // 번호 보유 여부 확인
     public boolean hasNumber(int number) {
