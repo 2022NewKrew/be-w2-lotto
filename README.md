@@ -8,7 +8,7 @@
 
 ### TODO
 * private 생성자에 AssertionError 적용
-* TestCode...
+* DTO에서 generating하는 부분 Domain으로 보내기
 
 ###DONE
 * controller -> controller 이름변경
@@ -21,3 +21,5 @@
 * enum Class MatchScore 구현
 * WinningLottoLine에 보너스 볼에 대한 자료구조 추가
 * 보너스 볼을 위한 로직 구현
+* Testcode 작성
+  * DTO쪽은 클래스를 다시 나누어야 할 필요성이 있어 3일차에 작업.

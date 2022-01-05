@@ -27,6 +27,7 @@ public class NNumber {
         numbers = manualInput;
     }
 
+    //TODO generator를 따로 빼서 도메인으로 만들고 LottoLineTest 인터페이스로 관리 할 수 있을 것으로 보인다.
     public static NNumber makeRandomNumbers() {
         return new NNumber();
     }

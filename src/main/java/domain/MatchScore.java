@@ -70,4 +70,12 @@ public enum MatchScore {
 
         return totalPrice;
     }
+
+    public static void initForTest() {
+        MatchScore[] mss = values();
+
+        for (MatchScore ms : mss) {
+            ms.numLotto = 0;
+        }
+    }
 }
