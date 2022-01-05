@@ -24,7 +24,6 @@ class ResultCounterTest {
 
     @BeforeEach
     void setUp() {
-        Random random = new Random(RANDOM_SEED);
         subject = new ResultCounter();
     }
 
