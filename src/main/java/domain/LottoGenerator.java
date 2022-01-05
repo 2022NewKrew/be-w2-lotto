@@ -15,10 +15,8 @@ public class LottoGenerator {
 
     public static List<Integer> getLottoNumbers() {
         Collections.shuffle(shuffleNumbers);
-        List<Integer> lottoNums = new ArrayList<Integer>();
-        for (int i = 0; i < 6; i++) {
-            lottoNums.add(shuffleNumbers.get(i));
-        }
+        List<Integer> lottoNums = new ArrayList<>(shuffleNumbers.subList(0,6));
+
         Collections.sort(lottoNums);
         return lottoNums;
     }
