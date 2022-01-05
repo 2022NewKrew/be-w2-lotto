@@ -21,6 +21,10 @@ public class Lotto {
         this.lottoNumbers = createLottoNumbers();
     }
 
+    public Lotto(String manualInput){
+        this.lottoNumbers = splitLottoNumbers(manualInput);
+    }
+
     private List<Integer> createLottoNumbers() {
         List<Integer> list = IntStream.range(LOTTO_MIN_NUMBER, LOTTO_MAX_NUMBER).boxed().collect(Collectors.toList());
         Collections.shuffle(list);
