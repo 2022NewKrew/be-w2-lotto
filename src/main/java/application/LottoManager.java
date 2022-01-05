@@ -33,6 +33,7 @@ public class LottoManager {
 
     private static WinningLotto inputWinnningLotto() {
         List<Ball> winningLottoNumbers = LottoScanner.getWinningLottoNumbers();
-        return new WinningLotto(winningLottoNumbers);
+        Ball bonusBall = LottoScanner.getBonusBall(winningLottoNumbers);
+        return new WinningLotto(winningLottoNumbers, bonusBall);
     }
 }

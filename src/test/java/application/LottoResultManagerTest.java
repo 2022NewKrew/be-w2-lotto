@@ -17,7 +17,11 @@ import static org.assertj.core.api.Assertions.tuple;
 class LottoResultManagerTest {
     private final List<Long> prizeList = List.of(5000L, 50000L, 1500000L, 2000000000L);
 
-    private List<Ball> createBall(List<Integer> list) {
+    private Ball createBall(int number) {
+        return new Ball(number);
+    }
+
+    private List<Ball> createBallList(List<Integer> list) {
         return list.stream()
                 .map(Ball::new)
                 .collect(Collectors.toList());
@@ -27,22 +31,22 @@ class LottoResultManagerTest {
         return new Lotto(balls);
     }
 
-    private WinningLotto createWinningLotto(List<Ball> balls) {
-        return new WinningLotto(balls);
+    private WinningLotto createWinningLotto(List<Ball> balls, Ball bonusBall) {
+        return new WinningLotto(balls, bonusBall);
     }
 
     @DisplayName("당첨 결과가 올바른지 검증")
     @Test
     void isResultCorrect() {
         // given
-        WinningLotto winningLotto = createWinningLotto(createBall(List.of(1, 2, 3, 4, 5, 6)));
+        WinningLotto winningLotto = createWinningLotto(createBallList(List.of(1, 2, 3, 4, 5, 6)), createBall(7));
         List<Lotto> lottoList = List.of(
-                createLotto(createBall(List.of(4, 5, 6, 1, 2, 3))),
-                createLotto(createBall(List.of(4, 5, 6, 1, 2, 45))),
-                createLotto(createBall(List.of(4, 5, 6, 1, 44, 45))),
-                createLotto(createBall(List.of(4, 5, 6, 43, 44, 45))),
-                createLotto(createBall(List.of(4, 41, 42, 43, 44, 45))),
-                createLotto(createBall(List.of(40, 41, 42, 43, 44, 45)))
+                createLotto(createBallList(List.of(4, 5, 6, 1, 2, 3))),
+                createLotto(createBallList(List.of(4, 5, 6, 1, 2, 45))),
+                createLotto(createBallList(List.of(4, 5, 6, 1, 44, 45))),
+                createLotto(createBallList(List.of(4, 5, 6, 43, 44, 45))),
+                createLotto(createBallList(List.of(4, 41, 42, 43, 44, 45))),
+                createLotto(createBallList(List.of(40, 41, 42, 43, 44, 45)))
         );
         LottoResultManager resultManager = new LottoResultManager(winningLotto, lottoList);
 
@@ -67,14 +71,14 @@ class LottoResultManagerTest {
     @Test
     void isTotalPrizeMoneyCorrect() {
         // given
-        WinningLotto winningLotto = createWinningLotto(createBall(List.of(1, 2, 3, 4, 5, 6)));
+        WinningLotto winningLotto = createWinningLotto(createBallList(List.of(1, 2, 3, 4, 5, 6)), createBall(7));
         List<Lotto> lottoList = List.of(
-                createLotto(createBall(List.of(4, 5, 6, 1, 2, 3))),
-                createLotto(createBall(List.of(4, 5, 6, 1, 2, 45))),
-                createLotto(createBall(List.of(4, 5, 6, 1, 44, 45))),
-                createLotto(createBall(List.of(4, 5, 6, 43, 44, 45))),
-                createLotto(createBall(List.of(4, 41, 42, 43, 44, 45))),
-                createLotto(createBall(List.of(40, 41, 42, 43, 44, 45)))
+                createLotto(createBallList(List.of(4, 5, 6, 1, 2, 3))),
+                createLotto(createBallList(List.of(4, 5, 6, 1, 2, 45))),
+                createLotto(createBallList(List.of(4, 5, 6, 1, 44, 45))),
+                createLotto(createBallList(List.of(4, 5, 6, 43, 44, 45))),
+                createLotto(createBallList(List.of(4, 41, 42, 43, 44, 45))),
+                createLotto(createBallList(List.of(40, 41, 42, 43, 44, 45)))
         );
         LottoResultManager resultManager = new LottoResultManager(winningLotto, lottoList);
 

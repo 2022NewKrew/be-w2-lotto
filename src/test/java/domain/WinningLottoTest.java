@@ -9,30 +9,33 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class WinningLottoTest {
-    private final WinningLotto winningLotto = createWinningLotto(createBall(List.of(1, 2, 3, 4, 5, 6)));
+    WinningLotto winningLotto = createWinningLotto(createBallList(List.of(1, 2, 3, 4, 5, 6)), createBall(7));
 
-    private List<Ball> createBall(List<Integer> list) {
+    private Ball createBall(int number) {
+        return new Ball(number);
+    }
+
+    private List<Ball> createBallList(List<Integer> list) {
         return list.stream()
                 .map(Ball::new)
                 .collect(Collectors.toList());
     }
-
     private Lotto createLotto(List<Ball> balls) {
         return new Lotto(balls);
     }
 
-    private WinningLotto createWinningLotto(List<Ball> balls) {
-        return new WinningLotto(balls);
+    private WinningLotto createWinningLotto(List<Ball> balls, Ball bonusBall) {
+        return new WinningLotto(balls, bonusBall);
     }
 
     @DisplayName("로또의 일치 개수가 정확한지 검증")
     @Test
     void compareTo() {
         List<Lotto> userLottoList = List.of(
-                createLotto(createBall(List.of(4, 5, 6, 1, 2, 3))),
-                createLotto(createBall(List.of(4, 5, 6, 1, 2, 45))),
-                createLotto(createBall(List.of(4, 5, 6, 1, 44, 45))),
-                createLotto(createBall(List.of(4, 5, 6, 43, 44, 45)))
+                createLotto(createBallList(List.of(4, 5, 6, 1, 2, 3))),
+                createLotto(createBallList(List.of(4, 5, 6, 1, 2, 45))),
+                createLotto(createBallList(List.of(4, 5, 6, 1, 44, 45))),
+                createLotto(createBallList(List.of(4, 5, 6, 43, 44, 45)))
         );
 
         List<Integer> matchList = userLottoList.stream()

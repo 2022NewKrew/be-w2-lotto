@@ -39,15 +39,16 @@ public class LottoScanner {
         }
     }
 
-    public static int getBonusBall() {
+    public static Ball getBonusBall(List<Ball> balls) {
         LottoGuidePrinter.requestBonusBallInput();
         try {
-            int ballNumber = Integer.parseInt(in.nextLine());
-            LottoValidator.assertValidNumber(ballNumber);
-            return ballNumber;
+            int bonusBallNumber = Integer.parseInt(in.nextLine());
+            LottoValidator.assertValidNumber(bonusBallNumber);
+            ScannerValidator.assertDuplicatedBallNumber(balls, bonusBallNumber);
+            return new Ball(bonusBallNumber);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            return getBonusBall();
+            return getBonusBall(balls);
         }
     }
 }
