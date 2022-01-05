@@ -32,7 +32,6 @@ public enum LottoPrize {
         if (ranking > 5) return 0;
         return getWithRanking(ranking).getMoney();
     }
-
     LottoPrize(int ranking, int matchingNum, int money, boolean isBonusBallMatch) {
         this.ranking = ranking;
         this.matchingNum = matchingNum;
@@ -47,7 +46,6 @@ public enum LottoPrize {
     public int getRanking() {
         return ranking;
     }
-
     public int getMoney() {
         return money;
     }

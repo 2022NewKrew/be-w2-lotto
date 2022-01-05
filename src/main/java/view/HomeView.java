@@ -48,7 +48,6 @@ public class HomeView {
                 .map(lottoNumber -> String.valueOf(lottoNumber.getNumber()))
                 .collect(Collectors.joining(", ", "[", "]"));
     }
-
     public void printResults() {
         List<Integer> results = lottoService.getWinningResult();
         System.out.println("당첨 통계 =====");
