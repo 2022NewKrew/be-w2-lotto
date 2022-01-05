@@ -1,6 +1,7 @@
 package domain;
 
 import exception.DuplicatedLottoNumberException;
+import exception.InvalidLottoLengthException;
 import exception.InvalidLottoNumberException;
 
 import java.util.*;
@@ -11,15 +12,12 @@ public class Lotto {
     public Lotto(List<Integer> lotto) {
         validateDuplicateNumber(lotto);
         validateInvalidNumber(lotto);
+        validateInvalidLength(lotto);
         this.lotto = Collections.unmodifiableList(lotto);
     }
 
     public List<Integer> getLotto() {
         return lotto;
-    }
-
-    public Integer getLottoSize() {
-        return lotto.size();
     }
 
     private void validateDuplicateNumber(List<Integer> lotto) {
@@ -33,10 +31,14 @@ public class Lotto {
         Optional<Integer> invalidRangeNumber = lotto.stream()
                 .filter(i -> i > 45 || i < 0)
                 .findAny();
-        if (invalidRangeNumber.isEmpty()) {
+        if (invalidRangeNumber.isPresent()) {
             throw new InvalidLottoNumberException(InvalidLottoNumberException.INVALID_RANGE_NUMBER);
         }
+    }
 
-
+    private void validateInvalidLength(List<Integer> lotto) {
+        if (lotto.size() != InvalidLottoLengthException.LOTTO_LENGTH) {
+            throw new InvalidLottoLengthException(InvalidLottoLengthException.INVALID_LENGTH);
+        }
     }
 }
