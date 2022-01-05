@@ -3,11 +3,15 @@ package lotto.view;
 import static spark.Spark.get;
 import static spark.Spark.staticFiles;
 
-public class LottoWebView implements LottoView{
+public class LottoWebView extends LottoView {
 
-
-    public void start(){
+    public void start() {
         staticFiles.location("/templates");
-        get("/hello", (req, res) -> "Hello World!");
+        get("/buyLotto", (req, res) -> {
+            return "Hello World!";
+            return render(json, "show.html");
+        });
     }
+
+    public
 }

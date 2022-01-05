@@ -1,4 +1,6 @@
-package lotto.domain;
+package lotto.model;
+
+import lotto.model.Lotto;
 
 import java.util.List;
 
@@ -9,8 +11,7 @@ public class WinningLotto extends Lotto {
         super(numbers);
     }
 
-
-    public WinningLotto(Lotto lotto, Integer bonusNumber){
+    public WinningLotto(Lotto lotto, Integer bonusNumber) {
         super(lotto);
     }
 

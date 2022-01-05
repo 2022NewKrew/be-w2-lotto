@@ -1,18 +1,19 @@
 package lotto.domain;
 
 
+import lotto.VO.Rank;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 
-class RewardsTest {
-    private Rewards rewards;
+class RankCountsTest {
+    private RankCounts rewards;
 
     @BeforeEach
     void setUp() {
-        rewards = new Rewards();
+        rewards = new RankCounts();
     }
 
     @Test
