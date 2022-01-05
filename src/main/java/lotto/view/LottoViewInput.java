@@ -29,7 +29,7 @@ public class LottoViewInput {
         return resultListInteger;
     }
 
-    static public List<Integer> lottoInputResult(Runnable runnable){
+    static public List<Integer> lottoInputToList(Runnable runnable){
         Scanner sc = new Scanner(System.in);
         runnable.run();
         return resultToList(sc.nextLine());
