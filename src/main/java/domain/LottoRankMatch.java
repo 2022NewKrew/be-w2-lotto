@@ -20,7 +20,7 @@ public class LottoRankMatch {
                 lottoResult.put(createLottoRank(autoLotto, inputLastWeekWinNumber), 1);
             }
         }
-        System.out.println("lottoresult출력한ㅠ");
+        System.out.println("lottoresult출력한");
         System.out.println(lottoResult);
         return lottoResult;
     }
