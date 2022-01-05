@@ -9,9 +9,9 @@ import java.util.Map;
 
 public class WinningStatistics {
     private static final long PRICE_PER_LOTTO = 1000;
-    private static final int SCALE = 0;
-    private static final long percentConstant = 100;
-
+    private static final int SCALE = 2;
+    private static final BigDecimal percentConstant = BigDecimal.valueOf(100);
+    private final BigDecimal purchasingAmount;
     private final Map<Rank, Integer> winningStatistics = new HashMap<>();
     private final long lottoCount;
 
@@ -21,6 +21,7 @@ public class WinningStatistics {
         lottos.lottos()
                 .forEach(lotto -> hit(lotto.match(winningNumbers)));
         lottoCount = lottos.lottos().size();
+        purchasingAmount = BigDecimal.valueOf(lottoCount * PRICE_PER_LOTTO);
     }
 
     public Map<Rank, Integer> statistics() {
@@ -37,13 +38,14 @@ public class WinningStatistics {
             long multiple = rank.amount() * winningStatistics.get(rank);
             sum += multiple;
         }
-        return sum * percentConstant;
+        return sum;
     }
 
-    public int profits() {
-        BigDecimal purchasingAmount = BigDecimal.valueOf(lottoCount * PRICE_PER_LOTTO);
+    public double profits() {
         return BigDecimal.valueOf(sum())
+                .subtract(purchasingAmount)
+                .multiply(percentConstant)
                 .divide(purchasingAmount, SCALE, RoundingMode.DOWN)
-                .intValue();
+                .doubleValue();
     }
 }
