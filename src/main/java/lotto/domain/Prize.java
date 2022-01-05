@@ -35,18 +35,22 @@ public enum Prize {
 
     @Override
     public String toString() {
-        return String.format("%d개 일치 %s (%d원)", matchedCount, ( bonusBallMatched ? "+ 보너스 볼" : ""), money);
+        return String.format("%d개 일치 %s (%d원)", matchedCount, (bonusBallMatched ? "+ 보너스 볼" : ""), money);
     }
 
     /**
-     * @param matchedCount 맞힌 번호 수
+     * @param matchedCount     맞힌 번호 수
      * @param bonusBallMatched 보너스 볼 맞았는지 여부
      * @return 맞힌 번호와 보너스볼 여부에 따라 결정된 {@link Prize}
      */
     public static Prize of(int matchedCount, boolean bonusBallMatched) {
+        // XXX: 더 깔끔하게 할 수 있는 방법?
+        if (matchedCount == SECOND.matchedCount && bonusBallMatched) {
+            return SECOND;
+        }
+
         return Arrays.stream(values())
                 .filter(prize -> prize.matchedCount == matchedCount)
-                .filter(prize -> prize.bonusBallMatched == bonusBallMatched)
                 .findFirst()
                 .orElse(NOTHING);
     }
