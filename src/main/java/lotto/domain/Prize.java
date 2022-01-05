@@ -19,6 +19,14 @@ public enum Prize {
     private final int matchedCount;
     private final boolean bonusBallMatched;
 
+    public int getMatchedCount() {
+        return matchedCount;
+    }
+
+    public boolean isBonusBallMatched() {
+        return bonusBallMatched;
+    }
+
     Prize(long money, int matchedCount) {
         this(money, matchedCount, false);
     }
@@ -31,11 +39,6 @@ public enum Prize {
 
     public long getMoney() {
         return this.money;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%d개 일치 %s (%d원)", matchedCount, (bonusBallMatched ? "+ 보너스 볼" : ""), money);
     }
 
     /**

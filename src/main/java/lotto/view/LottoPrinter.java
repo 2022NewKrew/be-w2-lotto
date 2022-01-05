@@ -22,7 +22,9 @@ public class LottoPrinter {
         System.out.println("당첨 통계");
         System.out.println("--------------");
         for (Prize prize : Prize.values()) {
-            System.out.printf("%s - %d개%n", prize, matchingResult.getOccurrences(prize));
+            System.out.printf("%d개 일치 %s (%d원) - %d개%n", prize.getMatchedCount(),
+                    (prize.isBonusBallMatched() ? "+ 보너스 볼" : ""),
+                    prize.getMoney(), matchingResult.getOccurrences(prize));
         }
     }
 
