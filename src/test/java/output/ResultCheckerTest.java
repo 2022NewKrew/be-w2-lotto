@@ -13,10 +13,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class ResultCheckerTest {
 
     @Test
-    void getResults() {
-    }
-
-    @Test
     void calculateProfitRate() {
         //given
         Map<Integer, Integer> results = new HashMap<>();
@@ -27,9 +23,27 @@ class ResultCheckerTest {
         results.put(7, 0);
 
         //when
-        long profitRate = ResultChecker.calculateProfitRate(3000, results);
+        double profitRate = ResultChecker.calculateProfitRate(3000, results);
 
         //then
-        Assertions.assertEquals((LottoResult.getResult(6).getPrize() * 100)/3000, profitRate);
+        Assertions.assertEquals(Math.round(((double)LottoResult.getResult(6).getPrize() / 3000) * 100 - 100), profitRate);
+
+    }
+
+    @Test
+    void calculateProfitRateMinus() {
+        // given
+        Map<Integer, Integer> results = new HashMap<>();
+        results.put(3, 1);
+        results.put(4, 0);
+        results.put(5, 0);
+        results.put(6, 0);
+        results.put(7, 0);
+
+        // when
+        double profitRate = ResultChecker.calculateProfitRate(14000, results);;
+
+        // then
+        Assertions.assertEquals(Math.round(((double)LottoResult.getResult(3).getPrize() / 14000) * 100 - 100), profitRate);
     }
 }

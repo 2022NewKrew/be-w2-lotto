@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 public class CommandLineOutputView implements OutputView {
 
     @Override
-    public void printResult(Map<Integer, Integer> results, long profitRate) {
+    public void printResult(Map<Integer, Integer> results, double profitRate) {
         System.out.printf("당첨 통계\n=========\n");
         IntStream.rangeClosed(LottoConfig.MIN_PRIZE_KEY, LottoConfig.MAX_PRIZE_KEY)
                 .forEach(i -> System.out.println(LottoResult.getResult(i).getMessage() + results.get(i) + "개"));

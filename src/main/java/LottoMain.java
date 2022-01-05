@@ -1,5 +1,4 @@
 import input.InputResourceManager;
-import input.dto.InputInfo;
 import input.CommandLineInputView;
 import lotto.LottoStore;
 import lotto.domain.LottoTicket;
@@ -33,7 +32,7 @@ public class LottoMain {
         Map<Integer, Integer> results = ResultChecker.getResults(lottoTickets, winningLotto);
 
         int purchaseFee = amount * 1000;
-        long profitRate = ResultChecker.calculateProfitRate(purchaseFee, results);
+        double profitRate = ResultChecker.calculateProfitRate(purchaseFee, results);
 
         outputView.printResult(results, profitRate);
     }

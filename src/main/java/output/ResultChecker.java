@@ -59,9 +59,9 @@ public class ResultChecker {
                 .filter(idx -> resultList.get(idx) == 5 && lottoTickets.get(idx).getNumbers().contains(bonusNumber)).count();
     }
 
-    public static long calculateProfitRate(int purchaseFee, Map<Integer, Integer> results) {
+    public static double calculateProfitRate(int purchaseFee, Map<Integer, Integer> results) {
         Integer profit = calculateProfit(results);
-        return (long) profit * 100 / purchaseFee;
+        return Math.round(((double)profit / purchaseFee) * 100 - 100);
     }
 
     private static Integer calculateProfit(Map<Integer, Integer> results) {

@@ -40,7 +40,7 @@ public class CommandLineInputView implements InputView {
     }
 
     private int getPurchaseAmount() {
-        int purchaseFee = Integer.parseInt(InputResourceManager.nextLine());
+        int purchaseFee = InputResourceManager.nextInt();
         Validator.checkPurchaseMoney(purchaseFee);
         return purchaseFee / LottoConfig.LOTTO_TICKET_PRICE;
     }

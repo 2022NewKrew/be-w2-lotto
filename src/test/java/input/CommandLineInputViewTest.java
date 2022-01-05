@@ -1,6 +1,5 @@
 package input;
 
-import input.dto.InputInfo;
 import lotto.domain.WinningLotto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -33,7 +32,6 @@ class CommandLineInputViewTest {
     @DisplayName("입력 받은 내용이 int List로 잘 변환되는가")
     void targetInputTest() {
         // given
-        InputInfo inputInfo = new InputInfo(5);
         CommandLineInputView commandLineInputView = new CommandLineInputView();
         String str = "1, 3, 4, 5, 6";
 

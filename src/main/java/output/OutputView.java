@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface OutputView {
-    public void printResult(Map<Integer, Integer> results, long profitRate);
+    public void printResult(Map<Integer, Integer> results, double profitRate);
 }
