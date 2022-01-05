@@ -13,7 +13,7 @@ public class WinningLotto {
     }
 
     public Rank checkRank(Lotto lotto) {
-        int countOfMatch = (int) lotto.getLotto().stream()
+        int countOfMatch = (int) lotto.getLottoNumber().stream()
                 .filter(this::checkNumber)
                 .count();
         boolean matchBonus = checkBonusNumber(lotto);
@@ -25,6 +25,6 @@ public class WinningLotto {
     }
 
     private boolean checkBonusNumber(Lotto lotto) {
-        return lotto.getLotto().contains(bonusNumber);
+        return lotto.getLottoNumber().contains(bonusNumber);
     }
 }

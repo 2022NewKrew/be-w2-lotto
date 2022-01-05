@@ -24,30 +24,15 @@ public class GameInput {
         }
     }
 
-    public WinningLotto inputWinningLotto() {
-        try {
-            System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-            String[] input = sc.nextLine().split(",");
-            List<Integer> winningLotto = checkGameInput.checkLottoInput(input);
-            int bonusNumber = inputBonusNumber(winningLotto);
-            return new WinningLotto(winningLotto, bonusNumber);
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
-            return inputWinningLotto();
+    public List<List<Integer>> inputCustomLottos(int money) {
+        List<List<Integer>> lottoNumbersList = new ArrayList<>();
+        int totalLottoCnt = money / 1000;
+        int customLottoCount = inputCustomLottoCount(totalLottoCnt);
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        for (int i = 0; i < customLottoCount; i++) {
+            lottoNumbersList.add(inputCustomLottoNumbers());
         }
-    }
-
-    private int inputBonusNumber(List<Integer> winningLotto) {
-        try {
-            System.out.println("보너스 볼을 입력해 주세요.");
-            int bonusNumber = Integer.parseInt(sc.nextLine());
-            checkGameInput.checkNumberValidation(bonusNumber);
-            checkGameInput.checkBonusNumber(winningLotto, bonusNumber);
-            return bonusNumber;
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
-            return inputBonusNumber(winningLotto);
-        }
+        return lottoNumbersList;
     }
 
     private int inputCustomLottoCount(int totalLottoCount) {
@@ -60,6 +45,55 @@ public class GameInput {
             System.out.println(e.getMessage());
             return inputCustomLottoCount(totalLottoCount);
         }
+    }
+
+    private List<Integer> inputCustomLottoNumbers() {
+        try {
+            String[] input = sc.nextLine().split(",");
+            List<Integer> lottoNumbers = mapToInt(input);
+            checkGameInput.checkLottoInput(lottoNumbers);
+            return lottoNumbers;
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+            return inputCustomLottoNumbers();
+        }
+    }
+
+    public WinningLotto inputWinningLotto() {
+        try {
+            System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+            String[] input = sc.nextLine().split(",");
+            List<Integer> winningLotto = mapToInt(input);
+            checkGameInput.checkLottoInput(winningLotto);
+            int bonusNumber = inputBonusNumber(winningLotto);
+            return new WinningLotto(winningLotto, bonusNumber);
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+            return inputWinningLotto();
+        }
+    }
+
+    private int inputBonusNumber(List<Integer> winningLotto) {
+        try {
+            System.out.println("보너스 볼을 입력해 주세요.");
+            int bonusNumber = Integer.parseInt(sc.nextLine());
+            checkGameInput.checkBonusNumber(winningLotto, bonusNumber);
+            return bonusNumber;
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+            return inputBonusNumber(winningLotto);
+        }
+    }
+
+    private List<Integer> mapToInt(String[] input) {
+        List<Integer> list = new ArrayList<>();
+        for (String num : input) {
+            int intNumber = Integer.parseInt(num.trim());
+            checkGameInput.checkNumberValidation(intNumber);
+            list.add(intNumber);
+        }
+        Collections.sort(list);
+        return list;
     }
 
     public List<Lotto> buyLottos(int money) {

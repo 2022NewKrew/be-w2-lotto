@@ -11,11 +11,17 @@ public class RunLottoGame {
 
     private final GameInput gameInput = new GameInput();
     private final GameOutput gameOutput = new GameOutput();
+    // private final LottoMachine lm = new LottoMachine();
+
 
     public void run() {
         int money = gameInput.inputMoney();
+        List<List<Integer>> customLottoNumbersList = gameInput.inputCustomLottos(money);
+        // List<LottoNumbers> cllist = gameInput.inputCustomLottos;
+        // List<Lottos> lottos = lm.buyLottos(money, cllist);
         List<Lotto> lottos = gameInput.buyLottos(money);
         gameOutput.printLottos(lottos);
+
 
         WinningLotto winningLotto = gameInput.inputWinningLotto();
         gameOutput.printTotalResult(money, lottos, winningLotto);
