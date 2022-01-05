@@ -9,6 +9,8 @@ import java.util.stream.IntStream;
 import util.RandomUtil;
 
 public class Lotto {
+    private static final int LOTTO_SIZE_MIN = 0;
+    private static final int LOTTO_SIZE_MAX = 6;
 
     private final List<LottoNumber> lottoNumbers;
 
@@ -18,7 +20,7 @@ public class Lotto {
 
     public static Lotto purchaseLotto() {
         List<Integer> shuffledNumbers = RandomUtil.generateRandomNumbers();
-        List<LottoNumber> lottoNumbers = IntStream.range(0, 6)
+        List<LottoNumber> lottoNumbers = IntStream.range(LOTTO_SIZE_MIN, LOTTO_SIZE_MAX)
             .map(shuffledNumbers::get)
             .mapToObj(LottoNumber::new)
             .sorted(Comparator.comparing(LottoNumber::getNumber))
