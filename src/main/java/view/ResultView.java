@@ -18,7 +18,7 @@ public class ResultView {
 
     public static void printROI(Results results, int money) {
         long earnedMoney = getEarnedMoney(results);
-        int earnedRate = (int) Math.floor(earnedMoney / ((double) money) * 100);
+        int earnedRate = (int) Math.floor((earnedMoney - money) / ((double) money) * 100);
 
         System.out.println("총 수익률은 " + earnedRate + "% 입니다.");
     }
