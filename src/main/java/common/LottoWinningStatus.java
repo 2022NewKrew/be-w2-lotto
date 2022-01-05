@@ -1,5 +1,0 @@
-package common;
-
-public enum LottoWinningStatus {
-    TREE_WINNING, FOUR_WINNING, FIVE_WINNING, FIVE_AND_BONUS_WINNING, SIX_WINNING, NORMAL, BANG
-}
