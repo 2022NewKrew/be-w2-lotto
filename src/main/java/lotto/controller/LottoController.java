@@ -24,7 +24,7 @@ public class LottoController {
         lottoViewOutput.printLottoCount(outputDTO); //구매한 로또 개수를 출력
         lottoViewOutput.printAllLottos(outputDTO); //구매한 로또 정보를 출력
 
-        lottoObject.setLottoResult(new LottoNumber(LottoViewInput.lottoInputResult(() -> {System.out.println("지난 주 당첨 번호를 입력해 주세요.");})), LottoViewInput.lottoInputResultBonus()); //로또 결과 입력
+        lottoObject.setLottoResult(new LottoNumber(LottoViewInput.lottoInputResult(() -> {System.out.println("지난 주 당첨 번호를 입력해 주세요.");}), LOTTO_AUTO), LottoViewInput.lottoInputResultBonus()); //로또 결과 입력
 
         lottoObject.makeTotal(); //당첨 통계 집계
         lottoViewOutput.printWinner(outputDTO); //당첨 통계 출력

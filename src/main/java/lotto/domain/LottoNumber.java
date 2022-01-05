@@ -9,14 +9,16 @@ import java.util.List;
 import static lotto.domain.LottoSetting.*;
 
 public class LottoNumber {
-    public List<Integer> num;
     static private List<Integer> lottoElement;
+    public List<Integer> num;
+    private Boolean isAutoMade;
 
-    public LottoNumber(List<Integer> newNum){
+    public LottoNumber(List<Integer> newNum, Boolean isAutoMade){
         num = new ArrayList<>();
         for(int i = 0; i < newNum.size() && i < LOTTO_LENGTH; i++){
             num.add(newNum.get(i));
         }
+        this.isAutoMade = isAutoMade;
     }
 
 
@@ -52,13 +54,13 @@ public class LottoNumber {
         Collections.shuffle(lottoElement);
         List<Integer> newLotto = lottoElement.subList(0, LOTTO_LENGTH);
         newLotto.sort(Integer::compareTo);
-        return new LottoNumber( newLotto );
+        return new LottoNumber( newLotto, LOTTO_AUTO);
     }
 
     static public LottoNumber createUserMakeLotto(Boolean isPrinting){
         List<Integer> newLotto = LottoViewInput.lottoInputResult(() -> {if(isPrinting) System.out.println("수동으로 구매할 번호를 입력해 주세요.");});
         newLotto.sort(Integer::compareTo);
-        return new LottoNumber( newLotto );
+        return new LottoNumber( newLotto, LOTTO_NOT_AUTO);
     }
 
 }
