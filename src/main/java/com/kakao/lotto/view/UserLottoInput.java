@@ -1,6 +1,7 @@
 package com.kakao.lotto.view;
 
 import com.kakao.lotto.model.ConstLottoConfig;
+import com.kakao.lotto.model.LottoNumber;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.stream.Stream;
 
 /**
  * author    : brody.moon
- * version   : 1.0
+ * version   : 1.1
  * User Input 을 받는 클래스입니다.
  * 실제 Input 을 받는 부분은 ChangeVaildInput 클래스에서 처리하고 정상적인 가공된 입력을 가지고 있는 클래스입니다.
  * 저번에 static 메서드로 초기화를 해보아서 이번엔 builder pattern 을 사용해 보았습니다.
@@ -19,7 +20,7 @@ public class UserLottoInput {
      * 사용자 입력 로또들을 저장하는 변수와 자동으로 생성한 로또의 갯수, 전체 로또의 갯수를 멤버로 가지고 있습니다.
      * 필요 없어 보이는 멤버의 경우 printResult 에서 사용하기 위해 저장해 두었습니다.
      */
-    private final List<int[]> createdCustomLotto;
+    private final List<LottoNumber> createdCustomLotto;
     private final int numberOfAutoNumber;
     private final int numberOfAllNumber;
 
@@ -29,7 +30,7 @@ public class UserLottoInput {
         this.numberOfAutoNumber = builder.numberOfAllNumber - builder.numberOfCustomNumber;
     }
 
-    public List<int[]> getCreatedCustomLotto() {
+    public List<LottoNumber> getCreatedCustomLotto() {
         return createdCustomLotto;
     }
 
@@ -47,7 +48,7 @@ public class UserLottoInput {
      * User Input 을 생성하는 inner Builder 클래스입니다.
      */
     public static class Builder {
-        private List<int[]> createdCustomLotto;
+        private List<LottoNumber> createdCustomLotto;
         private int numberOfCustomNumber;
         private int numberOfAllNumber;
 

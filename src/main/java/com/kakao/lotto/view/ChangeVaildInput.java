@@ -1,14 +1,16 @@
 package com.kakao.lotto.view;
 
 import com.kakao.lotto.model.ConstLottoConfig;
+import com.kakao.lotto.model.LottoNumber;
 
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.function.IntUnaryOperator;
+import java.util.stream.Collectors;
 
 /**
  * author    : brody.moon
- * version   : 1.0
+ * version   : 1.1
  * 사용자 입력을 원하는 형태로 가공하고, 잘못된 입력을 새로 받는 클래스입니다.
  * 모든 멤버들을 static 으로 선언하였습니다.
  */
@@ -63,14 +65,14 @@ public class ChangeVaildInput {
      *
      * @return 유효한 로또 번호
      */
-    public static int[] inputIntArrayStringManufactor() {
-        int[] tempLottoNumber;
+    public static LottoNumber inputIntArrayStringManufactor() {
+        LottoNumber tempLottoNumber;
 
         do {
             System.out.println(ConstStringSpace.INPUT_CUSTOMLOTTOS_NUMBER);
 
             tempLottoNumber = createLottoStream();
-        } while (tempLottoNumber.length != ConstLottoConfig.LOTTO_PICK_NUMBER);
+        } while (tempLottoNumber.size() != ConstLottoConfig.LOTTO_PICK_NUMBER);
         return tempLottoNumber;
     }
 
@@ -79,15 +81,15 @@ public class ChangeVaildInput {
      *
      * @return 유효한 입력만 int[] 로 가공해서 반환
      */
-    private static int[] createLottoStream() {
-        return Arrays.stream(sc.nextLine().split(ConstStringSpace.STRING_SEPERATOR))
+    private static LottoNumber createLottoStream() {
+        return new LottoNumber(Arrays.stream(sc.nextLine().split(ConstStringSpace.STRING_SEPERATOR))
                 .filter(tempString -> tempString.length() != 0 && !ConstStringSpace.STRING_SEPERATOR.equals(tempString))
                 .map(String::trim)
                 .filter(ChangeVaildInput::isLottoDigit)
                 .distinct()
+                .map(Integer::parseInt)
                 .sorted()
-                .mapToInt(Integer::parseInt)
-                .toArray();
+                .collect(Collectors.toList()));
     }
 
     /**

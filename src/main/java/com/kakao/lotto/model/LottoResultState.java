@@ -1,14 +1,13 @@
 package com.kakao.lotto.model;
 
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static com.kakao.lotto.model.ConstLottoConfig.LOTTO_PICK_NUMBER;
 
 /**
  * author    : brody.moon
- * version   : 1.0
+ * version   : 1.1
  * 로또 당첨 등수를 보여주는 Enum 클래스입니다.
  */
 public enum LottoResultState {
@@ -38,7 +37,7 @@ public enum LottoResultState {
      * @param winningLottoBonus  보너스 구슬 번호
      * @return 현재 Enum 상수가 가지고 있는 등수와 매치할 수 있는지 여부
      */
-    public boolean isIncludedCurrentState(int[] winningLottoNumber, int[] curLottoNumber, int winningLottoBonus) {
+    public boolean isIncludedCurrentState(LottoNumber winningLottoNumber, LottoNumber curLottoNumber, int winningLottoBonus) {
         Set<Integer> winningLottoNumberDiffSet = createDiffSet(winningLottoNumber, curLottoNumber);
         Set<Integer> curLottoNumberDiffSet = createDiffSet(curLottoNumber, winningLottoNumber);
 
@@ -58,9 +57,9 @@ public enum LottoResultState {
      * @param target target 배열
      * @return
      */
-    private Set<Integer> createDiffSet(int[] source, int[] target) {
-        Set<Integer> sourceSet = Arrays.stream(source).boxed().collect(Collectors.toSet());
-        Set<Integer> targetSet = Arrays.stream(target).boxed().collect(Collectors.toSet());
+    private Set<Integer> createDiffSet(LottoNumber source, LottoNumber target) {
+        Set<Integer> sourceSet = new HashSet<>(source.getAll());
+        Set<Integer> targetSet = new HashSet<>(target.getAll());
 
         sourceSet.removeAll(targetSet);
         return sourceSet;
