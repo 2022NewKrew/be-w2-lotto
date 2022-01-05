@@ -1,6 +1,5 @@
 package com.david.lotto;
 
-import com.david.lotto.validation.LottoNumberGenerator;
 import com.david.lotto.view.LottoInput;
 import com.david.lotto.view.LottoOutput;
 

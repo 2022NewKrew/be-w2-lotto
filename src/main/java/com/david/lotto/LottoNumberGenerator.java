@@ -1,4 +1,4 @@
-package com.david.lotto.validation;
+package com.david.lotto;
 
 import java.util.Collections;
 import java.util.List;
