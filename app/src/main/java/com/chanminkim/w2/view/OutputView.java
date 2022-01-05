@@ -10,7 +10,9 @@ import java.util.Map;
 public class OutputView {
     public void printPurchasedLottoList(List<Lotto> lottoList) {
         System.out.printf("%d개를 구매했습니다.%n", lottoList.size());
-        lottoList.forEach(System.out::println);
+        for (Lotto lotto : lottoList) {
+            System.out.println(lotto);
+        }
         System.out.println();
     }
 

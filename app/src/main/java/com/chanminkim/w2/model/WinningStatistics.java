@@ -1,6 +1,5 @@
 package com.chanminkim.w2.model;
 
-import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.List;
 
@@ -42,8 +41,9 @@ public class WinningStatistics {
 
     private EnumMap<WinningState, Integer> initializeCountMap() {
         EnumMap<WinningState, Integer> countMap = new EnumMap<>(WinningState.class);
-        Arrays.stream(WinningState.values())
-                .forEach(state -> countMap.put(state, 0));
+        for (WinningState state : WinningState.values()) {
+            countMap.put(state, 0);
+        }
         return countMap;
     }
 
