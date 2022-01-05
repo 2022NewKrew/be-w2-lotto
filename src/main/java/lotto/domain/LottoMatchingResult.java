@@ -17,7 +17,7 @@ public class LottoMatchingResult {
         long prizeMoneySum = occurrencesByPrize.entrySet().stream()
                 .mapToLong(entry -> entry.getKey().getMoney() * entry.getValue())
                 .sum();
-        return ((float)(prizeMoneySum - purchaseCosts) / purchaseCosts) * 100;
+        return ((float) (prizeMoneySum - purchaseCosts) / purchaseCosts) * 100;
     }
 
     public Long getOccurrences(Prize prize) {
