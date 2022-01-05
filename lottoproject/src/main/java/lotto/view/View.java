@@ -4,7 +4,6 @@ import lotto.domain.Lotto;
 import lotto.domain.Round;
 import lotto.util.Rank;
 import lotto.util.Util;
-
 import java.util.*;
 
 public class View {
