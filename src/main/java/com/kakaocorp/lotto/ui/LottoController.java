@@ -12,14 +12,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-public class LottoPresenter {
+public class LottoController {
 
     private final LottoView view;
     private final LottoDispenser dispenser;
     private final ResultCounter counter;
     private final ProfitCalculator calculator;
 
-    public LottoPresenter(LottoView view, LottoDispenser dispenser, ResultCounter counter, ProfitCalculator calculator) {
+    public LottoController(LottoView view, LottoDispenser dispenser, ResultCounter counter, ProfitCalculator calculator) {
         this.view = view;
         this.dispenser = dispenser;
         this.counter = counter;

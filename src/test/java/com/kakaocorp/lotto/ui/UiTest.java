@@ -24,7 +24,7 @@ class UiTest {
     private ProfitCalculator calculator;
     private ResultCounter counter;
     private PrintStream out;
-    private LottoPresenter presenter;
+    private LottoController presenter;
 
     @BeforeEach
     void setUp() {
@@ -79,6 +79,6 @@ class UiTest {
         InputStream in = new StringInputStream(input.getBytes(StandardCharsets.UTF_8));
         out = new StringPrintStream();
         LottoView view = new StreamLottoView(in, out);
-        presenter = new LottoPresenter(view, dispenser, counter, calculator);
+        presenter = new LottoController(view, dispenser, counter, calculator);
     }
 }
