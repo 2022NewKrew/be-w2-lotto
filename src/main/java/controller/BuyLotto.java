@@ -6,7 +6,7 @@ import view.LottoOutput;
 
 public class BuyLotto {
     public static final int LottoPrice = 1000;
-    public final LottoPack lottoPack = new LottoPack();
+    public static final LottoPack lottoPack = new LottoPack();
     public BuyLotto(int buyPrice){
         buy(buyPrice);
         printLottoPack();

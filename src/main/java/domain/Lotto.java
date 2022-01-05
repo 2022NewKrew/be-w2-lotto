@@ -1,9 +1,8 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+import java.util.stream.Collectors;
 
 public class Lotto {
 
@@ -21,6 +20,28 @@ public class Lotto {
     private List<Integer> makeRandomLottoNum(){
         LottoGenerator lottoGenerator = new LottoGenerator();
         return lottoGenerator.generateRandomLotto().subList(0,NUM_OF_LOTTO);
+    }
+
+    private int countNumbersMatch(Lotto prize){
+        return this.numbers.stream().filter(num->prize.contains(num)).collect(Collectors.toList()).size();
+    }
+    public Ranking makeLottoRank(Lotto prize){
+        switch (countNumbersMatch(prize)){
+            case 3:
+                return Ranking.THREE;
+            case 4:
+                return Ranking.FOUR;
+            case 5:
+                return Ranking.FIVE;
+            case 6:
+                return Ranking.SIX;
+            default:
+                return Ranking.NONE;
+        }
+    }
+
+    public boolean contains(int num){
+        return numbers.contains(num);
     }
 
     @Override
