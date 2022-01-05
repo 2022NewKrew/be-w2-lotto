@@ -24,7 +24,7 @@ public class IOController {
         int bonusNumber = getBonusNumber();
 
 //        LotteryWinningNumberDto winningNumberDto = new LotteryWinningNumberDto(winningNumbers);
-        LotteryWinningNumberDto winningNumberDto = new LotteryWinningNumberWithBonusDto(winningNumbers, bonusNumber);
+        LotteryWinningNumberWithBonusDto winningNumberDto = new LotteryWinningNumberWithBonusDto(winningNumbers, bonusNumber);
         LotteryResultDto matchResult = lotteryController.match(winningNumberDto);
 
         System.out.println(matchResult.toString());
