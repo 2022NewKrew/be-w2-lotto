@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import lotto.view.LottoViewInput;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,7 +42,7 @@ public class LottoNumber {
     }
 
 
-    static public LottoNumber createRandomLotto(){
+    static public LottoNumber createRandomLotto(boolean isPrinting){
         //initialize only once
         if(lottoElement == null){
             lottoElement = new ArrayList<>();
@@ -52,4 +54,11 @@ public class LottoNumber {
         newLotto.sort(Integer::compareTo);
         return new LottoNumber( newLotto );
     }
+
+    static public LottoNumber createUserMakeLotto(Boolean isPrinting){
+        List<Integer> newLotto = LottoViewInput.lottoInputResult(() -> {if(isPrinting) System.out.println("수동으로 구매할 번호를 입력해 주세요.");});
+        newLotto.sort(Integer::compareTo);
+        return new LottoNumber( newLotto );
+    }
+
 }

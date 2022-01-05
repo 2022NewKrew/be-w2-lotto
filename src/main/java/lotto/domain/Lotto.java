@@ -31,17 +31,42 @@ public class Lotto {
         return lottoWinner;
     }
 
+    public void lottoBuy(Integer payment){
+        Integer userMakeCount = LottoViewInput.lottoInputUserMakeCount();
+
+        //validation check logic 후 오류안나게 개선을 할까? 아니면 그냥 exception을 던질까? 뭐가 좋을까요?
+        userMakeCount = LottoValidationCheck.userMakeCountValidation(payment, userMakeCount);
+
+        Integer autoMakecount = (payment / LOTTO_PRICE) - userMakeCount;
+
+        if(userMakeCount > 0){
+            addLottos(userMakeCount, Lotto::addUserMakeLottos);
+        }
+
+        if(autoMakecount > 0){
+            addLottos(autoMakecount, Lotto::addRandomLottos);
+        }
+    }
+
     public void setLottoResult(LottoNumber lottoNumber, Integer bonusNumber) {
         lottoResult.setLottoNumber(lottoNumber);
         lottoResult.setBonusNumber(bonusNumber);
     }
 
-    public void addRandomLottos(Integer lottoCount){
+    public void addLottos(Integer lottoCount, LottoCreate lottoCreate){
         for(int i = 0 ; i < lottoCount ; i++){
-            lottos.add(LottoNumber.createRandomLotto()); //lottoCount만큼 랜덤으로 로또를 생성
+            lottos.add(lottoCreate.create(i == 0));
+            //lottos.add(LottoNumber.createRandomLotto()); //lottoCount만큼 랜덤으로 로또를 생성
         }
     }
 
+    public static LottoNumber addRandomLottos(boolean isPrinting){
+        return LottoNumber.createRandomLotto(isPrinting); //lottoCount만큼 랜덤으로 로또를 생성
+    }
+
+    public static LottoNumber addUserMakeLottos(boolean isPrinting){
+        return LottoNumber.createUserMakeLotto(isPrinting); //lottoCount만큼 사용자가 로또를 입력하여 생성
+    }
 
 
     private void initLottoWinner(){

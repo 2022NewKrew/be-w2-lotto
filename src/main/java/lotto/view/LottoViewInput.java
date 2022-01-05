@@ -14,6 +14,12 @@ public class LottoViewInput {
         return sc.nextInt();
     }
 
+    static public Integer lottoInputUserMakeCount(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        return sc.nextInt();
+    }
+
     static private List<Integer> resultToList(String stringAry){
         List<String> resultListString = new ArrayList<>(Arrays.asList(stringAry.split(",")));
         List<Integer> resultListInteger = new ArrayList<>();
@@ -23,9 +29,9 @@ public class LottoViewInput {
         return resultListInteger;
     }
 
-    static public List<Integer> lottoInputResult(){
+    static public List<Integer> lottoInputResult(Runnable runnable){
         Scanner sc = new Scanner(System.in);
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+        runnable.run();
         return resultToList(sc.nextLine());
     }
 
