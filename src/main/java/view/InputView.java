@@ -25,5 +25,6 @@ public class InputView {
                 .mapToInt(Integer::parseInt)
                 .boxed()
                 .collect(Collectors.toList());
+        // TODO - 결과 6개 맞는지 확인 필요
     }
 }
