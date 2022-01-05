@@ -32,7 +32,7 @@ public class Lotto {
     this.holder = generateRandomNumbers(LOTTO_COUNT);
   }
 
-  private Lotto(List<Integer> holder) {
+  protected Lotto(List<Integer> holder) {
     this.holder = holder;
   }
 
@@ -46,7 +46,7 @@ public class Lotto {
 
 
   public MatchInfo compareWith(WinningLottery winningLottery) {
-    int matchCount = getMatchCount(winningLottery.getCurrentWinningLotto());
+    int matchCount = getMatchCount(winningLottery);
     boolean isBonusMatched = isBonusMatched(winningLottery.getBonusNumber());
     return MatchInfo.of(matchCount, isBonusMatched);
   }

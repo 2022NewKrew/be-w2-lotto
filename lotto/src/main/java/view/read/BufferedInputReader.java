@@ -44,21 +44,21 @@ public class BufferedInputReader implements InputReader {
 
   @Override
   public WinningLottery getLastWinningLottery() throws IOException {
-    Lotto winningLotto = getWinningLotto();
+    List<Integer> winningLotto = getWinningLotto();
     int bonusNumber = getBonusNumber();
     return WinningLottery.of(winningLotto, bonusNumber);
   }
 
 
   //TODO: try-catch + while 활용하여 valid check 후 반복 수행 해야 함.
-  private Lotto getWinningLotto() throws IOException {
+  private List<Integer> getWinningLotto() throws IOException {
     println("지난 주 당첨 번호를 입력해 주세요.");
-    List<Integer> lotto = StringUtils.splitByDelimiter(reader.readLine())
+    List<Integer> numbers = StringUtils.splitByDelimiter(reader.readLine())
         .stream()
         .map(Integer::parseInt)
         .collect(Collectors.toList());
-    validCheck(lotto);
-    return Lotto.of(lotto);
+    validCheck(numbers);
+    return numbers;
   }
 
 
