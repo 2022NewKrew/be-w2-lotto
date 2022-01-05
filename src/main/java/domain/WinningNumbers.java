@@ -25,8 +25,10 @@ public class WinningNumbers {
         int inputBonusNumber) {
         validateWinningNumbers(inputWinningNumbers);
         validateNumber(inputBonusNumber);
+
         List<WinningNumber> winningNumbers = inputWinningNumbers.stream()
-            .map(WinningNumber::new).collect(Collectors.toList());
+            .map(WinningNumber::new)
+            .collect(Collectors.toList());
 
         WinningNumber bonusNumber = new WinningNumber(inputBonusNumber);
 
