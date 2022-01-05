@@ -2,10 +2,8 @@ package lotto;
 
 import input.CommandLineInputView;
 import input.InputView;
-import input.Validator;
 import lotto.domain.LottoTicket;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -26,18 +24,13 @@ public class LottoStore {
     }
 
     public static List<LottoTicket> buyAuto(int amount) {
-        ArrayList<LottoTicket> tickets = new ArrayList<>();
-        IntStream.range(0, amount).forEach(i -> tickets.add(autoCreator.create()));
-        return tickets;
+        return IntStream.range(0, amount).mapToObj(i -> autoCreator.create()).collect(Collectors.toList());
     }
 
     public static List<LottoTicket> buySelf(int amount) {
-        ArrayList<LottoTicket> tickets = new ArrayList<>();
         if(amount != 0){
             System.out.println("수동으로 구매할 번호를 입력해주세요. 입력 예시 : 1,2,3,4,5,6");
-            IntStream.range(0, amount).forEach(i -> tickets.add(selfCreator.create()));
         }
-
-        return tickets;
+        return IntStream.range(0, amount).mapToObj(i -> selfCreator.create()).collect(Collectors.toList());
     }
 }

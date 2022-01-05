@@ -29,7 +29,7 @@ public class LottoMain {
 
     private static void checkAndShowResult(int amount, List<LottoTicket> lottoTickets, WinningLotto winningLotto) {
         lottoTickets.stream().forEach(ticket -> winningLotto.compareAndSetResult(ticket));
-        Map<Integer, Integer> results = ResultChecker.getResults(lottoTickets, winningLotto);
+        Map<Integer, Integer> results = ResultChecker.getResults(lottoTickets);
 
         int purchaseFee = amount * 1000;
         double profitRate = ResultChecker.calculateProfitRate(purchaseFee, results);

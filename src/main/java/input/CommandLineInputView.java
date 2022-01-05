@@ -5,6 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * 역할 - 입력받고 Validate 까지(입력 자체는 InputResourceManager 클래스 활용)
+ */
 public class CommandLineInputView implements InputView {
     @Override
     public int inputBuyTicketAmount() {

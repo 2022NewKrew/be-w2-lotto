@@ -1,7 +1,6 @@
 package lotto.domain;
 
 import input.Validator;
-import lotto.LottoConfig;
 
 import java.util.List;
 

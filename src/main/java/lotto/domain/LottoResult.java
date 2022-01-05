@@ -26,14 +26,16 @@ public enum LottoResult {
         return message;
     }
 
-    public int getScore() { return score; }
+    public int getScore() {
+        return score;
+    }
 
     public static LottoResult getResult(int score) {
-        if(score == 7) return FIRST;
-        if(score == 6) return SECOND;
-        if(score == 5) return THIRD;
-        if(score == 4) return FOURTH;
-        if(score == 3) return FIFTH;
+        if (score == 7) return FIRST;
+        if (score == 6) return SECOND;
+        if (score == 5) return THIRD;
+        if (score == 4) return FOURTH;
+        if (score == 3) return FIFTH;
         return NONE;
     }
 }
