@@ -4,14 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import static CONST.Const.*;
 
 public class Lottos {
     private final List<Lotto> lottos;
 
-    public Lottos(int buyPrice, Lottos manualLottos) {
+    public Lottos(Lottos manualLottos, int buyPrice) {
         int numManualLotto = manualLottos.getLottos().size();
         int numAutoLotto = (buyPrice / LOTTO_PRICE) - manualLottos.size();
         this.lottos = manualLottos.getLottos();

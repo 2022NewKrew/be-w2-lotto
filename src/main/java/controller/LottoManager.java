@@ -17,14 +17,14 @@ public class LottoManager {
         // 수동으로 구매할 로또 수 입력 받음
         int manualCount = InputManager.inputManualCount(buyPrice);
 
-        // 수동 로또 생성
+        // 위에서 입력한 갯수만큼 수동으로 로또 생성
         Lottos manualLottos = new Lottos(IntStream
                 .range(0,manualCount)
                 .mapToObj((i)->new Lotto(InputManager.inputManualNumber()))
                 .collect(Collectors.toList()));
 
-        // 수동 + 자동 로또 생성
-        Lottos lottos = new Lottos(buyPrice, manualLottos);
+        // 수동(기존) + 자동 로또 생성
+        Lottos lottos = new Lottos(manualLottos, buyPrice);
 
         // 로또 번호 출력
         PrintManager.printLottos(lottos.toString());
