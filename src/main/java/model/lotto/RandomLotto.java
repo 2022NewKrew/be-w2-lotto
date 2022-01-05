@@ -1,30 +1,36 @@
 package model.lotto;
 
-import model.number.Number;
+import model.lotto.number.LottoNumber;
+import utility.RandomSeed;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class RandomLotto extends Lotto {
+public class RandomLotto{
+    private final Lotto lotto;
 
-    private static final List<Number> lottoNumbers =
-            IntStream.rangeClosed(Number.START_NUMBER, Number.FINAL_NUMBER)
-                    .mapToObj(Number::new)
-                    .collect(Collectors.toList());
+    private static final List<LottoNumber> LOTTO_NUMBERS =
+            IntStream.rangeClosed(LottoNumber.START_NUMBER, LottoNumber.FINAL_NUMBER)
+                    .mapToObj(LottoNumber::new)
+                    .collect(Collectors.toUnmodifiableList());
 
     public RandomLotto() {
-        super.numbers = generateRandomNumbers();
+        lotto = new Lotto(generateRandomNumbers());
     }
 
-    private List<Number> generateRandomNumbers() {
-        Collections.shuffle(lottoNumbers);
-        List<Number> targetNumbers = new ArrayList<>(lottoNumbers.subList(0, 6));
-        Collections.sort(targetNumbers);
-        LottoPrecondition.checkNumbers(targetNumbers);
-        return targetNumbers;
+
+
+    private List<LottoNumber> generateRandomNumbers() {
+        List<LottoNumber> targetLottoNumbers = new ArrayList<>(LOTTO_NUMBERS);
+        Collections.shuffle(targetLottoNumbers, RandomSeed.getRandom());
+        targetLottoNumbers = new ArrayList<>(targetLottoNumbers.subList(0, 6));
+        Collections.sort(targetLottoNumbers);
+        LottoPrecondition.checkNumbers(targetLottoNumbers);
+        return targetLottoNumbers;
     }
 
+    public Lotto getLotto() {
+        return lotto;
+    }
 }

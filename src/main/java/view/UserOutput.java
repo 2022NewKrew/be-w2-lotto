@@ -7,26 +7,41 @@ import java.util.Map;
 
 public class UserOutput {
 
-    static public void printLotto(List<List<Integer>> lottos) {
+    public static void printLotto(List<List<Integer>> lottos) {
         for (List<Integer> numbers : lottos) {
             System.out.println(numbers.toString());
         }
     }
 
-    static public void printRevenueRate(double revenueRate) {
+    public static void printRevenueRate(int revenueRate) {
         System.out.println("총 수익률은 " + revenueRate + "% 입니다.");
     }
 
-    static public void printHistory(Map<LottoRank, Long> result) {
+    public static void printHistory(List<LottoRank> lottoRanks, Map<Integer, Integer> result) {
         System.out.println("당첨 통계");
         System.out.println("----------");
-        System.out.println("3개 일치(" + LottoRank.FORTH_PRIZE.getReward() + ") - " + result.get(LottoRank.FORTH_PRIZE) + "개");
-        System.out.println("4개 일치(" + LottoRank.THIRD_PRIZE.getReward() + ") - " + result.get(LottoRank.THIRD_PRIZE) + "개");
-        System.out.println("5개 일치(" + LottoRank.SECOND_PRIZE.getReward() + ") - " + result.get(LottoRank.SECOND_PRIZE) + "개");
-        System.out.println("6개 일치(" + LottoRank.FIRST_PRIZE.getReward() + ") - " + result.get(LottoRank.FIRST_PRIZE) + "개");
-    }
+        for (LottoRank value : lottoRanks) {
+            printResultByLottoRank(value, result);
+        }
+    } // 스트링 포맷
 
-    static public void printBuyMessage(long numberOfLotto) {
+    public static void printBuyMessage(int numberOfLotto) {
         System.out.println(numberOfLotto + "개를 구매했습니다.");
     }
+
+    private static void printResultByLottoRank(LottoRank lottoRank, Map<Integer, Integer> result) {
+        System.out.println(getFormattedString(lottoRank, result));
+    }
+
+    private static String getFormattedString(LottoRank lottoRank, Map<Integer, Integer> result){
+        if (result.containsKey(lottoRank.getReward())){
+            return getResultFormat(lottoRank.getMatchNumber(), lottoRank.getReward(), result.get(lottoRank.getReward()));
+        }
+        return getResultFormat(lottoRank.getMatchNumber(), lottoRank.getReward(), 0);
+    }
+
+    private static String getResultFormat(int matchingNumber, int reward, int numberOfMatchTicket){
+        return String.format("%d개 일치(%d) - %d개", matchingNumber, reward, numberOfMatchTicket);
+    }
+
 }

@@ -1,22 +1,38 @@
 package model.lotto;
 
+import java.util.Arrays;
+
 public enum LottoRank {
-    FIRST_PRIZE(1, 2000000000), SECOND_PRIZE(2, 1500000), THIRD_PRIZE(3, 50000), FORTH_PRIZE(4, 5000), FIFTH_PRIZE(5, 0), FAIL(6, 0);
+    FAIL(1, false, 0),
+    FIFTH_PRIZE(2, false, 0),
+    FORTH_PRIZE(3, false, 5000),
+    THIRD_PRIZE(4, false, 50000),
+    SECOND_PRIZE(5, false, 1500000),
+    FIRST_PRIZE(6, false, 2000000000);
 
-    private final int price;
     private final int reward;
+    private final int matchNumber;
+    private final boolean needBonusNumber;
 
-    LottoRank(int price, int reward) {
-        this.price = price;
+    LottoRank(int matchNumber, boolean needBonusNumber, int reward) {
+        this.matchNumber = matchNumber;
+        this.needBonusNumber = needBonusNumber;
         this.reward = reward;
     }
 
-    public int getPrice() {
-        return price;
+    public static LottoRank convertToLottoRank(int numberOfSameNumber) {
+        return Arrays.stream(LottoRank.values())
+                .filter(l -> l.getMatchNumber() == numberOfSameNumber)
+                .findFirst()
+                .orElse(LottoRank.FAIL);
     }
 
     public int getReward() {
         return reward;
+    }
+
+    public int getMatchNumber(){
+        return matchNumber;
     }
 
 }
