@@ -10,6 +10,8 @@ public class WinningNumbers {
 
     private final static String NUMBER_RANGE_ERROR_MESSAGE = "번호는 1이상 45이하이어야 합니다.";
     private final static String NUMBER_SIZE_ERROR_MESSAGE = "6개의 번호를 입력해주세요.";
+    private static final int LOTTO_NUMBER_MIN = 1;
+    private static final int LOTTO_NUMBER_MAX = 45;
 
     private static final int WINNING_NUMBERS_SIZE = 6;
 
@@ -46,7 +48,7 @@ public class WinningNumbers {
     }
 
     private static void validateNumber(int number) {
-        if (number < 1 || number > 45) {
+        if (number < LOTTO_NUMBER_MIN || number > LOTTO_NUMBER_MAX) {
             throw new IllegalArgumentException(NUMBER_RANGE_ERROR_MESSAGE);
         }
     }
