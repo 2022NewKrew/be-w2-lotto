@@ -1,5 +1,10 @@
 package com.kakao.domain;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public enum Rank {
     FIRST(6, 2000000000, "1등"),
     SECOND(5, 30000000, "2등"),
@@ -24,17 +29,18 @@ public enum Rank {
     }
 
     public static Rank valueOf(int countOfMatch, boolean matchBonus) {
-        Rank[] ranks = values();
-        for (Rank rank : ranks) {
-            if (countOfMatch == SECOND.countOfMatch) {
-                return matchBonus ? SECOND : THRID;
-            }
+        List<Rank> ranks = Arrays.asList(values());
+        return ranks.stream()
+                .filter(rank -> filterRank(rank, countOfMatch, matchBonus))
+                .findFirst()
+                .orElse(null);
+    }
 
-            if (rank.countOfMatch == countOfMatch) {
-                return rank;
-            }
+    private static boolean filterRank(Rank rank, int countOfMatch, boolean matchBonus) {
+        boolean match = rank.countOfMatch == countOfMatch;
+        if (rank == SECOND) {
+            return matchBonus && match;
         }
-
-        return null;
+        return match;
     }
 }
