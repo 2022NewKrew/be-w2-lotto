@@ -14,23 +14,26 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class App {
-    public static void main(String[] args) {
-        InputView inputView = new InputView();
-        OutputView outputView = new OutputView();
+    private static final InputView INPUT_VIEW = new InputView();
+    private static final OutputView OUTPUT_VIEW = new OutputView();
 
-        int payment = inputView.getPayment();
-        List<Lotto> manualLottoList = inputView.getManualLottoList(payment);
+    public static void main(String[] args) {
+        List<Lotto> boughtLottoList = buyLotto();
+        Lotto winningLotto = new Lotto(INPUT_VIEW.getWinningLottoNumbers());
+        LottoNumber bonus = new LottoNumber(INPUT_VIEW.getBonusNumber());
+        WinningStatistics winningStatistics = new WinningStatistics(boughtLottoList, winningLotto, bonus);
+        OUTPUT_VIEW.printWinningStatistics(winningStatistics);
+    }
+
+    private static List<Lotto> buyLotto() {
+        int payment = INPUT_VIEW.getPayment();
+        List<Lotto> manualLottoList = INPUT_VIEW.getManualLottoList(payment);
         int remainPayment = payment - manualLottoList.size() * Lotto.PRICE;
         List<Lotto> randomLottoList = buildRandomLottoList(remainPayment);
-        outputView.printPurchasedLottoList(manualLottoList, randomLottoList);
-
-        Lotto winningLotto = new Lotto(inputView.getWinningLottoNumbers());
-        LottoNumber bonus = new LottoNumber(inputView.getBonusNumber());
-        List<Lotto> wholeLottoList = Stream.of(manualLottoList, randomLottoList)
+        App.OUTPUT_VIEW.printPurchasedLottoList(manualLottoList, randomLottoList);
+        return Stream.of(manualLottoList, randomLottoList)
                 .flatMap(Collection::stream)
                 .collect(Collectors.toList());
-        WinningStatistics winningStatistics = new WinningStatistics(wholeLottoList, winningLotto, bonus);
-        outputView.printWinningStatistics(winningStatistics);
     }
 
     private static List<Lotto> buildRandomLottoList(int payment) {
