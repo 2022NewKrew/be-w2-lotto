@@ -5,7 +5,7 @@ import view.PlayerView;
 
 import java.util.*;
 
-import static domain.Lotto.lottoPrice;
+import static domain.Lotto.LOTTO_PRICE;
 
 public class main {
     private static int playerMoney;
@@ -20,8 +20,8 @@ public class main {
 
     public static void main(String[] args) {
         playerMoney = UserInput.getPayPriceInput();
-        payManualCount = UserInput.getManualCountInput(playerMoney/lottoPrice);
-        payAutoCount = (playerMoney - payManualCount*lottoPrice) / lottoPrice;
+        payManualCount = UserInput.getManualCountInput(playerMoney/LOTTO_PRICE);
+        payAutoCount = (playerMoney - payManualCount*LOTTO_PRICE) / LOTTO_PRICE;
 
         List<Lotto> manualLottoList  = UserInput.getManualLottoInput(payManualCount);
 
