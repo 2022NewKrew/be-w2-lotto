@@ -34,12 +34,18 @@ public class OutputView {
         for(Prize prize : Prize.values())
         {
             Long prizeCount = matching.getPrizeCount(prize);
-            System.out.println(prize==SECOND_PRIZE ?
-                    String.format("%d개 일치, 보너스 볼 일치(%d원) - %d개", prize.getMatchingNumber(), prize.getPrizeMoney(), prizeCount):
-                    String.format("%d개 일치 (%d원)- %d개", prize.getMatchingNumber(), prize.getPrizeMoney(), prizeCount)
-            );
+            printMatchNumberResult(prizeCount, prize);
         }
         long sum = matching.getTotalPrizeSum();
         System.out.println("총 수익률은 " + (sum - payPrice)/(double)payPrice*100 + "%입니다.");
+    }
+
+    private static void printMatchNumberResult(Long prizeCount, Prize prize) {
+        if(prize == Prize.NO_PRIZE)
+            return;
+        System.out.println(prize==SECOND_PRIZE ?
+                String.format("%d개 일치, 보너스 볼 일치(%d원) - %d개", prize.getMatchingNumber(), prize.getPrizeMoney(), prizeCount):
+                String.format("%d개 일치 (%d원)- %d개", prize.getMatchingNumber(), prize.getPrizeMoney(), prizeCount)
+        );
     }
 }
