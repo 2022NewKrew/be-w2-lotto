@@ -18,13 +18,13 @@ public class LottoGameInput {
         return purchaseAmount;
     }
 
-    public static WinningLotto inputWinningNumbers(Scanner scanner){
+    public static List<Integer> inputWinningNumbers(Scanner scanner){
         System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
         String numbers = scanner.nextLine();
 
-        return new WinningLotto(Arrays.stream(numbers.split(","))
+        return Arrays.stream(numbers.split(","))
                 .map(Integer::parseInt)
-                .collect(Collectors.toCollection(ArrayList::new)));
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public static int inputBonusNumber(Scanner scanner){

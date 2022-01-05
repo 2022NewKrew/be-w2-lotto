@@ -3,10 +3,8 @@ package lotto.controller;
 import lotto.domain.lotto.Lotto;
 import lotto.domain.player.PlayerLotto;
 import lotto.domain.purchase.LottoPurchaseMachine;
-import lotto.domain.result.LottoResult;
-import lotto.domain.result.LottoResultChecker;
+import lotto.domain.result.*;
 import lotto.domain.player.PlayerLottoList;
-import lotto.domain.result.WinningLotto;
 import lotto.view.LottoGameInput;
 import lotto.view.LottoGameOutput;
 
@@ -16,9 +14,8 @@ import java.util.Scanner;
 public class LottoGame {
     private int purchaseAmount;
     private int numberOfLotto;
-    private int bonusNumber;
     private final PlayerLottoList playerLottoList = new PlayerLottoList();
-    private WinningLotto winningLotto;
+    private WinningLottoInfo winningLottoInfo;
 
     public void startGame(){
         try (Scanner scanner = new Scanner(System.in)) {
@@ -57,12 +54,13 @@ public class LottoGame {
     }
 
     private void drawLotto(Scanner scanner){
-        winningLotto = LottoGameInput.inputWinningNumbers(scanner);
-        bonusNumber = LottoGameInput.inputBonusNumber(scanner);
+        WinningLotto winningLotto = new WinningLotto(LottoGameInput.inputWinningNumbers(scanner));
+        BonusNumber bonusNumber = new BonusNumber(LottoGameInput.inputBonusNumber(scanner));
+        winningLottoInfo = new WinningLottoInfo(winningLotto, bonusNumber);
     }
 
     private void showResults(){
-        LottoResultChecker lottoResultChecker = new LottoResultChecker(winningLotto, bonusNumber);
+        LottoResultChecker lottoResultChecker = new LottoResultChecker(winningLottoInfo);
         List<LottoResult> playerLottoResults = lottoResultChecker.getLottoResults(playerLottoList);
 
         long rewardRate = calculateRewardRate(playerLottoResults);
