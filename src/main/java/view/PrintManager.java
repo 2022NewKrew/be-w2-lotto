@@ -1,6 +1,7 @@
 package view;
 
 import domain.entity.Lotto;
+import domain.entity.LottoPolicy;
 
 import java.util.List;
 
