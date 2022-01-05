@@ -38,7 +38,7 @@ public class LottoDriver {
             System.exit(0);
         }
 
-        OutputView outputView = lottoController.getLottoResult(inputResultDto.get());
-        outputView.showResult();
+        LottoResultOutputView lottoResultOutputView = lottoController.getLottoResult(inputResultDto.get());
+        lottoResultOutputView.print();
     }
 }

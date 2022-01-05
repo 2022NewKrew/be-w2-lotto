@@ -2,6 +2,7 @@ package presentation.controller;
 
 import domain.LottoOrder;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import domain.RewardResult;
 import domain.WinningNumbers;
 import dto.input.PurchaseDto;
@@ -64,19 +65,20 @@ public class LottoController {
                 = new RewardResultDto(rewardResult.getRewardToCount(), rewardResult.getProfitPercent());
         return new ResultOutputView(rewardResultDto);
 =======
+=======
+>>>>>>> 1bdbe85 (refactor : 구조 개선)
 import domain.WinningNumber;
 import dto.InputResultDto;
 import dto.ResultDto;
-import presentation.view.OutputView;
+import presentation.view.LottoResultOutputView;
 
 public class LottoController {
-    public OutputView getLottoResult(InputResultDto inputResultDto){
+    public LottoResultOutputView getLottoResult(InputResultDto inputResultDto){
         LottoOrder lottoOrder = inputResultDto.getLottoOrder();
         WinningNumber winningNumber = inputResultDto.getWinningNumber();
 
         ResultDto resultDto = lottoOrder.getResult(winningNumber);
 
-        return new OutputView(resultDto);
->>>>>>> b09511c (refactor : 구조 개선)
+        return new LottoResultOutputView(resultDto);
     }
 }
