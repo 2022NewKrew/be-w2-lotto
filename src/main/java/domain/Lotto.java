@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Lotto {
 
-    private static final List<Integer> numbers = new ArrayList<>();
+    private  final List<Integer> numbers = new ArrayList<>();
     public static final int LOTTO_MOD = 46;
     public static final int NUM_OF_LOTTO = 6;
 
@@ -24,4 +24,8 @@ public class Lotto {
         return new Random().nextInt()%LOTTO_MOD;
     }
 
+    @Override
+    public String toString() {
+        return numbers.toString();
+    }
 }

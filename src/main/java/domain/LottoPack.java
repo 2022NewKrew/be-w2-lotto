@@ -13,5 +13,7 @@ public class LottoPack {
     }
 
 
-
+    public void printLottoPack() {
+        lottoList.stream().forEach(e -> System.out.print(e+"\n"));
+    }
 }

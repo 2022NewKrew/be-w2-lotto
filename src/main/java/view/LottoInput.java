@@ -1,5 +1,7 @@
 package view;
 
+import controller.BuyLotto;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -11,8 +13,7 @@ public class LottoInput {
 
     public static void getBuyLottoPrize(){
         System.out.println("구입 금액을 입력해 주세요.");
-        int prize = sc.nextInt();
-
+        BuyLotto buyLotto = new BuyLotto(sc.nextInt());
     }
 
     public static void getLastPrizeNum(){
