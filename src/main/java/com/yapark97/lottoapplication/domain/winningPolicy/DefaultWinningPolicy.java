@@ -2,11 +2,11 @@ package com.yapark97.lottoapplication.domain.winningPolicy;
 
 import com.yapark97.lottoapplication.domain.lotto.Lotto;
 
-public class SimpleWinningPolicy implements WinningPolicy{
+public class DefaultWinningPolicy implements WinningPolicy{
     // winningCondition 개를 맞추면 winningPrize 원을 받는 당첨 정책
     private final WinningRank winningRank;
 
-    public SimpleWinningPolicy(WinningRank winningRank) {
+    public DefaultWinningPolicy(WinningRank winningRank) {
         this.winningRank = winningRank;
     }
 

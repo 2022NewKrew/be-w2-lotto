@@ -5,7 +5,7 @@ import com.yapark97.lottoapplication.domain.lotto.LottoSet;
 import com.yapark97.lottoapplication.domain.lotto.WinningLotto;
 import com.yapark97.lottoapplication.domain.lottocreatestrategy.RandomLottoCreateStrategy;
 import com.yapark97.lottoapplication.domain.winningPolicy.BonusBallWinningPolicy;
-import com.yapark97.lottoapplication.domain.winningPolicy.SimpleWinningPolicy;
+import com.yapark97.lottoapplication.domain.winningPolicy.DefaultWinningPolicy;
 import com.yapark97.lottoapplication.domain.winningPolicy.WinningPolicy;
 import com.yapark97.lottoapplication.domain.winningPolicy.WinningRank;
 import com.yapark97.lottoapplication.view.LottoInput;
@@ -47,10 +47,10 @@ public class LottoService {
     private void initWinningPolicy() {
         winningPolicies = new TreeSet<>(); // 상금 순서로 정렬된 set
 
-        winningPolicies.add(new SimpleWinningPolicy(WinningRank.FIRST));
-        winningPolicies.add(new SimpleWinningPolicy(WinningRank.THIRD));
-        winningPolicies.add(new SimpleWinningPolicy(WinningRank.FOURTH));
-        winningPolicies.add(new SimpleWinningPolicy(WinningRank.FIFTH));
+        winningPolicies.add(new DefaultWinningPolicy(WinningRank.FIRST));
+        winningPolicies.add(new DefaultWinningPolicy(WinningRank.THIRD));
+        winningPolicies.add(new DefaultWinningPolicy(WinningRank.FOURTH));
+        winningPolicies.add(new DefaultWinningPolicy(WinningRank.FIFTH));
     }
 
     private void showLottoSet() {
