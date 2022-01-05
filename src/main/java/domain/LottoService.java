@@ -35,6 +35,10 @@ public final class LottoService {
         printWinningStatistics(purchaseAmount, purchasedLottoes, lastWeekWinning, bonusBallNumber);
     }
 
+    /**+
+     * 구매금액 가져오는 메소드입니다. 구매금액이 0보다 크지 않으면 재귀호출하여 다시 가져옵니다.
+     * @return 0보다 큰 금액
+     */
     private int getPurchaseAmount() {
         final int amount = inputController.getPurchaseAmount();
         if(ConditionCheck.isPositiveInteger(amount)) {
@@ -45,6 +49,11 @@ public final class LottoService {
         return getPurchaseAmount();
     }
 
+    /**+
+     * 인자 값으로 주어진 개수만큼 로또를 구매하는 메소드입니다.
+     * @param numberOfLottoes
+     * @return 구매한 LottoTicket 리스트
+     */
     private List<LottoTicket> purchaseLottoes(int numberOfLottoes) {
         final List<LottoTicket> purchasedLottoes = new ArrayList<>();
         final int numberOfManualPurchase = getNumberOfManualPurchase(numberOfLottoes);
@@ -78,10 +87,18 @@ public final class LottoService {
                 .collect(Collectors.toUnmodifiableList());
     }
 
+    /**+
+     * 지난 주 당첨 번호를 입력받는 메소드입니다.
+     * @return 당첨번호를 가지고 내부 속성값 Winning을 가지는 LottoTicket을 반환합니다.
+     */
     private LottoTicket getLastWeekWinningNumber() {
         return new WinningLottoGenerator(inputController).getLottoTicket();
     }
 
+    /**+
+     * 보너스 볼 입력받는 메소드입니다. 입력받은 값이 로또 번호 범위를 벗어나면 재귀호출하여 다시 가져옵니다.
+     * @return 로또 번호 범위 내의 숫자 값
+     */
     private int getBonusBallNumber() {
         final int bonusNumber = inputController.getBonusBallNumber();
         if(ConditionCheck.isLottoNumber(bonusNumber)) {
@@ -92,6 +109,13 @@ public final class LottoService {
         return getBonusBallNumber();
     }
 
+    /**+
+     * 당첨 통계 출력하는 메소드입니다. 당첨된 등수와 해당 등수의 개수를 map으로 묶고, 수익률을 (평가금액 - 원금) / 원금 으로 퍼센티지를 계산하여 renderer에 전달합니다.
+     * @param purchaseAmount
+     * @param purchasedLottoes
+     * @param lastWeekWinning
+     * @param bonusBallNumber
+     */
     private void printWinningStatistics(int purchaseAmount, List<LottoTicket> purchasedLottoes, LottoTicket lastWeekWinning, int bonusBallNumber) {
         Map<LottoPrize, Long> winningTickets = purchasedLottoes.stream()
                 .collect(groupingBy(purchasedLotto -> LottoPrize.getLottoRank(numberOfSameNumbers(purchasedLotto ,lastWeekWinning), isMatchBonusBall(purchasedLotto, bonusBallNumber)), counting()));
