@@ -1,6 +1,6 @@
 package com.kakao.lotto.step3.view;
 
-import com.kakao.lotto.step3.domain.Lotto;
+import com.kakao.lotto.step3.core.Lotto;
 
 import java.util.List;
 

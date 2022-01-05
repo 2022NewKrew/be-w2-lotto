@@ -1,4 +1,4 @@
-package com.kakao.lotto.step3.domain;
+package com.kakao.lotto.step3.core;
 
 public enum Rank {
     FIRST(6, 2000000000),

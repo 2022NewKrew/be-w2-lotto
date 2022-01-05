@@ -1,7 +1,7 @@
 package com.kakao.lotto.step3.view;
 
-import com.kakao.lotto.step3.domain.LottoResult;
-import com.kakao.lotto.step3.domain.Rank;
+import com.kakao.lotto.step3.core.LottoResult;
+import com.kakao.lotto.step3.core.Rank;
 
 import java.util.Map;
 

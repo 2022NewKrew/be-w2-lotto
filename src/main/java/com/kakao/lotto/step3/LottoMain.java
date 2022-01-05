@@ -1,7 +1,7 @@
 package com.kakao.lotto.step3;
 
-import com.kakao.lotto.step3.domain.Lotto;
-import com.kakao.lotto.step3.domain.LottoResult;
+import com.kakao.lotto.step3.core.Lotto;
+import com.kakao.lotto.step3.core.LottoResult;
 import com.kakao.lotto.step3.view.InputLotto;
 import com.kakao.lotto.step3.view.LottoPrinter;
 import com.kakao.lotto.step3.view.LottoResultPrinter;
