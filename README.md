@@ -24,8 +24,12 @@
   - `SingleInput`: 단일 입력을 위한 클래스
     - `PriceInput`: 구입금액 입력을 위한 클래스
     - `BonusNumberInput`: 보너스 볼 입력을 위한 클래스
+    - `ManualInput`: 수동으로 입력할 로또의 갯수를 입력하기 위한 클래스
   - `MultipleInput`: 다중 입력을 위한 클래스(정수형)
+    - `.getIntegers`: 여러 정수의 입력값을 받기 위한 메서드
     - `WinningInput`: 당첨 번호를 입력하기 위한 클래스
+    - `ManualNumberInput`: 입력받은 갯수만큼 수동 번호 로또를 입력하기 위한 클래스
+      - `.convertToList`: 입력받은 수동 로또들을 리스트에 추가
 
 <br>
 
@@ -35,8 +39,10 @@
 
 - `.prepurchase`: 구매하기 전, 금액 입력을 받고 몇 장을 구매하였는지 반환하는 메서드
 - `.postpurchase`: 구매 후, 당첨번호를 입력하고 해당 리스트를 반환하는 메서드
+- `.manualPurchase`: 수동 번호 입력을 하고 싶은 갯수를 반환하는 메서드
 - `.getBonusNumber`
 - `.getInputPrice`
+- `.getManualNumbers`
 
 <br>
 
@@ -44,7 +50,9 @@
 
 > 각 로또종이를 생성하고, 이를 리스트로 저장하는 클래스입니다.
 
-- `.generateLotto`: **종이 수 만큼** 로또종이를 생성하는 메서드
+- `.generateLotto`: **갯수 만큼** 로또 번호를 생성하는 메서드
+- `.manualGenerate`: 입력받은 수 만큼 수동 입력 로또를 생성하여 추가하는 메서드
+- `.autoGenerate`: 수동 입력 후 남은 갯수만큼 자동입력하는 메서드
 - `.getLottoPapers`
 
 <br>
@@ -53,6 +61,9 @@
 
 > 한 장의 로또 종이의 숫자들을 생성하는 클래스입니다.
 
+- 생성자
+  - argument 없이 생성하는 경우, 자동 생성
+  - argument 받아 생성하는 경우, 수동 생성
 - `.generateNumbers` : 한 장의 로또종이를 생성하는 메서드
 - `.getNumbers`
 
@@ -79,23 +90,36 @@
 - `.getWinningPrize`
 
 <br>
+
+## domain.LottoPaper
+
+> 클래스 간 데이터 이동을 하는 과정에서 전부 LottoPaper를 받도록 하나의 객체로 합쳤습니다.
+
+- 멤버 변수
+  - `inputPrice`: 구매 금액
+  - `numOfNumbers`: 번호 한 줄의 총 갯수
+  - `lottoNumbers`: 번호 한 줄로 이루어진 객체 `LottoNumber` 들이 들어있는 리스트
+  - `.add`: 로또 숫자들 리스트에 `LottoNumber`를 추가하는 메서드
+
+<br>
 <br>
 
 --------
 
-## STEP 2 추가 & 수정 사항
-- `Map`을 활용하던 데이터를 `enum`으로 변환, `LottoRank` 생성
-  - 변환에 따라 데이터를 적용하던 부분 수정
-  - `LottoRank`는 `resultRank`, `countOfMatch`, `winningPrize`로 구성
-- `LottoGame.updateRank` 추가
-  - LottoRank에서 등수를 확인하고, 당첨된 갯수를 업데이트하는 메서드
-- `ViewLotto.printRank` 추가
-  - 당첨 통계쪽에서, 각 등수를 출력하는 메서드를 분리, Stringbuilder 활용
-- `Input -> BonusInput` 추가
-  - 보너스 당첨번호를 입력받기 위한 단일입력 클래스 추가
-- `LottoPaper` -> `LottoNumber`로 리팩토링
-- `LottoGame.calculatePrize` 수정
-  - 수익률 공식 변화에 따른 수정
+## STEP 3 추가 & 수정 사항
+
+- `LottoPaper` 생성
+  - 데이터를 주고 받는 과정에서, `LottoPaper`라는 클래스의 객체를 주고 받도록 전반적인 코드를 변화시켰습니다.
+- `Input` 코드 추가 & 변경
+  - 수동 입력을 위한 `ManualInput`, `ManualNumberInput` 생성
+  - `SingleInput` 과 하위 클래스 변경
+    - 전반적으로 중복되는 코드가 있어, `SingleInput`에서 생성자를 활용하고 출력문은 하위 클래스에서 적용하는 방식으로 변경하였습니다.
+- `LottoGenerate.generateLotto` 변경
+  - 수동 입력을 받는 과정을 위한 `.manualGenerate`과 자동 입력을 위한 `.autoGenerate`으로 분리하여 구현하였습니다.
+- `LottoNumber` 생성자 추가
+  - 수동 번호 입력을 받는 경우, 해당 값을 바로 저장하는 형태를 추가하였습니다.
+- `LottoGame.calculatePrize` 자료형 변경
+  - 1등을 하는 경우, 입력 값이 너무 커서 수익률이 음수로 나타나는 경우를 자료형을 바꿔 수정하였습니다.
 
 <br>
 
@@ -103,5 +127,6 @@
 
 - ~~1단계에서 `Map`으로 받아오던 데이터 `enum`으로 변경~~
 - ~~2단계 진행~~
+- ~~로또 종이를 위한 클래스를 따로 생성하여 적용 예정~~
+- 3단계 진행
 - 예외처리 & 테스트 적용
-- 로또 종이를 위한 클래스를 따로 생성하여 적용 예정
