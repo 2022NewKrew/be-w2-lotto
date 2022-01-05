@@ -9,17 +9,17 @@ import java.util.Collections;
 public class WinningStats {
     private final HashMap<Rank, Integer> winningStats = new HashMap<>();
 
-    public WinningStats(List<Lotto> allLotto, List<Integer> winningNumbers, Integer bonusNumber) {
+    public WinningStats(List<PurchasedLotto> allLotto, List<Integer> winningNumbers, Integer bonusNumber) {
         calculateWinningStats(allLotto, winningNumbers, bonusNumber);
     }
 
-    private void calculateWinningStats(List<Lotto> allLotto, List<Integer> winningNumbers, Integer bonusNumber) {
-        for (Lotto lotto : allLotto) {
+    private void calculateWinningStats(List<PurchasedLotto> allLotto, List<Integer> winningNumbers, Integer bonusNumber) {
+        for (PurchasedLotto lotto : allLotto) {
             calculateWinningStatsOfOneLotto(lotto, winningNumbers, bonusNumber);
         }
     }
 
-    private void calculateWinningStatsOfOneLotto(Lotto lotto, List<Integer> winningNumbers, Integer bonusNumber) {
+    private void calculateWinningStatsOfOneLotto(PurchasedLotto lotto, List<Integer> winningNumbers, Integer bonusNumber) {
         int countOfMatch = 0;
         for (int winningNumber : winningNumbers) {
             countOfMatch += hasNumberInLotto(lotto.getNumbers(), winningNumber);

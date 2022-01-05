@@ -14,7 +14,7 @@ public class LottoController {
     private int purchaseAmount;
     private List<Integer> winningNumbers = new ArrayList<>();
     private int bonusNumber;
-    private final List<Lotto> allLotto = new ArrayList<>();
+    private final List<PurchasedLotto> allLotto = new ArrayList<>();
 
     public void runLotto() {
         getPurchaseAmount();
@@ -31,7 +31,7 @@ public class LottoController {
 
     private void buyLotto() {
         for (int i = 0 ; i < getNumbersOfLotto() ; i++) {
-            allLotto.add(new Lotto());
+            allLotto.add(new PurchasedLotto());
         }
     }
 

@@ -1,12 +1,12 @@
 package view;
 
-import domain.Lotto;
+import domain.PurchasedLotto;
 
 import java.util.List;
 
 public class OutputView {
-    public void printAllLotto(List<Lotto> allLotto) {
-        for (Lotto lotto : allLotto) {
+    public void printAllLotto(List<PurchasedLotto> allLotto) {
+        for (PurchasedLotto lotto : allLotto) {
             System.out.println(lotto.toString());
         }
         System.out.println();
