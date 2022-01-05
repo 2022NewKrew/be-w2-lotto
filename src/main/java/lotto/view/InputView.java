@@ -24,13 +24,17 @@ public class InputView {
         return input;
     }
 
+    public Set<Integer> getWinnerNumbersFromScanner() {
+        return getWinnerNumbersFromScanner("");
+    }
+
     /**
      * @param prompt 출력할 문자열
      * @return {@value lotto.domain.RandomLottoNumberGenerator#NUMBERS_TO_PICK}개의 자연수로 구성된 {@link Set}
      */
     public Set<Integer> getWinnerNumbersFromScanner(String prompt) {
         System.out.print(prompt);
-        Set<Integer> result = new HashSet<>();
+        Set<Integer> result = new TreeSet<>();
         String input;
         while (result.size() < NUMBERS_TO_PICK) {
             input = scanner.nextLine();

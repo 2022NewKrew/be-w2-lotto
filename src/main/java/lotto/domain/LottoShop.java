@@ -18,13 +18,18 @@ public class LottoShop {
     }
 
     /**
-     * @param moneyToBuy 구매 금액
-     * @return 구매금액에 맞는 {@link LottoTicket} 리스트
+     * @param sellCount 구매할 장 수
+     * @return {@link LottoTicket} 리스트
      */
-    public List<LottoTicket> sellLottoTicket(int moneyToBuy) {
-        int sellCount = moneyToBuy / PRICE;
+    public List<LottoTicket> sellAutoLottoTicket(int sellCount) {
         return IntStream.range(0, sellCount)
                 .mapToObj(i -> RandomLottoNumberGenerator.generateRandomLottoNumbers())
+                .map(LottoTicket::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<LottoTicket> sellManualLottoTicket(List<Set<Integer>> pickedNumbers) {
+        return pickedNumbers.stream()
                 .map(LottoTicket::new)
                 .collect(Collectors.toList());
     }
