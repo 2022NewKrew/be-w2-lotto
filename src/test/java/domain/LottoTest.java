@@ -21,7 +21,7 @@ class LottoTest {
 
     @Test
     @DisplayName("[실패] 생성자에 null을 넣을 시 IllegalArgumentException을 던져야 한다")
-    void LottoFailed() {
+    void Lotto_Failed() {
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Lotto(null));
     }
