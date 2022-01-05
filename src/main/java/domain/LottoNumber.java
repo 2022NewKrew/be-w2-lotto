@@ -1,6 +1,7 @@
 package domain;
 
-public class LottoNumber implements Comparable<LottoNumber>{
+public class LottoNumber implements Comparable<LottoNumber> {
+
     private final static String NUMBER_RANGE_ERROR_MESSAGE = "로또번호는 1이상 45이하이어야 합니다.";
 
     private static final int LOTTO_NUMBER_MIN = 1;
@@ -21,7 +22,19 @@ public class LottoNumber implements Comparable<LottoNumber>{
 
     @Override
     public int compareTo(LottoNumber o) {
-        return Integer.compare(this.number,o.number);
+        return Integer.compare(this.number, o.number);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        LottoNumber that = (LottoNumber) o;
+        return number == that.number;
     }
 
     public int getNumber() {

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import util.RandomUtil;
 
 public class Lotto {
+
     private final static String NUMBER_SIZE_ERROR_MESSAGE = "6개의 번호를 입력해주세요.";
 
     private static final int LOTTO_NUMBERS_SIZE = 6;
@@ -35,5 +36,15 @@ public class Lotto {
 
     public List<LottoNumber> getLottoNumbers() {
         return Collections.unmodifiableList(lottoNumbers);
+    }
+
+    public int countMatchNumber(List<LottoNumber> winningNumbers) {
+        return (int) this.lottoNumbers.stream()
+            .filter(winningNumbers::contains)
+            .count();
+    }
+
+    public boolean isMatchBonus(LottoNumber bonusNumber) {
+        return this.lottoNumbers.contains(bonusNumber);
     }
 }

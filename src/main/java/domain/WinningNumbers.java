@@ -1,9 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class WinningNumbers {
@@ -39,32 +37,10 @@ public class WinningNumbers {
         }
     }
 
+    public Rank countMatchNumber(Lotto lotto) {
+        int countOfMatch = lotto.countMatchNumber(this.winningNumbers);
+        boolean isMatchBonus = lotto.isMatchBonus(this.bonusNumber);
 
-    public Map<Rank, Integer> winningConfirmation(Lottos lottos) {
-        Map<Rank, Integer> winningStatistics = new HashMap<>();
-        for (Lotto lotto : lottos.getLottos()) {
-            int countOfMatch = countMatchNumber(lotto);
-            boolean isMatchBonus = isMatchBonus(lotto);
-            Rank rank = Rank.valueOf(countOfMatch, isMatchBonus);
-            int countOfLottoByMatch = winningStatistics.getOrDefault(rank, 0);
-            winningStatistics.put(rank, countOfLottoByMatch + 1);
-        }
-
-        return winningStatistics;
-    }
-
-    private int countMatchNumber(Lotto lotto) {
-        List<Integer> winningNumbers = this.winningNumbers.stream()
-            .map(LottoNumber::getNumber)
-            .collect(Collectors.toList());
-
-        return (int) lotto.getLottoNumbers().stream()
-            .filter(l -> winningNumbers.contains(l.getNumber()))
-            .count();
-    }
-
-    private boolean isMatchBonus(Lotto lotto) {
-        return lotto.getLottoNumbers().stream()
-            .anyMatch(l -> l.getNumber() == this.bonusNumber.getNumber());
+        return Rank.valueOf(countOfMatch, isMatchBonus);
     }
 }
