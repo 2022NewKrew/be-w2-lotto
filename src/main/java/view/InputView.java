@@ -28,7 +28,6 @@ public class InputView {
 
     public static String[] enterWinningNumbers() {
         System.out.println(MESSAGE_WINNING_NUMBER);
-        scanner.nextLine();
         return scanner.nextLine().trim().split(DELIMITER_COMMA);
     }
 
