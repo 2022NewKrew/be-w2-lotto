@@ -11,7 +11,7 @@ public class Lottos {
     private static final LottoMachine lottoMachine = new LottoMachine();
     private final List<Lotto> lottoList = new ArrayList<>();
     private int purchaseAmount;
-    private int prizeAmount;
+    private long prizeAmount;
 
     public void addLotto(int purchaseAmount, IssuePolicy issuePolicy) {
         this.lottoList.addAll(lottoMachine.purchaseLotto(purchaseAmount, issuePolicy));

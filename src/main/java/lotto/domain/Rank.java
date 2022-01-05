@@ -3,22 +3,22 @@ package lotto.domain;
 import java.util.Arrays;
 
 public enum Rank {
-    FAILED(-1, -1, -1),
-    FIFTH(3, 5000, 0),
-    FOURTH(4, 50000, 0),
-    THIRD(5,1500000, 0),
-    SECOND(5, 30000000, 0),
-    FIRST(6, 2000000000, 0);
+    FAILED(-1, -1L, -1),
+    FIFTH(3, 5_000L, 0),
+    FOURTH(4, 50_000L, 0),
+    THIRD(5,1_500_000L, 0),
+    SECOND(5, 30_000_000L, 0),
+    FIRST(6, 2_000_000_000L, 0);
 
     private static final String BLANK = "";
     private static final String SECOND_STRING_FORMAT = "%s개 일치, 보너스 볼 일치(%s원)- %s개%n";
     private static final String NOT_SECOND_STRING_FORMAT = "%s개 일치 (%s원)- %s개%n";
 
     private final int matchingNumber;
-    private final int prizeAmount;
+    private final long prizeAmount;
     private int winnerCount;
 
-    Rank(int matchingNumber, int prizeAmount, int winnerCount) {
+    Rank(int matchingNumber, long prizeAmount, int winnerCount) {
         this.matchingNumber = matchingNumber;
         this.prizeAmount = prizeAmount;
         this.winnerCount = winnerCount;
@@ -50,7 +50,7 @@ public enum Rank {
         return String.format(NOT_SECOND_STRING_FORMAT, matchingNumber, prizeAmount, winnerCount);
     }
 
-    public int getPrizeAmount() {
+    public long getPrizeAmount() {
         return prizeAmount;
     }
 
