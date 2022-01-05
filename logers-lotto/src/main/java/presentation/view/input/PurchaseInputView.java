@@ -2,18 +2,16 @@ package presentation.view.input;
 
 import dto.input.PurchaseDto;
 
-import java.util.*;
-import java.util.stream.IntStream;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
 public class PurchaseInputView implements InputView<PurchaseDto> {
     private final Scanner scanner;
-
-    public PurchaseInputView(Scanner scanner) {
-        this.scanner = scanner;
-    private final ValidatorService validatorService;
 
     public PurchaseInputView(Scanner scanner) {
         this.scanner = scanner;

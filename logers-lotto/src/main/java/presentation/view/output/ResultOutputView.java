@@ -12,7 +12,6 @@ public class ResultOutputView implements OutputView{
 
     @Override
     public void print() {
-        System.out.println(this.resultOutputDto);
         System.out.println(this.rewardResultDto);
     }
 }

@@ -1,7 +1,6 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
@@ -36,17 +35,7 @@ public class Lotto {
         }
     }
 
-    private void validate(List<Integer> numbers) {
-        validateNumberOfValues(numbers.size());
-        for(Integer number : numbers){
-            validateOneValue(number);
-        }
-    }
-
-    private void validateNumberOfValues(int numberOfValue){
-        if(numberOfValue != Lotto.NUMBER_OF_WRITE_NUMBER){
-            throw new IllegalArgumentException(
-                    "로또 번호의 갯수는 ".concat(String.valueOf(Lotto.NUMBER_OF_WRITE_NUMBER)).concat("개 입력해주세요."));
-        }
+    public List<Integer> getNumbers() {
+        return numbers;
     }
 }
