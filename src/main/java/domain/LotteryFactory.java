@@ -4,15 +4,21 @@ import property.LottoProperties;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LotteryFactory {
     private static final Random random = new Random();
 
-    public static List<Lottery> buildLotteries(long price) {
+    public static List<Lottery> buildLotteries(long count) {
         return Stream.generate(LotteryFactory::buildSingleLottery)
-                .limit(price / LottoProperties.LOTTERY_UNIT_PRICE)
+                .limit(count)
+                .collect(Collectors.toList());
+    }
+
+    public static List<Lottery> buildLotteries(List<Set<Integer>> lotteryNumberSets) {
+        return lotteryNumberSets.stream().map(LotteryFactory::buildSingleLottery)
                 .collect(Collectors.toList());
     }
 
@@ -22,5 +28,9 @@ public class LotteryFactory {
                 .limit(LottoProperties.LOTTERY_NUMBER_COUNT)
                 .boxed()
                 .collect(Collectors.toSet()));
+    }
+
+    private static Lottery buildSingleLottery(Set<Integer> lotteryNumbers) {
+        return new Lottery(lotteryNumbers);
     }
 }
