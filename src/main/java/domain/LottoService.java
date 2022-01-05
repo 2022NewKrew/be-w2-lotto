@@ -76,6 +76,7 @@ public final class LottoService {
     }
 
     private List<LottoTicket> purchaseManualLottoes(int numberOfLottoes) {
+        renderer.displaySentence(MANUAL_LOTTO_NUMBER_REQUEST.getString());
         return IntStream.range(0, numberOfLottoes)
                 .mapToObj(e -> manualLottoGenerator.getLottoTicket())
                 .collect(Collectors.toUnmodifiableList());
