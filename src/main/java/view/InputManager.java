@@ -94,7 +94,7 @@ public class InputManager {
     }
     private static void validateMinPurchase(int price) throws Exception {
         if(price < Const.PRICE_OF_LOTTO)
-            throw new Exception();
+            throw new Exception("최소 구매 가능한 금액을 입력해주세요.");
     }
     private static void validateMaxPurchase(int manualAmount, int numOfPurchasedLotto) throws Exception {
         if(manualAmount > numOfPurchasedLotto)
