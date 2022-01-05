@@ -19,9 +19,11 @@ public class Gambler {
      *     Map<Prize, 횟수>
      * }</pre>
      */
-    public Map<Prize, Long> getMatchingResult(Set<Integer> winnerNumber, int bonusBall) {
-        return tickets.stream()
-                .map(ticket -> ticket.matchWithWinnerNumber(winnerNumber, bonusBall))
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+    public LottoMatchingResult getMatchingResult(Set<Integer> winnerNumber, int bonusBall) {
+        return new LottoMatchingResult(
+            tickets.stream()
+                    .map(ticket -> ticket.matchWithWinnerNumber(winnerNumber, bonusBall))
+                    .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+        );
     }
 }
