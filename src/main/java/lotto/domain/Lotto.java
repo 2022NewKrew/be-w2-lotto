@@ -56,16 +56,15 @@ public class Lotto {
     public void addLottos(Integer lottoCount, LottoCreate lottoCreate){
         for(int i = 0 ; i < lottoCount ; i++){
             lottos.add(lottoCreate.create(i == 0));
-            //lottos.add(LottoNumber.createRandomLotto()); //lottoCount만큼 랜덤으로 로또를 생성
         }
     }
 
     static private LottoNumber addRandomLottos(boolean isPrinting){
-        return LottoNumber.createRandomLotto(isPrinting); //lottoCount만큼 랜덤으로 로또를 생성
+        return LottoNumber.createRandomLotto(isPrinting); //랜덤으로 로또를 생성
     }
 
     static private LottoNumber addUserMakeLottos(boolean isPrinting){
-        return LottoNumber.createUserMakeLotto(isPrinting); //lottoCount만큼 사용자가 로또를 입력하여 생성
+        return LottoNumber.createUserMakeLotto(isPrinting); //사용자가 로또를 입력하여 생성
     }
 
 
