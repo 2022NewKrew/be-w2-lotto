@@ -1,15 +1,16 @@
 package lotto.view;
 
-import lotto.domain.Lotto;
 import lotto.domain.LottoResult;
+import lotto.domain.Lotto;
 import lotto.domain.Rank;
-import lotto.domain.WinningLotto;
+import lotto.domain.generator.ManualLotto;
+import lotto.domain.userinput.PurchasedLottoInput;
+import lotto.domain.userinput.WinningLottoInput;
 import lotto.domain.generator.AutoLotto;
 import lotto.domain.generator.LottoGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 import static lotto.domain.LottoInfo.*;
 
@@ -17,34 +18,40 @@ public class LottoView {
     private static final String NEW_LINE = "\n";
 
     private final int purchaseMoney;
-    private final int lottoNum;
+    private final int countOfManualLotto;
+    private final int countOfAutoLotto;
     private final List<Lotto> lottoList;
 
-    public LottoView(int purchaseMoney) {
-        this.purchaseMoney = purchaseMoney;
-        lottoNum = purchaseMoney / PRICE_OF_LOTTO.getValue();
-
+    public LottoView(PurchasedLottoInput purchasedLottoInput) {
+        purchaseMoney = purchasedLottoInput.getPurchasePrice();
+        countOfManualLotto = purchasedLottoInput.getCountOfManualLotto();
+        countOfAutoLotto = (purchaseMoney / PRICE_OF_LOTTO.getValue()) - countOfManualLotto;
         lottoList = new ArrayList<>();
+        generateManualLotto(purchasedLottoInput.getManualLottoBundle());
         generateAutoNumbers();
     }
 
+    private void generateManualLotto(List<Lotto> manualLottoBundle) {
+        LottoGenerator lottoGenerator = new ManualLotto(manualLottoBundle);
+        lottoList.addAll(lottoGenerator.generateTickets());
+    }
+
     private void generateAutoNumbers() {
-        LottoGenerator lottoGenerator = new AutoLotto();
-        IntStream.range(0, lottoNum)
-                .forEach(lotto -> lottoList.add(new Lotto(lottoGenerator.generateNumbers(null))));
+        LottoGenerator lottoGenerator = new AutoLotto(countOfAutoLotto);
+        lottoList.addAll(lottoGenerator.generateTickets());
     }
 
     public String printPurchasedLotto() {
         StringBuilder sb = new StringBuilder();
-        sb.append(lottoNum).append("개를 구매했습니다.").append(NEW_LINE);
-        for (int i = 0; i < lottoNum; i++) {
+        sb.append(String.format("수동으로 %d장, 자동으로 %d장을 구매했습니다.", countOfManualLotto, countOfAutoLotto)).append(NEW_LINE);
+        for (int i = 0; i < countOfManualLotto + countOfAutoLotto; i++) {
             sb.append(lottoList.get(i).toString()).append(NEW_LINE);
         }
         return sb.toString();
     }
 
-    public String printLottoResult(WinningLotto winningLotto) {
-        LottoResult lottoResult = new LottoResult(lottoList, winningLotto);
+    public String printLottoResult(WinningLottoInput winningLottoInput) {
+        LottoResult lottoResult = new LottoResult(lottoList, winningLottoInput);
 
         StringBuilder sb = new StringBuilder();
         sb.append("당첨 통계").append(NEW_LINE).append("---------").append(NEW_LINE);

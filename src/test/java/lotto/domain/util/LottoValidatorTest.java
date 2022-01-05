@@ -1,0 +1,85 @@
+package lotto.domain.util;
+
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class LottoValidatorTest {
+    static final LottoValidator lottoValidator = new LottoValidator();
+
+    @Test
+    void 당첨_번호의_개수가_6개가_아니면_예외를_던진다() {
+        //given
+        List<Integer> lottoNumbers = List.of(1, 2, 3, 4, 5, 6, 7);
+
+        //when & then
+        assertThrows(IllegalArgumentException.class,
+                () -> lottoValidator.validateLottoNumbers(lottoNumbers));
+    }
+
+    @Test
+    void 당첨_번호가_1보다_작거나_45보다_크면_예외를_던진다() {
+        //given
+        List<Integer> lottoNumbers = List.of(0, 0, 46, 46, 0, 0);
+
+        //when & then
+        assertThrows(IllegalArgumentException.class,
+                () -> lottoValidator.validateLottoNumbers(lottoNumbers));
+    }
+
+    @Test
+    void 보너스_볼이_1보다_작거나_45보다_크면_예외를_던진다() {
+        //given
+        List<Integer> lottoNumbers = List.of(1, 2, 3, 4, 5, 6);
+        int bonusBall = 46;
+
+        //when & then
+        assertThrows(IllegalArgumentException.class,
+                () -> lottoValidator.validateBonusBall(lottoNumbers, bonusBall));
+    }
+
+    @Test
+    void 당첨_번호에_중복된_숫자가_있으면_예외를_던진다() {
+        //given
+        List<Integer> lottoNumbers = List.of(1, 2, 2, 4, 5, 6);
+
+        //when & then
+        assertThrows(IllegalArgumentException.class,
+                () -> lottoValidator.validateLottoNumbers(lottoNumbers));
+    }
+
+    @Test
+    void 보너스_볼이_당첨_번호와_중복되면_예외를_던진다() {
+        //given
+        List<Integer> lottoNumbers = List.of(1, 2, 3, 4, 5, 6);
+        int bonusBall = 3;
+
+        //when & then
+        assertThrows(IllegalArgumentException.class,
+                () -> lottoValidator.validateBonusBall(lottoNumbers, bonusBall));
+    }
+
+    @Test
+    void 구입금액이_1000원_이하면_예외를_던진다(){
+        //given
+        int purchasePrice = 900;
+        int countOfManualLotto = 0;
+
+        //when & then
+        assertThrows(IllegalArgumentException.class,
+                () -> lottoValidator.validatePurchasedLottoInput(purchasePrice, countOfManualLotto));
+    }
+
+    @Test
+    void 구입금액보다_수동구매한_로또의_수가_많으면_예외를_던진다(){
+        //given
+        int purchasePrice = 3000;
+        int countOfManualLotto = 4;
+
+        //when & then
+        assertThrows(IllegalArgumentException.class,
+                () -> lottoValidator.validatePurchasedLottoInput(purchasePrice, countOfManualLotto));
+    }
+}

@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import lotto.domain.userinput.WinningLottoInput;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -8,13 +9,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LottoTest {
-    static WinningLotto winningLotto;
+    static WinningLottoInput winningLottoInput;
 
     @BeforeAll
     static void init(){
-        List<Integer> winningNumbers = List.of(1, 2, 3, 4, 5, 6);
+        Lotto winningTicket = new Lotto(List.of(1, 2, 3, 4, 5, 6));
         int bonusBall = 7;
-        winningLotto = new WinningLotto(winningNumbers, bonusBall);
+        winningLottoInput = new WinningLottoInput(winningTicket, bonusBall);
     }
 
     @Test
@@ -23,7 +24,7 @@ class LottoTest {
         Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 10, 11));
 
         //when
-        LottoMatchResult lottoMatchResult = lotto.countMatchedNumber(winningLotto);
+        LottoMatchResult lottoMatchResult = lotto.countMatchedNumber(winningLottoInput);
 
         //then
         assertEquals(4, lottoMatchResult.getCount());
@@ -36,7 +37,7 @@ class LottoTest {
         Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 7));
 
         //when
-        LottoMatchResult lottoMatchResult = lotto.countMatchedNumber(winningLotto);
+        LottoMatchResult lottoMatchResult = lotto.countMatchedNumber(winningLottoInput);
 
         //then
         assertEquals(5, lottoMatchResult.getCount());
