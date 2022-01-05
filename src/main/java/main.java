@@ -54,7 +54,6 @@ public class main {
     }
 
     private static void printMatchingResult() {
-        EnumMap<Prize, Long> matchingMap = matching.getMatchingMap();
-        matchingView.PrintMatchResult(matchingMap, playerMoney);
+        matchingView.PrintMatchResult(matching, playerMoney);
     }
 }

@@ -16,6 +16,11 @@ public class Matching {
             addInitialMathingMap(prize);
         }
     }
+
+    public Long getPrizeCount(Prize prize) {
+        return matchingMap.get(prize);
+    }
+
     public void addInitialMathingMap(Prize prize)
     {
         if(prize == NO_PRIZE)
@@ -32,4 +37,8 @@ public class Matching {
         return matchingMap;
     }
 
+    public long getTotalPrizeSum() {
+        return matchingMap.entrySet().stream().map(e -> e.getKey().getPrizeMoney() * e.getValue()).
+                mapToLong(Long::longValue).sum();
+    }
 }
