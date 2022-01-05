@@ -29,7 +29,7 @@ public class LottoGame {
         li.prePurchase();
 
         LottoGenerator lg = new LottoGenerator(li.getLottoPaper());
-        lg.generateLotto(LottoInput.manualPurchase());
+        lg.generateLotto(li.manualPurchase());
         lp = lg.getLottoPaper();
 
         ViewLotto.printLotto(lp);

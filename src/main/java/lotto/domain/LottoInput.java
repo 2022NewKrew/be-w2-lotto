@@ -11,12 +11,14 @@ public class LottoInput {
 
     public void prePurchase(){
         PriceInput pi = new PriceInput();
+        pi.init();
         lp.inputPrice = pi.getInput();
         lp.numOfNumbers = pi.getNumOfNumbers();
     }
 
-    public static int manualPurchase(){
-        ManualInput mi = new ManualInput();
+    public int manualPurchase(){
+        ManualInput mi = new ManualInput(lp.numOfNumbers);
+        mi.init();
         return mi.getInput();
     }
 
@@ -33,6 +35,7 @@ public class LottoInput {
 
     public static int getBonusNumber(){
         BonusNumberInput bni = new BonusNumberInput();
+        bni.init();
         return bni.getInput();
     }
 

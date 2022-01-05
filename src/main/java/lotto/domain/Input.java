@@ -14,13 +14,16 @@ public abstract class Input {
 class SingleInput extends Input {
     protected int input;
 
-    SingleInput(){
+
+    protected void init(){
         printMessage();
         input = sc.nextInt();
+        validValueCheck();
         System.out.println();
     }
 
     protected void printMessage(){}
+    protected void validValueCheck(){}
     public int getInput(){return input;}
 }
 
@@ -46,6 +49,10 @@ class PriceInput extends SingleInput {
         System.out.println("구입 금액을 입력해 주세요.");
     }
 
+    @Override
+    protected void validValueCheck() {
+        ValidInput.inputUnderValue(LOTTO_PRICE, input);
+    }
 
     public int getNumOfNumbers() {
         return input/LOTTO_PRICE;
@@ -54,10 +61,22 @@ class PriceInput extends SingleInput {
 
 
 class ManualInput extends SingleInput{
+    private final int numOfLottoNumbers;
+
+    ManualInput(int numOfNumbers){
+        numOfLottoNumbers = numOfNumbers;
+    }
+
     @Override
     protected void printMessage() {
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
     }
+
+    @Override
+    protected void validValueCheck() {
+        ValidInput.wrongRangeValue(0, numOfLottoNumbers, input);
+    }
+
 }
 
 
