@@ -1,39 +1,51 @@
 package lotto;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class LottoMachine {
-    private final ArrayList<Lotto> lottos;
+    private final ArrayList<UserLotto> manualLottos;
+    private final ArrayList<UserLotto> automaticLottos;
 
     public LottoMachine() {
-        lottos = new ArrayList<>();
+        automaticLottos = new ArrayList<>();
+        manualLottos = new ArrayList<>();
     }
 
-    public LottoMachine(List<Lotto> lottos) {
-        this.lottos = new ArrayList<>();
-        this.lottos.addAll(lottos);
+    public LottoMachine(List<UserLotto> lottos) {
+        this.automaticLottos = new ArrayList<>();
+        this.manualLottos = new ArrayList<>();
+        this.automaticLottos.addAll(lottos);
+    }
+
+    public void addManualLottos(List<UserLotto> manualLottos) {
+        this.manualLottos.addAll(manualLottos);
     }
 
     public void buyLotto(int money) {
         for(int i = 0; i < money / 1000; i++) {
-            lottos.add(new Lotto());
+            automaticLottos.add(new UserLotto());
         }
     }
 
-    public List<Lotto> getLottos() {
-        return lottos;
+    public List<UserLotto> getManualLottos() {
+        return manualLottos;
     }
 
-    public List<Integer> getLottoMatchResults(WinningLotto winLotto) {
-        List<Integer> result = new ArrayList<>(Arrays.asList(0,0,0,0,0));
-        for(Lotto lotto: lottos) {
-            int rank = winLotto.checkMatchResult(lotto);
-            if(rank != 0) {
-                result.set(rank-1, result.get(rank-1) + 1);
-            }
+    public List<UserLotto> getAutomaticLottos() {
+        return automaticLottos;
+    }
+
+    public RankCount getRankCount(WinningLotto winLotto) {
+        RankCount rankCount = new RankCount();
+        for(UserLotto lotto: automaticLottos) {
+            Rank rank = winLotto.getRank(lotto);
+            rankCount.increaseRankCounts(rank);
         }
-        return result;
+        for(UserLotto lotto: manualLottos) {
+            Rank rank = winLotto.getRank(lotto);
+            rankCount.increaseRankCounts(rank);
+        }
+        return rankCount;
     }
 }

@@ -11,28 +11,18 @@ public class WinningLotto extends Lotto {
         this.bonusBall = bonusBall;
     }
 
-    private int countMatch(Lotto lotto) {
-        int count = 0;
-        for (LottoBall number: lotto.lottoNumbers) {
-            if(lottoNumbers.contains(number)) {
-                count++;
-            }
-        }
-        return count;
+    private long countMatch(Lotto lotto) {
+        return lotto.lottoNumbers.stream().filter(x -> lottoNumbers.contains(x)).count();
     }
 
-    public int checkMatchResult(Lotto lotto) {
-        int count = countMatch(lotto);
+    public Rank getRank(Lotto lotto) {
+        long count = countMatch(lotto);
         boolean bonusMatch = lotto.getLottoNumbers().contains(bonusBall);
-        switch(count) {
-            case 6: return 1;
-            case 5: if(bonusMatch) {
-                        return 2;
-                    }
-                    return 3;
-            case 4: return 4;
-            case 3: return 5;
-            default: return 0;
-        }
+        if(count == Rank.FIRST.getCountOfMatch()) return Rank.FIRST;
+        if(count == Rank.SECOND.getCountOfMatch() && bonusMatch) return Rank.SECOND;
+        if(count == Rank.THIRD.getCountOfMatch()) return Rank.THIRD;
+        if(count == Rank.FOURTH.getCountOfMatch()) return Rank.FOURTH;
+        if(count == Rank.FIFTH.getCountOfMatch()) return Rank.FIFTH;
+        return Rank.NOTHING;
     }
 }
