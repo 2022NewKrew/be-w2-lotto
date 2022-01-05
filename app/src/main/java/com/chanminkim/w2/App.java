@@ -15,12 +15,15 @@ public class App {
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
 
-        List<Lotto> lottoList = buildRandomLottoList(inputView.getPayment());
-        outputView.printPurchasedLottoList(lottoList);
+        int payment = inputView.getPayment();
+        List<Lotto> manualLottoList = inputView.getManualLottoList(payment);
+        int remainPayment = payment - manualLottoList.size() * Lotto.PRICE;
+        List<Lotto> randomLottoList = buildRandomLottoList(remainPayment);
+        outputView.printPurchasedLottoList(manualLottoList, randomLottoList);
 
         Lotto winningLotto = new Lotto(inputView.getWinningLottoNumbers());
         LottoNumber bonus = new LottoNumber(inputView.getBonusNumber());
-        WinningStatistics winningStatistics = new WinningStatistics(lottoList, winningLotto, bonus);
+        WinningStatistics winningStatistics = new WinningStatistics(randomLottoList, winningLotto, bonus);
         outputView.printWinningStatistics(winningStatistics);
     }
 

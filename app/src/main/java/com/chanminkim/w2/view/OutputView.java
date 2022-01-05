@@ -5,14 +5,20 @@ import com.chanminkim.w2.model.WinningState;
 import com.chanminkim.w2.model.WinningStatistics;
 import com.google.common.collect.Range;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class OutputView {
-    public void printPurchasedLottoList(List<Lotto> lottoList) {
-        System.out.printf("%d개를 구매했습니다.%n", lottoList.size());
-        for (Lotto lotto : lottoList) {
+    public void printPurchasedLottoList(List<Lotto> manualLottoList, List<Lotto> randomLottoList) {
+        List<Lotto> wholeLottoList = Stream.of(manualLottoList, randomLottoList)
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.%n", manualLottoList.size(), randomLottoList.size());
+        for (Lotto lotto : wholeLottoList) {
             System.out.println(lotto);
         }
         System.out.println();
