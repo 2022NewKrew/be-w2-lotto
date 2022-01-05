@@ -1,15 +1,21 @@
 package lotto.dto;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class LottoPurchaseDto {
+    private final int purchaseAmount;
     private final int purchaseGameCnt;
-    private final List<LottoGameDto> lottoGames = new ArrayList<>();
+    private final List<LottoGameDto> lottoGames;
 
-    public LottoPurchaseDto(int purchaseGameCnt) {
+    public LottoPurchaseDto(int purchaseAmount, int purchaseGameCnt, List<LottoGameDto> lottoGames) {
+        this.purchaseAmount = purchaseAmount;
         this.purchaseGameCnt = purchaseGameCnt;
+        this.lottoGames = lottoGames;
+    }
+
+    public int getPurchaseAmount() {
+        return purchaseAmount;
     }
 
     public int getPurchaseGameCnt() {

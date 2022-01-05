@@ -2,8 +2,9 @@ package lotto.constant;
 
 public enum Lotto {
     PRICE(1000),
-    MIN_LOTTO_NUM(1),
-    MAX_LOTTO_NUM(45),
+    MIN_NUM(1),
+    MAX_NUM(45),
+    PICK_SIZE(6),
     ;
 
     private final int value;

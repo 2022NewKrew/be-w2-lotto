@@ -14,7 +14,7 @@ public class LottoGenerator {
             .collect(Collectors.toList());
 
     public static List<Integer> getNumbers() {
-        Collections.shuffle(numbers); 
+        Collections.shuffle(numbers);
         return List.copyOf(numbers.subList(0, Lotto.PICK_SIZE.getValue()));
     }
 }

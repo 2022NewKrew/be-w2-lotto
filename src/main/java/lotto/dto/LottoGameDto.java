@@ -1,13 +1,13 @@
 package lotto.dto;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class LottoGameDto {
-    private final List<Integer> pickedList = new ArrayList<>();
+    private final List<Integer> pickedList;
 
-    public LottoGameDto() {
+    public LottoGameDto(List<Integer> pickedList) {
+        this.pickedList = pickedList;
     }
 
     public List<Integer> getPickedList() {
