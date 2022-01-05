@@ -4,18 +4,6 @@ import java.util.*;
 
 public class LotteryGame {
     private static final int PRICE = 1000;
-    private static final int EMPTY_REWARDS = 0;
-    private static final int FOURTH_REWARDS = 5000;
-    private static final int THIRD_REWARDS = 50000;
-    private static final int SECOND_REWARDS = 1500000;
-    private static final int FIRST_REWARDS = 2000000000;
-    private static final List<Integer> REWARDS = new ArrayList<>(Arrays.asList(
-            EMPTY_REWARDS,
-            FIRST_REWARDS,
-            SECOND_REWARDS,
-            THIRD_REWARDS,
-            FOURTH_REWARDS
-    ));
 
     private static int quantity;
 
@@ -52,20 +40,31 @@ public class LotteryGame {
         return selectedNumbers;
     }
 
-    public Map<Integer, Result> compareLotteries(List<Integer> winningNumbers) {
-        Map<Integer, Result> results = new HashMap<>();
+    public Map<Rank, Integer> compareLotteries(List<Integer> winningNumbers, int bonusNumber) {
+        WinningLottery winningLottery = new WinningLottery(winningNumbers, bonusNumber);
+        Map<Rank, Integer> results = new EnumMap<>(Rank.class);
 
-        for (int i = 0; i < REWARDS.size(); ++i) {
-            results.put(i, new Result(REWARDS.get(i)));
+        for (Rank rank : Rank.values()) {
+            results.put(rank, 0);
         }
-
         for (Lottery lottery : lotteries) {
-            int rank = lottery.compareNumbers(winningNumbers);
-            results.get(rank).increaseCount();
+            Rank rank = lottery.compareNumbers(winningLottery);
+            results.put(rank, results.get(rank) + 1);
+        }
+        return results;
+    }
+
+    public long getProfit(Map<Rank, Integer> results) {
+        long totalRewards = 0;
+
+        for (Rank rank : results.keySet()) {
+            int count = results.get(rank);
+            totalRewards += (long) count * rank.getWinningMoney();
         }
 
-        setProfit(results);
-        return results;
+        profit = ((totalRewards - (long) quantity * PRICE) * 100) / ((long) quantity * PRICE);
+
+        return profit;
     }
 
     public List<Lottery> getLotteries() {
@@ -75,20 +74,4 @@ public class LotteryGame {
     public static int getQuantity() {
         return quantity;
     }
-
-    private void setProfit(Map<Integer, Result> results) {
-        long totalRewards = 0;
-
-        for (Integer rank : results.keySet()) {
-            Result result = results.get(rank);
-            totalRewards += (long) result.getCount() * result.getReward();
-        }
-
-        profit = (totalRewards * 100) / ((long) quantity * PRICE);
-    }
-
-    public long getProfit() {
-        return this.profit;
-    }
 }
-

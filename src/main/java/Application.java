@@ -1,6 +1,6 @@
-import controller.LotteryController;
+import controller.LotteryGameController;
 import domain.LotteryGame;
-import domain.Result;
+import domain.Rank;
 import view.InputView;
 import view.OutputView;
 
@@ -12,17 +12,17 @@ public class Application {
 
         int totalPrice = InputView.inputTotalPrice();
 
-        LotteryController lotteryController = new LotteryController(totalPrice);
-        LotteryGame lotteryGame = lotteryController.getLotteryGame();
+        LotteryGameController lotteryGameController = new LotteryGameController(totalPrice);
+        LotteryGame lotteryGame = lotteryGameController.getLotteryGame();
 
         OutputView.outputLotteryNumbers(lotteryGame);
 
         List<Integer> winningNumbers = InputView.inputWinningNumbers();
+        int bonusNumber = InputView.inputBonusNumber();
 
-        Map<Integer, Result> results = lotteryController.getResult(winningNumbers);
-        long profit = lotteryController.getProfit();
+        Map<Rank, Integer> results = lotteryGameController.getResult(winningNumbers, bonusNumber);
+        long profit = lotteryGameController.getProfit(results);
 
         OutputView.outputResults(results, profit);
     }
 }
-
