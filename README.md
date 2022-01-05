@@ -158,3 +158,12 @@
 ![image](https://user-images.githubusercontent.com/31435103/148042075-f951ef73-093c-4fa4-8af0-7e867e0a7d9b.png)
 #### < 3000원 어치 구매, 모두 자동 >
 ![image](https://user-images.githubusercontent.com/31435103/148042150-3d057e4b-8349-4a82-bcaa-09492c9d855e.png)
+---
+3단계 추가 구현
+### 상세 구현사항
+- `enum`인 `Rank` 수정
+  - `toString` 메소드를 재정의하여 사용
+  - `valueOf` 메소드에서 반환하는 방식을 Stream API의 `findFirst`와 `orElse`를 활용하는 방식으로 수정
+- `Matches` 클래스 수정
+  - `Rank`에서의 `toString` 추가로 인한 해당 부분 변경
+  - 수익률 계산 공식 수정 → ```((당첨 금액 - 사용한 금액) / 사용한 금액) * 100 (%)```
