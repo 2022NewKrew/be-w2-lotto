@@ -1,5 +1,6 @@
 package presentation.view.output;
 
+
 import dto.output.RewardResultDto;
 
 public class ResultOutputView implements OutputView{

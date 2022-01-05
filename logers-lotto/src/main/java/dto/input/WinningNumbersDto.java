@@ -9,13 +9,13 @@ public class WinningNumbersDto {
 
     public WinningNumbersDto(List<Integer> winningNumbers, Integer bonusNumber) {
         this.winningNumbers = winningNumbers;
+
         this.bonusNumber = bonusNumber;
     }
 
     public List<Integer> getWinningNumbers() {
         return Collections.unmodifiableList(winningNumbers);
     }
-
     public int getBonusNumbers() {
         return this.bonusNumber;
     }

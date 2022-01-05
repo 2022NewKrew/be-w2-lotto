@@ -18,19 +18,20 @@ public class RewardResultDto {
     public String toString() {
         return "당첨통계\n"
                 .concat("------------\n")
-                .concat(rewardToCount.entrySet().stream()
-                        .map(entry -> toStringOneEntry(entry.getKey(), entry.getValue()))
-                        .collect(Collectors.joining("\n"))
-                ).concat("\n총 수익률은 ")
+                .concat(toStringRewardToCount(rewardToCount))
+                .concat("\n총 수익률은 ")
                 .concat(String.valueOf(profitPercent))
                 .concat("%입니다.");
     }
 
-    private String toStringOneEntry(RewardType rewardType, int count){
-        return String.valueOf(rewardType.getMatched())
-                .concat("개 일치 (")
-                .concat(String.valueOf(rewardType.getReward()))
-                .concat(") - ")
+    private static String toStringRewardToCount(Map<RewardType, Integer> rewardToCount){
+        return rewardToCount.entrySet().stream()
+                .map(entry -> toStringRewardAndCount(entry.getKey(), entry.getValue()))
+                .collect(Collectors.joining("\n"));
+    }
+
+    private static String toStringRewardAndCount(RewardType rewardType, int count){
+        return rewardType.toString()
                 .concat(String.valueOf(count))
                 .concat("개");
     }

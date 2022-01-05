@@ -1,13 +1,21 @@
 package dto.input;
 
-public class PurchaseDto {
-    private final int purchaseAmount;
+import java.util.List;
 
-    public PurchaseDto(int purchaseAmount) {
-        this.purchaseAmount = purchaseAmount;
+public class PurchaseDto {
+    private final int purchasePrise;
+    private final List<List<Integer>> manualLottoNumberLists;
+
+    public PurchaseDto(int purchasePrise, List<List<Integer>> manualLottoNumberLists) {
+        this.purchasePrise = purchasePrise;
+        this.manualLottoNumberLists = manualLottoNumberLists;
     }
 
-    public int getPurchaseAmount() {
-        return purchaseAmount;
+    public int getPurchasePrise() {
+        return purchasePrise;
+    }
+
+    public List<List<Integer>> getManualLottoNumberLists() {
+        return manualLottoNumberLists;
     }
 }
