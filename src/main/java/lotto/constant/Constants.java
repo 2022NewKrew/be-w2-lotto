@@ -11,7 +11,7 @@ public final class Constants {
     public final static int LOTTO_END_NUMBER                                        = 45;
     public final static int PRICE_OF_LOTTO                                          = 1000;
 
-    public final static String SPLIT_DELIMITER                                      = ", |,";
+    public final static String SPLIT_DELIMITER                                      = ",(\\s)*";
     public final static String NEW_LINE                                             = "\n";
     public final static String PURCHASE_MONEY_INPUT_MESSAGE                         = "구입금액을 입력해 주세요.";
     public final static String WINNING_NUMBERS_INPUT_MESSAGE                        = "지난 주 당첨 번호를 입력해 주세요.";
@@ -19,7 +19,7 @@ public final class Constants {
     public final static String MANUAL_AMOUNT_INPUT_MESSAGE                          = "수동으로 구매할 로또 수를 입력해 주세요.";
     public final static String MANUAL_LOTTO_NUMBERS_INPUT_MESSAGE                   = "수동으로 구매할 번호를 입력해 주세요.";
     public final static String PURCHASE_MONEY_ONLY_NUMBER_ERROR_MESSAGE             = "[ERROR] 구입 금액(양)은 숫자만 입력 가능합니다.";
-    public final static String MANUAL_AMOUNT_LESS_THAN_TOTAL_AMOUNT_MESSAGE         = "[ERROR] 수동 구매 양은 총 구매 양과 같거나 더 적어야 합니다.";
+    public final static String MANUAL_AMOUNT_LESS_THAN_TOTAL_AMOUNT_MESSAGE         = "[ERROR] 수동으로 구매할 양은 총 구매 양과 같거나 더 적은 음이 아닌 정수여야 합니다.";
     public final static String PURCHASE_MONEY_ONLY_MULTIPLE_OF_PRICE_ERROR_MESSAGE  = String.format("[ERROR] 구입금액은 1원 이상, %d원 단위로 입력하셔야 합니다.", PRICE_OF_LOTTO);
     public final static String LOTTO_NUMBERS_INVALID_ERROR_MESSAGE                  = String.format("[ERROR] 로또번호는 %d 이상, %d 이하의 숫자 %d 개만 입력하셔야 합니다.", LOTTO_START_NUMBER, LOTTO_END_NUMBER, NUM_OF_WINNING_NUMBERS);
     public final static String LOTTO_NUMBERS_NEED_6_ERROR_MESSAGE                   = String.format("[ERROR] 로또 번호는 %d개를 입력해주셔야 합니다.", NUM_OF_WINNING_NUMBERS);
