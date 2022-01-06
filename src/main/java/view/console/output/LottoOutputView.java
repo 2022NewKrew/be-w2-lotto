@@ -1,9 +1,8 @@
-package view.output;
+package view.console.output;
 
 import controller.ConsoleOutputController;
 import controller.OutputController;
 import dto.LastWeekWinningNumber;
-import dto.LottoResult;
 
 public class LottoOutputView implements OutputView {
     private final OutputController outputController = new ConsoleOutputController();

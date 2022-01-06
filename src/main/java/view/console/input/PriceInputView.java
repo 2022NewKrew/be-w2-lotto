@@ -1,0 +1,39 @@
+package view.console.input;
+
+import controller.ConsoleInputController;
+import dto.LastWeekWinningNumber;
+import dto.PurchasingSheet;
+import service.LottoValueObject;
+import view.util.ResourceManager;
+import view.util.input.NumberInputConsole;
+import view.util.input.PositiveNumberInputConsole;
+import view.util.input.PositiveListNumberInputConsole;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class PriceInputView implements InputView {
+    private final NumberInputConsole<Integer> positiveNumberNumberInputConsole = new PositiveNumberInputConsole();
+    private final NumberInputConsole<List<Integer>> positiveNumberListNumberInputConsole = new PositiveListNumberInputConsole();
+    private final ConsoleInputController consoleInputController = new ConsoleInputController();
+
+    @Override
+    public Long inputPrice() {
+        final int money = positiveNumberNumberInputConsole.read("구매금액을 입력해 주세요.", ResourceManager.SCANNER);
+        final int manualLottoQuantity = positiveNumberNumberInputConsole.read("수동으로 구매할 로또 수를 입력해 주세요.", ResourceManager.SCANNER);
+        final int autoLottoQuantity = money / LottoValueObject.LOTTO_PRICE - manualLottoQuantity;
+
+        List<List<Integer>> manualLottoNumber = new ArrayList<>();
+        for (int i = 0; i < manualLottoQuantity; i++) {
+            manualLottoNumber.add(positiveNumberListNumberInputConsole.readWithoutMessage(ResourceManager.SCANNER));
+        }
+        return consoleInputController.purchaseLotto(new PurchasingSheet(autoLottoQuantity, manualLottoQuantity, manualLottoNumber));
+    }
+
+    @Override
+    public LastWeekWinningNumber inputWinningNumbers() {
+        final List<Integer> lastWeekWinningNumber = positiveNumberListNumberInputConsole.read("지난 주 당첨 번호를 입력해 주세요.", ResourceManager.SCANNER);
+        final int bonusNumber = positiveNumberNumberInputConsole.read("보너스 볼을 입력해 주세요.", ResourceManager.SCANNER);
+        return new LastWeekWinningNumber(lastWeekWinningNumber, bonusNumber);
+    }
+}

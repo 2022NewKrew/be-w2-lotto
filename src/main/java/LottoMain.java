@@ -1,8 +1,8 @@
 import dto.LastWeekWinningNumber;
-import view.input.InputView;
-import view.input.PriceInputView;
-import view.output.LottoOutputView;
-import view.output.OutputView;
+import view.console.input.InputView;
+import view.console.input.PriceInputView;
+import view.console.output.LottoOutputView;
+import view.console.output.OutputView;
 import view.util.ResourceManager;
 
 public class LottoMain {

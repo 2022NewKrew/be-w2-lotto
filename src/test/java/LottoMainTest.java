@@ -1,9 +1,9 @@
 import dto.LastWeekWinningNumber;
 import org.junit.jupiter.api.Test;
-import view.input.InputView;
-import view.input.PriceInputView;
-import view.output.LottoOutputView;
-import view.output.OutputView;
+import view.console.input.InputView;
+import view.console.input.PriceInputView;
+import view.console.output.LottoOutputView;
+import view.console.output.OutputView;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;

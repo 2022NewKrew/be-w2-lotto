@@ -1,7 +1,6 @@
 package controller;
 
 import dto.LastWeekWinningNumber;
-import dto.LottoResult;
 
 public interface OutputController {
 

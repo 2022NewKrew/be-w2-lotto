@@ -1,4 +1,4 @@
-package view.output;
+package view.console.output;
 
 import dto.LastWeekWinningNumber;
 

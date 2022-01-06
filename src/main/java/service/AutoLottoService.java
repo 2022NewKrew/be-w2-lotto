@@ -1,7 +1,7 @@
 package service;
 
 import dto.LastWeekWinningNumber;
-import dto.LottoResult;
+import dto.LottoResultDTO;
 import dto.PurchasingSheet;
 import repository.InMemoryLottoRepository;
 import repository.Repository;
@@ -20,14 +20,14 @@ public class AutoLottoService implements LottoService {
     }
 
     @Override
-    public String getPurchasedLottoBundleString(Long lottoBundleId) {
-        return repository.getLottoBundle(lottoBundleId).toString();
+    public LottoBundle getPurchasedLottoBundle(Long lottoBundleId) {
+        return repository.getLottoBundle(lottoBundleId);
     }
 
     @Override
-    public LottoResult getLottoResultDTO(LastWeekWinningNumber lastWeekWinningNumberDTO, Long lottoBundleId) {
+    public LottoResultDTO getLottoResult(LastWeekWinningNumber lastWeekWinningNumberDTO, Long lottoBundleId) {
         LottoBundle lottoBundle = repository.getLottoBundle(lottoBundleId);
         lottoBundle.confirmTheWin(lastWeekWinningNumberDTO.getLastWeekWinningNumber(), lastWeekWinningNumberDTO.getBonusNumber());
-        return LottoResult.of(lottoBundle);
+        return LottoResultDTO.of(lottoBundle);
     }
 }

@@ -14,7 +14,7 @@ public class LottoGenerator {
     public static Lotto autoGenerateLotto() {
         Collections.shuffle(lottoNumber);
         Lotto lotto = new Lotto(new ArrayList<>(lottoNumber.subList(0, LottoValueObject.NUMBER_OF_LOTTERY_NUMBER)));
-        Collections.sort(lotto.getLotto());
+        Collections.sort(lotto.getNumbers());
         return lotto;
     }
 

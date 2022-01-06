@@ -2,7 +2,7 @@ package view.util.input;
 
 import java.util.Scanner;
 
-public interface InputConsole<T> {
+public interface NumberInputConsole<T> {
 
     default T read(String msg, Scanner sc) {
         System.out.println(msg);
