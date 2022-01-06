@@ -4,8 +4,6 @@ import domain.*;
 import view.InputView;
 import view.OutputView;
 
-import java.util.Map;
-
 public class LottoGame {
     public void run() {
 
@@ -18,8 +16,10 @@ public class LottoGame {
         LottoWinningNumber inputLastWeekWinNumber = InputView.bonusNumber();
 
         LottoRankMatch lottoRankMatch = LottoRankMatch.createResult(autoLottos, inputLastWeekWinNumber);
+        System.out.println(lottoRankMatch);
+        System.out.println(lottoRankMatch.getLottoResult());
 
-        OutputView.printProfit(lottoRankResult, purchasedAmount);
+//        OutputView.printProfit(lottoRankResult, purchasedAmount);
 
     }
 }

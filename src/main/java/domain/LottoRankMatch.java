@@ -19,6 +19,10 @@ public class LottoRankMatch {
         return lottoResult;
     }
 
+    public Map<LottoRank, Integer> getLottoResult() {
+        return lottoResult;
+    }
+
     public static LottoRankMatch createResult(LottoRepository autoLottos, LottoWinningNumber inputLastWeekWinNumber) {
         Map<LottoRank, Integer> lottoResult = initResult();
         for (Lotto autoLotto : autoLottos.getLottos()) {

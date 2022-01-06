@@ -4,15 +4,16 @@ import exception.InvalidPurchaseAmount;
 
 public class LottoEmployee {
     private static final int MINIMUM_PURCHASE_AMOUNT = 1;
+    private static final int LOTTO_PRICE = 1000;
 
 
     public static int buyLottos(int purchasedAmount) {
         validatePurchaseAmount(purchasedAmount);
-        return purchasedAmount / MINIMUM_PURCHASE_AMOUNT;
+        return purchasedAmount / LOTTO_PRICE;
     }
 
     private static void validatePurchaseAmount(int purchasedAmount) {
-        if (purchasedAmount < 1000) {
+        if (purchasedAmount < MINIMUM_PURCHASE_AMOUNT) {
             throw new InvalidPurchaseAmount(InvalidPurchaseAmount.MINIMUM_PURCHASE_AMOUNT);
         }
     }
