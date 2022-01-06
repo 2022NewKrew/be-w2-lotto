@@ -1,7 +1,8 @@
 package be.w2.lotto.domain.lottoticket;
 
-import be.w2.lotto.domain.lottoticket.LottoTicketAmount;
+import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import static be.w2.lotto.common.exception.ExceptionMessages.PURCHASE_AMOUNT_LOWERBOUND_EXCEPTION;
 import static be.w2.lotto.domain.lottoticket.LottoTicket.LOTTO_TICKET_PRICE;
@@ -17,10 +18,10 @@ class LottoAmountTest {
         int expected = purchaseAmount / LOTTO_TICKET_PRICE;
 
         // when
-        int lottoAmount = LottoTicketAmount.createLottoAmount(purchaseAmount);
+        int actual = LottoTicketAmount.createLottoAmount(purchaseAmount);
 
         // then
-        assertThat(lottoAmount).isEqualTo(expected);
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
@@ -28,8 +29,11 @@ class LottoAmountTest {
         // given
         int purchaseAmount = 15000;
 
-        // when - then
-        assertDoesNotThrow(() -> LottoTicketAmount.validatePurchaseAmount(purchaseAmount));
+        // when
+        Executable actual = () -> LottoTicketAmount.validatePurchaseAmount(purchaseAmount);
+
+        // then
+        assertDoesNotThrow(actual);
     }
 
     @Test
@@ -37,8 +41,11 @@ class LottoAmountTest {
         // given
         int purchaseAmount = 0;
 
-        // when - then
-        assertThatThrownBy(() -> LottoTicketAmount.validatePurchaseAmount(purchaseAmount))
+        // when
+        ThrowableAssert.ThrowingCallable actual = () -> LottoTicketAmount.validatePurchaseAmount(purchaseAmount);
+
+        // then
+        assertThatThrownBy(actual)
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(PURCHASE_AMOUNT_LOWERBOUND_EXCEPTION);
     }

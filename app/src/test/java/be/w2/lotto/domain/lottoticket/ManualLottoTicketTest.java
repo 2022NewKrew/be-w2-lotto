@@ -1,6 +1,8 @@
 package be.w2.lotto.domain.lottoticket;
 
 import be.w2.lotto.domain.lottonumber.LottoNumber;
+import com.google.common.base.Supplier;
+import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -23,12 +25,13 @@ class ManualLottoTicketTest {
                 )
                 .map(LottoNumber::getNumber)
                 .collect(Collectors.toList());
+        Class<ManualLottoTicket> expected = ManualLottoTicket.class;
 
         // when
-        ManualLottoTicket manualLottoTicket = ManualLottoTicket.valueOf(lottoNumbers);
+        ManualLottoTicket actual = ManualLottoTicket.valueOf(lottoNumbers);
 
         // then
-        assertThat(manualLottoTicket).isInstanceOf(ManualLottoTicket.class);
+        assertThat(actual).isInstanceOf(expected);
     }
 
     @Test
@@ -38,8 +41,11 @@ class ManualLottoTicketTest {
                 .map(LottoNumber::getNumber)
                 .collect(Collectors.toList());
 
-        // when - then
-        assertThatThrownBy(() -> ManualLottoTicket.valueOf(lottoNumbers))
+        // when
+        ThrowableAssert.ThrowingCallable actual = () -> ManualLottoTicket.valueOf(lottoNumbers);
+
+        // then
+        assertThatThrownBy(actual)
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(INVALID_LOTTO_TICKET_SIZE_EXCEPTION);
     }
@@ -55,8 +61,11 @@ class ManualLottoTicketTest {
                 .map(LottoNumber::getNumber)
                 .collect(Collectors.toList());
 
-        // when - then
-        assertThatThrownBy(() -> ManualLottoTicket.valueOf(lottoNumbers))
+        // when
+        ThrowableAssert.ThrowingCallable actual = () -> ManualLottoTicket.valueOf(lottoNumbers);
+
+        // then
+        assertThatThrownBy(actual)
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(NUMBERS_DUPLICATION_NOT_ALLOWED_EXCEPTION);
     }
