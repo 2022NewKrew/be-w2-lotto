@@ -29,6 +29,7 @@ public class LottoRankMatch {
             LottoRank lottoRank = createLottoRank(autoLotto, inputLastWeekWinNumber.getLotto(), inputLastWeekWinNumber.getBonus());
             lottoResult.put(lottoRank, lottoResult.get(lottoRank) + 1);
         }
+        lottoResult.remove(LottoRank.MISS);
         return new LottoRankMatch(lottoResult);
     }
 

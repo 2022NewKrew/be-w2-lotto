@@ -25,7 +25,7 @@ public class OutputView {
         System.out.println(STATISTICS);
         System.out.println(DASH);
         for (Map.Entry<LottoRank, Integer> resultIndex : lottoRankMatch.getLottoResult().entrySet()) {
-            String haveBonusBall = (resultIndex.getKey().getMoney() == 30_000_000 && resultIndex.getValue() > 0) ? SECOND_PRICE_ADDITION_STRING : " ";
+            String haveBonusBall = (resultIndex.getKey().getMoney() == 30_000_000) ? SECOND_PRICE_ADDITION_STRING : " ";
             System.out.println(String.format(NUM_OF_MATCHED, resultIndex.getKey().getCountOfMatch(), haveBonusBall, resultIndex.getKey().getMoney(), resultIndex.getValue()));
         }
         System.out.println(String.format(TOTAL_PROFIT_RATE, profitRate));
