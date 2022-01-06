@@ -3,6 +3,7 @@ package domain.lotto;
 import java.util.Collections;
 import java.util.List;
 
+import static domain.lotto.LottoValidator.*;
 import static util.LottoConst.LOTTO_PRICE;
 
 public class LottoGameInfo {
@@ -14,7 +15,8 @@ public class LottoGameInfo {
     private final List<Lotto> manualPurchaseLottoList;
 
     public LottoGameInfo(int inputMoney) {
-        LottoValidator.validateInputMoney(inputMoney);
+        validatePositiveNumber(inputMoney);
+        validateInputMoney(inputMoney);
         this.inputMoney = inputMoney;
         this.manualPurchaseLottoList = Collections.emptyList();
         this.lottoQuantity = inputMoney / LOTTO_PRICE;
@@ -23,11 +25,13 @@ public class LottoGameInfo {
     }
 
     public LottoGameInfo(int inputMoney, List<Lotto> manualPurchaseLottoList) {
-        LottoValidator.validateInputMoney(inputMoney);
+        validatePositiveNumber(inputMoney);
+        validateInputMoney(inputMoney);
         this.inputMoney = inputMoney;
         this.manualPurchaseLottoList = manualPurchaseLottoList;
         this.lottoQuantity = inputMoney / LOTTO_PRICE;
         this.manualLottoQuantity = manualPurchaseLottoList.size();
+        validateNumOfPurchaseManually(this.inputMoney, this.manualLottoQuantity);
         this.autoLottoQuantity = this.lottoQuantity - manualLottoQuantity;
     }
 
