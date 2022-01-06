@@ -9,10 +9,10 @@ public class Lotto {
     static protected List<Integer> baseNumber = null;
     protected List<Integer> numbers;
 
-    public Lotto(String initialNumbers) {
+    public Lotto(List<Integer> initialNumbers) {
         numbers = new ArrayList<>();
-        for(String number : initialNumbers.split(", ")){
-            numbers.add(Integer.parseInt(number));
+        for(int number : initialNumbers){
+            numbers.add(number);
         }
         Collections.sort(numbers);
     }

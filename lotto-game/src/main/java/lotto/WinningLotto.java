@@ -9,10 +9,10 @@ import static lotto.LottoGrade.*;
 public class WinningLotto extends Lotto {
     private int bonusNumber;
 
-    public WinningLotto(String winningNumbers, int bonusNumber){
+    public WinningLotto(List<Integer> winningNumbers, int bonusNumber){
         numbers = new ArrayList<>();
-        for(String number : winningNumbers.split(", ")){
-            numbers.add(Integer.parseInt(number));
+        for(int number : winningNumbers){
+            numbers.add(number);
         }
         Collections.sort(numbers);
 
