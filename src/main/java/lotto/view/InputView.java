@@ -40,8 +40,7 @@ public class InputView {
     private Set<Integer> getNumbers() {
         Set<Integer> result = new HashSet<>();
         try {
-            String input;
-            input = scanner.nextLine();
+            String input = scanner.nextLine();
             result = Arrays.stream(input.split(","))
                     .map(String::trim)
                     .mapToInt(Integer::parseInt)

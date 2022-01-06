@@ -2,7 +2,7 @@ package lotto.domain;
 
 import java.util.Map;
 
-import static lotto.domain.LottoShop.PRICE;
+import static lotto.Main.PRICE;
 
 public class LottoMatchingResult {
     private final Map<Prize, Long> occurrencesByPrize;
