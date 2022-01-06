@@ -2,8 +2,10 @@ package dto.output;
 
 import domain.RewardType;
 
+import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class RewardResultDto {
     private final Map<RewardType, Integer> rewardToCount;
@@ -14,20 +16,14 @@ public class RewardResultDto {
         this.profitPercent = profitPercent;
     }
 
-    @Override
-    public String toString() {
-        return "당첨통계\n"
-                .concat("------------\n")
-                .concat(toStringRewardToCount(rewardToCount))
-                .concat("\n총 수익률은 ")
-                .concat(String.valueOf(profitPercent))
-                .concat("%입니다.");
-    }
-
-    private static String toStringRewardToCount(Map<RewardType, Integer> rewardToCount){
+    public List<String> getRewardResults(){
         return rewardToCount.entrySet().stream()
                 .map(entry -> toStringRewardAndCount(entry.getKey(), entry.getValue()))
-                .collect(Collectors.joining("\n"));
+                .collect(toList());
+    }
+
+    public int getProfitPercent() {
+        return profitPercent;
     }
 
     private static String toStringRewardAndCount(RewardType rewardType, int count){
