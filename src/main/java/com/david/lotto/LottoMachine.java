@@ -1,43 +1,39 @@
 package com.david.lotto;
 
-import com.david.lotto.view.LottoInput;
-import com.david.lotto.view.LottoOutput;
+import com.david.lotto.web.LottoWebInput;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LottoMachine {
 
-    private static final LottoInput lottoInput = new LottoInput();
-    private static final LottoOutput lottoOutput = new LottoOutput();
-    private static final LottoCalculate lottoCalculate = new LottoCalculate();
-    public static final int lottoPrice = 1000;
-    private final List<Lotto> lottoList = new ArrayList<>();
+    public static int lottoPrice = 1000;
+    private static final LottoWebInput lottoWebInput = new LottoWebInput();
+    private final List<Lotto> lottoList;
+    private final LottoCalculate lottoCalculate = new LottoCalculate();
+    private String profitRate;
 
-    private void generateLottoList(int countOfLotto, int manualCount, List<List<Integer>> manualLottoList) {
-        LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator();
-        for (List<Integer> lottoNumber : manualLottoList) {
-            lottoList.add(new Lotto(lottoNumber));
-        }
-        int autoCount = countOfLotto - manualCount;
-        for (int i = 0; i < autoCount; i++) {
-            List<Integer> lottoNumber = lottoNumberGenerator.generateLottoNumber();
-            lottoList.add(new Lotto(lottoNumber));
-        }
+    public LottoMachine(String inputMoney, String manualNumber) {
+        int amount = lottoWebInput.convertToInt(inputMoney);
+        this.lottoList = lottoWebInput.convertToLottoList(manualNumber, amount);
     }
 
-    public void runLottoMachine() {
-        int amount = lottoInput.inputAmount();
-        int countOfLotto = amount / lottoPrice;
-        int manualCount = lottoInput.inputManualCount(amount);
-        int autoCount = countOfLotto - manualCount;
-        List<List<Integer>> manualLottoList = lottoInput.inputLottoNumber(manualCount);
-        generateLottoList(countOfLotto, manualCount, manualLottoList);
-        lottoOutput.printLottoCount(manualCount, autoCount);
-        lottoOutput.printLottoInfo(lottoList);
-        List<Integer> winningNumber = lottoInput.inputWinningNumber();
-        int bonusNumber = lottoInput.inputBonusNumber(winningNumber);
-        double profitRate = lottoCalculate.calculateProfitRate(lottoList, winningNumber, countOfLotto, bonusNumber);
-        lottoOutput.printLottoResult(lottoCalculate, profitRate);
+    public String getProfitRate() {
+        return profitRate;
     }
+
+    public LottoCalculate getLottoCalculate() {
+        return lottoCalculate;
+    }
+
+    public List<Lotto> getLottoList() {
+        return lottoList;
+    }
+
+    public void calculateResult(String inputWinningNumber, String inputBonusNumber) {
+        List<Integer> winningNumber = lottoWebInput.convertToNumberList(inputWinningNumber);
+        int bonusNumber = lottoWebInput.convertToInt(inputBonusNumber);
+        int countOfLotto = lottoList.size();
+        profitRate = String.format("%.2f", lottoCalculate.calculateProfitRate(lottoList, winningNumber, countOfLotto, bonusNumber));
+    }
+
 }
