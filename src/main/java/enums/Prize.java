@@ -7,7 +7,7 @@ public enum Prize {
     THREE(3, 5_000L, false),
     FOUR(4, 50_000L, false),
     FIVE(5, 1_500_000L, false),
-    BONUS(5, 1_500_000L, true),
+    BONUS(5, 30_000_000L, true),
     SIX(6, 2_000_000_000L, false);
 
     private final int matchCount;
