@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
-    public static final int NUMBER = 6;
+    public static final int NUMBER_OF_BALLS = 6;
     private final List<Ball> balls;
 
     public Lotto(List<Ball> balls) {

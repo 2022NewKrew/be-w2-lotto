@@ -21,7 +21,7 @@ public class LottoValidator {
     }
 
     public static void assertValidBalls(List<Ball> balls) throws IllegalArgumentException {
-        if (new HashSet<>(balls).size() != Lotto.NUMBER) {
+        if (new HashSet<>(balls).size() != Lotto.NUMBER_OF_BALLS) {
             throw new IllegalArgumentException();
         }
     }

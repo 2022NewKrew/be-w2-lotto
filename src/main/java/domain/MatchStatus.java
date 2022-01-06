@@ -52,10 +52,10 @@ public enum MatchStatus {
     }
 
     private static boolean isStatusInvalid(int matchCount, boolean isBonusMatched) {
-        if (matchCount < 0 || matchCount > Lotto.NUMBER) {
+        if (matchCount < 0 || matchCount > Lotto.NUMBER_OF_BALLS) {
             return true;
         }
-        return (matchCount == Lotto.NUMBER && isBonusMatched);
+        return (matchCount == Lotto.NUMBER_OF_BALLS && isBonusMatched);
     }
 
     public int getMatchCount() {

@@ -28,7 +28,7 @@ class LottoTest {
         List<Ball> numbers = lotto.getBalls();
 
         assertThat(numbers.size())
-                .isEqualTo(Lotto.NUMBER);
+                .isEqualTo(Lotto.NUMBER_OF_BALLS);
     }
 
     @DisplayName("숫자의 개수가 6개가 아니면 에러 발생")

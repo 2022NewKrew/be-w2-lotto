@@ -17,7 +17,7 @@ public class AutoLottoGenerator implements LottoGenerator {
         Collections.shuffle(numbers);
         return new Lotto(numbers.stream()
                 .distinct()
-                .limit(Lotto.NUMBER)
+                .limit(Lotto.NUMBER_OF_BALLS)
                 .collect(Collectors.toList()));
     }
 }
