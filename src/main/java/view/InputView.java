@@ -7,7 +7,10 @@ import domain.WinningLottoManual;
 import exception.InvalidInputException;
 import validation.Validator;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import static utils.Symbol.*;
@@ -15,9 +18,6 @@ import static utils.Symbol.*;
 public class InputView {
     private static final Scanner sc = new Scanner(System.in);
     private static final Validator validator = new Validator();
-
-    public InputView() {
-    }
 
     public int getPurchaseAmount() throws InvalidInputException {
         System.out.println(PURCHASE_AMOUNT_MESSAGE);
@@ -32,7 +32,7 @@ public class InputView {
     }
 
     public int getManualLottoCount(int purchaseAmount) throws InvalidInputException {
-        System.out.println("\n" + MANNUAL_COUNT_MESSAGE);
+        System.out.println("\n" + MANUAL_COUNT_MESSAGE);
         try {
             int manualLottoCount = sc.nextInt();
             sc.nextLine();
@@ -44,18 +44,18 @@ public class InputView {
     }
 
     public WinningLotto getWinningLotto() {
-        Lotto winningLotto = getManualLotto(LAST_WEEK_WINNING_NUMBER_MESSAGE);
+        System.out.println("\n" + LAST_WEEK_WINNING_NUMBER_MESSAGE);
+        Lotto winningLotto = getManualLotto();
         Number bonusNumber = getBonusNumber(winningLotto);
         return new WinningLottoManual(winningLotto, bonusNumber);
     }
 
-    public Lotto getManualLotto(String message) {
-        List<Number> inputNumberList = getNumberList(message);
+    public Lotto getManualLotto() {
+        List<Number> inputNumberList = getNumberList();
         return new Lotto(inputNumberList);
     }
 
-    public List<Number> getNumberList(String Message) {
-        System.out.println("\n" + Message);
+    public List<Number> getNumberList() {
         String str = sc.nextLine();
         List<Number> numberList = Arrays.stream(str.split(COMMA))
                 .filter(s -> !s.isEmpty())

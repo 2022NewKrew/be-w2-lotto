@@ -13,7 +13,7 @@ public class Validator {
 
     public void isValidMannualCount(int purchaseAmount, int manualLottoCount) {
         if (purchaseAmount / LOTTO_PRICE < manualLottoCount) {
-            throw new IllegalArgumentException(INVALID_MANNUAL_LOTTOCOUNT);
+            throw new IllegalArgumentException(INVALID_MANUAL_LOTTOCOUNT);
         }
     }
 }

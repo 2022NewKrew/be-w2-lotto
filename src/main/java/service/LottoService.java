@@ -10,18 +10,16 @@ import static utils.Symbol.LOTTO_PRICE;
 
 public class LottoService {
     private List<Lotto> lottoList = new ArrayList<>();
-    private static final ManualGenerator manualGenerator = new ManualGenerator();
     private static final AutomaticGenerator automaticGenerator = new AutomaticGenerator();
 
-    public LottoService(int purchaseAmount, int manualLottoCount) throws InvalidInputException {
+    public LottoService(int purchaseAmount, List<Lotto> manualLottoList) throws InvalidInputException {
+        int manualLottoCount = manualLottoList.size();
         int automaticLottoCount = purchaseAmount / LOTTO_PRICE - manualLottoCount;
-        generateLottoList(automaticLottoCount, manualLottoCount);
+        generateLottoList(automaticLottoCount, manualLottoList);
     }
 
-    public void generateLottoList(int automaticLottoCount, int manualLottoCount) throws InvalidInputException {
-        for (int i = 0; i < manualLottoCount; i++) {
-            lottoList.add(generate(manualGenerator));
-        }
+    public void generateLottoList(int automaticLottoCount, List<Lotto> manualLottoList) throws InvalidInputException {
+        lottoList.addAll(manualLottoList);
         for (int i = 0; i < automaticLottoCount; i++) {
             lottoList.add(generate(automaticGenerator));
         }

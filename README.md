@@ -48,7 +48,7 @@
 - [x] exception을 위로 전달하는 방식 -> 해당 exception 위치에서 바로 throw하는 방식으로 변경
 - [x] LottoService 클래스 생성자 간소화
 - [x] Stream사용시 생성자 사용법 변경
-- [ ] MannualGenerator 클래스의 생성자에서 inputview 사용 지양
+- [x] MannualGenerator 클래스의 생성자에서 inputview 사용 지양
 - [x] ArrayList사용 -> List사용
 - [x] domain(Number, WinningLottoMannual) validation 검증은 Number클래스에서 하기
 - [ ] Result의 Rank 측정을 Enum클래스로 위임
