@@ -1,3 +1,11 @@
+package Domain;
+
+import Controller.*;
+import Domain.Tickets.AutoTicket;
+import Domain.Tickets.ManualTicket;
+import Domain.Tickets.Ticket;
+import Domain.Tickets.WinningTicket;
+
 import java.util.*;
 
 public class LotteryRound {
@@ -5,7 +13,9 @@ public class LotteryRound {
     private final boolean MATCH_SUCCESS = true;
 
     private int purchased;
-    private int numOfTickets;
+    private int totalNumOfTickets;
+    private int numOfManualTickets;
+    private int numOfAutoTickets;
     private WinningTicket winningTicket;
     private List<Ticket> tickets = new ArrayList<>();
     private List<Integer> numberOfWinnings = new ArrayList<Integer>(Collections.nCopies(RewardRule.getRewardName().size(), 0));
@@ -15,15 +25,25 @@ public class LotteryRound {
 
     public LotteryRound(LotteryController lotteryController) {
         this.lotteryController = lotteryController;
+        this.revenue = 0;
     }
 
     public void purchaseTickets() {
-        this.revenue = 0;
-        this.purchased = lotteryController.inputPurchased();
-        this.numOfTickets = (int) this.purchased / PRICE_OF_LOTTO;
-        lotteryController.purchaseCompleted(numOfTickets);
-        makeLottos();
-        showLottos();
+        this.purchased = lotteryController.inputPurchasedPrice();
+        calculateNumOfTickets();
+        lotteryController.printInputManualTicketsMessage();
+        for (int i = 0; i < this.numOfManualTickets; i++) {
+            addManualTicket(lotteryController.inputCustomTicket());
+        }
+        lotteryController.purchaseCompleted(numOfManualTickets, numOfAutoTickets);
+        addAutomaticTicket();
+        showTickets();
+    }
+
+    private void calculateNumOfTickets() {
+        this.totalNumOfTickets = (int) this.purchased / PRICE_OF_LOTTO;
+        this.numOfManualTickets = lotteryController.inputNumOfManualTickets();
+        this.numOfAutoTickets = this.totalNumOfTickets - this.numOfManualTickets;
     }
 
     public void drawLottery() {
@@ -35,13 +55,17 @@ public class LotteryRound {
         lotteryController.showStatistics(this.numberOfWinnings, (int) ((this.revenue - this.purchased) * 100 / this.purchased));
     }
 
-    private void makeLottos() {
-        for (int i = 0; i < numOfTickets; i++) {
-            tickets.add(new Ticket());
+    private void addAutomaticTicket() {
+        for (int i = 0; i < this.numOfAutoTickets; i++) {
+            tickets.add(new AutoTicket());
         }
     }
 
-    private void showLottos() {
+    private void addManualTicket(List<Integer> selectedNumbers) {
+        tickets.add(new ManualTicket(selectedNumbers));
+    }
+
+    private void showTickets() {
         for (Ticket lotto : tickets) {
             lotteryController.print(lotto.getSelectedNumbers());
         }
