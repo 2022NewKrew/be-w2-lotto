@@ -62,7 +62,7 @@ public class InputView {
         bonusBall = scanner.nextInt();
 
         scanner.nextLine();
-        return LottoNumber.of(bonusBall);
+        return LottoNumber.from(bonusBall);
     }
 
     private static int inputManualLottoCount() {
@@ -80,7 +80,7 @@ public class InputView {
         List<LottoNumber> numbers = new ArrayList<>(Lotto.LOTTO_NUMBERS_COUNT);
 
         for (String s : scanner.nextLine().replaceAll(" ", "").split(",")) {
-            numbers.add(LottoNumber.of(Integer.parseInt(s)));
+            numbers.add(LottoNumber.from(Integer.parseInt(s)));
         }
         return numbers;
     }

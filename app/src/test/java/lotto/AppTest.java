@@ -7,6 +7,7 @@ import lotto.domain.Lotto;
 import lotto.domain.LottoNumber;
 import lotto.domain.LottoPrize;
 import lotto.domain.LottoWinningNumber;
+import lotto.machine.LottoMachine;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.Assert.*;
@@ -21,10 +22,12 @@ public class AppTest {
     public void testLottoMatchFirstPlace() {
         List<LottoNumber> lottoNumberList = new ArrayList<>();
         for (int i = 1; i <= 6; i++)
-            lottoNumberList.add(LottoNumber.of(i));
-        LottoWinningNumber lottoWinningNumber = new LottoWinningNumber(lottoNumberList, LottoNumber.of(7));
+            lottoNumberList.add(LottoNumber.from(i));
+        LottoWinningNumber lottoWinningNumber = new LottoWinningNumber(lottoNumberList, LottoNumber.from(7));
 
-        assertEquals(LottoPrize.FIRST_PLACE, lottoWinningNumber.match(new Lotto(lottoNumberList)));
+        Lotto lotto = LottoMachine.generateLottoManually(lottoNumberList);
+
+        assertEquals(LottoPrize.FIRST_PLACE, lottoWinningNumber.match(lotto));
     }
 
     @Test
@@ -32,20 +35,24 @@ public class AppTest {
     public void testLottoMatchSecondPlace() {
         List<LottoNumber> winningLottoNumberList = new ArrayList<>();
         List<LottoNumber> lottoNumberList = new ArrayList<>();
-        for (int i = 1; i <= 6; i++)
-            winningLottoNumberList.add(LottoNumber.of(i));
-        LottoWinningNumber lottoWinningNumber = new LottoWinningNumber(winningLottoNumberList, LottoNumber.of(7));
-        for (int i = 2; i <= 7; i++)
-            lottoNumberList.add(LottoNumber.of(i));
 
-        assertEquals(LottoPrize.SECOND_PLACE, lottoWinningNumber.match(new Lotto(lottoNumberList)));
+        for (int i = 1; i <= 6; i++)
+            winningLottoNumberList.add(LottoNumber.from(i));
+        LottoWinningNumber lottoWinningNumber = new LottoWinningNumber(winningLottoNumberList, LottoNumber.from(7));
+
+        for (int i = 2; i <= 7; i++)
+            lottoNumberList.add(LottoNumber.from(i));
+
+        Lotto lotto = LottoMachine.generateLottoManually(lottoNumberList);
+
+        assertEquals(LottoPrize.SECOND_PLACE, lottoWinningNumber.match(lotto));
     }
 
     @Test
     @DisplayName("Lotto Number 생성 테스트")
     public void testLottoNumberOutOfRange() {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            LottoNumber.of(-1);
+            LottoNumber.from(-1);
         });
 
         assertEquals("Lotto Number out of range.", exception.getMessage());
@@ -56,7 +63,7 @@ public class AppTest {
     public void testLottoInvalidCount() {
         List<LottoNumber> lottoNumberList = new ArrayList<>();
         for (int i = 1; i <= 5; i++)
-            lottoNumberList.add(LottoNumber.of(i));
+            lottoNumberList.add(LottoNumber.from(i));
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             new Lotto(lottoNumberList);
@@ -70,8 +77,8 @@ public class AppTest {
     public void testLottoDuplicate() {
         List<LottoNumber> lottoNumberList = new ArrayList<>();
         for (int i = 1; i <= 5; i++)
-            lottoNumberList.add(LottoNumber.of(i));
-        lottoNumberList.add(LottoNumber.of(5));
+            lottoNumberList.add(LottoNumber.from(i));
+        lottoNumberList.add(LottoNumber.from(5));
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
             new Lotto(lottoNumberList);
@@ -85,10 +92,10 @@ public class AppTest {
     public void testBonusBallDuplicate() {
         List<LottoNumber> lottoNumberList = new ArrayList<>();
         for (int i = 1; i <= 6; i++)
-            lottoNumberList.add(LottoNumber.of(i));
+            lottoNumberList.add(LottoNumber.from(i));
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-            new LottoWinningNumber(lottoNumberList, LottoNumber.of(6));
+            new LottoWinningNumber(lottoNumberList, LottoNumber.from(6));
         });
 
         assertEquals("Duplicate bonusBall number", exception.getMessage());

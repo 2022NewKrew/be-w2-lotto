@@ -12,7 +12,7 @@ public class LottoMachine {
 
     static {
         for (int i = 1; i <= 45; i++)
-            numbers.add(LottoNumber.of(i));
+            numbers.add(LottoNumber.from(i));
     }
 
     public static Lotto generateLottoAuto() {

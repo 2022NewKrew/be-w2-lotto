@@ -16,7 +16,7 @@ public class LottoNumber implements Comparable<LottoNumber> {
     /**
      *  어차피 1~45까지 숫자만 있으므로,
      *  45개 숫자에 대한 인스턴스를 미리 만들어 놓고
-     *  해당되는 숫자의 인스턴스만 of 메소드를 통해 반환
+     *  해당되는 숫자의 인스턴스만 from 메소드를 통해 반환
      */
     static {
         List<LottoNumber> tmpList = new ArrayList<>(MAX_NUMBER);
@@ -30,7 +30,7 @@ public class LottoNumber implements Comparable<LottoNumber> {
         this.number = number;
     }
 
-    public static LottoNumber of(int number) {
+    public static LottoNumber from(int number) {
         checkNumber(number);
         return INSTANCES.get(number-1);
     }
