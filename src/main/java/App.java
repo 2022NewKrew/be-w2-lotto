@@ -11,22 +11,27 @@ public class App {
         View view = new View();
         LotteryWallet lotteryWallet = new LotteryWallet(view.getBudget());
 
-        int numberOfManualTickets = view.getNumberOfManualTickets();
-        lotteryWallet.buyTickets(numberOfManualTickets);
-        List<LotteryTicket> manualLotteryTickets = view.getLotteryTickets(numberOfManualTickets);
-
-        int numberOfRandomTickets = lotteryWallet.getNumberOfTicketsAffordable();
-        lotteryWallet.buyTickets(numberOfRandomTickets);
-        List<LotteryTicket> randomLotteryTickets = getRandomTickets(numberOfRandomTickets);
+        List<LotteryTicket> manualLotteryTickets = buyManualTickets(view, lotteryWallet);
+        List<LotteryTicket> randomLotteryTickets = buyRandomTicketsAsMuchAsPossible(lotteryWallet);
 
         view.showBoughtTickets(new LotteryTickets(manualLotteryTickets).toDTO(), new LotteryTickets(randomLotteryTickets).toDTO());
 
         LotteryResult lotteryResult = view.getLotteryResult();
 
         manualLotteryTickets.addAll(randomLotteryTickets);
-        LotteryReport lotteryReport = new LotteryReport(manualLotteryTickets, lotteryResult, lotteryWallet.getSpent());
+        view.showReport(new LotteryReport(manualLotteryTickets, lotteryResult, lotteryWallet.getSpent()).toDTO());
+    }
 
-        view.showReport(lotteryReport.toDTO());
+    private static List<LotteryTicket> buyManualTickets(View view, LotteryWallet lotteryWallet) {
+        int numberOfManualTickets = view.getNumberOfManualTickets();
+        lotteryWallet.buyTickets(numberOfManualTickets);
+        return view.getLotteryTickets(numberOfManualTickets);
+    }
+
+    private static List<LotteryTicket> buyRandomTicketsAsMuchAsPossible(LotteryWallet lotteryWallet) {
+        int numberOfRandomTickets = lotteryWallet.getNumberOfTicketsAffordable();
+        lotteryWallet.buyTickets(numberOfRandomTickets);
+        return getRandomTickets(numberOfRandomTickets);
     }
 
     private static List<LotteryTicket> getRandomTickets(int numberOfTickets) {
