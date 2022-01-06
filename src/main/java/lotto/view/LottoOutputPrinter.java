@@ -15,16 +15,20 @@ public class LottoOutputPrinter {
     public static final String PREFIX = "[";
     public static final String SUFFIX = "]";
 
-    public void printPurchaseResult(int numManualLotto, @NotNull List<Lotto> purchasedLottoList) {
-        System.out.println("\n수동으로 " + numManualLotto + "장, 자동으로 " + (purchasedLottoList.size() - numManualLotto) + "개를 구매했습니다.");
+    public void printDescription(String msg) {
+        System.out.print(msg);
+    }
+
+    public void printPurchaseResult(long numOfManualLottos, @NotNull List<Lotto> purchasedLottoList) {
+        System.out.println("\n수동으로 " + numOfManualLottos + "장, 자동으로 " + (purchasedLottoList.size() - numOfManualLottos) + "개를 구매했습니다.");
         purchasedLottoList.forEach(this::printLotto);
     }
 
     private void printLotto(@NotNull Lotto lotto) {
-        System.out.println(lotto.getDigits()
+        System.out.println(lotto.getNumberList()
                 .stream()
                 .sorted()
-                .map(digit -> Integer.toString(digit))
+                .map(lottoNumber -> Integer.toString(lottoNumber.getNumber()))
                 .collect(Collectors.joining(SEPARATOR + SPACE, PREFIX, SUFFIX)));
     }
 
@@ -32,8 +36,8 @@ public class LottoOutputPrinter {
         System.out.println("\n당첨 통계\n---------");
         for (LottoResult result : LottoResult.values()) {
             StringBuilder resultStr = new StringBuilder();
-            System.out.println(resultStr.append(result.getNumMatchingDigit()).append("개 일치")
-                    .append(result.equals(LottoResult.BONUS) ? ", 보너스 볼 일치" : " ")
+            System.out.println(resultStr.append(result.getNumOfMatchingNumbers()).append("개 일치")
+                    .append(result.equals(LottoResult.SECOND) ? ", 보너스 볼 일치" : " ")
                     .append("(").append(result.getReward()).append("원) - ")
                     .append(winningResult.getCountOf(result)).append("개"));
         }

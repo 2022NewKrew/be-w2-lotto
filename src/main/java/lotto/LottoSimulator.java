@@ -3,13 +3,17 @@ package lotto;
 import lotto.domain.*;
 import lotto.view.LottoInputScanner;
 import lotto.view.LottoOutputPrinter;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.LongStream;
 
 public class LottoSimulator {
-    public static final int LOTTO_PRICE = 1000;
+    public static final long LOTTO_PRICE = 1000;
     public static final String SEPARATOR = ",";
     public static final int NOT_PURCHASE = 0;
 
@@ -32,84 +36,83 @@ public class LottoSimulator {
             return;
         }
 
-        List<Lotto> manualLottoList = getManualLotto();
-        PurchasedLotto purchasedLotto = purchaseLotto(purchaseAmount, manualLottoList);
+        long numOfManualLotto = getNumOfManualLotto();
+        PurchaseInfo purchasedInfo = new PurchaseInfo(numOfManualLotto, purchaseAmount / LOTTO_PRICE - numOfManualLotto);
+        List<Lotto> manualLottoList = getManualLotto(purchasedInfo.getNumOfManualLottos());
+        PurchasedLottos purchasedLottos = purchaseLotto(purchasedInfo, manualLottoList);
         WinningLotto winningLotto = getWinningInfo();
-        printWinningStat(purchaseAmount, purchasedLotto, winningLotto);
+        printWinningStat(purchaseAmount, purchasedLottos, winningLotto);
     }
 
     private long getPurchaseAmount() {
         try {
             return lottoInputScanner.getPurchaseAmount();
-        } catch (IllegalArgumentException iae) {
-            System.out.println("금액을 확인해주십시오.(lotto는 1000원 단위로 구매 가능합니다.)");
+        } catch (NumberFormatException nfe) {
+            lottoOutputPrinter.printDescription("숫자만 입력가능합니다.");
+            return getPurchaseAmount();
+        } catch (InputMismatchException ime) {
+            lottoOutputPrinter.printDescription(ime.getMessage());
             return getPurchaseAmount();
         }
     }
 
-    private List<Lotto> getManualLotto() {
-        int numManualLotto = getNumManualLotto();
-        List<Lotto> manualLottoList = new ArrayList<>();
-        for (int i = 0; i < numManualLotto; i++) {
-            manualLottoList.add(new Lotto(getDigitList(i == 0 ? "\n수동으로 구매할 번호를 입력해 주세요.\n" : "")));
-        }
-        return new ArrayList<>(manualLottoList);
-    }
-
-    private int getNumManualLotto() {
+    private List<Lotto> getManualLotto(long numOfManualLottos) {
+        lottoOutputPrinter.printDescription("\n수동으로 구매할 번호를 입력해 주세요.\n");
         try {
-            return lottoInputScanner.getNumManualLottos();
+            return LongStream.range(0, numOfManualLottos)
+                    .mapToObj(i -> new Lotto(lottoInputScanner.getLottoNumbers()))
+                    .collect(Collectors.toList());
         } catch (IllegalArgumentException iae) {
-            System.out.println("구매할 로또 수는 0이상 정수여야 합니다.");
-            return getNumManualLotto();
+            lottoOutputPrinter.printDescription(iae.getMessage());
+            lottoOutputPrinter.printDescription("처음부터 다시 입력바랍니다.");
+            return getManualLotto(numOfManualLottos);
         }
     }
 
-    private List<Integer> getDigitList(String msg) {
+    private long getNumOfManualLotto() {
         try {
-            return lottoInputScanner.getDigits(msg);
-        } catch (IllegalArgumentException iae) {
-            System.out.println("번호는 1~45사이의 숫자 6개로 중복이 없어야 합니다.");
-            return getDigitList(msg);
+            return lottoInputScanner.getNumOfManualLottos();
+        } catch (NumberFormatException nfe) {
+            lottoOutputPrinter.printDescription("숫자만 입력가능합니다.");
+            return getNumOfManualLotto();
+        } catch (InputMismatchException ime) {
+            lottoOutputPrinter.printDescription(ime.getMessage());
+            return getNumOfManualLotto();
         }
     }
 
-    private @NotNull PurchasedLotto purchaseLotto(long purchaseAmount, List<Lotto> manualLottoList) {
+    @Contract("_, _ -> new")
+    private @NotNull PurchasedLottos purchaseLotto(@NotNull PurchaseInfo purchasedInfo, List<Lotto> manualLottoList) {
         LottoAutoGenerator lottoAutoGenerator = new LottoAutoGenerator();
         List<Lotto> purchasedLottoList = new ArrayList<>(manualLottoList);
-        int numManualLottos = manualLottoList.size();
-        long purchaseAutoAmount = purchaseAmount - ((long) numManualLottos * LOTTO_PRICE);
 
-        purchasedLottoList.addAll(lottoAutoGenerator.getRandomLottos(purchaseAutoAmount / LOTTO_PRICE));
-        lottoOutputPrinter.printPurchaseResult(numManualLottos, purchasedLottoList);
+        purchasedLottoList.addAll(lottoAutoGenerator.getRandomLottos(purchasedInfo.getNumOfAutoLottos()));
+        lottoOutputPrinter.printPurchaseResult(purchasedInfo.getNumOfManualLottos(), purchasedLottoList);
 
-        return new PurchasedLotto(purchasedLottoList);
+        return new PurchasedLottos(purchasedLottoList);
     }
 
     private @NotNull WinningLotto getWinningInfo() {
-        List<Integer> winningDigitList = getDigitList("\n지난주 당첨 정보를 입력해 주세요.\n");
-        int bonusDigit = getBonusDigit(winningDigitList);
-        return new WinningLotto(winningDigitList, bonusDigit);
+        lottoOutputPrinter.printDescription("\n지난주 당첨 정보를 입력해 주세요.\n");
+        try {
+            List<LottoNumber> winningLottoNumberList = lottoInputScanner.getLottoNumbers();
+            LottoNumber bonusNumber = lottoInputScanner.getBonusNumber();
+            return new WinningLotto(new Lotto(winningLottoNumberList), bonusNumber);
+        } catch (IllegalArgumentException iae) {
+            lottoOutputPrinter.printDescription(iae.getMessage());
+            return getWinningInfo();
+        }
     }
 
-    private int getBonusDigit(List<Integer> winningDigitList) {
-        try {
-            return lottoInputScanner.getWinningBonusDigit(winningDigitList);
-        } catch (IllegalArgumentException iae) {
-            System.out.println("보너스 숫자는 1~45 사이의 값이며 당첨 번호와 중복될 수 없습니다.");
-            return getBonusDigit(winningDigitList);
-        }
+    private void printWinningStat(long purchaseAmount, @NotNull PurchasedLottos purchasedLottos, WinningLotto winningLotto) {
+        WinningResult winningResult = new WinningResult(purchasedLottos.getPurchasedResult(winningLotto));
+        double yield = getSimulationYield(purchaseAmount, winningResult);
+        lottoOutputPrinter.printWinningResultPrinter(winningResult);
+        lottoOutputPrinter.printWinningYield(yield);
     }
 
     private double getSimulationYield(long purchaseAmount, @NotNull WinningResult winningResult) {
         long totalReward = winningResult.getWinningResult().stream().mapToLong(LottoResult::getReward).sum();
         return (double) (totalReward - purchaseAmount) / purchaseAmount * 100;
-    }
-
-    private void printWinningStat(long purchaseAmount, @NotNull PurchasedLotto purchasedLotto, WinningLotto winningLotto) {
-        WinningResult winningResult = new WinningResult(purchasedLotto.getPurchasedResult(winningLotto));
-        double yield = getSimulationYield(purchaseAmount, winningResult);
-        lottoOutputPrinter.printWinningResultPrinter(winningResult);
-        lottoOutputPrinter.printWinningYield(yield);
     }
 }
