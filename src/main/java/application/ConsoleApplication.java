@@ -79,7 +79,7 @@ public class ConsoleApplication {
             }
 
         } catch (IOException e) {
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
 
         return lottos;
@@ -93,7 +93,7 @@ public class ConsoleApplication {
             System.out.println("수동으로 구매할 로또 수를 입력해 주세요");
             result = Integer.parseInt(br.readLine());
         } catch (IOException e) {
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
 
         return result;
@@ -113,7 +113,7 @@ public class ConsoleApplication {
                 result.add(number);
             }
         } catch (IOException e) {
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
 
         return result;
@@ -128,7 +128,7 @@ public class ConsoleApplication {
 
             result = Integer.parseInt(bufferedReader.readLine());
         } catch (IOException e) {
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
 
         return result;
@@ -144,7 +144,7 @@ public class ConsoleApplication {
             result = Integer.parseInt(bufferedReader.readLine());
 
         } catch (IOException e) {
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
 
         return result;
