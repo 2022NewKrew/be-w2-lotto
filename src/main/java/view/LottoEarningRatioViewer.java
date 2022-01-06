@@ -5,6 +5,6 @@ public class LottoEarningRatioViewer {
     }
 
     public static void viewEarningRatio(double earned) {
-        System.out.println("총 수익률은 " + Math.round(earned * 100) / 100.0 + "% 입니다.");
+        System.out.println("총 수익률은 " + Math.round(earned * 100 * 100) / 100.0 + "% 입니다.");
     }
 }
