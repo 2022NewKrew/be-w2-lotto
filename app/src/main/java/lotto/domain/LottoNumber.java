@@ -18,7 +18,7 @@ public class LottoNumber implements Comparable<LottoNumber> {
      *  해당되는 숫자의 인스턴스만 of 메소드를 통해 반환
      */
     static {
-        for(int i = MIN_NUMBER; i <= MAX_NUMBER; i++)
+        for (int i = MIN_NUMBER; i <= MAX_NUMBER; i++)
             instances.add(new LottoNumber(i));
     }
 

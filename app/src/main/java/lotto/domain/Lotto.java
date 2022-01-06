@@ -10,14 +10,14 @@ import java.util.Set;
  * 로또가 얼마나 맞았는지 확인하는 메소드가 있는 class
  */
 public class Lotto {
-    protected static final int LOTTO_NUMBERS_COUNT = 6; // 로또 숫자 6개
+    public static final int LOTTO_NUMBERS_COUNT = 6; // 로또 숫자 6개
     protected final List<LottoNumber> lottoNumbers;
 
     public Lotto(List<LottoNumber> lottoNumbers) {
         checkLottoNumberCount(lottoNumbers);
         checkLottoNumberDuplicate(lottoNumbers);
         Collections.sort(lottoNumbers);
-        this.lottoNumbers = lottoNumbers;
+        this.lottoNumbers = Collections.unmodifiableList(lottoNumbers);
     }
 
     @Override
@@ -30,13 +30,13 @@ public class Lotto {
     }
 
     private void checkLottoNumberCount(List<LottoNumber> lottoNumbers) {
-        if(lottoNumbers.size() != LOTTO_NUMBERS_COUNT)
+        if (lottoNumbers.size() != LOTTO_NUMBERS_COUNT)
             throw new IllegalArgumentException();
     }
 
     private void checkLottoNumberDuplicate(List<LottoNumber> lottoNumbers) { // 중복 번호 있는지 확인
         Set<LottoNumber> tmpSet = new HashSet<>(lottoNumbers);
-        if(tmpSet.size() != LOTTO_NUMBERS_COUNT)
+        if (tmpSet.size() != LOTTO_NUMBERS_COUNT)
             throw new IllegalArgumentException();
     }
 }

@@ -1,15 +1,12 @@
-package lotto.service;
+package lotto.buyer;
 
 import lotto.domain.Lotto;
 import lotto.domain.LottoPrize;
 import lotto.domain.LottoWinningNumber;
+import lotto.machine.LottoMachine;
 import lotto.view.InputView;
 import lotto.view.OutputView;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 구매한 로또 리스트와
@@ -18,7 +15,7 @@ import java.util.Map;
 public class LottoBuyer {
     private static final int LOTTO_PRICE = 1000;
     private final List<Lotto> lottoList = new ArrayList<>();                // 구매한 로또 리스트
-    private final Map<LottoPrize, Integer> result = new HashMap<>(Map.of(   // key : 등수 , value : 'key'등에 당첨된 로또 개수
+    private final Map<LottoPrize, Integer> result = new EnumMap<>(Map.of(   // key : 등수 , value : 'key'등에 당첨된 로또 개수
             LottoPrize.FIFTH_PLACE,0,
             LottoPrize.FOURTH_PLACE,0,
             LottoPrize.THIRD_PLACE,0,
@@ -26,32 +23,27 @@ public class LottoBuyer {
             LottoPrize.FIRST_PLACE,0
     ));
 
-    public final void start() {
-        InputView.openScanner();
-
-        buyLotto(InputView.getPurchaseAmount());
-        InputView.getLottoNumbersManually(lottoList);
-
+    public final void buyLotto() {
+        buyAutoLotto(InputView.inputPurchasePrice());
+        buyManualLotto();
         OutputView.printLottoList(lottoList);
-
-        checkAllLotto();
-        OutputView.printResult(result);
-        OutputView.printYield(calculateYield());
-
-        InputView.closeScanner();
     }
 
     /**
      * 구매 금액 (purchaseAmount)에 해당하는 로또를 생성해 반환하는 메소드
      *
-     * @param purchaseAmount : 구매 금액
+     * @param purchasePrice : 구매 금액
      */
-    private void buyLotto(final int purchaseAmount) {
-        final int countLotto = purchaseAmount / LOTTO_PRICE;
+    private void buyAutoLotto(final int purchasePrice) {
+        final int countLotto = purchasePrice / LOTTO_PRICE;
 
-        for(int i = 0; i < countLotto; i++) {
+        for (int i = 0; i < countLotto; i++) {
             lottoList.add(LottoMachine.generateLottoAuto());
         }
+    }
+
+    private void buyManualLotto() {
+        InputView.inputLottoNumbersManually(lottoList);
     }
 
     /**
@@ -59,23 +51,26 @@ public class LottoBuyer {
      *
      * Map<LottoPrize, Integer> result 에 결과 저장
      */
-    private void checkAllLotto() {
-        final LottoWinningNumber lottoWinningNumber = InputView.getLastWinningNumbers();
+    public final void checkAllLotto() {
+        final LottoWinningNumber lottoWinningNumber = InputView.inputLastWinningNumbers();
 
-        for(Lotto lotto : lottoList) {
+        for (Lotto lotto : lottoList) {
             putResult(lottoWinningNumber.match(lotto));
         }
+
+        OutputView.printResult(result);
+        OutputView.printYield(calculateYield());
     }
 
     private void putResult(final int matchCount) {
-        if(matchCount < 3) return; // 3개 미만 일치는 무시
+        if (matchCount < 3) return; // 3개 미만 일치는 무시
         result.put(LottoPrize.of(matchCount), result.get(LottoPrize.of(matchCount)) + 1);
     }
 
     private int totalReward() {
         int totalReward = 0;
 
-        for(LottoPrize lottoPrize : result.keySet()){
+        for (LottoPrize lottoPrize : result.keySet()){
             totalReward += result.get(lottoPrize) * lottoPrize.getReward();
         }
         return totalReward;
@@ -84,7 +79,7 @@ public class LottoBuyer {
     private double calculateYield() { // 수익률 계산
         final int totalPurchase = lottoList.size() * LOTTO_PRICE;
 
-        if(totalPurchase == 0)
+        if (totalPurchase == 0)
             return 0;
         return (double) (totalReward() - totalPurchase) / totalPurchase * 100;
     }

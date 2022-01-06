@@ -14,7 +14,7 @@ public enum LottoPrize {
     }
 
     public static LottoPrize of(int matchedCount) {
-        switch(matchedCount) {
+        switch (matchedCount) {
             case 3: return FIFTH_PLACE;
             case 4: return FOURTH_PLACE;
             case 5: return THIRD_PLACE;

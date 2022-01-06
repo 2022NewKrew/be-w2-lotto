@@ -3,11 +3,11 @@
  */
 package lotto;
 
-import lotto.service.LottoBuyer;
+import lotto.controller.LottoGameController;
 
 public class LottoApp {
     public static void main(String[] args) {
-        LottoBuyer lottoBuyer = new LottoBuyer();
-        lottoBuyer.start();
+        LottoGameController lottoGameController = new LottoGameController();
+        lottoGameController.start();
     }
 }
