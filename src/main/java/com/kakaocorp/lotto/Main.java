@@ -6,7 +6,7 @@ import com.kakaocorp.lotto.domain.ResultCounter;
 import com.kakaocorp.lotto.model.Rule;
 import com.kakaocorp.lotto.ui.StreamLottoView;
 import com.kakaocorp.lotto.ui.LottoView;
-import com.kakaocorp.lotto.ui.LottoPresenter;
+import com.kakaocorp.lotto.ui.LottoController;
 
 import java.util.Random;
 
@@ -31,7 +31,7 @@ public class Main {
         ResultCounter counter = new ResultCounter();
 
         LottoView view = new StreamLottoView(System.in, System.out);
-        LottoPresenter presenter = new LottoPresenter(view, dispenser, counter, calculator);
+        LottoController presenter = new LottoController(view, dispenser, counter, calculator);
 
         presenter.onStart();
     }

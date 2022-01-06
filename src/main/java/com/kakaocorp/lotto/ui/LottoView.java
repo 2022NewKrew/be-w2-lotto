@@ -1,23 +1,21 @@
 package com.kakaocorp.lotto.ui;
 
-import com.kakaocorp.lotto.model.LottoResult;
 import com.kakaocorp.lotto.model.LottoTicket;
 
-public abstract class LottoView {
+import java.util.List;
 
-    protected LottoPresenter presenter;
+public interface LottoView {
 
-    public void attachPresenter(LottoPresenter presenter) {
-        this.presenter = presenter;
-    }
-
-    public abstract void showPaymentPrompt(LottoContext context);
-    public abstract void showManualCountPrompt(LottoContext context);
-    public abstract void showManualTicketsPrompt(LottoContext context, int count);
-    public abstract void printTicketHeader(int size);
-    public abstract void printTicket(LottoTicket tickets);
-    public abstract void showWinningNumbersPrompt(LottoContext context);
-    public abstract void printResultHeader();
-    public abstract void printResult(LottoResult result, int count);
-    public abstract void printProfit(int profit);
+    int showPaymentPrompt();
+    int showManualCountPrompt();
+    void showManualTicketPromptHeader();
+    List<Integer> acceptManualTicketInput();
+    void printTicketHeader(int size);
+    void printTicket(LottoTicket ticket);
+    List<Integer> showWinningNumbersPrompt();
+    int showBonusNumberPrompt();
+    void printResultHeader();
+    void printNormalResult(int matches, int value, int count);
+    void printBonusResult(int matches, int value, int count);
+    void printProfit(int profit);
 }

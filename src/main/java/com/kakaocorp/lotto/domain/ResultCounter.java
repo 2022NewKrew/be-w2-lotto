@@ -40,7 +40,7 @@ public class ResultCounter {
     private int reduce(int acc, Map.Entry<LottoResult, Integer> x) {
         LottoResult result = x.getKey();
         int count = x.getValue();
-        return acc + result.getValue(count);
+        return acc + count * result.getValue();
     }
 
     private void increment(Map<LottoResult, Integer> map, LottoResult result) {

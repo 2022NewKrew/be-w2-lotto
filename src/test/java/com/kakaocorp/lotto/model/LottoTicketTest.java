@@ -31,11 +31,4 @@ class LottoTicketTest {
 
         assertEquals(subject, result);
     }
-
-    @Test
-    void toArrayString() {
-        String result = subject.toArrayString();
-
-        assertEquals("[17, 18, 22, 30, 31, 41]", result);
-    }
 }

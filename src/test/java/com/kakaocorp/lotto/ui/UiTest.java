@@ -24,7 +24,7 @@ class UiTest {
     private ProfitCalculator calculator;
     private ResultCounter counter;
     private PrintStream out;
-    private LottoPresenter presenter;
+    private LottoController presenter;
 
     @BeforeEach
     void setUp() {
@@ -66,12 +66,12 @@ class UiTest {
                 "보너스 볼을 입력해 주세요.\n" +
                 "당첨 통계\n" +
                 "---------\n" +
-                "3개 일치 (5000원)- 0개\n" +
-                "4개 일치 (50000원)- 0개\n" +
-                "5개 일치 (1500000원)- 1개\n" +
-                "5개 일치, 보너스 볼 일치 (30000000원)- 0개\n" +
-                "6개 일치 (2000000000원)- 1개\n" +
-                "총 수익률은 40030000%입니다.\n";
+                "3개 일치 (5000원) - 0개\n" +
+                "4개 일치 (50000원) - 0개\n" +
+                "5개 일치 (1500000원) - 1개\n" +
+                "5개 일치, 보너스 볼 일치 (30000000원) - 0개\n" +
+                "6개 일치 (2000000000원) - 1개\n" +
+                "총 수익률은 40029900%입니다.\n";
         assertEquals(expected, out.toString());
     }
 
@@ -79,6 +79,6 @@ class UiTest {
         InputStream in = new StringInputStream(input.getBytes(StandardCharsets.UTF_8));
         out = new StringPrintStream();
         LottoView view = new StreamLottoView(in, out);
-        presenter = new LottoPresenter(view, dispenser, counter, calculator);
+        presenter = new LottoController(view, dispenser, counter, calculator);
     }
 }

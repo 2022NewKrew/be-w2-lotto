@@ -1,17 +1,15 @@
 package com.kakaocorp.lotto.ui;
 
-import com.kakaocorp.lotto.model.LottoResult;
 import com.kakaocorp.lotto.model.LottoTicket;
 
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class StreamLottoView extends LottoView {
+public class StreamLottoView implements LottoView {
 
     private final Scanner sc;
     private final PrintStream out;
@@ -22,30 +20,31 @@ public class StreamLottoView extends LottoView {
     }
 
     @Override
-    public void showPaymentPrompt(LottoContext context) {
+    public int showPaymentPrompt() {
         out.println("구입금액을 입력해 주세요.");
         String input = sc.nextLine();
-        int payment = Integer.parseInt(input);
-        presenter.onPaymentInput(context, payment);
+        return Integer.parseInt(input);
     }
 
     @Override
-    public void showManualCountPrompt(LottoContext context) {
+    public int showManualCountPrompt() {
         out.println("수동으로 구매할 로또 수를 입력해 주세요.");
-        String autoInput = sc.nextLine();
-        int auto = Integer.parseInt(autoInput);
-        presenter.onManualCountInput(context, auto);
+        String input = sc.nextLine();
+        return Integer.parseInt(input);
     }
 
     @Override
-    public void showManualTicketsPrompt(LottoContext context, int count) {
+    public void showManualTicketPromptHeader() {
         out.println("수동으로 구매할 번호를 입력해 주세요.");
-        List<List<Integer>> manualTickets = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            List<Integer> numbers = parseManualTicketInput();
-            manualTickets.add(numbers);
-        }
-        presenter.onManualTicketsInput(context, manualTickets);
+    }
+
+    @Override
+    public List<Integer> acceptManualTicketInput() {
+        String input = sc.nextLine();
+        String[] split = input.split(",\\s*");
+        return Arrays.stream(split)
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -56,20 +55,28 @@ public class StreamLottoView extends LottoView {
 
     @Override
     public void printTicket(LottoTicket ticket) {
-        out.println(ticket.toArrayString());
+        List<Integer> numbers = ticket.getNumbers()
+                .stream()
+                .sorted()
+                .collect(Collectors.toList());
+        out.println(numbers);
     }
 
     @Override
-    public void showWinningNumbersPrompt(LottoContext context) {
+    public List<Integer> showWinningNumbersPrompt() {
         out.println("지난 주 당첨 번호를 입력해 주세요.");
         String input = sc.nextLine();
         String[] split = input.split(",\\s*");
-        List<Integer> winningNumbers = Arrays.stream(split)
+        return Arrays.stream(split)
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public int showBonusNumberPrompt() {
         out.println("보너스 볼을 입력해 주세요.");
-        int bonusNumber = Integer.parseInt(sc.nextLine());
-        presenter.onWinningNumbersInput(context, winningNumbers, bonusNumber);
+        String input = sc.nextLine();
+        return Integer.parseInt(input);
     }
 
     @Override
@@ -79,21 +86,20 @@ public class StreamLottoView extends LottoView {
     }
 
     @Override
-    public void printResult(LottoResult result, int count) {
-        out.println(result.toPrintString(count));
+    public void printNormalResult(int matches, int value, int count) {
+        //noinspection RedundantStringFormatCall
+        out.println(String.format("%d개 일치 (%d원) - %d개", matches, value, count));
+    }
+
+    @Override
+    public void printBonusResult(int matches, int value, int count) {
+        //noinspection RedundantStringFormatCall
+        out.println(String.format("%d개 일치, 보너스 볼 일치 (%d원) - %d개", matches, value, count));
     }
 
     @Override
     public void printProfit(int profit) {
         //noinspection RedundantStringFormatCall
         out.println(String.format("총 수익률은 %d%%입니다.", profit));
-    }
-
-    private List<Integer> parseManualTicketInput() {
-        String input = sc.nextLine();
-        String[] split = input.split(",\\s*");
-        return Arrays.stream(split)
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
     }
 }
