@@ -39,10 +39,13 @@ public enum LottoResultState {
      * @return 현재 유저 로또가 몇등인지 enum객체 반환
      */
     public static LottoResultState calcMatchResult(LottoNumber winningLottoNumber, LottoNumber curLottoNumber, int winningLottoBonus) {
-        Set<Integer> winningLottoNumberDiffSet = createDiffSet(winningLottoNumber, curLottoNumber);
-        Set<Integer> curLottoNumberDiffSet = createDiffSet(curLottoNumber, winningLottoNumber);
+        Set<Integer> winningLottoNumberDiffSet = new HashSet<>(winningLottoNumber.getAll());
+        winningLottoNumberDiffSet.removeAll(curLottoNumber.getAll());
 
-        LottoResultState resultState = mapResultToState(winningLottoNumberDiffSet.size());
+        Set<Integer> curLottoNumberDiffSet = new HashSet<>(curLottoNumber.getAll());
+        curLottoNumberDiffSet.removeAll(winningLottoNumber.getAll());
+
+        LottoResultState resultState = mapResultToState(LOTTO_PICK_NUMBER - winningLottoNumberDiffSet.size());
         if(resultState != LottoResultState.SECOND)
             return resultState;
 
@@ -51,34 +54,18 @@ public enum LottoResultState {
 
     private static LottoResultState mapResultToState(int matchResult) {
         switch (matchResult) {
-            case 0:
+            case LOTTO_PICK_NUMBER:
                 return LottoResultState.FIRST;
-            case 1:
+            case LOTTO_PICK_NUMBER - 1:
                 return LottoResultState.SECOND;
-            case 2:
+            case LOTTO_PICK_NUMBER - 2:
                 return LottoResultState.FOURTH;
-            case 3:
+            case LOTTO_PICK_NUMBER - 3:
                 return LottoResultState.FIFTH;
             default:
                 return LottoResultState.NOTMATCH;
         }
     }
-
-    /**
-     * 차지합을 반환하주는 메서드입니다.
-     *
-     * @param source source 배열
-     * @param target target 배열
-     * @return
-     */
-    private static Set<Integer> createDiffSet(LottoNumber source, LottoNumber target) {
-        Set<Integer> sourceSet = new HashSet<>(source.getAll());
-        Set<Integer> targetSet = new HashSet<>(target.getAll());
-
-        sourceSet.removeAll(targetSet);
-        return sourceSet;
-    }
-
 
     public int getNumOfMatchs() {
         return numOfMatchs;

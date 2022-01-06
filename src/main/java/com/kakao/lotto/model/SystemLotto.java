@@ -28,9 +28,8 @@ public class SystemLotto {
 
         winningLottoNumbers = new LottoNumber(Arrays.stream(tmpIntArray)
                 .limit(ConstLottoConfig.LOTTO_PICK_NUMBER)
-                .sorted()
                 .boxed()
-                .collect(Collectors.toList()));
+                .collect(Collectors.toSet()));
         bonus = tmpIntArray[ConstLottoConfig.LOTTO_PICK_NUMBER];
     }
 

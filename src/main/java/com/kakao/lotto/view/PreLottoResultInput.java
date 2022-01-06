@@ -49,6 +49,12 @@ public class PreLottoResultInput {
             return this;
         }
 
+        public Builder setPreLottoNumber(String preLottoNumber) {
+            this.preLottoNumber = new LottoNumber(preLottoNumber);
+
+            return this;
+        }
+
         /**
          * 보너스 번호 정보를 입력받는 메서드입니다.
          * @return  builder 클래스 자신
@@ -56,6 +62,12 @@ public class PreLottoResultInput {
         public Builder setBonusNumber(){
             this.bonus = ChangeVaildInput.inputIntStringManufactor(ConstStringSpace.INPUT_BONUS_NUMBER,number -> number,
                     number -> preLottoNumber.getAll().contains(number) || (number <= 0 || number > ConstLottoConfig.LOTTO_NUMBER_RANGE));
+
+            return this;
+        }
+
+        public Builder setBonusNumber(String bonus){
+            this.bonus = Integer.parseInt(bonus);
 
             return this;
         }

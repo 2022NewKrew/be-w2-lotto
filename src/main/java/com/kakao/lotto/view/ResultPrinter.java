@@ -3,9 +3,13 @@ package com.kakao.lotto.view;
 import com.kakao.lotto.model.ConstLottoConfig;
 import com.kakao.lotto.model.LottoNumber;
 import com.kakao.lotto.model.LottoResultState;
+import com.kakao.lotto.model.SystemLotto;
+import com.kakao.lotto.model.UserLotto;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 /**
@@ -14,7 +18,7 @@ import java.util.Map;
  * 결과 출력을 위한 클래스입니다.
  * print 관련 함수들의 집합입니다.
  */
-public class PrintResult {
+public class ResultPrinter {
     /**
      * 결과 출력을 위해 사용자가 가진 로또들과 당첨 로또의 정보를 받아 저장합니다.
      */
@@ -23,11 +27,11 @@ public class PrintResult {
     private final LottoNumber winningLottoNumber;
     private final int winningLottoBonusNumber;
 
-    public PrintResult(List<LottoNumber> buyLottoNumbers, int numOfCustomLotto, LottoNumber winningLottoNumber, int winningLottoBonusNumber) {
-        this.buyLottoNumbers = buyLottoNumbers;
-        this.numOfCustomLotto = numOfCustomLotto;
-        this.winningLottoNumber = winningLottoNumber;
-        this.winningLottoBonusNumber = winningLottoBonusNumber;
+    public ResultPrinter(UserLotto userLotto, SystemLotto systemLotto) {
+        this.buyLottoNumbers = userLotto.getLottoNumbers();
+        this.numOfCustomLotto = userLotto.getNumOfCustomLotto();
+        this.winningLottoNumber = systemLotto.getWinningLottoNumbers();
+        this.winningLottoBonusNumber = systemLotto.getBonus();
     }
 
     /**
@@ -37,7 +41,7 @@ public class PrintResult {
         System.out.println(String.format(ConstStringSpace.NUMBERS_OF_CUSTOM_AND_AUTO_LOTTOS, numOfCustomLotto, buyLottoNumbers.size() - numOfCustomLotto));
 
         for (LottoNumber buyLottoNumber : buyLottoNumbers) {
-            System.out.println(buyLottoNumber);
+            System.out.println(buyLottoNumber.getAll().stream().sorted().collect(Collectors.toList()));
         }
     }
 
@@ -75,6 +79,32 @@ public class PrintResult {
         }
 
         printProfitRate(sum, buyLottoNumbers.size() * ConstLottoConfig.LOTTO_PRICE);
+    }
+
+    public Map<Integer, String> createResultHashMap(Map<LottoResultState, Integer> result) {
+        Map<Integer, String> tempMap = new HashMap<>();
+
+        int i = 0;
+        for (LottoResultState state : result.keySet()) {
+            String printString = (state == LottoResultState.SECOND) ?
+                    String.format(ConstStringSpace.RESULT_STRING, state.getNumOfMatchs(), ConstStringSpace.SECOND_PRICE_ADDITION_STRING, state.getPrice(), result.get(state)) : String.format(ConstStringSpace.RESULT_STRING, state.getNumOfMatchs(), " ", state.getPrice(), result.get(state));
+
+            tempMap.put(i++, printString);
+        }
+
+        return tempMap;
+    }
+
+    public int createProfitRate(Map<LottoResultState, Integer> result) {
+        int sum = 0;
+
+        for (LottoResultState state : result.keySet()) {
+            sum += state.getPrice() * result.get(state);
+        }
+
+        if(buyLottoNumbers.size() == 0)
+            return 0;
+        return (int) ((sum - buyLottoNumbers.size() * ConstLottoConfig.LOTTO_PRICE) / (double) (buyLottoNumbers.size() * ConstLottoConfig.LOTTO_PRICE) * 100);
     }
 
     /**

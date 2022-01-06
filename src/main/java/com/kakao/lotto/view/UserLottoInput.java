@@ -4,6 +4,7 @@ import com.kakao.lotto.model.ConstLottoConfig;
 import com.kakao.lotto.model.LottoNumber;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -72,6 +73,12 @@ public class UserLottoInput {
             return this;
         }
 
+        public Builder setNumberOfAllNumber(String numberOfAllNumber){
+            this.numberOfAllNumber = Integer.parseInt(numberOfAllNumber) / ConstLottoConfig.LOTTO_PRICE;
+
+            return this;
+        }
+
         /**
          * 사용자 입력을 받을 로또 갯수를 입력받아 저장하는 메서드입니다.
          * 사용자 입력이 총 갯수를 넘어설 경우를 대비해 둘 중 작은값으로 저장 되게 만들었습니다.
@@ -86,6 +93,16 @@ public class UserLottoInput {
             return this;
         }
 
+        public Builder setNumberOfCustomNumber(String customLotto) {
+            int numOfCustomNumber = 0;
+            if(!"".equals(customLotto))
+                numOfCustomNumber = customLotto.split("\n").length;
+
+            this.numberOfCustomNumber = Math.min(numberOfAllNumber, numOfCustomNumber);
+
+            return this;
+        }
+
         /**
          * 사용자 입력으로 유효한 로또들을 입력받은 갯수 만큼 저장하는 메서드입니다.
          *
@@ -96,7 +113,21 @@ public class UserLottoInput {
             if (this.numberOfCustomNumber != 0)
                 createdCustomLotto = Stream.generate(ChangeVaildInput::inputIntArrayStringManufactor)
                         .limit(this.numberOfCustomNumber)
+                        .sorted()
                         .collect(Collectors.toList());
+
+            return this;
+        }
+
+        public Builder setCustomLottos(String customLottos) {
+            this.createdCustomLotto = new ArrayList<>();
+
+            if(this.numberOfCustomNumber != 0) {
+                this.createdCustomLotto = Arrays.stream(customLottos.split("\n"))
+                        .limit(numberOfCustomNumber)
+                        .map(LottoNumber::new)
+                        .collect(Collectors.toList());
+            }
 
             return this;
         }
