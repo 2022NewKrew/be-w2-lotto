@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LottoMachine {
-    private static final RandomMaker randomMaker = new RandomMaker();
+    private final RandomMaker randomMaker = new RandomMaker();
     private static final int NUMBER_OF_LOTTERY_NUMBERS = 6;
     private static final int MIN_LOTTO_NUMBER = 1;
     private static final int MAX_LOTTO_NUMBER = 45;
@@ -23,22 +23,20 @@ public class LottoMachine {
     public LottoMachine() {
     }
 
-    public static List<Lotto> buySeveralLotto(long purchaseAmount) {
+    public List<Lotto> buySeveralLotto(long purchaseAmount) {
         Validation.notLessThanLong(purchaseAmount, MIN_PRISE, new InvalidPurchaseAmount(ErrorMessage.NEGATIVE_PURCHASE_AMOUNT.getMessage()));
         Validation.notMoreThanLong(purchaseAmount, MAX_PRISE, new InvalidPurchaseAmount(ErrorMessage.MAX_PURCHASE_AMOUNT.getMessage()));
 
-        // TODO - 남은 금액 계산
         long lottoCount = purchaseAmount / LOTTO_PRICE;
-
-        return Stream.generate(LottoMachine::buy)
+        return Stream.generate(this::buy)
                 .limit(lottoCount)
                 .collect(Collectors.toList());
     }
 
-    private static Lotto buy() {
+    private Lotto buy() {
         Set<Integer> numbers = new HashSet<>();
 
-        while(numbers.size() < NUMBER_OF_LOTTERY_NUMBERS) {
+        while (numbers.size() < NUMBER_OF_LOTTERY_NUMBERS) {
             numbers.add(randomMaker.getRandomNumber(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER));
         }
         return new Lotto(numbers);
