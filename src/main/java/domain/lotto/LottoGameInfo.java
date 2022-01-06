@@ -15,14 +15,6 @@ public class LottoGameInfo {
         this.autoLottoQuantity = this.lottoQuantity - manualLottoQuantity;
     }
 
-    public int getPurchaseQuantity() {
-        return lottoQuantity;
-    }
-
-    public int getAutomaticallyPurchaseQuantity() {
-        return autoLottoQuantity;
-    }
-
     private void validatePositiveNumber(int number) {
         if (number < 0) {
             throw new IllegalArgumentException("[에러] 음수 값을 입력할 수 없습니다.");
@@ -41,5 +33,13 @@ public class LottoGameInfo {
         if (money < numOfPurchaseManually * LOTTO_PRICE) {
             throw new IllegalArgumentException("[에러] 입력한 금액보다 많은 로또를 구매할 수 없습니다.");
         }
+    }
+
+    public int getPurchaseQuantity() {
+        return lottoQuantity;
+    }
+
+    public int getAutomaticallyPurchaseQuantity() {
+        return autoLottoQuantity;
     }
 }
