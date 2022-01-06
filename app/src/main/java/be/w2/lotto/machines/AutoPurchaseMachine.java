@@ -18,7 +18,7 @@ public class AutoPurchaseMachine extends PurchaseMachine {
     }
 
     public static AutoPurchaseMachine getInstance() {
-        if(INSTANCE == null)
+        if (INSTANCE == null)
             INSTANCE = new AutoPurchaseMachine();
         return INSTANCE;
     }
@@ -31,16 +31,16 @@ public class AutoPurchaseMachine extends PurchaseMachine {
     }
 
     private Lotto createLottoRandomly() {
-        List<Integer> randomNumbers = getListOfRandomNumber(Lotto.LENGTH);
+        List<Integer> randomNumbers = getListOfRandomNumber();
         Collections.sort(randomNumbers);
         List<LottoNumber> lottoNumbers = getLottoNumbersBy(randomNumbers);
         return new Lotto(lottoNumbers);
     }
 
-    private List<Integer> getListOfRandomNumber(int length) {
-        List<Integer> oneToNinetyNine = getListOfMinToMaxNumOfLotto();
-        Collections.shuffle(oneToNinetyNine);
-        List<Integer> numbers = oneToNinetyNine.subList(0, Lotto.LENGTH);
+    private List<Integer> getListOfRandomNumber() {
+        List<Integer> minToMaxNumOfLotto = getListOfMinToMaxNumOfLotto();
+        Collections.shuffle(minToMaxNumOfLotto);
+        List<Integer> numbers = minToMaxNumOfLotto.subList(0, Lotto.LENGTH);
         return numbers;
     }
 
@@ -54,7 +54,7 @@ public class AutoPurchaseMachine extends PurchaseMachine {
 
     private List<LottoNumber> getLottoNumbersBy(List<Integer> numbers) {
         List<LottoNumber> lottoNumbers = new ArrayList<>();
-        for(Integer number: numbers) {
+        for (Integer number : numbers) {
             lottoNumbers.add(LottoNumber.of(number));
         }
         return lottoNumbers;
