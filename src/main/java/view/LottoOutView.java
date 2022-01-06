@@ -1,12 +1,12 @@
 package view;
 
-import dto.LottoDto;
+import dto.YieldDto;
 import dto.LottoResultDto;
 import dto.LottoResultsDto;
 
 import java.util.List;
 
-public class LottoPrinter {
+public class LottoOutView {
 
 
     public void printLotto(List<String> lottoTicketsView) {
@@ -29,7 +29,7 @@ public class LottoPrinter {
                 , lottoResult.getLottoResult().getPrizeMoney(), lottoResult.getCount());
     }
 
-    public void printYield(LottoDto lottoDto) {
+    public void printYield(YieldDto lottoDto) {
         System.out.println("총 수익률은 " + (lottoDto.getEarnedMoney() - lottoDto.getPrice()) / lottoDto.getPrice() * 100 + "%입니다.");
     }
 }

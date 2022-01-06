@@ -5,9 +5,9 @@ import domain.LottoResult;
 public class LottoResultDto implements Comparable<LottoResultDto> {
 
     private final LottoResult lottoResult;
-    private final int count;
+    private final long count;
 
-    public LottoResultDto(LottoResult lottoResult, int count) {
+    public LottoResultDto(LottoResult lottoResult, long count) {
         this.lottoResult = lottoResult;
         this.count = count;
     }
@@ -16,7 +16,7 @@ public class LottoResultDto implements Comparable<LottoResultDto> {
         return lottoResult;
     }
 
-    public int getCount() {
+    public long getCount() {
         return count;
     }
 
