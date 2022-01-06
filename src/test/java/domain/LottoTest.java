@@ -1,11 +1,13 @@
 package domain;
 
+import exceptions.InvalidLastWeekWinningNumber;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,9 +37,39 @@ class LottoTest {
 
     @Test
     @DisplayName("[실패] 생성자에 null을 넣을 시 IllegalArgumentException을 던져야 한다")
-    void Lotto_Failed() {
+    void Lotto_Failed_By_Null() {
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new Lotto(null));
+    }
+
+    @Test
+    @DisplayName("[실패] 로또 개수가 6개가 아닐 때 InvalidLastWeekWinningNumber를 던져야 한다")
+    void Lotto_Failed_By_InvalidLottoNumberLength() {
+        Set<Integer> numbers = new HashSet<>();
+        numbers.add(1);
+        numbers.add(2);
+        numbers.add(3);
+        numbers.add(4);
+        numbers.add(5);
+
+        Assertions.assertThrows(InvalidLastWeekWinningNumber.class,
+                () -> new Lotto(numbers));
+    }
+
+    @DisplayName("[실패] 범위를 벗어나는 숫자가 들어오면 InvalidLastWeekWinningNumber를 던져야 한다")
+    @ParameterizedTest(name = "{0} 들어오는 경우")
+    @ValueSource(ints = {0, 46, -1})
+    void Lotto_Failed_By_(int invalidNumber) {
+        Set<Integer> numbers = new HashSet<>();
+        numbers.add(1);
+        numbers.add(2);
+        numbers.add(3);
+        numbers.add(4);
+        numbers.add(5);
+        numbers.add(invalidNumber);
+
+        Assertions.assertThrows(InvalidLastWeekWinningNumber.class,
+                () -> new Lotto(numbers));
     }
 
     @DisplayName("[성공] checkMatchCount가 정상적으로 동작한다 ")
