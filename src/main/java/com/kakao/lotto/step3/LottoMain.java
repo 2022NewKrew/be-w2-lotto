@@ -6,29 +6,32 @@ import com.kakao.lotto.step3.view.InputLotto;
 import com.kakao.lotto.step3.view.LottoPrinter;
 import com.kakao.lotto.step3.view.LottoResultPrinter;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
 
 public class LottoMain {
 
     private int bonusNumber;
-    private int lottoNumber;
+    private int lottoCount;
     List<Lotto> lottos;
-    List<Lotto> manualLottos;
     List<Integer> winningNumbers;
     private InputLotto inputLotto = new InputLotto();
     LottoPrinter lottoPrinter = new LottoPrinter();
 
-    public void inputPrice() {
-        lottoNumber = inputLotto.getLottoNumber();
+    public void getLottoCount() {
+        lottoCount = inputLotto.getLottoCount();
     }
 
     public void inputManualLottos() {
-        manualLottos = inputLotto.getManualLottos(lottoNumber);
-        lottoPrinter.printBuyLottoNumber(lottoNumber, manualLottos.size());
+        lottos = inputLotto.getManualLottos(lottoCount);
+        lottoPrinter.printBuyLottoCount(lottoCount, lottos.size());
     }
 
     public void makeLotto() {
-        lottos = Lotto.makeLottos(lottoNumber, manualLottos);
+        lottos.addAll(Lotto.makeLottos(lottoCount - lottos.size()));
         lottoPrinter.printLottos(lottos);
     }
 
@@ -47,13 +50,24 @@ public class LottoMain {
         lottoResultPrinter.printProfitRate();
     }
 
+    public static Lotto stringToLotto(String s) {
+        return new Lotto(Pattern.compile(", ").splitAsStream(s)
+                .map(string -> Integer.valueOf(string)).collect(Collectors.toList()));
+    }
+
+    public static List<Lotto> getManualLottos(String s) {
+        return Arrays.stream(s.split("\r?\n")).map(LottoMain::stringToLotto).collect(Collectors.toList());
+    }
+
     public static void main(String[] args) {
+
         LottoMain lottoMain = new LottoMain();
-        lottoMain.inputPrice();
+        lottoMain.getLottoCount();
         lottoMain.inputManualLottos();
         lottoMain.makeLotto();
         lottoMain.inputWinningNumbers();
         lottoMain.inputBonusNumber();
         lottoMain.printResult();
+
     }
 }

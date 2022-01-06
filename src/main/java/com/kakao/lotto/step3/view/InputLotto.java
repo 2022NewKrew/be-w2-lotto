@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 public class InputLotto {
 
-    private int LOTTO_PRICE = 1000;
+    public final static int LOTTO_PRICE = 1000;
 
     private Scanner scanner = new Scanner(System.in);
 
@@ -26,7 +26,7 @@ public class InputLotto {
     }
 
     // 구입 금액을 입력받습니다. 정수가 아니거나 음수를 입력받았을 경우 다시 입력받습니다.
-    public int getLottoNumber() {
+    public int getLottoCount() {
         while(true) {
             try {
                 return inputPrice() / LOTTO_PRICE;
@@ -36,19 +36,19 @@ public class InputLotto {
         }
     }
 
-    private void checkSize(List<Integer> winningNumbers) throws Exception {
-        if(winningNumbers.size() != 6)
+    private void checkSize(List<Integer> lottoNumbers) throws Exception {
+        if(lottoNumbers.size() != 6)
             throw new Exception("6개의 번호를 입력해주세요");
     }
 
-    private void checkDuplicate(List<Integer> winningNumbers) throws Exception {
-        Set<Integer> winningSet = new HashSet<>(winningNumbers);
-        if(winningNumbers.size() != winningSet.size())
+    private void checkDuplicate(List<Integer> lottoNumbers) throws Exception {
+        Set<Integer> winningSet = new HashSet<>(lottoNumbers);
+        if(lottoNumbers.size() != winningSet.size())
             throw new Exception("중복 요소가 있습니다.");
     }
 
-    private void checkNumbers(List<Integer> winningNumbers) throws RuntimeException {
-        winningNumbers.stream()
+    private void checkNumbers(List<Integer> lottoNumbers) throws RuntimeException {
+        lottoNumbers.stream()
                 .filter(number -> number < 1 || number > 45)
                 .findAny()
                 .ifPresent(it -> {
@@ -57,13 +57,13 @@ public class InputLotto {
     }
 
     private List<Integer> inputLottoNumbers() throws Exception {
-        List<Integer> winningNumbers = Pattern.compile(", ").splitAsStream(scanner.nextLine())
+        List<Integer> lottoNumbers = Pattern.compile(", ").splitAsStream(scanner.nextLine())
                 .map(string -> Integer.valueOf(string)).collect(Collectors.toList());
-        checkSize(winningNumbers);
-        checkDuplicate(winningNumbers);
-        checkNumbers(winningNumbers);
-        Collections.sort(winningNumbers);
-        return winningNumbers;
+        checkSize(lottoNumbers);
+        checkDuplicate(lottoNumbers);
+        checkNumbers(lottoNumbers);
+        Collections.sort(lottoNumbers);
+        return lottoNumbers;
     }
 
     // 6개의 당첨 번호를 입력받습니다. 올바른 입력이 들어올 때까지 반복문을 돕니다.
@@ -73,7 +73,7 @@ public class InputLotto {
                 return inputLottoNumbers();
             } catch(Exception exception) {
                 System.out.println("1 ~ 45 사이의 정수를 ', '로 구분해 중복되지 않게 6개 입력해주세요.");
-           }
+            }
         }
     }
 

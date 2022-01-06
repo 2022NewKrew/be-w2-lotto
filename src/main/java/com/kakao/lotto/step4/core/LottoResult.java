@@ -1,9 +1,6 @@
 package com.kakao.lotto.step4.core;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LottoResult {
     
@@ -37,16 +34,28 @@ public class LottoResult {
             makeResult(Rank.valueOf(lotto.getSameNumber(winningNumbers), lotto.hasBonusNumber(bonusNumber)));
     }
 
-    // getter
-
-    public Map<Rank, Integer> getResults() {
-        return results;
-    }
-
     public int getProfitRate() {
         int profit = Arrays.stream(Rank.values()).map(rank -> rank.getWinningMoney() * results.get(rank))
                 .reduce(0, Integer::sum);
         return (int) ((long)profit * 100 / (lottos.size() * LOTTO_PRICE));
+    }
+
+    public String getResult(Rank rank) {
+        String resultString = " ";
+        if(rank == Rank.SECOND)
+            resultString = ", 보너스 볼 일치";
+        return String.format("%d개 일치%s(%d원)- %d개\n",
+                rank.getCountOfMatch(), resultString, rank.getWinningMoney(), results.get(rank));
+    }
+
+    public Map<String, Object> getResults() {
+        Map<String, Object> model = new HashMap<>();
+        Rank[] ranks = Rank.values();
+        for(Rank rank : ranks) {
+            model.put(rank.toString(), getResult(rank));
+        }
+        model.put("profit", getProfitRate());
+        return model;
     }
 
 }

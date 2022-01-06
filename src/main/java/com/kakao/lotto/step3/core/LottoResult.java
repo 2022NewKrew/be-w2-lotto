@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class LottoResult {
-    
+
     private int LOTTO_PRICE = 1000;
 
     private int bonusNumber;
