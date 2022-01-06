@@ -1,23 +1,22 @@
 package domain;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static java.util.Arrays.stream;
-
+/**
+ * 수동으로 뽑은 로또 객체입니다. 생성 할시 로또 번호를 주입합니다.
+ *
+ * @author jm.hong
+ */
 public class LottoNormal extends Lotto {
-
+    /**
+     *
+     * @param numbers 수동으로 뽑은 로또 번호를 주입합니다.
+     * @exception 6자리가 아닌 경우, 중복된 숫자가 있는 경우
+     */
     public LottoNormal(List<Integer> numbers) {
-        super(numbers);
-    }
-
-    public static LottoNormal createStringToLottoNumbers(String numbers) {
-
-        List<Integer> list = stream(numbers.split(",")).map(s -> Integer.parseInt(s.trim())).collect(Collectors.toList());
-
-        LottoNormal lottoNormal = new LottoNormal(list);
-        lottoNormal.validationOfkNumbers();
-        return lottoNormal;
+        super();
+        this.numbers = numbers;
+        validationOfkNumbers();
     }
 
 }

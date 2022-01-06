@@ -1,14 +1,10 @@
-import repository.LottoRepositoryInMemory;
-import service.LottoService;
-import service.LottoServiceImpl;
+import application.WebApplication;
 
 public class Main {
 
     public static void main(String[] args) {
-
-        LottoService lottoService = new LottoServiceImpl(new LottoRepositoryInMemory());
-        lottoService.run();
-
+//        new ConsoleApplication().run();
+        new WebApplication().run();
     }
 
 }

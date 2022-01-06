@@ -3,6 +3,11 @@ package domain;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 로또통계를 보여주는 객체입니다.
+ *
+ * @author jm.hong
+ */
 public class LottoStatistic {
     protected static final int LOTTO_END_NUMBER = 45;
     protected static final int LOTTO_START_NUMBER = 1;
@@ -27,47 +32,32 @@ public class LottoStatistic {
     List<Integer> winningNumbers;
     List<Lotto> lottos = new ArrayList<>();
 
-    private LottoStatistic() {
-    }
-
-    public LottoStatistic(int purchaseCount, int normalLottoCount, int autoLottoCount) {
+    /**
+     *
+     * @param purchaseCount 총 로또 구매수를 입력합니다.
+     * @param normalLottoCount 수동 로또 구매수를 입력합니다.
+     * @param autoLottoCount 자동 로또 구매수를 입력합니다.
+     * @param lottos 수동, 자동 로또로 구매한 모든 로또 리스트를 입력합니다.
+     */
+    public LottoStatistic(int purchaseCount, int normalLottoCount, int autoLottoCount, List<Lotto> lottos) {
         this.purchaseCount = purchaseCount;
         this.normalLottoCount = normalLottoCount;
         this.autoLottoCount = autoLottoCount;
+        this.lottos = lottos;
     }
 
+    /**
+     * @deprecated
+     * @param lottos 로또 리스트를 추가합니다.
+     */
     public void addLottos(List<Lotto> lottos) {
         this.lottos.addAll(lottos);
     }
 
-    public void calculateProfitRate() {
-        int purchasePrice = purchaseCount * 1000;
-        int allWinningAmount = getAllWinningAmount();
-        // (평가금액 - 원금) / 원금 * 100
-        profitRate = (allWinningAmount - purchasePrice) / purchasePrice * 100;
-    }
-
-    public void addLottoInfo(Lotto lotto) {
-
-        switch (lotto.getStatus()) {
-            case TREE_WINNING:
-                treeMatch++;
-                break;
-            case FOUR_WINNING:
-                fourMatch++;
-                break;
-            case FIVE_WINNING:
-                fiveMatch++;
-                break;
-            case FIVE_AND_BONUS_WINNING:
-                fiveAndBonusMatch++;
-                break;
-            case SIX_WINNING:
-                sixMatch++;
-                break;
-        }
-    }
-
+    /**
+     *
+     * @return 로또 통계 결과를 String으로 반환합니다.
+     */
     public String getLottoStatisticString() {
 
         return "당첨 통계\n" +
@@ -80,6 +70,10 @@ public class LottoStatistic {
                 "총 수익률은 " + this.profitRate + "%입니다.\n";
     }
 
+    /**
+     *
+     * @return 로또 구매현황을 String으로 반환합니다.
+     */
     public String getLottoListToString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("수동으로 ").append(normalLottoCount).append("장, 자동으로 ").append(autoLottoCount).append("개를 구매했습니다.\n");
@@ -91,17 +85,23 @@ public class LottoStatistic {
         return stringBuilder.toString();
     }
 
+    /**
+     * 현재 LottoStatistic 에 있는 로또들의 당첨상태, 등수별 당첨횟수를 업데이트합니다.
+     *
+     * @param winningNumbers 로또 당첨번호를 입력합니다.
+     * @param winningBonusNumber 로또 보너스번호를 입력합니다.
+     */
     public void updateStatus(List<Integer> winningNumbers, int winningBonusNumber) {
         this.winningNumbers = winningNumbers;
         this.winningBonusNumber = winningBonusNumber;
 
         validationWinningNumberAndWinningBonusNumber();
         updateLottosStatus();
-        updateLottoInfo();
+        updateLottoMatchInfo();
         calculateProfitRate();
     }
 
-    private void updateLottoInfo() {
+    private void updateLottoMatchInfo() {
         for (Lotto lotto : lottos) {
             this.addLottoInfo(lotto);
         }
@@ -158,4 +158,79 @@ public class LottoStatistic {
         return amount;
     }
 
+    private void calculateProfitRate() {
+        int purchasePrice = purchaseCount * 1000;
+        int allWinningAmount = getAllWinningAmount();
+        // (평가금액 - 원금) / 원금 * 100
+        profitRate = (allWinningAmount - purchasePrice) / purchasePrice * 100;
+    }
+
+    private void addLottoInfo(Lotto lotto) {
+
+        switch (lotto.getStatus()) {
+            case TREE_WINNING:
+                treeMatch++;
+                break;
+            case FOUR_WINNING:
+                fourMatch++;
+                break;
+            case FIVE_WINNING:
+                fiveMatch++;
+                break;
+            case FIVE_AND_BONUS_WINNING:
+                fiveAndBonusMatch++;
+                break;
+            case SIX_WINNING:
+                sixMatch++;
+                break;
+        }
+    }
+
+    public int getTreeMatch() {
+        return treeMatch;
+    }
+
+    public int getFourMatch() {
+        return fourMatch;
+    }
+
+    public int getFiveMatch() {
+        return fiveMatch;
+    }
+
+    public int getFiveAndBonusMatch() {
+        return fiveAndBonusMatch;
+    }
+
+    public int getSixMatch() {
+        return sixMatch;
+    }
+
+    public int getProfitRate() {
+        return profitRate;
+    }
+
+    public int getPurchaseCount() {
+        return purchaseCount;
+    }
+
+    public int getNormalLottoCount() {
+        return normalLottoCount;
+    }
+
+    public int getAutoLottoCount() {
+        return autoLottoCount;
+    }
+
+    public int getWinningBonusNumber() {
+        return winningBonusNumber;
+    }
+
+    public List<Integer> getWinningNumbers() {
+        return winningNumbers;
+    }
+
+    public List<Lotto> getLottos() {
+        return lottos;
+    }
 }
