@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
     implementation 'org.slf4j:slf4j-simple:1.7.32'
+    implementation 'com.h2database:h2:2.0.206'
     implementation 'com.sparkjava:spark-core:2.9.3'
     implementation 'com.sparkjava:spark-template-handlebars:2.7.1'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'

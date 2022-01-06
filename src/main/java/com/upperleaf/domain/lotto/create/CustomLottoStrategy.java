@@ -4,14 +4,14 @@ import com.upperleaf.domain.lotto.Lotto;
 
 import java.util.List;
 
-public class WebLottoCreateStrategy implements LottoCreateStrategy {
+public class CustomLottoStrategy implements LottoCreateStrategy {
 
     private final List<List<Integer>> lottoNums;
     private final LottoCreateStrategy randomLottoStrategy = new RandomLottoStrategy();
 
     private int manualCount = 0;
 
-    public WebLottoCreateStrategy(List<List<Integer>> lottoNums) {
+    public CustomLottoStrategy(List<List<Integer>> lottoNums) {
         this.lottoNums = lottoNums;
     }
 

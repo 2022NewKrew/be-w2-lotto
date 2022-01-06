@@ -28,7 +28,7 @@ public class LottoRoutes {
             long inputMoney = Long.parseLong(request.queryParams("inputMoney"));
             String manualNumber = request.queryParams("manualNumber");
 
-            LottosInfo info = lottoService.buyLotto(new LottoPaymentInfo(inputMoney), manualNumber, request.session());
+            LottosInfo info = lottoService.buyLotto(new LottoPaymentInfo(inputMoney, manualNumber), request.session());
 
             return templateEngine.render(new ModelAndView(info, "/show.html"));
         });

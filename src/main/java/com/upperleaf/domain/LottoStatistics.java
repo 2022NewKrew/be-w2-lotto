@@ -8,18 +8,13 @@ import java.util.stream.Collectors;
 
 public class LottoStatistics {
 
-    private final LottoMatcher lottoMatcher;
-
-    public LottoStatistics(LottoMatcher lottoMatcher) {
-        this.lottoMatcher = lottoMatcher;
-    }
-
     /**
      * 로또 등수에 따라 그룹화 해주는 메서드
      * @return Map(로또 등수, 당첨수)
      */
-    public Map<LottoRanking, Long> groupByLottoRanking() {
-        return lottoMatcher.match().stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+    public Map<LottoRanking, Long> groupByLottoRanking(LottoMatcher lottoMatcher) {
+        return lottoMatcher.match().stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 
     /**
@@ -28,8 +23,8 @@ public class LottoStatistics {
      * @param lottoPaymentInfo 로또 지불 정보 객체
      * @return 수익률
      */
-    public long getAllWinningProfitRate(LottoPaymentInfo lottoPaymentInfo) {
-        long profit = getAllWinningProfit() - lottoPaymentInfo.getPaymentAmount();
+    public long getAllWinningProfitRate(LottoMatcher lottoMatcher, LottoPaymentInfo lottoPaymentInfo) {
+        long profit = getAllWinningProfit(lottoMatcher) - lottoPaymentInfo.getPaymentAmount();
         return (long) (((double)profit / lottoPaymentInfo.getPaymentAmount()) * 100);
     }
 
@@ -37,8 +32,8 @@ public class LottoStatistics {
      * 로또 당첨이 되면서 얻게 된 모든 수익의 합
      * @return 로또 당첨금 수익 합
      */
-    public long getAllWinningProfit() {
-        return groupByLottoRanking().entrySet().stream().mapToLong(entry -> {
+    public long getAllWinningProfit(LottoMatcher lottoMatcher) {
+        return groupByLottoRanking(lottoMatcher).entrySet().stream().mapToLong(entry -> {
             LottoRanking ranking = entry.getKey();
             long count = entry.getValue();
             return ranking.getWinningPrice() * count;
