@@ -2,6 +2,7 @@ package com.kakaocorp.lotto.controller;
 
 import com.kakaocorp.lotto.domain.Lotto;
 import com.kakaocorp.lotto.domain.WinningLotto;
+import com.kakaocorp.lotto.dto.BuyLottoDto;
 import com.kakaocorp.lotto.dto.ResultResponse;
 import com.kakaocorp.lotto.service.LottoService;
 
@@ -15,10 +16,12 @@ public class LottoGameConsoleController {
     public LottoGameConsoleController() {
     }
 
-    public List<Lotto> buy() {
+    public BuyLottoDto buy() {
         int orderPrice = ioController.inputInt("구입금액을 입력해 주세요.");
+        int orderManualNumber = ioController.inputInt("수동으로 구매할 로또 수를 입력해 주세요.");
+        List<Lotto> lottoList = ioController.inputManualNumbers("수동으로 구매할 번호를 입력해 주세요.", orderManualNumber);
 
-        return lottoService.buy(orderPrice);
+        return lottoService.buy(orderPrice, lottoList);
     }
 
     public ResultResponse result(List<Lotto> lottoList) {

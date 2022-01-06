@@ -1,9 +1,10 @@
 package com.kakaocorp.lotto.controller;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import com.kakaocorp.lotto.domain.Lotto;
+
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class IoController {
 
@@ -21,8 +22,25 @@ public class IoController {
 
     public List<Integer> inputNumbers(String message) {
         String numbersLine = inputString(message);
-        return Arrays.stream(numbersLine.split(","))
+        return splitAndSortNumbersLine(numbersLine);
+    }
+
+    private List<Integer> splitAndSortNumbersLine(String numbersLine) {
+        List<Integer> result = Arrays.stream(numbersLine.split(","))
                 .map(s -> Integer.parseInt(s.trim()))
+                .sorted()
                 .collect(Collectors.toList());
+        return result;
+    }
+
+    public List<Lotto> inputManualNumbers(String message, int orderManualNumber) {
+        List<Lotto> lottoList = new ArrayList<>();
+        System.out.println(message);
+        IntStream.range(0, orderManualNumber).forEach(i -> {
+            List<Integer> lottoNumbers = splitAndSortNumbersLine(sc.nextLine());
+            lottoList.add(new Lotto(lottoNumbers));
+        });
+
+        return lottoList;
     }
 }
