@@ -5,14 +5,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum Winning {
-    FIRST_WINNING(1, 6, 0, 2_000_000_000),
-    SECOND_WINNING(2, 5, 1, 1_500_000),
-    THIRD_WINNING(3, 5, 0, 1_500_000),
-    FOURTH_WINNING(4, 4, 0, 50_000),
-    FIFTH_WINNING(5, 3, 0, 5_000),
-    SIXTH_WINNING(6, 2, 0, 0),
-    SEVENTH_WINNING(7, 1, 0, 0),
-    EIGHTH_WINNING(8, 0, 0, 0);
+    FIRST_WINNING(1, 6,  2_000_000_000),
+    SECOND_WINNING(2, 5,  1_500_000),
+    THIRD_WINNING(3, 5,  1_500_000),
+    FOURTH_WINNING(4, 4,  50_000),
+    FIFTH_WINNING(5, 3,  5_000),
+    SIXTH_WINNING(6, 2,  0),
+    SEVENTH_WINNING(7, 1,  0),
+    EIGHTH_WINNING(8, 0,  0);
 
     private static final Map<Integer, Integer> RANK_PRICE;
     private static final Map<Integer, Integer> RANK_HITTING;
@@ -29,13 +29,11 @@ public enum Winning {
 
     private final int rank;
     private final int hittingCnt;
-    private final int bonusCnt;
     private final int winningPrice;
 
-    Winning(int rank, int hittingCnt, int bonusCnt, int winningPrice) {
+    Winning(int rank, int hittingCnt, int winningPrice) {
         this.rank = rank;
         this.hittingCnt = hittingCnt;
-        this.bonusCnt = bonusCnt;
         this.winningPrice = winningPrice;
     }
 

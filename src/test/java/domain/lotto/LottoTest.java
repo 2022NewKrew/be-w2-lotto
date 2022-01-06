@@ -59,4 +59,21 @@ class LottoTest {
         Assertions.assertEquals(1, result1); //1개 일치
         Assertions.assertEquals(0, result2); //일치x
     }
+
+    @Test
+    @DisplayName("로또 랜덤 생성 테스트")
+    void makeOneInputLottoTest() {
+        //given
+        List<Number> lottoNums = new ArrayList<>();
+        for (int i = 1; i <= 6; i++) {
+            lottoNums.add(new Number(i));
+        }
+        Lotto testLotto1 = new Lotto(lottoNums);
+
+        //when
+        Lotto testLotto2 = Lotto.makeOneInputLotto(lottoNums);
+
+        //then
+        Assertions.assertEquals(6, testLotto1.compareLotto(testLotto2));
+    }
 }

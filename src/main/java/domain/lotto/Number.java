@@ -1,5 +1,7 @@
 package domain.lotto;
 
+import java.util.Objects;
+
 public class Number implements Comparable<Number> {
     private final int value;
     private static final int MIN_NUMBER = 1;
@@ -26,7 +28,16 @@ public class Number implements Comparable<Number> {
         return value;
     }
 
-    public boolean isSame(Number targetNum) {
-        return value == targetNum.getValue();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Number number = (Number) o;
+        return value == number.value;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 }
