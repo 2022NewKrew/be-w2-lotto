@@ -31,7 +31,6 @@ public class InputView {
     public Set<Integer> getWinnerNumbersFromScanner(String prompt) {
         System.out.print(prompt);
         Set<Integer> result = new TreeSet<>();
-        String input;
         while (result.size() < Prize.FIRST.getMatchedCount()) {
             result = getNumbers();
         }
