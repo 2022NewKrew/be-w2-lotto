@@ -15,7 +15,12 @@ public class InMemoryLottoRepository implements Repository {
     }
 
     @Override
-    public LottoBundle getLottoBundle(Long id) {
+    public LottoBundle findById(Long id) {
         return repository.get(id);
+    }
+
+    @Override
+    public void update(LottoBundle lottoBundle) {
+        repository.replace(lottoBundle.getId(), lottoBundle);
     }
 }

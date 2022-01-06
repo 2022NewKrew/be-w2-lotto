@@ -36,9 +36,16 @@ public class TypeConverter {
                 .collect(Collectors.toList());
     }
 
-    public static List<List<Integer>> strWithLineBreakerToListOfListInteger(String str){
+    public static List<List<Integer>> strWithLineBreakerToListOfListInteger(String str) {
         return Arrays.stream(str.split(LINE_BREAKER_REGEX))
                 .map(TypeConverter::strWithCommaToListInteger)
+                .collect(Collectors.toList());
+    }
+
+    public static List<Integer> strToListInteger(String numberStr) {
+        List<String> strings = Arrays.asList(numberStr.substring(1, numberStr.length() - 1).split(", "));
+        return strings.stream()
+                .map(TypeConverter::strToInteger)
                 .collect(Collectors.toList());
     }
 }

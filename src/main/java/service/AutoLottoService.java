@@ -3,13 +3,14 @@ package service;
 import dto.LastWeekWinningNumber;
 import dto.LottoResultDTO;
 import dto.PurchasingSheet;
+import repository.H2DBRepository;
 import repository.InMemoryLottoRepository;
 import repository.Repository;
 import service.lotto.LottoBundle;
 import service.lotto.LottoStore;
 
 public class AutoLottoService implements LottoService {
-    private final Repository repository = new InMemoryLottoRepository();
+    private final static Repository repository = new H2DBRepository();
     private final LottoStore lottoStore = new LottoStore();
 
     @Override
@@ -21,13 +22,14 @@ public class AutoLottoService implements LottoService {
 
     @Override
     public LottoBundle getPurchasedLottoBundle(Long lottoBundleId) {
-        return repository.getLottoBundle(lottoBundleId);
+        return repository.findById(lottoBundleId);
     }
 
     @Override
     public LottoResultDTO getLottoResult(LastWeekWinningNumber lastWeekWinningNumberDTO, Long lottoBundleId) {
-        LottoBundle lottoBundle = repository.getLottoBundle(lottoBundleId);
+        LottoBundle lottoBundle = repository.findById(lottoBundleId);
         lottoBundle.confirmTheWin(lastWeekWinningNumberDTO.getLastWeekWinningNumber(), lastWeekWinningNumberDTO.getBonusNumber());
+        repository.update(lottoBundle);
         return LottoResultDTO.of(lottoBundle);
     }
 }

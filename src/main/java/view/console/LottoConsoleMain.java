@@ -1,3 +1,5 @@
+package view.console;
+
 import dto.LastWeekWinningNumber;
 import view.console.input.InputView;
 import view.console.input.PriceInputView;
@@ -5,7 +7,7 @@ import view.console.output.LottoOutputView;
 import view.console.output.OutputView;
 import view.util.ResourceManager;
 
-public class LottoMain {
+public class LottoConsoleMain {
     private final InputView inputView = new PriceInputView();
     private final OutputView outputView = new LottoOutputView();
 

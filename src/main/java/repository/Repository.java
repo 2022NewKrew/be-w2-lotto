@@ -5,5 +5,7 @@ import service.lotto.LottoBundle;
 public interface Repository {
     void save(LottoBundle lottoBundle);
 
-    LottoBundle getLottoBundle(Long id);
+    LottoBundle findById(Long id);
+
+    void update(LottoBundle lottoBundle);
 }

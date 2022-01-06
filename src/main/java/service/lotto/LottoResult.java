@@ -50,6 +50,4 @@ public enum LottoResult {
     public String toString() {
         return str;
     }
-
-
 }

@@ -9,10 +9,17 @@ import java.util.Objects;
 
 public class LottoBundle {
     private final List<Lotto> lottoBundle;
-    private final Long id = AutoIncrementIdGenerator.get();
+    private final Long id;
 
     protected LottoBundle(List<Lotto> lottoBundle) {
         this.lottoBundle = lottoBundle;
+        this.id = AutoIncrementIdGenerator.get();
+    }
+
+    // 이거 고민이네...
+    public LottoBundle(List<Lotto> lottoBundle, Long id) {
+        this.lottoBundle = lottoBundle;
+        this.id = id;
     }
 
     public Long getId() {

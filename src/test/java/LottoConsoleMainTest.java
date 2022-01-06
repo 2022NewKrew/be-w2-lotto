@@ -8,7 +8,7 @@ import view.console.output.OutputView;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
-class LottoMainTest {
+class LottoConsoleMainTest {
     private final InputView inputView = new PriceInputView();
     private final OutputView outputView = new LottoOutputView();
 

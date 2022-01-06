@@ -11,6 +11,11 @@ public class Lotto {
         this.result = LottoResult.UNIDENTIFIED;
     }
 
+    public Lotto(List<Integer> numbers, LottoResult lottoResult){
+        this.numbers = numbers;
+        this.result = lottoResult;
+    }
+
     public List<Integer> getNumbers() {
         return numbers;
     }
@@ -30,7 +35,7 @@ public class Lotto {
         this.result = LottoResult.of(
                 (int) winningNumbers.stream()
                         .filter(numbers::contains)
-                        .count() ,
+                        .count(),
                 numbers.contains(bonusBall)
         );
     }

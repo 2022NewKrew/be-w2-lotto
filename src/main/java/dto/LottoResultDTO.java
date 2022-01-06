@@ -17,10 +17,6 @@ public class LottoResultDTO {
         this.yield = yield;
     }
 
-    public double getYield() {
-        return yield;
-    }
-
     public static LottoResultDTO of(LottoBundle lottoBundle) {
         final int prizeMoney = lottoBundle.getPrizeMoney();
         final int purchaseAmount = lottoBundle.getLottoBundle().size() * 1000;
@@ -30,7 +26,11 @@ public class LottoResultDTO {
         return new LottoResultDTO(lottoBundle.getLottoResults(), yield);
     }
 
-    public List<String> buildMessages(){
+    public double getYield() {
+        return yield;
+    }
+
+    public List<String> buildMessages() {
         final EnumSet<LottoResult> lottoResultEnumSet = LottoResult.getEnumSetRankedPlace();
 
         List<String> messages = new ArrayList<>();
@@ -39,7 +39,7 @@ public class LottoResultDTO {
         return messages;
     }
 
-    private void addLottoResultString(List<String> messages, LottoResult lottoResult){
+    private void addLottoResultString(List<String> messages, LottoResult lottoResult) {
         final int count = getNumOfWins(lottoResult);
 
         String sb = lottoResult.toString() +

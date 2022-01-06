@@ -18,9 +18,9 @@ import java.util.List;
 import java.util.Map;
 
 public class WebController {
-    LottoService lottoService = new AutoLottoService();
+    private final LottoService lottoService = new AutoLottoService();
 
-    public String purchaseLotto(Request req, Response res){
+    public String purchaseLotto(Request req, Response res) {
         final int money = TypeConverter.strToInteger(req.queryParams("inputMoney"));
         final List<List<Integer>> manualLottoNumbers = TypeConverter.strWithLineBreakerToListOfListInteger(req.queryParams("manualNumber"));
         final int manualLottoQuantity = manualLottoNumbers.size();
@@ -39,7 +39,7 @@ public class WebController {
         return model;
     }
 
-    public String matchLotto(Request req, Response res){
+    public String matchLotto(Request req, Response res) {
         final List<Integer> winningNumber = TypeConverter.strWithCommaToListInteger(req.queryParams("winningNumber"));
         final int bonusNumber = TypeConverter.strToInteger(req.queryParams("bonusNumber"));
         Long lottoId = TypeConverter.strToLong(req.queryParams("lottoId"));
@@ -55,7 +55,7 @@ public class WebController {
         return model;
     }
 
-    public String render(Map<String, Object> model, String templatePath){
+    public String render(Map<String, Object> model, String templatePath) {
         return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
     }
 }
