@@ -1,10 +1,7 @@
 package com.kakao.data.io;
 
 public class LottoOutputData {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 4f43f8b (1차 Commit)
+
     private LottoOutputData(){}
 
     public static final String RESULT_COMMENT_OF_PURCHASE = "%d개를 구매했습니다.\n";
@@ -16,10 +13,4 @@ public class LottoOutputData {
     public static final String RESULT_FORMAT_OF_WINNING_MATCH_WITH_BONUS_BALL = "%d개 일치, 보너스 볼 일치 (%d원)- %d\n";
 
     public static final String RESULT_FORMAT_OF_YIELD_RATE = "총 수익률을 %3d%%입니다.\n";
-<<<<<<< HEAD
-=======
-    public static final String RESULT_COMMENT_OF_PURCHASE = "%d개를 구매했습니다.\n";
->>>>>>> edb2074 (1일차 중간 PR)
-=======
->>>>>>> 4f43f8b (1차 Commit)
 }

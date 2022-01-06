@@ -1,27 +1,12 @@
 package com.kakao.io;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 import com.kakao.data.MatchBall;
-=======
-import com.kakao.data.LottoWinningData;
->>>>>>> 4f43f8b (1차 Commit)
-=======
-import com.kakao.data.MatchBall;
->>>>>>> 573229f (2일차 PR)
 import com.kakao.data.io.LottoOutputData;
 import com.kakao.helper.MapHelper;
 import com.kakao.model.Lotto;
 import com.kakao.model.LottoWinning;
 import com.kakao.model.LottoWinningReward;
-<<<<<<< HEAD
-=======
-import com.kakao.data.io.LottoOutputData;
-import com.kakao.model.Lotto;
->>>>>>> edb2074 (1일차 중간 PR)
-=======
->>>>>>> 4f43f8b (1차 Commit)
 import com.kakao.model.Lottos;
 
 import java.io.BufferedWriter;
@@ -31,16 +16,8 @@ import java.util.List;
 import java.util.Map;
 
 class LottoOutput {
-<<<<<<< HEAD
-<<<<<<< HEAD
     private LottoOutput() {}
 
-=======
->>>>>>> edb2074 (1일차 중간 PR)
-=======
-    private LottoOutput() {}
-
->>>>>>> 4f43f8b (1차 Commit)
     private static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
     public static void printString (String str) {
@@ -85,10 +62,6 @@ class LottoOutput {
             sb.append("\n");
         }
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 4f43f8b (1차 Commit)
 
     // winning 정보 출력
     public static void printLottoWinning(Integer moneyToBuyLotto, Lottos lottos, LottoWinning lottoWinning){
@@ -113,39 +86,16 @@ class LottoOutput {
     }
 
     // 당첨 결과 출력
-<<<<<<< HEAD
-    private static List<Integer> appendWinningResult(StringBuilder sb, Lottos lottos, LottoWinning lottoWinning) {
-        List<Integer> countOfWinningLottos = lottos.matchLottosAreWinning(lottoWinning);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     private static Map<LottoWinningReward, Integer> appendWinningResult(StringBuilder sb, Lottos lottos, LottoWinning lottoWinning) {
         Map<LottoWinningReward, Integer> countOfWinningLottos = lottos.matchLottosAreWinning(lottoWinning);
->>>>>>> 5806f60 (2일차 PR)
         for(MatchBall matchBall: MatchBall.values()){
             sb.append(appendEachWinningResult(matchBall, countOfWinningLottos));
         }
         return countOfWinningLottos;
     }
+
     private static String appendEachWinningResult(MatchBall matchBall, Map<LottoWinningReward, Integer> countOfWinningLottos) {
         LottoWinningReward winningReward = matchBall.getLottoWinningReward();
-=======
-        for(LottoWinningReward winningReward: LottoWinningData.lottoWinningRewards){
-            sb.append(appendEachWinningResult(winningReward, countOfWinningLottos));
-        }
-        return countOfWinningLottos;
-    }
-    private static String appendEachWinningResult(LottoWinningReward winningReward, List<Integer> countOfWinningLottos) {
->>>>>>> 4f43f8b (1차 Commit)
-=======
-        for(MatchBall matchBall: MatchBall.values()){
-            sb.append(appendEachWinningResult(matchBall, countOfWinningLottos));
-        }
-        return countOfWinningLottos;
-    }
-    private static String appendEachWinningResult(MatchBall matchBall, List<Integer> countOfWinningLottos) {
-        LottoWinningReward winningReward = matchBall.getLottoWinningReward();
->>>>>>> 573229f (2일차 PR)
         int countOfMatchNumber = winningReward.getCountOfMatchNumber();
         int rewardPrice = matchBall.getRewardPrice();
         int count = MapHelper.getIntegerValue(countOfWinningLottos, winningReward);
@@ -159,15 +109,8 @@ class LottoOutput {
     }
 
     // 이득 비율 출력
-<<<<<<< HEAD
-    private static String appendYieldRate(Integer moneyToBuyLotto, List<Integer> countOfWinningLottos) {
-        int sumOfReward = 0 ;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     private static String appendYieldRate(Integer moneyToBuyLotto, Map<LottoWinningReward, Integer> countOfWinningLottos) {
         long sumOfReward = 0 ;
->>>>>>> 5806f60 (2일차 PR)
         for(MatchBall matchBall: MatchBall.values()) {
             sumOfReward += sumOfWinningReward(matchBall, countOfWinningLottos);
         }
@@ -175,6 +118,7 @@ class LottoOutput {
         long yeildRate = (sumOfReward - moneyToBuyLotto) * 100 / moneyToBuyLotto;
         return String.format(LottoOutputData.RESULT_FORMAT_OF_YIELD_RATE, yeildRate);
     }
+
     private static int sumOfWinningReward(MatchBall matchBall, Map<LottoWinningReward, Integer> countOfWinningLottos) {
         LottoWinningReward winningReward = matchBall.getLottoWinningReward();
 
@@ -183,35 +127,4 @@ class LottoOutput {
 
         return rewardPrice * count;
     }
-=======
->>>>>>> edb2074 (1일차 중간 PR)
-=======
-        for(LottoWinningReward winningReward: LottoWinningData.lottoWinningRewards) {
-            int countOfMatchNumber = winningReward.getCountOfMatchNumber();
-            int rewardPrice = winningReward.getRewardPrice();
-            int count = countOfWinningLottos.get(countOfMatchNumber);
-
-            sumOfReward += rewardPrice * count;
-=======
-        for(MatchBall matchBall: MatchBall.values()) {
-            sumOfReward += sumOfWinningReward(matchBall, countOfWinningLottos);
->>>>>>> 573229f (2일차 PR)
-        }
-
-        int yeildRate = (sumOfReward - moneyToBuyLotto) * 100 / moneyToBuyLotto;
-        return String.format(LottoOutputData.RESULT_FORMAT_OF_YIELD_RATE, yeildRate);
-    }
-<<<<<<< HEAD
->>>>>>> 4f43f8b (1차 Commit)
-=======
-    private static int sumOfWinningReward(MatchBall matchBall, List<Integer> countOfWinningLottos) {
-        LottoWinningReward winningReward = matchBall.getLottoWinningReward();
-
-        int countOfMatchNumber = winningReward.getCountOfMatchNumber();
-        int rewardPrice = winningReward.getRewardPrice();
-        int count = countOfWinningLottos.get(countOfMatchNumber);
-
-        return rewardPrice * count;
-    }
->>>>>>> 573229f (2일차 PR)
 }

@@ -1,47 +1,24 @@
 package com.kakao.model;
 
 import com.kakao.data.LottoData;
-import com.kakao.exception.PickedNumberException;
 import com.kakao.exception.PickedNumberRangeException;
-import com.kakao.exception.PickedNumbersFormatException;
+import com.kakao.exception.PickedNumberFormatException;
 
 import java.util.List;
 
 public class Lotto {
-<<<<<<< HEAD
-<<<<<<< HEAD
-
     private List<Integer> pickedNumbersOfLotto;
 
-    Lotto(List<Integer> pickedNumbersOfLotto) throws PickedNumberException {
-        checkFormatOfPickedNumbers(pickedNumbersOfLotto);
-        checkRangeOfPickedNumbers(pickedNumbersOfLotto);
-        this.pickedNumbersOfLotto = pickedNumbersOfLotto;
-    }
-
-    // 유효셩 검사
-    private void checkFormatOfPickedNumbers(List<Integer> pickedNumbersOfLotto) throws PickedNumbersFormatException {
-=======
-    // innerClass
-=======
-
->>>>>>> 4f43f8b (1차 Commit)
-    private List<Integer> pickedNumbersOfLotto;
-
-    Lotto(List<Integer> pickedNumbersOfLotto) throws PickedNumbersFormatException {
+    Lotto(List<Integer> pickedNumbersOfLotto) throws PickedNumberFormatException {
         checkFormatOfPickedNumbers(pickedNumbersOfLotto);
         this.pickedNumbersOfLotto = pickedNumbersOfLotto;
     }
 
-<<<<<<< HEAD
-    private void checkFormatOfOPickedNumbers(List<Integer> pickedNumbersOfLotto) throws PickedNumbersFormatException {
->>>>>>> edb2074 (1일차 중간 PR)
-=======
-    private void checkFormatOfPickedNumbers(List<Integer> pickedNumbersOfLotto) throws PickedNumbersFormatException {
->>>>>>> 4f43f8b (1차 Commit)
+
+    private void checkFormatOfPickedNumbers(List<Integer> pickedNumbersOfLotto) throws PickedNumberFormatException {
         if(pickedNumbersOfLotto == null || pickedNumbersOfLotto.size() != LottoData.NUMBER_OF_PICK) {
             // 데이터가 안들어오거나, 크기가 불일치하면 에러
-            throw new PickedNumbersFormatException();
+            throw new PickedNumberFormatException();
         }
     }
     private void checkRangeOfPickedNumbers(List<Integer> pickedNumbersOfWinning) throws PickedNumberRangeException {
@@ -60,10 +37,6 @@ public class Lotto {
         return allResult && isInRnage;
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 4f43f8b (1차 Commit)
     // 당첨여부 확인
     public int matchNumberIsWinning(LottoWinning lottoWinning) {
         // 당첨번호, 매치여부를 확인할 숫자
@@ -84,19 +57,11 @@ public class Lotto {
         return matchCount;
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> edb2074 (1일차 중간 PR)
-=======
->>>>>>> 4f43f8b (1차 Commit)
-=======
     // 보너스볼 여부 확인
     public boolean matchBonusBall(Integer bonusBall) {
         return bonusBall != null && pickedNumbersOfLotto.contains(bonusBall);
     }
 
->>>>>>> d64e878 (- bonusBall 관련 로직 추가처리 (출력 분기 / getter,setter))
     private final String TO_STRING_OPENER = "[";
     private final String TO_STRING_CLOSER = "]";
     private final String TO_STRING_SEPARATOR = ",";
