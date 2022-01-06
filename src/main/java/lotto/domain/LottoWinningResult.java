@@ -25,7 +25,6 @@ public class LottoWinningResult {
         if (bonusBallNumber > 45 || bonusBallNumber < 1) {
             throw new IllegalArgumentException("보너스 볼의 숫자는 1과 45사이여야 합니다. (현재: " + bonusBallNumber + " )");
         }
-        System.out.println(bonusBallNumber);
     }
 
     private void initLottoWinningResults() {
