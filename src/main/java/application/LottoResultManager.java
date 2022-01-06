@@ -1,34 +1,46 @@
 package application;
 
 import domain.Lotto;
-import domain.MatchScore;
+import domain.MatchStatus;
 import domain.WinningLotto;
 
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 public class LottoResultManager {
-    private static final int MIN_MATCH_NUM_FOR_WINNING = 3;
     private final WinningLotto winningLotto;
     private final List<Lotto> userLottoList;
-    private final MatchScore matchScore;
+    private final Map<MatchStatus, Integer> matchingResult;
 
     public LottoResultManager(WinningLotto winningLotto, List<Lotto> userLottoList) {
         this.winningLotto = winningLotto;
         this.userLottoList = userLottoList;
-        this.matchScore = new MatchScore();
+        this.matchingResult = new EnumMap<>(MatchStatus.class);
+        for (var e: MatchStatus.values()) {
+            matchingResult.put(e, 0);
+        }
     }
 
-    public MatchScore getScore() {
+    public Map<MatchStatus, Integer> getMatchingResult() {
         for (Lotto lotto: userLottoList) {
             int matchCount = winningLotto.checkNumberOfWinning(lotto);
-            reflectScore(matchCount);
+            boolean isBonusMatched = winningLotto.checkBonusBallMatched(lotto);
+            reflectScore(matchCount, isBonusMatched);
         }
-        return matchScore;
+        return matchingResult;
     }
 
-    private void reflectScore(int matchCount) {
-        if (matchCount >= MIN_MATCH_NUM_FOR_WINNING) {
-            matchScore.increase(matchCount);
+    private void reflectScore(int matchCount, boolean isBonusMatched) {
+        MatchStatus status = MatchStatus.getMatchingStatus(matchCount, isBonusMatched);
+        matchingResult.put(status, matchingResult.get(status) + 1);
+    }
+
+    public Long getTotalPrizeMoney() {
+        long totalPrizeMoney = 0;
+        for (var e: matchingResult.entrySet()) {
+            totalPrizeMoney += (long) e.getKey().getPrizeMoney() * e.getValue();
         }
+        return totalPrizeMoney;
     }
 }
