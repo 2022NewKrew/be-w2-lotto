@@ -12,7 +12,11 @@ public class LottoMachine {
 
     static {
         for (int i = 1; i <= 45; i++)
+<<<<<<< HEAD
             numbers.add(LottoNumber.from(i));
+=======
+            numbers.add(LottoNumber.of(i));
+>>>>>>> 67f4387 (컨트롤러 추가)
     }
 
     public static Lotto generateLottoAuto() {

@@ -24,7 +24,6 @@ public class OutputView {
         for (LottoPrize lottoPrize : LottoPrize.values()) {
             if (lottoPrize == LottoPrize.NONE)
                 continue;
-
             System.out.println(getMessageFromLottoPrize(lottoPrize) + " (" + lottoPrize.getReward()+ "원)- " + result.get(lottoPrize) + "개");
         }
     }
