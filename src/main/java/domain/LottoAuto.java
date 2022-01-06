@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class LottoAuto extends Lotto{
+public class LottoAuto extends Lotto {
 
     private static final List<Integer> lottoNumberList;
 
