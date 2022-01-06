@@ -2,20 +2,34 @@ package controller;
 
 import domain.lotto.*;
 import service.LottoInputService;
+import service.LottoService;
 import view.LottoRenderer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LottoGameController {
 
     private final LottoInputService lottoInputService;
+    private final LottoService lottoService;
 
     public LottoGameController() {
         this.lottoInputService = new LottoInputService();
+        this.lottoService = new LottoService();
+    }
+
+    public List<Lotto> createLotto(String inputMoney, String inputManualRequests) {
+
+        int money = lottoInputService.getMoney(inputMoney);
+        List<LottoRequest> lottoRequests = new ArrayList<>();
+        if (!inputManualRequests.isEmpty()) {
+            lottoRequests = lottoInputService.getManualLottoRequests(inputManualRequests);
+        }
+        return lottoService.createLotto(money, lottoRequests);
     }
 
     public void start() {
-        LottoGameInfo lottoGameInfo = inputPurchaseParamAndValidate();
+        LottoGameInfo lottoGameInfo = null;
 
         List<Lotto> lottoList = lottoGameInfo.getManualPurchaseLottoList();
         lottoList.addAll(LottoGenerator.generateAllLotto(lottoGameInfo));
@@ -25,23 +39,6 @@ public class LottoGameController {
 
         LottoTotalResult lottoTotalResult = LottoCalculator.calculate(lottoGameInfo.getInputMoney(), lottoList, winningLotto);
         renderResult(lottoTotalResult);
-    }
-
-    private LottoGameInfo inputPurchaseParamAndValidate() {
-        LottoGameInfo lottoGameInfo = null;
-        while (lottoGameInfo == null) {
-            lottoGameInfo = inputPurchaseParam();
-        }
-        return lottoGameInfo;
-    }
-
-    private LottoGameInfo inputPurchaseParam() {
-        try {
-            return lottoInputService.inputPurchaseParam();
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
     }
 
     private WinningLotto inputWinningLottoNumbersAndValidate() {
