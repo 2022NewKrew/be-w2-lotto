@@ -6,7 +6,7 @@ import dto.LottoResultsDto;
 
 import java.util.List;
 
-public class LottoPrinter {
+public class LottoOutView {
 
 
     public void printLotto(List<String> lottoTicketsView) {

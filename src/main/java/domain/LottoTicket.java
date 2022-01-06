@@ -1,5 +1,6 @@
 package domain;
 
+import constant.Constants;
 import domain.lottonumber.LottoNumber;
 import dto.LottoMatchResultDto;
 
@@ -13,6 +14,13 @@ public class LottoTicket {
 
     public LottoTicket(List<LottoNumber> lottoNumber) {
         lottoNumbers = lottoNumber;
+        validateLottoTicketSize();
+    }
+
+    private void validateLottoTicketSize() {
+        if (lottoNumbers.size() != Constants.SIZE_OF_LOTTO_TICKET) {
+            throw new IllegalStateException("로또 티켓은 " + Constants.SIZE_OF_LOTTO_TICKET + "개의 로또 번호만 입력할수 있습니다.");
+        }
     }
 
     public Optional<LottoResult> match(List<LottoNumber> winningNumbers) {
