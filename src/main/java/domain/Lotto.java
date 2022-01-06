@@ -1,5 +1,7 @@
 package domain;
 
+import dto.LottoDTO;
+
 import java.util.*;
 
 public class Lotto {
@@ -37,5 +39,13 @@ public class Lotto {
 
     public List<LottoNumber> lottoNumbers() {
         return List.copyOf(lottoNumbers);
+    }
+
+    public LottoDTO exportLottoDTO() {
+        List<Integer> lottoNumbers = new ArrayList<>();
+        for (LottoNumber lottoNumber : this.lottoNumbers) {
+            lottoNumbers.add(lottoNumber.number());
+        }
+        return new LottoDTO(lottoNumbers);
     }
 }
