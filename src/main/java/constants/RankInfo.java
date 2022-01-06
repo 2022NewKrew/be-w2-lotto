@@ -36,16 +36,8 @@ public enum RankInfo {
     }
 
     public String getViewFormat(int matched) {
-        StringBuilder sb = new StringBuilder();
-        sb.append(count);
-        sb.append("개 일치");
-        if (this == SECOND) sb.append(", 보너스 볼 일치");
-        sb.append("(");
-        sb.append(reward);
-        sb.append(")- ");
-        sb.append(matched);
-        sb.append("개");
-        return sb.toString();
+        String isSecond = (this == SECOND) ? ", 보너스 볼 일치" : "";
+        return count + "개 일치" + isSecond + "(" + reward + ")- " + matched + "개";
     }
 
     public static Stream<RankInfo> valuesStream() {

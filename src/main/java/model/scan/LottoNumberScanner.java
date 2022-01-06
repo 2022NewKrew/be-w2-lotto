@@ -1,18 +1,19 @@
 package model.scan;
 
+import util.InputData;
 import validator.LottoNumberValidator;
 import validator.ValidatorInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LottoNumberScanner extends InputData {
-    public LottoNumberScanner() {
+public class LottoNumberScanner {
+    private LottoNumberScanner() {
     }
 
     public static List<Integer> getLottoNumbers() {
         ValidatorInterface validatorInterface = new LottoNumberValidator();
-        String winningNumbers = validateAndGetInput(validatorInterface);
+        String winningNumbers = InputData.getInputUnitValid(validatorInterface);
         return convertToList(winningNumbers);
     }
 

@@ -4,7 +4,7 @@ import constants.RankInfo;
 import parameters.LottoResult;
 
 public class UserResultViewer {
-    public UserResultViewer() {
+    private UserResultViewer() {
     }
 
     public static void viewResult(LottoResult lottoResult) {
