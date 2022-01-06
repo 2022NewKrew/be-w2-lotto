@@ -13,5 +13,4 @@ public class LottoConst {
     public static final List<Integer> LOTTO_NUMBERS = IntStream.rangeClosed(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER)
                     .boxed()
                     .collect(Collectors.toList());
-
 }

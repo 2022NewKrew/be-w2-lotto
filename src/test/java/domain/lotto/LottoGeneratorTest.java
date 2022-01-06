@@ -11,15 +11,16 @@ import static util.LottoConst.LOTTO_PRICE;
 class LottoGeneratorTest {
 
     private static final int MONEY = 10000;
+    private static final int NO_MANUAL_LOTTO_QUANTITY = 0;
 
     @Test
     @DisplayName("입력한 금액에 따라 최대 구입할 수 있는 로또의 개수 만큼 생성한다.")
     void generateAllLotto() {
         //given
-        LottoGameInfo lottoGameInfo = new LottoGameInfo(MONEY);
+        LottoGameInfo lottoGameInfo = new LottoGameInfo(MONEY, NO_MANUAL_LOTTO_QUANTITY);
 
         //when
-        List<Lotto> result = LottoGenerator.generateAllLotto(lottoGameInfo);
+        List<Lotto> result = LottoGenerator.generateLottos(lottoGameInfo.getAutomaticallyPurchaseQuantity());
 
         //then
         assertThat(result.size()).isEqualTo(MONEY / LOTTO_PRICE);
@@ -41,7 +42,7 @@ class LottoGeneratorTest {
 
     @Test
     @DisplayName("로또 문자열의 순서를 무작위로 섞어도 정렬된 로또를 생성한다")
-    void generateOneLottoWithReverseOrder() {
+    void generateOneLottoWithAscendingOrder() {
         //given
         List<Integer> lottoInputSequence = List.of(5, 6, 3, 1, 4, 2);
 
@@ -52,5 +53,4 @@ class LottoGeneratorTest {
         assertThat(result.toString())
                 .isEqualTo("[1, 2, 3, 4, 5, 6]");
     }
-
 }

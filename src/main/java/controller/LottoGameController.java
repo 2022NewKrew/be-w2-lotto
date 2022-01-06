@@ -1,69 +1,53 @@
 package controller;
 
 import domain.lotto.*;
-import service.LottoInputService;
-import view.LottoRenderer;
+import dto.*;
+import service.*;
+import spark.*;
+import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.util.List;
 
 public class LottoGameController {
 
     private final LottoInputService lottoInputService;
+    private final LottoService lottoService;
 
     public LottoGameController() {
         this.lottoInputService = new LottoInputService();
+        this.lottoService = new LottoService();
     }
 
-    public void start() {
-        LottoGameInfo lottoGameInfo = inputPurchaseParamAndValidate();
-
-        List<Lotto> lottoList = lottoGameInfo.getManualPurchaseLottoList();
-        lottoList.addAll(LottoGenerator.generateAllLotto(lottoGameInfo));
-        LottoRenderer.renderLotto(lottoList, lottoGameInfo);
-
-        WinningLotto winningLotto = inputWinningLottoNumbersAndValidate();
-
-        LottoTotalResult lottoTotalResult = LottoCalculator.calculate(lottoGameInfo.getInputMoney(), lottoList, winningLotto);
-        renderResult(lottoTotalResult);
+    public String index(Request request, Response response) {
+        return render(null, "/index.html");
     }
 
-    private LottoGameInfo inputPurchaseParamAndValidate() {
-        LottoGameInfo lottoGameInfo = null;
-        while (lottoGameInfo == null) {
-            lottoGameInfo = inputPurchaseParam();
-        }
-        return lottoGameInfo;
+    public String createLotto(Request request, Response response) {
+        String inputMoney = request.queryParams("inputMoney");
+        String inputManualRequests = request.queryParams("manualNumber");
+
+        int money = lottoInputService.getIntegerFromString(inputMoney);
+        List<LottoOrder> manualLottoOrders = lottoInputService.getManualLottoRequests(inputManualRequests);
+        List<Lotto> lottos = lottoService.createLotto(money, manualLottoOrders);
+
+        request.session().attribute("lottos", lottos);
+        return render(new LottoCreateResponse(lottos), "/show.html");
     }
 
-    private LottoGameInfo inputPurchaseParam() {
-        try {
-            return lottoInputService.inputPurchaseParam();
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
+    public String getLottoResult(Request request, Response response) {
+        String winningNumber = request.queryParams("winningNumber");
+        String bonusNumber = request.queryParams("bonusNumber");
+
+        int bonusLottoNumber = lottoInputService.getIntegerFromString(bonusNumber);
+        LottoOrder lottoOrder = lottoInputService.parseLottoRequest(winningNumber);
+        WinningLotto winningLotto = lottoOrder.toWinningLotto(bonusLottoNumber);
+
+        List<Lotto> lottos = request.session().attribute("lottos");
+        LottoTotalResult totalResult = LottoCalculator.calculate(lottos, winningLotto);
+        return render(new LottoResultResponse(totalResult), "/result.html");
     }
 
-    private WinningLotto inputWinningLottoNumbersAndValidate() {
-        WinningLotto winningLotto = null;
-        while (winningLotto == null) {
-            winningLotto = inputWinningLottoNumbers();
-        }
-        return winningLotto;
+    private static String render(Object model, String templatePath) {
+        return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
     }
-
-    private WinningLotto inputWinningLottoNumbers() {
-        try {
-            return lottoInputService.inputWinningLottoNumbers();
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-
-    private void renderResult(LottoTotalResult lottoTotalResult) {
-        LottoRenderer.renderResult(lottoTotalResult);
-        LottoRenderer.renderEarningRatio(lottoTotalResult);
-    }
-
 }

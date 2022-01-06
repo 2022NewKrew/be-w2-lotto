@@ -1,6 +1,7 @@
 package domain.lotto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static util.LottoConst.MAX_LOTTO_COUNT;
 
@@ -10,7 +11,7 @@ public class Lotto {
 
     public Lotto(List<Integer> numbers) {
         validateInputNumbers(numbers);
-        this.numbers = numbers;
+        this.numbers = numbers.stream().sorted().collect(Collectors.toList());
     }
 
     private void validateInputNumbers(List<Integer> numbers) {

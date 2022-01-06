@@ -58,5 +58,4 @@ public enum Prize {
                 .sorted(Collections.reverseOrder())
                 .collect(Collectors.toList());
     }
-
 }

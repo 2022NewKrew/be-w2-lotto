@@ -8,14 +8,14 @@ import static util.LottoConst.*;
 
 public class LottoGenerator {
 
-    public static List<Lotto> generateAllLotto(LottoGameInfo lottoGameInfo) {
-        List<Lotto> lottoList = new ArrayList<>();
+    public static List<Lotto> generateLottos(int requestQuantity) {
+        List<Lotto> lottos = new ArrayList<>();
 
-        for (int currentLotto = 0; currentLotto < lottoGameInfo.getAutomaticallyPurchaseQuantity(); currentLotto++) {
+        for (int currentQuantity = 0; currentQuantity < requestQuantity; currentQuantity++) {
             Lotto lotto = createNewLotto();
-            lottoList.add(lotto);
+            lottos.add(lotto);
         }
-        return lottoList;
+        return lottos;
     }
 
     public static Lotto generateOneLotto(List<Integer> inputNumbers) {
@@ -33,5 +33,4 @@ public class LottoGenerator {
     public static WinningLotto generateWinningLotto(List<Integer> inputNumbers, int bonusNumber) {
         return new WinningLotto(inputNumbers, bonusNumber);
     }
-
 }
