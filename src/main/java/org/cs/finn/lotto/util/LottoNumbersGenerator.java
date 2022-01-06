@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class LottoNumbersGenerator {
+public final class LottoNumbersGenerator {
     private static final List<LottoNumber> list;
     static {
         list = new ArrayList<>();

@@ -3,7 +3,7 @@ package org.cs.finn.lotto.util;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class NumberFormatter {
+public final class NumberFormatter {
 
     private NumberFormatter() {}
 

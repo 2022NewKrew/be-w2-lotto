@@ -3,7 +3,7 @@ package org.cs.finn.lotto.util;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Separator {
+public final class Separator {
     public static final String DEFAULT_SEPARATOR = ",";
 
     private Separator() {}
