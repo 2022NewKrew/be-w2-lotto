@@ -3,11 +3,11 @@ package controller;
 import domain.Lotto;
 import domain.LottoList;
 import domain.LottoResult;
-import view.LottoInput;
+import input.LottoConsoleInput;
 import view.LottoView;
 
-public class LottoController {
-    private final LottoInput lottoInput = new LottoInput();
+public class ConsoleLottoController {
+    private final LottoConsoleInput lottoInput = new LottoConsoleInput();
 
     public void startLotto(){
         try{

@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class LottoList {
@@ -27,6 +28,7 @@ public class LottoList {
 
     public void createManualLottoList(List<Lotto> lottos){
         for (Lotto lotto : lottos) {
+            Collections.sort(lotto.getLotto());
             lottoPrice += LottoConst.ONE_LOTTO_PRICE;
             manualCount++;
             lottoList.add(lotto);
@@ -42,10 +44,14 @@ public class LottoList {
     }
 
     public int getAutoCount(){
-        return lottoList.size() - manualCount;
+        return getCount() - manualCount;
     }
 
     public int getManualCount(){
         return manualCount;
+    }
+
+    public int getCount(){
+        return lottoList.size();
     }
 }
