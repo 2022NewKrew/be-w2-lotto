@@ -40,8 +40,8 @@ class ResultTest {
     }
 
     private void assertThatNothingChange(Result result) {
-        Map<RewardForCorrect, Integer> stat = result.getStat();
-        for (RewardForCorrect rfc : stat.keySet()) {
+        Map<Winnings, Integer> stat = result.getStat();
+        for (Winnings rfc : stat.keySet()) {
             assertEquals(0, stat.get(rfc));
         }
     }
@@ -58,7 +58,7 @@ class ResultTest {
         result.add(correctSpec);
 
         //Then
-        assertEquals(1, result.getStat().get(RewardForCorrect.FOUR));
+        assertEquals(1, result.getStat().get(Winnings.FOUR));
     }
 
     @Test
@@ -73,7 +73,7 @@ class ResultTest {
         result.add(correctSpec);
 
         //Then
-        assertEquals(1, result.getStat().get(RewardForCorrect.FIVE_AND_BONUS));
+        assertEquals(1, result.getStat().get(Winnings.FIVE_AND_BONUS));
     }
 
     @Test
@@ -101,7 +101,7 @@ class ResultTest {
         int revenue = result.getRevenue();
 
         //Then
-        assertEquals(RewardForCorrect.FIVE.getReward(), revenue);
+        assertEquals(Winnings.FIVE.getReward(), revenue);
     }
 
     @Test
@@ -116,7 +116,7 @@ class ResultTest {
         int revenue = result.getRevenue();
 
         //Then
-        assertEquals(RewardForCorrect.FIVE_AND_BONUS.getReward(), revenue);
+        assertEquals(Winnings.FIVE_AND_BONUS.getReward(), revenue);
     }
 
     public static Result getInstance() {

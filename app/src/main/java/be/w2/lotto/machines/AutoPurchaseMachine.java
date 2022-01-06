@@ -18,7 +18,7 @@ public class AutoPurchaseMachine extends PurchaseMachine {
     }
 
     public static AutoPurchaseMachine getInstance() {
-        if(INSTANCE == null)
+        if (INSTANCE == null)
             INSTANCE = new AutoPurchaseMachine();
         return INSTANCE;
     }
@@ -31,32 +31,23 @@ public class AutoPurchaseMachine extends PurchaseMachine {
     }
 
     private Lotto createLottoRandomly() {
-        List<Integer> randomNumbers = getListOfRandomNumber(Lotto.LENGTH);
-        Collections.sort(randomNumbers);
-        List<LottoNumber> lottoNumbers = getLottoNumbersBy(randomNumbers);
-        return new Lotto(lottoNumbers);
+        List<LottoNumber> randomLottoNumbers = getListOfLottoNumberRandomly();
+        Collections.sort(randomLottoNumbers);
+        return new Lotto(randomLottoNumbers);
     }
 
-    private List<Integer> getListOfRandomNumber(int length) {
-        List<Integer> oneToNinetyNine = getListOfMinToMaxNumOfLotto();
-        Collections.shuffle(oneToNinetyNine);
-        List<Integer> numbers = oneToNinetyNine.subList(0, Lotto.LENGTH);
+    private List<LottoNumber> getListOfLottoNumberRandomly() {
+        List<LottoNumber> allLottoNumber = getAllLottoNumber();
+        Collections.shuffle(allLottoNumber);
+        List<LottoNumber> numbers = allLottoNumber.subList(0, Lotto.LENGTH);
         return numbers;
     }
 
-    private List<Integer> getListOfMinToMaxNumOfLotto() {
-        List<Integer> numbers = new ArrayList<>();
+    private List<LottoNumber> getAllLottoNumber() {
+        List<LottoNumber> numbers = new ArrayList<>();
         for (int i = LottoNumber.MIN_NUM_IN_LOTTO; i <= LottoNumber.MAX_NUM_IN_LOTTO; i++) {
-            numbers.add(i);
+            numbers.add(LottoNumber.of(i));
         }
         return numbers;
-    }
-
-    private List<LottoNumber> getLottoNumbersBy(List<Integer> numbers) {
-        List<LottoNumber> lottoNumbers = new ArrayList<>();
-        for(Integer number: numbers) {
-            lottoNumbers.add(LottoNumber.of(number));
-        }
-        return lottoNumbers;
     }
 }

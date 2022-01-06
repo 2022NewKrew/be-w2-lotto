@@ -1,26 +1,26 @@
 package be.w2.lotto.view.output;
 
-import be.w2.lotto.exceptions.NonValidRewardForCorrectException;
+import be.w2.lotto.exceptions.NonValidWinningsException;
 import be.w2.lotto.messages.ErrorMessage;
-import be.w2.lotto.result.RewardForCorrect;
+import be.w2.lotto.result.Winnings;
 
-final class RewardForCorrectOutput extends ClassOutput<RewardForCorrect> {
+final class WinningsOutput implements ClassOutput<Winnings> {
 
-    RewardForCorrectOutput() {
+    WinningsOutput() {
     }
 
     @Override
-    String getOutput(RewardForCorrect rewardForCorrect) {
+    public String getOutput(Winnings winnings) {
         return new StringBuilder()
-                .append(getDescriptionOf(rewardForCorrect))
+                .append(getDescriptionOf(winnings))
                 .append("(")
-                .append(rewardForCorrect.getReward())
+                .append(winnings.getReward())
                 .append(")- ")
                 .toString();
     }
 
-    private String getDescriptionOf(RewardForCorrect rewardForCorrect) {
-        switch (rewardForCorrect) {
+    private String getDescriptionOf(Winnings winnings) {
+        switch (winnings) {
             case THREE:
                 return "3개 일치";
             case FOUR:
@@ -32,7 +32,7 @@ final class RewardForCorrectOutput extends ClassOutput<RewardForCorrect> {
             case SIX:
                 return "6개 일치";
             default:
-                throw new NonValidRewardForCorrectException(ErrorMessage.REWARD_FOR_CORRECT_NOT_FOUNDED);
+                throw new NonValidWinningsException(ErrorMessage.REWARD_FOR_CORRECT_NOT_FOUNDED);
         }
     }
 }

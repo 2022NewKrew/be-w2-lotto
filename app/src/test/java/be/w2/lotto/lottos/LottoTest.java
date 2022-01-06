@@ -1,5 +1,6 @@
 package be.w2.lotto.lottos;
 
+import be.w2.lotto.exceptions.LottoNumberDuplicationFoundedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,11 +18,22 @@ class LottoTest {
     }
 
     @Test
+    @DisplayName("중복된 숫자들로 로또 생성 -> 어우 그럼 예외 던져야제")
+    void constructor_duplicatedNumber() {
+        //Given
+        List<Integer> numbersOfLotto = Arrays.asList(16, 16, 17, 18, 19, 20);
+        List<LottoNumber> lottoNumbers = getLottoNumbersBy(numbersOfLotto);
+
+        //When, Then
+        assertThrows(LottoNumberDuplicationFoundedException.class, () -> new Lotto(lottoNumbers));
+    }
+
+    @Test
     @DisplayName("해당 번호를 포함하고 있는지 확인 -> 포함하지 않음")
     void isContain_notContain() {
         //Given
         int numberWhichIsNotInLotto = 10;
-        LottoNumber lottoNumberNotInLotto = LottoNumber.of(10);
+        LottoNumber lottoNumberNotInLotto = LottoNumber.of(numberWhichIsNotInLotto);
         List<Integer> numbersOfLotto = Arrays.asList(1, 5, 29, 32, 36, 44);
         Lotto lotto = getInstance(numbersOfLotto);
 

@@ -14,22 +14,22 @@ import java.util.List;
 /**
  * Singleton
  */
-public final class ResultMaker {
+public final class ResultPhase {
 
-    private static ResultMaker INSTANCE;
+    private static ResultPhase INSTANCE;
 
-    private ResultMaker() {
+    private ResultPhase() {
     }
 
-    public static ResultMaker getInstance() {
+    public static ResultPhase getInstance() {
         if (INSTANCE == null)
-            INSTANCE = new ResultMaker();
+            INSTANCE = new ResultPhase();
         return INSTANCE;
     }
 
     private LastWinningLotto lastWinningLotto;
 
-    public void proceedBy(List<Lotto> purchaseLotto) {
+    public void start(List<Lotto> purchaseLotto) {
         inputLastWinningLotto();
 
         Result result = getResult(purchaseLotto);

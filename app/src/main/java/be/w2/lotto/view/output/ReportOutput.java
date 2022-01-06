@@ -2,13 +2,13 @@ package be.w2.lotto.view.output;
 
 import be.w2.lotto.result.Report;
 
-final class ReportOutput extends ClassOutput<Report> {
+final class ReportOutput implements ClassOutput<Report> {
 
     ReportOutput() {
     }
 
     @Override
-    String getOutput(Report report) {
+    public String getOutput(Report report) {
         return new StringBuilder()
                 .append("총 수익률은 ")
                 .append(getFormattedYieldBy(report))
