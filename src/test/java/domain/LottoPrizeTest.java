@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class LottoPrizeTest {
 
@@ -15,7 +15,7 @@ class LottoPrizeTest {
     @MethodSource("provideNumberMatchesInfo")
     @ParameterizedTest
     void getLottoRankTest(int numberOfMatches, boolean match, LottoPrize lottoPrize) {
-        assertEquals(LottoPrize.getLottoRank(numberOfMatches,match), lottoPrize);
+        assertThat(LottoPrize.getLottoRank(numberOfMatches,match)).isEqualTo(lottoPrize);
     }
 
     private static Stream<Arguments> provideNumberMatchesInfo() {

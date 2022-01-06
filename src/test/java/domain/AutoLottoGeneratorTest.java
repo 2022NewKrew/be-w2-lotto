@@ -7,7 +7,7 @@ import valid.ConditionCheck;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class AutoLottoGeneratorTest {
 
@@ -21,7 +21,7 @@ class AutoLottoGeneratorTest {
                 List<Integer> list = lottoGenerator.getLottoTicket().getLottoNumbers();
 
                 try {
-                    assertTrue(ConditionCheck.isValidLottoNumber(list));
+                    assertThat(ConditionCheck.isValidLottoNumber(list)).isTrue();
                 } catch (AssertionError e) {
                     exc = e;
                 }

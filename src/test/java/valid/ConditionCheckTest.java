@@ -11,31 +11,31 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class ConditionCheckTest {
 
     @DisplayName("양수 true, 아니면 false")
     @Test
     void isPositiveInteger() {
-        assertTrue(ConditionCheck.isPositiveInteger(1));
-        assertFalse(ConditionCheck.isPositiveInteger(0));
-        assertFalse(ConditionCheck.isPositiveInteger(-1));
+        assertThat(ConditionCheck.isPositiveInteger(1)).isTrue();
+        assertThat(ConditionCheck.isPositiveInteger(0)).isFalse();
+        assertThat(ConditionCheck.isPositiveInteger(-1)).isFalse();
     }
 
     @DisplayName("음수 true, 아니면 false")
     @Test
     void isNegativeInteger() {
-        assertFalse(ConditionCheck.isNegativeInteger(1));
-        assertFalse(ConditionCheck.isNegativeInteger(0));
-        assertTrue(ConditionCheck.isNegativeInteger(-1));
+        assertThat(ConditionCheck.isNegativeInteger(1)).isFalse();
+        assertThat(ConditionCheck.isNegativeInteger(0)).isFalse();
+        assertThat(ConditionCheck.isNegativeInteger(-1)).isTrue();
     }
 
     @DisplayName("로또 번호 범위 내에 있으면서 중복없이 로또 번호 개수만큼 리스트에 있어야 true")
     @MethodSource("provideLottoNumbers")
     @ParameterizedTest
     void isValidLottoNumber(List<Integer> numbers, boolean value) {
-        assertEquals(ConditionCheck.isValidLottoNumber(numbers), value);
+        assertThat(ConditionCheck.isValidLottoNumber(numbers)).isEqualTo(value);
     }
 
     private static Stream<Arguments> provideLottoNumbers() {
@@ -63,17 +63,17 @@ class ConditionCheckTest {
     @DisplayName("로또 번호 범위 내에 있으면 true")
     @Test
     void isLottoNumber() {
-        assertTrue(ConditionCheck.isLottoNumber(Lotto.MIN_LOTTO_NUMBER.getValue()));
-        assertFalse(ConditionCheck.isLottoNumber(Lotto.MIN_LOTTO_NUMBER.getValue()-1));
-        assertTrue(ConditionCheck.isLottoNumber(Lotto.MAX_LOTTO_NUMBER.getValue()));
-        assertFalse(ConditionCheck.isLottoNumber(Lotto.MAX_LOTTO_NUMBER.getValue()+1));
+        assertThat(ConditionCheck.isLottoNumber(Lotto.MIN_LOTTO_NUMBER.getValue())).isTrue();
+        assertThat(ConditionCheck.isLottoNumber(Lotto.MIN_LOTTO_NUMBER.getValue()-1)).isFalse();
+        assertThat(ConditionCheck.isLottoNumber(Lotto.MAX_LOTTO_NUMBER.getValue())).isTrue();
+        assertThat(ConditionCheck.isLottoNumber(Lotto.MAX_LOTTO_NUMBER.getValue()+1)).isFalse();
     }
 
     @DisplayName("중복없이 로또번호 개수만큼 리스트에 있으면 true")
     @MethodSource("provideNumbers")
     @ParameterizedTest
     void isDistinctLottoNumbers(List<Integer> numbers, boolean value) {
-        assertEquals(ConditionCheck.isDistinctLottoNumbers(numbers), value);
+        assertThat(ConditionCheck.isDistinctLottoNumbers(numbers)).isEqualTo(value);
     }
 
     private static Stream<Arguments> provideNumbers() {
