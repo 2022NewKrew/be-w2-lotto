@@ -26,7 +26,7 @@ public class InputLotto {
     }
 
     // 구입 금액을 입력받습니다. 정수가 아니거나 음수를 입력받았을 경우 다시 입력받습니다.
-    public int getLottoNumber() {
+    public int getLottoCount() {
         while(true) {
             try {
                 return inputPrice() / LOTTO_PRICE;

@@ -11,23 +11,23 @@ import java.util.List;
 public class LottoMain {
 
     private int bonusNumber;
-    private int lottoNumber;
+    private int lottoCount;
     List<Lotto> lottos;
     List<Integer> winningNumbers;
     private InputLotto inputLotto = new InputLotto();
     LottoPrinter lottoPrinter = new LottoPrinter();
 
-    public void inputPrice() {
-        lottoNumber = inputLotto.getLottoNumber();
+    public void getLottoCount() {
+        lottoCount = inputLotto.getLottoCount();
     }
 
     public void inputManualLottos() {
-        lottos = inputLotto.getManualLottos(lottoNumber);
-        lottoPrinter.printBuyLottoNumber(lottoNumber, lottos.size());
+        lottos = inputLotto.getManualLottos(lottoCount);
+        lottoPrinter.printBuyLottoCount(lottoCount, lottos.size());
     }
 
     public void makeLotto() {
-        lottos.addAll(Lotto.makeLottos(lottoNumber - lottos.size()));
+        lottos.addAll(Lotto.makeLottos(lottoCount - lottos.size()));
         lottoPrinter.printLottos(lottos);
     }
 
@@ -48,7 +48,7 @@ public class LottoMain {
 
     public static void main(String[] args) {
         LottoMain lottoMain = new LottoMain();
-        lottoMain.inputPrice();
+        lottoMain.getLottoCount();
         lottoMain.inputManualLottos();
         lottoMain.makeLotto();
         lottoMain.inputWinningNumbers();

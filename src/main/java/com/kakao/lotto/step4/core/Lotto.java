@@ -22,8 +22,8 @@ public class Lotto {
     }
 
     // lottoNumber 만큼의 Lotto를 랜덤하게 만들어 lottos List를 만들어줍니다.
-    public static List<Lotto> makeLottos(int lottoNumber) {
-        return Stream.generate(Lotto::new).limit(lottoNumber).collect(Collectors.toList());
+    public static List<Lotto> makeLottos(int lottoCount) {
+        return Stream.generate(Lotto::new).limit(lottoCount).collect(Collectors.toList());
     }
 
     // 랜덤하게 하나의 로또를 만들어줍니다
