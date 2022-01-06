@@ -1,5 +1,4 @@
 import controller.LottoGameController;
-import domain.lotto.Lotto;
 import dto.LottoResponse;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
@@ -7,7 +6,6 @@ import spark.template.handlebars.HandlebarsTemplateEngine;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static spark.Spark.*;
 
@@ -29,12 +27,10 @@ public class LottoGame {
             String inputMoney = req.queryParams("inputMoney");
             String manualNumber = req.queryParams("manualNumber");
 
-            List<Lotto> lottos = game.createLotto(inputMoney, manualNumber);
-            model.put("lottosSize", lottos.size());
-            model.put("lottos", lottos.stream()
-                    .map(LottoResponse::new)
-                    .collect(Collectors.toList())
-            );
+            List<LottoResponse> lottoResponses = game.createLotto(inputMoney, manualNumber);
+            model.put("lottosSize", lottoResponses.size());
+            model.put("lottos", lottoResponses);
+
             return render(model, "/show.html");
         });
     }

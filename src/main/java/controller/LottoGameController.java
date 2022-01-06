@@ -2,12 +2,14 @@ package controller;
 
 import domain.lotto.*;
 import dto.LottoRequest;
+import dto.LottoResponse;
 import service.LottoInputService;
 import service.LottoService;
 import view.LottoRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LottoGameController {
 
@@ -19,14 +21,18 @@ public class LottoGameController {
         this.lottoService = new LottoService();
     }
 
-    public List<Lotto> createLotto(String inputMoney, String inputManualRequests) {
+    public List<LottoResponse> createLotto(String inputMoney, String inputManualRequests) {
 
         int money = lottoInputService.getMoney(inputMoney);
         List<LottoRequest> lottoRequests = new ArrayList<>();
         if (!inputManualRequests.isEmpty()) {
             lottoRequests = lottoInputService.getManualLottoRequests(inputManualRequests);
         }
-        return lottoService.createLotto(money, lottoRequests);
+
+        List<Lotto> lottos = lottoService.createLotto(money, lottoRequests);
+        return lottos.stream()
+                .map(LottoResponse::new)
+                .collect(Collectors.toList());
     }
 
     public void start() {
