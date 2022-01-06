@@ -11,17 +11,17 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class AutoLottoGeneratorTest {
 
-    LottoGenerator lottoGenerator = new AutoLottoGenerator();
-    AssertionError exc = null;
+    private final LottoGenerator lottoGenerator = new AutoLottoGenerator();
+    private AssertionError exc = null;
 
-    public class MyThread extends Thread {
+    private class MyThread extends Thread {
         @Override
         public void run() {
             for (int j = 0; j < 1000; j++) {
-                List<Integer> list = lottoGenerator.getLottoTicket().getLottoNumbers();
+                List<Integer> lottoNumbers = lottoGenerator.getLottoTicket().getLottoNumbers();
 
                 try {
-                    assertThat(ConditionCheck.isValidLottoNumber(list)).isTrue();
+                    assertThat(ConditionCheck.isValidLottoNumber(lottoNumbers)).isTrue();
                 } catch (AssertionError e) {
                     exc = e;
                 }
@@ -33,15 +33,15 @@ class AutoLottoGeneratorTest {
     @Test
     void getLottoTicket() throws InterruptedException {
         //given
-        List<MyThread> list = new ArrayList<>();
+        List<MyThread> threads = new ArrayList<>();
         //when
         for (int i = 0; i < 100; i++) {
-            list.add(new MyThread());
-            list.get(i).start();
+            threads.add(new MyThread());
+            threads.get(i).start();
         }
 
         for (int i = 0; i < 100; i++) {
-            list.get(i).join();
+            threads.get(i).join();
         }
 
         //then
