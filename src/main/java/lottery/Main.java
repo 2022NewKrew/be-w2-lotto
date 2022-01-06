@@ -1,13 +1,18 @@
 package lottery;
 
 import lottery.web.IOController;
-import static spark.Spark.*;
+import lottery.web.WebIOController;
 
 public class Main {
     public static void main(String[] args) {
-        port(8080);
-        get("/", (req, res) -> "Hello World!");
+
+        runWebApp();
 //        run();
+    }
+
+    private static void runWebApp() {
+        WebIOController webIOController = new WebIOController();
+        webIOController.run();
     }
 
     private static void run() {
