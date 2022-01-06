@@ -4,7 +4,6 @@ import lotto.domain.player.PlayerLotto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,7 +27,7 @@ class LottoPurchaseMachineTest {
     @DisplayName("6개의 번호를 입력받으면 수동 로또를 생성할 수 있어야 한다.")
     void purchaseManualLotto() {
         // given
-        List<Integer> numbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
 
         // when
         PlayerLotto playerLotto = LottoPurchaseMachine.purchaseManualLotto(numbers);
