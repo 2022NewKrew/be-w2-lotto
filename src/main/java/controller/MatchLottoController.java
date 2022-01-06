@@ -11,7 +11,7 @@ public class MatchLottoController {
 
     public static LottoResult matchingResult(List<Lotto> lottos) {
         Lotto winingLotto = Lotto.getDefinedLotto(UserInput.getWinningLotto());
-        LottoNumber bonusNumber = new LottoNumber(UserInput.getBonusBall());
+        LottoNumber bonusNumber = LottoNumber.valueOf(UserInput.getBonusBall());
         if (winingLotto.contain(bonusNumber)) {
             throw new IllegalArgumentException("보너스볼은 당첨번호와 겹치면 안됩니다.");
         }

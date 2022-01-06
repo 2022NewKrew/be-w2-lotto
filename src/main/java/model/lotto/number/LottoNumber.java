@@ -1,7 +1,5 @@
 package model.lotto.number;
 
-import java.util.Objects;
-
 public class LottoNumber implements Comparable<LottoNumber> {
     public static final int START_NUMBER = 1;
     public static final int FINAL_NUMBER = 45;
@@ -12,24 +10,24 @@ public class LottoNumber implements Comparable<LottoNumber> {
 
     private final int value;
 
-    public LottoNumber(int value) {
+    private LottoNumber(int value) {
         checkNumber(value);
 
         this.value = value;
     }
 
-    private void checkNumber(int number) {
+    private static void checkNumber(int number) {
         if (isLegalNumber(number)) {
             return;
         }
         throw new IllegalArgumentException(generateExceptionMessage());
     }
 
-    private boolean isLegalNumber(int number) {
+    private static boolean isLegalNumber(int number) {
         return number <= LottoNumber.FINAL_NUMBER && number >= LottoNumber.START_NUMBER;
     }
 
-    private String generateExceptionMessage() {
+    private static String generateExceptionMessage() {
         return "올바른 범위의 정수를 입력해주세요. 정수의 범위는 "
                 + LottoNumber.START_NUMBER
                 + " 부터 "
@@ -37,17 +35,21 @@ public class LottoNumber implements Comparable<LottoNumber> {
                 + " 까지입니다.";
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LottoNumber lottoNumber1 = (LottoNumber) o;
-        return value == lottoNumber1.value;
+    private static class LottoNumberCache {
+        private static final LottoNumber[] cache;
+
+        static {
+            cache = new LottoNumber[LottoNumber.FINAL_NUMBER - LottoNumber.START_NUMBER + 1];
+            for (int i = 0; i < LottoNumber.FINAL_NUMBER - LottoNumber.START_NUMBER + 1; i++) {
+                cache[i] = new LottoNumber(i + LottoNumber.START_NUMBER);
+            }
+        }
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(value);
+    public static LottoNumber valueOf(int lottoNumber) {
+        checkNumber(lottoNumber);
+
+        return LottoNumberCache.cache[lottoNumber - LottoNumber.START_NUMBER];
     }
 
     @Override

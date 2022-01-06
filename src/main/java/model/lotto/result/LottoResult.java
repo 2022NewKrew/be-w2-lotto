@@ -2,6 +2,7 @@ package model.lotto.result;
 
 import model.lotto.Lotto;
 import model.lotto.LottoRank;
+import model.lotto.WinningCondition;
 import model.lotto.number.LottoNumber;
 
 import java.util.List;
@@ -10,18 +11,17 @@ import java.util.stream.Collectors;
 
 public class LottoResult {
     private final Map<Integer, Integer> result;
-    private final Lotto winningLotto;
+    private final WinningCondition winningCondition;
     private int revenuePercent;
 
     public LottoResult(List<Lotto> lottos, Lotto winningLotto, LottoNumber bonusNumber) {
-        this.winningLotto = winningLotto;
-        this.result = generateResult(lottos, bonusNumber);
+        this.winningCondition = new WinningCondition(winningLotto, bonusNumber);
+        this.result = generateResult(lottos);
         this.revenuePercent = calculateRevenuePercent(lottos.size());
     }
 
-    private Map<Integer, Integer> generateResult(List<Lotto> lottos, LottoNumber bonusNumber) {
-        List<LottoRank> lottoRanks = matchResults(lottos, bonusNumber);
-        return resultToMap(lottoRanks);
+    private Map<Integer, Integer> generateResult(List<Lotto> lottos) {
+        return resultToMap(matchResults(lottos));
     }
 
     private Map<Integer, Integer> resultToMap(List<LottoRank> lottoRanks) {
@@ -30,15 +30,11 @@ public class LottoResult {
                 .collect(Collectors.groupingBy(LottoRank::getReward, Collectors.summingInt(any -> 1)));
     }
 
-    private List<LottoRank> matchResults(List<Lotto> lottos, LottoNumber bonusNumber) {
+    private List<LottoRank> matchResults(List<Lotto> lottos) {
         return lottos
                 .stream()
-                .map(lotto -> matchLotto(lotto, bonusNumber))
+                .map(winningCondition::compareTo)
                 .collect(Collectors.toList());
-    }
-
-    private LottoRank matchLotto(Lotto lotto, LottoNumber bonusNumber) {
-        return LottoRank.convertToLottoRank(winningLotto.contain(lotto), lotto.contain(bonusNumber));
     }
 
     private int calculateRevenuePercent(int numberOfLotto) {

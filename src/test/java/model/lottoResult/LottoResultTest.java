@@ -57,38 +57,38 @@ class LottoResultTest {
                 Arguments.of(
                         1000000,
                         Lotto.getDefinedLotto(Arrays.asList(1, 2, 3, 4, 5, 6)),
-                        new LottoNumber(7),
+                        LottoNumber.valueOf(7),
                         Map.of(0, 979, 5000, 21)
                 ),
                 Arguments.of(
                         2000000,
                         Lotto.getDefinedLotto(Arrays.asList(1, 2, 3, 4, 5, 6)),
-                        new LottoNumber(7),
+                        LottoNumber.valueOf(7),
                         Map.of(0, 1962, 5000, 36, 50000, 2)
                 ),
                 Arguments.of(
                         3000000,
                         Lotto.getDefinedLotto(Arrays.asList(1, 2, 3, 4, 5, 6)),
-                        new LottoNumber(7),
+                        LottoNumber.valueOf(7),
                         Map.of(0, 2944, 5000, 53, 50000, 3)
                 ),
                 Arguments.of(
                         1000000,
                         Lotto.getDefinedLotto(Arrays.asList(12, 16, 19, 22, 32, 45)),
-                        new LottoNumber(1),
+                        LottoNumber.valueOf(1),
                         Map.of(0, 977, 5000, 21, 50000, 1, 1500000, 1)
                 ),
                 Arguments.of(
                         1000000,
                         Lotto.getDefinedLotto(Arrays.asList(12, 16, 19, 22, 32, 45)),
-                        new LottoNumber(36),
+                        LottoNumber.valueOf(36),
                         Map.of(0, 977, 5000, 21, 50000, 1, 30000000, 1)
                 )
                 ,
                 Arguments.of(
                         1000000,
                         Lotto.getDefinedLotto(Arrays.asList(12, 16, 19, 22, 32, 36)),
-                        new LottoNumber(1),
+                        LottoNumber.valueOf(1),
                         Map.of(0, 975, 5000, 22, 50000, 2, 2000000000, 1)
                 )
         );
@@ -96,9 +96,9 @@ class LottoResultTest {
 
     static Stream<Arguments> getRevenuePercents() {
         return Stream.of(
-                Arguments.of(1000000, Lotto.getDefinedLotto(Arrays.asList(1, 2, 3, 4, 5, 6)), new LottoNumber(7), 10),
-                Arguments.of(2000000, Lotto.getDefinedLotto(Arrays.asList(1, 2, 3, 4, 5, 6)), new LottoNumber(7), 14),
-                Arguments.of(3000000, Lotto.getDefinedLotto(Arrays.asList(1, 2, 3, 4, 5, 6)), new LottoNumber(7), 13)
+                Arguments.of(1000000, Lotto.getDefinedLotto(Arrays.asList(1, 2, 3, 4, 5, 6)), LottoNumber.valueOf(7), 10),
+                Arguments.of(2000000, Lotto.getDefinedLotto(Arrays.asList(1, 2, 3, 4, 5, 6)), LottoNumber.valueOf(7), 14),
+                Arguments.of(3000000, Lotto.getDefinedLotto(Arrays.asList(1, 2, 3, 4, 5, 6)), LottoNumber.valueOf(7), 13)
         );
     }
 }

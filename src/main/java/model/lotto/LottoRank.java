@@ -22,16 +22,16 @@ public enum LottoRank {
 
     public static LottoRank convertToLottoRank(int numberOfSameNumber, boolean needBonusNumber) {
         return Arrays.stream(LottoRank.values())
-                .filter(lottoRank -> checkLottoRank(lottoRank, numberOfSameNumber, needBonusNumber))
+                .filter(lottoRank -> lottoRank.checkLottoRank(numberOfSameNumber, needBonusNumber))
                 .findFirst()
                 .orElse(LottoRank.FAIL);
     }
 
-    private static boolean checkLottoRank(LottoRank lottoRank, int numberOfSameNumber, boolean needBonusNumber) {
-        if (lottoRank == LottoRank.SECOND_PRIZE || lottoRank == LottoRank.THIRD_PRIZE) {
-            return lottoRank.getMatchNumber() == numberOfSameNumber && lottoRank.getNeedBonusNumber() == needBonusNumber;
+    private boolean checkLottoRank(int numberOfSameNumber, boolean needBonusNumber) {
+        if (this == LottoRank.SECOND_PRIZE || this == LottoRank.THIRD_PRIZE) {
+            return getMatchNumber() == numberOfSameNumber && getNeedBonusNumber() == needBonusNumber;
         }
-        return lottoRank.getMatchNumber() == numberOfSameNumber;
+        return getMatchNumber() == numberOfSameNumber;
     }
 
     public int getReward() {

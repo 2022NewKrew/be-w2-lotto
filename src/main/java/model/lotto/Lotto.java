@@ -20,7 +20,7 @@ public class Lotto {
     private static List<LottoNumber> getLegalNumbers() {
         return IntStream
                 .rangeClosed(LottoNumber.START_NUMBER, LottoNumber.FINAL_NUMBER)
-                .mapToObj(LottoNumber::new)
+                .mapToObj(LottoNumber::valueOf)
                 .collect(Collectors.toList());
     }
 
@@ -37,9 +37,9 @@ public class Lotto {
     }
 
     public static Lotto getDefinedLotto(List<Integer> definedLottoNumbers) {
-        NullChecker.checkNull(definedLottoNumbers);
+        NullChecker.checkNotNull(definedLottoNumbers);
 
-        return new Lotto(definedLottoNumbers.stream().map(LottoNumber::new).collect(Collectors.toList()));
+        return new Lotto(definedLottoNumbers.stream().map(LottoNumber::valueOf).collect(Collectors.toList()));
     }
 
     public int contain(Lotto lotto) {
@@ -61,7 +61,7 @@ public class Lotto {
     }
 
     private void checkNull(List<LottoNumber> lottoNumbers) {
-        NullChecker.checkNull(lottoNumbers);
+        NullChecker.checkNotNull(lottoNumbers);
     }
 
     private void checkNumbersLength(List<LottoNumber> lottoNumbers) {
