@@ -7,6 +7,7 @@ import lotto.domain.WinningInfo;
 import java.util.List;
 
 public interface OutputManager {
+    void printPurchaseInfo(PurchaseInfo purchaseInfo);
     void printAllLotto(List<Lotto> lottoList);
     void printPrizes(PurchaseInfo purchaseInfo, WinningInfo winningInfo);
 }

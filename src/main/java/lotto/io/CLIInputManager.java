@@ -31,7 +31,7 @@ public class CLIInputManager implements InputManager {
         for (int i = 0; i < count; i++) {
             result.add(LottoGenerator.generateManualLotto(getNumbersInput(scanner)));
         }
-        return result;
+        return Collections.unmodifiableList(result);
     }
 
     public List<Integer> getWinningNumber(Scanner scanner) {
