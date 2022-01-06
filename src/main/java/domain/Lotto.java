@@ -16,11 +16,7 @@ public abstract class Lotto {
     protected List<Integer> numbers;
     protected LottoWinningStatus status = LottoWinningStatus.NORMAL;
 
-    public Lotto() {
-    }
-
-    public Lotto(List<Integer> numbers) {
-        this.numbers = numbers;
+    protected Lotto() {
     }
 
     /**

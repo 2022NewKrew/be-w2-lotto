@@ -14,7 +14,8 @@ public class LottoNormal extends Lotto {
      * @exception 6자리가 아닌 경우, 중복된 숫자가 있는 경우
      */
     public LottoNormal(List<Integer> numbers) {
-        super(numbers);
+        super();
+        this.numbers = numbers;
         validationOfkNumbers();
     }
 
