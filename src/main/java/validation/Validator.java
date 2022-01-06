@@ -3,11 +3,8 @@ package validation;
 import domain.Lotto;
 import domain.Number;
 import exception.InvalidInputException;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
 import static utils.Symbol.*;
 
 public class Validator {

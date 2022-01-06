@@ -1,13 +1,9 @@
 package view;
 
 import domain.Lotto;
-import domain.Result;
 import enums.Rank;
 import service.ResultService;
-
 import java.util.ArrayList;
-
-import static utils.Symbol.LOTTO_PRICE;
 import static utils.Symbol.REWARD_MESSAGE;
 
 public class OutputView {
