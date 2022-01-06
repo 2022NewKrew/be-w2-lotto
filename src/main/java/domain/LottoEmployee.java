@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class LottoEmployee {
     private static final int MINIMUM_PURCHASE_AMOUNT = 1;
+    private static final int MAXIMUM_PURCHASE_AMOUNT = 100;
     private static final int LOTTO_PRICE = 1000;
 
     public int buyLottos(int purchasedAmount) {
@@ -25,6 +26,9 @@ public class LottoEmployee {
     private static void validatePurchaseAmount(int purchasedAmount) {
         if ((purchasedAmount/LOTTO_PRICE) < MINIMUM_PURCHASE_AMOUNT) {
             throw new InvalidPurchaseAmount(InvalidPurchaseAmount.MINIMUM_PURCHASE_AMOUNT);
+        }
+        if ((purchasedAmount / LOTTO_PRICE) > MAXIMUM_PURCHASE_AMOUNT) {
+            throw new InvalidPurchaseAmount(InvalidPurchaseAmount.MAXIMUM_PURCHASE_AMOUNT);
         }
     }
 }
