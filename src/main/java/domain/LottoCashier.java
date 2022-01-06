@@ -3,7 +3,8 @@ package domain;
 import exception.InvalidPurchaseAmount;
 
 public class LottoCashier {
-    public static final int MINIMUM_PURCHASE_AMOUNT = 1000;
+    private static final int MINIMUM_PURCHASE_AMOUNT = 1;
+
 
     public static int buyLottos(int purchasedAmount) {
         validatePurchaseAmount(purchasedAmount);
