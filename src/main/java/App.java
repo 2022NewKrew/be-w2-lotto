@@ -9,10 +9,9 @@ import java.util.stream.IntStream;
 public class App {
     public static void main(String[] args) {
         View view = new View();
-
         LotteryWallet lotteryWallet = new LotteryWallet(view.getBudget());
-        int numberOfManualTickets = view.getNumberOfManualTickets();
 
+        int numberOfManualTickets = view.getNumberOfManualTickets();
         lotteryWallet.buyTickets(numberOfManualTickets);
         List<LotteryTicket> manualLotteryTickets = view.getLotteryTickets(numberOfManualTickets);
 

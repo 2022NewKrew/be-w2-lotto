@@ -4,12 +4,11 @@ import static domain.util.LotteryConfigs.TICKET_PRICE;
 
 public class LotteryWallet {
     private int budget;
+    private int spent;
 
     public int getSpent() {
         return spent;
     }
-
-    private int spent;
 
     public LotteryWallet(int budget) {
         this.budget = budget;
