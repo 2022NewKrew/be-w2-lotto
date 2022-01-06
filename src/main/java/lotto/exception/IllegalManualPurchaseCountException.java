@@ -1,6 +1,6 @@
 package lotto.exception;
 
-import static lotto.domain.LottoConstant.LOTTO_PRICE;
+import lotto.domain.LottoPrice;
 
 public class IllegalManualPurchaseCountException extends Exception {
 
@@ -12,6 +12,6 @@ public class IllegalManualPurchaseCountException extends Exception {
     }
 
     public IllegalManualPurchaseCountException(String message, int input, int maxNumber) {
-        super(message + " 수동로또가격: " + input * LOTTO_PRICE + " / 구매금액: " + maxNumber * LOTTO_PRICE);
+        super(message + " 수동로또가격: " + LottoPrice.calculateLottoPurchaseAmount(input) + " / 구매금액: " + LottoPrice.calculateLottoPurchaseAmount(maxNumber));
     }
 }

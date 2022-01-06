@@ -1,5 +1,6 @@
 package lotto.validation;
 
+import lotto.domain.LottoPrice;
 import lotto.exception.IllegalBonusNumberException;
 import lotto.exception.IllegalManualPurchaseCountException;
 import lotto.exception.IllegalNumberListException;
@@ -25,7 +26,7 @@ public class InputViewValidation {
         } catch (IllegalArgumentException e) {
             throw new IllegalPurchaseAmountException("구입금액은 숫자로만 입력해주세요.", e);
         }
-        if (result < LOTTO_PRICE) {
+        if (result < LottoPrice.calculateLottoPurchaseAmount(1)) {
             throw new IllegalPurchaseAmountException("구입금액이 로또 가격보다 낮습니다.", result);
         }
         return result;
