@@ -8,7 +8,7 @@ import static java.util.stream.Collectors.groupingBy;
 public class LottoTickets {
     private final List<LottoTicket> lottoTickets;
 
-    LottoTickets (List<LottoTicket> lottoTickets) {
+    public LottoTickets(List<LottoTicket> lottoTickets) {
         this.lottoTickets = Collections.unmodifiableList(lottoTickets);
     }
 
@@ -25,5 +25,9 @@ public class LottoTickets {
         Set<Integer> lottoTicketNumbers = new HashSet<>(lottoTicket.getLottoNumbers());
 
         return lastWeekWinningNumbers.stream().filter(number -> !lottoTicketNumbers.add(number)).count();
+    }
+
+    public List<LottoTicket> getLottoTickets() {
+        return lottoTickets;
     }
 }

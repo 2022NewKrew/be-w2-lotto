@@ -14,4 +14,8 @@ public final class LottoTicket {
     public List<Integer> getLottoNumbers() {
         return numbers;
     }
+
+    public List<Integer> getNumbers() {
+        return numbers;
+    }
 }

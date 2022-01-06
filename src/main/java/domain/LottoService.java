@@ -37,7 +37,7 @@ public final class LottoService {
      * 구매금액 가져오는 메소드입니다. 구매금액이 0보다 크지 않으면 재귀호출하여 다시 가져옵니다.
      * @return 0보다 큰 금액
      */
-    private int getPurchaseAmount() {
+    public int getPurchaseAmount() {
         final int amount = inputController.getPurchaseAmount();
         if(ConditionCheck.isPositiveInteger(amount)) {
             return amount;
@@ -52,7 +52,7 @@ public final class LottoService {
      * @param numberOfLottoTickets 구매할 로또 티켓 수
      * @return 구매한 LottoTicket 리스트
      */
-    private LottoTickets purchaseLottoTickets(int numberOfLottoTickets) {
+    public LottoTickets purchaseLottoTickets(int numberOfLottoTickets) {
         final List<LottoTicket> purchasedLottoTickets = new ArrayList<>();
         final int numberOfManualPurchase = getNumberOfManualPurchase(numberOfLottoTickets);
         final int numberOfAutoPurchase = numberOfLottoTickets - numberOfManualPurchase;
@@ -91,7 +91,7 @@ public final class LottoService {
      * 지난 주 당첨 번호를 입력받는 메소드입니다.
      * @return 당첨번호를 리스트를 반환합니다.
      */
-    private List<Integer> getLastWeekWinningNumbers() {
+    public List<Integer> getLastWeekWinningNumbers() {
         List<Integer> numbers = inputController.getLastWeekWinningNumbers();
         if(ConditionCheck.isValidLottoNumber(numbers)) {
             return Collections.unmodifiableList(numbers);
@@ -105,7 +105,7 @@ public final class LottoService {
      * 보너스 볼 입력받는 메소드입니다. 입력받은 값이 로또 번호 범위를 벗어나면 재귀호출하여 다시 가져옵니다.
      * @return 로또 번호 범위 내의 숫자 값
      */
-    private int getBonusBallNumber() {
+    public int getBonusBallNumber() {
         final int bonusNumber = inputController.getBonusBallNumber();
         if(ConditionCheck.isLottoNumber(bonusNumber)) {
             return bonusNumber;
@@ -122,7 +122,7 @@ public final class LottoService {
      * @param lastWeekWinningNumbers 지난주 당첨 번호
      * @param bonusBallNumber 보너스 볼 번호
      */
-    private void printWinningStatistics(int purchaseAmount, LottoTickets purchasedLottoTickets, List<Integer> lastWeekWinningNumbers, int bonusBallNumber) {
+    public void printWinningStatistics(int purchaseAmount, LottoTickets purchasedLottoTickets, List<Integer> lastWeekWinningNumbers, int bonusBallNumber) {
         WinningStatus winningStatus = new WinningStatus(purchasedLottoTickets.getWinningStatus(lastWeekWinningNumbers, bonusBallNumber));
 
         renderer.displayResults(winningStatus, winningStatus.getRateOfReturn(purchaseAmount));
