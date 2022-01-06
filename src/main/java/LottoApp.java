@@ -1,10 +1,11 @@
 import domain.Lotto;
+import domain.LottoResults;
 import domain.LottoTicket;
 import domain.lottonumber.BasicNumber;
 import domain.lottonumber.BonusNumber;
 import domain.lottonumber.LottoNumber;
 import domain.LottoShop;
-import dto.LottoDto;
+import dto.YieldDto;
 import dto.LottoResultsDto;
 import service.LottoGenerator;
 import view.LottoPrinter;
@@ -25,9 +26,9 @@ public class LottoApp {
         int money = inputMoney();
         Lotto lotto = lottoShop.sell(inputManualLottoTickets(inputNumberOfManualLottoTicket()), money);
         lottoPrinter.printLotto(lotto.getLottoTicketsView());
-        lotto.checkLottoResult(inputWinningNumbers());
-        lottoPrinter.printLottoResults(new LottoResultsDto(lotto.getResult()));
-        lottoPrinter.printYield(new LottoDto(lotto));
+        LottoResults lottoResults = lotto.checkLottoResults(inputWinningNumbers());
+        lottoPrinter.printLottoResults(new LottoResultsDto(lottoResults));
+        lottoPrinter.printYield(new YieldDto(lottoResults.getEarnedMoney(), lotto.getPrice()));
     }
 
     private static List<LottoTicket> inputManualLottoTickets(int numberOfManualLottoTicket) {

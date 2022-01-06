@@ -1,16 +1,14 @@
 package dto;
 
-import domain.Lotto;
 
-
-public class LottoDto {
+public class YieldDto {
 
     private final long earnedMoney;
     private final long price;
 
-    public LottoDto(Lotto lotto) {
-        this.earnedMoney = lotto.getEarnedMoney();
-        this.price = lotto.getPrice();
+    public YieldDto(long earnedMoney, long price) {
+        this.earnedMoney = earnedMoney;
+        this.price = price;
     }
 
     public long getEarnedMoney() {
