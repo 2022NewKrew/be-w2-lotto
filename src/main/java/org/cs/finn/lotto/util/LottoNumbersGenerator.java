@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class LottoNumbersGenerator {
+public final class LottoNumbersGenerator {
     private static final List<LottoNumber> list;
     static {
         list = new ArrayList<>();
@@ -22,7 +22,6 @@ public class LottoNumbersGenerator {
 
     public static LottoNumbers getLottoNumbers(final SecureRandom sRand) {
         Collections.shuffle(list, Objects.requireNonNull(sRand));
-        Collections.sort(list.subList(0, LottoNumbers.SIZE));
 
         return new LottoNumbers(
                 new ArrayList<>(list.subList(0, LottoNumbers.SIZE))

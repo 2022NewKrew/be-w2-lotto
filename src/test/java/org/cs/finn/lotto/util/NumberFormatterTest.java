@@ -15,7 +15,7 @@ class NumberFormatterTest {
     @MethodSource("argsForNumberFormatter")
     @DisplayName("숫자를 입력하면 3개의 숫자마다 콤마를 넣어서 문자열로 반환한다")
     public void testNumberFormatter(int number, String expected) {
-        assertThat(NumberFormatter.strNumberWithSeparator(number))
+        assertThat(NumberFormatter.strNumberWithComma(number))
                 .isEqualTo(expected);
     }
 

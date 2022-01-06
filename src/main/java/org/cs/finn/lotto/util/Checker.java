@@ -8,10 +8,13 @@ public final class Checker {
             final int val,
             final int min,
             final int max
-    ) throws IllegalArgumentException, IndexOutOfBoundsException
+    ) throws IllegalArgumentException, IllegalStateException, IndexOutOfBoundsException
     {
         if (val < 0 || min < 0 || max < 0) {
             throw new IllegalArgumentException("val or min or max is not 0 or positive integer! - [" + val + ", " + min + ", " + max + "]");
+        }
+        if (min > max) {
+            throw new IllegalStateException("min value(" + min + ") is greater then max value(" + max + ")");
         }
         if (val != Math.max(min, Math.min(val, max))) {
             throw new IndexOutOfBoundsException(val + " is out of [" + min + ", " + max + "]");

@@ -5,6 +5,7 @@ import org.cs.finn.lotto.domain.Lottos;
 import org.cs.finn.lotto.domain.Money;
 import org.cs.finn.lotto.domain.lotto.LottoNumber;
 import org.cs.finn.lotto.domain.lotto.LottoNumbers;
+import org.cs.finn.lotto.util.Checker;
 import org.cs.finn.lotto.util.Separator;
 
 import java.util.Objects;
@@ -40,25 +41,26 @@ public class UserInput {
     }
 
     private LottoNumbers getLottoNumbers() {
-        System.out.println("보너스 번호를 제외한 당첨 번호 " + LottoNumbers.SIZE + "개를 " +
+        System.out.println("당첨 번호 " + LottoNumbers.SIZE + "개를 " +
                 "[" + Separator.DEFAULT_SEPARATOR + "]로 구분해서 중복 없이 입력해 주세요. " +
                 "[" + LottoNumber.MIN + " ~ " + LottoNumber.MAX + "]");
 
-        return requestLottoNumbers(true);
+        return requestLottoNumbers("",true);
     }
 
-    private LottoNumbers requestLottoNumbers(final boolean insertNewLine) {
-        LottoNumbers lottoNumbers = getLottoNumbersFromInput(insertNewLine);
+    private LottoNumbers requestLottoNumbers(final String prefix, final boolean insertNewLine) {
+        LottoNumbers lottoNumbers = getLottoNumbersFromInput(prefix, insertNewLine);
         while (lottoNumbers.isNone()) {
             System.out.println("유효한 번호 입력의 개수가 " + LottoNumbers.SIZE + "개가 아닙니다.");
             System.out.println("다시 입력해주세요.");
-            lottoNumbers = getLottoNumbersFromInput(insertNewLine);
+            lottoNumbers = getLottoNumbersFromInput(prefix, insertNewLine);
         }
 
         return lottoNumbers;
     }
 
-    private LottoNumbers getLottoNumbersFromInput(final boolean insertNewLine) {
+    private LottoNumbers getLottoNumbersFromInput(final String prefix, final boolean insertNewLine) {
+        System.out.print(prefix);
         final String[] numbers = Separator.splitString(sc.nextLine().trim());
         if (insertNewLine) {
             System.out.println();
@@ -96,22 +98,10 @@ public class UserInput {
         }
     }
 
-    public Money requestLottoManual(final Lottos lottos, final Money money) {
+    public int requestCountOfLottoManual(final Lottos lottos, final Money money) {
         Objects.requireNonNull(lottos);
         Objects.requireNonNull(money);
 
-        final int count = requestCountOfLottoManual(money);
-        if (count == 0) {
-            return money;
-        }
-
-        requestManualLottos(lottos, count);
-        System.out.println();
-
-        return money.buyLottoManual(count);
-    }
-
-    private int requestCountOfLottoManual(final Money money) {
         System.out.println("수동으로 구매할 Lotto 수를 입력해 주세요. [최대 " + money.maxNumberToBuyLottos() + "개]");
         int count = getCountOfLottoManualFromInput();
         while (money.notEnoughToBuyLottos(count)) {
@@ -133,15 +123,32 @@ public class UserInput {
         }
     }
 
-    private void requestManualLottos(final Lottos lottos, final int count) {
+    public Money requestBuyLottoManual(final Lottos lottos, final Money money, final int count) {
+        Objects.requireNonNull(lottos);
+        Objects.requireNonNull(money);
+        Checker.checkInt(count, false);
+
+        if (count == 0) {
+            return money;
+        }
+        if (money.notEnoughToBuyLottos(count)) {
+            throw new RuntimeException("Not enough money to buy " + count + " lotto(s)!");
+        }
+
+        requestBuyLottoManualFromInput(lottos, count);
+        return money.buyLottoManual(count);
+    }
+
+    private void requestBuyLottoManualFromInput(final Lottos lottos, final int count) {
         System.out.println("수동으로 구매할 Lotto " + count + "개 입력해 주세요.");
         System.out.println("각 Lotto는 번호 "+ LottoNumbers.SIZE + "개를 " +
                 "[" + Separator.DEFAULT_SEPARATOR + "]로 구분해서 중복 없이 입력해 주세요. " +
                 "[" + LottoNumber.MIN + " ~ " + LottoNumber.MAX + "]");
 
         for (int i = 0; i < count; i++) {
-            System.out.print((i + 1) + "/" + count + ": ");
-            lottos.add(requestLottoNumbers(false));
+            lottos.add(requestLottoNumbers((i + 1) + "/" + count + ": ", false));
         }
+
+        System.out.println();
     }
 }

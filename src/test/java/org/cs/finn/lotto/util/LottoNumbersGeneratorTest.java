@@ -13,6 +13,8 @@ class LottoNumbersGeneratorTest {
     @Test
     @DisplayName("Lotto 번호 생성 시 LottoNumbers 객체 유효성 검사에서 예외가 발생하지 않아야 한다")
     public void testNoException() {
-        assertThatNoException().isThrownBy(() -> LottoNumbersGenerator.getLottoNumbers(sRand));
+        for (int i = 0; i < 100_000; i++) {
+            assertThatNoException().isThrownBy(() -> LottoNumbersGenerator.getLottoNumbers(sRand));
+        }
     }
 }

@@ -18,7 +18,7 @@ public class Money {
     private final int used;
 
     public Money(final String money)
-            throws IllegalArgumentException, IllegalStateException, IndexOutOfBoundsException
+            throws IllegalArgumentException
     {
         Checker.checkString(money);
 
@@ -37,7 +37,7 @@ public class Money {
     }
 
     public Money(final int money, final int used)
-            throws IllegalArgumentException
+            throws IllegalStateException
     {
         Checker.checkIntMinMax(used, money);
         this.money = money;
@@ -84,7 +84,7 @@ public class Money {
 
     @Override
     public String toString() {
-        return NumberFormatter.strNumberWithSeparator(money) + "원";
+        return NumberFormatter.strNumberWithComma(money - used) + "원";
     }
 
     // Auto-generated code

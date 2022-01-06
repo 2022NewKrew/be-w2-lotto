@@ -14,14 +14,16 @@ public class LottoNumbers {
 
     private final List<LottoNumber> list;
 
-    public LottoNumbers(List<LottoNumber> list)
+    public LottoNumbers(final List<LottoNumber> list)
             throws IllegalArgumentException
     {
-        this.list = Objects.requireNonNull(list);
+        Objects.requireNonNull(list);
         if (list.size() != SIZE) {
             throw new IllegalArgumentException("list's size is not " + SIZE + "!");
         }
-        validateNumbers();
+        validateNumbers(list);
+        Collections.sort(list);
+        this.list = list;
     }
 
     public LottoNumbers(final String[] numbers)
@@ -32,11 +34,12 @@ public class LottoNumbers {
             throw new IllegalArgumentException("Valid value count is not " + SIZE + "!");
         }
 
+        validateNumbers(lottoNumberList);
+        Collections.sort(lottoNumberList);
         this.list = lottoNumberList;
-        validateNumbers();
     }
 
-    private void validateNumbers() {
+    private void validateNumbers(final List<LottoNumber> list) {
         final Map<LottoNumber, Integer> mapCount = new HashMap<>();
         for (LottoNumber lottoNumber : list) {
             mapCount.put(lottoNumber, mapCount.getOrDefault(lottoNumber, 0) + ADDITIVE);

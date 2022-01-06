@@ -5,18 +5,17 @@ import org.cs.finn.lotto.domain.Lottos;
 import org.cs.finn.lotto.domain.Money;
 import org.cs.finn.lotto.domain.lotto.LottoNumbers;
 import org.cs.finn.lotto.domain.lotto.LottoPrize;
+import org.cs.finn.lotto.util.NumberFormatter;
 
 import java.util.Map;
 import java.util.Objects;
 
 public class LottoSimulatorView {
 
-    public boolean checkNotEnoughMoney(final Money money) {
-        if (Objects.requireNonNull(money).notEnoughToBuyOneLotto()) {
-            System.out.println("로또 구매에 필요한 금액이 부족하므로 프로그램을 종료합니다.");
-            return true;
-        }
-        return false;
+    public void printNotEnoughMoney(final Money money) {
+        System.out.println("현재 금액: " + Objects.requireNonNull(money));
+        final String numWithComma = NumberFormatter.strNumberWithComma(Lottos.PRICE);
+        System.out.println("로또 구매에 필요한 금액(" + numWithComma + "원)이 부족하므로 프로그램을 종료합니다.");
     }
 
     public void printLottos(final Lottos lottos, final int manuals, final int autos) {
@@ -46,8 +45,11 @@ public class LottoSimulatorView {
             sumOfPrize += mapCount.get(lottoPrize) * lottoPrize.getReward();
         }
 
-        final double ret = (double)(sumOfPrize - money.getMoney()) / money.getMoney() * 100.0;
-        System.out.printf("\n총 수익률은 %.2f%% 입니다.\n", ret);
+        final int totalMoneyUsed = lottoResult.getTotalLottos() * Lottos.PRICE;
+        final double profitRate = (double)(sumOfPrize - totalMoneyUsed) / totalMoneyUsed * 100.0;
+        System.out.printf("\n남은 돈은 %s원이고 총 수익률은 %.2f%% 입니다.\n",
+                NumberFormatter.strNumberWithComma(money.getMoney() - totalMoneyUsed),
+                profitRate);
     }
 
     private void printWonLottos(final LottoPrize lottoPrize, final Lottos lottos) {

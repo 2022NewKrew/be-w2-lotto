@@ -16,17 +16,17 @@ public class LottoSimulator {
 
     public void run() {
         final Money money = userInput.requestMoney();
-        if (lottoSimulatorView.checkNotEnoughMoney(money)) {
+        if (money.notEnoughToBuyOneLotto()) {
+            lottoSimulatorView.printNotEnoughMoney(money);
             return;
         }
 
         final Lottos lottos = new Lottos();
-        final Money left = userInput.requestLottoManual(lottos, money);
-        final int countOfManuals = lottos.getList().size();
+        final int countOfManuals = userInput.requestCountOfLottoManual(lottos, money);
+        final Money left = userInput.requestBuyLottoManual(lottos, money, countOfManuals);
 
         lottos.addAll(left.buyLottoAutoAll(sRand));
-        final int countOfAutos = lottos.getList().size() - countOfManuals;
-        lottoSimulatorView.printLottos(lottos, countOfManuals, countOfAutos);
+        lottoSimulatorView.printLottos(lottos, countOfManuals, left.maxNumberToBuyLottos());
 
         final LottoWinnings lottoWinnings = userInput.requestLottoWinnings();
         final LottoResult lottoResult = new LottoResult(lottoWinnings, lottos);
