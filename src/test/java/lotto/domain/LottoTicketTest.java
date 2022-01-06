@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-class LottoNumbersTest {
+class LottoTicketTest {
 
     @Test
     @DisplayName("로또 번호는 6개 숫자이고, 모든 숫자는 1~45 사이의 숫자이면 된다.")
