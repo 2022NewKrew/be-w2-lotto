@@ -17,6 +17,13 @@ public class InputView {
         return purchaseAmount;
     }
 
+    public static int inputBonusNumber() {
+        System.out.println(GameMessage.INPUT_BONUS.getMessage());
+        int bonusNumber = in.nextInt();
+        in.nextLine(); // For Buffer
+        return bonusNumber;
+    }
+
     public static Set<Integer> inputLastWeekWinningNumber() {
         System.out.println(GameMessage.INPUT_LAST_WEEK_WINNING_NUMBER.getMessage());
         String input = in.nextLine();

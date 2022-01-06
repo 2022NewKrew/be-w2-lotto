@@ -23,7 +23,8 @@ public class LottoGame {
         ResultView.printLottoList(lottoList);
 
         Set<Integer> lastWeekWinningNumbers = InputView.inputLastWeekWinningNumber();
-        LottoResult lottoResult = new LottoResult(lastWeekWinningNumbers);
+        int bonusNumber = InputView.inputBonusNumber();
+        LottoResult lottoResult = new LottoResult(lastWeekWinningNumbers, bonusNumber);
         ResultView.printLottoResult(lottoResult.winningLottoCount(lottoList));
         ResultView.printRateOfReturn(lottoResult.rateOfReturn(purchaseAmount, lottoList));
     }

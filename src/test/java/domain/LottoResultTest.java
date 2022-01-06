@@ -39,7 +39,8 @@ class LottoResultTest {
         winningLottoCount_Answer.put(Prize.FOUR, 0);
         winningLottoCount_Answer.put(Prize.FIVE, 0);
         winningLottoCount_Answer.put(Prize.SIX, 0);
-        LottoResult lottoResult = new LottoResult(winningNumbers);
+        int bonusNumber = 7;
+        LottoResult lottoResult = new LottoResult(winningNumbers, bonusNumber);
 
         EnumMap<Prize, Integer> winningLottoCount = lottoResult.winningLottoCount(lottoList);
 
@@ -53,7 +54,8 @@ class LottoResultTest {
     void rateOfReturn() {
         long purchaseAmount = 14000;
         double rateOfReturn_Answer = (Prize.THREE.getMoney() - purchaseAmount) / (double)purchaseAmount * 100.0d;
-        LottoResult lottoResult = new LottoResult(winningNumbers);
+        int bonusNumber = 7;
+        LottoResult lottoResult = new LottoResult(winningNumbers, bonusNumber);
         List<Lotto> lottoList = new ArrayList<>();
         lottoList.add(createLottoNumbers(1, 2, 3, 10, 11, 12));
 
