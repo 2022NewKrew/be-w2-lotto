@@ -105,8 +105,7 @@ public class ChangeVaildInput {
                 .filter(ChangeVaildInput::isLottoDigit)
                 .distinct()
                 .map(Integer::parseInt)
-                .sorted()
-                .collect(Collectors.toList()));
+                .collect(Collectors.toSet()));
     }
 
     /**

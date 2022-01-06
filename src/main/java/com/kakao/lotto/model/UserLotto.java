@@ -2,7 +2,9 @@ package com.kakao.lotto.model;
 
 import com.kakao.lotto.view.UserLottoInput;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -52,12 +54,21 @@ public class UserLotto {
         return new LottoNumber(Stream.generate(() -> random.nextInt(ConstLottoConfig.LOTTO_NUMBER_RANGE) + 1)
                 .distinct()
                 .limit(ConstLottoConfig.LOTTO_PICK_NUMBER)
-                .sorted()
-                .collect(Collectors.toList()));
+                .collect(Collectors.toSet()));
     }
 
     public List<LottoNumber> getLottoNumbers() {
         return lottoNumbers;
+    }
+
+    public Map<Integer, List<Integer>> printLottos(){
+        Map<Integer, List<Integer>> tempMap = new HashMap<>();
+
+        for(int i = 0 ; i < lottoNumbers.size() ; i++){
+            tempMap.put(i, lottoNumbers.get(i).getAll().stream().sorted().collect(Collectors.toList()));
+        }
+
+        return tempMap;
     }
 
     public int getNumOfCustomLotto() {

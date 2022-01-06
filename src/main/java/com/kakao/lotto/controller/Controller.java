@@ -5,7 +5,7 @@ import com.kakao.lotto.model.SystemLotto;
 import com.kakao.lotto.model.UserLotto;
 import com.kakao.lotto.view.ChangeVaildInput;
 import com.kakao.lotto.view.PreLottoResultInput;
-import com.kakao.lotto.view.PrintResult;
+import com.kakao.lotto.view.ResultPrinter;
 import com.kakao.lotto.view.UserLottoInput;
 
 /**
@@ -21,7 +21,7 @@ public class Controller {
      */
     private final UserLotto userLotto;
     private final SystemLotto systemLotto;
-    private final PrintResult printResult;
+    private final ResultPrinter resultPrinter;
 
     public Controller() {
         userLotto = new UserLotto(new UserLottoInput.Builder()
@@ -40,23 +40,21 @@ public class Controller {
 
         ChangeVaildInput.close();
 
-        printResult = new PrintResult(userLotto.getLottoNumbers(), userLotto.getNumOfCustomLotto(), systemLotto.getWinningLottoNumbers(), systemLotto.getBonus());
+        resultPrinter = new ResultPrinter(userLotto, systemLotto);
     }
 
     /**
      * Model 과 View 사이의 프로그램 진행 과정을 모아준 메서드입니다.
      */
     public void start() {
-        printResult.printBuyLottoNumbers();
+        resultPrinter.printBuyLottoNumbers();
 
         System.out.println();
 
-        printResult.printWinningLottoNumber();
+        resultPrinter.printWinningLottoNumber();
 
-        LottoResultCheck lottoResultCheck = new LottoResultCheck(userLotto.getLottoNumbers(), systemLotto.getWinningLottoNumbers(), systemLotto.getBonus());
+        LottoResultCheck lottoResultCheck = new LottoResultCheck(userLotto, systemLotto);
 
-        printResult.printAllLottoResult(lottoResultCheck.lottoResult());
+        resultPrinter.printAllLottoResult(lottoResultCheck.lottoResult());
     }
-
-
 }

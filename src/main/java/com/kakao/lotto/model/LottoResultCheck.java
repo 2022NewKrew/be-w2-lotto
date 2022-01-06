@@ -18,10 +18,10 @@ public class LottoResultCheck {
     private final LottoNumber winningLotto;
     private final int bonus;
 
-    public LottoResultCheck(List<LottoNumber> userLottos, LottoNumber winningLotto, int bonus) {
-        this.userLottos = userLottos;
-        this.winningLotto = winningLotto;
-        this.bonus = bonus;
+    public LottoResultCheck(UserLotto userLottos, SystemLotto systemLotto) {
+        this.userLottos = userLottos.getLottoNumbers();
+        this.winningLotto = systemLotto.getWinningLottoNumbers();
+        this.bonus = systemLotto.getBonus();
     }
 
     /**
