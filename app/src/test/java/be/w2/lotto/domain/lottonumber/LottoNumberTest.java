@@ -1,6 +1,5 @@
 package be.w2.lotto.domain.lottonumber;
 
-import be.w2.lotto.domain.lottonumber.LottoNumber;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -16,15 +15,16 @@ class LottoNumberTest {
     void from_객체_생성에_성공하고_LottoNumber_객체를_반환한다() {
         // given
         List<Integer> lottoNumberInputs = List.of(1, 45);
+        Class<LottoNumber> expected = LottoNumber.class;
 
         // when
-        List<LottoNumber> lottoNumbers = lottoNumberInputs.stream()
+        List<LottoNumber> actuals = lottoNumberInputs.stream()
                 .map(LottoNumber::from)
                 .collect(Collectors.toList());
 
         // then
-        lottoNumbers.forEach(
-                lottoNumber -> assertThat(lottoNumber).isInstanceOf(LottoNumber.class)
+        actuals.forEach(
+                actual -> assertThat(actual).isInstanceOf(expected)
         );
     }
 

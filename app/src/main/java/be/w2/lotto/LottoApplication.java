@@ -27,7 +27,7 @@ public class LottoApplication {
         int purchaseAmount = inputPurchaseAmountDto.purchaseAmount;
 
         OutputLottoTicketsDto outputLottoTicketsDto = OutputLottoTicketsDto.from(lottoTickets);
-        outputLottoAmounts(outputLottoTicketsDto.getLottoTicketAmount(), inputPurchaseAmountDto.manualPurchaseAmount);
+        outputLottoAmounts(outputLottoTicketsDto.getLottoTicketsAmount(), inputPurchaseAmountDto.manualPurchaseAmount);
         outputLottoTickets(outputLottoTicketsDto.lottoTickets);
 
         WinningLottoTicket winningLottoTicket = inputWinningNumbers();

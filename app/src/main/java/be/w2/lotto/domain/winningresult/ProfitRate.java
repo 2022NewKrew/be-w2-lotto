@@ -22,7 +22,7 @@ public class ProfitRate {
     }
 
     private static BigInteger calculateProfitRate(List<WinningResult> winningResults, int purchaseAmount)
-            throws NoSuchElementException, ArithmeticException
+            throws NoSuchElementException
     {
         BigInteger profitSum = winningResults.stream()
                 .map(ProfitRate::calculateProfit)

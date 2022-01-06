@@ -13,11 +13,12 @@ class AutoLottoTicketTest {
     void from_객체_생성에_성공하고_AutoLottoTicket_객체를_반환한다() {
         // given
         List<LottoNumber> lottoNumbers = List.of(LottoNumber.from(1), LottoNumber.from(2));
+        Class<AutoLottoTicket> expected = AutoLottoTicket.class;
 
         // when
-        AutoLottoTicket autoLottoTicket = AutoLottoTicket.from(lottoNumbers);
+        AutoLottoTicket actual = AutoLottoTicket.from(lottoNumbers);
 
         // then
-        assertThat(autoLottoTicket).isInstanceOf(AutoLottoTicket.class);
+        assertThat(actual).isInstanceOf(expected);
     }
 }

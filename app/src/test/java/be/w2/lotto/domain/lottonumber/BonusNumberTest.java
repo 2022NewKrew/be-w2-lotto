@@ -1,7 +1,7 @@
 package be.w2.lotto.domain.lottonumber;
 
-import be.w2.lotto.domain.lottonumber.BonusNumber;
 import be.w2.lotto.domain.lottoticket.WinningLottoTicket;
+import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,12 +23,13 @@ class BonusNumberTest {
     void valueOf_객체_생성에_성공하고_BonusNumber_객체를_반환한다() {
         // given
         WinningLottoTicket winningLottoTicket = WinningLottoTicket.valueOf(List.of(2, 3, 4, 5, 6, 7));;
+        Class<BonusNumber> expected = BonusNumber.class;
 
         // when
-        BonusNumber bonusNumber = BonusNumber.valueOf(bonusNumberInput, winningLottoTicket);
+        BonusNumber actual = BonusNumber.valueOf(bonusNumberInput, winningLottoTicket);
 
         // then
-        assertThat(bonusNumber).isInstanceOf(BonusNumber.class);
+        assertThat(actual).isInstanceOf(expected);
     }
 
     @Test
@@ -36,8 +37,11 @@ class BonusNumberTest {
         // given
         WinningLottoTicket duplicatedLottoTicket = WinningLottoTicket.valueOf(List.of(1, 2, 3, 4, 5, 6));
 
-        // when - then
-        assertThatThrownBy(() -> BonusNumber.valueOf(bonusNumberInput, duplicatedLottoTicket))
+        // when
+        ThrowableAssert.ThrowingCallable actual = () -> BonusNumber.valueOf(bonusNumberInput, duplicatedLottoTicket);
+
+        // then
+        assertThatThrownBy(actual)
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(BONUS_NUMBER_DUPLICATION_NOT_ALLOWED_EXCEPTION);
     }
@@ -48,12 +52,13 @@ class BonusNumberTest {
         WinningLottoTicket winningLottoTicket = WinningLottoTicket.valueOf(List.of(2, 3, 4, 5, 6, 7));;
         BonusNumber bonusNumber = BonusNumber.valueOf(bonusNumberInput, winningLottoTicket);
         List<Integer> listedTicket = List.of(1, 2, 3, 4, 5, 6);
+        boolean expected = true;
 
         // when
-        boolean containsBonusNumber = bonusNumber.isContainedIn(listedTicket);
+        boolean actual = bonusNumber.isContainedIn(listedTicket);
 
         // then
-        assertThat(containsBonusNumber).isEqualTo(true);
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
@@ -62,11 +67,12 @@ class BonusNumberTest {
         WinningLottoTicket winningLottoTicket = WinningLottoTicket.valueOf(List.of(2, 3, 4, 5, 6, 7));;
         BonusNumber bonusNumber = BonusNumber.valueOf(bonusNumberInput, winningLottoTicket);
         List<Integer> listedTicket = List.of(2, 3, 4, 5, 6, 7);
+        boolean expected = false;
 
         // when
-        boolean containsBonusNumber = bonusNumber.isContainedIn(listedTicket);
+        boolean actual = bonusNumber.isContainedIn(listedTicket);
 
         // then
-        assertThat(containsBonusNumber).isEqualTo(false);
+        assertThat(actual).isEqualTo(expected);
     }
 }
