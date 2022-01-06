@@ -13,6 +13,10 @@ import static lotto.domain.LottoNumber.MAX_NUMBER;
 import static lotto.domain.LottoNumber.MIN_NUMBER;
 
 public class LottoAutoGenerator {
+    private final List<Integer> randomNumbers = IntStream.rangeClosed(MIN_NUMBER, MAX_NUMBER)
+            .boxed()
+            .collect(Collectors.toList());
+
     public List<Lotto> getRandomLottos(long numOfLottos) {
         return Stream.generate(() -> new Lotto(getRandomLottoNumbers()))
                 .limit(numOfLottos)
@@ -20,9 +24,6 @@ public class LottoAutoGenerator {
     }
 
     private @NotNull List<LottoNumber> getRandomLottoNumbers() {
-        List<Integer> randomNumbers = IntStream.rangeClosed(MIN_NUMBER, MAX_NUMBER)
-                .boxed()
-                .collect(Collectors.toList());
         Collections.shuffle(randomNumbers);
         return randomNumbers.subList(0, NUM_OF_LOTTO_NUMBERS_IN_LOTTO)
                 .stream()
