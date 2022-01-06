@@ -14,15 +14,18 @@ import dto.request.LottoPurchaseInfo;
 import dto.response.LottoPurchaseAmount;
 
 public class LottoService {
-	public LottoPurchaseAmount getPurchaseAmount(LottoPurchaseInfo lottoPurchaseInfo) {
+	public LottoPurchaseAmount purchase(LottoPurchaseInfo lottoPurchaseInfo) {
 		int totalAmount = LottoGenerator.getAmountOfLotto(lottoPurchaseInfo.getPurchaseMoney());
-		int customAmount = lottoPurchaseInfo.getCustomAmount();
+		int customAmount = lottoPurchaseInfo.getCustomLottoList().size();
 		int autoAmount = totalAmount - customAmount;
 
-		return new LottoPurchaseAmount(totalAmount, customAmount, autoAmount);
+		List<Lotto> lottoList = new ArrayList<>(lottoPurchaseInfo.getCustomLottoList());
+		lottoList.addAll(createAutoLottoList(autoAmount));
+
+		return new LottoPurchaseAmount(totalAmount, customAmount, autoAmount, lottoList);
 	}
 
-	public List<Lotto> createLottoList(int amount) {
+	public List<Lotto> createAutoLottoList(int amount) {
 		List<Lotto> lottoList = new ArrayList<>();
 
 		for (int number = 0; number < amount; number++) {
@@ -56,6 +59,16 @@ public class LottoService {
 		}
 
 		return (double)(profit - purchaseMoney) / purchaseMoney * 100.0;
+	}
+
+	public List<String> makeRankToMessage(Map<LottoRank, Integer> rankMap) {
+		List<String> message = new ArrayList<>();
+
+		for (LottoRank rank : LottoRank.getValidLottoRankList()) {
+			message.add(rank.getMessage() + " (" + rank.getReward() + "원) - " + rankMap.get(rank) + "개");
+		}
+
+		return message;
 	}
 }
 

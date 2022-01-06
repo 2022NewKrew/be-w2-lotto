@@ -1,32 +1,41 @@
-import java.util.List;
+import static spark.Spark.*;
 
-import View.LottoInputView;
-import View.LottoOutputView;
 import controller.LottoController;
-import domain.Lotto;
-import domain.WinningLotto;
+import dto.request.AllLottoInfo;
 import dto.request.LottoPurchaseInfo;
 import dto.response.LottoPurchaseAmount;
 import dto.response.LottoStatistics;
 import service.LottoService;
+import spark.ModelAndView;
+import spark.template.handlebars.HandlebarsTemplateEngine;
 
 public class Main {
 	public static void main(String[] args) {
 		LottoService lottoService = new LottoService();
 		LottoController lottoController = new LottoController(lottoService);
 
-		LottoPurchaseInfo lottoPurchaseInfo = LottoInputView.getPurchaseMoney();
-		LottoPurchaseAmount lottoPurchaseAmount = lottoController.getPurchaseAmount(lottoPurchaseInfo);
+		port(80);
+		staticFiles.location("/templates");
 
-		List<Lotto> lottoList = LottoInputView.getCustomLotto(lottoPurchaseAmount);
-		List<Lotto> autoLottoList = lottoController.purchase(lottoPurchaseAmount.getAutoAmount());
+		post("/buyLotto", (request, response) -> {
+			String inputMoney = request.queryParams("inputMoney");
+			String manualNumber = request.queryParams("manualNumber");
+			LottoPurchaseInfo lottoPurchaseInfo = new LottoPurchaseInfo(inputMoney, manualNumber);
 
-		lottoList.addAll(autoLottoList);
-		LottoOutputView.printPurchaseAmount(lottoPurchaseAmount);
-		LottoOutputView.printLotto(lottoList);
+			LottoPurchaseAmount purchaseAmount = lottoController.getPurchaseAmount(lottoPurchaseInfo);
 
-		WinningLotto winningLotto = LottoInputView.getWinningLotto();
-		LottoStatistics lottoStatistics = lottoController.getStatistics(lottoList, winningLotto);
-		LottoOutputView.printLottoStatistics(lottoStatistics);
+			return new HandlebarsTemplateEngine().render(new ModelAndView(purchaseAmount, "/show.html"));
+		});
+
+		post("/matchLotto", (request, response) -> {
+			String lottoList = request.queryParams("lottoList");
+			String winningNumber = request.queryParams("winningNumber");
+			String bonusNumber = request.queryParams("bonusNumber");
+			AllLottoInfo allLottoInfo = new AllLottoInfo(lottoList, winningNumber, bonusNumber);
+
+			LottoStatistics lottoStatistics = lottoController.getStatistics(allLottoInfo);
+
+			return new HandlebarsTemplateEngine().render(new ModelAndView(lottoStatistics, "/result.html"));
+		});
 	}
 }

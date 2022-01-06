@@ -7,6 +7,7 @@ import domain.Lotto;
 import domain.LottoRank;
 import domain.LottoValidator;
 import domain.WinningLotto;
+import dto.request.AllLottoInfo;
 import dto.request.LottoPurchaseInfo;
 import dto.response.LottoPurchaseAmount;
 import dto.response.LottoStatistics;
@@ -22,22 +23,20 @@ public class LottoController {
 	public LottoPurchaseAmount getPurchaseAmount(LottoPurchaseInfo lottoPurchaseInfo) {
 		LottoValidator.validateLottoPurchaseInfo(lottoPurchaseInfo);
 
-		return lottoService.getPurchaseAmount(lottoPurchaseInfo);
+		return lottoService.purchase(lottoPurchaseInfo);
 	}
 
-	public List<Lotto> purchase(int purchaseAmount) {
-		LottoValidator.validateLottoPurchaseAmount(purchaseAmount);
+	public LottoStatistics getStatistics(AllLottoInfo allLottoInfo) {
+		List<Lotto> lottoList = allLottoInfo.getLottoList();
+		WinningLotto winningLotto = allLottoInfo.getWinningLotto();
 
-		return lottoService.createLottoList(purchaseAmount);
-	}
-
-	public LottoStatistics getStatistics(List<Lotto> lottoList, WinningLotto winningLotto) {
 		LottoValidator.validateLottoList(lottoList);
 		LottoValidator.validateWinningLotto(winningLotto);
 
 		Map<LottoRank, Integer> rankMap = lottoService.calculateRank(lottoList, winningLotto);
 		double profit = lottoService.calculateProfit(lottoList, rankMap);
+		List<String> message = lottoService.makeRankToMessage(rankMap);
 
-		return new LottoStatistics(rankMap, profit);
+		return new LottoStatistics(message, profit);
 	}
 }
