@@ -3,7 +3,6 @@ package domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Lotto {
 
@@ -26,23 +25,8 @@ public class Lotto {
         LottoGenerator lottoGenerator = new LottoGenerator();
         return lottoGenerator.generateRandomLotto().subList(0,NUM_OF_LOTTO);
     }
-
-    private int countNumbersMatch(Lotto prize){
-        return this.numbers.stream().filter(num->prize.contains(num)).collect(Collectors.toList()).size();
-    }
-    public Ranking makeLottoRank(Lotto prize){
-        switch (countNumbersMatch(prize)){
-            case 3:
-                return Ranking.THREE;
-            case 4:
-                return Ranking.FOUR;
-            case 5:
-                return Ranking.FIVE;
-            case 6:
-                return Ranking.SIX;
-            default:
-                return Ranking.NONE;
-        }
+    public int countNumbersMatch(Lotto prize){
+        return (int) this.numbers.stream().filter(prize::contains).count();
     }
 
     public boolean contains(int num){

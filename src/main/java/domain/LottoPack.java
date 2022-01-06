@@ -15,11 +15,11 @@ public class LottoPack {
 
 
     public void printLottoPack() {
-        lottoList.stream().forEach(e -> System.out.print(e+"\n"));
+        lottoList.forEach(e -> System.out.print(e+"\n"));
     }
 
     public RankingPack makeRankingPack(Lotto prize){
-        return new RankingPack(lottoList.stream().map(lotto -> lotto.makeLottoRank(prize)).collect(Collectors.toList()));
+        return new RankingPack(lottoList.stream().map(lotto -> Match.makeLottoRank(lotto,prize)).collect(Collectors.toList()));
     }
 
 

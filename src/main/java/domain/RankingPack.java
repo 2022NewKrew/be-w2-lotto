@@ -1,9 +1,7 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class RankingPack {
     private final List<Ranking> rankingList;
@@ -20,10 +18,10 @@ public class RankingPack {
     }
 
     private int calculateRanking(Ranking targetRank){
-        return rankingList.stream().filter(ranking -> ranking==targetRank).collect(Collectors.toList()).size();
+        return (int) rankingList.stream().filter(ranking -> ranking == targetRank).count();
     }
     private int calculatePrize(){
-        return rankingList.stream().map(ranking -> ranking.getWiningPrize()).reduce((prize, total) -> prize+total).get();
+        return rankingList.stream().map(Ranking::getWiningPrize).reduce(Integer::sum).get();
     }
 
 }

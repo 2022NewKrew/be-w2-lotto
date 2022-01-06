@@ -18,7 +18,7 @@ public class WinningStats {
         }
     }
     public void printMap(){
-        prizeMap.forEach((ranking, count) -> System.out.println(String.format(LottoOutput.PRIZE_STR_FORMAT,ranking.getMatchCount(),ranking.getWiningPrize(),count)));
+        prizeMap.forEach((ranking, count) -> System.out.printf((LottoOutput.PRIZE_STR_FORMAT) + "%n",ranking.getMatchCount(),ranking.getWiningPrize(),count));
     }
     public double getTotalIncome(){
         return ((double)(winningPrize - BuyLotto.buyPrice)) * 100 / BuyLotto.buyPrice;

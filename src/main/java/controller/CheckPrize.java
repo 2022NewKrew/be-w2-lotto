@@ -21,8 +21,7 @@ public class CheckPrize {
 
     public WinningStats calculateWinningLottoStats(){
         RankingPack rankingPack = lottoPack.makeRankingPack(lottoPrize);
-        WinningStats winningStats = rankingPack.makeWiningStats();
-        return winningStats;
+        return rankingPack.makeWiningStats();
     }
 
     public void printPrize(){
