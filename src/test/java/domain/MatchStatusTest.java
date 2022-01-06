@@ -3,7 +3,6 @@ package domain;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,6 +39,6 @@ class MatchStatusTest {
         );
 
         assertThat(invalidMatchList)
-                .containsAll(Collections.singleton(MatchStatus.INVALID));
+                .containsOnly(MatchStatus.INVALID);
     }
 }

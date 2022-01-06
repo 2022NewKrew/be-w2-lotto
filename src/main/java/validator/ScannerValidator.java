@@ -17,8 +17,8 @@ public class ScannerValidator {
         }
     }
 
-    public static void assertValidPurchaseAmount(int purchaseAmount) throws NumberFormatException  {
-        if ((purchaseAmount % Purchase.PRICE) != 0) {
+    public static void assertValidPurchaseAmount(int purchaseAmount) throws NumberFormatException {
+        if (((purchaseAmount < 0)) || (purchaseAmount % Purchase.ONE_LOTTO_PRICE) != 0) {
             throw new NumberFormatException(ILLEGAL_PURCHASE_AMOUNT_MESSAGE);
         }
     }
