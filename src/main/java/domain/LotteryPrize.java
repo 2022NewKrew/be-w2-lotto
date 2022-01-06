@@ -10,7 +10,7 @@ public enum LotteryPrize {
     THIRD(5, 1_500_000),
     FOURTH(4, 50_000),
     FIFTH(3, 5_000),
-    None(0, 0);
+    NONE(0, 0);
 
     private static final Map<Integer, LotteryPrize> matchingCountToPrize;
 
@@ -31,7 +31,7 @@ public enum LotteryPrize {
     }
 
     public static LotteryPrize getPrize(LotteryResult lotteryResult, LotteryTicket lotteryTicket) {
-        LotteryPrize lotteryPrize = matchingCountToPrize.getOrDefault(lotteryResult.getMatchingCountOf(lotteryTicket), LotteryPrize.None);
+        LotteryPrize lotteryPrize = matchingCountToPrize.getOrDefault(lotteryResult.getMatchingCountOf(lotteryTicket), LotteryPrize.NONE);
         return lotteryPrize.equals(LotteryPrize.THIRD) && lotteryResult.isBonusBallMatched(lotteryTicket) ? LotteryPrize.SECOND : lotteryPrize;
     }
 

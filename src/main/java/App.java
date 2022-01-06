@@ -1,47 +1,40 @@
-import domain.LotteryReport;
-import domain.LotteryResult;
-import domain.LotteryTicket;
-import domain.LotteryTickets;
+import domain.*;
+import domain.util.LotteryNumbersFactory;
 import view.View;
 
-public class App {
-    private static final int TICKET_PRICE = 1000;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+public class App {
     public static void main(String[] args) {
         View view = new View();
+        LotteryWallet lotteryWallet = new LotteryWallet(view.getBudget());
 
-        int budget = view.getBudget();
-        int numberOfNonRandomTickets = view.getNumberOfNonRandomTickets();
+        LotteryTickets manualLotteryTickets = buyManualTickets(view, lotteryWallet);
+        LotteryTickets randomLotteryTickets = buyRandomTicketsAsMuchAsPossible(lotteryWallet);
 
-        budget -= TICKET_PRICE * numberOfNonRandomTickets;
-        if (budget < 0) {
-            throw new IllegalArgumentException();
-        }
+        view.showBoughtTickets(manualLotteryTickets.toDTO(), randomLotteryTickets.toDTO());
 
-        LotteryTickets nonRandomLotteryTickets = new LotteryTickets(TICKET_PRICE);
-        view.promptToInputLotteryNumbersToBuy();
-        for (int i = 0; i < numberOfNonRandomTickets; i++) {
-            nonRandomLotteryTickets.add(new LotteryTicket(view.getLotteryNumbers()));
-        }
+        LotteryResult lotteryResult = view.getLotteryResult();
 
-        LotteryTickets randomLotteryTickets = new LotteryTickets(TICKET_PRICE);
-        addRandomTicketsUnderBudget(randomLotteryTickets, budget);
-
-        view.showBoughtTickets(nonRandomLotteryTickets.toDTO(), randomLotteryTickets.toDTO());
-
-        LotteryResult lotteryResult = new LotteryResult(view.getResultNumbers(), view.getResultBonusBall());
-
-        nonRandomLotteryTickets.add(randomLotteryTickets);
-        LotteryTickets boughtLotteryTickets = nonRandomLotteryTickets;
-        LotteryReport lotteryReport = new LotteryReport(boughtLotteryTickets, lotteryResult);
-
-        view.showReport(lotteryReport.toDTO());
+        LotteryTickets allTickets = new LotteryTickets(manualLotteryTickets, randomLotteryTickets);
+        view.showReport(new LotteryReport(allTickets.getPrizeCount(lotteryResult), lotteryWallet.getSpent()).toDTO());
     }
 
-    private static void addRandomTicketsUnderBudget(LotteryTickets lotteryTickets, int budget) {
-        while (budget >= TICKET_PRICE) {
-            lotteryTickets.add(new LotteryTicket());
-            budget -= TICKET_PRICE;
-        }
+    private static LotteryTickets buyManualTickets(View view, LotteryWallet lotteryWallet) {
+        int numberOfManualTickets = view.getNumberOfManualTickets();
+        lotteryWallet.buyTickets(numberOfManualTickets);
+        return new LotteryTickets(view.getLotteryTickets(numberOfManualTickets));
+    }
+
+    private static LotteryTickets buyRandomTicketsAsMuchAsPossible(LotteryWallet lotteryWallet) {
+        int numberOfRandomTickets = lotteryWallet.getNumberOfTicketsAffordable();
+        lotteryWallet.buyTickets(numberOfRandomTickets);
+        return new LotteryTickets(getRandomTickets(numberOfRandomTickets));
+    }
+
+    private static List<LotteryTicket> getRandomTickets(int numberOfTickets) {
+        return Stream.generate(LotteryNumbersFactory::getRandomNumbers).map(LotteryTicket::new).limit(numberOfTickets).collect(Collectors.toList());
     }
 }

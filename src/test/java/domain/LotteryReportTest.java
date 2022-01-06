@@ -1,21 +1,20 @@
-package dto;
+package domain;
 
-import domain.LotteryPrize;
+import dto.LotteryReportDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.EnumMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
-class LotteryLotteryReportDTOTest {
-
+class LotteryReportTest {
     @Test
-    @DisplayName("수익률은 총상금액/투자액이다.")
-    void Given_InvestmentAndPrizeCount_When_MakingReportDTO_Then_CalculateProfitRate() {
+    @DisplayName("수익률은 수익/비용이어야 합니다.")
+    void Given_PrizeCountAndCost_When_MakingReportDTO_Then_CalculateProfitRate() {
         // Given
-        final int INVESTMENT = 1_000_000_000;
+        final int COST = 1_000_000_000;
         final int FIRST_PRIZE_COUNT = 1;
         final int SECOND_PRIZE_COUNT = 2;
         final int THIRD_PRIZE_COUNT = 3;
@@ -29,10 +28,11 @@ class LotteryLotteryReportDTOTest {
         prizeCount.put(LotteryPrize.FIFTH, FIFTH_PRIZE_COUNT);
 
         // When
-        LotteryReportDTO lotteryReportDTO = new LotteryReportDTO(INVESTMENT, prizeCount);
+        LotteryReport lotteryReport = new LotteryReport(prizeCount, COST);
 
         // Then
         final double PROFIT_RATE = 1.064725;
-        assertEquals(PROFIT_RATE, lotteryReportDTO.profitRate);
+        assertEquals(PROFIT_RATE, lotteryReport.toDTO().profitRate);
     }
+
 }

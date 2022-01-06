@@ -1,13 +1,17 @@
 package view;
 
 import domain.LotteryPrize;
+import domain.LotteryResult;
+import domain.LotteryTicket;
 import dto.LotteryReportDTO;
 import dto.LotteryTicketsDTO;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class View {
     private static final Scanner scanner = new Scanner(System.in);
@@ -17,21 +21,28 @@ public class View {
         return Integer.parseInt(scanner.nextLine());
     }
 
-    public int getNumberOfNonRandomTickets() {
+    public int getNumberOfManualTickets() {
         System.out.println();
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
         return Integer.parseInt(scanner.nextLine());
     }
 
-    public void promptToInputLotteryNumbersToBuy() {
+    public List<LotteryTicket> getLotteryTickets(int numberOfTickets) {
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        List<LotteryTicket> lotteryTickets = new ArrayList<>();
+        IntStream.range(0, numberOfTickets).forEach(i -> lotteryTickets.add(new LotteryTicket(getLotteryNumbers())));
+        return lotteryTickets;
     }
 
-    public void showBoughtTickets(LotteryTicketsDTO nonRandomLotteryTicketsDTO, LotteryTicketsDTO randomLotteryTicketsDTO) {
-        System.out.println("수동으로 " + nonRandomLotteryTicketsDTO.size + "장, 자동으로 " + randomLotteryTicketsDTO.size + "개를 구매했습니다.");
-        System.out.println(nonRandomLotteryTicketsDTO.lotteryTicketDTOS.stream().map(ticketDTO -> ticketDTO.numbers.toString()).collect(Collectors.joining(System.lineSeparator())));
+    public void showBoughtTickets(LotteryTicketsDTO manualLotteryTicketsDTO, LotteryTicketsDTO randomLotteryTicketsDTO) {
+        System.out.println("수동으로 " + manualLotteryTicketsDTO.size + "장, 자동으로 " + randomLotteryTicketsDTO.size + "개를 구매했습니다.");
+        System.out.println(manualLotteryTicketsDTO.lotteryTicketDTOS.stream().map(ticketDTO -> ticketDTO.numbers.toString()).collect(Collectors.joining(System.lineSeparator())));
         System.out.println(randomLotteryTicketsDTO.lotteryTicketDTOS.stream().map(ticketDTO -> ticketDTO.numbers.toString()).collect(Collectors.joining(System.lineSeparator())));
         System.out.println();
+    }
+
+    public LotteryResult getLotteryResult() {
+        return new LotteryResult(getResultNumbers(), getResultBonusBall());
     }
 
     public List<Integer> getResultNumbers() {
@@ -40,7 +51,7 @@ public class View {
     }
 
     public List<Integer> getLotteryNumbers() {
-        return Arrays.asList(scanner.nextLine().split(",")).stream().map(String::strip).map(Integer::valueOf).collect(Collectors.toList());
+        return Arrays.stream(scanner.nextLine().split(",")).map(String::strip).map(Integer::valueOf).collect(Collectors.toList());
     }
 
     public int getResultBonusBall() {
