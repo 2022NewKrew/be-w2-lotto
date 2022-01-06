@@ -6,11 +6,11 @@ import java.util.List;
 public class PurchasedLotto implements Lotto {
     private List<Integer> numbers;
 
-    PurchasedLotto() {
+    public PurchasedLotto() {
         pickRandomNumbers();
     }
 
-    PurchasedLotto(List<Integer> manualNumbers) {
+    public PurchasedLotto(List<Integer> manualNumbers) {
         pickManualNumbers(manualNumbers);
     }
 

@@ -12,9 +12,10 @@ public class LottoController {
     private WinningStats winningStats;
 
     private int purchaseAmount;
+    private int manualPurchaseAmount;
+    private final List<PurchasedLotto> allLotto = new ArrayList<>();
     private List<Integer> winningNumbers = new ArrayList<>();
     private int bonusNumber;
-    private final List<PurchasedLotto> allLotto = new ArrayList<>();
 
     public void runLotto() {
         getPurchaseAmount();
@@ -26,21 +27,19 @@ public class LottoController {
     }
 
     private void getPurchaseAmount() {
-        purchaseAmount = inputView.getPurchasedMoneyFromClient();
+        purchaseAmount = inputView.getPurchaseAmountFromClient();
+        manualPurchaseAmount = inputView.getManualPurchaseAmountFromClient();
     }
 
     private void buyLotto() {
-        for (int i = 0 ; i < getNumbersOfLotto() ; i++) {
+        allLotto.addAll(inputView.purchaseLotto(manualPurchaseAmount));
+        for (int i = 0 ; i < purchaseAmount ; i++) {
             allLotto.add(new PurchasedLotto());
         }
     }
 
-    private int getNumbersOfLotto() {
-        return purchaseAmount/1000;
-    }
-
     private void printAllLotto() {
-        outputView.printAllLotto(allLotto);
+        outputView.printAllLotto(allLotto, manualPurchaseAmount);
     }
 
     private void getLastWeekWinningNumbers() {
@@ -58,7 +57,7 @@ public class LottoController {
     }
 
     private double getWinningRate() {
-        int purchasedMoney = getNumbersOfLotto()*1000;
+        int purchasedMoney = purchaseAmount*1000;
         return ((double) winningStats.getEarnedMoney()-(double) purchasedMoney)/purchasedMoney*100;
     }
 }

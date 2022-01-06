@@ -59,9 +59,9 @@ public class WinningStats {
     private String rankString(Rank rank) {
         if (rank.name().equals("SECOND")) {
             return String.format("%d개 일치, 보너스 볼 일치(%d원)- %d개",
-                    rank.getCountOfMatch(),rank.getWinningMoney(),winningStats.get(rank));
+                    rank.getCountOfMatch(),rank.getWinningMoney(),winningStats.getOrDefault(rank, 0));
         }
         return String.format("%d개 일치 (%d원)- %d개",
-                rank.getCountOfMatch(),rank.getWinningMoney(),winningStats.get(rank));
+                rank.getCountOfMatch(),rank.getWinningMoney(),winningStats.getOrDefault(rank, 0));
     }
 }
