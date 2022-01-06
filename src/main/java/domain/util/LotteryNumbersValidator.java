@@ -9,13 +9,13 @@ public class LotteryNumbersValidator {
     public static void validate(List<Integer> lotteryNumbers, int bonusBall) {
         validate(lotteryNumbers);
         validateDomain(bonusBall);
-        validateNonRedundancyForBonusBall(lotteryNumbers, bonusBall);
+        validateNonRepetitionForBonusBall(lotteryNumbers, bonusBall);
     }
 
     public static void validate(List<Integer> lotteryNumbers) {
         validateLength(lotteryNumbers);
         validateDomain(lotteryNumbers);
-        validateNonRedundancy(lotteryNumbers);
+        validateNonRepetition(lotteryNumbers);
     }
 
     private static void validateLength(List<Integer> lotteryNumbers) {
@@ -24,13 +24,13 @@ public class LotteryNumbersValidator {
         }
     }
 
-    private static void validateNonRedundancyForBonusBall(List<Integer> resultLotteryNumbers, int bonusBall) {
+    private static void validateNonRepetitionForBonusBall(List<Integer> resultLotteryNumbers, int bonusBall) {
         if (resultLotteryNumbers.contains(bonusBall)) {
             throw new IllegalArgumentException("보너스 볼 " + bonusBall + "은 당첨 번호 " + resultLotteryNumbers + "에 포함되면 안 됩니다.");
         }
     }
 
-    private static void validateNonRedundancy(List<Integer> lotteryNumbers) {
+    private static void validateNonRepetition(List<Integer> lotteryNumbers) {
         if (!lotteryNumbers.stream().sequential().allMatch(new HashSet<>()::add)) {
             throw new IllegalArgumentException("로또 번호 " + lotteryNumbers + "에 중복이 있습니다.");
         }
