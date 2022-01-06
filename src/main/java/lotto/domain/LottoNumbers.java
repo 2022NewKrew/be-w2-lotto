@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static lotto.domain.LottoConstants.*;
 
@@ -11,7 +14,7 @@ public class LottoNumbers {
     private final List<Integer> lottoNumbers;
 
     LottoNumbers() {
-        ArrayList<Integer> randomNumList = makeRandomNumList();
+        List<Integer> randomNumList = makeRandomNumList();
         lottoNumbers = chooseLottoNumbers(randomNumList);
         sortLottoNumbers();
         checkLottoNumbers();
@@ -23,16 +26,15 @@ public class LottoNumbers {
         checkLottoNumbers();
     }
 
-    private ArrayList<Integer> makeRandomNumList() {
-        ArrayList<Integer> randomNums = new ArrayList<>();
-        for (int i = 0; i < MAX_OF_LOTTO_NUMBER; i++) {
-            randomNums.add(i + 1);
-        }
+    private List<Integer> makeRandomNumList() {
+        List<Integer> randomNums = IntStream.rangeClosed(MIN_OF_LOTTO_NUMBER, MAX_OF_LOTTO_NUMBER)
+            .boxed()
+            .collect(Collectors.toList());
         Collections.shuffle(randomNums);
         return randomNums;
     }
 
-    private List<Integer> chooseLottoNumbers(ArrayList<Integer> randomNumList) {
+    private List<Integer> chooseLottoNumbers(List<Integer> randomNumList) {
         return randomNumList.subList(0, COUNT_OF_LOTTO_NUMBER);
     }
 
@@ -40,8 +42,19 @@ public class LottoNumbers {
         Collections.sort(lottoNumbers);
     }
 
+    public int countIntersectionSize(LottoNumbers ln) {
+        return ln.countIntersectionSize(lottoNumbers);
+    }
+
+    public int countIntersectionSize(List<Integer> ln) {
+        List<Integer> intersection = new ArrayList<>();
+        intersection.addAll(lottoNumbers);
+        intersection.retainAll(ln);
+        return intersection.size();
+    }
+
     private void checkLottoNumbers() {
-        // checkNumRange();
+        checkNumRange();
         checkNumDuplication();
         checkSize();
     }
@@ -50,17 +63,9 @@ public class LottoNumbers {
         return lottoNumbers.contains(target);
     }
 
-    public int getElByIndex(int index) {
-        return lottoNumbers.get(index);
-    }
-
-    public int size() {
-        return lottoNumbers.size();
-    }
-
-    private void checkNumRange(Integer num) throws IllegalArgumentException {
-        if (num < MIN_OF_LOTTO_NUMBER || num > MAX_OF_LOTTO_NUMBER) {
-            throw new IllegalArgumentException("잘못된 범위의 로또 당첨 번호입니다!");
+    private void checkNumRange() throws IllegalArgumentException {
+        if (lottoNumbers.stream().anyMatch(num -> num < MIN_OF_LOTTO_NUMBER || num > MAX_OF_LOTTO_NUMBER)) {
+            throw new IllegalArgumentException("잘못된 범위의 로또 번호입니다!");
         }
     }
 
@@ -80,11 +85,8 @@ public class LottoNumbers {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
-        for (Integer lottoNum : lottoNumbers) {
-            String newNumStr = Objects.equals(lottoNum, lottoNumbers.get(lottoNumbers.size() - 1)) ?
-                    lottoNum + "" : lottoNum + ", ";
-            sb.append(newNumStr);
-        }
+        lottoNumbers.forEach(num -> sb.append(num + ", "));
+        sb.delete(sb.length() - 2, sb.length());
         sb.append("]");
         return sb.toString();
     }

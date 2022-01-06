@@ -12,9 +12,7 @@ public class LottoView {
         System.out.println("수동으로 " + numOfManualLottos +
                 "개, 자동으로 " + (lottos.size() - numOfManualLottos) +
                 "개를 구매했습니다.");
-        for (LottoNumbers ln : lottos) {
-            System.out.println(ln.toString());
-        }
+        lottos.forEach(System.out::println);
     }
 
     public void printResult(HashMap<Rank, Integer> matchMap, int profitRate) {

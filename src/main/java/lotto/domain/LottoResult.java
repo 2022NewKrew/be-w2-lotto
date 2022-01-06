@@ -54,11 +54,7 @@ public class LottoResult {
     }
 
     private int countMatchingNumbers(LottoNumbers ln, LottoNumbers winningLottoNumbers) {
-        int cnt = 0;
-        for (int index = 0; index < ln.size(); index++) {
-            cnt += ln.contains(winningLottoNumbers.getElByIndex(index)) ? 1 : 0;
-        }
-        return cnt;
+        return ln.countIntersectionSize(winningLottoNumbers);
     }
 
     private void calculateProfit(int moneyAmount) {

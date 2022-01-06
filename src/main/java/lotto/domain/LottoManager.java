@@ -10,10 +10,10 @@ public class LottoManager {
     private int moneyAmount;
     private int numOfLottos;
     private int numOfManualLottos;
-    private List<LottoNumbers> lottos = new ArrayList<>();
+    private final List<LottoNumbers> lottos = new ArrayList<>();
     private LottoNumbers winningLottoNumbers;
     private int bonusWinningLottoNumber;
-    private LottoView lv = new LottoView();
+    private final LottoView lv = new LottoView();
 
     public void start() {
         inputMoneyAmount();
