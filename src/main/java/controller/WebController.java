@@ -8,7 +8,7 @@ import model.Lotto;
 import model.LottoGenerator;
 import repository.LottoRepository;
 
-public class ConsoleController implements Controller {
+public class WebController implements Controller {
     private final LottoRepository lottoRepository = new LottoRepository();
     private final LottoGenerator lottoGenerator = new LottoGenerator();
 

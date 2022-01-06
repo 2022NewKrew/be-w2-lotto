@@ -1,12 +1,12 @@
 package view.console;
 
-import controller.ConsoleController;
+import controller.Controller;
 
 public class ConsoleLottoView implements ConsoleView {
     private final LottoPurchaseView lottoPurchaseView;
     private final LottoResultView lottoResultView;
 
-    public ConsoleLottoView(ConsoleController consoleController) {
+    public ConsoleLottoView(Controller consoleController) {
         this.lottoPurchaseView = new LottoPurchaseView(consoleController);
         this.lottoResultView = new LottoResultView(consoleController);
     }

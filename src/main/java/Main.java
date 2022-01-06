@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) throws Exception {
-        LottoApplication lottoApplication = new LottoApplication();
-        lottoApplication.run();
+        Application application = new WebLottoApplication();
+        application.run();
     }
 }

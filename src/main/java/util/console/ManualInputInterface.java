@@ -1,4 +1,4 @@
-package util.console.input;
+package util.console;
 
 import util.TypeConverter;
 import util.Validator;

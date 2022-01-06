@@ -8,10 +8,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Lotto extends BaseEntity {
-    private final List<LottoTicket> lottoTickets;
-    private final Map<LottoResult, Integer> lottoResultMap = new HashMap<>();
-    private Integer earnedPrize = 0;
-    private Boolean isChecked = false;
+    protected final List<LottoTicket> lottoTickets;
+    protected final Map<LottoResult, Integer> lottoResultMap = new HashMap<>();
+    protected Integer earnedPrize = 0;
+    protected Boolean isChecked = false;
 
     protected Lotto(List<LottoTicket> lottoTickets) {
         this.lottoTickets = lottoTickets;
@@ -57,14 +57,14 @@ public class Lotto extends BaseEntity {
                     stringBuilder.append(("\n"));
                 });
 
-        stringBuilder.append("총 수익률은 ");
+        stringBuilder.append("\n총 수익률은 ");
         stringBuilder.append(String.format("%.2f", calcRevenueRate()));
         stringBuilder.append("%입니다.");
 
         return stringBuilder.toString();
     }
 
-    private double calcRevenueRate() {
+    protected double calcRevenueRate() {
         int PRICE_OF_TICKET = 1000;
         int numberOfLotto = lottoTickets.size();
         int budget = numberOfLotto * PRICE_OF_TICKET;

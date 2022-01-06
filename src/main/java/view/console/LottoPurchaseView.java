@@ -1,24 +1,24 @@
 package view.console;
 
-import controller.ConsoleController;
+import controller.Controller;
 import dto.request.LottoPurchaseDTO;
 import dto.response.PurchasedLottoDTO;
-import util.console.input.BudgetInputInterface;
-import util.console.input.ManualInputInterface;
-import util.console.input.ManualNumbersInputInterface;
+import util.console.BudgetInputInterface;
+import util.console.ManualInputInterface;
+import util.console.ManualNumbersInputInterface;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LottoPurchaseView implements ConsoleView {
-    private final ConsoleController consoleController;
+    private final Controller consoleController;
 
     private final BudgetInputInterface budgetInputInterface = new BudgetInputInterface();
     private final ManualInputInterface manualInputInterface = new ManualInputInterface();
     private final ManualNumbersInputInterface manualNumbersInputInterface = new ManualNumbersInputInterface();
 
-    public LottoPurchaseView(ConsoleController consoleController) {
+    public LottoPurchaseView(Controller consoleController) {
         this.consoleController = consoleController;
     }
 
