@@ -51,7 +51,7 @@ public final class LottoService {
 
     /**+
      * 인자 값으로 주어진 개수만큼 로또를 구매하는 메소드입니다.
-     * @param numberOfLottoTickets
+     * @param numberOfLottoTickets 구매할 로또 티켓 수
      * @return 구매한 LottoTicket 리스트
      */
     private List<LottoTicket> purchaseLottoTickets(int numberOfLottoTickets) {
@@ -112,10 +112,10 @@ public final class LottoService {
 
     /**+
      * 당첨 통계 출력하는 메소드입니다. 당첨된 등수와 해당 등수의 개수를 map으로 묶고, 수익률을 (평가금액 - 원금) / 원금 으로 퍼센티지를 계산하여 renderer에 전달합니다.
-     * @param purchaseAmount
-     * @param purchasedLottoTickets
-     * @param lastWeekWinning
-     * @param bonusBallNumber
+     * @param purchaseAmount 구매 금액
+     * @param purchasedLottoTickets 구매한 로또 티켓들
+     * @param lastWeekWinning 지난주 당첨 번호
+     * @param bonusBallNumber 보너스 볼 번호
      */
     private void printWinningStatistics(int purchaseAmount, List<LottoTicket> purchasedLottoTickets, LottoTicket lastWeekWinning, int bonusBallNumber) {
         Map<LottoPrize, Long> winningTickets = purchasedLottoTickets.stream()
