@@ -14,7 +14,12 @@ public class IOController {
 
     public void runApp() {
 
-        BudgetDto budgetDto = new BudgetDto(getBudget());
+        //BudgetDto budgetDto = new BudgetDto(getBudget());
+        int budget = getBudget();
+        ArrayList<ArrayList<Integer>> manualLottery = getManualLotteryBundle();
+        int priceOfManualLottery = manualLottery.size() * 1000;
+        BudgetAndManualLotteryDto budgetDto = new BudgetAndManualLotteryDto(budget - priceOfManualLottery, manualLottery);
+
         List<LotteryDto> boughtLotteries = lotteryController.buy(budgetDto);
         for (LotteryDto lotto : boughtLotteries) {
             System.out.println(lotto.getNumbers().toString());
@@ -41,6 +46,34 @@ public class IOController {
         int budget = Integer.parseInt(getInputString());
 
         return budget;
+    }
+
+    private int getNumOfManualLottery() {
+        printConsole("수동으로 구매할 로또 수를 입력해주세요.");
+        int numOfManualLottery = Integer.parseInt(getInputString());
+
+        return numOfManualLottery;
+    }
+
+    private ArrayList<ArrayList<Integer>> getManualLotteryBundle() {
+        int numOfManualLottery = getNumOfManualLottery();
+        printConsole("수동으로 구매할 번호를 입력해 주세요");
+
+        ArrayList<ArrayList<Integer>> manualBundle = new ArrayList<>();
+        for (int i = 0; i < numOfManualLottery; i++) {
+            manualBundle.add(getManualLotteryNumbers());
+        }
+
+        return manualBundle;
+    }
+
+    private ArrayList<Integer> getManualLotteryNumbers() {
+        ArrayList<String> inputStrArr = new ArrayList<String> (Arrays.asList(getInputString().split(",")));
+        ArrayList<Integer> winningNumbers = new ArrayList<Integer>();
+
+        inputStrArr.forEach(el -> winningNumbers.add(Integer.parseInt(el.trim())));
+
+        return winningNumbers;
     }
 
     private ArrayList<Integer> getWinningNumbers() {

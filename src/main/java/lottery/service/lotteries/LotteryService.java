@@ -36,6 +36,18 @@ public class LotteryService {
 
     }
 
+    public List<LotteryDto> buy(BudgetAndManualLotteryDto budgetDto) {
+
+        List<LotteryDto> lotteryBundle = buy(new BudgetDto(budgetDto.getAmount()));
+        for (LotteryDto el : budgetDto.getManualLotteryBundle()) {
+            lotteryRepository.save(new LotteryEntity(el.getNumbers()));
+            lotteryBundle.add(el);
+        }
+
+        return lotteryBundle;
+
+    }
+
     public List<Integer> generateRandomNumbers() {
         ArrayList<Integer> totalNumber = new ArrayList<>();
         for (int i = 1; i <= 45; i++) totalNumber.add(i);

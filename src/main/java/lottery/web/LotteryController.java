@@ -15,6 +15,12 @@ public class LotteryController {
 
     }
 
+    public List<LotteryDto> buy(BudgetAndManualLotteryDto budgetDto) {
+
+        return lotteryService.buy(budgetDto);
+
+    }
+
     public LotteryResultDto match(LotteryWinningNumberDto winningNumberDto) {
 
         return lotteryService.match(winningNumberDto);
