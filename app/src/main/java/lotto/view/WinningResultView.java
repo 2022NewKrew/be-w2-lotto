@@ -1,7 +1,9 @@
 package lotto.view;
 
-import lotto.domain.result.WinningRanking;
+import lotto.domain.lotto.result.WinningRanking;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.util.Map;
 
 public class WinningResultView {
@@ -18,17 +20,18 @@ public class WinningResultView {
         return new WinningResultView(result, earningRate);
     }
 
-    public void printView() {
+    public void printView(BufferedWriter output) throws IOException {
 
-        System.out.println();
-        System.out.println("당첨 통계");
-        System.out.println("-------------");
-        System.out.println(3 + "개 일치 (5000원)- " + getToMap(WinningRanking.FIFTH) + "개");
-        System.out.println(4 + "개 일치 (50000원)- " + getToMap(WinningRanking.FOURTH) + "개");
-        System.out.println(5 + "개 일치 (1500000원)- " + getToMap(WinningRanking.THIRD) + "개");
-        System.out.println(5 + "개 일치, 보너스 볼 일치(30000000원)- " + getToMap(WinningRanking.SECOND) + "개");
-        System.out.println(6 + "개 일치 (2000000000원)- " + getToMap(WinningRanking.FIRST) + "개");
-        System.out.println("총 수익률은 " + earningRate + "%입니다");
+        output.write("\n");
+        output.write("당첨 통계"+"\n");
+        output.write("-------------"+"\n");
+        output.write(3 + "개 일치 (5000원)- " + getToMap(WinningRanking.FIFTH) + "개"+"\n");
+        output.write(4 + "개 일치 (50000원)- " + getToMap(WinningRanking.FOURTH) + "개"+"\n");
+        output.write(5 + "개 일치 (1500000원)- " + getToMap(WinningRanking.THIRD) + "개"+"\n");
+        output.write(5 + "개 일치, 보너스 볼 일치(30000000원)- " + getToMap(WinningRanking.SECOND) + "개"+"\n");
+        output.write(6 + "개 일치 (2000000000원)- " + getToMap(WinningRanking.FIRST) + "개"+"\n");
+        output.write("총 수익률은 " + earningRate + "%입니다"+"\n");
+        output.flush();
     }
 
     private int getToMap(WinningRanking key) {
