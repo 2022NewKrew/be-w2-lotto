@@ -32,10 +32,10 @@ public class Lotto {
     }
 
     private void validateInvalidNumber(List<Integer> lotto) {
-        Optional<Integer> invalidRangeNumber = lotto.stream()
-                .filter(i -> i > 45 || i < 0)
-                .findAny();
-        if (invalidRangeNumber.isPresent()) {
+        boolean invalidRangeNumber = lotto.stream()
+                .anyMatch(i -> i > 45 || i < 0);
+
+        if (invalidRangeNumber) {
             throw new InvalidLottoNumberException(InvalidLottoNumberException.INVALID_RANGE_NUMBER);
         }
     }
