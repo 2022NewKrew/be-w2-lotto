@@ -5,13 +5,13 @@ import be.w2.lotto.result.RewardForCorrect;
 
 import java.util.Map;
 
-final class ResultOutput extends ClassOutput<Result> {
+final class ResultOutput implements ClassOutput<Result> {
 
     ResultOutput() {
     }
 
     @Override
-    String getOutput(Result result) {
+    public String getOutput(Result result) {
         StringBuilder sb = new StringBuilder();
         writeOpenWordTo(sb);
         writeResultTo(sb, result);

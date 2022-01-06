@@ -4,13 +4,13 @@ import be.w2.lotto.exceptions.NonValidRewardForCorrectException;
 import be.w2.lotto.messages.ErrorMessage;
 import be.w2.lotto.result.RewardForCorrect;
 
-final class RewardForCorrectOutput extends ClassOutput<RewardForCorrect> {
+final class RewardForCorrectOutput implements ClassOutput<RewardForCorrect> {
 
     RewardForCorrectOutput() {
     }
 
     @Override
-    String getOutput(RewardForCorrect rewardForCorrect) {
+    public String getOutput(RewardForCorrect rewardForCorrect) {
         return new StringBuilder()
                 .append(getDescriptionOf(rewardForCorrect))
                 .append("(")

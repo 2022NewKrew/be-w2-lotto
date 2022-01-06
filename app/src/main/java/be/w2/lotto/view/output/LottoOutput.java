@@ -4,13 +4,13 @@ import be.w2.lotto.lottos.Lotto;
 
 import java.util.List;
 
-final class LottoOutput extends ClassOutput<Lotto> {
+final class LottoOutput implements ClassOutput<Lotto> {
 
     LottoOutput() {
     }
 
     @Override
-    String getOutput(Lotto lotto) {
+    public String getOutput(Lotto lotto) {
         StringBuilder sb = new StringBuilder();
         writeOutputOfLottoTo(sb, lotto);
         return sb.toString();
