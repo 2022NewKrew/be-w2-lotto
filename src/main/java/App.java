@@ -2,9 +2,9 @@ import domain.*;
 import domain.util.LotteryNumbersFactory;
 import view.View;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class App {
     public static void main(String[] args) {
@@ -30,9 +30,6 @@ public class App {
     }
 
     private static List<LotteryTicket> getRandomTickets(int numberOfTickets) {
-        List<LotteryTicket> lotteryTickets = new ArrayList<>();
-        LotteryNumbersFactory lotteryNumbersFactory = new LotteryNumbersFactory();
-        IntStream.range(0, numberOfTickets).forEach(i -> lotteryTickets.add(new LotteryTicket(lotteryNumbersFactory.getRandomNumbers())));
-        return lotteryTickets;
+        return Stream.generate(LotteryNumbersFactory::getRandomNumbers).map(LotteryTicket::new).limit(numberOfTickets).collect(Collectors.toList());
     }
 }
