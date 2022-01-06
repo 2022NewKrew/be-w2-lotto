@@ -11,6 +11,7 @@ public class LottoWinningNumber extends Lotto {
 
     public LottoWinningNumber(List<LottoNumber> lottoNumbers, LottoNumber bonusBall) {
         super(lottoNumbers);
+        checkBonusBallNotNull(bonusBall);
         checkBonusBallDuplicate(bonusBall);
         this.bonusBall = bonusBall;
     }
@@ -34,6 +35,11 @@ public class LottoWinningNumber extends Lotto {
         if (lotto.contains(bonusBall))
             count += 1;
         return count;
+    }
+
+    private void checkBonusBallNotNull(LottoNumber bonusBall) {
+        if (bonusBall == null)
+            throw new IllegalArgumentException();
     }
 
     private void checkBonusBallDuplicate(LottoNumber bonusBall) {

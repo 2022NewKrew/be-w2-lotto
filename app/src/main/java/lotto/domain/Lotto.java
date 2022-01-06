@@ -14,8 +14,9 @@ public class Lotto {
     protected final List<LottoNumber> lottoNumbers;
 
     public Lotto(List<LottoNumber> lottoNumbers) {
-        checkLottoNumberCount(lottoNumbers);
-        checkLottoNumberDuplicate(lottoNumbers);
+        checkLottoNumberNotNull();
+        checkLottoNumberCount();
+        checkLottoNumberDuplicate();
         Collections.sort(lottoNumbers);
         this.lottoNumbers = Collections.unmodifiableList(lottoNumbers);
     }
@@ -29,12 +30,17 @@ public class Lotto {
         return lottoNumbers.contains(number);
     }
 
-    private void checkLottoNumberCount(List<LottoNumber> lottoNumbers) {
+    private void checkLottoNumberNotNull() {
+        if (lottoNumbers == null)
+            throw new IllegalArgumentException();
+    }
+
+    private void checkLottoNumberCount() {
         if (lottoNumbers.size() != LOTTO_NUMBERS_COUNT)
             throw new IllegalArgumentException();
     }
 
-    private void checkLottoNumberDuplicate(List<LottoNumber> lottoNumbers) { // 중복 번호 있는지 확인
+    private void checkLottoNumberDuplicate() { // 중복 번호 있는지 확인
         Set<LottoNumber> tmpSet = new HashSet<>(lottoNumbers);
         if (tmpSet.size() != LOTTO_NUMBERS_COUNT)
             throw new IllegalArgumentException();

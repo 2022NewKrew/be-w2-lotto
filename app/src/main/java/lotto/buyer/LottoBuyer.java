@@ -24,18 +24,13 @@ public class LottoBuyer {
     ));
 
     public final void buyLotto() {
-        buyAutoLotto(InputView.inputPurchasePrice());
+        buyAutoLotto();
         buyManualLotto();
         OutputView.printLottoList(lottoList);
     }
 
-    /**
-     * 구매 금액 (purchaseAmount)에 해당하는 로또를 생성해 반환하는 메소드
-     *
-     * @param purchasePrice : 구매 금액
-     */
-    private void buyAutoLotto(final int purchasePrice) {
-        final int countLotto = purchasePrice / LOTTO_PRICE;
+    private void buyAutoLotto() {
+        final int countLotto = InputView.inputPurchasePrice() / LOTTO_PRICE;    // 구매할 자동 로또 개수
 
         for (int i = 0; i < countLotto; i++) {
             lottoList.add(LottoMachine.generateLottoAuto());
