@@ -1,6 +1,7 @@
 package lotto;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import lotto.domain.LottoMoney;
 import lotto.domain.LottoResult;
@@ -17,14 +18,22 @@ public class LottoController {
         this.lottoMoney = lottoMoney;
     }
 
-    public static LottoController from(long money) {
+    public static LottoController of(long money, List<List<Integer>> manualLottoNumbers) {
         LottoMoney lottoMoney = new LottoMoney(money);
-        Lottos lottos = Lottos.valueOf(lottoMoney.purchase());
+        Lottos lottos = Lottos.of(lottoMoney.purchase(), manualLottoNumbers);
         return new LottoController(lottos, lottoMoney);
     }
 
-    public int purchase() {
-        return lottoMoney.purchase();
+    public static LottoController of(long money) {
+        return of(money, new ArrayList<>());
+    }
+
+    public int manualPurchase() {
+        return lottos.getManualPurchase();
+    }
+
+    public int autoPurchase() {
+        return lottos.getAutoPurchase();
     }
 
     public Lottos getLottos() {

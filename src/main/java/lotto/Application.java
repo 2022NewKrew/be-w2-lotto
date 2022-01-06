@@ -10,8 +10,9 @@ public class Application {
 
     public static void main(String[] args) {
         long inputMoney = InputView.inputMoney();
-        LottoController lottoController = LottoController.from(inputMoney);
-        OutputView.printPurchaseLottoCount(lottoController.purchase());
+        List<List<Integer>> manualLottoNumbers = InputView.inputManualLottoNumbers();
+        LottoController lottoController = LottoController.of(inputMoney, manualLottoNumbers);
+        OutputView.printLottoCount(lottoController.manualPurchase(), lottoController.autoPurchase());
         OutputView.printLottos(lottoController.getLottos());
 
         List<Integer> winningNumbers = InputView.inputWinningNumbers();

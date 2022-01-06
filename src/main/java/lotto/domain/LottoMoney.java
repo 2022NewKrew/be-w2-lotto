@@ -2,6 +2,7 @@ package lotto.domain;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 import java.util.Objects;
 
 public class LottoMoney {
@@ -10,7 +11,7 @@ public class LottoMoney {
     private static final int DEFAULT_SCALE = 4;
     private static final BigDecimal ORIGINAL_PROFIT = BigDecimal.valueOf(100.0);
 
-    private final long money;
+    private long money;
 
     public LottoMoney(long money) {
         validate(money);

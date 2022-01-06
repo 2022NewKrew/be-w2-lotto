@@ -1,11 +1,14 @@
 package lotto.domain;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.stream.Stream;
+import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -19,7 +22,7 @@ class LottosTest {
         // given
 
         // when
-        Lottos lottos = Lottos.valueOf(count);
+        Lottos lottos = Lottos.of(count);
 
         // then
         assertThat(lottos.getLottos()).hasSize(count);
@@ -87,5 +90,23 @@ class LottosTest {
         public int getRewardCount() {
             return rewardCount;
         }
+    }
+
+    @Test
+    @DisplayName("로또 수동 구매는 구매 가능한 개수를 초과하여 진행할 수 없다.")
+    void test_CreateLottos_WhenManualCountBoundOver() {
+        // given
+        int lottoCount = 1;
+        List<List<Integer>> manualLottoNumbers = List.of(
+            List.of(1,2,3,4,5,6),
+            List.of(1,2,3,4,5,7),
+            List.of(1,2,3,4,5,8)
+        );
+
+        // when
+        ThrowingCallable callable = () -> Lottos.of(lottoCount, manualLottoNumbers);
+
+        // then
+        assertThatThrownBy(callable).isExactlyInstanceOf(IllegalArgumentException.class);
     }
 }
