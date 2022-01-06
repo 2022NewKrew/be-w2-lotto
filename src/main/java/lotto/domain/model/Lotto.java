@@ -43,7 +43,7 @@ public class Lotto {
     private void verifyDuplication(List<Integer> numbers) throws IllegalArgumentException {
         Set<Integer> numberSet = new HashSet<>(numbers);
         if (numbers.size() != numberSet.size()) {
-            throw new IllegalArgumentException(LottoMessage.NUMBER_DUPLECATED_ERROR.toString());
+            throw new IllegalArgumentException(LottoMessage.NUMBER_DUPLICATED_ERROR.toString());
         }
     }
 

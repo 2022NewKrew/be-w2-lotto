@@ -10,7 +10,7 @@ public enum LottoMessage {
 
     NUMBER_OUT_OF_BOUND_ERROR("1 이상 45 이하의 값을 입력해 주세요."),
     NUMBER_OF_INPUT_NOT_MATCH_ERROR("6개의 번호를 입력해 주세요."),
-    NUMBER_DUPLECATED_ERROR("중복된 입력 값이 존재합니다."),
+    NUMBER_DUPLICATED_ERROR("중복된 입력 값이 존재합니다."),
     PARSING_ERROR("숫자 값만 입력할 수 있습니다.");
 
     private final String message;

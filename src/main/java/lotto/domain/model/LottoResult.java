@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class LottoResult {
-    Map<Prize, Integer> winningResult;
+    private Map<Prize, Integer> winningResult;
 
     public LottoResult(List<Rank> rankList) {
         winningResult = new HashMap<>();
@@ -25,8 +25,8 @@ public class LottoResult {
     public double getEarningsRate(int investment) {
         BigInteger totalPrize = winningResult.entrySet().stream()
                 .filter(item -> item.getValue() > 0)
-                .map(item -> new BigInteger(Integer.toString(item.getKey().getWinnings() * item.getValue())))
-                .reduce(new BigInteger("0"), (total, winnings) -> total.add(winnings));
+                .map(item -> BigInteger.valueOf(item.getKey().getWinnings() * item.getValue()))
+                .reduce(BigInteger.valueOf(0), (total, winnings) -> total.add(winnings));
         return totalPrize.doubleValue() / (new BigInteger(Integer.toString(investment))).doubleValue();
     }
 
