@@ -63,64 +63,94 @@ class LottoTest {
         Assertions.assertTrue(resultCompareList.contains(winningRating));
     }
 
-    @DisplayName("로또 생성 테스트 - manual Number Texts에 가 6개의 숫자가 입력되면 size가 6을 반환")
+    @DisplayName("로또 생성 테스트 - manual Number Texts에 6개의 숫자가 입력되면 size가 6을 반환")
     @Test
     void createLotto_ManualLottoNumberTextWithCount6_lottoNumbersSizeIs6() {
         // Given
-        String manualLottoNumberText = "1, 2, 3, 4, 5, 6";
+        List<Integer> manualLottoNumbers = new ArrayList<>();
+        manualLottoNumbers.add(1);
+        manualLottoNumbers.add(2);
+        manualLottoNumbers.add(3);
+        manualLottoNumbers.add(4);
+        manualLottoNumbers.add(5);
+        manualLottoNumbers.add(6);
 
         // When
-        Lotto lotto = new Lotto(manualLottoNumberText);
+        Lotto lotto = new Lotto(manualLottoNumbers);
 
         // Then
         Assertions.assertEquals(6, lotto.getLottoNumbers().size());
     }
 
-    @DisplayName("로또 생성 테스트 - manual Number Texts에 가 5개의 숫자가 입력되면 IllegalArgumentException 발생")
+    @DisplayName("로또 생성 테스트 - manual Number Texts에 5개의 숫자가 입력되면 IllegalArgumentException 발생")
     @Test
     void createLotto_ManualLottoNumberTextWithCount5_ThrowIllegalArgumentException() {
         // Given
-        String manualLottoNumberText = "1, 2, 3, 4, 5";
+        List<Integer> manualLottoNumbers = new ArrayList<>();
+        manualLottoNumbers.add(1);
+        manualLottoNumbers.add(2);
+        manualLottoNumbers.add(3);
+        manualLottoNumbers.add(4);
+        manualLottoNumbers.add(5);
 
         // When // Then
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new Lotto(manualLottoNumberText);
+            new Lotto(manualLottoNumbers);
         });
     }
 
-    @DisplayName("로또 생성 테스트 - manual Number Texts에 가 7개의 숫자가 입력되면 IllegalArgumentException 발생")
+    @DisplayName("로또 생성 테스트 - manual Number Texts에 7개의 숫자가 입력되면 IllegalArgumentException 발생")
     @Test
     void createLotto_ManualLottoNumberTextWithCount7_ThrowIllegalArgumentException() {
         // Given
-        String manualLottoNumberText = "1, 2, 3, 4, 5, 6, 7";
+        List<Integer> manualLottoNumbers = new ArrayList<>();
+        manualLottoNumbers.add(1);
+        manualLottoNumbers.add(2);
+        manualLottoNumbers.add(3);
+        manualLottoNumbers.add(4);
+        manualLottoNumbers.add(5);
+        manualLottoNumbers.add(6);
+        manualLottoNumbers.add(7);
 
         // When // Then
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new Lotto(manualLottoNumberText);
+            new Lotto(manualLottoNumbers);
         });
     }
 
-    @DisplayName("로또 생성 테스트 - manual Number Texts에 가 45초과의 숫자가 포함되면 IllegalArgumentException 발생")
+    @DisplayName("로또 생성 테스트 - manual Number Texts에 45초과의 숫자가 포함되면 IllegalArgumentException 발생")
     @Test
     void createLotto_ManualLottoNumberTextContainNumberOver45_ThrowIllegalArgumentException() {
         // Given
-        String manualLottoNumberText = "1, 2, 3, 4, 5, 46";
+        List<Integer> manualLottoNumbers = new ArrayList<>();
+        manualLottoNumbers.add(1);
+        manualLottoNumbers.add(2);
+        manualLottoNumbers.add(3);
+        manualLottoNumbers.add(4);
+        manualLottoNumbers.add(5);
+        manualLottoNumbers.add(46);
 
         // When // Then
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new Lotto(manualLottoNumberText);
+            new Lotto(manualLottoNumbers);
         });
     }
 
-    @DisplayName("로또 생성 테스트 - manual Number Texts에 가 1미만의 숫자가 포함되면 IllegalArgumentException 발생")
+    @DisplayName("로또 생성 테스트 - manual Number Texts에 1미만의 숫자가 포함되면 IllegalArgumentException 발생")
     @Test
     void createLotto_ManualLottoNumberTextContainNumberUnder1_ThrowIllegalArgumentException() {
         // Given
-        String manualLottoNumberText = "0, 2, 3, 4, 5, 6";
+        List<Integer> manualLottoNumbers = new ArrayList<>();
+        manualLottoNumbers.add(0);
+        manualLottoNumbers.add(2);
+        manualLottoNumbers.add(3);
+        manualLottoNumbers.add(4);
+        manualLottoNumbers.add(5);
+        manualLottoNumbers.add(6);
 
         // When // Then
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new Lotto(manualLottoNumberText);
+            new Lotto(manualLottoNumbers);
         });
     }
 
