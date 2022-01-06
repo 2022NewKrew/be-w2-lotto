@@ -4,6 +4,9 @@ import java.util.List;
 
 public class WinningLotto {
 
+    private static final int MIN_NUMBER = 1;
+    private static final int MAX_NUMBER = 45;
+
     private final Lotto lotto;
     private final int bonusBall;
 
@@ -12,8 +15,15 @@ public class WinningLotto {
     }
 
     public WinningLotto(Lotto lotto, int bonusBallNumber) {
+        validateNumberBound(bonusBallNumber);
         this.lotto = lotto;
         this.bonusBall = bonusBallNumber;
+    }
+
+    private void validateNumberBound(int number) {
+        if (number < MIN_NUMBER || number > MAX_NUMBER) {
+            throw new IllegalArgumentException("[ERROR] 로또 번호는 1 ~ 45 여야 합니다.");
+        }
     }
 
     public Reward matchResult(Lotto targetLotto) {
