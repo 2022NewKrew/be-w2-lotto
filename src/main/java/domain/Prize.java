@@ -35,8 +35,7 @@ public enum Prize {
     public static Prize getPrize(Integer matchingNumber, Boolean matchingBonus) {
         return Arrays.stream(values())
                         .filter(prize -> prize.matchingNumber == matchingNumber)
-                        .filter(prize -> prize.matchingNumber == SECOND_PRIZE.getMatchingNumber() ?
-                                prize.matchingBonus == matchingBonus : true)    // matchingNumber가 5개일때만 bonus를 비교한다.
+                        .filter(prize -> prize.matchingNumber != SECOND_PRIZE.getMatchingNumber() || prize.matchingBonus == matchingBonus)    // matchingNumber가 5개일때만 bonus를 비교한다.
                         .findFirst()
                         .orElse(NO_PRIZE);
     }
