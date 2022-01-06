@@ -28,7 +28,7 @@ public class PrintInformation {
         List<String> statisticsView = new ArrayList<>();
         ranks.forEach((rank, count) -> {
             String bonus = " (";
-            if(rank == Rank.SECOND)
+            if (rank == Rank.SECOND)
                 bonus = STATISTICS_FORMAT_6;
             statisticsView.add(rank.getCountOfMatch() + STATISTICS_FORMAT_1 + bonus + rank.getReward() + STATISTICS_FORMAT_2 + count + STATISTICS_FORMAT_3);
         });

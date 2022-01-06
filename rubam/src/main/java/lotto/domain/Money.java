@@ -12,15 +12,15 @@ public class Money {
     private static final String TOO_MUCH_TICKET_COUNT_MESSAGE = "잔액이 부족합니다.";
 
     public Money(int amount) {
-        if(amount < 0)
+        if (amount < 0)
             throw new IllegalArgumentException(INPUT_MONEY_ERROR_MESSAGE);
         this.amount = amount;
     }
 
     public List<Ticket> buyTickets(TicketsGenerator ticketsGenerator, int count) {
-        if(count < 0)
+        if (count < 0)
             throw new IllegalArgumentException(INCORRECT_TICKET_COUNT_MESSAGE);
-        if(amount - (count * Ticket.TICKET_PRICE) < 0)
+        if (amount - (count * Ticket.TICKET_PRICE) < 0)
             throw new IllegalArgumentException(TOO_MUCH_TICKET_COUNT_MESSAGE);
         amount -= count * Ticket.TICKET_PRICE;
         return ticketsGenerator.generateTickets(count);

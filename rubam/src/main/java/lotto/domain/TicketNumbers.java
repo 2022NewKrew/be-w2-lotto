@@ -16,7 +16,7 @@ public class TicketNumbers {
     }
 
     private void initiateTicketNumbers(List<Integer> numbers) {
-        for(int number : numbers) {
+        for (int number : numbers) {
             insertTicketNumber(number);
         }
         if (ticketNumbers.size() != TICKET_NUMBER_SIZE)
@@ -29,14 +29,14 @@ public class TicketNumbers {
 
     public TicketNumber checkDuplicatedNumber(int number) {
         TicketNumber ticketNumber = new TicketNumber(number);
-        if(ticketNumbers.contains(ticketNumber))
+        if (ticketNumbers.contains(ticketNumber))
             throw new IllegalArgumentException(DUPLICATED_NUMBER_ERROR);
         return ticketNumber;
     }
 
     public Rank compareTicket(TicketNumbers winTicket, TicketNumber bonusNumber) {
         int matchCount = 0;
-        for(TicketNumber winNumber : winTicket.ticketNumbers) {
+        for (TicketNumber winNumber : winTicket.ticketNumbers) {
             matchCount = checkMatchCount(matchCount, winNumber);
         }
 
@@ -44,7 +44,7 @@ public class TicketNumbers {
     }
 
     private int checkMatchCount(int matchCount, TicketNumber winNumber) {
-        if(ticketNumbers.contains(winNumber))
+        if (ticketNumbers.contains(winNumber))
             matchCount++;
         return matchCount;
     }

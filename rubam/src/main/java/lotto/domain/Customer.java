@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 
 public class Customer {
 
@@ -32,7 +31,7 @@ public class Customer {
             put(Rank.FIFTH, 0);
         }};
 
-        tickets.stream().filter( ticket -> (ticket.checkTicketRank(winTicket.getTicketNumbers(), winTicket.getBonusTicketNumber()) != null))
+        tickets.stream().filter(ticket -> (ticket.checkTicketRank(winTicket.getTicketNumbers(), winTicket.getBonusTicketNumber()) != null))
                 .forEach(ticket -> {
                     results.merge(ticket.checkTicketRank(winTicket.getTicketNumbers(), winTicket.getBonusTicketNumber()), 1, Integer::sum);
                 });

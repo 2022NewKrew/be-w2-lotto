@@ -12,7 +12,7 @@ public class RandomTicketsGenerator implements TicketsGenerator {
     private final List<Integer> lottoNumbers = new ArrayList<>();
 
     public RandomTicketsGenerator() {
-        for(int i=MIN_NUMBER; i<=MAX_NUMBER; i++) {
+        for (int i = MIN_NUMBER; i <= MAX_NUMBER; i++) {
             lottoNumbers.add(i);
         }
     }
