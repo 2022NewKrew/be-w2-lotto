@@ -18,3 +18,19 @@
 ### 요구사항
 - [x] 2등을 위해 추가 번호를 하나 더 추첨한다. 당첨 통계에 2등도 추가해야 한다.
 - [x] enum을 적용해 프로그래밍을 구현한다.
+
+### 피드백 반영
+- [X] Controller에서 Money클래스 분리
+  - [참고자료](https://limdingdong.tistory.com/9)
+- [X] LottoNumber에 제약조건 추가
+- [X] Lotto의 purchaseLotto에서 IntStream을 사용하지 않도록 변경
+  - RandomNumbers에 숫자의 개수를 6개로 끊는 부분 구현
+- [x] LottoNumber안에 Comparable을 구현하여 Get을 사용하지 않도록 변경
+- [x] WinningNumber를 LottoNumber로 대체
+- [X] Lotto와 LottoNumber 클래스에 validate 메소드 옮기기
+- [X] WinningNumbers에 있는 로또 당첨 확인 관련 로직에서 Getter 빼기
+  - Getter를 이용해 객체를 불러오는 객체로 메소드 옮기기
+  - LottoNumber에서 equals 재정의하기
+- [X] RandomNumbers도 util로 빼거나, RandomUtil에 로직을 구현하기
+- [X] LottoNumber 1~45까지의 객체를 캐싱하기
+  - [참고자료](https://tecoble.techcourse.co.kr/post/2020-06-24-caching-instance/)
