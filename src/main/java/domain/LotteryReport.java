@@ -10,7 +10,7 @@ public class LotteryReport {
     private final Map<LotteryPrize, Integer> prizeCount;
 
     public LotteryReport(List<LotteryTicket> lotteryTickets, LotteryResult lotteryResult, int cost) {
-        prizeCount = new ReducedLotteryTickets(lotteryTickets).getPrizeCount(lotteryResult);
+        prizeCount = new LotteryTickets(lotteryTickets).getPrizeCount(lotteryResult);
         int revenue = prizeCount.entrySet().stream().map(entry -> entry.getKey().getValue() * entry.getValue()).reduce(0, Integer::sum);
         profitRate = (double) (revenue - cost) / cost;
     }

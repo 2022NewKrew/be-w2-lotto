@@ -14,18 +14,18 @@ public class App {
         int numberOfManualTickets = view.getNumberOfManualTickets();
 
         lotteryWallet.buyTickets(numberOfManualTickets);
-        List<LotteryTicket> manualLotteryTicketsAsList = view.getLotteryTickets(numberOfManualTickets);
+        List<LotteryTicket> manualLotteryTickets = view.getLotteryTickets(numberOfManualTickets);
 
         int numberOfRandomTickets = lotteryWallet.getNumberOfTicketsAffordable();
         lotteryWallet.buyTickets(numberOfRandomTickets);
-        List<LotteryTicket> randomLotteryTicketsAsList = getRandomTickets(numberOfRandomTickets);
+        List<LotteryTicket> randomLotteryTickets = getRandomTickets(numberOfRandomTickets);
 
-        view.showBoughtTickets(new ReducedLotteryTickets(manualLotteryTicketsAsList).toDTO(), new ReducedLotteryTickets(randomLotteryTicketsAsList).toDTO());
+        view.showBoughtTickets(new LotteryTickets(manualLotteryTickets).toDTO(), new LotteryTickets(randomLotteryTickets).toDTO());
 
         LotteryResult lotteryResult = view.getLotteryResult();
 
-        manualLotteryTicketsAsList.addAll(randomLotteryTicketsAsList);
-        LotteryReport lotteryReport = new LotteryReport(manualLotteryTicketsAsList, lotteryResult, lotteryWallet.getSpent());
+        manualLotteryTickets.addAll(randomLotteryTickets);
+        LotteryReport lotteryReport = new LotteryReport(manualLotteryTickets, lotteryResult, lotteryWallet.getSpent());
 
         view.showReport(lotteryReport.toDTO());
     }

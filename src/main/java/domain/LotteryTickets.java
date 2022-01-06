@@ -2,17 +2,16 @@ package domain;
 
 import dto.LotteryTicketsDTO;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class ReducedLotteryTickets {
+public class LotteryTickets {
     private final List<LotteryTicket> lotteryTickets;
 
-    public ReducedLotteryTickets(List<LotteryTicket> lotteryTickets) {
+    public LotteryTickets(List<LotteryTicket> lotteryTickets) {
         this.lotteryTickets = lotteryTickets;
     }
 
