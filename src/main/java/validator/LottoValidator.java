@@ -3,6 +3,7 @@ package validator;
 import domain.Ball;
 import domain.Lotto;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class LottoValidator {
@@ -17,8 +18,9 @@ public class LottoValidator {
     }
 
     public static void assertValidBalls(List<Ball> balls) throws IllegalArgumentException {
-        if ((balls.size() != Lotto.NUMBER)
-                || balls.stream().map(Ball::getNumber).distinct().count() != balls.size()) {
+        HashSet<Ball> ballHashSet = new HashSet<>(balls);
+        int size = ballHashSet.size();
+        if (size != Lotto.NUMBER) {
             throw new IllegalArgumentException(ILLEGAL_BALLS_NUMBER);
         }
     }
