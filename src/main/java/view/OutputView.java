@@ -1,7 +1,5 @@
 package view;
 
-import DTO.NNumber;
-
 public class OutputView {
     private OutputView() {
     }
@@ -18,8 +16,8 @@ public class OutputView {
         System.out.println("1부터 45까지의 정수 중에서 당첨번호에 포함되지 않는 수 하나를 입력해주세요.");
     }
 
-    public static void printLottoLine(NNumber lottoLine) {
-        System.out.println(lottoLine.getPrintLine());
+    public static void printLottoLine(String lottoLineStr) {
+        System.out.println(lottoLineStr);
     }
 
     public static void printPreResult() {

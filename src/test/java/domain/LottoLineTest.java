@@ -1,15 +1,16 @@
 package domain;
 
-import DTO.NNumber;
+import domain.LottoLineStructure.ManualLottoLine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class LottoLineTest {
-    private LottoLine lottoLine;
+    private ManualLottoLine lottoLine;
 
     private static final int NUM_PER_LINE = 6;
 
@@ -21,19 +22,19 @@ class LottoLineTest {
             srcList.add(i);
         }
 
-        lottoLine = new LottoLine(NNumber.makeManualNumbers(srcList));
+        lottoLine = new ManualLottoLine(srcList);
     }
 
     @Test
     void checkWinning() {
         for (int matchNum = 0; matchNum <= NUM_PER_LINE; matchNum++) {
-            NNumber curWinningLine = makeNMatchingNNumber(matchNum);
+            List<Integer> curWinningLine = makeNMatchingList(matchNum);
 
             assertThat(lottoLine.checkWinning(curWinningLine)).isEqualTo(matchNum);
         }
     }
 
-    private NNumber makeNMatchingNNumber(int matchNum) {
+    private List<Integer> makeNMatchingList(int matchNum) {
         java.util.List<Integer> srcList = new ArrayList<>();
 
         for (int i = 1; i <= matchNum; i++) {
@@ -43,6 +44,6 @@ class LottoLineTest {
             srcList.add(NUM_PER_LINE + i);
         }
 
-        return NNumber.makeManualNumbers(srcList);
+        return srcList;
     }
 }

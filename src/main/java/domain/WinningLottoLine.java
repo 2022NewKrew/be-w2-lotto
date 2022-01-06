@@ -1,16 +1,18 @@
 package domain;
 
+import domain.LottoLineStructure.ManualLottoLine;
+
 import java.util.*;
 
 public class WinningLottoLine {
-    private static List<Integer> lottoLine;
+    private static LottoLine lottoLine;
     private int bonus;
 
     private static final int MIN_NUM = 1;
     private static final int MAX_NUM = 45;
     private static final int NUM_PER_LINE = 6;
 
-    private WinningLottoLine(List<Integer> paramLottoLine) {
+    private WinningLottoLine(LottoLine paramLottoLine) {
         lottoLine = paramLottoLine;
     }
 
@@ -24,26 +26,29 @@ public class WinningLottoLine {
         Collections.sort(retLst);
 
         if (isVerifiedLine(retLst)) {
-            return new WinningLottoLine(retLst);
+            return new WinningLottoLine(new ManualLottoLine(retLst));
         }
 
         return null;
     }
 
     public boolean setBonus(int bonus) {
-        if (!lottoLine.contains(bonus) && bonus >= MIN_NUM && bonus <= MAX_NUM) {
+        if (!lottoLine.getLottoLine().contains(bonus) &&
+                bonus >= MIN_NUM && bonus <= MAX_NUM) {
             this.bonus = bonus;
             return true;
         }
         return false;
     }
 
-    public int getBonus() {
-        return bonus;
+    public List<Integer> getBonusList() {
+        List<Integer> foo = new ArrayList<>();
+        foo.add(bonus);
+        return foo;
     }
 
     public List<Integer> getLottoLine() {
-        return new ArrayList<>(lottoLine);
+        return lottoLine.getLottoLine();
     }
 
     private static boolean isVerifiedLine(List<Integer> srcLst) {

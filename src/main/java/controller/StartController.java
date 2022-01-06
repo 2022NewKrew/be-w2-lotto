@@ -1,6 +1,7 @@
 package controller;
 
-import DTO.NNumber;
+import domain.LottoLine;
+import domain.LottoLineStructure.RandomLottoLine;
 import domain.MyLottoLines;
 import domain.WinningLottoLine;
 import view.InputView;
@@ -27,12 +28,8 @@ public class StartController {
         return lottoLines;
     }
 
-    public NNumber getWinningLine() {
-        return NNumber.makeManualNumbers(winningLine.getLottoLine());
-    }
-
-    public NNumber getBonus() {
-        return NNumber.makeManualNumbers(List.of(winningLine.getBonus()));
+    public WinningLottoLine getWinningLine() {
+        return winningLine;
     }
 
     private void makeLottoLines() {
@@ -43,10 +40,10 @@ public class StartController {
         }
 
         for (int i = 0; i < numLotto; i++) {
-            NNumber curLine = NNumber.makeRandomNumbers();
+            LottoLine curLine = new RandomLottoLine();
 
             lottoLines.addLotto(curLine);
-            OutputView.printLottoLine(curLine);
+            OutputView.printLottoLine(curLine.getPrintLine());
         }
     }
 

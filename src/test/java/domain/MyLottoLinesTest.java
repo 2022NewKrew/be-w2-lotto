@@ -1,12 +1,13 @@
 package domain;
 
-import DTO.NNumber;
+import domain.LottoLineStructure.ManualLottoLine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -29,7 +30,7 @@ class MyLottoLinesTest {
     @Test
     void addLotto() {
         assertThat(mll.getNumLotto()).isEqualTo(0);
-        mll.addLotto(makeSampleNNumberObj());
+        mll.addLotto(makeSampleLottoLine());
         assertThat(mll.getNumLotto()).isEqualTo(1);
     }
 
@@ -37,27 +38,27 @@ class MyLottoLinesTest {
     @ValueSource(ints = {2, 4, 10, 100, 1000})
     void checkWinning(int numLotto) {
         for (int i = 0; i < numLotto; i++) {
-            mll.addLotto(makeSampleNNumberObj());
+            mll.addLotto(makeSampleLottoLine());
         }
 
-        mll.checkWinning(makeSampleNNumberObj(), makeBonusNNumberObj());
+        mll.checkWinning(makeSampleLottoLine().getLottoLine(), makeBonusList());
         assertThat(mll.getNumLotto()).isEqualTo(numLotto);
 
         MatchScore firstWin = MatchScore.findMatchScoreObject(NUM_PER_LINE, 0);
         assertThat(firstWin.getNumLotto()).isEqualTo(numLotto);
     }
 
-    private NNumber makeSampleNNumberObj() {
+    private LottoLine makeSampleLottoLine() {
         java.util.List<Integer> srcList = new ArrayList<>();
 
         for (int i = 1; i <= NUM_PER_LINE; i++) {
             srcList.add(i);
         }
 
-        return NNumber.makeManualNumbers(srcList);
+        return new ManualLottoLine(srcList);
     }
 
-    private NNumber makeBonusNNumberObj() {
-        return NNumber.makeManualNumbers(new ArrayList<>());
+    private List<Integer> makeBonusList() {
+        return new ArrayList<>();
     }
 }

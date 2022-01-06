@@ -7,7 +7,7 @@ public class Main {
         StartController sm = new StartController();
 
         MyLottoLines myLottoLines = sm.getLottoLines();
-        myLottoLines.checkWinning(sm.getWinningLine(), sm.getBonus());
+        myLottoLines.checkWinning(sm.getWinningLine().getLottoLine(), sm.getWinningLine().getBonusList());
 
         ResultController.printResult(myLottoLines.getNumLotto());
     }

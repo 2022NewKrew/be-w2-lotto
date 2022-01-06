@@ -20,8 +20,6 @@
 * 사용자가 입력한 값에 대한 예외 처리를 철저히 한다.
 
 ### TODO
-* LottoLine을 분리하고 NNumber에 존재했던 생성 기능을 가져오자.
-    * 분리한 LottoLine은 Interface로 관리
 * DTO
   * Result 관련 DTO 생성
 * MatchScore 객체 분리
@@ -32,3 +30,8 @@
 * 수동 입력 부분 구현
 * Exception
 * 또 테스트 코드 작업.
+* Interface 조금 더 잘 쓸 수 있지 않을까?
+
+### DONE
+* LottoLine을 분리하고 NNumber에 존재했던 생성 기능을 가져오자.
+  * 분리한 LottoLine은 Interface로 관리

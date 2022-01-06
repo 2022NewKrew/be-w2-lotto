@@ -62,6 +62,7 @@ class WinningLottoLineTest {
 
         WinningLottoLine wll = WinningLottoLine.makeWinningLine(basic);
 
+        assert wll != null;
         assertThat(wll.setBonus(0)).isEqualTo(false);
         assertThat(wll.setBonus(46)).isEqualTo(false);
         assertThat(wll.setBonus(3)).isEqualTo(false);
@@ -75,8 +76,11 @@ class WinningLottoLineTest {
         List<String> basic = Arrays.asList("1", "2", "3", "4", "5", "6");
 
         WinningLottoLine wll = WinningLottoLine.makeWinningLine(basic);
+        assert wll != null;
         wll.setBonus(bonusNum);
-        assertThat(wll.getBonus()).isEqualTo(bonusNum);
+        List<Integer> bonusList = wll.getBonusList();
+        assertThat(bonusList.size()).isEqualTo(1);
+        assertThat(bonusList.get(0)).isEqualTo(bonusNum);
     }
 
     @Test
