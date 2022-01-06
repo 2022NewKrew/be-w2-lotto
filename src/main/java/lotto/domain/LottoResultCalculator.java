@@ -1,19 +1,15 @@
 package lotto.domain;
 
-import org.apache.commons.lang3.ObjectUtils;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class LottoResultCalculator {
-    private final List<Integer> winningNumbers;
-    private final int bonusNumber;
+    private final WinningCondition winningCondition;
 
-    public LottoResultCalculator(List<Integer> winningNumbers, int bonusNumber) {
-        this.winningNumbers = winningNumbers;
-        this.bonusNumber = bonusNumber;
+    public LottoResultCalculator(WinningCondition winningCondition) {
+        this.winningCondition = winningCondition;
     }
 
     public Map<LottoRank, Integer> getLottoResultCounts(List<LottoTicket> tickets) {
@@ -28,21 +24,27 @@ public class LottoResultCalculator {
 
     private List<LottoRank> getLottoResults(List<LottoTicket> tickets) {
         return tickets.stream()
-                .map(ticket -> LottoRank.parseResult(ticket.countEqualNumbers(winningNumbers), ticket.containNumbers(bonusNumber)))
-                .filter(ObjectUtils::isNotEmpty)
+                .map(this::getLottoTicketResult)
                 .collect(Collectors.toList());
     }
 
-    public int calculateEarningRate(Map<LottoRank, Integer> resultCounts, int original) {
+    private LottoRank getLottoTicketResult(LottoTicket ticket) {
+        int numOfMatchCount = winningCondition.countMatchNumberOfLottoTicket(ticket);
+        boolean isContainsBonusNumber = winningCondition.containsBonusLottoNumber(ticket);
+        return LottoRank.parseResult(numOfMatchCount, isContainsBonusNumber);
+    }
+
+    public long calculateEarningRate(List<LottoTicket> tickets) {
+        Map<LottoRank, Integer> resultCounts = getLottoResultCounts(tickets);
+        int investment = resultCounts.values().stream().reduce(0, Integer::sum) * LottoTicket.PRICE;
         long earning = calculateSum(resultCounts);
-        return (int) (earning - original) * 100 / original;
+        return (earning - investment) * 100 / investment;
     }
 
     private long calculateSum(Map<LottoRank, Integer> resultCounts) {
-        long sum = 0;
-        for (LottoRank result : LottoRank.values()) {
-            sum += (long) resultCounts.get(result) * result.getWinningMoney();
-        }
-        return sum;
+        return resultCounts.keySet().stream()
+                .map(result -> (long) resultCounts.get(result) * result.getWinningMoney())
+                .reduce(0L, Long::sum);
     }
+
 }

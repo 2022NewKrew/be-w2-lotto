@@ -1,5 +1,7 @@
 package lotto.view;
 
+import lotto.domain.LottoNumber;
+import lotto.domain.LottoNumbers;
 import lotto.domain.LottoTicket;
 import lotto.exception.InvalidInputException;
 
@@ -63,23 +65,23 @@ public class InputView {
         }
 
         if (winningNumbers.stream().anyMatch(number -> !isValidRangeNumber(number))) {
-            throw new InvalidInputException("입력된 숫자의 범위가 잘못 되었습니다. (유효한 숫자 범위 : " + LottoTicket.MIN_NUMBER + " ~ " + LottoTicket.MAX_NUMBER + ")");
+            throw new InvalidInputException("입력된 숫자의 범위가 잘못 되었습니다. (유효한 숫자 범위 : " + LottoNumber.MIN_VALUE + " ~ " + LottoNumber.MAX_VALUE + ")");
         }
     }
 
     private boolean isValidSizeOfNumbers(List<Integer> numbers) {
-        return numbers.size() == LottoTicket.LENGTH_OF_NUMBERS;
+        return numbers.size() == LottoNumbers.SIZE_OF_LOTTO_NUMBERS;
     }
 
     private boolean isValidRangeNumber(int number) {
-        return number >= LottoTicket.MIN_NUMBER && number <= LottoTicket.MAX_NUMBER;
+        return number >= LottoNumber.MIN_VALUE && number <= LottoNumber.MAX_VALUE;
     }
 
     public int inputBonusNumber() throws InvalidInputException {
         System.out.println("보너스 볼을 입력해 주세요.");
         int bonusNumber = inputNumber();
         if (!isValidRangeNumber(bonusNumber)) {
-            throw new InvalidInputException("입력된 숫자의 범위가 잘못 되었습니다. (유효한 숫자 범위 : " + LottoTicket.MIN_NUMBER + " ~ " + LottoTicket.MAX_NUMBER + ")");
+            throw new InvalidInputException("입력된 숫자의 범위가 잘못 되었습니다. (유효한 숫자 범위 : " + LottoNumber.MIN_VALUE + " ~ " + LottoNumber.MAX_VALUE + ")");
         }
         return bonusNumber;
     }
