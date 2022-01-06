@@ -1,7 +1,7 @@
 package controller;
 
+import model.lotto.Lotto;
 import model.lotto.LottoRank;
-import model.lotto.RandomLotto;
 import model.lotto.result.LottoResult;
 import model.lotto.number.LottoNumber;
 import view.UserInput;
@@ -17,24 +17,23 @@ public class LottoController {
     private static final int LAST_INDEX_TO_PRESENT = LottoRank.values().length;
 
     public static void run() {
-        List<RandomLotto> lottos = SellLottoController.buyLottos(UserInput.getMoney());
+        List<Lotto> lottos = SellLottoController.buyLottos(UserInput.getMoney());
         UserOutput.printLotto(getLottoNumbers(lottos));
         LottoResult lottoResult = MatchLottoController.matchingResult(lottos);
         UserOutput.printHistory(getValidLottoResult(FIRST_INDEX_TO_PRESENT, LAST_INDEX_TO_PRESENT), lottoResult.getResult());
         UserOutput.printRevenueRate(lottoResult.getRevenuePercent());
     }
 
-    private static List<List<Integer>> getLottoNumbers(List<RandomLotto> lottos) {
+    private static List<List<Integer>> getLottoNumbers(List<Lotto> lottos) {
         List<List<Integer>> numbers = new ArrayList<>();
-        for (RandomLotto lotto : lottos) {
+        for (Lotto lotto : lottos) {
             numbers.add(getLottoNumber(lotto));
         }
         return numbers;
     }
 
-    private static List<Integer> getLottoNumber(RandomLotto lotto) {
+    private static List<Integer> getLottoNumber(Lotto lotto) {
         return lotto
-                .getLotto()
                 .getNumbers()
                 .stream()
                 .map(LottoNumber::convertToInt)

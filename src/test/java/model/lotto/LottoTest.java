@@ -20,10 +20,10 @@ public class LottoTest {
     @MethodSource("getTestNumbers")
     void countDuplicateNumberWith(List<Integer> testList1, List<Integer> testList2, int expectedNumber) {
         //Give
-        DefinedLotto testLotto1 = new DefinedLotto(testList1);
-        DefinedLotto testLotto2 = new DefinedLotto(testList2);
+        Lotto testLotto1 = Lotto.getDefinedLotto(testList1);
+        Lotto testLotto2 = Lotto.getDefinedLotto(testList2);
         //When
-        int result = testLotto1.countDuplicateNumberWith(testLotto2.getLotto());
+        int result = testLotto1.countDuplicateNumberWith(testLotto2);
         //Then
         assertThat(result).isEqualTo(expectedNumber);
     }

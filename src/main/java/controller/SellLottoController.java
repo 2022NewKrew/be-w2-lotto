@@ -1,8 +1,6 @@
 package controller;
 
 import model.lotto.Lotto;
-import model.lotto.RandomLotto;
-import view.UserInput;
 import view.UserOutput;
 
 import java.util.ArrayList;
@@ -10,19 +8,19 @@ import java.util.List;
 
 public class SellLottoController {
 
-    public static List<RandomLotto> buyLottos(int money) {
+    public static List<Lotto> buyLottos(int money) {
         int numberOfLotto = calculateNumberOfLotto(money);
         UserOutput.printBuyMessage(numberOfLotto);
 
-        List<RandomLotto> lottos = new ArrayList<>();
+        List<Lotto> lottos = new ArrayList<>();
         for (long i = 0; i < numberOfLotto; i++) {
             lottos.add(buyLotto());
         }
         return lottos;
     }
 
-    private static RandomLotto buyLotto() {
-        return new RandomLotto();
+    private static Lotto buyLotto() {
+        return Lotto.getRandomLotto();
     }
 
     private static int calculateNumberOfLotto(int money) {

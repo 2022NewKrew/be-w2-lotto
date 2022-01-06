@@ -1,6 +1,6 @@
 package model.number;
 
-import model.lotto.number.NumberPrecondition;
+import model.lotto.number.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -17,7 +17,7 @@ class LottoNumberPreconditionTest {
         //Give
         //When
         //Then
-        assertThatThrownBy(() -> NumberPrecondition.checkNumber(illegalNumbers))
+        assertThatThrownBy(() -> new LottoNumber(illegalNumbers))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

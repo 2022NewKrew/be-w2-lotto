@@ -13,8 +13,28 @@ public class LottoNumber implements Comparable<LottoNumber> {
     private final int value;
 
     public LottoNumber(int value) {
-        NumberPrecondition.checkNumber(value);
+        checkNumber(value);
+
         this.value = value;
+    }
+
+    private void checkNumber(int number) {
+        if (isLegalNumber(number)) {
+            return;
+        }
+        throw new IllegalArgumentException(generateExceptionMessage());
+    }
+
+    private boolean isLegalNumber(int number) {
+        return number <= LottoNumber.FINAL_NUMBER && number >= LottoNumber.START_NUMBER;
+    }
+
+    private String generateExceptionMessage() {
+        return "올바른 범위의 정수를 입력해주세요. 정수의 범위는 "
+                + LottoNumber.START_NUMBER
+                + " 부터 "
+                + LottoNumber.FINAL_NUMBER
+                + " 까지입니다.";
     }
 
     @Override

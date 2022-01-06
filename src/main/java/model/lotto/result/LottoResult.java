@@ -1,9 +1,7 @@
 package model.lotto.result;
 
-import model.lotto.DefinedLotto;
 import model.lotto.Lotto;
 import model.lotto.LottoRank;
-import model.lotto.RandomLotto;
 
 import java.util.List;
 import java.util.Map;
@@ -11,16 +9,16 @@ import java.util.stream.Collectors;
 
 public class LottoResult {
     private final Map<Integer, Integer> result;
-    private final DefinedLotto winningLotto;
+    private final Lotto winningLotto;
     private int revenuePercent;
 
-    public LottoResult(List<RandomLotto> lottos, DefinedLotto winningLotto) {
+    public LottoResult(List<Lotto> lottos, Lotto winningLotto) {
         this.winningLotto = winningLotto;
         this.result = generateResult(lottos);
         this.revenuePercent = calculateRevenuePercent(lottos.size());
     }
 
-    private Map<Integer, Integer> generateResult(List<RandomLotto> lottos) {
+    private Map<Integer, Integer> generateResult(List<Lotto> lottos) {
         List<LottoRank> lottoRanks = matchResults(lottos);
         return resultToMap(lottoRanks);
     }
@@ -31,20 +29,20 @@ public class LottoResult {
                 .collect(Collectors.groupingBy(LottoRank::getReward, Collectors.summingInt(any-> 1)));
     }
 
-    private List<LottoRank> matchResults(List<RandomLotto> lottos){
+    private List<LottoRank> matchResults(List<Lotto> lottos){
         return lottos
                 .stream()
                 .map(this::matchLotto)
                 .collect(Collectors.toList());
     }
 
-    private LottoRank matchLotto(RandomLotto lotto) {
+    private LottoRank matchLotto(Lotto lotto) {
         int numberOfSameNumber = countWinningNumberInLotto(lotto);
         return LottoRank.convertToLottoRank(numberOfSameNumber);
     }
 
-    private int countWinningNumberInLotto(RandomLotto generatedLotto) {
-        return winningLotto.countDuplicateNumberWith(generatedLotto.getLotto());
+    private int countWinningNumberInLotto(Lotto generatedLotto) {
+        return winningLotto.countDuplicateNumberWith(generatedLotto);
     }
 
     private int calculateRevenuePercent(int numberOfLotto) {

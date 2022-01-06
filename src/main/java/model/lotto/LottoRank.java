@@ -22,7 +22,7 @@ public enum LottoRank {
 
     public static LottoRank convertToLottoRank(int numberOfSameNumber) {
         return Arrays.stream(LottoRank.values())
-                .filter(l -> l.getMatchNumber() == numberOfSameNumber)
+                .filter(lottoRank -> lottoRank.getMatchNumber() == numberOfSameNumber)
                 .findFirst()
                 .orElse(LottoRank.FAIL);
     }

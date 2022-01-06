@@ -18,33 +18,33 @@ class LottoPreconditionTest {
     @DisplayName("올바른 숫자들이 담긴 리스트를 가지고 LottoPrecondition.checkNumbers 메서드를 실행했을 때 예외를 던지지 않는다.")
     @ParameterizedTest
     @MethodSource("legalNumbers")
-    void testLegalNumbers(List<LottoNumber> legalLottoNumbers) {
+    void testLegalNumbers(List<Integer> legalLottoNumbers) {
         //Give
         //When
         //Then
-        assertThatCode(() -> LottoPrecondition.checkNumbers(legalLottoNumbers))
+        assertThatCode(() -> Lotto.getDefinedLotto(legalLottoNumbers))
                 .doesNotThrowAnyException();
     }
 
     @DisplayName("중복된 숫자들이 담긴 리스트를 가지고 LottoPrecondition.checkNumbers 메서드를 실행했을 때 IllegalArgumentException 을 던진다.")
     @ParameterizedTest
     @MethodSource("duplicatedNumbers")
-    void testDuplicateNumbers(List<LottoNumber> illegalLottoNumbers) {
+    void testDuplicateNumbers(List<Integer> illegalLottoNumbers) {
         //Give
         //When
         //Then
-        assertThatThrownBy(() -> LottoPrecondition.checkNumbers(illegalLottoNumbers))
+        assertThatThrownBy(() -> Lotto.getDefinedLotto(illegalLottoNumbers))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("숫자의 개수가 허용된 개수보다 작거나 큰 리스트를 가지고 LottoPrecondition.checkNumbers 메서드를 실행했을 때 IllegalArgumentException 을 던진다.")
     @ParameterizedTest
     @MethodSource("outOfRangeNumbers")
-    void testWrongLengthNumbers(List<LottoNumber> illegalLottoNumbers) {
+    void testWrongLengthNumbers(List<Integer> illegalLottoNumbers) {
         //Give
         //When
         //Then
-        assertThatThrownBy(() -> LottoPrecondition.checkNumbers(illegalLottoNumbers))
+        assertThatThrownBy(() -> Lotto.getDefinedLotto(illegalLottoNumbers))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
