@@ -1,6 +1,6 @@
 package lotto.domain;
 
-import lotto.domain.userinput.WinningLottoInput;
+import lotto.domain.userinput.WinningLottoDto;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -9,13 +9,13 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LottoTest {
-    static WinningLottoInput winningLottoInput;
+    static WinningLottoDto winningLottoDto;
 
     @BeforeAll
     static void init(){
         Lotto winningTicket = new Lotto(List.of(1, 2, 3, 4, 5, 6));
         int bonusBall = 7;
-        winningLottoInput = new WinningLottoInput(winningTicket, bonusBall);
+        winningLottoDto = new WinningLottoDto(winningTicket, bonusBall);
     }
 
     @Test
@@ -24,11 +24,11 @@ class LottoTest {
         Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 10, 11));
 
         //when
-        LottoMatchResult lottoMatchResult = lotto.countMatchedNumber(winningLottoInput);
+        LottoMatchDto lottoMatchDto = lotto.countMatchedNumber(winningLottoDto.getWinningTicket(), winningLottoDto.getBonusBall());
 
         //then
-        assertEquals(4, lottoMatchResult.getCount());
-        assertFalse(lottoMatchResult.isBonusBall());
+        assertEquals(4, lottoMatchDto.getCount());
+        assertFalse(lottoMatchDto.isBonusBall());
     }
 
     @Test
@@ -37,10 +37,10 @@ class LottoTest {
         Lotto lotto = new Lotto(List.of(1, 2, 3, 4, 5, 7));
 
         //when
-        LottoMatchResult lottoMatchResult = lotto.countMatchedNumber(winningLottoInput);
+        LottoMatchDto lottoMatchDto = lotto.countMatchedNumber(winningLottoDto.getWinningTicket(), winningLottoDto.getBonusBall());
 
         //then
-        assertEquals(5, lottoMatchResult.getCount());
-        assertTrue(lottoMatchResult.isBonusBall());
+        assertEquals(5, lottoMatchDto.getCount());
+        assertTrue(lottoMatchDto.isBonusBall());
     }
 }

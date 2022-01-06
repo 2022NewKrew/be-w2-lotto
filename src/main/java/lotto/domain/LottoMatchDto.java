@@ -1,10 +1,10 @@
 package lotto.domain;
 
-class LottoMatchResult {
+class LottoMatchDto {
     private final int count;
     private final boolean isBonusBall;
 
-    public LottoMatchResult(int count, boolean isBonusBall) {
+    public LottoMatchDto(int count, boolean isBonusBall) {
         this.count = count;
         this.isBonusBall = isBonusBall;
     }

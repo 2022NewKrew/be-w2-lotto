@@ -1,6 +1,6 @@
 package lotto.domain;
 
-import lotto.domain.userinput.WinningLottoInput;
+import lotto.domain.userinput.WinningLottoDto;
 
 import java.util.HashMap;
 import java.util.List;
@@ -13,23 +13,23 @@ public class LottoResult {
     private final Map<Rank, Integer> countOfRank;
     private final int lottoProfit;
 
-    public LottoResult(List<Lotto> lottoList, WinningLottoInput winningLottoInput) {
+    public LottoResult(List<Lotto> lottoList, WinningLottoDto winningLottoDto) {
         countOfRank = new HashMap<>();
-        initCountOfRank(lottoList, winningLottoInput);
+        initCountOfRank(lottoList, winningLottoDto);
         lottoProfit = calculateProfit();
     }
 
-    private void initCountOfRank(List<Lotto> lottoList, WinningLottoInput winningLottoInput) {
+    private void initCountOfRank(List<Lotto> lottoList, WinningLottoDto winningLottoDto) {
         lottoList.forEach(lotto -> {
-            LottoMatchResult lottoMatchResult = lotto.countMatchedNumber(winningLottoInput);
-            plusCountOfRank(lottoMatchResult);
+            LottoMatchDto lottoMatchDto = lotto.countMatchedNumber(winningLottoDto.getWinningTicket(), winningLottoDto.getBonusBall());
+            plusCountOfRank(lottoMatchDto);
         });
     }
 
-    private void plusCountOfRank(LottoMatchResult lottoMatchResult) {
-        if (lottoMatchResult.getCount() < MIN_MATCH_COUNT.getValue())
+    private void plusCountOfRank(LottoMatchDto lottoMatchDto) {
+        if (lottoMatchDto.getCount() < MIN_MATCH_COUNT.getValue())
             return;
-        Rank rank = Rank.valueOf(lottoMatchResult);
+        Rank rank = Rank.valueOf(lottoMatchDto);
         countOfRank.put(rank, getCountOfRank(rank) + 1);
     }
 
@@ -39,8 +39,8 @@ public class LottoResult {
                 .sum();
     }
 
-    public int getLottoProfit() {
-        return lottoProfit;
+    public long profitRate(int purchaseMoney) {
+        return (lottoProfit - purchaseMoney) * 100L / purchaseMoney;
     }
 
     public int getCountOfRank(Rank rank) {

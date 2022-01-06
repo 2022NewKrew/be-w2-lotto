@@ -4,8 +4,8 @@ import lotto.domain.LottoResult;
 import lotto.domain.Lotto;
 import lotto.domain.Rank;
 import lotto.domain.generator.ManualLotto;
-import lotto.domain.userinput.PurchasedLottoInput;
-import lotto.domain.userinput.WinningLottoInput;
+import lotto.domain.userinput.PurchasedInfoDto;
+import lotto.domain.userinput.WinningLottoDto;
 import lotto.domain.generator.AutoLotto;
 import lotto.domain.generator.LottoGenerator;
 
@@ -22,12 +22,12 @@ public class LottoView {
     private final int countOfAutoLotto;
     private final List<Lotto> lottoList;
 
-    public LottoView(PurchasedLottoInput purchasedLottoInput) {
-        purchaseMoney = purchasedLottoInput.getPurchasePrice();
-        countOfManualLotto = purchasedLottoInput.getCountOfManualLotto();
+    public LottoView(PurchasedInfoDto purchasedInfoDto) {
+        purchaseMoney = purchasedInfoDto.getPurchasePrice();
+        countOfManualLotto = purchasedInfoDto.getCountOfManualLotto();
         countOfAutoLotto = (purchaseMoney / PRICE_OF_LOTTO.getValue()) - countOfManualLotto;
         lottoList = new ArrayList<>();
-        generateManualLotto(purchasedLottoInput.getManualLottoBundle());
+        generateManualLotto(purchasedInfoDto.getManualLottoBundle());
         generateAutoNumbers();
     }
 
@@ -50,15 +50,15 @@ public class LottoView {
         return sb.toString();
     }
 
-    public String printLottoResult(WinningLottoInput winningLottoInput) {
-        LottoResult lottoResult = new LottoResult(lottoList, winningLottoInput);
+    public String printLottoResult(WinningLottoDto winningLottoDto) {
+        LottoResult lottoResult = new LottoResult(lottoList, winningLottoDto);
 
         StringBuilder sb = new StringBuilder();
         sb.append("당첨 통계").append(NEW_LINE).append("---------").append(NEW_LINE);
         for (Rank rank : Rank.values()) {
             sb.append(LottoRankFormat(rank, lottoResult.getCountOfRank(rank))).append(NEW_LINE);
         }
-        sb.append("총 수익률은 ").append(profitRate(lottoResult.getLottoProfit())).append("%입니다.");
+        sb.append("총 수익률은 ").append(lottoResult.profitRate(purchaseMoney)).append("%입니다.");
         return sb.toString();
     }
 
@@ -68,9 +68,5 @@ public class LottoView {
             bonusString = ", 보너스 볼 일치";
         }
         return String.format("%d개 일치%s (%d원)- %d개", rank.getCountOfMatch(), bonusString, rank.getWinningMoney(), countOfRank);
-    }
-
-    private long profitRate(int profit) {
-        return (profit - purchaseMoney) * 100L / purchaseMoney;
     }
 }

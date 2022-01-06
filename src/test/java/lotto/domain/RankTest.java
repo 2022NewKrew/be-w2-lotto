@@ -8,10 +8,10 @@ class RankTest {
     @Test
     void 번호_5개를_맞추고_보너스_볼을_맞추면_2등(){
         //given
-        LottoMatchResult lottoMatchResult = new LottoMatchResult(5, true);
+        LottoMatchDto lottoMatchDto = new LottoMatchDto(5, true);
 
         //when
-        Rank rank = Rank.valueOf(lottoMatchResult);
+        Rank rank = Rank.valueOf(lottoMatchDto);
 
         //then
         assertEquals(Rank.SECOND, rank);
@@ -20,10 +20,10 @@ class RankTest {
     @Test
     void 번호_5개를_맞추고_보너스_볼을_맞추지_못하면_3등(){
         //given
-        LottoMatchResult lottoMatchResult = new LottoMatchResult(5, false);
+        LottoMatchDto lottoMatchDto = new LottoMatchDto(5, false);
 
         //when
-        Rank rank = Rank.valueOf(lottoMatchResult);
+        Rank rank = Rank.valueOf(lottoMatchDto);
 
         //then
         assertEquals(Rank.THIRD, rank);
@@ -32,10 +32,10 @@ class RankTest {
     @Test
     void 번호_3개를_맞추면_5등(){
         //given
-        LottoMatchResult lottoMatchResult = new LottoMatchResult(3, true);
+        LottoMatchDto lottoMatchDto = new LottoMatchDto(3, true);
 
         //when
-        Rank rank = Rank.valueOf(lottoMatchResult);
+        Rank rank = Rank.valueOf(lottoMatchDto);
 
         //then
         assertEquals(Rank.FIFTH, rank);

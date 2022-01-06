@@ -17,10 +17,10 @@ public enum Rank {
         this.winningMoney = winningMoney;
     }
 
-    public static Rank valueOf(LottoMatchResult lottoMatchResult) {
-        int countOfMatch = lottoMatchResult.getCount();
+    public static Rank valueOf(LottoMatchDto lottoMatchDto) {
+        int countOfMatch = lottoMatchDto.getCount();
         if (countOfMatch == SECOND.countOfMatch) {
-            return lottoMatchResult.isBonusBall() ? SECOND : THIRD;
+            return lottoMatchDto.isBonusBall() ? SECOND : THIRD;
         }
         return Arrays.stream(values())
                 .filter(rank -> rank.countOfMatch == countOfMatch)
