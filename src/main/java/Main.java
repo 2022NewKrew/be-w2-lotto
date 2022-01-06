@@ -1,10 +1,10 @@
-import application.ConsoleApplication;
+import application.WebApplication;
 
 public class Main {
 
     public static void main(String[] args) {
-        new ConsoleApplication().run();
-        //new WebApplication().run();
+//        new ConsoleApplication().run();
+        new WebApplication().run();
     }
 
 }
