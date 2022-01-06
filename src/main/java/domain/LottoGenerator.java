@@ -13,7 +13,7 @@ import static view.InputView.START_NUMBER;
 public class LottoGenerator {
     private static List<Integer> shuffleNumbers = IntStream.rangeClosed(START_NUMBER, END_NUMBER).boxed().collect(Collectors.toList());
 
-    public static List<Integer> getLottoNumbers() {
+    public static List<Integer> generateLottoNumbers() {
         Collections.shuffle(shuffleNumbers);
         List<Integer> lottoNums = new ArrayList<>(shuffleNumbers.subList(0,6));
 
