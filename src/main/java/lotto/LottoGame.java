@@ -1,13 +1,17 @@
 package main.java.lotto;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+import main.java.myexception.NumberRepetitionException;
+import main.java.myexception.NotSixNumSelectedException;
+import main.java.myexception.UnderThousandException;
+import main.java.myexception.UnderZeroOrOverLimitException;
+
+import java.util.*;
 
 public class LottoGame {
     private int money;
     private int earning;
     private int lottoCount;
+    private int manualCount;
     private int bonus;
     private ArrayList<Lotto> lottoList;
     private ArrayList<Integer> sixNumList;
@@ -19,12 +23,52 @@ public class LottoGame {
         this.earning=-money;
         this.lottoCount = money/1000;
         this.lottoList = new ArrayList<>();
-        makeLottoList();
         this.sixNumList = new ArrayList<>();
         this.winList = new ArrayList<>();
         setWinList();
-//        this.earningList = new ArrayList<>();
-//        setEarningList();
+    }
+
+    public void isNotSixNum(ArrayList<Integer> lotto) throws NotSixNumSelectedException {
+        if (lotto.size()!=6){
+            throw new NotSixNumSelectedException("6개 숫자를 입력해주세요.");
+        }
+    }
+
+
+    public void isNumberUnderZeroOrOverLimit(int num) throws UnderZeroOrOverLimitException {
+        if(num<=0 || num>45){
+            throw new UnderZeroOrOverLimitException("1~45 사이 값이어야 합니다.");
+        }
+    }
+
+    public void isUnderThousand(int money) throws UnderThousandException {
+        if (money<1000){
+            throw new UnderThousandException("구매 금액은 1000원 이상이어야 합니다.");
+        }
+    }
+
+    public void isRepetition(ArrayList<Integer> lotto) throws NumberRepetitionException {
+        Set<Integer> set = new HashSet<>();
+        set.addAll(lotto);
+        if(lotto.size() != set.size()){
+            throw new NumberRepetitionException("로또 번호는 중복될 수 없습니다.");
+        }
+    }
+
+
+    public void isInvalidManualCount(int manualCount) throws UnderZeroOrOverLimitException {
+        if (manualCount<0 || manualCount>money/1000){
+            throw new UnderZeroOrOverLimitException("수동 구매 개수는 0보다 커야하고"+money/1000+"보다 작아야 합니다.");
+        }
+    }
+
+
+    public void setManualCount(int manualCount) {
+        this.manualCount = manualCount;
+    }
+
+    public int getManualCount() {
+        return manualCount;
     }
 
     private void setWinList(){
@@ -33,20 +77,13 @@ public class LottoGame {
         }
     }
 
-//    private void setEarningList() {
-//        earningList.add(0);
-//        earningList.add(0);
-//        earningList.add(0);
-//        earningList.add(5000);
-//        earningList.add(50000);
-//        earningList.add(1500000);
-//        earningList.add(2000000000);
-//    }
-//
-//    public ArrayList<Integer> getEarningList() {
-//        return earningList;
-//    }
-
+    public void makeManualLotto(ArrayList<Integer> manualLotto){
+        Lotto lotto = new Lotto();
+        for(int i=0;i<manualLotto.size();i++){
+            lotto.addLotto(manualLotto.get(i));
+        }
+        lottoList.add(lotto);
+    }
 
     public void setBonus(int bonus) {
         this.bonus = bonus;
@@ -68,9 +105,9 @@ public class LottoGame {
         return winList;
     }
 
-    private void makeLottoList(){
+    public void makeLottoList(){
         LottoGen lottoGen = new LottoGen();
-        for(int i=0;i<lottoCount;i++){
+        for(int i=0;i<lottoCount-manualCount;i++){
             lottoList.add(lottoGen.makeLotto());
         }
     }

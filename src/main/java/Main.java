@@ -1,13 +1,10 @@
 package main.java;
 
-import main.java.lotto.LottoGame;
+import main.java.myexception.UnderThousandException;
 import main.java.view.LottoUI;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws UnderThousandException {
         LottoUI lotto = new LottoUI();
         lotto.startGame();
     }
