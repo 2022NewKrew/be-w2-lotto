@@ -4,7 +4,6 @@ import exceptions.InvalidLastWeekWinningNumber;
 import messages.ErrorMessage;
 import validation.Validation;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -25,9 +24,8 @@ public class Lotto {
         this.numbers = Collections.unmodifiableList(numbers);
     }
 
-    @Override
-    public String toString() {
-        return Arrays.toString(numbers.toArray());
+    public List<Integer> numbers() {
+        return this.numbers;
     }
 
     public Integer checkMatchCount(List<Integer> winningNumbers) {

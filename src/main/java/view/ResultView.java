@@ -8,9 +8,22 @@ import java.util.EnumMap;
 import java.util.List;
 
 public class ResultView {
+    private static void printLotto(Lotto lotto) {
+        List<Integer> numbers = lotto.numbers();
+
+        System.out.print("[");
+        for (int i = 0; i < numbers.size(); i++) {
+            System.out.print(numbers.get(i));
+            if (i != numbers.size() - 1)
+                System.out.print(", ");
+        }
+        System.out.println("]");
+    }
 
     public static void printLottoList(List<Lotto> lottoList) {
-        lottoList.forEach(System.out::println);
+        for (Lotto lotto: lottoList) {
+            printLotto(lotto);
+        }
     }
 
     public static void printLottoResult(EnumMap<Prize, Integer> lottoResult) {
