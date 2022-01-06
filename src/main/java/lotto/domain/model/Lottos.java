@@ -1,28 +1,30 @@
-package lotto.domain;
+package lotto.domain.model;
+
+import lotto.domain.message.ExceptionMessage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PurchaseLotto {
+public class Lottos {
     private static final int BASIC_PRICE = 1000;
 
     private List<Lotto> lottos;
 
-    private PurchaseLotto(List<Lotto> lottos) {
+    private Lottos(List<Lotto> lottos) {
         this.lottos = new ArrayList<>(lottos);
     }
 
-    public static PurchaseLotto of(int purchasePrice) {
+    public static Lottos from(int purchasePrice) {
         validateLottos(purchasePrice);
 
         List<Lotto> lottos = new ArrayList<>();
         int purchaseCount = purchasePrice / BASIC_PRICE;
 
         for (int i = 0; i < purchaseCount; ++i) {
-            lottos.add(Lotto.of());
+            lottos.add(new Lotto(LottoNumbers.getRandomLottoNumbers()));
         }
 
-        return new PurchaseLotto(lottos);
+        return new Lottos(lottos);
     }
 
     private static void validateLottos(int purchasePrice) {

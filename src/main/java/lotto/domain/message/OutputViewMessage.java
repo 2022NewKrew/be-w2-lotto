@@ -1,4 +1,4 @@
-package lotto.domain;
+package lotto.domain.message;
 
 public enum OutputViewMessage {
     OUTPUT_PURCHASE_COUNT("%d개를 구매했습니다.\n"),
