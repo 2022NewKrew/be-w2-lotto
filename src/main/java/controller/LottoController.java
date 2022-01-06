@@ -38,14 +38,12 @@ public class LottoController {
         return (totalProfitMoney - money) / money * 100;
     }
 
-    // Q. OutputView의 outputWinning과 로직이 많이 겹치는데 합치는게 좋을까요?
     private static float calculateProfitMoney(Map<Rank, Integer> winningStatistics) {
         float totalProfitMoney = 0.0f;
         final Rank[] ranks = Rank.values();
         for (Rank rank : ranks) {
-            int winningMoney = rank.getWinningMoney();
             int countOfWinningRank = winningStatistics.getOrDefault(rank, 0);
-            totalProfitMoney += (winningMoney * countOfWinningRank);
+            totalProfitMoney += rank.calculateProfitMoney(countOfWinningRank);
         }
         return totalProfitMoney;
     }
