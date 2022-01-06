@@ -11,25 +11,25 @@ public class App {
         View view = new View();
 
         LotteryWallet lotteryWallet = new LotteryWallet(view.getBudget());
-        int numberOfNonRandomTickets = view.getNumberOfNonRandomTickets();
+        int numberOfManualTickets = view.getNumberOfManualTickets();
 
-        lotteryWallet.buyTickets(numberOfNonRandomTickets);
+        lotteryWallet.buyTickets(numberOfManualTickets);
 
-        LotteryTickets nonRandomLotteryTickets = new LotteryTickets(TICKET_PRICE);
+        LotteryTickets manualLotteryTickets = new LotteryTickets(TICKET_PRICE);
         view.promptToInputLotteryNumbersToBuy();
-        for (int i = 0; i < numberOfNonRandomTickets; i++) {
-            nonRandomLotteryTickets.add(new LotteryTicket(view.getLotteryNumbers()));
+        for (int i = 0; i < numberOfManualTickets; i++) {
+            manualLotteryTickets.add(new LotteryTicket(view.getLotteryNumbers()));
         }
 
         LotteryTickets randomLotteryTickets = new LotteryTickets(TICKET_PRICE);
         addRandomTickets(randomLotteryTickets, lotteryWallet.getNumberOfTicketsAffordable());
 
-        view.showBoughtTickets(nonRandomLotteryTickets.toDTO(), randomLotteryTickets.toDTO());
+        view.showBoughtTickets(manualLotteryTickets.toDTO(), randomLotteryTickets.toDTO());
 
         LotteryResult lotteryResult = new LotteryResult(view.getResultNumbers(), view.getResultBonusBall());
 
-        nonRandomLotteryTickets.add(randomLotteryTickets);
-        LotteryTickets boughtLotteryTickets = nonRandomLotteryTickets;
+        manualLotteryTickets.add(randomLotteryTickets);
+        LotteryTickets boughtLotteryTickets = manualLotteryTickets;
         LotteryReport lotteryReport = new LotteryReport(boughtLotteryTickets, lotteryResult);
 
         view.showReport(lotteryReport.toDTO());
