@@ -14,18 +14,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("Lotto 테스트")
 public class LottoTest {
 
-
     @DisplayName("테스트를 위한 Lotto 인스턴스가 2개를 가지고 countDuplicateNumberWith 메서드를 실행했을 때 기대값과 실제 값이 같다")
     @ParameterizedTest
     @MethodSource("getTestNumbers")
     void countDuplicateNumberWith(List<Integer> testList1, List<Integer> testList2, int expectedNumber) {
         //Give
-        DefinedLotto testLotto1 = new DefinedLotto(testList1);
-        DefinedLotto testLotto2 = new DefinedLotto(testList2);
+        Lotto testLotto1 = Lotto.getDefinedLotto(testList1);
+        Lotto testLotto2 = Lotto.getDefinedLotto(testList2);
         //When
-        int result = testLotto1.countDuplicateNumberWith(testLotto2.getLotto());
+        int result = testLotto1.contain(testLotto2);
         //Then
-        assertThat(result).isEqualTo(expectedNumber);
+        assertThat(result)
+                .isEqualTo(expectedNumber);
     }
 
     static Stream<Arguments> getTestNumbers() {

@@ -16,7 +16,6 @@ public class UserInput {
             return money;
         } catch (Exception exception) {
             throw new IllegalArgumentException("[ERROR] 올바른 구입 금액을 입력해주세요. (양수를 입력해 주세요)");
-
         }
     }
 
@@ -27,6 +26,17 @@ public class UserInput {
             return Arrays.stream(scanner.nextLine().split(", ")).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
         } catch (NumberFormatException exception) {
             throw new IllegalArgumentException("[ERROR] 올바른 형식의 당첨번호를 입력해주세요. (당첨번호는 정수를 입력해주세요)");
+        }
+    }
+
+    public static int getBonusBall() {
+        try {
+            System.out.println("보너스 볼을 입력해주세요");
+            int bonusNumber = scanner.nextInt();
+            isOverZero(bonusNumber);
+            return bonusNumber;
+        } catch (Exception exception) {
+            throw new IllegalArgumentException("[ERROR] 올바른 보너스 볼을 입력해주세요. (양수를 입력해 주세요)");
         }
     }
 

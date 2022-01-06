@@ -1,9 +1,8 @@
 package model.lotto.result;
 
-import model.lotto.DefinedLotto;
 import model.lotto.Lotto;
 import model.lotto.LottoRank;
-import model.lotto.RandomLotto;
+import model.lotto.number.LottoNumber;
 
 import java.util.List;
 import java.util.Map;
@@ -11,44 +10,39 @@ import java.util.stream.Collectors;
 
 public class LottoResult {
     private final Map<Integer, Integer> result;
-    private final DefinedLotto winningLotto;
+    private final Lotto winningLotto;
     private int revenuePercent;
 
-    public LottoResult(List<RandomLotto> lottos, DefinedLotto winningLotto) {
+    public LottoResult(List<Lotto> lottos, Lotto winningLotto, LottoNumber bonusNumber) {
         this.winningLotto = winningLotto;
-        this.result = generateResult(lottos);
+        this.result = generateResult(lottos, bonusNumber);
         this.revenuePercent = calculateRevenuePercent(lottos.size());
     }
 
-    private Map<Integer, Integer> generateResult(List<RandomLotto> lottos) {
-        List<LottoRank> lottoRanks = matchResults(lottos);
+    private Map<Integer, Integer> generateResult(List<Lotto> lottos, LottoNumber bonusNumber) {
+        List<LottoRank> lottoRanks = matchResults(lottos, bonusNumber);
         return resultToMap(lottoRanks);
     }
 
     private Map<Integer, Integer> resultToMap(List<LottoRank> lottoRanks) {
         return lottoRanks
                 .stream()
-                .collect(Collectors.groupingBy(LottoRank::getReward, Collectors.summingInt(any-> 1)));
+                .collect(Collectors.groupingBy(LottoRank::getReward, Collectors.summingInt(any -> 1)));
     }
 
-    private List<LottoRank> matchResults(List<RandomLotto> lottos){
+    private List<LottoRank> matchResults(List<Lotto> lottos, LottoNumber bonusNumber) {
         return lottos
                 .stream()
-                .map(this::matchLotto)
+                .map(lotto -> matchLotto(lotto, bonusNumber))
                 .collect(Collectors.toList());
     }
 
-    private LottoRank matchLotto(RandomLotto lotto) {
-        int numberOfSameNumber = countWinningNumberInLotto(lotto);
-        return LottoRank.convertToLottoRank(numberOfSameNumber);
-    }
-
-    private int countWinningNumberInLotto(RandomLotto generatedLotto) {
-        return winningLotto.countDuplicateNumberWith(generatedLotto.getLotto());
+    private LottoRank matchLotto(Lotto lotto, LottoNumber bonusNumber) {
+        return LottoRank.convertToLottoRank(winningLotto.contain(lotto), lotto.contain(bonusNumber));
     }
 
     private int calculateRevenuePercent(int numberOfLotto) {
-        return revenuePercent = (int) Math.floor((double) getTotalEarn() / (numberOfLotto * Lotto.LOTTO_PRICE)  * 100);
+        return revenuePercent = (int) Math.floor((double) getTotalEarn() / (numberOfLotto * Lotto.LOTTO_PRICE) * 100);
     }
 
     private int getTotalEarn() {
