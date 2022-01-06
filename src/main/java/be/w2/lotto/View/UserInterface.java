@@ -63,25 +63,25 @@ public class UserInterface {
     }
 
     public List<Integer> readIntList() {
-        String intListStr = readStr();
-        return strToIntList(intListStr);
+        String intListString = readString();
+        return stringToIntList(intListString);
     }
 
-    public List<Integer> strToIntList(String str) {
-        String[] numStrs = str.split(",");
-        List<Integer> nums = new ArrayList<>();
-        for (String numStr : numStrs)
-            nums.add(Integer.valueOf(numStr.trim()));
-        return nums;
+    public List<Integer> stringToIntList(String string) {
+        String[] numberStrings = string.split(",");
+        List<Integer> numbers = new ArrayList<>();
+        for (String numberString : numberStrings)
+            numbers.add(Integer.valueOf(numberString.trim()));
+        return numbers;
     }
 
-    public String readStr() {
+    public String readString() {
         Input<String> target = new Input<>();
-        while (!readStrInput(target)) ;
+        while (!readStringInput(target)) ;
         return target.getValue();
     }
 
-    private boolean readStrInput(Input target) {
+    private boolean readStringInput(Input target) {
         String input = null;
         try {
             input = scanner.nextLine();

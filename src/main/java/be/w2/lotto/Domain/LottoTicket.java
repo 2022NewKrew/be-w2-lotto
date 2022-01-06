@@ -25,7 +25,7 @@ public class LottoTicket {
         money.sub(amount.fullPrice(PRICE));
     }
 
-    public static int calculateAmount(Money money) {
+    public static Amount calculateAmount(Money money) {
         return money.calculateAmount(PRICE);
     }
 

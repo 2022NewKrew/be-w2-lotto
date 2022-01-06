@@ -7,7 +7,7 @@ public class LottoMaker {
 
     private static final int START_NUMBER = 1;
     private static final int END_NUMBER = 45;
-    private LottoNumbers lottoNumbers;
+    private final LottoNumbers lottoNumbers;
 
     public LottoMaker() {
         List<Integer> numbers = new ArrayList<>();

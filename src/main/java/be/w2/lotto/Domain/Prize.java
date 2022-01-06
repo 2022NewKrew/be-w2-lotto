@@ -1,8 +1,9 @@
 package be.w2.lotto.Domain;
 
 
-public enum HitCount {
+public enum Prize {
 
+    NONE(0,0,false, ""),
     THREE(3, 5000, false, "3개 일치 (5000원)"),
     FOUR(4, 50000, false, "4개 일치 (50000원)"),
     FIVE(5, 1500000, false, "5개 일치 (1500000원)"),
@@ -14,19 +15,19 @@ public enum HitCount {
     private final boolean isBonus;
     private final String message;
 
-    HitCount(int hitCount, int price, boolean isBonus, String message) {
+    Prize(int hitCount, int price, boolean isBonus, String message) {
         this.hitCount = hitCount;
         this.price = price;
         this.isBonus = isBonus;
         this.message = message;
     }
 
-    public static HitCount valueOf(int hitCount, boolean isBonus) {
-        for (HitCount target : HitCount.values()) {
+    public static Prize valueOf(int hitCount, boolean isBonus) {
+        for (Prize target : Prize.values()) {
             if (target.getHitCount() == hitCount && target.isBonus() == isBonus)
                 return target;
         }
-        return null;
+        return NONE;
     }
 
     public int getHitCount() {

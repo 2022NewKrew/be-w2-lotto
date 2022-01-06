@@ -28,11 +28,11 @@ public class Money {
         money -= price;
     }
 
-    public int calculateAmount(int price) {
-        return money / price;
+    public Amount calculateAmount(int price) {
+        return new Amount(money / price);
     }
 
-    public int calEarningRate(int benefit) {
+    public int earningRate(int benefit) {
         return benefit * 100 / money;
     }
 }

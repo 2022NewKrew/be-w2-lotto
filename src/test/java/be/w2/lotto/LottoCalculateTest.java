@@ -77,13 +77,15 @@ public class LottoCalculateTest {
         return testCase;
     }
 
-    void benefitTestTemplate(String answerInput, int bonusNumber, List<String> testCase, int expectedResult) {
+    void benefitTestTemplate(String answerInput, int bonusNumberInput, List<String> testCase, int expectedResult) {
         List<LottoTicket> lottoTicketList = new ArrayList<>();
         for (String str : testCase)
-            lottoTicketList.add(new LottoTicket(LottoNumbers.getInstanceByIntList(userInterface.strToIntList(str))));
+            lottoTicketList.add(new LottoTicket(LottoNumbers.getInstanceByIntList(userInterface.stringToIntList(str))));
         LottoTickets lottoTickets = new LottoTickets(lottoTicketList);
-        LottoCalculator lottoCalculator = new LottoCalculator(userInterface.strToIntList(answerInput), bonusNumber, lottoTickets);
-        int benefit = lottoCalculator.benefit();
+        LottoNumbers answers = LottoNumbers.getInstanceByIntList(userInterface.stringToIntList(answerInput));
+        LottoNumber bonusNumber = new LottoNumber(answers, bonusNumberInput);
+        LottoResult lottoResult = lottoTickets.calculateResult(answers, bonusNumber);
+        int benefit = lottoResult.benefit();
         assertThat(benefit).isEqualTo(expectedResult);
     }
 
@@ -135,16 +137,18 @@ public class LottoCalculateTest {
     @DisplayName("로또_연산_결과_수익률_테스트")
     void test_earningResult() {
         String ANSWER_INPUT = "1, 2, 3, 4, 5, 6";
-        int bonusNumber = 7;
+        int bonusNumberInput = 7;
         List<String> testCase1 = setTestCase1();
         Money money = new Money(LottoTicket.PRICE * testCase1.size());
         List<LottoTicket> lottoTicketList = new ArrayList<>();
         for (String str : testCase1)
-            lottoTicketList.add(new LottoTicket(LottoNumbers.getInstanceByIntList(userInterface.strToIntList(str))));
+            lottoTicketList.add(new LottoTicket(LottoNumbers.getInstanceByIntList(userInterface.stringToIntList(str))));
         LottoTickets lottoTickets = new LottoTickets(lottoTicketList);
-        LottoCalculator lottoCalculator = new LottoCalculator(userInterface.strToIntList(ANSWER_INPUT), bonusNumber, lottoTickets);
-        int benefit = lottoCalculator.benefit();
-        assertThat(money.calEarningRate(benefit)).isEqualTo(35);
+        LottoNumbers answers = LottoNumbers.getInstanceByIntList(userInterface.stringToIntList(ANSWER_INPUT));
+        LottoNumber bonusNumber = new LottoNumber(answers, bonusNumberInput);
+        LottoResult lottoResult = lottoTickets.calculateResult(answers, bonusNumber);
+        int benefit = lottoResult.benefit();
+        assertThat(money.earningRate(benefit)).isEqualTo(35);
     }
 
 

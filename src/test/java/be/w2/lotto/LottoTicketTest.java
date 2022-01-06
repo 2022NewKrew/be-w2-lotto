@@ -21,7 +21,7 @@ public class LottoTicketTest {
 
     @Test
     void manualDuplicateTest() {
-        List<Integer> testCase = userInterface.strToIntList("8, 8, 23, 41, 42, 43");
+        List<Integer> testCase = userInterface.stringToIntList("8, 8, 23, 41, 42, 43");
         assertThrows(IllegalArgumentException.class, () -> {
             LottoTicket.getInstanceByIntList(testCase);
         });
@@ -29,7 +29,7 @@ public class LottoTicketTest {
 
     @Test
     void manualNormalTest() {
-        List<Integer> testCase = userInterface.strToIntList("8, 21, 23, 41, 42, 43");
+        List<Integer> testCase = userInterface.stringToIntList("8, 21, 23, 41, 42, 43");
         LottoTicket.getInstanceByIntList(testCase);
     }
 

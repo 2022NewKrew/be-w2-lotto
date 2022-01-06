@@ -14,7 +14,7 @@ public class LottoTickets {
     }
 
     public void addAutoTickets(Money money, LottoMaker lottoMaker) {
-        autoAmount = new Amount(LottoTicket.calculateAmount(money));
+        autoAmount = LottoTicket.calculateAmount(money);
         lottoTickets.addAll(autoAmount.makeRandomLottoTicket(lottoMaker));
     }
 
@@ -41,7 +41,7 @@ public class LottoTickets {
         for (LottoTicket lottoTicket : lottoTickets) {
             int hit = lottoTicket.calculateTicket(answers);
             boolean isBonus = lottoTicket.contains(bonusNumber);
-            lottoResult.add(HitCount.valueOf(hit, isBonus));
+            lottoResult.add(Prize.valueOf(hit, isBonus));
         }
         return lottoResult;
     }
