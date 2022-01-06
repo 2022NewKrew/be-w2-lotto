@@ -20,32 +20,26 @@ class LottoResultTest {
     @DisplayName("[성공] 일치하는 로또 번호를 올바르게 계산한다")
     void winningLottoCount() {
         List<Lotto> lottoList = new ArrayList<>();
-        lottoList.add(createLottoNumbers(8, 21, 23, 41, 42, 43));
-        lottoList.add(createLottoNumbers(3, 5, 11, 16, 32, 38));
-        lottoList.add(createLottoNumbers(7, 11, 16, 35, 36, 44));
-        lottoList.add(createLottoNumbers(1, 8, 11, 31, 41, 42));
-        lottoList.add(createLottoNumbers(13, 14, 16, 38, 42, 45));
-        lottoList.add(createLottoNumbers(7, 11, 30, 40, 42, 43));
-        lottoList.add(createLottoNumbers(2, 13, 22, 32, 38, 45));
-        lottoList.add(createLottoNumbers(23, 25, 33, 36, 39, 41));
-        lottoList.add(createLottoNumbers(1, 3, 5, 14, 22, 45));
-        lottoList.add(createLottoNumbers(5, 9, 38, 41, 43, 44));
-        lottoList.add(createLottoNumbers(2, 8, 9, 18, 19, 21));
-        lottoList.add(createLottoNumbers(13, 14, 18, 21, 23, 35));
-        lottoList.add(createLottoNumbers(17, 21, 29, 37, 42, 45));
-        lottoList.add(createLottoNumbers(3, 8, 27, 30, 35, 44));
+        lottoList.add(createLottoNumbers(1, 2, 10, 11, 12, 13));
+        lottoList.add(createLottoNumbers(1, 2, 3, 10, 11, 12));
+        lottoList.add(createLottoNumbers(1, 2, 3, 4, 10, 11));
+        lottoList.add(createLottoNumbers(1, 2, 3, 4, 5, 10));
+        lottoList.add(createLottoNumbers(1, 2, 3, 4, 5, 7));
+        lottoList.add(createLottoNumbers(1, 2, 3, 4, 5, 6));
         EnumMap<Prize, Integer> winningLottoCount_Answer = new EnumMap<>(Prize.class);
+        winningLottoCount_Answer.put(Prize.MISS, 1);
         winningLottoCount_Answer.put(Prize.THREE, 1);
-        winningLottoCount_Answer.put(Prize.FOUR, 0);
-        winningLottoCount_Answer.put(Prize.FIVE, 0);
-        winningLottoCount_Answer.put(Prize.SIX, 0);
+        winningLottoCount_Answer.put(Prize.FOUR, 1);
+        winningLottoCount_Answer.put(Prize.FIVE, 1);
+        winningLottoCount_Answer.put(Prize.BONUS, 1);
+        winningLottoCount_Answer.put(Prize.SIX, 1);
         int bonusNumber = 7;
         LottoResult lottoResult = new LottoResult(winningNumbers, bonusNumber);
 
         EnumMap<Prize, Integer> winningLottoCount = lottoResult.winningLottoCount(lottoList);
 
         winningLottoCount_Answer.forEach((key, value) -> {
-            Assertions.assertEquals(winningLottoCount.get(key), value);
+            Assertions.assertEquals(value, winningLottoCount.get(key));
         });
     }
 
