@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class LottoAmountTest {
 
     @Test
-    void getLottoAmount_입력한_purchaseAmount로_LottoAmount를_계산해_반환한다() {
+    void createLottoAmount_입력한_purchaseAmount로_LottoAmount를_계산해_반환한다() {
         // given
         int purchaseAmount = 15000;
         int expected = purchaseAmount / LOTTO_TICKET_PRICE;

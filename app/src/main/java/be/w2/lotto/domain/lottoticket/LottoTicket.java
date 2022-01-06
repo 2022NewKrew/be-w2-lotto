@@ -12,7 +12,7 @@ import static be.w2.lotto.domain.lottoticket.LottoTickets.LOTTO_TICKET_SIZE;
 public abstract class LottoTicket {
     private final List<LottoNumber> lottoNumbers;
 
-    public LottoTicket(List<LottoNumber> lottoNumbers) {
+    protected LottoTicket(List<LottoNumber> lottoNumbers) {
         this.lottoNumbers = lottoNumbers;
     }
 
@@ -22,9 +22,9 @@ public abstract class LottoTicket {
                 .collect(Collectors.toList());
     }
 
-    protected static void validateLottoNumbers(List<Integer> winningNumbers) throws IllegalArgumentException {
-        validateTicketSize(winningNumbers);
-        validateNumbersDuplication(winningNumbers);
+    protected static void validateLottoNumbers(List<Integer> lottoNumbers) throws IllegalArgumentException {
+        validateTicketSize(lottoNumbers);
+        validateNumbersDuplication(lottoNumbers);
     }
 
     private static void validateNumbersDuplication(List<Integer> numbers) throws IllegalArgumentException {
@@ -33,8 +33,8 @@ public abstract class LottoTicket {
         }
     }
 
-    private static void validateTicketSize(List<Integer> winningNumbers) throws IllegalArgumentException {
-        if (winningNumbers.size() != LOTTO_TICKET_SIZE) {
+    private static void validateTicketSize(List<Integer> lottoNumbers) throws IllegalArgumentException {
+        if (lottoNumbers.size() != LOTTO_TICKET_SIZE) {
             throw new IllegalArgumentException(INVALID_LOTTO_TICKET_SIZE_EXCEPTION);
         }
     }

@@ -1,13 +1,9 @@
 package be.w2.lotto.domain.lottoticket;
 
-import be.w2.lotto.domain.lottonumber.LottoNumber;
-import com.google.common.base.Supplier;
 import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static be.w2.lotto.common.exception.ExceptionMessages.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -18,13 +14,7 @@ class ManualLottoTicketTest {
     @Test
     void valueOf_객체_생성에_성공하고_ManualLottoTicket_객체를_반환한다() {
         // given
-        List<Integer> lottoNumbers = Stream.of(
-                        LottoNumber.from(1), LottoNumber.from(2),
-                        LottoNumber.from(3), LottoNumber.from(4),
-                        LottoNumber.from(5), LottoNumber.from(6)
-                )
-                .map(LottoNumber::getNumber)
-                .collect(Collectors.toList());
+        List<Integer> lottoNumbers = List.of(1, 2, 3, 4, 5, 6);
         Class<ManualLottoTicket> expected = ManualLottoTicket.class;
 
         // when
@@ -37,9 +27,7 @@ class ManualLottoTicketTest {
     @Test
     void valueOf_입력_받은_숫자가_6_미만일_경우_객체_생성에_실패하고_에러를_반환한다() {
         // given
-        List<Integer> lottoNumbers = Stream.of(LottoNumber.from(1), LottoNumber.from(2))
-                .map(LottoNumber::getNumber)
-                .collect(Collectors.toList());
+        List<Integer> lottoNumbers = List.of(1, 2, 3, 4, 5);
 
         // when
         ThrowableAssert.ThrowingCallable actual = () -> ManualLottoTicket.valueOf(lottoNumbers);
@@ -53,13 +41,7 @@ class ManualLottoTicketTest {
     @Test
     void valueOf_입력_받은_숫자가_중복일_경우_객체_생성에_실패하고_에러를_반환한다() {
         // given
-        List<Integer> lottoNumbers = Stream.of(
-                        LottoNumber.from(1), LottoNumber.from(1),
-                        LottoNumber.from(1), LottoNumber.from(1),
-                        LottoNumber.from(1), LottoNumber.from(1)
-                )
-                .map(LottoNumber::getNumber)
-                .collect(Collectors.toList());
+        List<Integer> lottoNumbers = List.of(1, 2, 3, 4, 5, 5);
 
         // when
         ThrowableAssert.ThrowingCallable actual = () -> ManualLottoTicket.valueOf(lottoNumbers);
