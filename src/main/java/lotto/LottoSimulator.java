@@ -111,13 +111,8 @@ public class LottoSimulator {
 
     private void printWinningStat(long purchaseAmount, @NotNull PurchasedLottos purchasedLottos, WinningLotto winningLotto) {
         WinningResult winningResult = WinningResult.winningResultOf(winningLotto, purchasedLottos);
-        double yield = getSimulationYield(purchaseAmount, winningResult);
+        double yield = winningResult.getYield(purchaseAmount);
         lottoOutputPrinter.printWinningResultPrinter(winningResult);
         lottoOutputPrinter.printWinningYield(yield);
-    }
-
-    private double getSimulationYield(long purchaseAmount, @NotNull WinningResult winningResult) {
-        long totalReward = winningResult.getWinningResult().stream().mapToLong(LottoResult::getReward).sum();
-        return (double) (totalReward - purchaseAmount) / purchaseAmount * 100;
     }
 }
