@@ -50,24 +50,13 @@ public class WebLottoController {
         List<String> resultList = new ArrayList<>();
 
         lottoResult.getLottoResult().forEach(
-                (rank, count) -> resultList.add(printLottoRank(rank, count))
+                (rank, count) -> {
+                    if(rank != Rank.NONE) {
+                        resultList.add(rank + String.format(" %d개", count));
+                    }
+                }
         );
 
         return resultList;
-    }
-
-    private String printLottoRank(Rank rank, int count){
-        StringBuilder sb = new StringBuilder();
-        if(rank == Rank.NONE){
-            return sb.toString();
-        }
-
-        sb.append(String.format("%d개 일치", rank.getCountOfMatch()));
-        if(rank == Rank.SECOND){
-            sb.append(", 보너스 볼 일치");
-        }
-        sb.append(String.format(" (%d원) - %d개", rank.getWinningMoney(), count));
-
-        return sb.toString();
     }
 }
