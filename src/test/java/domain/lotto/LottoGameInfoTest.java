@@ -12,12 +12,15 @@ import static org.assertj.core.api.Assertions.*;
 
 class LottoGameInfoTest {
 
+    private static final int NO_MANUAL_LOTTO_QUANTITY = 0;
+
     @ParameterizedTest
     @MethodSource
     @DisplayName("입력한 금액의 최대 구입할 수 있는 로또 만큼 구입한다.")
     void testForPurchaseQuantityByInputMoney(int money, int expectedQuantity) {
+
         //when
-        LottoGameInfo lottoGameInfo = new LottoGameInfo(money);
+        LottoGameInfo lottoGameInfo = new LottoGameInfo(money, NO_MANUAL_LOTTO_QUANTITY);
 
         //then
         assertThat(lottoGameInfo.getPurchaseQuantity()).isEqualTo(expectedQuantity);
@@ -38,8 +41,7 @@ class LottoGameInfoTest {
     void failToCreateLottoGameInfoWithNotEnoughMoney() {
         //when
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> new LottoGameInfo(999))
+                .isThrownBy(() -> new LottoGameInfo(999, NO_MANUAL_LOTTO_QUANTITY))
                 .withMessage("[에러] 구입 금액은 반드시 1000원 이상이어야 합니다.");
     }
-
 }

@@ -39,5 +39,4 @@ class PrizeTest {
                 Arguments.of(0, false, NO_PRIZE)
         );
     }
-
 }

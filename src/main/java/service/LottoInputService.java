@@ -13,6 +13,9 @@ public class LottoInputService {
     private static final String INPUT_DELIMITER = ",";
 
     public List<LottoRequest> getManualLottoRequests(String manualString) {
+        if (manualString.isEmpty()) {
+            return Collections.emptyList();
+        }
         String[] manualStringRequests = manualString.split(LOTTO_REQUEST_DELIMITER);
 
         return Arrays.stream(manualStringRequests)
@@ -45,5 +48,4 @@ public class LottoInputService {
             throw new IllegalArgumentException("[에러] 반드시 숫자를 입력해야 합니다.");
         }
     }
-
 }

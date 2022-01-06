@@ -21,5 +21,4 @@ public class LottoResult {
     public int getPrizeMoney() {
         return lottoPrize.getPrizeMoney();
     }
-
 }

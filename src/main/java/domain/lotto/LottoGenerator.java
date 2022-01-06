@@ -33,5 +33,4 @@ public class LottoGenerator {
     public static WinningLotto generateWinningLotto(List<Integer> inputNumbers, int bonusNumber) {
         return new WinningLotto(inputNumbers, bonusNumber);
     }
-
 }

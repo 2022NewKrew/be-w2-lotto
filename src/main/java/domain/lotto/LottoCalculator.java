@@ -28,5 +28,4 @@ public class LottoCalculator {
             lottoResults.add(lottoResult);
         }
     }
-
 }

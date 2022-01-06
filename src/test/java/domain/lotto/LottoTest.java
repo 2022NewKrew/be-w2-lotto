@@ -32,5 +32,4 @@ class LottoTest {
                 .isThrownBy(() -> new Lotto(lottoInputSequence))
                 .withMessage("[에러] 로또 번호는 반드시 6개를 입력해야 합니다.");
     }
-
 }

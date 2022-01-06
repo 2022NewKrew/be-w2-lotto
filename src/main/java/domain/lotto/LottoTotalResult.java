@@ -32,5 +32,4 @@ public class LottoTotalResult {
         return lottoResults.stream()
                 .collect(groupingBy(LottoResult::getPrizeType, counting()));
     }
-
 }
