@@ -57,7 +57,7 @@ public class LottoTicket {
         lottoList.addAll(manualLottoList);
         lottoList.addAll(automaticLottoList);
 
-        return lottoList;
+        return Collections.unmodifiableList(lottoList);
     }
 
     public int getWholeLottoPrice() {
