@@ -11,26 +11,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class LottoResultTest {
 
     @ParameterizedTest
-    @MethodSource("provideToPrintStringParameters")
-    void toPrintString(LottoResult subject, int count, String expected) {
-        String result = subject.toPrintString(count);
-
-        assertEquals(expected, result);
-    }
-
-    @ParameterizedTest
     @MethodSource("provideGetParameters")
     void get(int matches, boolean bonus, LottoResult expected) {
         LottoResult result = LottoResult.get(matches, bonus);
 
         assertEquals(expected, result);
-    }
-
-    private static Stream<Arguments> provideToPrintStringParameters() {
-        return Stream.of(
-                Arguments.of(LottoResult.FIRST, 1, "6개 일치 (2000000000원)- 1개"),
-                Arguments.of(LottoResult.THIRD, 4, "5개 일치 (1500000원)- 4개")
-        );
     }
 
     private static Stream<Arguments> provideGetParameters() {

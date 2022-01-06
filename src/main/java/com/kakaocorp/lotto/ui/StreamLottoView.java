@@ -1,6 +1,5 @@
 package com.kakaocorp.lotto.ui;
 
-import com.kakaocorp.lotto.model.LottoResult;
 import com.kakaocorp.lotto.model.LottoTicket;
 
 import java.io.InputStream;
@@ -56,7 +55,11 @@ public class StreamLottoView implements LottoView {
 
     @Override
     public void printTicket(LottoTicket ticket) {
-        out.println(ticket.toArrayString());
+        List<Integer> numbers = ticket.getNumbers()
+                .stream()
+                .sorted()
+                .collect(Collectors.toList());
+        out.println(numbers);
     }
 
     @Override
@@ -83,8 +86,15 @@ public class StreamLottoView implements LottoView {
     }
 
     @Override
-    public void printResult(LottoResult result, int count) {
-        out.println(result.toPrintString(count));
+    public void printNormalResult(int matches, int value, int count) {
+        //noinspection RedundantStringFormatCall
+        out.println(String.format("%d개 일치 (%d원) - %d개", matches, value, count));
+    }
+
+    @Override
+    public void printBonusResult(int matches, int value, int count) {
+        //noinspection RedundantStringFormatCall
+        out.println(String.format("%d개 일치, 보너스 볼 일치 (%d원) - %d개", matches, value, count));
     }
 
     @Override

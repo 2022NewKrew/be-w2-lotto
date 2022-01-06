@@ -25,14 +25,6 @@ public enum LottoResult {
         this.value = value;
     }
 
-    // FIXME ui 단에서 처리하는 것이 맞지 않나 하는 생각
-    public String toPrintString(int count) {
-        if (bonus) {
-            return String.format("%d개 일치, 보너스 볼 일치 (%d원)- %d개", matches, value, count);
-        }
-        return String.format("%d개 일치 (%d원)- %d개", matches, value, count);
-    }
-
     public static LottoResult get(int matches, boolean bonus) {
         return Arrays.stream(values())
                 .filter(x -> (x.matches == matches) && (!x.bonus || bonus))
@@ -40,8 +32,15 @@ public enum LottoResult {
                 .orElse(LottoResult.LOSE);
     }
 
-    // FIXME getter와 거의 다름없지 않나? 이 정도는 괜찮은가?
-    public int getValue(int count) {
-        return value * count;
+    public int getMatches() {
+        return matches;
+    }
+
+    public boolean hasBonus() {
+        return bonus;
+    }
+
+    public int getValue() {
+        return value;
     }
 }

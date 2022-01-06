@@ -31,11 +31,7 @@ public class LottoTicket {
         return LottoResult.get(matches, bonus);
     }
 
-    public String toArrayString() {
-        int[] array = numbers.stream()
-                .mapToInt(n -> n)
-                .sorted()
-                .toArray();
-        return Arrays.toString(array);
+    public Set<Integer> getNumbers() {
+        return Collections.unmodifiableSet(numbers);
     }
 }

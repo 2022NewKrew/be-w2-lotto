@@ -72,6 +72,13 @@ public class LottoController {
         if (result == LottoResult.LOSE) {
             return;
         }
-        view.printResult(result, count);
+        boolean hasBonus = result.hasBonus();
+        int matches = result.getMatches();
+        int value = result.getValue();
+        if (hasBonus) {
+            view.printBonusResult(matches, value, count);
+            return;
+        }
+        view.printNormalResult(matches, value, count);
     }
 }

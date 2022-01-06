@@ -1,6 +1,5 @@
 package com.kakaocorp.lotto.ui;
 
-import com.kakaocorp.lotto.model.LottoResult;
 import com.kakaocorp.lotto.model.LottoTicket;
 
 import java.util.List;
@@ -16,6 +15,7 @@ public interface LottoView {
     List<Integer> showWinningNumbersPrompt();
     int showBonusNumberPrompt();
     void printResultHeader();
-    void printResult(LottoResult result, int count);
+    void printNormalResult(int matches, int value, int count);
+    void printBonusResult(int matches, int value, int count);
     void printProfit(int profit);
 }
