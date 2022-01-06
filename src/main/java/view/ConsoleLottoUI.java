@@ -1,10 +1,11 @@
 package view;
 
-import dto.LottoMatchStateDTO;
+import domain.match.LottoRank;
+import domain.match.LottoMatchStateDTO;
 import domain.lotto.LottoNumber;
-import dto.LottoNumberContainerDTO;
-import dto.LottoNumberDTO;
-import dto.WinningLottoNumberDTO;
+import domain.lotto.LottoNumberContainerDTO;
+import domain.lotto.LottoNumberDTO;
+import domain.match.WinningLottoNumberDTO;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,41 +16,115 @@ public class ConsoleLottoUI implements LottoUI {
     private final Scanner scn = new Scanner(System.in);
 
     @Override
-    public int askUserHowManyManualNumberLotto(int buyLimitNum) {
-        int result = buyLimitNum + 1;
-        while (result > buyLimitNum) {
-            System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
-            result = Integer.parseInt(scn.nextLine());
+    public int askUserBudget() {
+        int result = -1;
+        while (result < 0) {
+            System.out.println("구입금액을 입력해 주세요.");
+            result = safeParseInt(scn.nextLine());
             System.out.println();
         }
-
         return result;
+    }
+
+    private int safeParseInt(String str) {
+        int result;
+        try {
+            result = Integer.parseInt(str);
+            validatePositiveIntegerNumberRange(result, 0);
+        } catch (NumberFormatException e) {
+            System.out.println("0이상의 정수를 입력해 주세요.");
+            return -1;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return -1;
+        }
+        return result;
+    }
+
+
+    @Override
+    public int askUserHowManyManualNumberLotto(int buyLimitNum) {
+        if (buyLimitNum==0){
+            return 0;
+        }
+        int result = buyLimitNum + 1;
+        while (result > buyLimitNum || result < 0) {
+            System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+            result = safeParseLottoNum(scn.nextLine(), buyLimitNum);
+            System.out.println();
+        }
+        return result;
+    }
+
+    public int safeParseLottoNum(String str, int buyLimitNum) {
+        int result;
+        try {
+            result = Integer.parseInt(str);
+            validatePositiveIntegerNumberRange(result, buyLimitNum);
+        } catch (NumberFormatException e) {
+            System.out.println("0이상의 정수를 입력해 주세요.");
+            return -1;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return -1;
+        }
+        return result;
+    }
+
+    private void validatePositiveIntegerNumberRange(int i, int high) throws Exception {
+        if (i < 0) {
+            throw new Exception(String.format("0 이상의 수가 입력되어야 하나 %d가 입력되었습니다.", i));
+        }
+        if (high == 0) {
+            return;
+        }
+        if (i > high) {
+            throw new Exception(String.format("%d 이하의 수가 입력되어야 하나 %d가 입력되었습니다.", high, i));
+        }
     }
 
     @Override
     public LottoNumberContainerDTO askUserManualLottoNumbers(int num) {
-        // num개 만큼 수동 lotto 번호를 받고 이것을 DTO에 넣어 반환한다.
         LottoNumberContainerDTO lottoNumberContainerDTO = new LottoNumberContainerDTO();
-
-        if (num>0) {
-            System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        if (num <= 0) {
+            return lottoNumberContainerDTO;
         }
-        for(int i = 0; i< num; i++) {
+
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        for (int i = 0; i < num; i++) {
             lottoNumberContainerDTO.addLottoNumber(new LottoNumberDTO(inputOneLottoNumberLine()));
         }
         System.out.println();
 
         return lottoNumberContainerDTO;
     }
-    public ArrayList<Integer> inputOneLottoNumberLine(){
-        return Arrays.stream(scn.nextLine().split(",")).map(Integer::parseInt).collect(ArrayList::new, List::add, List::addAll);
+
+    public ArrayList<Integer> inputOneLottoNumberLine() {
+        while (true) {
+            try {
+                ArrayList<Integer> lottoNumbers = Arrays.stream(scn.nextLine().split(",")).map(value -> Integer.valueOf(value.trim())).collect(ArrayList::new, List::add, List::addAll);
+                validateLottoNumber(lottoNumbers);
+                return lottoNumbers;
+            } catch (Exception e) {
+                System.out.println("1~45 범위 내의 6개 정수를 입력해 주세요.");
+            }
+        }
+
+    }
+
+    private void validateLottoNumber(ArrayList<Integer> lottoNumbers) throws Exception {
+        if (lottoNumbers.stream().distinct().count() != 6) {
+            throw new Exception();
+        }
+        if (lottoNumbers.stream().anyMatch(value -> (value < 1 || value > 46))) {
+            throw new Exception();
+        }
     }
 
     @Override
-    public void showBoughtLottos(String message, LottoNumberContainerDTO lottoNumberContainerDTO) {
-        // %d개를 구매했습니다. 
+    public void showBoughtLottos(int manualLottosNum, int randomLottosNum, LottoNumberContainerDTO lottoNumberContainerDTO) {
+        String message = String.format("수동으로 %d장, 자동으로 %d개를 구매했습니다.", manualLottosNum, randomLottosNum);
         System.out.println(message);
-        // [  ,  ,  ,  ,  ,  ]
         for (LottoNumberDTO lottoNumberDTO : lottoNumberContainerDTO.getLottoNumbers()) {
             printLottoNumberLine(lottoNumberDTO.getArrayListInteger());
         }
@@ -71,24 +146,43 @@ public class ConsoleLottoUI implements LottoUI {
     @Override
     public WinningLottoNumberDTO askUserWinningNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        ArrayList<Integer> basicNumbers = Arrays.stream(scn.nextLine().split(",")).map(Integer::parseInt).collect(ArrayList::new, List::add, List::addAll);
+        ArrayList<Integer> basicNumbers = inputOneLottoNumberLine();
         System.out.println("보너스 볼을 입력해 주세요.");
-        ArrayList<Integer> extraNumbers = Arrays.stream(scn.nextLine().split(",")).map(Integer::parseInt).collect(ArrayList::new, List::add, List::addAll);
+        ArrayList<Integer> extraNumbers = inputExtraLottoNumber(basicNumbers);
         System.out.println();
         return new WinningLottoNumberDTO(basicNumbers, extraNumbers);
     }
 
-    @Override public int askUserExtraBounusNumber() {
-        return 0;
+    private ArrayList<Integer> inputExtraLottoNumber(ArrayList<Integer> basicNumbers) {
+        while (true) {
+            try {
+                ArrayList<Integer> bonusNumber = Arrays.stream(scn.nextLine().split(",")).map(Integer::parseInt).collect(ArrayList::new, List::add, List::addAll);
+                validateBonusNumbers(bonusNumber, basicNumbers);
+                return bonusNumber;
+            } catch (NumberFormatException e) {
+                System.out.println("숫자를 입력해주세요.");
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
-    @Override
-    public int askUserBudget() {
-        System.out.println("구입금액을 입력해 주세요.");
-        int result = Integer.parseInt(scn.nextLine());
-        System.out.println();
-        return result;
+    private void validateBonusNumbers(ArrayList<Integer> bonusNumbers, ArrayList<Integer> otherNumbers) throws Exception {
+        if (bonusNumbers.size() !=1) {
+            throw new Exception("숫자를 하나만 입력해주세요.");
+        }
+        if (bonusNumbers.stream().anyMatch(otherNumbers::contains)) {
+
+            throw new Exception("기본 당첨 번호와 다른 번호를 입력해 주세요.");
+        }
+        if (bonusNumbers.stream().anyMatch(value -> (value < 1 || value > 45))) {
+            throw new Exception("1~45 범위 내의 숫자를 입력해 주세요.");
+        }
+
+
+
     }
+
 
     public LottoNumber askUserWinNumber() throws Exception {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
@@ -101,12 +195,12 @@ public class ConsoleLottoUI implements LottoUI {
         StringBuilder sb = new StringBuilder();
         sb.append("당첨 통계\n");
         sb.append("---------\n");
-        for(int i = 1; i <= lottoMatchStateDTO.getNumOfWinRanks();i++){
-            sb.append(lottoMatchStateDTO.getWinMessageByRank().get(i));
+        for (int i = 1; i <= lottoMatchStateDTO.getNumOfWinRanks(); i++) {
+            sb.append(LottoRank.values()[i].getMessage());
             sb.append(" (");
-            sb.append(lottoMatchStateDTO.getWinPriceByRank().get(i));
+            sb.append(LottoRank.values()[i].getPrize());
             sb.append(")- ");
-            sb.append(lottoMatchStateDTO.getNumStaticsByRank().get(i));
+            sb.append(lottoMatchStateDTO.getNumStaticsByRank().get(LottoRank.values()[i]));
             sb.append("개\n");
         }
 

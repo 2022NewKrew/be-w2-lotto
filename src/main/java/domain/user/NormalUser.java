@@ -2,8 +2,8 @@ package domain.user;
 
 import domain.lotto.LottoNumber;
 import domain.lotto.LottoNumbersContainer;
-import dto.LottoNumberContainerDTO;
-import dto.LottoNumberDTO;
+import domain.lotto.LottoNumberContainerDTO;
+import domain.lotto.LottoNumberDTO;
 
 public class NormalUser implements User{
     private final Long id;
@@ -25,9 +25,11 @@ public class NormalUser implements User{
 
     @Override
     public void addOneLotto(LottoNumberDTO dto) throws Exception {
-
-
         lottoNumbersContainer.add(new LottoNumber(dto.getArrayListInteger()));
+    }
+
+    public void addOneLotto(LottoNumber lottoNumber) throws Exception {
+        lottoNumbersContainer.add(lottoNumber);
     }
 
     @Override
@@ -55,5 +57,9 @@ public class NormalUser implements User{
     @Override
     public int getCostedMoney() {
         return costedMoney;
+    }
+
+    public LottoNumbersContainer getLottoNumbersContainer() {
+        return lottoNumbersContainer;
     }
 }

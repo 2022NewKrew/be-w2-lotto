@@ -1,8 +1,5 @@
 package domain.lotto;
 
-import dto.LottoNumberContainerDTO;
-import dto.LottoNumberDTO;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Spliterator;
@@ -13,14 +10,6 @@ public class LottoNumbersContainer implements Iterable<LottoNumber>{
 
     public LottoNumbersContainer() {
         this.lottoNumbers = new ArrayList<>();
-    }
-
-    public LottoNumbersContainer(LottoNumberContainerDTO dto) {
-        this();
-        ArrayList<LottoNumberDTO> list = dto.getLottoNumbers();
-        for (LottoNumberDTO lottoNumberDTO : list) {
-            lottoNumbers.add(new LottoNumber(lottoNumberDTO.getArrayListInteger()));
-        }
     }
 
     public LottoNumber get(int i) {

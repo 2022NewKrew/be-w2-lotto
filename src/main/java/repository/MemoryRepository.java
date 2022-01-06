@@ -1,9 +1,9 @@
-package model;
+package repository;
 
 import domain.lotto.LottoNumber;
 import domain.lotto.LottoNumbersContainer;
-import dto.LottoNumberContainerDTO;
-import dto.LottoNumberDTO;
+import domain.lotto.LottoNumberContainerDTO;
+import domain.lotto.LottoNumberDTO;
 
 import java.util.HashMap;
 

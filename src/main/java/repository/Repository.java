@@ -1,8 +1,8 @@
-package model;
+package repository;
 
 import domain.lotto.LottoNumber;
-import dto.LottoNumberContainerDTO;
-import dto.LottoNumberDTO;
+import domain.lotto.LottoNumberContainerDTO;
+import domain.lotto.LottoNumberDTO;
 
 public interface Repository {
 

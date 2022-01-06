@@ -1,4 +1,4 @@
-package dto;
+package domain.match;
 
 import java.util.ArrayList;
 

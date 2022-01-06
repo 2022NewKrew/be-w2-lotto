@@ -1,7 +1,7 @@
-package domain.lotto;
+package domain.match;
 
-import dto.LottoNumberDTO;
-import dto.WinningLottoNumberDTO;
+import domain.lotto.LottoNumber;
+import domain.lotto.LottoNumberDTO;
 
 import java.util.ArrayList;
 
@@ -41,6 +41,13 @@ public class WinningLottoNumber {
 
         // 그 외 3등 이하
         return numOfMatchTarget - numOfMatchsInBasicNumbers + 2;
+    }
+    public ArrayList<Integer> getBasicLottoNumbers(){
+        return basicLottoNumbers;
+    }
+
+    public ArrayList<Integer> getExtraBonusLottoNumbers() {
+        return extraBonusLottoNumbers;
     }
 
     private int matchTwoArrayInteger(ArrayList<Integer> list1, ArrayList<Integer> list2) {

@@ -1,4 +1,4 @@
-package dto;
+package domain.lotto;
 
 import java.util.ArrayList;
 

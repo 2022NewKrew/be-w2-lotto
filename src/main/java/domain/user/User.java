@@ -1,7 +1,9 @@
 package domain.user;
 
-import dto.LottoNumberContainerDTO;
-import dto.LottoNumberDTO;
+import domain.lotto.LottoNumber;
+import domain.lotto.LottoNumbersContainer;
+import domain.lotto.LottoNumberContainerDTO;
+import domain.lotto.LottoNumberDTO;
 
 public interface User {
     Long getUserId();
@@ -11,6 +13,9 @@ public interface User {
     void increaseCostedMoney(int money);
     void addLottosByDTO(LottoNumberContainerDTO dto) throws Exception;
     void addOneLotto(LottoNumberDTO dto) throws Exception;
+    void addOneLotto(LottoNumber lottoNumber) throws Exception;
+    LottoNumbersContainer getLottoNumbersContainer();
+
     LottoNumberContainerDTO getOwnedLottoTicketsDTO();
 
 }

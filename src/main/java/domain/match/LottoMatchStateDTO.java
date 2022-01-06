@@ -1,10 +1,12 @@
-package dto;
+package domain.match;
+
+import domain.match.LottoRank;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LottoMatchStateDTO {
-    private final ArrayList<Integer> numStaticsByRank;
+    private final HashMap<LottoRank, Integer> numStaticsByRank;
     private final int numOfWinRanks;
     private int moneyTotalCost = 0;
     private int moneyTotalWin = 0;
@@ -15,15 +17,16 @@ public class LottoMatchStateDTO {
         this.winPriceByRank = winPriceByRank;
     }
 
+
     public void setWinMessageByRank(HashMap<Integer, String> winMessageByRank) {
         this.winMessageByRank = winMessageByRank;
     }
 
     public LottoMatchStateDTO(int numOfWinRanks) {
         this.numOfWinRanks = numOfWinRanks;
-        this.numStaticsByRank = new ArrayList<>(numOfWinRanks + 1);
-        for (int i = 0; i <= numOfWinRanks; i++) {
-            this.numStaticsByRank.add(0);
+        this.numStaticsByRank = new HashMap<>(numOfWinRanks + 1);
+        for (int i = 0; i < numOfWinRanks + 1; i++) {
+            this.numStaticsByRank.put(LottoRank.values()[i], 0);
         }
     }
 
@@ -31,8 +34,9 @@ public class LottoMatchStateDTO {
         return numStaticsByRank.get(rank);
     }
 
-    public void addMatch(int rank) {
-        numStaticsByRank.set(rank, numStaticsByRank.get(rank) + 1);
+
+    public void addMatch(LottoRank rank) {
+        numStaticsByRank.put(rank, numStaticsByRank.get(rank) + 1);
     }
 
     public void setMoneyTotalCost(int money) {
@@ -51,7 +55,7 @@ public class LottoMatchStateDTO {
         return moneyTotalWin;
     }
 
-    public ArrayList<Integer> getNumStaticsByRank() {
+    public HashMap<LottoRank, Integer> getNumStaticsByRank() {
         return numStaticsByRank;
     }
 
