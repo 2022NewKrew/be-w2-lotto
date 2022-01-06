@@ -3,7 +3,9 @@ package lotto.domain;
 import lotto.view.LottoPrinter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by melodist
@@ -23,10 +25,22 @@ public class LottoBundle {
         Validator.validateManualLottoCount(lottoCount, manualLottoCount);
 
         lottos = new ArrayList<>();
-        generateLottos(lottoCount, manualLottoCount);
+        generateLottos();
     }
 
-    private void generateLottos(int lottoCount, int manualLottoCount) {
+    public LottoBundle(int purchaseAmount, String manualLottoString) {
+        Validator.validatePurchaseAmount(purchaseAmount);
+        this.lottoCount = purchaseAmount / Constants.LOTTO_PRICE;
+
+        String[] manualNumbers = manualLottoString.split("\r?\n");
+        this.manualLottoCount = manualNumbers.length;
+        Validator.validateManualLottoCount(lottoCount, manualLottoCount);
+
+        lottos = new ArrayList<>();
+        generateLottosWeb(manualNumbers);
+    }
+
+    private void generateLottos() {
         LottoPrinter.printManualLotto();
         for (int i = 0; i < manualLottoCount; i++) {
             List<Integer> manualLottoNumbers = LottoGenerator.generateManualLotto();
@@ -36,6 +50,22 @@ public class LottoBundle {
         for (int i = 0; i < lottoCount - manualLottoCount; i++) {
             lottos.add(new Lotto(LottoGenerator.generateLotto()));
         }
+    }
+
+    private void generateLottosWeb(String[] manualNumberStrings) {
+        for(String numberString : manualNumberStrings) {
+            lottos.add(new Lotto(createManualLotto(numberString)));
+        }
+
+        for (int i = 0; i < lottoCount - manualLottoCount; i++) {
+            lottos.add(new Lotto(LottoGenerator.generateLotto()));
+        }
+    }
+
+    private List<Integer> createManualLotto(String lottoString) {
+        return Arrays.stream(lottoString.split(Constants.INPUT_MANUAL_LOTTO_DELIMITER))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
     }
 
     public Integer getLottoCount() {

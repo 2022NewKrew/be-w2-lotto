@@ -8,10 +8,7 @@ import lotto.domain.LottoApplication;
  * Time: 오전 11:09
  */
 public class LottoApplicationMain {
-
     public static void main(String[] args) {
         LottoApplication.start();
     }
-
-
 }
