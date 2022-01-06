@@ -44,6 +44,6 @@ public class LottoWinningNumber extends Lotto {
 
     private void checkBonusBallDuplicate(LottoNumber bonusBall) {
         if (super.lottoNumbers.contains(bonusBall))
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Duplicate bonusBall number");
     }
 }

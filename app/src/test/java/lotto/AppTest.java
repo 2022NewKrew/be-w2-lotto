@@ -3,11 +3,68 @@
  */
 package lotto;
 
+import lotto.domain.Lotto;
+import lotto.domain.LottoNumber;
+import lotto.domain.LottoWinningNumber;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class AppTest {
-    @Test public void appHasAGreeting() {
-        LottoApp classUnderTest = new LottoApp();
+    @Test
+    @DisplayName("Lotto Number 생성 테스트")
+    public void testLottoNumberOutOfRange() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            LottoNumber.of(-1);
+        });
+
+        assertEquals("Lotto Number out of range.", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("잘못된 개수의 로또 번호가 주어질 때")
+    public void testLottoInvalidCount() {
+        List<LottoNumber> lottoNumberList = new ArrayList<>();
+        for (int i = 1; i <= 5; i++)
+            lottoNumberList.add(LottoNumber.of(i));
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Lotto(lottoNumberList);
+        });
+
+        assertEquals("The size of lottoNumbers must be 6.", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("중복된 로또 번호가 있을 때")
+    public void testLottoDuplicate() {
+        List<LottoNumber> lottoNumberList = new ArrayList<>();
+        for (int i = 1; i <= 5; i++)
+            lottoNumberList.add(LottoNumber.of(i));
+        lottoNumberList.add(LottoNumber.of(5));
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Lotto(lottoNumberList);
+        });
+
+        assertEquals("There are duplicated numbers in lottoNumbers.", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("보너스볼 번호가 중복될 때")
+    public void testBonusBallDuplicate() {
+        List<LottoNumber> lottoNumberList = new ArrayList<>();
+        for (int i = 1; i <= 6; i++)
+            lottoNumberList.add(LottoNumber.of(i));
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new LottoWinningNumber(lottoNumberList, LottoNumber.of(6));
+        });
+
+        assertEquals("Duplicate bonusBall number", exception.getMessage());
     }
 }

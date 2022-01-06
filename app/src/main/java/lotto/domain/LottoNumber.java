@@ -43,6 +43,6 @@ public class LottoNumber implements Comparable<LottoNumber> {
 
     private static void checkNumber(int number) {
         if (number < MIN_NUMBER || number > MAX_NUMBER)
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Lotto Number out of range.");
     }
 }

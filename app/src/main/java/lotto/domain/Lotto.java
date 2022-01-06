@@ -14,9 +14,9 @@ public class Lotto {
     protected final List<LottoNumber> lottoNumbers;
 
     public Lotto(List<LottoNumber> lottoNumbers) {
-        checkLottoNumberNotNull();
-        checkLottoNumberCount();
-        checkLottoNumberDuplicate();
+        checkLottoNumberNotNull(lottoNumbers);
+        checkLottoNumberCount(lottoNumbers);
+        checkLottoNumberDuplicate(lottoNumbers);
         Collections.sort(lottoNumbers);
         this.lottoNumbers = Collections.unmodifiableList(lottoNumbers);
     }
@@ -30,19 +30,19 @@ public class Lotto {
         return lottoNumbers.contains(number);
     }
 
-    private void checkLottoNumberNotNull() {
+    private void checkLottoNumberNotNull(List<LottoNumber> lottoNumbers) {
         if (lottoNumbers == null)
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Argument is expected not to be null.");
     }
 
-    private void checkLottoNumberCount() {
+    private void checkLottoNumberCount(List<LottoNumber> lottoNumbers) {
         if (lottoNumbers.size() != LOTTO_NUMBERS_COUNT)
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("The size of lottoNumbers must be 6.");
     }
 
-    private void checkLottoNumberDuplicate() { // 중복 번호 있는지 확인
+    private void checkLottoNumberDuplicate(List<LottoNumber> lottoNumbers) { // 중복 번호 있는지 확인
         Set<LottoNumber> tmpSet = new HashSet<>(lottoNumbers);
         if (tmpSet.size() != LOTTO_NUMBERS_COUNT)
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("There are duplicated numbers in lottoNumbers.");
     }
 }
