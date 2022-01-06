@@ -36,7 +36,7 @@ public class OutputView {
             Integer prizeCount = matching.getPrizeCount(prize);
             printMatchNumberResult(prizeCount, prize);
         }
-        System.out.println("총 수익률은 " + matching.getTotalEarningRate(payPrice) + "%입니다.");
+        System.out.println("총 수익률은 " + matching.calTotalEarningRate(payPrice) + "%입니다.");
     }
 
     private static void printMatchNumberResult(Integer prizeCount, Prize prize) {

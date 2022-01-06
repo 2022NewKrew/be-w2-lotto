@@ -29,6 +29,10 @@ public class Player {
     public int getPayManualCount() {
         return payManualCount;
     }
+    public int getPayTotalCount() {
+        return payAutoCount + payManualCount;
+    }
+
     public List<Lotto> getLottoList() {
         return lottoList;
     }
