@@ -1,15 +1,11 @@
 package view;
 
 import domain.Lotto;
-import domain.Matching;
 import domain.Player;
-import domain.Prize;
 import dto.LottosResult;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static domain.Prize.SECOND_PRIZE;
 
 public class ConsoleOutputView {
 
