@@ -36,8 +36,8 @@ public class LottoSimulator {
             return;
         }
 
-        long numOfManualLotto = getNumOfManualLotto();
-        PurchaseInfo purchasedInfo = new PurchaseInfo(numOfManualLotto, purchaseAmount / LOTTO_PRICE - numOfManualLotto);
+        long numOfManualLottos = getNumOfManualLotto();
+        PurchaseInfo purchasedInfo = new PurchaseInfo(purchaseAmount, numOfManualLottos);
         List<Lotto> manualLottoList = getManualLotto(purchasedInfo.getNumOfManualLottos());
         PurchasedLottos purchasedLottos = purchaseLotto(purchasedInfo, manualLottoList);
         WinningLotto winningLotto = getWinningInfo();
