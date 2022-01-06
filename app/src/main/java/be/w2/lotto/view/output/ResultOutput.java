@@ -1,7 +1,7 @@
 package be.w2.lotto.view.output;
 
 import be.w2.lotto.result.Result;
-import be.w2.lotto.result.RewardForCorrect;
+import be.w2.lotto.result.Winnings;
 
 import java.util.Map;
 
@@ -23,14 +23,14 @@ final class ResultOutput implements ClassOutput<Result> {
     }
 
     private void writeResultTo(StringBuilder sb, Result result) {
-        Map<RewardForCorrect, Integer> winningStat = result.getStat();
-        for (RewardForCorrect rewardForCorrect : winningStat.keySet()) {
-            writeHowManyCorrectTo(sb, rewardForCorrect, winningStat.get(rewardForCorrect));
+        Map<Winnings, Integer> winningStat = result.getStat();
+        for (Winnings winnings : winningStat.keySet()) {
+            writeHowManyCorrectTo(sb, winnings, winningStat.get(winnings));
         }
     }
 
-    private void writeHowManyCorrectTo(StringBuilder sb, RewardForCorrect rewardForCorrect, Integer howMany) {
-        sb.append(new RewardForCorrectOutput().getOutput(rewardForCorrect))
+    private void writeHowManyCorrectTo(StringBuilder sb, Winnings winnings, Integer howMany) {
+        sb.append(new WinningsOutput().getOutput(winnings))
                 .append(howMany)
                 .append("개\n");
     }

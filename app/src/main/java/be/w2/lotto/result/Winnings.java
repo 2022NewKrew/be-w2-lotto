@@ -2,7 +2,7 @@ package be.w2.lotto.result;
 
 import java.util.Optional;
 
-public enum RewardForCorrect {
+public enum Winnings {
 
     THREE(3, 5_000),
     FOUR(4, 50_000),
@@ -13,7 +13,7 @@ public enum RewardForCorrect {
     private int howManyCorrect;
     private int reward;
 
-    RewardForCorrect(int howManyCorrect, int reward) {
+    Winnings(int howManyCorrect, int reward) {
         this.howManyCorrect = howManyCorrect;
         this.reward = reward;
     }
@@ -26,12 +26,12 @@ public enum RewardForCorrect {
         return reward;
     }
 
-    static Optional<RewardForCorrect> getRewordForCorrectByHowManyCorrect(CorrectSpec correctSpec) {
+    static Optional<Winnings> getWinningsByHowManyCorrect(CorrectSpec correctSpec) {
         if(isFiveAndBonus(correctSpec))
             return Optional.of(FIVE_AND_BONUS);
-        for (RewardForCorrect rewardForCorrect : RewardForCorrect.values()) {
-            if (rewardForCorrect.getHowManyCorrect() == correctSpec.getNumOfCorrect())
-                return Optional.of(rewardForCorrect);
+        for (Winnings winnings : Winnings.values()) {
+            if (winnings.getHowManyCorrect() == correctSpec.getNumOfCorrect())
+                return Optional.of(winnings);
         }
         return Optional.empty();
     }

@@ -5,32 +5,32 @@ import java.util.Map;
 import java.util.Optional;
 
 public class Result {
-    private Map<RewardForCorrect, Integer> stat;
+    private Map<Winnings, Integer> stat;
 
     public Result() {
-        Map<RewardForCorrect, Integer> map = new EnumMap<>(RewardForCorrect.class);
-        for (RewardForCorrect rewardForCorrect : RewardForCorrect.values()) {
-            map.put(rewardForCorrect, 0);
+        Map<Winnings, Integer> map = new EnumMap<>(Winnings.class);
+        for (Winnings winnings : Winnings.values()) {
+            map.put(winnings, 0);
         }
         this.stat = map;
     }
 
-    public Map<RewardForCorrect, Integer> getStat() {
+    public Map<Winnings, Integer> getStat() {
         return stat;
     }
 
     public void add(CorrectSpec correctSpec) {
-        Optional<RewardForCorrect> rewardForCorrect = RewardForCorrect.getRewordForCorrectByHowManyCorrect(correctSpec);
-        rewardForCorrect.ifPresent(
+        Optional<Winnings> optionalWinnings = Winnings.getWinningsByHowManyCorrect(correctSpec);
+        optionalWinnings.ifPresent(
                 rfc -> stat.put(rfc, stat.get(rfc) + 1)
         );
     }
 
     public int getRevenue() {
         int revenue = 0;
-        for (RewardForCorrect rewardForCorrect : stat.keySet()) {
-            int howMany = stat.get(rewardForCorrect);
-            revenue += (howMany * rewardForCorrect.getReward());
+        for (Winnings winnings : stat.keySet()) {
+            int howMany = stat.get(winnings);
+            revenue += (howMany * winnings.getReward());
         }
         return revenue;
     }
