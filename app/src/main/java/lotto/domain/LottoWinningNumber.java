@@ -41,6 +41,11 @@ public class LottoWinningNumber extends Lotto {
             throw new IllegalArgumentException();
     }
 
+    private void checkBonusBallNotNull(LottoNumber bonusBall) {
+        if (bonusBall == null)
+            throw new IllegalArgumentException();
+    }
+
     private void checkBonusBallDuplicate(LottoNumber bonusBall) {
         if (super.lottoNumbers.contains(bonusBall))
             throw new IllegalArgumentException("Duplicate bonusBall number");
