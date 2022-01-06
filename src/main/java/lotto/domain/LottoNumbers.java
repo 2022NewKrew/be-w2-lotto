@@ -23,18 +23,24 @@ public class LottoNumbers {
         return lottoNumber;
     }
 
-    public int calculateContain(List<Integer> winningNumber) {
+    public int calculateContain(List<Integer> winningNumber, int bonusNumber) {
         int containCount = 0;
         for (int number : winningNumber) {
-            containCount += checkContain(number);
+            containCount += checkContain(number) ? 1 : 0;
+        }
+        if (containCount == 6) {
+            return 7;
+        }
+        if (containCount == 5 && checkContain(bonusNumber)) {
+            return 6;
         }
         return containCount;
     }
 
-    private int checkContain(int number) {
+    public boolean checkContain(int number) {
         if (lottoNumber.contains(number)) {
-            return 1;
+            return true;
         }
-        return 0;
+        return false;
     }
 }
