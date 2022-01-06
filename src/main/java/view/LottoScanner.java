@@ -1,7 +1,6 @@
 package view;
 
 import domain.Ball;
-import validator.LottoValidator;
 import validator.ScannerValidator;
 
 import java.util.Collections;
@@ -42,7 +41,7 @@ public class LottoScanner {
         LottoGuidePrinter.requestBonusBallInput();
         try {
             int bonusBallNumber = Integer.parseInt(in.nextLine());
-            LottoValidator.assertValidNumber(bonusBallNumber);
+            ScannerValidator.assertValidNumber(bonusBallNumber);
             ScannerValidator.assertDuplicatedBallNumber(balls, bonusBallNumber);
             return new Ball(bonusBallNumber);
         } catch (IllegalArgumentException e) {
