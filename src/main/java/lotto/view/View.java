@@ -4,11 +4,15 @@ import lotto.domain.Lotto;
 import lotto.domain.LottoWinningRating;
 import lotto.domain.LottoWinningResult;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class View {
 
+    private static final int LOTTO_PRICE = 1000;
     private Scanner scanner = new Scanner(System.in);
 
     private static final String SPLIT_DELIMITER = ", ";
@@ -53,7 +57,7 @@ public class View {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(lottoWinningRating.getMatchCount());
         stringBuilder.append("개 일치");
-        if (lottoWinningRating.hasBonusBall()) {
+        if (lottoWinningRating.mustHaveBonusBall()) {
             stringBuilder.append(", 보너스 볼 일치");
         }
         stringBuilder.append(" (" + lottoWinningRating.getWinningMoney());
@@ -69,9 +73,13 @@ public class View {
         return Integer.parseInt(scanner.nextLine());
     }
 
-    public int readManualPurchaseCountForLotto() {
+    public int readManualPurchaseCountForLotto(int purchaseAmount) {
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
-        return Integer.parseInt(scanner.nextLine());
+        int manualPurchaseCount = Integer.parseInt(scanner.nextLine());
+        if (manualPurchaseCount * LOTTO_PRICE > purchaseAmount) {
+            throw new IllegalArgumentException("구입 가능 개수를 초과했습니다. (구입 가능 개수: " + purchaseAmount / LOTTO_PRICE + ")");
+        }
+        return manualPurchaseCount;
     }
 
     public List<List<Integer>> readManualLottoNumbers(int manualPurchaseCountForLotto) {

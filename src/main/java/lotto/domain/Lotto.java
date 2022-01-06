@@ -74,14 +74,10 @@ public class Lotto {
                 .filter(lottoNumbers::contains)
                 .count());
 
-        return LottoWinningRating.getWinningRating(matchCount, hasBonusBall(matchCount, bonusBallNumber));
+        return LottoWinningRating.getWinningRating(matchCount, hasBonusBall(bonusBallNumber));
     }
 
-    private boolean hasBonusBall(int matchCount, int bonusBallNumber) {
-        if (matchCount != 5) {
-            return false;
-        }
-
+    private boolean hasBonusBall(int bonusBallNumber) {
         return lottoNumbers.contains(bonusBallNumber);
     }
 

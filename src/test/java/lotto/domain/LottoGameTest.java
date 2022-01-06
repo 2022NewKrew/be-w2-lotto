@@ -30,7 +30,7 @@ class LottoGameTest {
     void run_mannualLottoNumberTextsAndWinningNumbers_verifyReadPurchaseAmountForLotto() {
         // Given
         Mockito.when(view.readPurchaseAmountForLotto()).thenReturn(2000);
-        Mockito.when(view.readManualPurchaseCountForLotto()).thenReturn(1);
+        Mockito.when(view.readManualPurchaseCountForLotto(2000)).thenReturn(1);
 
         List<Integer> manualLottoNumber = new ArrayList<>();
         manualLottoNumber.add(1);

@@ -12,20 +12,28 @@ public enum LottoWinningRating {
 
     private final int matchCount;
     private final int winningMoney;
-    private final boolean hasBonusBall;
+    private final boolean mustHaveBonusBall;
 
-    LottoWinningRating(int matchCount, int winningMoney, boolean hasBonusBall) {
+    LottoWinningRating(int matchCount, int winningMoney, boolean mustHaveBonusBall) {
         this.matchCount = matchCount;
         this.winningMoney = winningMoney;
-        this.hasBonusBall = hasBonusBall;
+        this.mustHaveBonusBall = mustHaveBonusBall;
     }
 
     public static LottoWinningRating getWinningRating(int matchCount, boolean hasBonusBall) {
         return Arrays.stream(LottoWinningRating.values())
                 .filter(lottoWinningRating -> lottoWinningRating.matchCount == matchCount)
-                .filter(lottoWinningRating -> lottoWinningRating.hasBonusBall == hasBonusBall)
+                .filter(lottoWinningRating -> lottoWinningRating.checkBonusBall(hasBonusBall))
                 .findAny()
                 .orElse(LottoWinningRating.NOTHING);
+    }
+
+    private boolean checkBonusBall(boolean hasBonusBall) {
+        if (mustHaveBonusBall) {
+            return hasBonusBall;
+        }
+
+        return true;
     }
 
     public int getMatchCount() {
@@ -36,8 +44,8 @@ public enum LottoWinningRating {
         return winningMoney;
     }
 
-    public boolean hasBonusBall() {
-        return hasBonusBall;
+    public boolean mustHaveBonusBall() {
+        return mustHaveBonusBall;
     }
 
 }
