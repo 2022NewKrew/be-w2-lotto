@@ -1,7 +1,7 @@
 package bin.jaden.be_w2_lotto.renderer;
 
-import bin.jaden.be_w2_lotto.LottoGame.LottoGame;
-import bin.jaden.be_w2_lotto.domain.LottoGameResult;
+import bin.jaden.be_w2_lotto.data.LottoGameResult;
+import bin.jaden.be_w2_lotto.lottoGame.LottoGame;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 

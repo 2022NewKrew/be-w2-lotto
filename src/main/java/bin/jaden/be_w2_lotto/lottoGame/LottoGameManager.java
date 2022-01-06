@@ -1,9 +1,8 @@
-package bin.jaden.be_w2_lotto.domain;
+package bin.jaden.be_w2_lotto.lottoGame;
 
-import bin.jaden.be_w2_lotto.LottoGame.AutoLottoGame;
-import bin.jaden.be_w2_lotto.LottoGame.LottoGame;
-import bin.jaden.be_w2_lotto.LottoGame.ManualLottoGame;
-import bin.jaden.be_w2_lotto.LottoGame.WinLottoGame;
+import bin.jaden.be_w2_lotto.data.Constants;
+import bin.jaden.be_w2_lotto.data.LottoGameResult;
+import bin.jaden.be_w2_lotto.data.LottoRankEnum;
 
 import java.util.*;
 

@@ -9,11 +9,14 @@ public class LottoController {
 
     public LottoController() {
         service = new LottoService();
-        port(8080);
 
+        port(8080);
+        setRouting();
+    }
+
+    private void setRouting() {
         get("/", service::index);
         post("/buyLotto", service::buyLotto);
         post("/matchLotto", service::matchLotto);
     }
-
 }

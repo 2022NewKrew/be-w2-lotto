@@ -1,6 +1,8 @@
 package bin.jaden.be_w2_lotto.domain;
 
-import bin.jaden.be_w2_lotto.LottoGame.ManualLottoGame;
+import bin.jaden.be_w2_lotto.data.Constants;
+import bin.jaden.be_w2_lotto.lottoGame.LottoGameManager;
+import bin.jaden.be_w2_lotto.lottoGame.ManualLottoGame;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

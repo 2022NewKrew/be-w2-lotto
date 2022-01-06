@@ -1,13 +1,13 @@
 package bin.jaden.be_w2_lotto.service;
 
-import bin.jaden.be_w2_lotto.LottoGame.ManualLottoGame;
-import bin.jaden.be_w2_lotto.LottoGame.WinLottoGame;
-import bin.jaden.be_w2_lotto.domain.Constants;
-import bin.jaden.be_w2_lotto.domain.LottoGameManager;
+import bin.jaden.be_w2_lotto.data.Constants;
 import bin.jaden.be_w2_lotto.exception.DuplicateNumberException;
 import bin.jaden.be_w2_lotto.exception.InvalidArraySizeException;
 import bin.jaden.be_w2_lotto.exception.InvalidNumberException;
 import bin.jaden.be_w2_lotto.exception.NumberOutOfRangeException;
+import bin.jaden.be_w2_lotto.lottoGame.LottoGameManager;
+import bin.jaden.be_w2_lotto.lottoGame.ManualLottoGame;
+import bin.jaden.be_w2_lotto.lottoGame.WinLottoGame;
 import bin.jaden.be_w2_lotto.renderer.LottoRenderer;
 import spark.Request;
 import spark.Response;

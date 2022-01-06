@@ -1,4 +1,4 @@
-package bin.jaden.be_w2_lotto.domain;
+package bin.jaden.be_w2_lotto.data;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,7 +16,7 @@ public class LottoGameResult {
             LottoRankEnum rank = LottoRankEnum.values()[i - 2];
             int count = resultMap.getOrDefault(rank, 0);
             message.add(rank.getPrintString(count));
-            totalRewards += (long) rank.getReward() * count;
+            totalRewards += rank.getReward() * count;
         }
         this.message = Collections.unmodifiableList(message);
         totalRateOfReturn = (totalRewards - purchasingAmount) * 100 / purchasingAmount;

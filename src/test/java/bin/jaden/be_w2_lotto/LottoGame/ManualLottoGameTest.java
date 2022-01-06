@@ -1,8 +1,9 @@
 package bin.jaden.be_w2_lotto.LottoGame;
 
-import bin.jaden.be_w2_lotto.domain.Constants;
+import bin.jaden.be_w2_lotto.data.Constants;
 import bin.jaden.be_w2_lotto.exception.InvalidArraySizeException;
 import bin.jaden.be_w2_lotto.exception.NumberOutOfRangeException;
+import bin.jaden.be_w2_lotto.lottoGame.ManualLottoGame;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
