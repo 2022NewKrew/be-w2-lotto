@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 class ValidationTest {
 
@@ -15,7 +15,7 @@ class ValidationTest {
         int n1 = 10;
         int n2 = 1;
 
-        Validation.notLessThanInt(n1, n2, new RuntimeException());
+        Validation.notLessThanLong(n1, n2, new RuntimeException());
     }
 
     @Test
@@ -25,7 +25,7 @@ class ValidationTest {
         int n2 = 1;
 
         Assertions.assertThrows(RuntimeException.class,
-                () -> Validation.notLessThanInt(n1, n2, new RuntimeException()));
+                () -> Validation.notLessThanLong(n1, n2, new RuntimeException()));
     }
 
     @Test
@@ -34,7 +34,7 @@ class ValidationTest {
         int n1 = 10;
         int n2 = 45;
 
-        Validation.notMoreThanInt(n1, n2, new RuntimeException());
+        Validation.notMoreThanLong(n1, n2, new RuntimeException());
     }
 
     @Test
@@ -44,36 +44,36 @@ class ValidationTest {
         int n2 = 45;
 
         Assertions.assertThrows(RuntimeException.class,
-                () -> Validation.notMoreThanInt(n1, n2, new RuntimeException()));
+                () -> Validation.notMoreThanLong(n1, n2, new RuntimeException()));
     }
 
     @Test
     @DisplayName("[성공] lengthShouldBe")
     void lengthShouldBe() {
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        list.add(4);
-        list.add(5);
-        list.add(6);
+        Set<Integer> set = new HashSet<>();
+        set.add(1);
+        set.add(2);
+        set.add(3);
+        set.add(4);
+        set.add(5);
+        set.add(6);
         int lengthToBe = 6;
 
-        Validation.lengthShouldBe(list, lengthToBe, new RuntimeException());
+        Validation.sizeShouldBe(set, lengthToBe, new RuntimeException());
     }
 
     @Test
-    @DisplayName("[실패] 리스트의 길이가 다를시 예외를 던져야 한다")
+    @DisplayName("[실패] 로또 개수가 다를시 예외를 던져야 한다")
     void lengthShouldBe_Failed() {
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        list.add(4);
-        list.add(5);
+        Set<Integer> set = new HashSet<>();
+        set.add(1);
+        set.add(2);
+        set.add(3);
+        set.add(4);
+        set.add(5);
         int lengthToBe = 6;
 
         Assertions.assertThrows(RuntimeException.class,
-                () -> Validation.lengthShouldBe(list, lengthToBe, new RuntimeException()));
+                () -> Validation.sizeShouldBe(set, lengthToBe, new RuntimeException()));
     }
 }
