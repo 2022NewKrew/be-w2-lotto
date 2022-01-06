@@ -8,8 +8,10 @@ import java.util.List;
 
 public class LottoView {
 
-    public void printLottos(List<LottoNumbers> lottos) {
-        System.out.println(lottos.size() + "개를 구매했습니다.");
+    public void printLottos(List<LottoNumbers> lottos, int numOfManualLottos) {
+        System.out.println("수동으로 " + numOfManualLottos +
+                "개, 자동으로 " + (lottos.size() - numOfManualLottos) +
+                "개를 구매했습니다.");
         for (LottoNumbers ln : lottos) {
             System.out.println(ln.toString());
         }

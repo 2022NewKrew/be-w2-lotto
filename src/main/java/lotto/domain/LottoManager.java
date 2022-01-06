@@ -51,7 +51,7 @@ public class LottoManager {
 
     private void inputManualLottoNumbers() {
         int lottoCnt = 0;
-        lv.askManualLottoNumbers();
+        if (numOfManualLottos != 0) lv.askManualLottoNumbers();
         while (lottoCnt < numOfManualLottos) {
             try {
                 lottos.add(readLottoNumbers());
@@ -137,7 +137,7 @@ public class LottoManager {
     }
 
     private void printLottos() {
-        lv.printLottos(lottos);
+        lv.printLottos(lottos, numOfManualLottos);
     }
 
     private void printResult(HashMap<Rank, Integer> matchMap, int profitRate) {
