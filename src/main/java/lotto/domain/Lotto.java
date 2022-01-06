@@ -3,6 +3,7 @@ package lotto.domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Lotto {
 
@@ -33,19 +34,21 @@ public class Lotto {
     }
 
     private void validateLottoNumbers(List<Integer> manualLottoNumbers) {
-
-        if (!isValidLottoNumbers(manualLottoNumbers)) {
-            throw new IllegalArgumentException("로또 번호는 1에서 45 사이여야 합니다.");
-        }
+        validateEachLottoNumbers(manualLottoNumbers);
 
         if (!isValidLottoNumbersCount(manualLottoNumbers)) {
             throw new IllegalArgumentException("로또 번호는 6개가 입력이 되어야 합니다.");
         }
     }
 
-    private boolean isValidLottoNumbers(List<Integer> lottoNumbers) {
-        return lottoNumbers.stream()
-                .allMatch(lottoNumber -> lottoNumber <= 45 && lottoNumber >= 1);
+    private void validateEachLottoNumbers(List<Integer> lottoNumbers) {
+        List<Integer> incorrectLottoNumber = lottoNumbers.stream()
+                .filter(lottoNumber -> lottoNumber > 45 || lottoNumber < 1)
+                .collect(Collectors.toList());
+
+        if (incorrectLottoNumber.size() != 0) {
+            throw new IllegalArgumentException("로또 번호는 1에서 45 사이여야 합니다. " + incorrectLottoNumber + "이 잘 못 입력되었습니다.");
+        }
     }
 
     private boolean isValidLottoNumbersCount(List<Integer> lottoNumbers) {
