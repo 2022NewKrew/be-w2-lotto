@@ -21,6 +21,10 @@ public class Lotto {
         return numbers.toString();
     }
 
+    public List<Integer> getNumbers() {
+        return numbers;
+    }
+
     public Integer matchLottoWithLastWeek(List<Integer> lastWeekWinningNumbers) {
         List<Integer> copiedNumbers = new ArrayList<>(numbers);
         copiedNumbers.retainAll(lastWeekWinningNumbers);

@@ -1,7 +1,6 @@
 package lotto.view;
 
 import lotto.domain.Constants;
-import lotto.domain.Validator;
 
 import java.util.Arrays;
 import java.util.List;

@@ -2,10 +2,7 @@ package lotto.domain;
 
 import lotto.view.LottoPrinter;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by melodist
@@ -47,5 +44,24 @@ public class LottoGame {
         if (rank != null) {
             statistics.put(rank, statistics.getOrDefault(rank, 0) + 1);
         }
+    }
+
+    public LottoResult createResult(LottoBundle lottoBundle, WinningLotto winningLotto) {
+        createLottoResult(lottoBundle, winningLotto);
+        calculateWinningAmount();
+        int purchaseAmount = lottoBundle.getLottoCount() * Constants.LOTTO_PRICE;
+        float totalRateOfReturn = 100 * (winningAmount - purchaseAmount) / purchaseAmount;
+
+        return createStatistics(totalRateOfReturn);
+    }
+
+    private LottoResult createStatistics(float totalRateOfReturn) {
+        List<String> message = new ArrayList<>();
+        List<Rank> ranks = Arrays.asList(Rank.FIFTH, Rank.FOURTH, Rank.THIRD, Rank.SECOND, Rank.FIRST);
+        for (Rank rank : ranks) {
+            message.add(String.format(Constants.PRINT_MATCHED_FORMAT,
+                    rank.getMatchString(), rank.getWinningMoney(), statistics.getOrDefault(rank, 0)));
+        }
+        return new LottoResult(message, totalRateOfReturn);
     }
 }

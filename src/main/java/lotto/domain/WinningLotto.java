@@ -1,6 +1,8 @@
 package lotto.domain;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by melodist
@@ -16,6 +18,19 @@ public class WinningLotto {
         Validator.validateLottoBonusDuplicate(lastWeekWinningNumbers, bonusBall);
         this.lastWeekWinningNumbers = lastWeekWinningNumbers;
         this.bonusBall = bonusBall;
+    }
+
+    public WinningLotto(String lastWeekWinningNumbersString, Integer bonusBall) {
+        this.lastWeekWinningNumbers = createWinningLotto(lastWeekWinningNumbersString);
+        Validator.validateLottoNumbers(lastWeekWinningNumbers);
+        Validator.validateLottoBonusDuplicate(lastWeekWinningNumbers, bonusBall);
+        this.bonusBall = bonusBall;
+    }
+
+    private List<Integer> createWinningLotto(String lottoString) {
+        return Arrays.stream(lottoString.split(Constants.INPUT_MANUAL_LOTTO_DELIMITER))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
     }
 
     public Rank matchLotto(Lotto lotto) {
