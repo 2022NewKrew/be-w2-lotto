@@ -27,6 +27,7 @@ public class LottoResult {
     public List<List<String>> getStatistics() {
         List<List<String>> res = new ArrayList<>();
         for (Prize prize : Prize.values()) {
+            if(prize == Prize.NONE) continue;
             res.add(getStatisticsRow(prize));
         }
         return res;
