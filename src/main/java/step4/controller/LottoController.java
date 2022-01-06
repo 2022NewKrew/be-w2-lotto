@@ -3,10 +3,10 @@ package step4.controller;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import step4.domain.LottoGame;
-import step4.domain.model.*;
+import step4.domain.model.Lottos;
+import step4.domain.model.Matches;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static spark.Spark.*;
@@ -56,7 +56,7 @@ public class LottoController {
             Matches matches = LottoGame.startMatch(lottos, request.queryParams("result"),
                                                 request.queryParams("bonusNumber"));
 
-            model.put("matchResults", matches.toString());
+            model.put("matchResults", matches);
             model.put("totalRateOfReturn", matches.calcTotalRateOfReturn(lottos));
             return render(model, "result.html");
         });

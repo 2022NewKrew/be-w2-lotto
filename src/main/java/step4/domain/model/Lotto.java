@@ -56,7 +56,8 @@ public class Lotto {
         return this.lottoList.contains(number);
     }
 
-    public String getNumbers() {
+    @Override
+    public String toString() {
         return this.lottoList.toString();
     }
 }
