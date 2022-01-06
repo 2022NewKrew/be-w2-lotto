@@ -19,7 +19,7 @@ public class OutputView {
         System.err.println(e.getMessage() + "\n");
     }
 
-    public void printResult(Map<LottoRank, Integer> resultCounts, int earnRate) {
+    public void printResult(Map<LottoRank, Integer> resultCounts, long earnRate) {
         System.out.println("당첨 통계");
         System.out.println("---------");
         for (LottoRank result : LottoRank.values()) {
