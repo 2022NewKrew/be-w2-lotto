@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>로또</title>
 
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet"
@@ -27,26 +27,14 @@ body {
 	padding-bottom: 40px;
 	background-color: #eee;
 }
-</style>
 
-<style>
-.pre-scrollable {
-	width: 400px;
-	margin: 0 auto;
-}
-
-.table {
-	width: 200px;
-	margin: 0 auto;
-}
-
-.form-result {
+.form-lotto {
 	max-width: 330px;
 	padding: 15px;
 	margin: 0 auto;
 }
 
-.form-result .form-control {
+.form-lotto .form-control {
 	position: relative;
 	height: auto;
 	-webkit-box-sizing: border-box;
@@ -55,35 +43,42 @@ body {
 	padding: 10px;
 	font-size: 16px;
 }
+
+.submit-button {
+	margin-top: 10px;
+}
 </style>
 
 </head>
 <body>
 
-<form class="form-result" action="/">
-	<div class="submit-button">
-		<button class="btn btn-lg btn-primary btn-block" type="submit">다시
-			하기</button>
+<div class="container">
+	<div class="row">
+	  <div class="col-md-4"></div>
+	  <div class="col-md-4">
+		<form class="form-lotto" method="post" action="/buyLotto">
+			<h2 class="text-center">로또 게임</h2>
+			<div class="input-group">
+				<div class="input-group-addon">￦</div>
+				<input type="number" id="inputMoney" class="form-control"
+					name="inputMoney" placeholder="금액 입력" required autofocus>
+			</div>
+			<div class="form-show-div" class="form-group">
+				<h2>수동 구매 번호</h2>
+				예) 1,2,3,4,5,6(한 라인에 6개를 입력해주세요.)
+				<textarea class="form-control" rows="3" name="manualNumber" 
+				placeholder="1,2,3,4,5,6
+1,2,3,4,5,6"></textarea>
+			</div>		
+			<div class="submit-button">
+				<button class="btn btn-lg btn-primary btn-block" type="submit">로또
+					구매</button>
+			</div>
+		</form>	  
+	  </div>
+	  <div class="col-md-4"></div>
 	</div>
-</form>
-<pre class="pre-scrollable">
-	<table class="table">
-			<thead>
-				<th><h3 class="text-center">당첨 통계</h3></th>
-			</thead>
-		<tbody>
-		{{#result}}
-		{{#messages}}
-			<tr>
-				<th>{{.}}</th>
-			</tr>
-		{{/messages}}
-		</tbody>
-		<tfoot>
-			<th><h4 class="text-center">총 수익률은 {{totalRateOfReturn}}%입니다.</h4></th>
-		</tfoot>
-		{{/result}}
-	</table>
-</pre>
+</div>
+
 </body>
 </html>

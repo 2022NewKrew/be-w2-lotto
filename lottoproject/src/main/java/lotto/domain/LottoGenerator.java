@@ -7,12 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoGenerator {
-    private final List<Lotto> lottos;
+    private final Lottos lottos;
 
-    public LottoGenerator(int inputMoney, List<List<Integer>> manualLottosNumbers){
-        int totalCount = checkInputMoney(inputMoney)/ Util.LOTTO_PRICE;
-        checkTotalCountWithManualCount(totalCount, manualLottosNumbers.size());
-        this.lottos = generate(totalCount, manualLottosNumbers);
+    public LottoGenerator(String inputMoney, String manualNumberString){
+        List<List<Integer>> manualNumbers = convManualStringToDoubleList(manualNumberString);
+        int totalCount = checkInputMoney(Integer.parseInt(inputMoney))/ Util.LOTTO_PRICE;
+        checkTotalCountWithManualCount(totalCount, manualNumbers.size());
+        this.lottos = generate(totalCount, manualNumbers);
     }
 
     private int checkInputMoney(int inputMoney) throws InvaildValueRangeException {
@@ -31,18 +32,27 @@ public class LottoGenerator {
         }
     }
 
-    private List<Lotto> generate(int totalCount, List<List<Integer>> manualLottosNumbers){
-        List<Lotto> lottos = new ArrayList<>();
-        for(List<Integer> manualLottoNumbers : manualLottosNumbers){
-            lottos.add(new Lotto(manualLottoNumbers));
+    private List<List<Integer>> convManualStringToDoubleList(String manualNumberString){
+        List<String> manualNumberStrings = Util.convStringToStringArraylist(manualNumberString, "\r?\n");
+        List<List<Integer>> manualNumbers = new ArrayList<>();
+        for(String string : manualNumberStrings){
+            manualNumbers.add(Util.convStringToIntegerArraylist(string, ","));
         }
-        for(int i=0; i<totalCount-manualLottosNumbers.size(); i++){
-            lottos.add(new Lotto(Util.generateLottoRandomNumbers()));
-        }
-        return lottos;
+        return manualNumbers;
     }
 
-    public List<Lotto> generate(){
+    private Lottos generate(int totalCount, List<List<Integer>> manualNumbers){
+        List<Lotto> lottos = new ArrayList<>();
+        for(List<Integer> manualNumber : manualNumbers){
+            lottos.add(new Lotto(manualNumber));
+        }
+        for(int i=0; i<totalCount-manualNumbers.size(); i++){
+            lottos.add(new Lotto(Util.generateLottoRandomNumbers()));
+        }
+        return new Lottos(lottos);
+    }
+
+    public Lottos generate(){
         return lottos;
     }
 }

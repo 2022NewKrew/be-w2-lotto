@@ -15,24 +15,20 @@ public class Lotto {
         this.numbers = checkLottoNumbers(numbers);
     }
 
-    public Rank findRank(List<Integer> resultNumbers, int bonusNumber){
-        return Rank.valueOf(findMatchNumberCount(resultNumbers), isMatchBonusNumber(bonusNumber));
+    public Rank findRank(List<Integer> winningNumbers, int bonusNumber){
+        return Rank.valueOf(findMatchNumberCount(winningNumbers), isMatchBonusNumber(bonusNumber));
     }
 
-    private int findMatchNumberCount(List<Integer> resultNumbers){
+    private int findMatchNumberCount(List<Integer> winningNumbers){
         int matchNumberCount = 0;
         for(Integer number : numbers){
-            matchNumberCount += BooleanUtils.toInteger(resultNumbers.contains(number));
+            matchNumberCount += BooleanUtils.toInteger(winningNumbers.contains(number));
         }
         return matchNumberCount;
     }
 
     private Boolean isMatchBonusNumber(int bonusNumber){
         return numbers.contains(bonusNumber);
-    }
-
-    public String toString(){
-        return numbers.toString();
     }
 
     private List<Integer> checkLottoNumbers(List<Integer> numbers) throws InvaildListSizeException, InvaildValueRangeException {
@@ -50,5 +46,9 @@ public class Lotto {
             throw new InvaildValueRangeException("로또 숫자가 정상범위를 벗어났습니다.");
         }
         return number;
+    }
+
+    public List<Integer> getNumbers(){
+        return numbers;
     }
 }
