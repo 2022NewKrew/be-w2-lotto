@@ -1,6 +1,7 @@
 package lotto.io;
 
 import lotto.domain.Lotto;
+import lotto.domain.LottoGenerator;
 import lotto.domain.PurchaseInfo;
 
 import java.util.List;
@@ -48,7 +49,7 @@ public class ExceptionCheck {
     }
 
     public static void checkValidBonusNumber(int bonus) {
-        if (bonus < 1 || bonus > 45) {
+        if (bonus < LottoGenerator.MIN_NUM || bonus > LottoGenerator.MAX_NUM) {
             throw new IllegalArgumentException("잘못된 보너스 볼 범위입니다!");
         }
     }
