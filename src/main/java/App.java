@@ -19,7 +19,7 @@ public class App {
         LotteryResult lotteryResult = view.getLotteryResult();
 
         manualLotteryTickets.addAll(randomLotteryTickets);
-        view.showReport(new LotteryReport(manualLotteryTickets, lotteryResult, lotteryWallet.getSpent()).toDTO());
+        view.showReport(new LotteryReport(new LotteryTickets(manualLotteryTickets).getPrizeCount(lotteryResult), lotteryWallet.getSpent()).toDTO());
     }
 
     private static List<LotteryTicket> buyManualTickets(View view, LotteryWallet lotteryWallet) {
