@@ -26,7 +26,8 @@ class LottoResultTest {
                 Arrays.asList(lotto1,lotto2,lotto3,lotto4,lotto5,lotto6,lotto7,lotto8));
         ArrayList<Integer> winningNumber = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
         int bonusNumber = 7;
-        result = new LottoResult(lottoList, winningNumber, bonusNumber);
+        WinningLotto winningLotto = new WinningLotto(winningNumber, bonusNumber);
+        result = new LottoResult(lottoList, winningLotto);
     }
 
     @Test

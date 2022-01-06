@@ -1,30 +1,37 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Lotto {
-    private static final List<Integer> NUMBERS = IntStream.rangeClosed(1, 45)
-            .boxed().collect(Collectors.toList());
-    private static final int NUM_OF_DRAWS = 6;
     private final ArrayList<Integer> numbers;
+    private static final int LOTTO_SIZE = 6;
+    private static final int MIN_NUMBER = 1;
+    private static final int MAX_NUMBER = 45;
 
     public Lotto(ArrayList<Integer> numbers) {
+        validateSize(numbers);
+        validateNumberRange(numbers);
         this.numbers = numbers;
     }
 
-    public static Lotto generateRandomly() {
-        ArrayList<Integer> drawn = new ArrayList<>();
-        Collections.shuffle(NUMBERS);
-        for (int i = 0; i < NUM_OF_DRAWS; ++i) {
-            drawn.add(NUMBERS.get(i));
+    private void validateSize(ArrayList<Integer> numbers) {
+        if (numbers.size() != LOTTO_SIZE) {
+            throw new IllegalArgumentException("로또는 6개로 이루어져야 합니다.");
         }
-        Collections.sort(drawn);
-        return new Lotto(drawn);
     }
+
+    private void validateNumberRange(ArrayList<Integer> numbers) {
+        for (Integer number : numbers) {
+            validateNumberRange(number);
+        }
+    }
+
+    private void validateNumberRange(int number) {
+        if (number < MIN_NUMBER || number > MAX_NUMBER) {
+            throw new IllegalArgumentException("숫자는 1이상 45이하여야 합니다.");
+        }
+    }
+
 
     public ArrayList<Integer> getNumbers() {
         return numbers;

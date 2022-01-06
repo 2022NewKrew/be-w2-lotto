@@ -4,29 +4,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LottoResult {
-    private final HashMap<LottoRank, Integer> results = new HashMap<>();
+    private final HashMap<LottoRank, Integer> numOfWinnings = new HashMap<>();
     private final ArrayList<Lotto> lottoList;
-    private final ArrayList<Integer> winningNumber;
-    private final int bonusNumber;
+    private final WinningLotto winningLotto;
 
-    public LottoResult(ArrayList<Lotto> lottoList, ArrayList<Integer> winningNumber, int bonusNumber) {
+    public LottoResult(ArrayList<Lotto> lottoList, WinningLotto winningLotto) {
         this.lottoList = lottoList;
-        this.winningNumber = winningNumber;
-        this.bonusNumber = bonusNumber;
-        calcResult();
+        this.winningLotto = winningLotto;
+        calcNumOfWinnings();
     }
 
-    private void calcResult() {
+    private void calcNumOfWinnings() {
         for (Lotto lotto : lottoList) {
             int countOfMatch = getCountOfMatch(lotto.getNumbers());
             boolean matchBonus = isMatchBonus(lotto.getNumbers());
             LottoRank rank = LottoRank.valueOf(countOfMatch, matchBonus);
-            results.put(rank, getNumOfRank(rank) + 1);
+            numOfWinnings.put(rank, getNumOfRank(rank) + 1);
         }
     }
 
     private int getCountOfMatch(ArrayList<Integer> numbers) {
         int countOfMatch = 0;
+        ArrayList<Integer> winningNumber = winningLotto.getNumbers();
         for (Integer number : numbers) {
             countOfMatch += winningNumber.contains(number) ? 1 : 0;
         }
@@ -34,24 +33,30 @@ public class LottoResult {
     }
 
     private boolean isMatchBonus(ArrayList<Integer> numbers) {
-        return numbers.contains(bonusNumber);
+        return numbers.contains(winningLotto.getBonusNumber());
     }
 
     private int getNumOfRank(LottoRank rank) {
-        if (results.containsKey(rank)) {
-            return results.get(rank);
-        }
-        return 0;
+        return numOfWinnings.getOrDefault(rank, 0);
     }
 
     public StringBuilder render() {
         StringBuilder builder = new StringBuilder();
         for (LottoRank rank : LottoRank.values()) {
-            builder.append(rank.getDescription());
-            builder.append(String.format("- %d개", getNumOfRank(rank)));
-            builder.append("\n");
+            builder.append(renderResultOfRank(rank));
         }
         return builder;
+    }
+
+    private StringBuilder renderResultOfRank(LottoRank rank) {
+        StringBuilder rankString = new StringBuilder();
+        if (rank == LottoRank.NONE) {
+            return rankString;
+        }
+        rankString.append(rank.getDescription());
+        rankString.append(String.format("- %d개", getNumOfRank(rank)));
+        rankString.append("\n");
+        return rankString;
     }
 
     public float getYieldByPercent(int price) {

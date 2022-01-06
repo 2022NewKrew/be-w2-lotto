@@ -3,6 +3,7 @@ package domain;
 import java.util.Arrays;
 
 public enum LottoRank {
+    NONE(-1, 0),
     FIFTH(3, 5000),
     FOURTH(4, 50000),
     THIRD(5, 1500000),
@@ -32,13 +33,20 @@ public enum LottoRank {
     }
 
     public static LottoRank valueOf(int countOfMatch, boolean matchBonus) {
-        if (countOfMatch == SECOND.countOfMatch) {
-            return matchBonus ? SECOND : THIRD;
-        }
-
         return Arrays.stream(values())
                 .filter(rank -> rank.countOfMatch == countOfMatch)
+                .filter(rank -> checkBonus(rank, matchBonus))
                 .findFirst()
-                .orElse(null);
+                .orElse(NONE);
+    }
+
+    private static boolean checkBonus(LottoRank rank, boolean matchBonus) {
+        if (rank == SECOND) {
+            return matchBonus;
+        }
+        if (rank == THIRD) {
+            return !matchBonus;
+        }
+        return true;
     }
 }
