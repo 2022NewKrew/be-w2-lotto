@@ -12,7 +12,7 @@ class RandomLottoNumberGeneratorTest {
     void generateLottoNumbers() {
         LottoNumbersGenerator lottoNumbersGenerator = new RandomLottoNumberGenerator();
 
-        LottoNumbers lottoNumbers = lottoNumbersGenerator.generateLottoNumbers();
+        LottoNumbers lottoNumbers = lottoNumbersGenerator.generateLottoNumbers(null);
 
         assertThat(lottoNumbers.getLottoNumbers()).hasSize(6);
     }

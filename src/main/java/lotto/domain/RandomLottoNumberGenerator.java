@@ -7,15 +7,14 @@ public class RandomLottoNumberGenerator implements LottoNumbersGenerator {
     private static final int MIN_VALUE = 1;
     private static final int MAX_VALUE = 45;
     private static final int LOTTO_NUMBER_COUNT = 6;
-
-    private static List<Integer> numbers = new ArrayList<>();
+    private static final List<Integer> numbers = new ArrayList<>();
 
     static {
         IntStream.range(MIN_VALUE, MAX_VALUE + 1)
-                .forEach(i -> numbers.add(i));
+                .forEach(numbers::add);
     }
 
-    public LottoNumbers generateLottoNumbers() {
+    public LottoNumbers generateLottoNumbers(String[] strings) {
         Set<LottoNumber> lottoNumbers = new HashSet<>();
 
         List<Integer> randomNumbers = generateRandomNumbers();
