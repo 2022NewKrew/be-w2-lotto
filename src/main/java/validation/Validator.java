@@ -2,10 +2,8 @@ package validation;
 
 import domain.Lotto;
 import domain.Number;
-import exception.InvalidInputException;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 
 import static utils.Symbol.*;
@@ -19,17 +17,17 @@ public class Validator {
     }
 
     private void isDistinct(Lotto winningLotto, int bonusNumber) {
-        ArrayList<Integer> arrayList = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
         for (Number number : winningLotto.getNumberList()) {
             int num = number.getNum();
-            arrayList.add(num);
+            list.add(num);
         }
-        if (arrayList.contains(bonusNumber)) {
+        if (list.contains(bonusNumber)) {
             throw new IllegalArgumentException(INVALID_DUPLICATION_BONUSNUM);
         }
     }
 
-    public void isValidBonusNumber(Lotto winningLotto, int bonusNumber)  {
+    public void isValidBonusNumber(Lotto winningLotto, int bonusNumber) {
         isValidNumber(bonusNumber);
         isDistinct(winningLotto, bonusNumber);
     }

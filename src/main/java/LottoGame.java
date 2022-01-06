@@ -6,7 +6,7 @@ import service.ResultService;
 import view.InputView;
 import view.OutputView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class LottoGame {
     private final InputView inputView = new InputView();
@@ -17,7 +17,7 @@ public class LottoGame {
         int purchaseAmount = inputView.getPurchaseAmount();
         int manualLottoCount = inputView.getManualLottoCount(purchaseAmount);
         LottoService lottoService = new LottoService(purchaseAmount, manualLottoCount);
-        ArrayList<Lotto> lottos = lottoService.getLottos();
+        List<Lotto> lottos = lottoService.getLottos();
 
         outputView.printPurchaseLottoList(lottos, manualLottoCount);
 

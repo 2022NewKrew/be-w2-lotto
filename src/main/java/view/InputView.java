@@ -52,7 +52,7 @@ public class InputView {
 
     public Lotto getManualLotto(String message) {
         List<Number> inputNumberList = getNumberList(message);
-        ArrayList<Number> inputNumberArrayList = new ArrayList<Number>();
+        List<Number> inputNumberArrayList = new ArrayList<Number>();
         inputNumberArrayList.addAll(inputNumberList);
         return new Lotto(inputNumberArrayList);
     }

@@ -4,11 +4,12 @@ import domain.Lotto;
 import exception.InvalidInputException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static utils.Symbol.LOTTO_PRICE;
 
 public class LottoService {
-    private ArrayList<Lotto> lottoList = new ArrayList<>();
+    private List<Lotto> lottoList = new ArrayList<>();
     private static final ManualGenerator manualGenerator = new ManualGenerator();
     private static final AutomaticGenerator automaticGenerator = new AutomaticGenerator();
 
@@ -30,7 +31,7 @@ public class LottoService {
         return lottoGenerator.generate();
     }
 
-    public ArrayList<Lotto> getLottos() {
+    public List<Lotto> getLottos() {
         return lottoList;
     }
 }

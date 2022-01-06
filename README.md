@@ -49,7 +49,7 @@
 - [x] LottoService 클래스 생성자 간소화
 - [x] Stream사용시 생성자 사용법 변경
 - [ ] MannualGenerator 클래스의 생성자에서 inputview 사용 지양
-- [ ] ArrayList사용 -> List사용
+- [x] ArrayList사용 -> List사용
 - [ ] domain(Number, WinningLottoMannual) validation 검증은 Number클래스에서 하기
 - [ ] Result의 Rank 측정을 Enum클래스로 위임
 - [x] final이 가능한 변수는 모두 적용시켜주기
