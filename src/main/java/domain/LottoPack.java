@@ -6,8 +6,9 @@ import java.util.stream.Collectors;
 
 public class LottoPack {
     private static final List<Lotto> lottoList = new ArrayList<>();
-    public LottoPack(){
-
+    private final int buyPrice;
+    public LottoPack(int buyPrice){
+        this.buyPrice = buyPrice;
     }
     public void add(Lotto lotto){
         lottoList.add(lotto);

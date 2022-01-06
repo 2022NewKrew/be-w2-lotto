@@ -2,19 +2,20 @@ package view;
 
 import controller.BuyLotto;
 import controller.CheckPrize;
+import domain.LottoPack;
 
 import java.util.Scanner;
 
 public class LottoInput {
     private static final Scanner sc = new Scanner(System.in);
 
-    public static void inputBuyLottoPrize(){
+    public static LottoPack inputBuyLottoPrize(){
         System.out.println("구입 금액을 입력해 주세요.");
-        new BuyLotto(sc.nextInt());
+        return BuyLotto.buy(sc.nextInt());
     }
 
-    public static void inputLastPrizeNum(){
+    public static String inputLastPrizeNum(){
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        new CheckPrize(BuyLotto.lottoPack,sc.next());
+        return sc.next();
     }
 }

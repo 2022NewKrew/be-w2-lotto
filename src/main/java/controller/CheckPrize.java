@@ -8,29 +8,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CheckPrize {
-
     private static final String NUMBER_SPLIT_REGEX = ",";
-    final LottoPack lottoPack;
-    final Lotto lottoPrize;
+    public CheckPrize(){
 
-    public CheckPrize(LottoPack lottoPack, String prizeString){
-        this.lottoPack = lottoPack;
-        lottoPrize = parseLottoNumbers(prizeString);
-        printPrize();
     }
 
-    public WinningStats calculateWinningLottoStats(){
+    public static WinningStats calculateWinningLottoStats(LottoPack lottoPack, String prizeString){
+        Lotto lottoPrize = parseLottoNumbers(prizeString);
         RankingPack rankingPack = lottoPack.makeRankingPack(lottoPrize);
         return rankingPack.makeWiningStats();
     }
 
-    public void printPrize(){
-        WinningStats winningStats = calculateWinningLottoStats();
+    public static void printPrize(LottoPack lottoPack,String prizeString ){
+        WinningStats winningStats = calculateWinningLottoStats(lottoPack,prizeString);
         LottoOutput.printWinningStats(winningStats);
     }
 
 
-    private Lotto parseLottoNumbers(String prizeString){
+    private static Lotto parseLottoNumbers(String prizeString){
         String[] spt = prizeString.split(NUMBER_SPLIT_REGEX);
         List<Integer> prizeList = Arrays.stream(spt).map(Integer::parseInt).collect(Collectors.toList());
         return new Lotto(prizeList);
