@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class WinningLotto {
+import static lotto.LottoGrade.*;
+
+public class WinningLotto extends Lotto {
     private int bonusNumber;
-    private List<Integer> numbers;
 
     public WinningLotto(String winningNumbers, int bonusNumber){
         numbers = new ArrayList<>();
@@ -18,7 +19,7 @@ public class WinningLotto {
         this.bonusNumber = bonusNumber;
     }
 
-    public int confirmWinning(Lotto lotto){
+    public LottoGrade confirmWinning(Lotto lotto){
         int hitNum = 0;
         boolean isBonusBumberHit = false;
 
@@ -30,12 +31,12 @@ public class WinningLotto {
         return calculateGrade(hitNum, isBonusBumberHit);
     }
 
-    private int calculateGrade(int hitNum, boolean isBonusBumberHit) {
-        if(hitNum == 6) return 1;
-        if(hitNum == 5 && isBonusBumberHit) return 2;
-        if(hitNum == 5) return 3;
-        if(hitNum == 4) return 4;
-        if(hitNum == 3) return 5;
-        return 6;
+    private LottoGrade calculateGrade(int hitNum, boolean isBonusBumberHit) {
+        if(hitNum == 6) return FIRST;
+        if(hitNum == 5 && isBonusBumberHit) return SECOND;
+        if(hitNum == 5) return THIRD;
+        if(hitNum == 4) return FORTH;
+        if(hitNum == 3) return FIFTH;
+        return SIXTH;
     }
 }

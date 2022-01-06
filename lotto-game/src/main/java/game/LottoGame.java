@@ -2,34 +2,25 @@ package game;
 
 import controller.IOController;
 import lotto.Lotto;
+import lotto.LottoResult;
 import lotto.WinningLotto;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class LottoGame {
     private int asset;
     private List<Lotto> lottos;
     private WinningLotto winningLotto;
 
-    private int firstPlaceCount;
-    private int secondPlaceCount;
-    private int thirdPlaceCount;
-    private int forthPlaceCount;
-    private int fifthPlaceCount;
+    private LottoResult lottoResult;
     private long totalReward;
 
     public LottoGame(){
         asset = 0;
         lottos = new ArrayList<>();
 
-        firstPlaceCount = 0;
-        secondPlaceCount = 0;
-        thirdPlaceCount = 0;
-        forthPlaceCount = 0;
-        fifthPlaceCount = 0;
-
+        lottoResult = new LottoResult();
         totalReward = 0;
     }
 
@@ -38,15 +29,31 @@ public class LottoGame {
         getNewLottos(asset / 1000);
         getWinningNumbers();
         confirmWinning();
-        totalReward = calculateReward();
 
-        int incomeRate = (int) ((totalReward * 100) / asset);
-        IOController.printResult(incomeRate, firstPlaceCount, secondPlaceCount, thirdPlaceCount, forthPlaceCount, fifthPlaceCount);
+        int incomeRate = (int) ((lottoResult.calculateProceed() * 100) / asset);
+        IOController.printResult(incomeRate, lottoResult);
     }
     
     private void getNewLottos(int lottoNumber) {
-        IOController.printBuyLottoNum(lottoNumber);
-        for(int lottoIndex = 0; lottoIndex < lottoNumber; lottoIndex++){
+        int manualNum = IOController.getNextInt("수동으로 구매할 로또 수를 입력해 주세요.");
+        int autoNum = lottoNumber - manualNum;
+        IOController.printBuyLottoNum(manualNum, autoNum);
+
+        getNewManualLottos(manualNum);
+        getNewAutoLottos(autoNum);
+    }
+
+    private void getNewAutoLottos(int autoNum) {
+        for(int lottoIndex = 0; lottoIndex < autoNum; lottoIndex++){
+            Lotto lotto = new Lotto();
+            IOController.printLotto(lotto);
+            lottos.add(lotto);
+        }
+    }
+
+    private void getNewManualLottos(int manualNum) {
+        for(int lottoIndex = 0; lottoIndex < manualNum; lottoIndex++){
+            String manualNumbers = IOController.getNextString("");
             Lotto lotto = new Lotto();
             IOController.printLotto(lotto);
             lottos.add(lotto);
@@ -62,38 +69,7 @@ public class LottoGame {
 
     private void confirmWinning() {
         for(Lotto lotto : lottos){
-            int place = winningLotto.confirmWinning(lotto);
-            calculatePlace(place);
+            lottoResult.addResult(winningLotto.confirmWinning(lotto));
         }
-    }
-
-    private void calculatePlace(int place) {
-        switch (place){
-            case 1:
-                firstPlaceCount++;
-                break;
-            case 2:
-                secondPlaceCount++;
-                break;
-            case 3:
-                thirdPlaceCount++;
-                break;
-            case 4:
-                forthPlaceCount++;
-                break;
-            case 5:
-                fifthPlaceCount++;
-                break;
-            default:
-                break;
-        }
-    }
-
-    private int calculateReward() {
-        return 2000000000*firstPlaceCount
-                + 30000000 * secondPlaceCount
-                + 1500000 * thirdPlaceCount
-                + 50000 * forthPlaceCount
-                + 5000 * fifthPlaceCount;
     }
 }

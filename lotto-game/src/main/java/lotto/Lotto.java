@@ -6,8 +6,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
-    static  List<Integer> baseNumber = null;
-    private List<Integer> numbers;
+    static protected List<Integer> baseNumber = null;
+    protected List<Integer> numbers;
 
     public Lotto(String initialNumbers) {
         numbers = new ArrayList<>();
