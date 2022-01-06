@@ -31,9 +31,7 @@ public class InputView {
         return Arrays.stream(input.split(","))
                 .filter(str -> !str.isEmpty())
                 .map(String::trim)
-                .mapToInt(Integer::parseInt)
-                .distinct()
-                .boxed()
+                .map(Integer::parseInt)
                 .collect(Collectors.toSet());
     }
 }
