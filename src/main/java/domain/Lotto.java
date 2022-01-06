@@ -3,11 +3,24 @@ package domain;
 import java.util.Arrays;
 import java.util.List;
 
+import static utils.Symbol.INVALID_LOTTO_FORMAT;
+
 public class Lotto {
     private final List<Number> numberList;
 
     public Lotto(List<Number> numberList) {
+        isValidNumberList(numberList);
         this.numberList = numberList;
+    }
+
+    public void isValidNumberList(List<Number> numberList) {
+        if (!isLengthSix(numberList)) {
+            throw new IllegalArgumentException(INVALID_LOTTO_FORMAT);
+        }
+    }
+
+    public boolean isLengthSix(List<Number> numberList) {
+        return numberList.size() == 6;
     }
 
     @Override

@@ -41,7 +41,6 @@ public class InputView {
         } catch (InputMismatchException e) {
             throw new InvalidInputException();
         }
-
     }
 
     public WinningLotto getWinningLotto() {
@@ -52,9 +51,7 @@ public class InputView {
 
     public Lotto getManualLotto(String message) {
         List<Number> inputNumberList = getNumberList(message);
-        List<Number> inputNumberArrayList = new ArrayList<Number>();
-        inputNumberArrayList.addAll(inputNumberList);
-        return new Lotto(inputNumberArrayList);
+        return new Lotto(inputNumberList);
     }
 
     public List<Number> getNumberList(String Message) {
@@ -67,7 +64,6 @@ public class InputView {
                 .distinct()
                 .mapToObj(Number::new)
                 .collect(Collectors.toList());
-        validator.isValidNumberList(numberList);
         return numberList;
     }
 
@@ -75,7 +71,6 @@ public class InputView {
         System.out.println("\n" + BONUS_NUMBER_MESSAGE);
         int bonusNumber = sc.nextInt();
         sc.nextLine();
-        validator.isValidBonusNumber(winningLotto, bonusNumber);
         return new Number(bonusNumber);
     }
 }
