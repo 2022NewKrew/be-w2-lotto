@@ -1,45 +1,53 @@
 package view;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
-public class InputView {
+public final class InputView {
     private static final String INPUT_PURCHASE_AMOUNT_MESSAGE = "구입금액을 입력해 주세요.";
     private static final String INPUT_WINNING_NUMBERS_MESSAGE = "지난 주 당첨 번호를 입력해 주세요.";
     private static final String INPUT_BONUS_NUMBER_MESSAGE = "보너스 볼을 입력해 주세요.";
+    private static final String INPUT_MANUAL_AMOUNT_MESSAGE = "수동으로 구매할 로또 수를 입력해 주세요.";
+    private static final String INPUT_MANUAL_NUMBER_MESSAGE = "수동으로 구매할 번호를 입력해 주세요.";
 
-    private static Scanner sc = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static int inputTotalPrice() {
         System.out.println(INPUT_PURCHASE_AMOUNT_MESSAGE);
-        int totalPrice = sc.nextInt();
-        sc.nextLine();
+        int totalPrice = scanner.nextInt();
+        scanner.nextLine();
         return totalPrice;
     }
 
-    public static List<Integer> inputWinningNumbers() {
+    public static String inputWinningNumbers() {
         System.out.println(INPUT_WINNING_NUMBERS_MESSAGE);
-        String inputString = sc.nextLine();
-        List<String> splitStrings = new ArrayList<>(Arrays.asList(inputString.split(", ")));
-        System.out.println();
+        String inputString = scanner.nextLine();
+        return inputString;
+    }
 
-        List<Integer> winningNumbers = new ArrayList<>(splitStrings
-                                                               .stream()
-                                                               .map(Integer::valueOf)
-                                                               .sorted()
-                                                               .collect(Collectors.toList()));
+    public static int inputManualAmount() {
+        System.out.println(INPUT_MANUAL_AMOUNT_MESSAGE);
+        int amount = scanner.nextInt();
+        scanner.nextLine();
+        return amount;
+    }
 
-        return winningNumbers;
+    public static List<String> inputManualNumbers(int amount) {
+        System.out.println(INPUT_MANUAL_NUMBER_MESSAGE);
+        List<String> manualNumbers = new ArrayList<>();
+        for (int i = 0; i < amount; ++i) {
+            manualNumbers.add(scanner.nextLine());
+        }
+        return manualNumbers;
     }
 
     public static int inputBonusNumber() {
         System.out.println(INPUT_BONUS_NUMBER_MESSAGE);
-        int bonusNumber = sc.nextInt();
-        sc.nextLine();
+        int bonusNumber = scanner.nextInt();
+        scanner.nextLine();
         return bonusNumber;
 
     }
 }
+
