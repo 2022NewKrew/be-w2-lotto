@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * 자동으로 뽑은 로또 객체입니다. 생성즉시 자동으로 생성한 번호로 초기화합니다.
+ *
+ * @author jm.hong
+ */
 public class LottoAuto extends Lotto {
 
     private static final List<Integer> lottoNumberList;
@@ -16,7 +21,11 @@ public class LottoAuto extends Lotto {
         }
     }
 
-    public void createRandomNumber() {
+    public LottoAuto() {
+        createRandomNumber();
+    }
+
+    private void createRandomNumber() {
         Collections.shuffle(lottoNumberList);
         numbers = new ArrayList<>(lottoNumberList.subList(0, 6));
         Collections.sort(numbers);

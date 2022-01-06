@@ -1,12 +1,14 @@
 package repository;
 
-import domain.Lotto;
 import domain.LottoStatistic;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+/**
+ * LottoRepository 인터페이스의 HashMap 으로 만든 구현체입니다.
+ * @author jm.hong
+ */
 public class LottoRepositoryInMemory implements LottoRepository {
     static Long sequence = 0L;
     static Map<Long, LottoStatistic> inMemory = new HashMap<>();

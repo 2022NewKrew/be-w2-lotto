@@ -59,10 +59,10 @@ public class MainController {
 
     private String createLottoForm(Request req, Response res) {
         int purchasePrice = Integer.parseInt(req.queryParams("purchasePrice"));
-
         int normalLottoCount = Integer.parseInt(req.queryParams("normalLottoCount"));
         int purchaseCount = lottoService.calculateLottoCount(purchasePrice);
         int autoLottoCount = purchaseCount - normalLottoCount;
+
         String normalLottoString = req.queryParams("normalLottoString");
 
         List<Lotto> lottoList = lottoService.createAutoLottoList(autoLottoCount);
@@ -78,6 +78,7 @@ public class MainController {
         LottoStatistic lottoStatistics = lottoService.createLottoStatistic(purchaseCount, normalLottoCount, autoLottoCount, lottoList);
         Long id = lottoRepository.save(lottoStatistics);
         Map<String, Object> model = new HashMap<>();
+
         model.put("id", id);
         model.put("normalLottoCount", normalLottoCount);
         model.put("autoLottoCount", autoLottoCount);

@@ -12,6 +12,11 @@ import java.util.stream.Collectors;
 
 import static java.util.Arrays.stream;
 
+/**
+ * LottoService의 구현체입니다.
+ *
+ * @author jm.hong
+ */
 public class LottoServiceImpl implements LottoService {
 
     private final LottoRepository lottoRepository;
@@ -32,7 +37,6 @@ public class LottoServiceImpl implements LottoService {
 
         for (int count = 0; count < autoLottoCount; count++) {
             LottoAuto lottoAuto = new LottoAuto();
-            lottoAuto.createRandomNumber();
             lottos.add(lottoAuto);
         }
 

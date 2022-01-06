@@ -13,10 +13,6 @@ public class WebApplication {
         runControl();
     }
 
-    /**
-     * PORT_NUMBER 번호로 WebApplication 을 실행합니다.
-     * Controller 가 추가되면 new MainController().run(); 을 통해서 실행합니다.
-     */
     private void runControl() {
         port(PORT_NUMBER);
         new MainController().run();
