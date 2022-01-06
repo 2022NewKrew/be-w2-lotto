@@ -1,7 +1,7 @@
 package view;
 
 import domain.Lotto;
-import domain.MatchingStatus;
+import domain.MatchStatus;
 
 import java.util.List;
 import java.util.Map;
@@ -47,16 +47,16 @@ public class LottoGuidePrinter {
         System.out.println(WINNING_LOTTO_REQUEST);
     }
 
-    public static void printLottoResult(int purchaseAmount, Map<MatchingStatus, Integer> matchResult, Long totalPrizeMoney) {
+    public static void printLottoResult(int purchaseAmount, Map<MatchStatus, Integer> matchResult, Long totalPrizeMoney) {
         System.out.println(WINNING_STATISTICS);
-        for (Map.Entry<MatchingStatus, Integer> e : matchResult.entrySet()) {
+        for (Map.Entry<MatchStatus, Integer> e : matchResult.entrySet()) {
             printResultOfMatchStatus(e);
         }
         System.out.printf(TOTAL_RETURN, ((totalPrizeMoney - purchaseAmount) / ((double) purchaseAmount)) * 100);
     }
 
-    private static void printResultOfMatchStatus(Map.Entry<MatchingStatus, Integer> status) {
-        if (status.getKey().equals(MatchingStatus.NOTHING) || status.getKey().equals(MatchingStatus.INVALID)) {
+    private static void printResultOfMatchStatus(Map.Entry<MatchStatus, Integer> status) {
+        if (status.getKey().equals(MatchStatus.NOTHING) || status.getKey().equals(MatchStatus.INVALID)) {
             return;
         }
         System.out.printf(MATCH_COUNT, status.getKey().getMatchCount());

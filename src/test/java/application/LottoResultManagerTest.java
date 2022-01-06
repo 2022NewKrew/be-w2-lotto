@@ -2,7 +2,7 @@ package application;
 
 import domain.Ball;
 import domain.Lotto;
-import domain.MatchingStatus;
+import domain.MatchStatus;
 import domain.WinningLotto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -50,18 +50,18 @@ class LottoResultManagerTest {
     void isResultCorrect() {
         LottoResultManager resultManager = new LottoResultManager(winningLotto, lottoList);
 
-        Map<MatchingStatus, Integer> result = resultManager.getMatchingResult();
+        Map<MatchStatus, Integer> result = resultManager.getMatchingResult();
 
         assertThat(result.entrySet())
                 .extracting(Map.Entry::getKey, Map.Entry::getValue)
                 .containsExactly(
-                        tuple(MatchingStatus.NOTHING, 2),
-                      tuple(MatchingStatus.THREE_MATCHES, 1),
-                        tuple(MatchingStatus.FOUR_MATCHES, 1),
-                        tuple(MatchingStatus.FIVE_MATCHES, 1),
-                        tuple(MatchingStatus.FIVE_MATCHES_AND_BONUS, 1),
-                        tuple(MatchingStatus.ALL_MATCHES, 1),
-                        tuple(MatchingStatus.INVALID, 0)
+                        tuple(MatchStatus.NOTHING, 2),
+                      tuple(MatchStatus.THREE_MATCHES, 1),
+                        tuple(MatchStatus.FOUR_MATCHES, 1),
+                        tuple(MatchStatus.FIVE_MATCHES, 1),
+                        tuple(MatchStatus.FIVE_MATCHES_AND_BONUS, 1),
+                        tuple(MatchStatus.ALL_MATCHES, 1),
+                        tuple(MatchStatus.INVALID, 0)
                 );
     }
 

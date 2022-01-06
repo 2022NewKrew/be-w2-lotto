@@ -1,7 +1,7 @@
 package application;
 
 import domain.Lotto;
-import domain.MatchingStatus;
+import domain.MatchStatus;
 import domain.WinningLotto;
 
 import java.util.EnumMap;
@@ -11,18 +11,18 @@ import java.util.Map;
 public class LottoResultManager {
     private final WinningLotto winningLotto;
     private final List<Lotto> userLottoList;
-    private final Map<MatchingStatus, Integer> matchingResult;
+    private final Map<MatchStatus, Integer> matchingResult;
 
     public LottoResultManager(WinningLotto winningLotto, List<Lotto> userLottoList) {
         this.winningLotto = winningLotto;
         this.userLottoList = userLottoList;
-        this.matchingResult = new EnumMap<>(MatchingStatus.class);
-        for (var e: MatchingStatus.values()) {
+        this.matchingResult = new EnumMap<>(MatchStatus.class);
+        for (var e: MatchStatus.values()) {
             matchingResult.put(e, 0);
         }
     }
 
-    public Map<MatchingStatus, Integer> getMatchingResult() {
+    public Map<MatchStatus, Integer> getMatchingResult() {
         for (Lotto lotto: userLottoList) {
             int matchCount = winningLotto.checkNumberOfWinning(lotto);
             boolean isBonusMatched = winningLotto.checkBonusBallMatched(lotto);
@@ -32,7 +32,7 @@ public class LottoResultManager {
     }
 
     private void reflectScore(int matchCount, boolean isBonusMatched) {
-        MatchingStatus status = MatchingStatus.getMatchingStatus(matchCount, isBonusMatched);
+        MatchStatus status = MatchStatus.getMatchingStatus(matchCount, isBonusMatched);
         matchingResult.put(status, matchingResult.get(status) + 1);
     }
 

@@ -1,6 +1,6 @@
 package domain;
 
-public enum MatchingStatus {
+public enum MatchStatus {
     NOTHING(0, 0),
     THREE_MATCHES(3, 5000),
     FOUR_MATCHES(4, 50000),
@@ -15,21 +15,21 @@ public enum MatchingStatus {
     private int prizeMoney;
     private boolean isBonusMatched;
 
-    MatchingStatus() {
+    MatchStatus() {
     }
 
-    MatchingStatus(int matchCount, int prizeMoney) {
+    MatchStatus(int matchCount, int prizeMoney) {
         this.matchCount = matchCount;
         this.prizeMoney = prizeMoney;
     }
 
-    MatchingStatus(int matchCount, int prizeMoney, boolean isBonusMatched) {
+    MatchStatus(int matchCount, int prizeMoney, boolean isBonusMatched) {
         this.matchCount = matchCount;
         this.prizeMoney = prizeMoney;
         this.isBonusMatched = isBonusMatched;
     }
 
-    public static MatchingStatus getMatchingStatus(int matchCount, boolean isBonusMatched) {
+    public static MatchStatus getMatchingStatus(int matchCount, boolean isBonusMatched) {
         if (matchCount == NUMBER_MATCH_BALLS_2ND && isBonusMatched) {
             return FIVE_MATCHES_AND_BONUS;
         }
@@ -39,7 +39,7 @@ public enum MatchingStatus {
         if (isStatusNothing(matchCount)) {
             return NOTHING;
         }
-        for (var status : MatchingStatus.values()) {
+        for (var status : MatchStatus.values()) {
             if (status.matchCount == matchCount) {
                 return status;
             }
