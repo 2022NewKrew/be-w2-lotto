@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 public class LottoSheetDto {
     private Long id;
     private List<LottoDto> lottoDtoList;
+    private int lottoSheetSize;
 
     public LottoSheetDto(List<LottoDto> lottoDtoList, Long id) {
         this.id = id;
@@ -20,6 +21,11 @@ public class LottoSheetDto {
 
     public Long getId() {
         return id;
+    }
+
+    public int getLottoSheetSize() {
+        lottoSheetSize = lottoDtoList.size();
+        return lottoSheetSize;
     }
 
     public static LottoSheetDto of(LottoSheetWithId lottoSheet) {

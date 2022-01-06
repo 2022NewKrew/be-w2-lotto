@@ -10,6 +10,11 @@ public class LottoConfigWithManual extends LottoConfig {
         super(purchaseAmount);
     }
 
+    public LottoConfigWithManual(Integer purchaseAmount, ManualLottoInnerConfig manualLottoInnerConfig) {
+        super(purchaseAmount);
+        this.manualLottoInnerConfig = manualLottoInnerConfig;
+    }
+
     public ManualLottoInnerConfig getManualLottoInnerConfig() {
         return manualLottoInnerConfig;
     }
