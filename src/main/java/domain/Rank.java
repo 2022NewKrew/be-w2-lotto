@@ -1,20 +1,18 @@
 package domain;
 
 public enum Rank {
-    FIFTH(3, 5000, false),
-    FOURTH(4, 50000, false),
-    THIRD(5, 1500000, false),
-    SECOND(5, 30000000, true),
-    FIRST(6, 2000000000, false);
+    FIFTH(3, 5000),
+    FOURTH(4, 50000),
+    THIRD(5, 1500000),
+    SECOND(5, 30000000),
+    FIRST(6, 2000000000);
 
     private final int countOfMatch;
     private final int winningMoney;
-    private final boolean isMatchBonus;
 
-    Rank(int countOfMatch, int winningMoney, boolean isMatchBonus) {
+    Rank(int countOfMatch, int winningMoney) {
         this.countOfMatch = countOfMatch;
         this.winningMoney = winningMoney;
-        this.isMatchBonus = isMatchBonus;
     }
 
     public static Rank valueOf(int countOfMatch, boolean isMatchBonus) {
@@ -30,6 +28,10 @@ public enum Rank {
         return null;
     }
 
+    public float calculateProfitMoney(int countOfWinningRank) {
+        return this.winningMoney * countOfWinningRank;
+    }
+
     public int getCountOfMatch() {
         return countOfMatch;
     }
@@ -37,4 +39,5 @@ public enum Rank {
     public int getWinningMoney() {
         return winningMoney;
     }
+
 }
