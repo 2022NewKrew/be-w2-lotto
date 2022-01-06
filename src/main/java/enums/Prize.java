@@ -20,9 +20,9 @@ public enum Prize {
         this.bonus = bonus;
     }
 
-    public static Prize valueOf(int matchedNumber) {
+    public static Prize valueOf(int matchedNumber, boolean bonus) {
         return Arrays.stream(Prize.values())
-                .filter(i -> i.getMatchCount() == matchedNumber)
+                .filter(i -> i.getMatchCount() == matchedNumber && i.getBonus() == bonus)
                 .findAny()
                 .orElse(MISS);
     }
@@ -33,5 +33,9 @@ public enum Prize {
 
     public long getMoney() {
         return money;
+    }
+
+    public boolean getBonus() {
+        return bonus;
     }
 }

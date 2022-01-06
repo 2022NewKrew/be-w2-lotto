@@ -47,14 +47,22 @@ public class LottoResult {
         }
     }
 
+    private void addLottoResult(Lotto lotto, EnumMap<Prize, Integer> lottoResult) {
+        int matchCount = lotto.matchCount(lastWeekWinningNumbers);
+
+        if (matchCount == 5) {
+            lottoResult.put(Prize.valueOf(matchCount, lotto.hasNumber(bonusNumber)), lottoResult.get(Prize.valueOf(matchCount, lotto.hasNumber(bonusNumber))) + 1);
+            return;
+        }
+        lottoResult.put(Prize.valueOf(matchCount, false), lottoResult.get(Prize.valueOf(matchCount, false)) + 1);
+    }
+
     public EnumMap<Prize, Integer> winningLottoCount(List<Lotto> lottoList) {
         EnumMap<Prize, Integer> lottoResult = new EnumMap<>(Prize.class);
 
         InitializeMap(lottoResult);
-        for (Lotto lotto : lottoList) {
-            int matchCount = lotto.matchCount(lastWeekWinningNumbers);
-            lottoResult.put(Prize.valueOf(matchCount), lottoResult.get(Prize.valueOf(matchCount)) + 1);
-        }
+        for (Lotto lotto : lottoList)
+            addLottoResult(lotto, lottoResult);
         return lottoResult;
     }
 
@@ -66,6 +74,6 @@ public class LottoResult {
             totalEarn += entry.getKey().getMoney() * entry.getValue();
 
         // (평가금액 - 원금) / 원금 * 100
-        return (totalEarn - purchaseAmount) / (double)purchaseAmount * 100.0d;
+        return (totalEarn - purchaseAmount) / (double) purchaseAmount * 100.0d;
     }
 }
