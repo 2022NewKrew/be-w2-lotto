@@ -167,3 +167,20 @@
 - `Matches` 클래스 수정
   - `Rank`에서의 `toString` 추가로 인한 해당 부분 변경
   - 수익률 계산 공식 수정 → ```((당첨 금액 - 사용한 금액) / 사용한 금액) * 100 (%)```
+---
+## 4단계 ([링크](https://lucas.codesquad.kr/2022-kakao/course/%EC%9B%B9%EB%B0%B1%EC%97%94%EB%93%9C/Lotto/%EB%A1%9C%EB%98%90-4%EB%8B%A8%EA%B3%84---%EC%9B%B9-UI-%EC%A0%81%EC%9A%A9))
+### 기능 요구사항
+- [SparkJava 강의](https://lucas.codesquad.kr/2022-kakao/course/%EC%9B%B9%EB%B0%B1%EC%97%94%EB%93%9C/Lotto/SparkJava) 를 참고해서 구현한다.
+- 스프링은 사용하지 않는다.
+- 콘솔 UI 대신 웹 UI를 적용한다.
+### 프로그래밍 요구사항
+- 이전 단계와 동일하게 적용한다.
+### 상세 구현사항
+- SparkJava와 Template Engine 중 Handlebars Template Engine을 활용
+- 제공받은 템플릿 중 `index.html`는 정적 페이지이므로 resources/static에, 나머지는 동적 페이지로 활용되므로 resources/templates에 넣음
+- 각 페이지를 탐색할 때 사용할 `LottoController` 클래스를 만듦
+- 기존에 UI 로직을 담당하던 `LottoView` 클래스를 삭제하고 `LottoGame` 클래스와 통합, 고로 게임을 진행하는 핵심 로직은 전부 `LottoGame`에 포함
+- Template Engine에서 읽어내기 위해 부득이하게 `Lottos` 클래스에서 getter 사용
+- 예외가 발생하면 `error.html`에 메시지를 보내도록 처리
+### 실행 결과
+![lotto_step4](img/lotto_step4.gif)
