@@ -1,16 +1,16 @@
-package Domain.Tickets;
+package domain.tickets;
 
 import java.util.List;
 
 public class WinningTicket extends Ticket {
-    private int bonusNumber;
+    private int bonusBall;
 
     public WinningTicket(List<Integer> winningNumbers, int bonusNumber) {
         this.selectedNumbers = winningNumbers;
-        this.bonusNumber = bonusNumber;
+        this.bonusBall = bonusNumber;
     }
 
-    public int getBonusNumber() {
-        return bonusNumber;
+    public int getBonusBall() {
+        return bonusBall;
     }
 }
