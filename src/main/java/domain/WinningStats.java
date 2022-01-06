@@ -1,10 +1,6 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Collections;
+import java.util.*;
 
 public class WinningStats {
     private final HashMap<Rank, Integer> winningStats = new HashMap<>();
@@ -20,22 +16,14 @@ public class WinningStats {
     }
 
     private void calculateWinningStatsOfOneLotto(PurchasedLotto lotto, List<Integer> winningNumbers, Integer bonusNumber) {
-        int countOfMatch = 0;
-        for (int winningNumber : winningNumbers) {
-            countOfMatch += hasNumberInLotto(lotto.getNumbers(), winningNumber);
-        }
+        Set<Integer> lottoWinningIntersectionSet = new HashSet<>(new HashSet<>(lotto.getNumbers()));
+        lottoWinningIntersectionSet.retainAll(new HashSet<>(winningNumbers));
+        int countOfMatch = lottoWinningIntersectionSet.size();
         boolean matchBonus = lotto.getNumbers().contains(bonusNumber);
         Rank rank = Rank.valueOf(countOfMatch, matchBonus);
         if (rank != null) {
             winningStats.put(rank, winningStats.getOrDefault(rank, 0) + 1);
         }
-    }
-
-    private int hasNumberInLotto(List<Integer> lottoNumbers, int winningNumber) {
-        if (lottoNumbers.contains(winningNumber)) {
-            return 1;
-        }
-        return 0;
     }
 
     public int getEarnedMoney() {
