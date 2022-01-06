@@ -1,10 +1,15 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
 public class Lottery {
-    private static final int SIZE = 6;
+    private static final String VALIDATE_SIZE_MESSAGE = "로또 숫자는 6개여야 합니다.";
+    private static final String VALIDATE_NUMBER_BOUND_MESSAGE = "로또 번호는 1 ~ 45 사이여야 합니다.";
+    private static final String VALIDATE_NUMBER_REPEAT_MESSAGE = "로또 번호는 중복될 수 없습니다.";
+
+    private static final int LOTTERY_COUNT = 6;
     private static final int MIN_NUMBER = 1;
     private static final int MAX_NUMBER = 45;
 
@@ -12,7 +17,7 @@ public class Lottery {
 
     public Lottery(List<Integer> numbers) {
         validate(numbers);
-        this.numbers = numbers;
+        this.numbers = new ArrayList<>(numbers);
     }
 
     private void validate(List<Integer> numbers) {
@@ -22,8 +27,8 @@ public class Lottery {
     }
 
     private void validateSize(List<Integer> numbers) {
-        if (numbers.size() != SIZE) {
-            throw new IllegalArgumentException("Error: 로또 숫자는 6개여야 합니다.");
+        if (numbers.size() != LOTTERY_COUNT) {
+            throw new IllegalArgumentException(VALIDATE_SIZE_MESSAGE);
         }
     }
 
@@ -35,14 +40,18 @@ public class Lottery {
 
     private void validateNumberBound(int number) {
         if (number < MIN_NUMBER || number > MAX_NUMBER) {
-            throw new IllegalArgumentException("Error: 로또 번호는 1 ~ 45 사이여야 합니다.");
+            throw new IllegalArgumentException(VALIDATE_NUMBER_BOUND_MESSAGE);
         }
     }
 
     private void validateNumbersRepeat(List<Integer> numbers) {
         if (new HashSet<>(numbers).size() < numbers.size()) {
-            throw new IllegalArgumentException("Error: 로또 번호는 중복될 수 없습니다.");
+            throw new IllegalArgumentException(VALIDATE_NUMBER_REPEAT_MESSAGE);
         }
+    }
+
+    public List<Integer> getNumbers() {
+        return numbers;
     }
 
     public Rank compareNumbers(WinningLottery winningLottery) {
@@ -55,8 +64,5 @@ public class Lottery {
 
         return Rank.valueOf(countOfMatch, matchBonus);
     }
-
-    public List<Integer> getNumbers() {
-        return numbers;
-    }
 }
+
