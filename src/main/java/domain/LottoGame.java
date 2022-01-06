@@ -24,9 +24,8 @@ public class LottoGame {
         init();
         lottoView.showLotto();
 
-        consoleInputLottoWinningNumbers();
-        consoleInputBonusNumber();
-        Lotto.setLottoWinningNumbers(lottoWinningNumbers, bonusNumber);
+        consoleInputLottoWinningLotto();
+        person.setWinningLotto(lottoWinningNumbers, bonusNumber);
 
         person.setLottoResult();
         lottoView.showResult();
@@ -52,15 +51,13 @@ public class LottoGame {
         lottoView = new LottoView(person);
     }
 
-    private void consoleInputBonusNumber() {
+    private void consoleInputLottoWinningLotto() {
+        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+        lottoWinningNumbers = scanner.nextLine();
+
         System.out.println("보너스 볼을 입력해 주세요.");
         this.bonusNumber = scanner.nextInt();
         scanner.close();
-    }
-
-    private void consoleInputLottoWinningNumbers() {
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        lottoWinningNumbers = scanner.nextLine();
     }
 
     private void consoleInputPrice() {

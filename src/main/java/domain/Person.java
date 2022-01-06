@@ -12,6 +12,7 @@ public class Person {
     private int incomeRate;
 
     private final List<Lotto> lottoList;
+    private WinningLotto winningLotto;
 
     public Person(int inputPrice) {
         checkInputPrice(inputPrice);
@@ -30,6 +31,10 @@ public class Person {
 
         List<Lotto> manualLottoList = manualInput.stream().map(Lotto::new).collect(Collectors.toList());
         this.lottoList.addAll(manualLottoList);
+    }
+
+    public void setWinningLotto(String lottoNumbers, int bonusNumber) {
+        this.winningLotto = new WinningLotto(lottoNumbers, bonusNumber);
     }
 
     private void checkInputPrice(int inputPrice) {
@@ -52,7 +57,7 @@ public class Person {
     }
 
     public void setLottoResult() {
-        lottoList.forEach(Lotto::compareLottoNumbers);
+        lottoList.forEach(lotto -> lotto.compareLottoNumbers(winningLotto));
         calcIncomeRate();
     }
 
