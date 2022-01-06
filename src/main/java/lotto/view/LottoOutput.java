@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoOutput {
-    public void printLottoList(List<LottoNumbers> lottoList) {
+    public void printLottoList(List<LottoNumbers> lottoList, int autoCount) {
+        System.out.printf("수동으로 %d장, 자동으로 %d장을 구매했습니다.\n", lottoList.size()-autoCount, autoCount);
         for (LottoNumbers lotto: lottoList) {
             System.out.println(lotto.getNumbers());
         }
@@ -14,12 +15,12 @@ public class LottoOutput {
     }
 
     public void printResult(ArrayList<Integer> rewards, ArrayList<Integer> results, int money) {
-        int winningPrice = 0;
+        long winningPrice = 0L;
         double yield;
         System.out.println("\n당첨 통계");
         System.out.println("-------------------");
         for (int sameCount = 3; sameCount < 8; sameCount++) {
-            winningPrice += rewards.get(sameCount) * results.get(sameCount);
+            winningPrice += (long) rewards.get(sameCount) * results.get(sameCount);
             printRankAndPrize(sameCount, rewards.get(sameCount), results.get(sameCount));
         }
         yield = (double) (winningPrice - money) / money * 100;

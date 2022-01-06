@@ -18,6 +18,13 @@ public class LottoNumbers {
         }
         Collections.sort(lottoNumber);
     }
+    public LottoNumbers(ArrayList<Integer> lottoNumbers) {
+        for (int i = 0; i < 6; i++) {
+            int number = lottoNumbers.get(i);
+            lottoNumber.add(number);
+        }
+        Collections.sort(lottoNumber);
+    }
 
     public ArrayList<Integer> getNumbers() {
         return lottoNumber;

@@ -16,22 +16,29 @@ public class LottoMain {
     private final ArrayList<Integer> results = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0));
     private final int price = 1000;
     private int money;
-    private int count;
+    private int autoCount;
 
 
     public void startGamble () {
         money = lottoInput.moneyInput();
-        count = money / price;
-        generateLottoList();
-        lottoOutput.printLottoList(lottoList);
+        autoCount = money / price;
+        generateUserInputLotto();
+        generateAutoLottoList();
+        lottoOutput.printLottoList(lottoList, autoCount);
         winningNumbers = lottoInput.winningNumbersInput();
         bonusNumber = lottoInput.bonusNumberInput();
         checkLottoNumber();
         lottoOutput.printResult(rewards, results, money);
     }
 
-    private void generateLottoList() {
-        for (int i = 0; i < count; i++) {
+    private void generateUserInputLotto() {
+        int count = lottoInput.selectCountInput();
+        autoCount -= count;
+        lottoInput.userInputLottoNumbers(lottoList, count);
+    }
+
+    private void generateAutoLottoList() {
+        for (int i = 0; i < autoCount; i++) {
             lottoList.add(new LottoNumbers());
         }
     }
