@@ -33,8 +33,11 @@ public class InputView {
     }
 
     public static List<List<Integer>> inputManualLottos(int count) throws IOException {
-        System.out.println(INPUT_MANUAL_NUMBERS_MESSAGE);
-
+        if (count < 0) {
+            return null;
+        } else if (count > 0) {
+            System.out.println(INPUT_MANUAL_NUMBERS_MESSAGE);
+        }
         List<List<Integer>> manualLottos = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             manualLottos.add(inputManualNumbers());

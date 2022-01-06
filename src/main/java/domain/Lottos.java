@@ -9,7 +9,8 @@ import java.util.stream.IntStream;
 
 public class Lottos {
 
-    private static final String COUNT_OF_MANUAL_ERROR_MESSAGE = "수동으로 구매할 로또의 수는 주어진 돈으로 구매가능한 로또의 수보다 클 수 없습니다.";
+    private static final String COUNT_OF_MANUAL_MIN_ERROR_MESSAGE = "수동으로 구매할 로또 수는 음수일 수 없습니다.";
+    private static final String COUNT_OF_MANUAL_MAX_ERROR_MESSAGE = "수동으로 구매할 로또 수는 주어진 돈으로 구매가능한 로또의 수보다 클 수 없습니다.";
     private static final int COUNT_LOTTO_MIN = 0;
     private static final int LOTTO_COUNT_PLUS = 1;
 
@@ -20,8 +21,9 @@ public class Lottos {
     }
 
     public static Lottos purchaseLottos(int countOfPurchaseLotto, List<List<Integer>> manualLottos) {
+        validateCountOfManual(manualLottos);
         int countOfAuto = countOfPurchaseLotto - manualLottos.size();
-        validate(countOfAuto);
+        validatecountOfAuto(countOfAuto);
 
         List<Lotto> lottos = manualLottos.stream()
             .map(Lotto::purchaseManualLotto)
@@ -34,9 +36,15 @@ public class Lottos {
         return new Lottos(lottos);
     }
 
-    private static void validate(int CountOfAuto) {
+    private static void validateCountOfManual(List<List<Integer>> manualLottos) {
+        if(manualLottos==null){
+            throw new IllegalArgumentException(COUNT_OF_MANUAL_MIN_ERROR_MESSAGE);
+        }
+    }
+
+    private static void validatecountOfAuto(int CountOfAuto) {
         if (CountOfAuto < COUNT_LOTTO_MIN) {
-            throw new IllegalArgumentException(COUNT_OF_MANUAL_ERROR_MESSAGE);
+            throw new IllegalArgumentException(COUNT_OF_MANUAL_MAX_ERROR_MESSAGE);
         }
     }
 

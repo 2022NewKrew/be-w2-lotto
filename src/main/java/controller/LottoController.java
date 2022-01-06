@@ -25,22 +25,41 @@ public class LottoController {
     }
 
     private static Money inputMoney() throws IOException {
-        return new Money(InputView.inputMoney());
+        while (true) {
+            try {
+                return new Money(InputView.inputMoney());
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     private static Lottos purchaseLotto(int countOfPurchaseLotto) throws IOException {
-        final int countOfManual = InputView.inputCountOfManual();
-        final int countOfAuto = countOfPurchaseLotto - countOfManual;
-        final List<List<Integer>> manualLottos = InputView.inputManualLottos(countOfManual);
-        Lottos lottos = Lottos.purchaseLottos(countOfPurchaseLotto, manualLottos);
-        OutputView.outputLottos(lottos, countOfAuto, countOfManual);
-        return lottos;
+        while (true) {
+            try {
+                final int countOfManual = InputView.inputCountOfManual();
+                final List<List<Integer>> manualLottos = InputView.inputManualLottos(countOfManual);
+                Lottos lottos = Lottos.purchaseLottos(countOfPurchaseLotto, manualLottos);
+                final int countOfAuto = countOfPurchaseLotto - countOfManual;
+
+                OutputView.outputLottos(lottos, countOfAuto, countOfManual);
+                return lottos;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     private static WinningNumbers inputWinningNumbers() throws IOException {
-        final List<Integer> inputWinningNumbers = InputView.inputWinningNumbers();
-        final int BonusNumber = InputView.inputBonusNumber();
-        return WinningNumbers.createWinningNumbers(
-            inputWinningNumbers, BonusNumber);
+        while (true) {
+            try {
+                final List<Integer> inputWinningNumbers = InputView.inputWinningNumbers();
+                final int BonusNumber = InputView.inputBonusNumber();
+                return WinningNumbers.createWinningNumbers(
+                    inputWinningNumbers, BonusNumber);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }
