@@ -52,6 +52,14 @@ public class LottoResult {
                 .sum();
     }
 
+    public int getTotalLottos() {
+        int total = 0;
+        for (Integer i : mapCount.values()) {
+            total += i;
+        }
+        return total;
+    }
+
     public Map<LottoPrize, Integer> getMapCount() {
         return Collections.unmodifiableMap(mapCount);
     }
