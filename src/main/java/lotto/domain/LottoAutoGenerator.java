@@ -14,8 +14,8 @@ import static lotto.domain.LottoNumber.MAX_NUMBER;
 import static lotto.domain.LottoNumber.MIN_NUMBER;
 
 public class LottoAutoGenerator {
-    private final List<Integer> randomNumbers = IntStream.rangeClosed(MIN_NUMBER, MAX_NUMBER)
-            .boxed()
+    private final List<LottoNumber> randomLottoNumberList = IntStream.rangeClosed(MIN_NUMBER, MAX_NUMBER)
+            .mapToObj(LottoNumber::new)
             .collect(Collectors.toList());
 
     public List<Lotto> getRandomLottos(long numOfLottos) throws IllegalArgumentException {
@@ -25,11 +25,8 @@ public class LottoAutoGenerator {
     }
 
     private @NotNull List<LottoNumber> getRandomLottoNumbers() throws IllegalArgumentException {
-        List<Integer> tmpList = new ArrayList<>(randomNumbers);
+        List<LottoNumber> tmpList = new ArrayList<>(randomLottoNumberList);
         Collections.shuffle(tmpList);
-        return randomNumbers.subList(0, NUM_OF_LOTTO_NUMBERS_IN_LOTTO)
-                .stream()
-                .map(LottoNumber::new)
-                .collect(Collectors.toList());
+        return new ArrayList<>(tmpList.subList(0, NUM_OF_LOTTO_NUMBERS_IN_LOTTO));
     }
 }

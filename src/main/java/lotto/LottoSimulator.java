@@ -83,10 +83,10 @@ public class LottoSimulator {
 
     @Contract("_, _ -> new")
     private @NotNull PurchasedLottos purchaseLotto(@NotNull PurchaseInfo purchasedInfo, List<Lotto> manualLottoList) {
-        LottoAutoGenerator lottoAutoGenerator = new LottoAutoGenerator();
         List<Lotto> purchasedLottoList = new ArrayList<>(manualLottoList);
         long numOfAutoLottos = purchasedInfo.getNumOfAutoLottos();
         try {
+            LottoAutoGenerator lottoAutoGenerator = new LottoAutoGenerator();
             List<Lotto> autoLottoList = lottoAutoGenerator.getRandomLottos(numOfAutoLottos);
             purchasedLottoList.addAll(autoLottoList);
             lottoOutputPrinter.printPurchaseResult(purchasedInfo.getNumOfManualLottos(), purchasedLottoList);
