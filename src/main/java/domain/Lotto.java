@@ -20,6 +20,10 @@ public class Lotto {
         return lotto;
     }
 
+    public boolean contains(Integer bonusNumber) {
+        return lotto.contains(bonusNumber);
+    }
+
     private void validateDuplicateNumber(List<Integer> lotto) {
         Set<Integer> unDuplicateLotto = new HashSet<>(lotto);
         if (unDuplicateLotto.size() != lotto.size()) {
