@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class InputView {
+public class ConsoleInputView {
     private static final Scanner sc = new Scanner(System.in);
     public static final int START_NUMBER = 1;
     public static final int END_NUMBER = 45;
@@ -32,12 +32,11 @@ public class InputView {
         return result;
     }
 
-    public static List getWinningInput() {
+    public static List<Integer> getWinningInput() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        List<Integer> lottoNumberList = getLottoNumberInput();
 
         // 적절하지 않은 로또 번호를 입력하면 다시 입력 해야 함.
-        return lottoNumberList;
+        return getLottoNumberInput();
     }
 
     private static List<Integer> getLottoNumberInput() {

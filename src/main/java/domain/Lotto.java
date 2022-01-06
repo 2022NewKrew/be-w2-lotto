@@ -1,13 +1,12 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Lotto {
     private final List<Integer> numberList;
     /*자동 생성 하는 경우*/
     public Lotto() {
-        numberList = LottoGenerator.getLottoNumbers();
+        this.numberList = LottoGenerator.generateLottoNumbers();
     }
     /*수동 생성 하는 경우*/
     public Lotto(List<Integer> numberList) {
