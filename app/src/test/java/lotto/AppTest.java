@@ -7,7 +7,7 @@ import lotto.domain.Lotto;
 import lotto.domain.LottoNumber;
 import lotto.domain.LottoPrize;
 import lotto.domain.LottoWinningNumber;
-import lotto.machine.LottoMachine;
+import lotto.domain.LottoMachine;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.Assert.*;
@@ -25,7 +25,7 @@ public class AppTest {
             lottoNumberList.add(LottoNumber.from(i));
         LottoWinningNumber lottoWinningNumber = new LottoWinningNumber(lottoNumberList, LottoNumber.from(7));
 
-        Lotto lotto = LottoMachine.generateLottoManually(lottoNumberList);
+        Lotto lotto = new Lotto(lottoNumberList);
 
         assertEquals(LottoPrize.FIRST_PLACE, lottoWinningNumber.match(lotto));
     }
@@ -43,7 +43,7 @@ public class AppTest {
         for (int i = 2; i <= 7; i++)
             lottoNumberList.add(LottoNumber.from(i));
 
-        Lotto lotto = LottoMachine.generateLottoManually(lottoNumberList);
+        Lotto lotto = new Lotto(lottoNumberList);
 
         assertEquals(LottoPrize.SECOND_PLACE, lottoWinningNumber.match(lotto));
     }
