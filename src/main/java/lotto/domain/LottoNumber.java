@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static lotto.util.ConstantValue.*;
+
 
 public class LottoNumber {
     private static final List<Integer> allNumbers =
             IntStream.rangeClosed(1, 45)
                     .boxed()
                     .collect(Collectors.toList());
-    private static final int SIZE_OF_NUMBERS = 6;
     private List<Integer> numbers;
 
 
@@ -27,7 +28,7 @@ public class LottoNumber {
 
     private void generateNumbers(){
         Collections.shuffle(allNumbers);
-        numbers =  new ArrayList<>(allNumbers.subList(0, SIZE_OF_NUMBERS));
+        numbers =  new ArrayList<>(allNumbers.subList(0, SIZE_OF_LOTTO));
         Collections.sort(numbers);
     }
 

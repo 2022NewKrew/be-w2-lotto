@@ -2,7 +2,7 @@ package lotto.view;
 
 import lotto.domain.LottoNumber;
 import lotto.domain.LottoPaper;
-import lotto.domain.LottoRank;
+import lotto.util.LottoRank;
 
 import java.util.Map;
 

@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import lotto.util.LottoRank;
 import org.junit.jupiter.api.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;

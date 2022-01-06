@@ -1,11 +1,13 @@
 package lotto.domain;
 
+import lotto.util.ValidInput;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static lotto.util.ConstantValue.*;
+
 public abstract class Input {
-    protected static final int LOTTO_START_NUMBER = 1;
-    protected static final int LOTTO_LAST_NUMBER = 45;
     protected final Scanner sc = new Scanner(System.in);
 }
 
@@ -32,20 +34,22 @@ class MultipleInput extends Input {
 
     protected List<Integer> getIntegers(){
         String numInput = sc.nextLine();
-        return Arrays.stream(numInput.replaceAll(" ","").split(","))
+        String[] numInputString = numInput.replaceAll(" ", "").split(",");
+        ValidInput.wrongSize(numInputString);
+        return Arrays.stream(numInputString)
                 .map(Integer::parseInt)
+                .distinct()
                 .collect(Collectors.toList());
     }
 
     protected void validation(){
+        ValidInput.wrongSize(numList);
         ValidInput.wrongLottoNumber(numList);
     }
 }
 
 
 class PriceInput extends SingleInput {
-    private static final int LOTTO_PRICE = 1000;
-
 
     @Override
     protected void printMessage() {

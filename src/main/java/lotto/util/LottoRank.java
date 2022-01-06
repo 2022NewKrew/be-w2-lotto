@@ -1,4 +1,4 @@
-package lotto.domain;
+package lotto.util;
 
 public enum LottoRank {
     FIFTH(5,3, 5_000),

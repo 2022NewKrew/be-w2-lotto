@@ -1,14 +1,12 @@
-package lotto.domain;
+package lotto.util;
 
 import lotto.exception.InvalidInputException;
 
 import java.util.List;
 
+import static lotto.util.ConstantValue.*;
+
 public class ValidInput {
-    private static final int LOTTO_START_NUMBER = 1;
-    private static final int LOTTO_LAST_NUMBER = 45;
-    private static final int FIRST_IDX = 0;
-    private static final int LAST_IDX = 5;
 
     public static void inputUnderValue(int standardValue, int inputValue){
         if(standardValue > inputValue){
@@ -27,6 +25,22 @@ public class ValidInput {
     public static void wrongLottoNumber(List<Integer> lottoNumbers){
         if(lottoNumbers.get(FIRST_IDX) < LOTTO_START_NUMBER || lottoNumbers.get(LAST_IDX) > LOTTO_LAST_NUMBER){
             throw new InvalidInputException("로또 숫자 범위에 맞지 않는 입력이 있습니다.");
+        }
+    }
+
+    public static void wrongSize(String[] numInputString){
+        if(numInputString.length != SIZE_OF_LOTTO){
+            throw new InvalidInputException(
+                    String.format("(현재: %d개, 기준: %d개) 번호 입력 갯수가 잘못되었습니다.",numInputString.length, SIZE_OF_LOTTO)
+            );
+        }
+    }
+
+    public static void wrongSize(List<Integer> numList){
+        if(numList.size() != SIZE_OF_LOTTO){
+            throw new InvalidInputException(
+                    String.format("(현재: %d개, 기준: %d개) 중복 번호 입력, 번호 갯수가 잘못되었습니다.",numList.size(), SIZE_OF_LOTTO)
+            );
         }
     }
 }
