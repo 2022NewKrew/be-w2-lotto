@@ -10,7 +10,14 @@ public class RankTest {
     @Test
     void valueOf_ValidParameter_ReturnsAppropriateRank() {
         assertThat(Rank.valueOf(0, true)).isEqualTo(Rank.MISS);
+        assertThat(Rank.valueOf(0, false)).isEqualTo(Rank.MISS);
+        assertThat(Rank.valueOf(1, true)).isEqualTo(Rank.MISS);
+        assertThat(Rank.valueOf(1, false)).isEqualTo(Rank.MISS);
+        assertThat(Rank.valueOf(2, true)).isEqualTo(Rank.MISS);
+        assertThat(Rank.valueOf(2, false)).isEqualTo(Rank.MISS);
         assertThat(Rank.valueOf(3,true)).isEqualTo(Rank.FIFTH);
+        assertThat(Rank.valueOf(3,false)).isEqualTo(Rank.FIFTH);
+        assertThat(Rank.valueOf(4, true)).isEqualTo(Rank.FOURTH);
         assertThat(Rank.valueOf(4, false)).isEqualTo(Rank.FOURTH);
         assertThat(Rank.valueOf(5, false)).isEqualTo(Rank.THIRD);
         assertThat(Rank.valueOf(5, true)).isEqualTo(Rank.SECOND);
