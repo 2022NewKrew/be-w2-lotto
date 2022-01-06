@@ -1,4 +1,4 @@
-package lotto.domain;
+package lotto.domain.ticket;
 
 import lotto.domain.generator.Generator;
 import lotto.domain.generator.ManualGenerator;

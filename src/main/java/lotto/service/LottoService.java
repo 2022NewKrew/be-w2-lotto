@@ -2,11 +2,12 @@ package lotto.service;
 
 import lotto.domain.*;
 import lotto.domain.result.LottoResult;
+import lotto.domain.ticket.TicketBundle;
 import lotto.dto.LottoCheckRequestDto;
 import lotto.dto.LottoCheckResponseDto;
 import lotto.dto.LottoPurchaseResponseDto;
 import lotto.dto.LottoPurchaseRequestDto;
-import lotto.domain.Ticket;
+import lotto.domain.ticket.Ticket;
 
 import java.util.List;
 

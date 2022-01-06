@@ -1,7 +1,7 @@
 package lotto.dto;
 
-import lotto.domain.Ticket;
-import lotto.domain.TicketBundle;
+import lotto.domain.ticket.Ticket;
+import lotto.domain.ticket.TicketBundle;
 
 import java.util.List;
 

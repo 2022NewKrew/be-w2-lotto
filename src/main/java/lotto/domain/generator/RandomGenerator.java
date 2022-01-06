@@ -1,6 +1,6 @@
 package lotto.domain.generator;
 
-import lotto.domain.Ticket;
+import lotto.domain.ticket.Ticket;
 
 import java.util.ArrayList;
 import java.util.Collections;
