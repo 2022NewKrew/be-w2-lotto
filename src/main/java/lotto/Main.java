@@ -24,7 +24,7 @@ public class Main {
     private static List<Lotto> lottoList;
     private static PurchaseInfo purchaseInfo;
 
-    /*
+/*
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             int purchaseAmount = getPurchaseAmountAndCheck(scanner);
@@ -43,7 +43,49 @@ public class Main {
             om.printPrizes(purchaseInfo, winningInfo);
         }
     }
-    */
+
+    private static int getPurchaseAmountAndCheck(Scanner scanner) {
+        System.out.println(CLI_PURCHASE_AMOUNT_TITLE);
+        int purchaseAmount = im.getPurchaseAmount(scanner.nextLine());
+        ExceptionCheck.checkValidPurchaseAmount(purchaseAmount);
+        return purchaseAmount;
+    }
+
+    private static int getManualLottoCountAndCheck(Scanner scanner, int totalNumOfPurchase) {
+        System.out.println(CLI_MANUAL_LOTTO_COUNT_TITLE);
+        int manualLottoCount = im.getManualLottoCount(scanner.nextLine());
+        ExceptionCheck.checkValidManualLottoCount(manualLottoCount, totalNumOfPurchase);
+        return manualLottoCount;
+    }
+
+    private static List<Lotto> getManualLottoAndCheck(Scanner scanner, int manualLottoCount) {
+        System.out.println(CLI_MANUAL_LOTTO_TITLE);
+        if (manualLottoCount == 0) {
+            return Collections.unmodifiableList(new ArrayList<>());
+        }
+        List<Lotto> manualLottoList = new ArrayList<>();
+        for (int i = 0; i < manualLottoCount; i++) {
+            manualLottoList.add(im.getManualLotto(scanner.nextLine()));
+        }
+        ExceptionCheck.checkValidManualLotto(manualLottoList, manualLottoCount);
+        return Collections.unmodifiableList(manualLottoList);
+    }
+
+    private static List<Integer> getWinningNumberAndCheck(Scanner scanner) {
+        System.out.println(CLI_WINNING_NUMBER_TITLE);
+        List<Integer> winningNumber = im.getWinningNumber(scanner.nextLine());
+        ExceptionCheck.checkValidNumberList(winningNumber);
+        return winningNumber;
+    }
+
+    private static int getBonusNumberAndCheck(Scanner scanner, List<Integer> winningNumber) {
+        System.out.println(CLI_BONUS_NUMBER_TITLE);
+        int bonusNumber = im.getBonusNumber(scanner.nextLine());
+        ExceptionCheck.checkValidBonusNumber(bonusNumber);
+        ExceptionCheck.checkBonusNumberInWinningNumber(bonusNumber, winningNumber);
+        return bonusNumber;
+    }
+*/
 
     public static void main(String[] args) {
         staticFiles.location("/static");
@@ -95,47 +137,4 @@ public class Main {
     public static String render(Map<String, Object> model, String templatePath) {
         return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
     }
-/*
-    private static int getPurchaseAmountAndCheck(Scanner scanner) {
-        System.out.println(CLI_PURCHASE_AMOUNT_TITLE);
-        int purchaseAmount = im.getPurchaseAmount(scanner.nextLine());
-        ExceptionCheck.checkValidPurchaseAmount(purchaseAmount);
-        return purchaseAmount;
-    }
-
-    private static int getManualLottoCountAndCheck(Scanner scanner, int totalNumOfPurchase) {
-        System.out.println(CLI_MANUAL_LOTTO_COUNT_TITLE);
-        int manualLottoCount = im.getManualLottoCount(scanner.nextLine());
-        ExceptionCheck.checkValidManualLottoCount(manualLottoCount, totalNumOfPurchase);
-        return manualLottoCount;
-    }
-
-    private static List<Lotto> getManualLottoAndCheck(Scanner scanner, int manualLottoCount) {
-        System.out.println(CLI_MANUAL_LOTTO_TITLE);
-        if (manualLottoCount == 0) {
-            return Collections.unmodifiableList(new ArrayList<>());
-        }
-        List<Lotto> manualLottoList = new ArrayList<>();
-        for (int i = 0; i < manualLottoCount; i++) {
-            manualLottoList.add(im.getManualLotto(scanner.nextLine()));
-        }
-        ExceptionCheck.checkValidManualLotto(manualLottoList, manualLottoCount);
-        return Collections.unmodifiableList(manualLottoList);
-    }
-
-    private static List<Integer> getWinningNumberAndCheck(Scanner scanner) {
-        System.out.println(CLI_WINNING_NUMBER_TITLE);
-        List<Integer> winningNumber = im.getWinningNumber(scanner.nextLine());
-        ExceptionCheck.checkValidNumberList(winningNumber);
-        return winningNumber;
-    }
-
-    private static int getBonusNumberAndCheck(Scanner scanner, List<Integer> winningNumber) {
-        System.out.println(CLI_BONUS_NUMBER_TITLE);
-        int bonusNumber = im.getBonusNumber(scanner.nextLine());
-        ExceptionCheck.checkValidBonusNumber(bonusNumber);
-        ExceptionCheck.checkBonusNumberInWinningNumber(bonusNumber, winningNumber);
-        return bonusNumber;
-    }
-*/
 }

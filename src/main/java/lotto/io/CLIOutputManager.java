@@ -29,7 +29,7 @@ public class CLIOutputManager implements OutputManager {
 
     public void printPrizes(PurchaseInfo purchaseInfo, WinningInfo winningInfo) {
         System.out.println(PRIZE_TITLE);
-        Arrays.stream(Rank.values()).forEach(rank -> {
+        Arrays.stream(Rank.values()).filter(Rank::isWin).forEach(rank -> {
             String format = setFormat(rank);
             System.out.format(format, rank.getMatchCount(), rank.getWinningMoney(), winningInfo.getWinCount().get(rank));
         });

@@ -5,9 +5,10 @@ public enum Rank {
     FOURTH(4, 50000),
     THIRD(5, 1500000),
     SECOND(5, 30000000),
-    FIRST(6, 2000000000);
+    FIRST(6, 2000000000),
+    NONE(0, 0);
 
-    private static final int MIN_MATCH_COUNT = 3;
+    public static final int MIN_MATCH_COUNT = 3;
 
     private final int matchCount;
     private final int winningMoney;
@@ -26,18 +27,18 @@ public enum Rank {
     }
 
     public static Rank valueOf(int countOfMatch, boolean matchBonus) {
-        Rank[] ranks = values();
-        Rank result = null;
-        for (Rank rank : ranks) {
-            result = rank.matchCount == countOfMatch ? rank : result;
-        }
         if (countOfMatch == SECOND.matchCount) {
             return matchBonus ? SECOND : THIRD;
+        }
+        Rank[] ranks = values();
+        Rank result = Rank.NONE;
+        for (Rank rank : ranks) {
+            result = rank.matchCount == countOfMatch ? rank : result;
         }
         return result;
     }
 
-    public static boolean isWin(int count) {
-        return count >= MIN_MATCH_COUNT;
+    public boolean isWin() {
+        return this.matchCount >= MIN_MATCH_COUNT;
     }
 }

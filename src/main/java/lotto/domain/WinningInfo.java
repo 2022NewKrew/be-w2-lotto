@@ -43,7 +43,7 @@ public class WinningInfo {
 
     private void initializeWinCount(List<Lotto> lottoList, List<Integer> winningNumber) {
         for (Rank rank : Rank.values()) {
-            this.winCount.put(rank, 0);
+            if (rank.isWin()) this.winCount.put(rank, 0);
         }
         for (Lotto lotto : lottoList) {
             addWinCount(lotto, winningNumber, bonusNumber);
@@ -52,15 +52,15 @@ public class WinningInfo {
 
     private void initializeReturnAmount() {
         for (Rank rank : Rank.values()) {
-            this.returnAmount += rank.getWinningMoney() * this.winCount.get(rank);
+            if (rank.isWin()) this.returnAmount += rank.getWinningMoney() * this.winCount.get(rank);
         }
     }
 
     private void addWinCount(Lotto lotto, List<Integer> winningNumber, int bonusNumber) {
         int matchCount = compare(lotto, winningNumber);
-        if (Rank.isWin(matchCount)) {
-            boolean isBonusContained = lotto.getNumbers().contains(bonusNumber);
-            Rank result = Rank.valueOf(matchCount, isBonusContained);
+        boolean isBonusContained = lotto.getNumbers().contains(bonusNumber);
+        Rank result = Rank.valueOf(matchCount, isBonusContained);
+        if (result.isWin()) {
             this.winCount.put(result, this.winCount.get(result) + 1);
         }
     }
