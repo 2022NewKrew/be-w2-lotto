@@ -5,100 +5,70 @@ import lotto.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static spark.Spark.*;
+import spark.ModelAndView;
+import spark.template.handlebars.HandlebarsTemplateEngine;
+
 public class PrintLotto {
 
-    public static void start() {
-        int money = 0;
+    private static int money = 0;
+    private static LottoMachine lottoMachine = new LottoMachine();
+
+    public static void runServer() {
+        port(8080);
+        staticFiles.location("/");
+        post("buyLotto", PrintLotto::postBuyLotto);
+        post("matchLotto", PrintLotto::postMatchLotto);
+    }
+
+    private static String postBuyLotto(spark.Request request, spark.Response response) {
         try {
-            money = getMoney();
-        } catch(RuntimeException e) {
-            System.out.println("구입금액이 잘못 입력되었습니다.");
-            System.exit(1);
+            money = Integer.parseInt(request.queryParams("inputMoney"));
+            final List<String> manualNumbers = Arrays.asList(request.queryParams("manualNumber").split("\r?\n"));
+            List<UserLotto> manualLottos = manualNumbers.stream().map(x -> new UserLotto(splitNumbers(x))).collect(Collectors.toList());
+
+            lottoMachine = new LottoMachine();
+            lottoMachine.addManualLottos(manualLottos);
+            lottoMachine.buyLotto(money - manualLottos.size() * 1000);
+
+            Map<String, Object> model = new HashMap<>();
+            model.put("lottosSize", lottoMachine.getAllLottos().size());
+            model.put("lottos", lottoMachine.getAllLottos().stream().map(x -> Collections.singletonMap("numbers", x.toString())).collect(Collectors.toList()));
+
+            return render(model, "/show.html");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        int manualCount = 0;
-        try {
-            manualCount = getManualCount();
-        } catch(RuntimeException e) {
-            System.out.println("수동으로 구매할 로또 수가 잘못 입력되었습니다.");
-            System.exit(2);
-        }
-        List<UserLotto> manualLottos = new ArrayList<>();
-        try {
-            manualLottos = getManualLottos(manualCount);
-        } catch(RuntimeException e) {
-            System.out.println("수동으로 구매할 번호가 잘못 입력되었습니다.");
-            System.exit(3);
-        }
-        LottoMachine lottoMachine = new LottoMachine();
-        lottoMachine.addManualLottos(manualLottos);
-        lottoMachine.buyLotto(money - manualCount*1000);
-        printLottos(lottoMachine.getManualLottos(), lottoMachine.getAutomaticLottos());
-        WinningLotto winLotto = null;
-        try {
-            winLotto = getWinLotto();
-        } catch (RuntimeException e) {
-            System.out.println("당첨 번호 및 보너스 볼이 잘못 입력되었습니다.");
-            System.exit(4);
-        }
-        RankCount rankCount = lottoMachine.getRankCount(winLotto);
-        printLottoResult(money, rankCount);
+        return "";
     }
 
-    private static int getMoney() throws NoSuchElementException, IllegalStateException {
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
-        System.out.println("구입금액을 입력해 주세요.");
-        return in.nextInt();
+    private static String postMatchLotto(spark.Request request, spark.Response response) {
+        WinningLotto winningLotto = new WinningLotto(splitNumbers(request.queryParams("winningNumber")), LottoBall.values()[Integer.parseInt(request.queryParams("bonusNumber"))-1]);
+        RankCount rankCount = lottoMachine.getRankCount(winningLotto);
+
+        Map<String, List<String>> message = Collections.singletonMap("message",
+                Arrays.asList(
+                        "3개 일치 (5000원)- " + rankCount.getFifthCount() + "개",
+                        "4개 일치 (50000원)- " + rankCount.getFourthCount() + "개",
+                        "5개 일치 (1500000원)- " + rankCount.getThirdCount() + "개",
+                        "5개 일치, 보너스 볼 일치(30000000원)- " + rankCount.getSecondCount() + "개",
+                        "6개 일치 (2000000000원)- " + rankCount.getFirstCount() + "개"
+                )
+        );
+        Map<String, Object> model = new HashMap<>();
+        model.put("lottosResult", message);
+        model.put("totalRateOfReturn", (calcProfit(rankCount) - money)  * 100 / money);
+
+        return render(model, "/result.html");
     }
 
-    private static int getManualCount() throws NoSuchElementException, IllegalStateException {
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
-        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
-        return in.nextInt();
-    }
-
-    private static List<UserLotto> getManualLottos(int manualCount) throws NoSuchElementException, IllegalStateException {
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
-        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
-        List<UserLotto> manualLottos = new ArrayList<>();
-        for (int i = 0; i < manualCount; i++) {
-            manualLottos.add(new UserLotto(splitNumbers(in.next())));
-        }
-        return manualLottos;
-    }
-
-    private static void printLottos(List<UserLotto> manualLottos, List<UserLotto> automaticLottos) {
-        System.out.println("수동으로 " + manualLottos.size() + "장, 자동으로 " + automaticLottos.size() + "장을 구매했습니다.");
-        List<UserLotto> lottos = new ArrayList<>();
-        lottos.addAll(manualLottos);
-        lottos.addAll(automaticLottos);
-        for(UserLotto lotto: lottos) {
-            System.out.println(lotto.getLottoNumbers().stream().map(x -> x.ordinal() + 1).collect(Collectors.toList()));
-        }
-    }
-
-    private static WinningLotto getWinLotto() throws NoSuchElementException, IllegalStateException {
-        Scanner in = new Scanner(System.in).useDelimiter("\n");
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        List<LottoBall> winningNumbers = splitNumbers(in.next());
-        System.out.println("보너스 볼을 입력해 주세요.");
-        LottoBall bonusBall = LottoBall.values()[in.nextInt()-1];
-        return new WinningLotto(winningNumbers, bonusBall);
+    public static String render(Map<String, Object> model, String templatePath) {
+        return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
     }
 
     private static List<LottoBall> splitNumbers(String numStr) {
         final List<String> inputs = new ArrayList<>(Arrays.asList(numStr.split(",")));
         return inputs.stream().map(x -> LottoBall.values()[Integer.parseInt(x.trim())-1]).collect(Collectors.toList());
-    }
-
-    private static void printLottoResult(int money, RankCount rankCount) {
-        System.out.println("당첨 통계");
-        System.out.println("----------");
-        System.out.println("3개 일치 (5000원)- " + rankCount.getFifthCount() + "개");
-        System.out.println("4개 일치 (50000원)- " + rankCount.getFourthCount() + "개");
-        System.out.println("5개 일치 (1500000원)- " + rankCount.getThirdCount() + "개");
-        System.out.println("5개 일치, 보너스 볼 일치(30000000원)- " + rankCount.getSecondCount() + "개");
-        System.out.println("6개 일치 (2000000000원)- " + rankCount.getFirstCount() + "개");
-        System.out.println("총 수익률은 " + (calcProfit(rankCount) - money) * 100 / money + "%입니다.");
     }
 
     private static long calcProfit(RankCount rankCount) {

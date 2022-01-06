@@ -36,6 +36,13 @@ public class LottoMachine {
         return automaticLottos;
     }
 
+    public List<UserLotto> getAllLottos() {
+        ArrayList<UserLotto> lottos = new ArrayList<>();
+        lottos.addAll(manualLottos);
+        lottos.addAll(automaticLottos);
+        return lottos;
+    }
+
     public RankCount getRankCount(WinningLotto winLotto) {
         RankCount rankCount = new RankCount();
         for(UserLotto lotto: automaticLottos) {
