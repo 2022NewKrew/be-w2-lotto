@@ -8,11 +8,12 @@ import view.LottoOutput;
 public class BuyLotto {
     public static int buyPrice = 0;
     public static final int LottoPrice = 1000;
-    public BuyLotto(){
+
+    public BuyLotto() {
 
     }
 
-    public static LottoPack buy(int buyPrice){
+    public static LottoPack buy(int buyPrice) {
         LottoPack lottoPack = new LottoPack(buyPrice);
         BuyLotto.buyPrice = buyPrice;
         int numberOfLotto = buyPrice / LottoPrice;
@@ -21,7 +22,8 @@ public class BuyLotto {
         }
         return lottoPack;
     }
-    private static void printLottoPack(LottoPack lottoPack){
+
+    public static void printLottoPack(LottoPack lottoPack) {
         LottoOutput.printLottoPack(lottoPack);
     }
 

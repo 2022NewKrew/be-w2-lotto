@@ -1,8 +1,8 @@
 package domain;
 
 public class Match {
-    public static Ranking makeLottoRank(Lotto lotto, Lotto prize){
-        switch (lotto.countNumbersMatch(prize)){
+    public static Ranking makeLottoRank(Lotto lotto, Lotto prize) {
+        switch (lotto.countNumbersMatch(prize)) {
             case 3:
                 return Ranking.THREE;
             case 4:
