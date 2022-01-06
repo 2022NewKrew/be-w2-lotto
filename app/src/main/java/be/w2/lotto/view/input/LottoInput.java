@@ -37,12 +37,12 @@ final class LottoInput {
 
     private static List<LottoNumber> convertInputToListOfNumbers(String input) {
         String[] stringsOfNumber = getStringsOfNumberFrom(input);
-        List<LottoNumber> numbers = new ArrayList<>(stringsOfNumber.length);
+        List<LottoNumber> lottoNumbers = new ArrayList<>(stringsOfNumber.length);
         for (String stringOfNumber : stringsOfNumber) {
-            numbers.add(LottoNumber.of(stringOfNumber));
+            lottoNumbers.add(LottoNumber.of(stringOfNumber));
         }
-        Collections.sort(numbers);
-        return numbers;
+        Collections.sort(lottoNumbers);
+        return lottoNumbers;
     }
 
     private static String[] getStringsOfNumberFrom(String input) {

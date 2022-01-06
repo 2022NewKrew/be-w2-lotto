@@ -37,6 +37,6 @@ public enum Winnings {
     }
 
     private static boolean isFiveAndBonus(CorrectSpec correctSpec) {
-        return correctSpec.getNumOfCorrect() == FIVE_AND_BONUS.getHowManyCorrect() && correctSpec.isContainBonus();
+        return correctSpec.getNumOfCorrect() == FIVE_AND_BONUS.howManyCorrect && correctSpec.isContainBonus();
     }
 }

@@ -13,7 +13,7 @@ public class LastWinningLotto extends Lotto {
 
     public int getHowManyCorrect(Lotto myLotto) {
         int howManyCorrect = 0;
-        for (LottoNumber number : numbers) {
+        for (LottoNumber number : lottoNumbers) {
             if (myLotto.isContain(number)) howManyCorrect++;
         }
         return howManyCorrect;
