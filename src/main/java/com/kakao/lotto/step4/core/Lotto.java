@@ -1,4 +1,4 @@
-package com.kakao.lotto.step3.core;
+package com.kakao.lotto.step4.core;
 
 import java.util.ArrayList;
 import java.util.Collections;
