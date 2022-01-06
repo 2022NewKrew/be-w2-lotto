@@ -14,12 +14,17 @@ public class ConsoleView {
     private static final LottoGameConsoleController lottoGameConsoleController = new LottoGameConsoleController();
 
     public void start() {
-        // 로또 구매
-        BuyLottoDto buyLottoDto = lottoGameConsoleController.buy();
-        printBuyList(buyLottoDto);
+        try {
+            // 로또 구매
+            BuyLottoDto buyLottoDto = lottoGameConsoleController.buy();
+            printBuyList(buyLottoDto);
 
-        // 당첨 통계
-        printResults(lottoGameConsoleController.result(buyLottoDto.getLottoList()));
+            // 당첨 통계
+            printResults(lottoGameConsoleController.result(buyLottoDto.getLottoList()));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            start();
+        }
     }
 
     private void printResults(ResultResponse resultResponse) {
