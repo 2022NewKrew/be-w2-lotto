@@ -1,40 +1,52 @@
 package lottogame.domain;
 
-public class LotteryNumber {
-    private static final int MIN_LOTTERY_NUMBER = 1;
-    private static final int MAX_LOTTERY_NUMBER = 45;
+import java.util.Objects;
 
-    private int lotteryNumber;
+public class LotteryNumber implements Comparable {
+    private static final int MIN_NUMBER = 1;
+    private static final int MAX_NUMBER = 45;
 
-    LotteryNumber(int lotteryNumber) {
+    private final int lotteryNumber;
+
+    public LotteryNumber(int lotteryNumber) {
         validateRange(lotteryNumber);
         this.lotteryNumber = lotteryNumber;
     }
 
     private void validateRange(int lotteryNumber) {
-        if (lotteryNumber > MAX_LOTTERY_NUMBER) {
-            throw new IllegalArgumentException("로또 번호는 45 이하만 가능합니다.");
+        if (lotteryNumber < MIN_NUMBER) {
+            throw new IllegalArgumentException("로또번호는 1이상 입니다.");
         }
 
-        if (lotteryNumber < MIN_LOTTERY_NUMBER) {
-            throw new IllegalArgumentException("로또 번호는 1 이상만 가능합니다.");
+        if (lotteryNumber > MAX_NUMBER) {
+            throw new IllegalArgumentException("로또번호는 45이하 입니다.");
         }
-    }
-
-    public int getLotteryNumber() {
-        return lotteryNumber;
     }
 
     @Override
-    public String toString() {
-        return Integer.toString(lotteryNumber);
+    public int compareTo(Object object) {
+        LotteryNumber compare = (LotteryNumber) object;
+        return lotteryNumber - compare.lotteryNumber;
     }
 
     @Override
     public boolean equals(Object object) {
-        if (object instanceof LotteryNumber) {
-            return this.lotteryNumber == ((LotteryNumber) object).getLotteryNumber();
+        if (this == object) {
+            return true;
         }
-        return false;
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        LotteryNumber that = (LotteryNumber) object;
+        return lotteryNumber == that.lotteryNumber;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lotteryNumber);
+    }
+
+    public int getLotteryNumber() {
+        return lotteryNumber;
     }
 }

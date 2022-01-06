@@ -1,19 +1,25 @@
 package lottogame.domain;
 
+import java.util.HashMap;
+
 public class Statistics {
-    private Results results;
-    private RateOfReturn rateOfReturn;
+    private HashMap<Rank, Integer> statistics;
 
-    Statistics(Results results, RateOfReturn rateOfReturn) {
-        this.results = results;
-        this.rateOfReturn = rateOfReturn;
+    public Statistics(HashMap<Rank, Integer> statistics) {
+        this.statistics = statistics;
     }
 
-    public Results getResults() {
-        return results;
+    public HashMap<Rank, Integer> getStatistics() {
+        return statistics;
     }
 
-    public RateOfReturn getRateOfReturn() {
-        return rateOfReturn;
+    public int sumPrizeMoney() {
+        int sum = 0;
+        for (var statisticsSet : statistics.entrySet()) {
+            Rank rank = statisticsSet.getKey();
+            int count = statisticsSet.getValue();
+            sum += rank.calculatePrizeMoney(count);
+        }
+        return sum;
     }
 }

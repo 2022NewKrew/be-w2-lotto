@@ -1,14 +1,15 @@
 package lottogame.controller;
 
 import lottogame.domain.*;
-import lottogame.dto.PurchasedPrice;
-import lottogame.dto.WinningNumbers;
 import lottogame.view.LottoGameView;
 
 public class LottoGameController {
     private LottoGameView view = new LottoGameView();
+    private PurchaseAmount purchaseAmount;
     private LotteryTickets lotteryTickets;
-    private Statistics winningStatistics;
+    private Statistics statistics;
+    private int rateOfReturn;
+
 
     public LottoGameController() {
     }
@@ -21,20 +22,22 @@ public class LottoGameController {
     }
 
     private void purchaseLotteryTickets() {
-        PurchasedPrice purchasedPrice = view.inputPurchasedPrice();
-        lotteryTickets = LotteryTicketsFactory.create(purchasedPrice);
+        purchaseAmount = new PurchaseAmount(view.inputPurchaseAmount());
+        lotteryTickets = purchaseAmount.buyLotteryTickets(new RandomGenerator());
     }
 
     public void printLotteryTickets() {
-        view.printPurchasedTickets(lotteryTickets);
+        view.printLotteryTickets(lotteryTickets);
     }
 
     public void inputLastWeekWinningNumbers() {
-        WinningNumbers winningNumbers = view.inputWinningNumbers();
-        winningStatistics = StatisticsFactory.create(lotteryTickets, winningNumbers);
+        LotteryNumbers winningNumbers = new ManualGenerator(view.inputWinningNumbers()).generate();
+        LotteryNumber bonusNumber = new LotteryNumber(view.inputBonusBall());
+        statistics = lotteryTickets.makeStatistics(winningNumbers, bonusNumber);
+        rateOfReturn = purchaseAmount.calculateRateOfReturn(statistics.sumPrizeMoney());
     }
 
     public void printWinningStatistic() {
-        view.printWinningStatistic(winningStatistics);
+        view.printWinningStatistic(statistics, rateOfReturn);
     }
 }

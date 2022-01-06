@@ -1,62 +1,64 @@
 package lottogame.domain;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class LotteryNumbers {
-    private static final int DEFAULT_SIZE = 6;
-    private static final String START_STRING = "[";
-    private static final String END_STRING = "]";
-    private static final String DELIMITER = ", ";
+    private static int DEFAULT_LENGTH = 6;
 
-    private List<LotteryNumber> numbers;
+    private List<LotteryNumber> lotteryNumbers;
 
-    LotteryNumbers(List<LotteryNumber> numbers) {
-        validateSize(numbers);
-        this.numbers = numbers;
+    LotteryNumbers(List<LotteryNumber> lotteryNumbers) {
+        validateIsNull(lotteryNumbers);
+        validateExceedDefaultLength(lotteryNumbers);
+        validateIsDuplicate(lotteryNumbers);
+        Collections.sort(lotteryNumbers);
+        this.lotteryNumbers = lotteryNumbers;
     }
 
-    private void validateSize(List<LotteryNumber> numbers) {
-        if (numbers.size() != DEFAULT_SIZE) {
-            throw new IllegalArgumentException("로또 번호는 6자리만 가능 합니다.");
+    private void validateIsNull(List<LotteryNumber> lotteryNumbers) {
+        if (lotteryNumbers == null) {
+            throw new IllegalArgumentException("로또번호는 null일 수 없습니다.");
         }
+    }
+
+    private void validateExceedDefaultLength(List<LotteryNumber> lotteryNumbers) {
+        if (lotteryNumbers.size() != DEFAULT_LENGTH) {
+            throw new IllegalArgumentException("로또번호는 6개 입니다.");
+        }
+    }
+
+    private void validateIsDuplicate(List<LotteryNumber> lotteryNumbers) {
+        if (lotteryNumbers.stream().distinct().count() != DEFAULT_LENGTH) {
+            throw new IllegalArgumentException("로또번호는 중복될 수 없습니다.");
+        }
+    }
+
+    public int countNumberOfMatch(LotteryNumbers winningNumbers) {
+        return (int) winningNumbers.lotteryNumbers.stream()
+                .filter(winningNumber -> isContain(winningNumber))
+                .count();
+    }
+
+    public boolean isContain(LotteryNumber lotteryNumber) {
+        return lotteryNumbers.contains(lotteryNumber);
     }
 
     @Override
-    public String toString() {
-        StringBuilder stringNumbers = new StringBuilder();
-        for (var number : numbers) {
-            String delimiter = setDelimiter(stringNumbers);
-            stringNumbers.append(delimiter);
-            stringNumbers.append(number.toString());
-        }
-        stringNumbers.append(END_STRING);
-        return stringNumbers.toString();
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        LotteryNumbers that = (LotteryNumbers) object;
+        return Objects.equals(lotteryNumbers, that.lotteryNumbers);
     }
 
-    private String setDelimiter(StringBuilder stringNumbers) {
-        if (stringNumbers.length() == 0) {
-            return START_STRING;
-        }
-        return DELIMITER;
+    @Override
+    public int hashCode() {
+        return Objects.hash(lotteryNumbers);
     }
 
-    public List<LotteryNumber> getNumbers() {
-        return numbers;
-    }
-
-    public int countOfSameNumbers(LotteryNumbers compareNumbers) {
-        List<LotteryNumber> compare = compareNumbers.getNumbers();
-        int count = 0;
-        for (var number : numbers) {
-            count += compareNumber(compare, number);
-        }
-        return count;
-    }
-
-    public int compareNumber(List<LotteryNumber> compare, LotteryNumber number) {
-        if (compare.contains(number)) {
-            return 1;
-        }
-        return 0;
+    public List<LotteryNumber> getLotteryNumbers() {
+        return lotteryNumbers;
     }
 }

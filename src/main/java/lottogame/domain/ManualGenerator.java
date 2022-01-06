@@ -3,11 +3,15 @@ package lottogame.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LotteryNumbersFactory {
-    private LotteryNumbersFactory() {
+public class ManualGenerator implements LotteryNumbersGenerator {
+    private List<Integer> numbers;
+
+    public ManualGenerator(List<Integer> numbers) {
+        this.numbers = numbers;
     }
 
-    public static LotteryNumbers create(List<Integer> numbers) {
+    @Override
+    public LotteryNumbers generate() {
         List<LotteryNumber> lotteryNumbers = new ArrayList<>();
         for (var number : numbers) {
             lotteryNumbers.add(new LotteryNumber(number));
