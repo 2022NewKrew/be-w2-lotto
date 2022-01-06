@@ -1,12 +1,16 @@
 package lotto.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
 import java.util.stream.Stream;
+import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 class WinningLottoTest {
 
@@ -24,6 +28,19 @@ class WinningLottoTest {
 
         // then
         assertThat(matchResult).isEqualTo(reward);
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0, 46})
+    @DisplayName("보너스번호가 1 ~ 45 사이가 아니라면 에러가 발새한다.")
+    void test_BonusNumber_BoundOver(int bonusNumber) {
+        // given
+
+        // when
+        ThrowingCallable callable = () -> new WinningLotto(List.of(1, 2, 3, 4, 5, 6), bonusNumber);
+
+        // then
+        assertThatThrownBy(callable).isExactlyInstanceOf(IllegalArgumentException.class);
     }
 
     private static Stream<Item> getTestLotto() {

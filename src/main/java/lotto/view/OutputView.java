@@ -14,8 +14,11 @@ public class OutputView {
     private OutputView() {
     }
 
-    public static void printPurchaseLottoCount(int purchaseLottoCount) {
-        System.out.println(purchaseLottoCount + "개를 구매했습니다.");
+    public static void printPurchaseLottoCount(int selfSize, int autoSize) {
+        System.out.printf("수동으로 %d장, 자동으로 %d장을 구매했습니다.%s",
+            selfSize,
+            autoSize,
+            NEW_LINE);
     }
 
     public static void printLottos(Lottos lottos) {

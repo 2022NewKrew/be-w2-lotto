@@ -10,8 +10,11 @@ public class Application {
 
     public static void main(String[] args) {
         long inputMoney = InputView.inputMoney();
-        LottoController lottoController = LottoController.valueOf(inputMoney);
-        OutputView.printPurchaseLottoCount(lottoController.purchase());
+        int selfLottoSize = InputView.inputSelfLottoSize();
+        List<List<Integer>> selfLottoNumbers = InputView.inputSelfLottoNumbers(selfLottoSize);
+        LottoController lottoController = LottoController.valueOf(inputMoney, selfLottoNumbers);
+        OutputView.printPurchaseLottoCount(selfLottoSize,
+            lottoController.purchase() - selfLottoSize);
         OutputView.printLottos(lottoController.getLottos());
 
         List<Integer> winningNumbers = InputView.inputWinningNumbers();
