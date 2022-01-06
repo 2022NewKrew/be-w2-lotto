@@ -20,7 +20,8 @@ public class LottoBuyer {
             LottoPrize.FOURTH_PLACE,0,
             LottoPrize.THIRD_PLACE,0,
             LottoPrize.SECOND_PLACE,0,
-            LottoPrize.FIRST_PLACE,0
+            LottoPrize.FIRST_PLACE,0,
+            LottoPrize.NONE, 0
     ));
 
     public final void buyLotto() {
@@ -57,9 +58,9 @@ public class LottoBuyer {
         OutputView.printYield(calculateYield());
     }
 
-    private void putResult(final int matchCount) {
-        if (matchCount < 3) return; // 3개 미만 일치는 무시
-        result.put(LottoPrize.of(matchCount), result.get(LottoPrize.of(matchCount)) + 1);
+    private void putResult(LottoPrize lottoPrize) {
+        if (lottoPrize == LottoPrize.NONE) return; // 당첨 안 된 경우 (3개 미만 일치)
+        result.put(lottoPrize, result.get(lottoPrize) + 1);
     }
 
     private int totalReward() {

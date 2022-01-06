@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
 public class LottoNumber implements Comparable<LottoNumber> {
     private static final int MAX_NUMBER = 45;
     private static final int MIN_NUMBER = 1;
-    private static final List<LottoNumber> instances = new ArrayList<>(MAX_NUMBER);
+    private static final List<LottoNumber> INSTANCES;
     private final Integer number;
 
     /**
@@ -18,8 +19,11 @@ public class LottoNumber implements Comparable<LottoNumber> {
      *  해당되는 숫자의 인스턴스만 of 메소드를 통해 반환
      */
     static {
+        List<LottoNumber> tmpList = new ArrayList<>(MAX_NUMBER);
+
         for (int i = MIN_NUMBER; i <= MAX_NUMBER; i++)
-            instances.add(new LottoNumber(i));
+            tmpList.add(new LottoNumber(i));
+        INSTANCES = Collections.unmodifiableList(tmpList);
     }
 
     private LottoNumber(int number) {
@@ -28,7 +32,7 @@ public class LottoNumber implements Comparable<LottoNumber> {
 
     public static LottoNumber of(int number) {
         checkNumber(number);
-        return instances.get(number-1);
+        return INSTANCES.get(number-1);
     }
 
     @Override
