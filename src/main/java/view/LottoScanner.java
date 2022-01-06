@@ -1,7 +1,6 @@
 package view;
 
 import domain.Ball;
-import domain.Lotto;
 import validator.LottoValidator;
 import validator.ScannerValidator;
 
@@ -19,7 +18,7 @@ public class LottoScanner {
         try {
             int purchaseAmount = Integer.parseInt(in.nextLine());
             ScannerValidator.assertValidPurchaseAmount(purchaseAmount);
-            return Lotto.getPurchaseQuantity(purchaseAmount);
+            return purchaseAmount;
         } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
             return getPurchaseQuantity();
