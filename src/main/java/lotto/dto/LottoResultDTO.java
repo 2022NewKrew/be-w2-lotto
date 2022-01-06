@@ -1,58 +1,30 @@
 package lotto.dto;
 
+import java.util.List;
+
 public class LottoResultDTO {
 
-    private int firstPrizeCount;
-    private int secondPrizeCount;
-    private int thirdPrizeCount;
-    private int fourthPrizeCount;
-    private int fifthPrizeCount;
+    private List<String> message;
+    private double totalRateOfReturn;
 
-    public LottoResultDTO() {
-        this.firstPrizeCount = 0;
-        this.secondPrizeCount = 0;
-        this.thirdPrizeCount = 0;
-        this.fourthPrizeCount = 0;
-        this.fifthPrizeCount = 0;
+    public LottoResultDTO(List<String> message, double totalRateOfReturn) {
+        this.message = message;
+        this.totalRateOfReturn = totalRateOfReturn;
     }
 
-    public int getFirstPrizeCount() {
-        return firstPrizeCount;
+    public void setMessage(List<String> message) {
+        this.message = message;
     }
 
-    public int getSecondPrizeCount() {
-        return secondPrizeCount;
+    public void setTotalRateOfReturn(double totalRateOfReturn) {
+        this.totalRateOfReturn = totalRateOfReturn;
     }
 
-    public int getThirdPrizeCount() {
-        return thirdPrizeCount;
+    public List<String> getMessage() {
+        return message;
     }
 
-    public int getFourthPrizeCount() {
-        return fourthPrizeCount;
-    }
-
-    public int getFifthPrizeCount() {
-        return fifthPrizeCount;
-    }
-
-    public void plusFirstPrizeCount() {
-        this.firstPrizeCount++;
-    }
-
-    public void plusSecondPrizeCount() {
-        this.secondPrizeCount++;
-    }
-
-    public void plusThirdPrizeCount() {
-        this.thirdPrizeCount++;
-    }
-
-    public void plusFourthPrizeCount() {
-        this.fourthPrizeCount++;
-    }
-
-    public void plusFifthPrizeCount() {
-        this.fifthPrizeCount++;
+    public double getTotalRateOfReturn() {
+        return totalRateOfReturn;
     }
 }

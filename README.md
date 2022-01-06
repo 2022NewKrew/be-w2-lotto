@@ -41,3 +41,37 @@
 ### 프로그래밍 요구사항
 * 예외가 발생하는 부분에 대해 자바 Exception을 적용해 예외처리한다.
 * 사용자가 입력한 값에 대한 예외 처리를 철저히 한다.
+
+## Step4
+
+### 요구사항
+* https://lucas.codesquad.kr/2022-kakao/course/%EC%9B%B9%EB%B0%B1%EC%97%94%EB%93%9C/Lotto/SparkJava 를 참고해서 구현한다.
+* 스프링은 사용하지 않는다.
+* 콘솔 UI 대신 웹 UI를 적용한다.
+* 웹 페이지 템플릿
+
+#### 힌트
+* 브라우저에서 http://localhost:8080 에 접속하면 index.html 파일 내용을 응답으로 보낸다.
+* 값을 입력한 후 "로또 구매" 버튼을 클릭하면 /buyLotto URL로 서버에 데이터를 전달한다. 
+  * 서버는 /buyLotto URL에 대응하는 post 메소드를 추가한다.
+  * 서버는 request의 queryParams("inputMoney") 메소드를 통해 클라이언트에서 전달한 로또 구입 금액을 받는다.
+  * 서버는 request의 queryParams("manualNumber") 메소드를 통해 클라이언트에서 전달한 수동으로 구매하는 로또를 받는다.
+  * 수동으로 구매하는 로또 목록을 split("\r?\n")으로 분리한다.
+  * 분리한 데이터를 Lotto로 생성해 show.html 파일에 전달한 후 응답으로 보낸다.
+* show.html에서 구매한 로또 목록을 출력하는 방법은 다음과 같다.
+
+~~~
+{{#lottos}}
+  <tr>
+    <th>{{@index}}</th>
+    <td>{{lotto}}</td>
+  </tr>
+{{/lottos}}
+~~~
+
+* 값을 입력한 후 "당첨 번호" 버튼을 클릭하면 /matchLotto URL로 서버에 데이터를 전달한다.
+  * 서버는 /matchLotto URL에 대응하는 post 메소드를 추가한다.
+  * 서버는 request의 queryParams("winningNumber") 메소드를 통해 클라이언트에서 전달한 당첨번호 값을 추출한다.
+  * 서버는 request의 queryParams("bonusNumber") 메소드를 통해 클라이언트에서 전달한 보너스 번호 값을 추출한다.
+  * 구매한 로또와 당첨번호를 비교한 결과를 result.html에 전달한다.
+  * result.html은 당첨 결과를 html로 생성한다.
