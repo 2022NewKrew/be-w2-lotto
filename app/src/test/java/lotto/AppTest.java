@@ -5,6 +5,7 @@ package lotto;
 
 import lotto.domain.Lotto;
 import lotto.domain.LottoNumber;
+import lotto.domain.LottoPrize;
 import lotto.domain.LottoWinningNumber;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -15,6 +16,31 @@ import java.util.List;
 
 
 public class AppTest {
+    @Test
+    @DisplayName("1등 당첨 테스트")
+    public void testLottoMatchFirstPlace() {
+        List<LottoNumber> lottoNumberList = new ArrayList<>();
+        for (int i = 1; i <= 6; i++)
+            lottoNumberList.add(LottoNumber.of(i));
+        LottoWinningNumber lottoWinningNumber = new LottoWinningNumber(lottoNumberList, LottoNumber.of(7));
+
+        assertEquals(LottoPrize.FIRST_PLACE, lottoWinningNumber.match(new Lotto(lottoNumberList)));
+    }
+
+    @Test
+    @DisplayName("2등 당첨 테스트")
+    public void testLottoMatchSecondPlace() {
+        List<LottoNumber> winningLottoNumberList = new ArrayList<>();
+        List<LottoNumber> lottoNumberList = new ArrayList<>();
+        for (int i = 1; i <= 6; i++)
+            winningLottoNumberList.add(LottoNumber.of(i));
+        LottoWinningNumber lottoWinningNumber = new LottoWinningNumber(winningLottoNumberList, LottoNumber.of(7));
+        for (int i = 2; i <= 7; i++)
+            lottoNumberList.add(LottoNumber.of(i));
+
+        assertEquals(LottoPrize.SECOND_PLACE, lottoWinningNumber.match(new Lotto(lottoNumberList)));
+    }
+
     @Test
     @DisplayName("Lotto Number 생성 테스트")
     public void testLottoNumberOutOfRange() {
