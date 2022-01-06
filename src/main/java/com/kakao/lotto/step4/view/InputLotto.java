@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 public class InputLotto {
 
-    private int LOTTO_PRICE = 1000;
+    public final static int LOTTO_PRICE = 1000;
 
     private Scanner scanner = new Scanner(System.in);
 

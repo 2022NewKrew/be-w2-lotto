@@ -13,7 +13,6 @@ public class LottoMain {
     private int bonusNumber;
     private int lottoNumber;
     List<Lotto> lottos;
-    List<Lotto> manualLottos;
     List<Integer> winningNumbers;
     private InputLotto inputLotto = new InputLotto();
     LottoPrinter lottoPrinter = new LottoPrinter();
@@ -23,12 +22,12 @@ public class LottoMain {
     }
 
     public void inputManualLottos() {
-        manualLottos = inputLotto.getManualLottos(lottoNumber);
-        lottoPrinter.printBuyLottoNumber(lottoNumber, manualLottos.size());
+        lottos = inputLotto.getManualLottos(lottoNumber);
+        lottoPrinter.printBuyLottoNumber(lottoNumber, lottos.size());
     }
 
     public void makeLotto() {
-        lottos = Lotto.makeLottos(lottoNumber, manualLottos);
+        lottos = Lotto.makeLottos(lottoNumber, lottos);
         lottoPrinter.printLottos(lottos);
     }
 
