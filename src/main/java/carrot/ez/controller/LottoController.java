@@ -1,28 +1,23 @@
 package carrot.ez.controller;
 
-import carrot.ez.dto.LotteryStatisticsDto;
-import carrot.ez.dto.WinningNumberDto;
-import carrot.ez.lotto.Lotteries;
-import carrot.ez.lotto.Lottery;
+import carrot.ez.dto.response.LottosDto;
+import carrot.ez.dto.response.LottosResultDto;
 import carrot.ez.service.LottoService;
-
-import java.util.List;
 
 public class LottoController {
 
-    private LottoService lottoService;
+    private final LottoService lottoService;
 
     public LottoController(LottoService lottoService) {
         this.lottoService = lottoService;
     }
 
-    public Lotteries purchaseLotteries(long amount, List<Lottery> manualLotteries) {
-        return lottoService.purchaseLotteries(amount, manualLotteries);
+
+    public LottosDto buyLottos(String inputMoney, String manualNumbers) {
+        return lottoService.buyLottos(inputMoney, manualNumbers);
     }
 
-    public LotteryStatisticsDto checkWiningNumbers(Lotteries lotteries, WinningNumberDto winningNumberDto) {
-        return lottoService.checkWiningNumbers(lotteries, winningNumberDto);
+    public LottosResultDto matchLottos(String id, String winningNumber, String bonusNumber) {
+        return lottoService.matchLottos(id, winningNumber, bonusNumber);
     }
-
-
 }
