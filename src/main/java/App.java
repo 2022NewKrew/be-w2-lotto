@@ -1,4 +1,5 @@
 import domain.*;
+import domain.util.LotteryNumbersFactory;
 import view.View;
 
 public class App {
