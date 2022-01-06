@@ -1,6 +1,5 @@
 package carrot.ez.service;
 
-import carrot.ez.dto.response.LottoDto;
 import carrot.ez.dto.response.LottosDto;
 import carrot.ez.dto.response.LottosResultDto;
 import carrot.ez.entity.LottoEntity;
@@ -21,7 +20,9 @@ import static carrot.ez.constants.LottoConstant.LOTTO_PRICE;
 
 public class LottoService {
 
-    private final static List<Rank> PRINT_RANKS = Arrays.asList(Rank.Fifth, Rank.Fourth, Rank.Third, Rank.Second, Rank.First);
+    private static final List<Rank> PRINT_RANKS = Arrays.asList(Rank.Fifth, Rank.Fourth, Rank.Third, Rank.Second, Rank.First);
+    public static final String REGEX_LINE = "\r?\n";
+    public static final String REGEX_COMMA = "\\s*[,]\\s*";
 
     private final LottosRepository lottosRepository = new LottosRepository();
     private final LottosMapper mapper = new LottosMapper();
@@ -70,7 +71,7 @@ public class LottoService {
             return new ArrayList<>();
         }
 
-        return Arrays.stream(manualNumbers.split("\r?\n"))
+        return Arrays.stream(manualNumbers.split(REGEX_LINE))
                 .map(this::toManualLottoEntity)
                 .collect(Collectors.toList());
     }
@@ -102,7 +103,7 @@ public class LottoService {
 
     private List<Integer> getLottoNumbers(String lottoNumberString) {
         try {
-            return Arrays.stream(lottoNumberString.split("\\s*[,]\\s*"))
+            return Arrays.stream(lottoNumberString.split(REGEX_COMMA))
                     .map(this::getLottoNumber)
                     .collect(Collectors.toList());
         } catch (NumberFormatException nfe) {
