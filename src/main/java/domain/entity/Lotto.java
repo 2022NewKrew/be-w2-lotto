@@ -15,8 +15,9 @@ public class Lotto {
         lottoNumbers = numbers.subList(0, Const.NUM_OF_LOTTO_NUMS);
     }
 
-    public Lotto(List<Integer> lottoNumbers) {
-        this.lottoNumbers = lottoNumbers;
+    public Lotto(String message) {
+        System.out.println(message);
+        this.lottoNumbers = InputManager.inputLottoNums();
     }
 
     private List<Integer> getRandomNums() {
