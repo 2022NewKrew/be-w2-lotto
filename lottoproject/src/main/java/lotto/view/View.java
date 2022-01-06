@@ -26,6 +26,15 @@ public class View {
         return inputIntegerArrayList;
     }
 
+    public static List<List<Integer>> inputIntegerArrayLists(String message, String gubun, int count){
+        System.out.println(message);
+        List<List<Integer>> numbersList = new ArrayList<>();
+        for(int i=0; i<count; i++){
+            numbersList.add(inputIntegerArrayList("", gubun));
+        }
+        return numbersList;
+    }
+
     public static void printBuyResult(List<Lotto> lottos){
         System.out.println(lottos.size() + "개를 구매하였습니다.");
         for(Lotto lotto : lottos){
