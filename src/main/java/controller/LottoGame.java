@@ -12,10 +12,10 @@ public class LottoGame {
         int purchasedAmount = InputView.purchaseAmount();
 
         LottoMachine lottoMachine = new LottoMachine();
-        LottoRepository autoLottos = lottoMachine.createAutoLottos(LottoCashier.buyLottos(purchasedAmount));
+        LottoRepository autoLottos = lottoMachine.createAutoLottos(LottoEmployee.buyLottos(purchasedAmount));
 
         OutputView.printAutoLottos(autoLottos);
-        LottoBonus inputLastWeekWinNumber = InputView.bonusNumber();
+        LottoWinningNumber inputLastWeekWinNumber = InputView.bonusNumber();
 
         Map<LottoRank, Integer> lottoRankResult = LottoRankMatch.createResult(autoLottos, inputLastWeekWinNumber);
 

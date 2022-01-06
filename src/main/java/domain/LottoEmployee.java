@@ -2,7 +2,7 @@ package domain;
 
 import exception.InvalidPurchaseAmount;
 
-public class LottoCashier {
+public class LottoEmployee {
     private static final int MINIMUM_PURCHASE_AMOUNT = 1;
 
 

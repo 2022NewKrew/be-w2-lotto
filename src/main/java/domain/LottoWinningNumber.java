@@ -4,10 +4,10 @@ import exception.InvalidLottoNumberException;
 
 import java.util.List;
 
-public class LottoBonus extends Lotto {
+public class LottoWinningNumber extends Lotto {
     private final Integer bonus;
 
-    public LottoBonus(List<Integer> lotto, Integer bonus) {
+    public LottoWinningNumber(List<Integer> lotto, Integer bonus) {
         super(lotto);
         validateBonus(lotto, bonus);
         this.bonus = bonus;

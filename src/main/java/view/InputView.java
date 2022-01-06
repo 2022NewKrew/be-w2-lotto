@@ -1,7 +1,7 @@
 package view;
 
 import domain.Lotto;
-import domain.LottoBonus;
+import domain.LottoWinningNumber;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,10 +34,10 @@ public class InputView {
         return new Lotto(numbersAfterDefined);
     }
 
-    public static LottoBonus bonusNumber() {
+    public static LottoWinningNumber bonusNumber() {
         Lotto withoutBonus = numbers();
         System.out.println(INPUT_BONUS_NUMBER);
         int bonus = scanner.nextInt();
-        return new LottoBonus(withoutBonus.getLotto(), bonus);
+        return new LottoWinningNumber(withoutBonus.getLotto(), bonus);
     }
 }
