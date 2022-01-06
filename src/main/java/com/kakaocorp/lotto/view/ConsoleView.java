@@ -1,13 +1,12 @@
 package com.kakaocorp.lotto.view;
 
 import com.kakaocorp.lotto.controller.LottoGameConsoleController;
-import com.kakaocorp.lotto.domain.Lotto;
+import com.kakaocorp.lotto.dto.BuyLottoDto;
 import com.kakaocorp.lotto.dto.ResultResponse;
 import com.kakaocorp.lotto.enums.Grade;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 public class ConsoleView {
@@ -15,12 +14,17 @@ public class ConsoleView {
     private static final LottoGameConsoleController lottoGameConsoleController = new LottoGameConsoleController();
 
     public void start() {
-        // 로또 구매
-        List<Lotto> lottoList = lottoGameConsoleController.buy();
-        printPurchaseList(lottoList);
+        try {
+            // 로또 구매
+            BuyLottoDto buyLottoDto = lottoGameConsoleController.buy();
+            printBuyList(buyLottoDto);
 
-        // 당첨 통계
-        printResults(lottoGameConsoleController.result(lottoList));
+            // 당첨 통계
+            printResults(lottoGameConsoleController.result(buyLottoDto.getLottoList()));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            start();
+        }
     }
 
     private void printResults(ResultResponse resultResponse) {
@@ -47,8 +51,9 @@ public class ConsoleView {
         System.out.println(key.getMatchIndex() + "개 일치 (" + key.getWinningMoney() + "원)- " + value + "개");
     }
 
-    private void printPurchaseList(List<Lotto> purchaseList) {
-        System.out.println(purchaseList.size() + "개를 구매했습니다.");
-        purchaseList.forEach(lotto -> System.out.println(lotto.toString()));
+    private void printBuyList(BuyLottoDto buyLottoDto) {
+        int orderAutoNumber = buyLottoDto.getLottoList().size() - buyLottoDto.getOrderManualNumber();
+        System.out.println("수동으로 " + buyLottoDto.getOrderManualNumber() + "장, 자동으로 " + orderAutoNumber + "개를 구매했습니다.");
+        buyLottoDto.getLottoList().forEach(lotto -> System.out.println(lotto.toString()));
     }
 }

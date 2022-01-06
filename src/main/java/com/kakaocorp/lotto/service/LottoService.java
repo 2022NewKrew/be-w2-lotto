@@ -2,6 +2,7 @@ package com.kakaocorp.lotto.service;
 
 import com.kakaocorp.lotto.domain.Lotto;
 import com.kakaocorp.lotto.domain.WinningLotto;
+import com.kakaocorp.lotto.dto.BuyLottoDto;
 import com.kakaocorp.lotto.dto.ResultResponse;
 import com.kakaocorp.lotto.enums.Grade;
 
@@ -15,18 +16,17 @@ public class LottoService {
         }
     }};
 
-    public List<Lotto> buy(int orderPrice) {
-        List<Lotto> lottoList = new ArrayList<>();
-
+    public BuyLottoDto buy(int orderPrice, List<Lotto> lottoList) {
         int orderAmount = orderPrice / 1000;
-        for (int i = 0; i < orderAmount; i++) {
+        final int orderManualNumber = lottoList.size();
+        for (int i = 0; i < orderAmount-orderManualNumber; i++) {
             Collections.shuffle(lottoNumbers);
             List<Integer> subList = new ArrayList<>(lottoNumbers.subList(0, 6));
             Collections.sort(subList);
             lottoList.add(new Lotto(subList));
         }
 
-        return lottoList;
+        return new BuyLottoDto(lottoList, orderManualNumber);
     }
 
     public ResultResponse result(WinningLotto winningLotto, List<Lotto> lottoList) {
