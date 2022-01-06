@@ -48,8 +48,9 @@ public class LottoEntity {
     }
 
     public int getNumOfCorrect(List<Integer> winNums) {
-        return winNums.stream()
-                .reduce(0, (total, num) -> contains(num) ? total + 1 : total);
+        return (int) winNums.stream() // winNums 가 6개 이내이므로 int로 캐스팅
+                .filter(this::contains)
+                .count();
     }
 
     public boolean isCorrectBonus(int bonus) {

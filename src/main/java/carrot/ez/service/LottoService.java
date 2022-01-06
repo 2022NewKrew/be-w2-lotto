@@ -77,20 +77,7 @@ public class LottoService {
 
     private List<LottoEntity> createAutoLottos(List<LottoEntity> manualLottos, long money) {
         long autoLottoSize = getNumOfAutoLottos(money, manualLottos);
-        List<LottoEntity> autoLottos = LotteryGenerator.generateLotto(autoLottoSize);
-        return autoLottos;
-    }
-
-    private LottosEntity saveLottos(long money, List<LottoEntity> manualLottos) {
-        LottosEntity user = new LottosEntity(money, manualLottos);
-        lottosRepository.save(user);
-        return user;
-    }
-
-    private LottoEntity toManualLottoEntity(String numbersString) {
-        List<Integer> numbers = getLottoNumbers(numbersString);
-
-        return new LottoEntity(numbers, LotteryDiv.MANUAL);
+        return LotteryGenerator.generateLotto(autoLottoSize);
     }
 
     private long getNumOfAutoLottos(long money, List<LottoEntity> manualLotteries) {
@@ -100,6 +87,17 @@ public class LottoService {
         }
 
         return numAutoLotteries;
+    }
+
+    private LottosEntity saveLottos(long money, List<LottoEntity> manualLottos) {
+        LottosEntity user = new LottosEntity(money, manualLottos);
+        return lottosRepository.save(user);
+    }
+
+    private LottoEntity toManualLottoEntity(String numbersString) {
+        List<Integer> numbers = getLottoNumbers(numbersString);
+
+        return new LottoEntity(numbers, LotteryDiv.MANUAL);
     }
 
     private List<Integer> getLottoNumbers(String lottoNumberString) {
