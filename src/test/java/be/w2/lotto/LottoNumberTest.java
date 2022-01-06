@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class LottoNumberInitTest {
+public class LottoNumberTest {
 
     @Test
     @DisplayName("LottoNumber_생성_범위_초과해서_실패하기")

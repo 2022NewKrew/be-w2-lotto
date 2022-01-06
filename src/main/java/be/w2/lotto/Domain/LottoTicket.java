@@ -13,7 +13,6 @@ public class LottoTicket {
         this.lottoNumbers = lottoNumbers;
     }
 
-
     public static LottoTicket getInstanceByIntList(List<Integer> list) throws IllegalArgumentException {
         if (list.size() != TICKET_SIZE)
             throw new IllegalArgumentException("숫자 갯수는 반드시 6개 이어야 합니다!");
@@ -32,7 +31,6 @@ public class LottoTicket {
     public boolean contains(LottoNumber lottoNumber) {
         return lottoNumbers.contains(lottoNumber);
     }
-
 
     public int calculateTicket(LottoNumbers answers) {
         return lottoNumbers.calculateTicket(answers);

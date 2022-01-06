@@ -21,19 +21,15 @@ public class Amount {
         return amount;
     }
 
-    public List<LottoTicket> makeRandomLottoTicket(LottoMaker lottoMaker) {
+    public boolean isValidLength(List<List<Integer>> inputs) {
+        return amount == inputs.size();
+    }
+
+    public List<LottoTicket> makeLottoTicket(TicketGenerator ticketGenerator) {
         List<LottoTicket> lottoTickets = new ArrayList<>();
         for (int i = 0; i < amount; i++)
-            lottoTickets.add(lottoMaker.makeLottoTicket());
+            lottoTickets.add(ticketGenerator.generate());
         return lottoTickets;
     }
 
-    public List<LottoTicket> makeManualLottoTicket(List<List<Integer>> inputs) throws IllegalArgumentException {
-        if (inputs == null || amount != inputs.size())
-            throw new IllegalArgumentException("입력받은 값의 크기가 옳지 않습니다!");
-        List<LottoTicket> lottoTickets = new ArrayList<>();
-        for (List<Integer> input : inputs)
-            lottoTickets.add(LottoTicket.getInstanceByIntList(input));
-        return lottoTickets;
-    }
 }
