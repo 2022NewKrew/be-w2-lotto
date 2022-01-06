@@ -22,12 +22,11 @@ public class LottoSimulator {
         }
 
         final Lottos lottos = new Lottos();
-        final Money left = userInput.requestLottoManual(lottos, money);
-        final int countOfManuals = lottos.size();
+        final int countOfManuals = userInput.requestCountOfLottoManual(lottos, money);
+        final Money left = userInput.requestBuyLottoManual(lottos, money, countOfManuals);
 
         lottos.addAll(left.buyLottoAutoAll(sRand));
-        final int countOfAutos = lottos.size() - countOfManuals;
-        lottoSimulatorView.printLottos(lottos, countOfManuals, countOfAutos);
+        lottoSimulatorView.printLottos(lottos, countOfManuals, left.maxNumberToBuyLottos());
 
         final LottoWinnings lottoWinnings = userInput.requestLottoWinnings();
         final LottoResult lottoResult = new LottoResult(lottoWinnings, lottos);

@@ -22,7 +22,6 @@ public class LottoNumbersGenerator {
 
     public static LottoNumbers getLottoNumbers(final SecureRandom sRand) {
         Collections.shuffle(list, Objects.requireNonNull(sRand));
-        Collections.sort(list.subList(0, LottoNumbers.SIZE));
 
         return new LottoNumbers(
                 new ArrayList<>(list.subList(0, LottoNumbers.SIZE))
