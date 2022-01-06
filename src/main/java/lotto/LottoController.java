@@ -31,8 +31,8 @@ public class LottoController {
         return lottos;
     }
 
-    public LottoResult result(List<Integer> winningNumbers) {
-        WinningLotto winningLotto = new WinningLotto(winningNumbers, 1);
+    public LottoResult result(List<Integer> winningNumbers, int bonusNumber) {
+        WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNumber);
         return lottos.matchCounts(winningLotto);
     }
 

@@ -35,8 +35,9 @@ public class OutputView {
         Reward[] rewards = Reward.values();
 
         for (int i = rewards.length - 2; i >= 0; i--) {
-            System.out.printf("%d개 일치 (%d원)- %d개%s",
+            System.out.printf("%d개 일치%s(%d원)- %d개%s",
                 rewards[i].getMatchCount(),
+                rewards[i].getBonusMatch() ? ", 보너스 볼 일치" : " ",
                 rewards[i].getRewardPrize(),
                 lottoResult.get(rewards[i]),
                 NEW_LINE);
@@ -45,5 +46,6 @@ public class OutputView {
 
     public static void printProfit(BigDecimal profit) {
         System.out.printf("총 수익률은 %.2f%%입니다.", profit.doubleValue());
+        System.out.println();
     }
 }

@@ -14,7 +14,7 @@ public class InputView {
 
     public static long inputMoney() {
         System.out.println("구입금액을 입력해 주세요.");
-        return Long.parseLong(scanner.nextLine());
+        return Long.parseLong(scanner.nextLine().trim());
     }
 
     public static List<Integer> inputWinningNumbers() {
@@ -23,7 +23,13 @@ public class InputView {
         List<Integer> winningNumbers = Arrays.stream(values)
             .map(value -> Integer.parseInt(value.trim()))
             .collect(Collectors.toList());
-        System.out.println();
         return winningNumbers;
+    }
+
+    public static int inputBonusNumber() {
+        System.out.println("보너스 볼을 입력해 주세요.");
+        String value = scanner.nextLine().trim();
+        System.out.println();
+        return Integer.parseInt(value);
     }
 }

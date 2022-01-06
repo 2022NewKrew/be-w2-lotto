@@ -15,7 +15,8 @@ public class Application {
         OutputView.printLottos(lottoController.getLottos());
 
         List<Integer> winningNumbers = InputView.inputWinningNumbers();
-        LottoResult lottoResult = lottoController.result(winningNumbers);
+        int bonusNumber = InputView.inputBonusNumber();
+        LottoResult lottoResult = lottoController.result(winningNumbers, bonusNumber);
         OutputView.printLottoResult(lottoResult);
 
         BigDecimal profit = lottoController.profit(lottoResult.totalReward());
