@@ -108,18 +108,18 @@ public class LottoDao implements Closeable {
         throw new RuntimeException();
     }
 
-    private LottoResult matchEnumResult(String str){
-        if (str.equals(LottoResult.UNIDENTIFIED.toString())){
+    private LottoResult matchEnumResult(String str) {
+        if (str.equals(LottoResult.UNIDENTIFIED.toString())) {
             return LottoResult.UNIDENTIFIED;
-        } else if (str.equals(LottoResult.UNWINNABLE.toString())){
+        } else if (str.equals(LottoResult.UNWINNABLE.toString())) {
             return LottoResult.UNWINNABLE;
-        } else if (str.equals(LottoResult.FIFTH_PLACE.toString())){
+        } else if (str.equals(LottoResult.FIFTH_PLACE.toString())) {
             return LottoResult.FIFTH_PLACE;
-        }else if (str.equals(LottoResult.FOURTH_PLACE.toString())){
+        } else if (str.equals(LottoResult.FOURTH_PLACE.toString())) {
             return LottoResult.FOURTH_PLACE;
-        }else if (str.equals(LottoResult.THIRD_PLACE.toString())){
+        } else if (str.equals(LottoResult.THIRD_PLACE.toString())) {
             return LottoResult.THIRD_PLACE;
-        }else if (str.equals(LottoResult.SECOND_PLACE.toString())){
+        } else if (str.equals(LottoResult.SECOND_PLACE.toString())) {
             return LottoResult.SECOND_PLACE;
         }
         return LottoResult.FIFTH_PLACE;

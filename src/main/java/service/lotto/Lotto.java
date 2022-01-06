@@ -11,7 +11,7 @@ public class Lotto {
         this.result = LottoResult.UNIDENTIFIED;
     }
 
-    public Lotto(List<Integer> numbers, LottoResult lottoResult){
+    public Lotto(List<Integer> numbers, LottoResult lottoResult) {
         this.numbers = numbers;
         this.result = lottoResult;
     }
