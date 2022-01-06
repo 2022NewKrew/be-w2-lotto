@@ -25,12 +25,12 @@ public class LottoPrinter {
         for (Prize prize : Prize.values()) {
             System.out.printf("%d개 일치 %s (%d원) - %d개%n", prize.getMatchedCount(),
                     (prize.isBonusBallMatched() ? "+ 보너스 볼" : ""),
-                    prize.getMoney(), matchingResult.getOccurrences(prize));
+                    prize.getMoney(), matchingResult.calculateOccurrences(prize));
         }
     }
 
     private void printLottoEarningsRate(LottoMatchingResult matchingResult) {
         System.out.println();
-        System.out.printf("총 수익률은 %2.0f%%입니다.%n", matchingResult.getEarningsRate());
+        System.out.printf("총 수익률은 %2.0f%%입니다.%n", matchingResult.calculateEarningsRate());
     }
 }
