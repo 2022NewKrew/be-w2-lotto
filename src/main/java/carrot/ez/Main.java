@@ -14,15 +14,19 @@ import static spark.Spark.*;
 
 public class Main {
 
-    private static LottoController lottoController = new LottoController(new LottoService());
+    private static final LottoController lottoController = new LottoController(new LottoService());
     public static void main(String[] args) {
         staticFiles.location("/static");
         port(8080);
 
         post("/buyLotto", (req, res) -> {
-            LottosDto lottos = lottoController.buyLottos(req.queryParams("inputMoney"), req.queryParams("manualNumber"));
+            String inputMoney = req.queryParams("inputMoney");
+            String manualNumber = req.queryParams("manualNumber");
+            LottosDto lottos = lottoController.buyLottos(inputMoney, manualNumber);
+
             Map<String, Object> model = new HashMap<>();
             model.put("lottosInfo", lottos);
+
             return render(model, "show.html");
         });
 
@@ -30,10 +34,11 @@ public class Main {
             String id = req.params(":id");
             String winningNumber = req.queryParams("winningNumber");
             String bonusNumber = req.queryParams("bonusNumber");
-
             LottosResultDto lottosResultDto = lottoController.matchLottos(id, winningNumber, bonusNumber);
+
             Map<String, Object> model = new HashMap<>();
             model.put("lottosResult", lottosResultDto);
+
             return render(model, "result.html");
         });
     }

@@ -8,6 +8,7 @@ import carrot.ez.entity.LottosEntity;
 import carrot.ez.lotto.LotteryDiv;
 import carrot.ez.lotto.LotteryGenerator;
 import carrot.ez.lotto.Rank;
+import carrot.ez.mapper.LottosMapper;
 import carrot.ez.repository.LottosRepository;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class LottoService {
     private final static List<Rank> PRINT_RANKS = Arrays.asList(Rank.Fifth, Rank.Fourth, Rank.Third, Rank.Second, Rank.First);
 
     private final LottosRepository lottosRepository = new LottosRepository();
+    private final LottosMapper mapper = new LottosMapper();
 
     public LottosDto buyLottos(String inputMoney, String manualNumbers) {
         long money = getMoney(inputMoney);
@@ -34,7 +36,7 @@ public class LottoService {
 
         LottosEntity lottos = saveLottos(money, manualLottos);
 
-        return toLottosDto(lottos);
+        return mapper.toLottosDto(lottos);
     }
 
     public LottosResultDto matchLottos(String id, String winningNumberString, String bonusNumberString) {
@@ -98,16 +100,6 @@ public class LottoService {
         }
 
         return numAutoLotteries;
-    }
-
-    private LottosDto toLottosDto(LottosEntity entity) {
-        return new LottosDto(entity.getId(), toLottoDtoList(entity.getLottos()));
-    }
-
-    private List<LottoDto> toLottoDtoList(List<LottoEntity> lottos) {
-        return lottos.stream()
-                .map(lotto -> new LottoDto(lotto.getNumbers()))
-                .collect(Collectors.toList());
     }
 
     private List<Integer> getLottoNumbers(String lottoNumberString) {
