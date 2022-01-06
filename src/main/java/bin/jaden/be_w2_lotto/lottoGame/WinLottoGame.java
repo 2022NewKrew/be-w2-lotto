@@ -1,4 +1,4 @@
-package bin.jaden.be_w2_lotto.LottoGame;
+package bin.jaden.be_w2_lotto.lottoGame;
 
 import java.util.List;
 

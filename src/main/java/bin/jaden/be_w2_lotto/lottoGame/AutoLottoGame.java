@@ -1,6 +1,6 @@
-package bin.jaden.be_w2_lotto.LottoGame;
+package bin.jaden.be_w2_lotto.lottoGame;
 
-import bin.jaden.be_w2_lotto.domain.Constants;
+import bin.jaden.be_w2_lotto.data.Constants;
 
 import java.util.ArrayList;
 import java.util.Collections;
