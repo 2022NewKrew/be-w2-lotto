@@ -1,6 +1,6 @@
 package lotto.manager;
 
-import lotto.domain.WinningLotto;
+import lotto.domain.model.WinningLotto;
 import lotto.domain.constant.LottoMessage;
 import lotto.domain.model.Lotto;
 import lotto.domain.model.LottoResult;

@@ -40,7 +40,7 @@ public class LottoChecker {
     private void verifyDuplication(List<Integer> numbers, int bonusNumber) {
         Set<Integer> numberSet = new HashSet<>(numbers);
         if (numbers.size() != numberSet.size() || numberSet.contains(bonusNumber)) {
-            throw new IllegalArgumentException(LottoMessage.NUMBER_DUPLECATED_ERROR.toString());
+            throw new IllegalArgumentException(LottoMessage.NUMBER_DUPLICATED_ERROR.toString());
         }
     }
 

@@ -1,8 +1,6 @@
-package lotto.domain;
+package lotto.domain.model;
 
 import lotto.domain.constant.LottoMessage;
-import lotto.domain.model.Lotto;
-import lotto.domain.model.LottoResult;
 import lotto.domain.constant.Rank;
 
 import java.util.HashSet;
