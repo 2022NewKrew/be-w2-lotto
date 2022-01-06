@@ -20,8 +20,6 @@
 * 사용자가 입력한 값에 대한 예외 처리를 철저히 한다.
 
 ### TODO
-* MatchScore 객체 분리
-  * enum만 하는 객체와 중간 결과를 저장하는 객체를 분리
 * Controller를 static 메소드의 집합으로
 * 변수명 변경
 * private 생성자에 AssertionError 적용
@@ -34,3 +32,6 @@
 * LottoLine을 분리하고 NNumber에 존재했던 생성 기능을 가져오자.
   * 분리한 LottoLine은 Interface로 관리
 * ResultDTO 생성
+* MatchScore 객체 분리
+  * enum만 하는 객체 WinningClassifier
+  * 중간 결과를 저장하는 객체 MatchStore

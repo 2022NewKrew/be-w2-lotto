@@ -13,17 +13,12 @@ public class MyLottoLines {
         lottoLines.add(lottoLine);
     }
 
-    public void checkWinning(List<Integer> winningNumbers, List<Integer> bonusNum) {
+    public void checkWinning(MatchStore matchStore, List<Integer> winningNumbers, List<Integer> bonusNum) {
         for (LottoLine curLottoLine : lottoLines) {
             int matchNum = curLottoLine.checkWinning(winningNumbers);
             int matchBonusNum = curLottoLine.checkWinning(bonusNum);
 
-            MatchScore ms = MatchScore.findMatchScoreObject(matchNum, matchBonusNum);
-            ms.addNumLotto();
+            matchStore.addMatchResult(matchNum, matchBonusNum);
         }
-    }
-
-    public int getNumLotto() {
-        return lottoLines.size();
     }
 }

@@ -1,5 +1,6 @@
 import controller.ResultController;
 import controller.StartController;
+import domain.MatchStore;
 import domain.MyLottoLines;
 
 public class Main {
@@ -7,8 +8,10 @@ public class Main {
         StartController sm = new StartController();
 
         MyLottoLines myLottoLines = sm.getLottoLines();
-        myLottoLines.checkWinning(sm.getWinningLine().getLottoLine(), sm.getWinningLine().getBonusList());
+        MatchStore matchStore = new MatchStore();
 
-        ResultController.printResult(myLottoLines.getNumLotto());
+        myLottoLines.checkWinning(matchStore, sm.getWinningLine().getLottoLine(), sm.getWinningLine().getBonusList());
+
+        ResultController.printResult(matchStore);
     }
 }
