@@ -42,7 +42,7 @@ class LottoTest {
 
     @DisplayName("[성공] checkMatchCount가 정상적으로 동작한다 ")
     @ParameterizedTest(name = "{6}개가 일치하는 경우")
-    @CsvSource({"1, 2, 3, 4, 5, 6, 6", "1, 2, 3, 4, 5, 10, 5", "1, 2, 3, 4, 10, 10, 4", "1, 2, 3, 10, 10, 10, 3", "1, 2, 10, 10, 10, 10, 2", "1, 10, 10, 10, 10, 10, 1"})
+    @CsvSource({"1, 2, 3, 4, 5, 6, 6", "1, 2, 3, 4, 5, 10, 5", "1, 2, 3, 4, 10, 11, 4", "1, 2, 3, 10, 11, 12, 3", "1, 2, 10, 11, 12, 13, 2", "1, 10, 11, 12, 13, 14, 1"})
     void checkMatchCount(int n1, int n2, int n3, int n4, int n5, int n6, int result) {
         Set<Integer> numbers = new HashSet<>();
         numbers.add(n1);
