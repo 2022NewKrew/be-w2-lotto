@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WinningResultTest {
 
-    int lottoPurchaseAmount = 2;
+    int lottoPurchaseAmount;
     List<List<Integer>> lottoNumbers;
     LottoTickets lottoTickets;
     List<Integer> winningLottoNumbers;

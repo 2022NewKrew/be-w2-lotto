@@ -18,7 +18,7 @@ public class OutputLottoTicketsDto {
         return new OutputLottoTicketsDto(listedLottoTickets);
     }
 
-    public int getLottoTicketAmount() {
+    public int getLottoTicketsAmount() {
         return this.lottoTickets.size();
     }
 

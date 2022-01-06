@@ -6,7 +6,8 @@ package be.w2.lotto;
 import org.junit.jupiter.api.Test;
 
 class LottoApplicationTest {
-    @Test void appHasAGreeting() {
-        LottoApplication classUnderTest = new LottoApplication();
+    @Test
+    void main() {
+
     }
 }
