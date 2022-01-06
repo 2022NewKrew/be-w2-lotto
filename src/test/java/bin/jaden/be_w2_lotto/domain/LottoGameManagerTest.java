@@ -17,7 +17,7 @@ class LottoGameManagerTest {
         List<ManualLottoGame> manualLottoGames = new ArrayList<>();
 
         // when
-        LottoGameManager lotto = new LottoGameManager(purchasingAmount, numberOfPurchaseManually, manualLottoGames);
+        LottoGameManager lotto = new LottoGameManager(purchasingAmount, manualLottoGames);
 
         // then
         assertThat(lotto.getLottoGames().size()).isEqualTo(purchasingAmount / Constants.PRICE_PER_GAME);

@@ -16,14 +16,14 @@ public class Constants {
     public static final String INVALID_NUMBER_OF_PURCHASE_MANUALLY_RANGE_MESSAGE = "구매금액보다 많은 로또를 수동 구매할 수 없습니다.";
 
     public static final String INPUT_MANUAL_NUMBERS_MESSAGE = "\n수동으로 구매할 번호를 입력해 주세요.";
-    public static final String INPUT_MANUAL_NUMBERS_DELIMITER = ", ";
+    public static final String INPUT_MANUAL_NUMBERS_DELIMITER = ",";
     public static final String INPUT_WRONG_MANUAL_NUMBERS_MESSAGE = "수동 번호는 숫자로 입력해주세요.";
     public static final String INVALID_MANUAL_NUMBERS_RANGE_MESSAGE = String.format("수동 번호중에 로또의 범위를 넘어가는 숫자가 있습니다. (최소 : %d, 최대 : %d)", MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER);
     public static final String INVALID_MANUAL_NUMBERS_LENGTH_MESSAGE = "수동 번호의 사이즈가 올바르지 않습니다.";
     public static final String DUPLICATE_MANUAL_NUMBERS_MESSAGE = "중복된 수동 번호가 있습니다.";
 
     public static final String INPUT_WIN_NUMBERS_MESSAGE = "\n지난 주 당첨 번호를 입력해 주세요.";
-    public static final String INPUT_WIN_NUMBERS_DELIMITER = ", ";
+    public static final String INPUT_WIN_NUMBERS_DELIMITER = ",";
     public static final String INPUT_WRONG_WIN_NUMBERS_MESSAGE = "당첨번호는 숫자로 입력해주세요.";
     public static final String INVALID_WIN_NUMBERS_RANGE_MESSAGE = String.format("당첨번호중에 로또의 범위를 넘어가는 숫자가 있습니다. (최소 : %d, 최대 : %d)", MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER);
     public static final String INVALID_WIN_NUMBERS_LENGTH_MESSAGE = "당첨번호의 사이즈가 올바르지 않습니다.";
