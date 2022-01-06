@@ -19,7 +19,7 @@ public class LottoPack {
     }
 
     public RankingPack makeRankingPack(Lotto prize){
-        return new RankingPack(lottoList.stream().map(lotto -> lotto.makeLottoRank(prize)).collect(Collectors.toList()));
+        return new RankingPack(lottoList.stream().map(lotto -> Match.makeLottoRank(lotto,prize)).collect(Collectors.toList()));
     }
 
 
