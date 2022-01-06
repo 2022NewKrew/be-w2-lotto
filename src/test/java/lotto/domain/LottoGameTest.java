@@ -30,12 +30,20 @@ class LottoGameTest {
     void run_mannualLottoNumberTextsAndWinningNumbers_verifyReadPurchaseAmountForLotto() {
         // Given
         Mockito.when(view.readPurchaseAmountForLotto()).thenReturn(2000);
-        Mockito.when(view.readManualPurchaseCountForLotto()).thenReturn(1);
+        Mockito.when(view.readManualPurchaseCountForLotto(2000)).thenReturn(1);
 
-        List<String> manualLottoNumberTexts = new ArrayList<>();
-        manualLottoNumberTexts.add("1, 2, 3, 4, 5, 6");
+        List<Integer> manualLottoNumber = new ArrayList<>();
+        manualLottoNumber.add(1);
+        manualLottoNumber.add(2);
+        manualLottoNumber.add(3);
+        manualLottoNumber.add(4);
+        manualLottoNumber.add(5);
+        manualLottoNumber.add(6);
 
-        LottoTicket lottoTicket = new LottoTicket(2000, manualLottoNumberTexts);
+        List<List<Integer>> manualLottoNumbers = new ArrayList<>();
+        manualLottoNumbers.add(manualLottoNumber);
+
+        LottoTicket lottoTicket = new LottoTicket(2000, manualLottoNumbers);
         Mockito.doNothing().when(view).printLottoCount(lottoTicket.getManualLottoCount(), lottoTicket.getAutomaticLottoCount());
         Mockito.doNothing().when(view).printLotto(lottoTicket.getLottoList());
 

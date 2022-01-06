@@ -13,11 +13,19 @@ class LottoTicketTest {
     @Test
     void lottoTicket_PurchaseAmount15000AndManualLottoNumberTexts_getLottoCount15() {
         // Given
-        List<String> manualLottoNumberTexts = new ArrayList<>();
-        manualLottoNumberTexts.add("1, 2, 3, 4, 5, 6");
+        List<Integer> manualLottoNumber = new ArrayList<>();
+        manualLottoNumber.add(1);
+        manualLottoNumber.add(2);
+        manualLottoNumber.add(3);
+        manualLottoNumber.add(4);
+        manualLottoNumber.add(5);
+        manualLottoNumber.add(6);
+
+        List<List<Integer>> manualLottoNumbers = new ArrayList<>();
+        manualLottoNumbers.add(manualLottoNumber);
 
         // When
-        LottoTicket lottoTicket = new LottoTicket(15000, manualLottoNumberTexts);
+        LottoTicket lottoTicket = new LottoTicket(15000, manualLottoNumbers);
 
         // Then
         Assertions.assertEquals(15, lottoTicket.getLottoCount());
@@ -27,10 +35,18 @@ class LottoTicketTest {
     @Test
     void getLottoCount_PurchaseAmount15000AndManualLottoNumberTexts_15() {
         // Given
-        List<String> manualLottoNumberTexts = new ArrayList<>();
-        manualLottoNumberTexts.add("1, 2, 3, 4, 5, 6");
+        List<Integer> manualLottoNumber = new ArrayList<>();
+        manualLottoNumber.add(1);
+        manualLottoNumber.add(2);
+        manualLottoNumber.add(3);
+        manualLottoNumber.add(4);
+        manualLottoNumber.add(5);
+        manualLottoNumber.add(6);
 
-        LottoTicket lottoTicket = new LottoTicket(15000, manualLottoNumberTexts);
+        List<List<Integer>> manualLottoNumbers = new ArrayList<>();
+        manualLottoNumbers.add(manualLottoNumber);
+
+        LottoTicket lottoTicket = new LottoTicket(15000, manualLottoNumbers);
 
         // When
         int result = lottoTicket.getLottoCount();
@@ -43,10 +59,18 @@ class LottoTicketTest {
     @Test
     void getLottoList_PurchaseAmount14000AndManualLottoNumberTexts_ListSize14() {
         // Given
-        List<String> manualLottoNumberTexts = new ArrayList<>();
-        manualLottoNumberTexts.add("1, 2, 3, 4, 5, 6");
+        List<Integer> manualLottoNumber = new ArrayList<>();
+        manualLottoNumber.add(1);
+        manualLottoNumber.add(2);
+        manualLottoNumber.add(3);
+        manualLottoNumber.add(4);
+        manualLottoNumber.add(5);
+        manualLottoNumber.add(6);
 
-        LottoTicket lottoTicket = new LottoTicket(14000, manualLottoNumberTexts);
+        List<List<Integer>> manualLottoNumbers = new ArrayList<>();
+        manualLottoNumbers.add(manualLottoNumber);
+
+        LottoTicket lottoTicket = new LottoTicket(14000, manualLottoNumbers);
 
         // When
         List<Lotto> result = lottoTicket.getLottoList();
@@ -59,10 +83,18 @@ class LottoTicketTest {
     @Test
     void getWholeLottoPrice_PurchaseAmount14_14000() {
         // Given
-        List<String> manualLottoNumberTexts = new ArrayList<>();
-        manualLottoNumberTexts.add("1, 2, 3, 4, 5, 6");
+        List<Integer> manualLottoNumber = new ArrayList<>();
+        manualLottoNumber.add(1);
+        manualLottoNumber.add(2);
+        manualLottoNumber.add(3);
+        manualLottoNumber.add(4);
+        manualLottoNumber.add(5);
+        manualLottoNumber.add(6);
 
-        LottoTicket lottoTicket = new LottoTicket(14000, manualLottoNumberTexts);
+        List<List<Integer>> manualLottoNumbers = new ArrayList<>();
+        manualLottoNumbers.add(manualLottoNumber);
+
+        LottoTicket lottoTicket = new LottoTicket(14000, manualLottoNumbers);
 
         // When
         int result = lottoTicket.getWholeLottoPrice();
@@ -75,10 +107,18 @@ class LottoTicketTest {
     @Test
     void getLottoWinningResult_PurchaseAmount14000_WinningCountUnder14() {
         // Given
-        List<String> manualLottoNumberTexts = new ArrayList<>();
-        manualLottoNumberTexts.add("1, 2, 3, 4, 5, 6");
+        List<Integer> manualLottoNumber = new ArrayList<>();
+        manualLottoNumber.add(1);
+        manualLottoNumber.add(2);
+        manualLottoNumber.add(3);
+        manualLottoNumber.add(4);
+        manualLottoNumber.add(5);
+        manualLottoNumber.add(6);
 
-        LottoTicket lottoTicket = new LottoTicket(14000, manualLottoNumberTexts);
+        List<List<Integer>> manualLottoNumbers = new ArrayList<>();
+        manualLottoNumbers.add(manualLottoNumber);
+
+        LottoTicket lottoTicket = new LottoTicket(14000, manualLottoNumbers);
         List<Integer> winningNumbers = new ArrayList<>();
         winningNumbers.add(1);
         winningNumbers.add(2);
@@ -100,9 +140,17 @@ class LottoTicketTest {
     @Test
     void getLottoList_PurchaseAmount14000AndManualLottoNumberTexts_lottoListSizeIs14() {
         // Given
-        List<String> manualLottoNumberTexts = new ArrayList<>();
-        manualLottoNumberTexts.add("1, 2, 3, 4, 5, 6");
-        LottoTicket lottoTicket = new LottoTicket(14000, manualLottoNumberTexts);
+        List<Integer> manualLottoNumber = new ArrayList<>();
+        manualLottoNumber.add(1);
+        manualLottoNumber.add(2);
+        manualLottoNumber.add(3);
+        manualLottoNumber.add(4);
+        manualLottoNumber.add(5);
+        manualLottoNumber.add(6);
+
+        List<List<Integer>> manualLottoNumbers = new ArrayList<>();
+        manualLottoNumbers.add(manualLottoNumber);
+        LottoTicket lottoTicket = new LottoTicket(14000, manualLottoNumbers);
 
         // When
         List<Lotto> lottoList = lottoTicket.getLottoList();
@@ -115,12 +163,20 @@ class LottoTicketTest {
     @Test
     void lottoTicket_PurchaseAmount1000AndManualLottoNumberTextsContainOver45_ThrowIllegalArgumentException() {
         // Given
-        List<String> manualLottoNumberTexts = new ArrayList<>();
-        manualLottoNumberTexts.add("1, 2, 3, 4, 5, 46");
+        List<Integer> manualLottoNumber = new ArrayList<>();
+        manualLottoNumber.add(1);
+        manualLottoNumber.add(2);
+        manualLottoNumber.add(3);
+        manualLottoNumber.add(4);
+        manualLottoNumber.add(5);
+        manualLottoNumber.add(46);
+
+        List<List<Integer>> manualLottoNumbers = new ArrayList<>();
+        manualLottoNumbers.add(manualLottoNumber);
 
         // When // Then
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new LottoTicket(1000, manualLottoNumberTexts);
+            new LottoTicket(1000, manualLottoNumbers);
         });
     }
 
@@ -128,12 +184,20 @@ class LottoTicketTest {
     @Test
     void lottoTicket_PurchaseAmount1000AndManualLottoNumberTextsContainUnder1_ThrowIllegalArgumentException() {
         // Given
-        List<String> manualLottoNumberTexts = new ArrayList<>();
-        manualLottoNumberTexts.add("0, 2, 3, 4, 5, 6");
+        List<Integer> manualLottoNumber = new ArrayList<>();
+        manualLottoNumber.add(0);
+        manualLottoNumber.add(2);
+        manualLottoNumber.add(3);
+        manualLottoNumber.add(4);
+        manualLottoNumber.add(5);
+        manualLottoNumber.add(6);
+
+        List<List<Integer>> manualLottoNumbers = new ArrayList<>();
+        manualLottoNumbers.add(manualLottoNumber);
 
         // When // Then
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new LottoTicket(1000, manualLottoNumberTexts);
+            new LottoTicket(1000, manualLottoNumbers);
         });
     }
 
@@ -141,12 +205,21 @@ class LottoTicketTest {
     @Test
     void lottoTicket_PurchaseAmount1000AndManualLottoNumberTextsCountOver6_ThrowIllegalArgumentException() {
         // Given
-        List<String> manualLottoNumberTexts = new ArrayList<>();
-        manualLottoNumberTexts.add("1, 2, 3, 4, 5, 6, 7");
+        List<Integer> manualLottoNumber = new ArrayList<>();
+        manualLottoNumber.add(1);
+        manualLottoNumber.add(2);
+        manualLottoNumber.add(3);
+        manualLottoNumber.add(4);
+        manualLottoNumber.add(5);
+        manualLottoNumber.add(6);
+        manualLottoNumber.add(7);
+
+        List<List<Integer>> manualLottoNumbers = new ArrayList<>();
+        manualLottoNumbers.add(manualLottoNumber);
 
         // When // Then
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new LottoTicket(1000, manualLottoNumberTexts);
+            new LottoTicket(1000, manualLottoNumbers);
         });
     }
 
@@ -154,12 +227,19 @@ class LottoTicketTest {
     @Test
     void lottoTicket_PurchaseAmount1000AndManualLottoNumberTextsCountUnder6_ThrowIllegalArgumentException() {
         // Given
-        List<String> manualLottoNumberTexts = new ArrayList<>();
-        manualLottoNumberTexts.add("1, 2, 3, 4, 5");
+        List<Integer> manualLottoNumber = new ArrayList<>();
+        manualLottoNumber.add(1);
+        manualLottoNumber.add(2);
+        manualLottoNumber.add(3);
+        manualLottoNumber.add(4);
+        manualLottoNumber.add(5);
+
+        List<List<Integer>> manualLottoNumbers = new ArrayList<>();
+        manualLottoNumbers.add(manualLottoNumber);
 
         // When // Then
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new LottoTicket(1000, manualLottoNumberTexts);
+            new LottoTicket(1000, manualLottoNumbers);
         });
     }
 
