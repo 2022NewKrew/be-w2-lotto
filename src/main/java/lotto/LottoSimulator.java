@@ -110,7 +110,7 @@ public class LottoSimulator {
     }
 
     private void printWinningStat(long purchaseAmount, @NotNull PurchasedLottos purchasedLottos, WinningLotto winningLotto) {
-        WinningResult winningResult = new WinningResult(purchasedLottos.getPurchasedResult(winningLotto));
+        WinningResult winningResult = WinningResult.winningResultOf(winningLotto, purchasedLottos);
         double yield = getSimulationYield(purchaseAmount, winningResult);
         lottoOutputPrinter.printWinningResultPrinter(winningResult);
         lottoOutputPrinter.printWinningYield(yield);

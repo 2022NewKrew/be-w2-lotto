@@ -2,6 +2,8 @@ package lotto.domain;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class WinningResult {
     public static final int ZERO = 0;
@@ -21,5 +23,14 @@ public class WinningResult {
             return ZERO;
         }
         return Collections.frequency(purchasedResult, lottoResult);
+    }
+
+    public static WinningResult winningResultOf(WinningLotto winningLotto, PurchasedLottos purchasedLottos) {
+        return new WinningResult(purchasedLottos.getLottoList()
+                .stream()
+                .map(winningLotto::getPurchasedResult)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList()));
     }
 }

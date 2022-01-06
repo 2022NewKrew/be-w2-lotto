@@ -1,9 +1,6 @@
 package lotto.domain;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static lotto.domain.Lotto.CHECK_DUPLICATION_MESSAGE;
 
@@ -30,7 +27,7 @@ public class WinningLotto {
         return lotto;
     }
 
-    public LottoNumber getBonusNumber() {
-        return bonusNumber;
+    public Optional<LottoResult> getPurchasedResult(Lotto purchasedLotto) {
+        return LottoResult.getResult(lotto.getNumOfMatchingNumbersWith(purchasedLotto), purchasedLotto.containsLottoNumber(bonusNumber));
     }
 }
