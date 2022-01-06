@@ -3,8 +3,8 @@ package domain;
 import enums.Rank;
 
 public class Result {
-    private int hitCount;
-    private boolean Bonus;
+    private final int hitCount;
+    private final boolean Bonus;
     private Rank resultRank;
 
     public Result(int hitCount, Boolean hitBonus) {

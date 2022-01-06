@@ -10,8 +10,8 @@ public enum Rank {
     SEVENTH(1, 0),
     EIGHTH(0, 0);
 
-    private int countOfMatch;
-    private int winningMoney;
+    private final int countOfMatch;
+    private final int winningMoney;
 
     private Rank(int countOfMatch, int winningMoney) {
         this.countOfMatch = countOfMatch;

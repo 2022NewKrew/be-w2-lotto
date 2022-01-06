@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Lotto{
-    private ArrayList<Number> numberList;
+    private final ArrayList<Number> numberList;
 
     public Lotto(ArrayList<Number> numberList) {
         this.numberList = numberList;

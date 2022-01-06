@@ -4,7 +4,7 @@ package domain;
 import java.util.Objects;
 
 public class Number implements Comparable<Number> {
-    private int num;
+    private final int num;
 
     public Number(int num) {
         this.num = num;

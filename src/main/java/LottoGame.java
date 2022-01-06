@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class LottoGame {
     private final InputView inputView = new InputView();
     private final OutputView outputView = new OutputView();
-    private ResultService resultService = new ResultService();
+    private final ResultService resultService = new ResultService();
 
     public void start() throws InvalidInputException {
         int purchaseAmount = inputView.getPurchaseAmount();

@@ -1,8 +1,8 @@
 package domain;
 
 public class WinningLottoManual implements WinningLotto {
-    private Lotto lotto;
-    private Number bonusNumber;
+    private final Lotto lotto;
+    private final Number bonusNumber;
 
     public WinningLottoManual(Lotto lotto, Number bonusNumber) {
         this.lotto = lotto;

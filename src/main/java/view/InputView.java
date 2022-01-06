@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 import static utils.Symbol.*;
 
 public class InputView {
-    private static Scanner sc = new Scanner(System.in);
-    private static Validator validator = new Validator();
+    private static final Scanner sc = new Scanner(System.in);
+    private static final Validator validator = new Validator();
 
     public InputView() {
     }
