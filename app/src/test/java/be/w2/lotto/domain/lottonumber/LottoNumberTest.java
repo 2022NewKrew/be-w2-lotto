@@ -1,6 +1,5 @@
 package be.w2.lotto.domain.lottonumber;
 
-import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
