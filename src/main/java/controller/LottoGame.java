@@ -17,7 +17,7 @@ public class LottoGame {
         OutputView.printAutoLottos(autoLottos);
         LottoWinningNumber inputLastWeekWinNumber = InputView.bonusNumber();
 
-        Map<LottoRank, Integer> lottoRankResult = LottoRankMatch.createResult(autoLottos, inputLastWeekWinNumber);
+        LottoRankMatch lottoRankMatch = LottoRankMatch.createResult(autoLottos, inputLastWeekWinNumber);
 
         OutputView.printProfit(lottoRankResult, purchasedAmount);
 

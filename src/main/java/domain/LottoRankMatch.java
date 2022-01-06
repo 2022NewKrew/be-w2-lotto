@@ -5,21 +5,27 @@ import java.util.List;
 import java.util.Map;
 
 public class LottoRankMatch {
-    private static final Map<LottoRank, Integer> lottoResult = new EnumMap<>(LottoRank.class);
+    private final Map<LottoRank, Integer> lottoResult;
 
-    public static Map<LottoRank, Integer> createResult(LottoRepository autoLottos, LottoWinningNumber inputLastWeekWinNumber) {
-        initResult();
-        for (Lotto autoLotto : autoLottos.getLottos()) {
-            LottoRank lottoRank = createLottoRank(autoLotto, inputLastWeekWinNumber.getLotto(), inputLastWeekWinNumber.getBonus());
-            lottoResult.put(lottoRank, lottoResult.get(lottoRank) + 1);
+    private LottoRankMatch(Map<LottoRank, Integer> lottoResult) {
+        this.lottoResult = lottoResult;
+    }
+
+    private static Map<LottoRank, Integer> initResult() {
+        Map<LottoRank, Integer> lottoResult = new EnumMap<>(LottoRank.class);
+        for (LottoRank lottoRank : LottoRank.values()) {
+            lottoResult.put(lottoRank, 0);
         }
         return lottoResult;
     }
 
-    public static void initResult() {
-        for (LottoRank lottoRank : LottoRank.values()) {
-            lottoResult.put(lottoRank, 0);
+    public static LottoRankMatch createResult(LottoRepository autoLottos, LottoWinningNumber inputLastWeekWinNumber) {
+        Map<LottoRank, Integer> lottoResult = initResult();
+        for (Lotto autoLotto : autoLottos.getLottos()) {
+            LottoRank lottoRank = createLottoRank(autoLotto, inputLastWeekWinNumber.getLotto(), inputLastWeekWinNumber.getBonus());
+            lottoResult.put(lottoRank, lottoResult.get(lottoRank) + 1);
         }
+        return new LottoRankMatch(lottoResult);
     }
 
     private static LottoRank createLottoRank(Lotto autoLotto, List<Integer> inputLastWeekWinNumber, Integer bonus) {
