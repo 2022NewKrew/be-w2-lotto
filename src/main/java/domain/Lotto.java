@@ -13,6 +13,7 @@ public class Lotto {
         validateDuplicateNumber(lotto);
         validateInvalidNumber(lotto);
         validateInvalidLength(lotto);
+        validateNull(lotto);
         this.lotto = Collections.unmodifiableList(lotto);
     }
 
@@ -43,6 +44,12 @@ public class Lotto {
     private void validateInvalidLength(List<Integer> lotto) {
         if (lotto.size() != InvalidLottoLengthException.LOTTO_LENGTH) {
             throw new InvalidLottoLengthException(InvalidLottoLengthException.INVALID_LENGTH);
+        }
+    }
+
+    private void validateNull(List<Integer> lotto) {
+        if (lotto == null) {
+            throw new IllegalArgumentException();
         }
     }
 }
