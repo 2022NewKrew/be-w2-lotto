@@ -14,7 +14,7 @@ class RandomLottoTicketTest {
     @Test
     void construct() {
         RandomLottoTicket ticket = new RandomLottoTicket();
-        int count = (int) IntStream.range(LottoNumber.MIN_VALUE, LottoNumber.MAX_VALUE)
+        int count = (int) IntStream.rangeClosed(LottoNumber.MIN_VALUE, LottoNumber.MAX_VALUE)
                 .mapToObj(LottoNumber::new)
                 .filter(ticket::containLottoNumber)
                 .count();
