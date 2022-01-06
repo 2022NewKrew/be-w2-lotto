@@ -1,20 +1,12 @@
-package step4.lotto.domain;
-
-import step4.input.Validator;
+package step4.service.domain;
 
 import java.util.List;
 
 public class LottoTicket extends Lotto {
-
     private LottoResult result;
 
     public LottoTicket(List<Integer> numbers) {
         super(numbers);
-    }
-
-    @Override
-    protected void checkLottoNum(List<Integer> numbers) {
-        Validator.checkLottoNum(numbers);
     }
 
     protected void setResult(LottoResult result) {

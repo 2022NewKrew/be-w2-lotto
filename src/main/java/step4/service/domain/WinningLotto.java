@@ -1,6 +1,6 @@
-package step4.lotto.domain;
+package step4.service.domain;
 
-import step4.input.Validator;
+import step4.util.Validator;
 
 import java.util.List;
 
@@ -13,18 +13,8 @@ public class WinningLotto extends Lotto {
         checkBonusNum();
     }
 
-    @Override
-    protected void checkLottoNum(List<Integer> numbers) {
-        Validator.checkLottoNum(numbers);
-    }
-
     private void checkBonusNum() {
-        System.out.println(bonusNumber);
-        Validator.numberValidity(bonusNumber);
-    }
-
-    public int getBonusNumber() {
-        return bonusNumber;
+        Validator.checkBonus(bonusNumber, numbers);
     }
 
     /**

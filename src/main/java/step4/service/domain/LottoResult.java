@@ -1,4 +1,7 @@
-package step4.lotto.domain;
+package step4.service.domain;
+
+import java.util.Arrays;
+import java.util.List;
 
 public enum LottoResult {
     FIRST(7, 2000000000, "6개 일치 (2000000000원) - "),
@@ -11,6 +14,8 @@ public enum LottoResult {
     private final int score;
     private final int prize;
     private final String message;
+
+    private static List<LottoResult> lottoResultList = Arrays.asList(NONE, NONE, NONE, FIFTH, FOURTH, THIRD, SECOND, FIRST);
 
     LottoResult(int score, int prize, String message) {
         this.score = score;
@@ -31,11 +36,6 @@ public enum LottoResult {
     }
 
     public static LottoResult getResult(int score) {
-        if (score == 7) return FIRST;
-        if (score == 6) return SECOND;
-        if (score == 5) return THIRD;
-        if (score == 4) return FOURTH;
-        if (score == 3) return FIFTH;
-        return NONE;
+        return lottoResultList.get(score);
     }
 }

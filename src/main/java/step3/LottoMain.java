@@ -30,12 +30,17 @@ public class LottoMain {
     }
 
     private static void checkAndShowResult(int amount, List<LottoTicket> lottoTickets, WinningLotto winningLotto) {
+        //winning 생성
         lottoTickets.stream().forEach(ticket -> winningLotto.compareAndSetResult(ticket));
         Map<Integer, Integer> results = ResultChecker.getResults(lottoTickets);
 
+        //티켓 가져오기
         int purchaseFee = amount * 1000;
         double profitRate = ResultChecker.calculateProfitRate(purchaseFee, results);
 
+        //매치 해보기
+
+        //결과 반환
         outputView.printResult(results, profitRate);
     }
 

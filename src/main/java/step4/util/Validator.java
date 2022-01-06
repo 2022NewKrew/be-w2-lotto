@@ -1,6 +1,6 @@
-package step4.input;
+package step4.util;
 
-import step4.lotto.LottoConfig;
+import step4.service.LottoConfig;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class Validator {
         lottoNum.stream().forEach(Validator::numberValidity);
     }
 
-    public static void numberValidity(int num) {
+    private static void numberValidity(int num) {
         if(num < 0 || num > 45) {
             throw new IllegalArgumentException("숫자의 범위는 1~45 입니다.");
         }

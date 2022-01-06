@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 
+import static step3.lotto.LottoCreatorAuto.NUM_OF_LOTTERY_NUMBERS;
+
 class LottoCreatorAutoTest {
     @Test
     @DisplayName("로또 번호 생성")
@@ -21,7 +23,7 @@ class LottoCreatorAutoTest {
         LottoTicket lottoTicket = lottoCreater.create();
 
         // then
-        Assertions.assertEquals(LottoCreater.NUM_OF_LOTTERY_NUMBERS, lottoTicket.getNumbers().size());
+        Assertions.assertEquals(NUM_OF_LOTTERY_NUMBERS, lottoTicket.getNumbers().size());
         System.out.println(lottoTicket);
     }
 
@@ -35,6 +37,6 @@ class LottoCreatorAutoTest {
         LottoTicket lottoTicket = lottoCreater.create();
 
         // then
-        Assertions.assertEquals(LottoCreater.NUM_OF_LOTTERY_NUMBERS, new HashSet<>(lottoTicket.getNumbers()).size());
+        Assertions.assertEquals(NUM_OF_LOTTERY_NUMBERS, new HashSet<>(lottoTicket.getNumbers()).size());
     }
 }

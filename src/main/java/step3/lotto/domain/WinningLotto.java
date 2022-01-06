@@ -19,7 +19,7 @@ public class WinningLotto extends Lotto {
 
     private void checkBonusNum() {
         System.out.println(bonusNumber);
-        Validator.numberValidity(bonusNumber);
+        Validator.checkBonus(bonusNumber, numbers);
     }
 
     public int getBonusNumber() {

@@ -9,7 +9,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LottoCreatorAuto implements LottoCreater{
-
+    public static final int NUM_OF_LOTTERY_NUMBERS = 6;
+    public static final int BIGGEST_LOTTONUM = 45;
     private static Random random = new Random();
 
     @Override

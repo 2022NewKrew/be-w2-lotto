@@ -1,4 +1,6 @@
-package step4.lotto.domain;
+package step4.service.domain;
+
+import step4.util.Validator;
 
 import java.util.List;
 
@@ -15,7 +17,9 @@ public abstract class Lotto {
         return numbers;
     }
 
-    protected abstract void checkLottoNum(List<Integer> numbers);
+    protected void checkLottoNum(List<Integer> numbers){
+        Validator.checkLottoNum(numbers);
+    }
 
     @Override
     public String toString() {

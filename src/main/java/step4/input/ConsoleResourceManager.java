@@ -2,7 +2,7 @@ package step4.input;
 
 import java.util.Scanner;
 
-public class InputResourceManager {
+public class ConsoleResourceManager {
     public static Scanner scanner = new Scanner(System.in);
 
     public static int nextInt() {
