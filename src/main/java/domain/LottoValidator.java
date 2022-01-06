@@ -6,17 +6,12 @@ import dto.request.LottoPurchaseInfo;
 import util.Message;
 
 public class LottoValidator {
-
 	public static void validateLottoPurchaseInfo(LottoPurchaseInfo lottoPurchaseInfo) {
-		if (lottoPurchaseInfo.getCustomAmount() * LottoInfo.PRICE > lottoPurchaseInfo.getPurchaseMoney()) {
+		if (lottoPurchaseInfo.getCustomLottoList().size() * LottoInfo.PRICE > lottoPurchaseInfo.getPurchaseMoney()) {
 			throw new IllegalArgumentException(Message.INVALID_LOTTO_AMOUNT);
 		}
-	}
 
-	public static void validateLottoPurchaseAmount(int amount) {
-		if (amount < 0) {
-			throw new IllegalArgumentException(Message.INVALID_LOTTO_AMOUNT);
-		}
+		validateLottoList(lottoPurchaseInfo.getCustomLottoList());
 	}
 
 	public static void validateLottoList(List<Lotto> lottoList) {

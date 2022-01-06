@@ -12,4 +12,9 @@ public class Lotto {
 	public List<Integer> getLottoNumberList() {
 		return lottoNumberList;
 	}
+
+	@Override
+	public String toString() {
+		return lottoNumberList.toString();
+	}
 }

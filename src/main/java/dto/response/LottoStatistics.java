@@ -1,20 +1,18 @@
 package dto.response;
 
-import java.util.Map;
-
-import domain.LottoRank;
+import java.util.List;
 
 public class LottoStatistics {
-	private final Map<LottoRank, Integer> lottoRankMap;
+	private final List<String> message;
 	private final double profit;
 
-	public LottoStatistics(Map<LottoRank, Integer> lottoRankMap, double profit) {
-		this.lottoRankMap = lottoRankMap;
+	public LottoStatistics(List<String> message, double profit) {
+		this.message = message;
 		this.profit = profit;
 	}
 
-	public Map<LottoRank, Integer> getLottoRankMap() {
-		return lottoRankMap;
+	public List<String> getMessage() {
+		return message;
 	}
 
 	public double getProfit() {
