@@ -1,31 +1,31 @@
 package com.kakao.lottogame.service;
 
 import com.kakao.lottogame.domain.Lotto;
-import com.kakao.lottogame.domain.Money;
+import com.kakao.lottogame.domain.LottoNumber;
 import com.kakao.lottogame.domain.Rank;
 import com.kakao.lottogame.domain.Result;
 import com.kakao.lottogame.domain.WinningLotto;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class LottoService {
 
     private final LottoGenerator lottoGenerator;
 
     public LottoService() {
-        lottoGenerator = new RandomLottoGenerator();
+        lottoGenerator = new LottoGenerator();
     }
 
-    public LottoService(long seed) {
-        lottoGenerator = new RandomLottoGenerator(seed);
+    public Lotto generateManual(List<Integer> lottoNumbers) {
+        return lottoGenerator.generateManual(lottoNumbers);
     }
 
-    public List<Lotto> buyLottosFor(Money money) {
-        int amount = money.buy(Lotto.PRICE);
-        return Stream.generate(lottoGenerator::generate)
-            .limit(amount)
-            .collect(Collectors.toList());
+    public WinningLotto generateWinningLotto(List<Integer> lottoNumbers, int bonusNumber) {
+        return WinningLotto.of(generateManual(lottoNumbers), LottoNumber.of(bonusNumber));
+    }
+
+    public Lotto generateAuto() {
+        return lottoGenerator.generateAuto();
     }
 
     public Result collate(List<Lotto> lottos, WinningLotto winningLotto) {

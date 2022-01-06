@@ -18,7 +18,7 @@ public class LottoNumber {
 
     private void validate(int value) {
         if (value < MIN_VALUE || value > MAX_VALUE) {
-            throw new IllegalArgumentException("1부터 45까지의 숫자를 선택할 수 있습니다.");
+            throw new IllegalArgumentException("1부터 45까지의 번호를 선택할 수 있습니다.");
         }
     }
 

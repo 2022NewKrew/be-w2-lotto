@@ -2,10 +2,12 @@ package com.kakao.lottogame.domain;
 
 public class Money {
 
-    private final int value;
+    private final int principal;
+    private int value;
 
     private Money(int value) {
         validate(value);
+        this.principal = value;
         this.value = value;
     }
 
@@ -19,11 +21,22 @@ public class Money {
         }
     }
 
-    public int buy(Money price) {
-        return this.value / price.value;
+    public int divide(Money money) {
+        return value / money.value;
+    }
+
+    public int getPrincipal() {
+        return principal;
     }
 
     public int getValue() {
         return value;
+    }
+
+    public void buyLotto(int num) {
+        if (this.value < Lotto.PRICE.getValue() * num) {
+            throw new IllegalArgumentException("잔금이 부족합니다.");
+        }
+        this.value -= Lotto.PRICE.getValue() * num;
     }
 }

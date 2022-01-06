@@ -9,8 +9,13 @@ import java.util.Map.Entry;
 
 public class OutputView {
 
-    public void printLottos(List<Lotto> lottos) {
-        System.out.printf("%n%d개를 구매했습니다.%n", lottos.size());
+    public void printManualInfo() {
+        System.out.println();
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+    }
+
+    public void printLottos(List<Lotto> lottos, int manualLottoNum, int autoLottoNum) {
+        System.out.printf("%n수동으로 %d개, 자동으로 %d개를 구매했습니다.%n", manualLottoNum, autoLottoNum);
         lottos.forEach(System.out::println);
         System.out.println();
     }
@@ -27,7 +32,7 @@ public class OutputView {
         Rank rank = entry.getKey();
         int count = entry.getValue();
         if (rank.getBonus()) {
-            return String.format("%d개 일치, 보너스 볼 일치(%d원))- %d개", rank.getMatch(),
+            return String.format("%d개 일치, 보너스 볼 일치(%d원)- %d개", rank.getMatch(),
                 rank.getRewardValue(), count);
         }
         return String.format("%d개 일치 (%d원))- %d개", rank.getMatch(), rank.getRewardValue(), count);
