@@ -74,7 +74,7 @@ public class LottoController {
 
     private void addErrorHandlingRoute() {
         exception(Exception.class, (exception, request, response) -> {
-            System.out.println(exception.getMessage());
+//            exception.printStackTrace();
 
             request.session().attribute("message", exception.getMessage());
             response.redirect("error");

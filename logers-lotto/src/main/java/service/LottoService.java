@@ -14,14 +14,17 @@ import java.util.List;
 
 public class LottoService {
     public PurchaseResultDto purchase(PurchaseDto purchaseDto){
+        LottoOrder lottoOrder = createLottoOrder(purchaseDto);
+        return new PurchaseResultDto(lottoOrder.getLottoNumberLists());
+    }
+
+    private LottoOrder createLottoOrder(PurchaseDto purchaseDto){
         int purchaseAmount = purchaseDto.getPurchasePrise();
         List<List<Integer>> manualLottoNumberLists = purchaseDto.getManualLottoNumberLists();
 
-        LottoOrder lottoOrder = LottoOrderFactory
+        return LottoOrderFactory
                 .getInstance(purchaseAmount, manualLottoNumberLists)
                 .orElseThrow();
-
-        return new PurchaseResultDto(lottoOrder.getLottoNumberLists());
     }
 
     public RewardResultDto matchingWith(WinningNumbersDto winningNumbersDto){
@@ -29,7 +32,7 @@ public class LottoService {
         return matchedBy(winningNumbers);
     }
 
-    public WinningNumbers createWinningNumbers(WinningNumbersDto winningNumbersDto){
+    private WinningNumbers createWinningNumbers(WinningNumbersDto winningNumbersDto){
         return WinningNumbersFactory
                 .getInstance(winningNumbersDto.getWinningNumbers(), winningNumbersDto.getBonusNumbers())
                 .orElseThrow();

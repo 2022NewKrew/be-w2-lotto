@@ -4,6 +4,7 @@ import dto.input.PurchaseDto;
 import spark.Request;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -29,6 +30,10 @@ public class RequestToPurchaseDtoConverter implements Converter<Request, Purchas
     }
 
     private List<List<Integer>> parseLottoNumberLists(String numberListsString){
+        if(numberListsString.length() == 0){
+            return Collections.emptyList();
+        }
+
         return Arrays.stream(numberListsString.split("\n"))
                 .map(stringToNumberConverter::convert)
                 .collect(toList());

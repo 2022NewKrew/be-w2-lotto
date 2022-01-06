@@ -23,7 +23,6 @@ public class RandomUtil {
 
     public static List<Integer> createRandomNumbers(){
         Collections.shuffle(numbers);
-
         List<Integer> randomNumbers
                 = new ArrayList<>(numbers.subList(0, Lotto.NUMBER_OF_WRITE_NUMBER));
         Collections.sort(randomNumbers);

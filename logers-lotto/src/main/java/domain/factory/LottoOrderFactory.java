@@ -5,6 +5,7 @@ import domain.LottoOrder;
 import util.RandomUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -38,7 +39,11 @@ public class LottoOrderFactory {
     }
 
     private static List<List<Integer>> createRandomLottoNumberLists(int times){
-       return Stream.generate(RandomUtil::createRandomNumbers)
+        if(times <= 0){
+            return Collections.emptyList();
+        }
+
+        return Stream.generate(RandomUtil::createRandomNumbers)
                 .limit(times)
                 .collect(toList());
     }
