@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        form {
+            width: 500px;
+            /*border: 1px solid red;*/
+        }
+
+        form div {
+            width: 100%;
+            display: flex;
+            margin-bottom: 10px;
+            /*border: 1px solid blue;*/
+        }
+
+        form div label,
+        form div input,
+        form div textarea {
+            /*border: 1px solid pink;*/
+            flex: 1;
+        }
+
+        form div textarea {
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+<h1>로또 내역</h1>
+<p>주문 번호 : {{lottoId}}</p>
+<table border="1" width="500px">
+    <th>번 호</th>
+    <th>로또 번호</th>
+    {{#each lottoNumbersList}}
+    <tr>
+        <td>{{@index}}</td>
+        <td>{{this}}</td>
+    </tr>
+    {{/each}}
+</table>
+</br>
+<form action="/matchLotto" method="post">
+    <div>
+        <label>
+            지난 주 당첨 번호 :
+        </label>
+        <input type="text" name="lastWeekWinningNumbers"/>
+    </div>
+    <div>
+        <label>
+            보너스 볼 번호 :
+        </label>
+        <input type="text" name="bonusBall"/>
+    </div>
+    <input type="hidden" name="lottoId" value={{lottoId}}>
+    <input type="submit" value="당첨 확인"/>
+</form>
+</body>
+</html>

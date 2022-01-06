@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>당첨 결과</h1>
+<table border="1" width="500px">
+    <th>당첨 결과</th>
+    <th>당첨 횟수</th>
+    {{#each results}}
+    <tr>
+        <td>{{@key}}</td>
+        <td>{{this}}</td>
+    </tr>
+    {{/each}}
+</table>
+<div> 수익률 : {{yield}}%</div>
+</body>
+</html>

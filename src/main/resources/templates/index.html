@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        form {
+            width: 500px;
+            /*border: 1px solid red;*/
+        }
+
+        form div {
+            width: 100%;
+            display: flex;
+            margin-bottom: 10px;
+            /*border: 1px solid blue;*/
+        }
+
+        form div label,
+        form div input,
+        form div textarea {
+            /*border: 1px solid pink;*/
+            flex: 1;
+        }
+
+        form div textarea {
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+<h1> 로또 게임 </h1>
+<form action="/buyLotto" method="post">
+    <div>
+        <label>
+            구매 금액 :
+        </label>
+        <input type="text" name="inputMoney"/>
+    </div>
+    <div>
+        <label>
+            수동으로 구매할 로또 번호 :
+        </label>
+        <textarea name="manualNumber"></textarea>
+    </div>
+    <input type="submit" value="로또 구매"/>
+</form>
+</body>
+</html>
