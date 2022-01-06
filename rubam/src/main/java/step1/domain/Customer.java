@@ -1,7 +1,5 @@
 package step1.domain;
 
-import step1.view.LottoPrinter;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
