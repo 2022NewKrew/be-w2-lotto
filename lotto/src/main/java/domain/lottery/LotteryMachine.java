@@ -11,21 +11,26 @@ import view.read.InputReader;
  */
 public class LotteryMachine {
 
-  private WinningLottery winningLottery;
+  private WinningLotto winningLotto;
+
 
   private LotteryMachine() {
-    this.winningLottery = null;
+    this.winningLotto = null;
   }
+
 
   public static LotteryMachine createEmpty() {
     return new LotteryMachine();
   }
 
+
   public void generateWinningLottery(InputReader reader) throws IOException {
-    this.winningLottery = reader.getLastWinningLottery();
+    this.winningLotto = reader.getLastWinningLottery();
   }
 
-  public WinningLottery getCurrentWinningLottery() {
-    return winningLottery;
+
+  public WinningLotto getCurrentWinningLottery() {
+    return winningLotto;
   }
+
 }

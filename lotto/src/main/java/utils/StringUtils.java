@@ -12,7 +12,8 @@ import java.util.stream.Collectors;
  */
 public final class StringUtils {
 
-  private StringUtils() {}
+  private StringUtils() {
+  }
 
   private static final String DEFAULT_DELIMITER = ",";
 
@@ -25,6 +26,19 @@ public final class StringUtils {
 
   public static List<String> splitByDelimiter(String str) {
     return splitByDelimiter(str, DEFAULT_DELIMITER);
+  }
+
+
+  public static List<Integer> integersSplitByDelimiter(String str, String delimiter) {
+    return splitByDelimiter(str, delimiter)
+        .stream()
+        .map(Integer::parseInt)
+        .collect(Collectors.toList());
+  }
+
+
+  public static List<Integer> integersSplitByDelimiter(String str) {
+    return integersSplitByDelimiter(str, DEFAULT_DELIMITER);
   }
 
 }
