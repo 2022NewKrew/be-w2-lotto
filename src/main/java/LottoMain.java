@@ -1,9 +1,9 @@
-import back.DIFactory.DIFactory;
-import front.View;
+import DIFactory.DIFactory;
+import controller.FrontController;
 
 public class LottoMain {
     public static void main(String[] args) {
-        View view = new View(DIFactory.makeDependency());
-        view.main();
+        FrontController frontController = new FrontController(DIFactory.makeDependency());
+        frontController.map();
     }
 }
