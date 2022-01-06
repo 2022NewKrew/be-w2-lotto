@@ -1,38 +1,36 @@
 package lotto.domain;
 
-import lotto.dto.LottoResultDTO;
-
 import java.util.Arrays;
 
 public enum PrizeType {
     FIRST_PRIZE(6, 2000000000) {
         @Override
-        public void count(LottoResultDTO lottoResultDTO) {
-            lottoResultDTO.plusFirstPrizeCount();
+        public void count(LottoResult lottoResult) {
+            lottoResult.plusFirstPrizeCount();
         }
     },
     SECOND_PRIZE(5, 30000000) {
         @Override
-        public void count(LottoResultDTO lottoResultDTO) {
-            lottoResultDTO.plusSecondPrizeCount();
+        public void count(LottoResult lottoResult) {
+            lottoResult.plusSecondPrizeCount();
         }
     },
     THIRD_PRIZE(5, 1500000) {
         @Override
-        public void count(LottoResultDTO lottoResultDTO) {
-            lottoResultDTO.plusThirdPrizeCount();
+        public void count(LottoResult lottoResult) {
+            lottoResult.plusThirdPrizeCount();
         }
     },
     FOURTH_PRIZE(4, 50000) {
         @Override
-        public void count(LottoResultDTO lottoResultDTO) {
-            lottoResultDTO.plusFourthPrizeCount();
+        public void count(LottoResult lottoResult) {
+            lottoResult.plusFourthPrizeCount();
         }
     },
     FIFTH_PRIZE(3, 5000) {
         @Override
-        public void count(LottoResultDTO lottoResultDTO) {
-            lottoResultDTO.plusFifthPrizeCount();
+        public void count(LottoResult lottoResult) {
+            lottoResult.plusFifthPrizeCount();
         }
     };
 
@@ -44,7 +42,7 @@ public enum PrizeType {
         this.money = money;
     }
 
-    public abstract void count(LottoResultDTO lottoResultDTO);
+    public abstract void count(LottoResult lottoResult);
 
     public static PrizeType valueOf(int matchCount, boolean matchBonus) {
         if (matchCount == SECOND_PRIZE.value) {
@@ -65,10 +63,6 @@ public enum PrizeType {
 
     private static PrizeType isSecondOrThirdPrize(boolean matchBonus) {
         return matchBonus ? SECOND_PRIZE : THIRD_PRIZE;
-    }
-
-    public int getValue() {
-        return value;
     }
 
     public int getMoney() {
