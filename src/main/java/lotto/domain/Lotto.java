@@ -7,8 +7,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static lotto.domain.LottoAutoGenerator.MAX_NUMBER;
-import static lotto.domain.LottoAutoGenerator.MIN_NUMBER;
+import static lotto.domain.LottoNumber.MAX_NUMBER;
+import static lotto.domain.LottoNumber.MIN_NUMBER;
 
 public class Lotto {
     public static final int NUM_OF_LOTTO_NUMBERS_IN_LOTTO = 6;

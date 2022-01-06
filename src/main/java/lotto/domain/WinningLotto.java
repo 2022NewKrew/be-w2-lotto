@@ -9,8 +9,8 @@ import java.util.Set;
 
 import static lotto.domain.Lotto.CHECK_DUPLICATION_MESSAGE;
 import static lotto.domain.Lotto.CHECK_LOTTO_NUMBER_MESSAGE;
-import static lotto.domain.LottoAutoGenerator.MAX_NUMBER;
-import static lotto.domain.LottoAutoGenerator.MIN_NUMBER;
+import static lotto.domain.LottoNumber.MAX_NUMBER;
+import static lotto.domain.LottoNumber.MIN_NUMBER;
 
 public class WinningLotto {
     private final Lotto lotto;
