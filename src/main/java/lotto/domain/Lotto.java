@@ -15,6 +15,10 @@ public interface Lotto {
         return count;
     }
 
+    static boolean calculateEqualCount(Lotto userLotto, int bonusNumber) {
+        return userLotto.getLottoNumbers().contains(bonusNumber);
+    }
+
     void generateRandomLotto();
 
     void initialize(String originalLottoString);

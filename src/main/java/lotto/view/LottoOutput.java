@@ -39,7 +39,9 @@ public class LottoOutput {
         System.out.println("---------");
         Map<Integer, Long> winningCountMap = lottoStatistic.getWinningCountMap();
         for (LottoRank lottoRank : lottoRanks) {
-            System.out.printf("%d개 일치 (%d원)- %d개\n", lottoRank.getMatch(), lottoRank.getMoney(), winningCountMap.get(lottoRank.getMatch()));
+            System.out.printf("%d개 일치", lottoRank.getMatch());
+            System.out.printf("%s (%d원)", lottoRank.getIsBonus() ? ", 보너스 볼 일치" : "", lottoRank.getMoney());
+            System.out.printf("- %d개\n", winningCountMap.get(lottoRank.getMatch()));
         }
         System.out.printf("총 수익률은 %d%%입니다\n", lottoStatistic.getProfitPercentage());
     }
