@@ -3,16 +3,16 @@ package enums;
 import java.util.Arrays;
 
 public enum Prize {
-    MISS(0, 0),
-    THREE(3, 5000),
-    FOUR(4, 50000),
-    FIVE(5, 1500000),
-    SIX(6, 2000000000);
+    MISS(0, 0L),
+    THREE(3, 5_000L),
+    FOUR(4, 50_000L),
+    FIVE(5, 1_500_000L),
+    SIX(6, 2_000_000_000L);
 
     private final int matchCount;
-    private final int money;
+    private final long money;
 
-    Prize(int matchCount, int money) {
+    Prize(int matchCount, long money) {
         this.matchCount = matchCount;
         this.money = money;
     }
@@ -28,7 +28,7 @@ public enum Prize {
         return matchCount;
     }
 
-    public int getMoney() {
+    public long getMoney() {
         return money;
     }
 }
