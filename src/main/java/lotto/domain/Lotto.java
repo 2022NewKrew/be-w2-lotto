@@ -57,7 +57,7 @@ public class Lotto {
         return lottoNumberSet.size();
     }
 
-    public boolean containsLottoNumber(LottoNumber bonusNumber) {
-        return numberList.stream().anyMatch(number -> number.getNumber() == bonusNumber.getNumber());
+    public boolean containsLottoNumber(LottoNumber number) {
+        return numberList.stream().anyMatch(n -> n.getNumber() == number.getNumber());
     }
 }
