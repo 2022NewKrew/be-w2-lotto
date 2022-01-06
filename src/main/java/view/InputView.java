@@ -25,7 +25,7 @@ public class InputView {
         return purchasedLottoNumbers;
     }
 
-    public static Lotto numbers() {
+    public static Lotto lastWeekNumbers() {
         System.out.println(INPUT_LAST_WEEK_WIN_NUMBER);
         String numbersBeforeDefined = scanner.next();
         List<Integer> numbersAfterDefined = Arrays.stream(numbersBeforeDefined.split(","))
@@ -35,7 +35,7 @@ public class InputView {
     }
 
     public static LottoWinningNumber bonusNumber() {
-        Lotto withoutBonus = numbers();
+        Lotto withoutBonus = lastWeekNumbers();
         System.out.println(INPUT_BONUS_NUMBER);
         int bonus = scanner.nextInt();
         return new LottoWinningNumber(withoutBonus.getLotto(), bonus);

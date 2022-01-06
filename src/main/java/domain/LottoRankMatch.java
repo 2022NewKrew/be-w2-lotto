@@ -36,7 +36,6 @@ public class LottoRankMatch {
     private static LottoRank createLottoRank(Lotto autoLotto, List<Integer> inputLastWeekWinNumber, Integer bonusNumber) {
         boolean flag;
         flag = autoLotto.contains(bonusNumber);
-//        flag = autoLotto.getLotto().contains(bonus);
         return LottoRank.valueOf(checkMatchedNumbers(autoLotto, inputLastWeekWinNumber), flag);
     }
 
