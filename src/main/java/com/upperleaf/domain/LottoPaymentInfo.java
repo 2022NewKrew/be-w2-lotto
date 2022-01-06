@@ -8,6 +8,8 @@ public class LottoPaymentInfo {
 
     private final long paymentAmount;
     private final List<List<Integer>> lottoNumbers;
+
+    private Long id;
     /**
      * 로또 지불 정보
      * @param paymentAmount 사용자가 로또를 사기위해 지불한 금액
@@ -48,5 +50,13 @@ public class LottoPaymentInfo {
     private List<List<Integer>> convertAllNumbersToIntegerList(String manualNumber) {
         List<String> numbers = Arrays.stream(manualNumber.split("\n")).collect(Collectors.toList());
         return convertNumbersToIntegerList(numbers);
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

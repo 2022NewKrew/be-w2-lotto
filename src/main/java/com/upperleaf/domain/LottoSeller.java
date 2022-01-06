@@ -5,9 +5,9 @@ import com.upperleaf.domain.lotto.create.LottoCreateStrategy;
 
 public class LottoSeller {
 
-    private final int lottoPrice;
+    private final long lottoPrice;
 
-    public LottoSeller(int lottoPrice) {
+    public LottoSeller(long lottoPrice) {
         this.lottoPrice = lottoPrice;
     }
 

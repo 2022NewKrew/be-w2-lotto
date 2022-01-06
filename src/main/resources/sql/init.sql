@@ -1,0 +1,13 @@
+CREATE TABLE IF NOT EXISTS LOTTOS (
+    id LONG PRIMARY KEY AUTO_INCREMENT,
+    lottos JSON,
+    lottos_size LONG
+);
+
+CREATE TABLE IF NOT EXISTS LOTTOS_RESULT (
+    id LONG AUTO_INCREMENT PRIMARY KEY,
+    lotto_id INT NOT NULL,
+    match_result JSON,
+    profit_rate LONG,
+    FOREIGN KEY (lotto_id) REFERENCES LOTTOS (id)
+);
