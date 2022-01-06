@@ -7,6 +7,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.util.stream.LongStream;
 
 import static lotto.LottoSimulator.SEPARATOR;
 
@@ -33,7 +34,14 @@ public class LottoInputScanner {
         return numOfManualLottos;
     }
 
-    public List<LottoNumber> getLottoNumbers() throws IllegalArgumentException {
+    public List<String> getManualLottoNumberStringList(long numOfManualLottos) {
+        System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
+        return LongStream.range(0, numOfManualLottos)
+                .mapToObj(l -> sc.nextLine())
+                .collect(Collectors.toList());
+    }
+
+    public List<LottoNumber> getWinningLottoNumberList() throws IllegalArgumentException {
         return Arrays.stream(sc.nextLine().split(SEPARATOR))
                 .map(s -> new LottoNumber(Integer.parseInt(s.trim())))
                 .collect(Collectors.toList());

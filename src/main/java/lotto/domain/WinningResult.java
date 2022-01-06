@@ -14,10 +14,6 @@ public class WinningResult {
         this.lottoResultList = lottoResultList;
     }
 
-    public List<LottoResult> getWinningResult() {
-        return Collections.unmodifiableList(lottoResultList);
-    }
-
     public int getCountOf(LottoResult lottoResult) {
         if (lottoResultList.isEmpty()) {
             return ZERO;

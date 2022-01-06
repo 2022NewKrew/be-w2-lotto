@@ -3,14 +3,11 @@ package lotto;
 import lotto.domain.*;
 import lotto.view.LottoInputScanner;
 import lotto.view.LottoOutputPrinter;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.LongStream;
 
 public class LottoSimulator {
     public static final long LOTTO_PRICE = 1000;
@@ -37,9 +34,9 @@ public class LottoSimulator {
         }
 
         long numOfManualLottos = getNumOfManualLotto();
-        PurchaseInfo purchasedInfo = new PurchaseInfo(purchaseAmount, numOfManualLottos);
-        List<Lotto> manualLottoList = getManualLotto(purchasedInfo.getNumOfManualLottos());
-        PurchasedLottos purchasedLottos = purchaseLotto(purchasedInfo, manualLottoList);
+        List<String> manualLottoList = lottoInputScanner.getManualLottoNumberStringList(numOfManualLottos);
+        PurchaseInfo purchasedInfo = new PurchaseInfo(purchaseAmount, numOfManualLottos, manualLottoList);
+        PurchasedLottos purchasedLottos = purchaseLotto(purchasedInfo);
         WinningLotto winningLotto = getWinningInfo();
         printWinningStat(purchaseAmount, purchasedLottos, winningLotto);
     }
@@ -56,19 +53,6 @@ public class LottoSimulator {
         }
     }
 
-    private List<Lotto> getManualLotto(long numOfManualLottos) {
-        lottoOutputPrinter.printDescription("\n수동으로 구매할 번호를 입력해 주세요.\n");
-        try {
-            return LongStream.range(0, numOfManualLottos)
-                    .mapToObj(i -> new Lotto(lottoInputScanner.getLottoNumbers()))
-                    .collect(Collectors.toList());
-        } catch (IllegalArgumentException iae) {
-            lottoOutputPrinter.printDescription(iae.getMessage());
-            lottoOutputPrinter.printDescription("처음부터 다시 입력바랍니다.");
-            return getManualLotto(numOfManualLottos);
-        }
-    }
-
     private long getNumOfManualLotto() {
         try {
             return lottoInputScanner.getNumOfManualLottos();
@@ -81,26 +65,32 @@ public class LottoSimulator {
         }
     }
 
-    @Contract("_, _ -> new")
-    private @NotNull PurchasedLottos purchaseLotto(@NotNull PurchaseInfo purchasedInfo, List<Lotto> manualLottoList) {
-        List<Lotto> purchasedLottoList = new ArrayList<>(manualLottoList);
-        long numOfAutoLottos = purchasedInfo.getNumOfAutoLottos();
+    private @NotNull PurchasedLottos purchaseLotto(@NotNull PurchaseInfo purchaseInfo) {
         try {
-            LottoAutoGenerator lottoAutoGenerator = new LottoAutoGenerator();
-            List<Lotto> autoLottoList = lottoAutoGenerator.getRandomLottos(numOfAutoLottos);
-            purchasedLottoList.addAll(autoLottoList);
-            lottoOutputPrinter.printPurchaseResult(purchasedInfo.getNumOfManualLottos(), purchasedLottoList);
+            long numOfManualLottos = purchaseInfo.getNumOfManualLottos();
+            List<Lotto> purchasedLottoList = getPurchasedLottoList(purchaseInfo);
+            lottoOutputPrinter.printPurchaseResult(numOfManualLottos, purchasedLottoList);
             return new PurchasedLottos(purchasedLottoList);
         } catch (IllegalArgumentException iae) {
             lottoOutputPrinter.printDescription(iae.getMessage());
-            return purchaseLotto(purchasedInfo, manualLottoList);
+            return purchaseLotto(purchaseInfo);
         }
+    }
+
+    private List<Lotto> getPurchasedLottoList(PurchaseInfo purchaseInfo) throws IllegalArgumentException {
+        LottoGenerator manualLottoGenerator = new ManualLottoGenerator(purchaseInfo.getManualLottoList());
+        LottoGenerator autoLottoGenerator = new AutoLottoGenerator(purchaseInfo.getNumOfAutoLottos());
+        List<Lotto> purchasedLottoList = new ArrayList<>();
+        purchasedLottoList.addAll(manualLottoGenerator.generate());
+        purchasedLottoList.addAll(autoLottoGenerator.generate());
+
+        return purchasedLottoList;
     }
 
     private @NotNull WinningLotto getWinningInfo() {
         lottoOutputPrinter.printDescription("\n지난주 당첨 정보를 입력해 주세요.\n");
         try {
-            List<LottoNumber> winningLottoNumberList = lottoInputScanner.getLottoNumbers();
+            List<LottoNumber> winningLottoNumberList = lottoInputScanner.getWinningLottoNumberList();
             LottoNumber bonusNumber = lottoInputScanner.getBonusNumber();
             return new WinningLotto(new Lotto(winningLottoNumberList), bonusNumber);
         } catch (IllegalArgumentException iae) {

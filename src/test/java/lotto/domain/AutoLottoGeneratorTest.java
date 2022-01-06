@@ -9,19 +9,15 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class LottoAutoGeneratorTest {
-    LottoAutoGenerator lottoAutoGenerator;
-
-    @BeforeEach
-    void setUp() {
-        lottoAutoGenerator = new LottoAutoGenerator();
-    }
+class AutoLottoGeneratorTest {
+    LottoGenerator autoLottoGenerator;
 
     @DisplayName("임의의 로또를 입력받은 숫자만큼 생성하는지 확인")
     @ParameterizedTest
     @ValueSource(ints = {1,2,3,4,5})
     void getRandomLottos(int num) {
-        List<Lotto> lottoList = lottoAutoGenerator.getRandomLottos(num);
+        autoLottoGenerator = new AutoLottoGenerator(num);
+        List<Lotto> lottoList = autoLottoGenerator.generate();
         assertThat(lottoList.size()).isEqualTo(num);
     }
 }
