@@ -1,6 +1,9 @@
 package domain;
 
+import exceptions.InvalidPurchaseAmount;
+import messages.ErrorMessage;
 import utils.RandomMaker;
+import validation.Validation;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,6 +22,8 @@ public class LottoMachine {
     }
 
     public static List<Lotto> buySeveralLotto(int purchaseAmount) {
+        Validation.notLessThanInt(purchaseAmount, 0, new InvalidPurchaseAmount(ErrorMessage.NEGATIVE_PURCHASE_AMOUNT.getMessage()));
+        // TODO - 남은 금액 계산
         int lottoCount = purchaseAmount / LOTTO_PRICE;
 
         return Stream.generate(LottoMachine::buy)

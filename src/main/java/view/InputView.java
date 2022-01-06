@@ -1,9 +1,6 @@
 package view;
 
-import exceptions.InvalidLastWeekWinningNumber;
-import messages.ErrorMessage;
 import messages.GameMessage;
-import validation.Validation;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,11 +26,6 @@ public class InputView {
                 .map(String::trim)
                 .mapToInt(Integer::parseInt)
                 .distinct()
-                .peek((num) ->
-                {
-                    Validation.notLessThanInt(num, 1, new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_WINNING_NUMBER.getMessage()));
-                    Validation.notMoreThanInt(num, 45, new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_WINNING_NUMBER.getMessage()));
-                })
                 .boxed()
                 .collect(Collectors.toList());
     }
