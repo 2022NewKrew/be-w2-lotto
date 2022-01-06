@@ -17,4 +17,8 @@ public class LottoRepository {
         final Long id = lotto.getId();
         lottoMap.put(id, lotto);
     }
+
+    public void update(Lotto lotto) {
+        save(lotto);
+    }
 }

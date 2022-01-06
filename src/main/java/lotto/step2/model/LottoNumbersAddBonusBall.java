@@ -10,6 +10,10 @@ public class LottoNumbersAddBonusBall extends LottoNumbers {
         super(numbers);
     }
 
+    public LottoNumbersAddBonusBall(List<Integer> numbers, LottoResult result) {
+        super(numbers, result);
+    }
+
     public void confirmTheWinAddBonusBall(List<Integer> winningNumbers, int bonusBall) {
         super.confirmTheWin(winningNumbers);
 

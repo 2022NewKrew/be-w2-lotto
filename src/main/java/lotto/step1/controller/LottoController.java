@@ -47,6 +47,8 @@ public class LottoController {
 
         lotto.confirmTheWin(lastWeekWinningNumbers);
 
+        lottoRepository.update(lotto);
+
         return LottoResultsDTO.of(lotto, LottoResult.getEnumSetFirstToFourthPlace());
     }
 }

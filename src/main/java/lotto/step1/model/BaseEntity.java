@@ -5,7 +5,15 @@ import lotto.step1.util.AutoIncrementIdGenerator;
 import java.util.Objects;
 
 public class BaseEntity {
-    private final Long id = AutoIncrementIdGenerator.get();
+    private final Long id;
+
+    public BaseEntity() {
+        id = AutoIncrementIdGenerator.get();
+    }
+
+    public BaseEntity(long id) {
+        this.id = id;
+    }
 
     @Override
     public boolean equals(Object o) {

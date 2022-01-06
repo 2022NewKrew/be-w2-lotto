@@ -7,6 +7,7 @@ import lotto.step1.exception.NotFoundEntityException;
 import lotto.step1.model.Lotto;
 import lotto.step1.model.LottoGenerator;
 import lotto.step1.model.LottoResult;
+import lotto.step1.repository.LottoRepository;
 import lotto.step2.dto.request.ConfirmTheWinAddBonusBallDTO;
 import lotto.step2.model.LottoAddBonusBall;
 import lotto.step2.model.LottoAddBonusBallGenerator;
@@ -21,6 +22,10 @@ public class LottoAddBonusBallController extends LottoController {
 
     protected LottoAddBonusBallController(LottoGenerator lottoGenerator) {
         super(lottoGenerator);
+    }
+
+    protected LottoAddBonusBallController(LottoGenerator lottoGenerator, LottoRepository repository) {
+        super(lottoGenerator, repository);
     }
 
     @Override
@@ -38,16 +43,16 @@ public class LottoAddBonusBallController extends LottoController {
     }
 
     private int getBonusBall(ConfirmTheWinDTO confirmTheWinDTO) {
-        if (!(confirmTheWinDTO instanceof ConfirmTheWinAddBonusBallDTO confirmTheWinAddBonusBallDTO)) {
+        if (!(confirmTheWinDTO instanceof ConfirmTheWinAddBonusBallDTO)) {
             throw new ClassCastException();
         }
-        return confirmTheWinAddBonusBallDTO.getBonusBall();
+        return ((ConfirmTheWinAddBonusBallDTO) confirmTheWinDTO).getBonusBall();
     }
 
     private LottoAddBonusBall lottoAddBonusBallFrom(Lotto lotto) {
-        if (!(lotto instanceof LottoAddBonusBall lottoAddBonusBall)) {
+        if (!(lotto instanceof LottoAddBonusBall)) {
             throw new ClassCastException();
         }
-        return lottoAddBonusBall;
+        return (LottoAddBonusBall) lotto;
     }
 }

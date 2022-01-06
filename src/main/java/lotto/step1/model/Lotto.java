@@ -7,6 +7,11 @@ import java.util.Map;
 public class Lotto extends BaseEntity {
     protected final List<LottoNumbers> purchasedLottoNumbersList;
 
+    protected Lotto(long id, List<LottoNumbers> purchasedLottoNumbersList) {
+        super(id);
+        this.purchasedLottoNumbersList = purchasedLottoNumbersList;
+    }
+
     protected Lotto(List<LottoNumbers> purchasedLottoNumbersList) {
         this.purchasedLottoNumbersList = purchasedLottoNumbersList;
     }

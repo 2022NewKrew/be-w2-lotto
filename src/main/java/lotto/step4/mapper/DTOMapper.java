@@ -10,6 +10,7 @@ import spark.Request;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DTOMapper {
     public static LottoPurchaseSheetDTO reqToLottoPurchaseSheetDTO(Request req) {
@@ -18,7 +19,7 @@ public class DTOMapper {
 
         final List<List<Integer>> nonAutoLottoNumbersList = Arrays.stream(nonAutoLottoNumbersListStr.split("\r\n"))
                 .map(str -> TypeConverter.strToIntList(str, Validator.FROM_1_TO_45_VALIDATOR))
-                .toList();
+                .collect(Collectors.toList());
 
         return new NoAutoLottoPurchaseSheetDTO(purchaseAmount, nonAutoLottoNumbersList);
     }

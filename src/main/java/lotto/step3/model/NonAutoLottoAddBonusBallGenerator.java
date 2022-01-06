@@ -50,9 +50,9 @@ public class NonAutoLottoAddBonusBallGenerator extends LottoAddBonusBallGenerato
     }
 
     private NoAutoLottoPurchaseSheetDTO checkAndConvertType(LottoPurchaseSheetDTO lottoPurchaseSheetDTO) {
-        if (!(lottoPurchaseSheetDTO instanceof NoAutoLottoPurchaseSheetDTO noAutoLottoPurchaseSheetDTO)) {
+        if (!(lottoPurchaseSheetDTO instanceof NoAutoLottoPurchaseSheetDTO)) {
             throw new LottoGameException("");
         }
-        return noAutoLottoPurchaseSheetDTO;
+        return ((NoAutoLottoPurchaseSheetDTO) lottoPurchaseSheetDTO);
     }
 }

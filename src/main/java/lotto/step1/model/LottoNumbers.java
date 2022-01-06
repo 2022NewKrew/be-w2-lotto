@@ -13,6 +13,11 @@ public class LottoNumbers extends BaseEntity {
         this.result = LottoResult.UNIDENTIFIED;
     }
 
+    protected LottoNumbers(List<Integer> numbers, LottoResult result) {
+        this.numbers = numbers;
+        this.result = result;
+    }
+
     public LottoResult getResult() {
         return result;
     }
