@@ -1,4 +1,4 @@
-package lotto.exception;
+package lotto.util;
 
 public class InvalidInputException extends RuntimeException{
     public InvalidInputException(String message){

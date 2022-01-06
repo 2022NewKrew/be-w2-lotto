@@ -1,7 +1,5 @@
 package lotto.util;
 
-import lotto.exception.InvalidInputException;
-
 import java.util.List;
 
 import static lotto.util.ConstantValue.*;
