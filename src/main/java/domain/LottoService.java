@@ -18,12 +18,11 @@ public final class LottoService {
     private final LottoGenerator autoLottoGenerator;
     private final LottoGenerator manualLottoGenerator;
 
-    public LottoService(LottoServiceInputController inputController, LottoServiceRenderer renderer) {
+    public LottoService(LottoServiceInputController inputController, LottoServiceRenderer renderer, LottoGenerator manualLottoGenerator, LottoGenerator autoLottoGenerator) {
         this.inputController = inputController;
         this.renderer = renderer;
-        //TODO: 의존성 주입 변경
-        autoLottoGenerator = new AutoLottoGenerator();
-        manualLottoGenerator = new ManualLottoGenerator(inputController);
+        this.manualLottoGenerator = manualLottoGenerator;
+        this.autoLottoGenerator = autoLottoGenerator;
     }
 
     public void start() {
@@ -117,7 +116,7 @@ public final class LottoService {
     }
 
     /**+
-     * 당첨 통계 출력하는 메소드입니다. 당첨된 등수와 해당 등수의 개수를 map으로 묶고, 수익률을 (평가금액 - 원금) / 원금 으로 퍼센티지를 계산하여 renderer에 전달합니다.
+     * 당첨 통계 출력하는 메소드입니다. 당첨 현황에 대한 일급 컬렉션을 생성하여 수익률과 같이 renderer에 전달합니다.
      * @param purchaseAmount 구매 금액
      * @param purchasedLottoTickets 구매한 로또 티켓들
      * @param lastWeekWinningNumbers 지난주 당첨 번호
