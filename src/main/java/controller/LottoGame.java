@@ -9,8 +9,7 @@ import view.ResultView;
 import java.util.List;
 
 public class LottoGame {
-
-    public void start() {
+    public static void start() {
         long purchaseAmount = InputView.inputPurchaseAmount();
         List<Lotto> lottoList = LottoMachine.buySeveralLotto(purchaseAmount);
         ResultView.printLottoList(lottoList);
