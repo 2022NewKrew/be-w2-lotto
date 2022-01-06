@@ -1,6 +1,10 @@
 package lotto.view;
 
 import lotto.domain.*;
+import lotto.domain.message.OutputViewMessage;
+import lotto.domain.model.Lotto;
+import lotto.domain.model.LottoResult;
+import lotto.domain.model.Lottos;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,13 +12,13 @@ import java.util.List;
 public final class OutputView {
     private OutputView() { }
 
-    public static void drawPurchaseLotto(PurchaseLotto purchaseLotto) {
+    public static void drawPurchaseLotto(Lottos lottos) {
         StringBuilder sb = new StringBuilder();
 
-        final List<Lotto> lottos = purchaseLotto.getLottos();
-        sb.append(String.format(OutputViewMessage.OUTPUT_PURCHASE_COUNT.getMessage(), lottos.size()));
+        final List<Lotto> allLotto = lottos.getLottos();
+        sb.append(String.format(OutputViewMessage.OUTPUT_PURCHASE_COUNT.getMessage(), allLotto.size()));
 
-        for (Lotto lotto : lottos) {
+        for (Lotto lotto : allLotto) {
             sb.append(drawLottoNumber(lotto)).append("\n");
         }
 

@@ -1,6 +1,9 @@
 package lotto.controller;
 
-import lotto.domain.*;
+import lotto.domain.model.LottoNumbers;
+import lotto.domain.model.LottoResult;
+import lotto.domain.model.Lottos;
+import lotto.domain.model.WinningLotto;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
@@ -10,14 +13,15 @@ public class LottoController {
     public void run() throws IOException {
         final int purchasePrice = InputView.inputPurchasePrice();
 
-        final PurchaseLotto purchaseLotto = PurchaseLotto.of(purchasePrice);
-        OutputView.drawPurchaseLotto(purchaseLotto);
+        final Lottos lottos = Lottos.from(purchasePrice);
+        OutputView.drawPurchaseLotto(lottos);
 
         final String winningLottoNumbers = InputView.inputWinningLottoNumbers();
         final int bonusBall = InputView.inputBonusBall();
-        final WinningLotto winningLotto = WinningLotto.of(bonusBall, winningLottoNumbers);
+        final WinningLotto winningLotto =
+                new WinningLotto(bonusBall, LottoNumbers.getWinningLottoNumbers(winningLottoNumbers));
 
-        LottoResult lottoResult = new LottoResult(purchasePrice, winningLotto, purchaseLotto);
+        LottoResult lottoResult = LottoResult.of(purchasePrice, winningLotto, lottos);
         OutputView.drawStatistics(lottoResult);
     }
 }

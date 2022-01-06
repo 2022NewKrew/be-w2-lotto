@@ -1,4 +1,4 @@
-package lotto.domain;
+package lotto.domain.message;
 
 public enum InputViewMessage {
     INPUT_TOTAL_PRICE("구입금액을 입력해 주세요."),
