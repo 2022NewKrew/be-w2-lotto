@@ -20,6 +20,7 @@ public class LottoStatistics {
 
     /**
      * 로또 등수에 따라 그룹화 해주는 메서드
+     * @param lottoMatcher 로또 당첨 번호와 로또를 매치시켜주는 객체
      * @return Map(로또 등수, 당첨수)
      */
     private Map<LottoRanking, Long> groupByLottoRanking(LottoMatcher lottoMatcher) {

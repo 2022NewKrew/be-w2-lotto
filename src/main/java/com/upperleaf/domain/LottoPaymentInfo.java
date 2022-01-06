@@ -12,6 +12,7 @@ public class LottoPaymentInfo {
     /**
      * 로또 지불 정보
      * @param paymentAmount 사용자가 로또를 사기위해 지불한 금액
+     * @param allNumber 사용자가 수동으로 입력한 로또 번호
      */
     public LottoPaymentInfo(long paymentAmount, String allNumber) {
         validation(paymentAmount);

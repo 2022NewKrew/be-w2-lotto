@@ -2,7 +2,6 @@ package com.upperleaf.web.repository;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
-import com.upperleaf.domain.lotto.LottoWinningNumber;
 import com.upperleaf.domain.lotto.Lottos;
 import com.upperleaf.domain.lotto.create.ManualLottoStrategy;
 import com.upperleaf.web.db.ConnectionProvider;
