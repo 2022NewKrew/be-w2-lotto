@@ -61,5 +61,8 @@ public class LottoService {
         return lottoTickets;
     }
 
+    public List<String> getLottoTicketsForWeb(){
+        return lottoTickets.getLottoTicketsForWeb();
+    }
 
 }

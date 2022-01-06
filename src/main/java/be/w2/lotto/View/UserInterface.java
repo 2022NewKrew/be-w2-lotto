@@ -128,4 +128,7 @@ public class UserInterface {
     }
 
 
+    public WebLottoResult makeWebLottosResult(List<List<String>> statistics, int earningRate){
+        return new WebLottoResult(statistics, earningRate);
+    }
 }

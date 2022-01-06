@@ -1,0 +1,27 @@
+package be.w2.lotto.View;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class WebLottoResult {
+    List<String> message;
+    int totalRateOfReturn;
+
+    public WebLottoResult(List<List<String>> statistics, int earningRate){
+        message = new ArrayList<>();
+        for(List<String> statistic : statistics){
+            String webString = String.format("%s - %s 개", statistic.get(0), statistic.get(1));
+            message.add(webString);
+        }
+        totalRateOfReturn = earningRate;
+    }
+
+    public List<String> getMessage(){
+        return message;
+    }
+
+    public int getTotalRateOfReturn(){
+        return totalRateOfReturn;
+    }
+
+}

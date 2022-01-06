@@ -2,8 +2,16 @@ package be.w2.lotto;
 
 import be.w2.lotto.Domain.LottoService;
 import be.w2.lotto.View.UserInterface;
+import spark.ModelAndView;
+import spark.Spark;
+import spark.template.handlebars.HandlebarsTemplateEngine;
 
-import java.util.List;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static spark.Spark.*;
 
 public class LottoApplication {
 
@@ -15,11 +23,62 @@ public class LottoApplication {
         this.lottoService = new LottoService();
     }
 
+    public static String render(Map model, String templatePath) {
+        return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
+    }
+
     public static void main(String[] args) {
         LottoApplication lottoApplication = new LottoApplication();
-        lottoApplication.makeLottoTickets();
-        lottoApplication.makeAnswer();
+        lottoApplication.webApplication();
+//        lottoApplication.cliApplication();
     }
+
+    private void cliApplication(){
+        this.makeLottoTickets();
+        this.makeAnswer();
+    }
+//
+    private void webApplication(){
+        staticFiles.location("/static");
+        Spark.exception(Exception.class, (e, request, response) -> {
+            final StringWriter sw = new StringWriter();
+            final PrintWriter pw = new PrintWriter(sw, true);
+            e.printStackTrace(pw);
+            System.err.println(sw.getBuffer().toString());
+        });
+
+        get("/", (req, res)->{
+            return new HandlebarsTemplateEngine().render(new ModelAndView(null, "index.html"));
+        });
+
+        post("/buyLotto", (req,res)->{
+            int inputMoney = Integer.parseInt(req.queryParams("inputMoney"));
+            String manualNumber = req.queryParams("manualNumber");
+            lottoService.makeMoney(inputMoney);
+            List<List<Integer>> tmp2 = Arrays.asList(manualNumber.split("\n"))
+                    .stream()
+                    .map(s->userInterface.stringToIntList(s))
+                    .collect(Collectors.toList());
+            lottoService.makeAmount(tmp2.size());
+            lottoService.sell(tmp2);
+            Map<String, Object> model = new HashMap<>();
+            List<String> lottoTickets = lottoService.getLottoTicketsForWeb();
+            model.put("lottoTickets", lottoTickets);
+            model.put("lottosSize", lottoTickets.size());
+
+            return render(model, "show.html");
+        });
+
+        post("/matchLotto", (req, rest)->{
+            Map<String, Object> model = new HashMap<>();
+            List<Integer> nums = userInterface.stringToIntList(req.queryParams("winningNumber"));
+            int bonusNum = Integer.parseInt(req.queryParams("bonusNumber"));
+            lottoService.makeLottoResult(nums, bonusNum);
+            model.put("lottosResult", userInterface.makeWebLottosResult(lottoService.getStatistics(), lottoService.calculateBenefit()));
+            return render(model, "result.html");
+        });
+    }
+
 
     private void makeLottoTickets() {
         makeMoney();

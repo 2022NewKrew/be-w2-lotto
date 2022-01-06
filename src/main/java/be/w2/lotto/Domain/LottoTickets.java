@@ -53,4 +53,12 @@ public class LottoTickets {
     public int getAutoAmount() {
         return autoAmount.getAmount();
     }
+
+    public List<String> getLottoTicketsForWeb(){
+        List<String> stringList = new ArrayList<>();
+        for(LottoTicket lottoTicket : lottoTickets)
+            stringList.add(lottoTicket.toString());
+        return stringList;
+    }
+
 }

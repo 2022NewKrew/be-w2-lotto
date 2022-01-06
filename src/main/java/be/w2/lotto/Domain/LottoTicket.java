@@ -36,6 +36,7 @@ public class LottoTicket {
         return lottoNumbers.calculateTicket(answers);
     }
 
+
     @Override
     public String toString() {
         return lottoNumbers.toString();

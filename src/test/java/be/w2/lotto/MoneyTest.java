@@ -47,6 +47,6 @@ public class MoneyTest {
     void autoSellAmountTest() {
         Money money = new Money(14000);
         money.sub(3, 1000);
-        assertThat(money.calculateAmount(1000)).isEqualTo(11);
+        assertThat(money.calculateAmount(1000).getAmount()).isEqualTo(11);
     }
 }
