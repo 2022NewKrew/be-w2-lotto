@@ -11,32 +11,41 @@ public class LottoMain {
     private final LottoOutput lottoOutput = new LottoOutput();
     private final List<LottoNumbers> lottoList = new ArrayList<>();
     private ArrayList<Integer> winningNumbers;
-    private final ArrayList<Integer> rewards = new ArrayList<>(Arrays.asList(0, 0, 0, 5000, 50000, 1500000, 2000000000));
-    private final ArrayList<Integer> results = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0));
+    private int bonusNumber;
+    private final ArrayList<Integer> rewards = new ArrayList<>(Arrays.asList(0, 0, 0, 5000, 50000, 1500000, 30000000, 2000000000));
+    private final ArrayList<Integer> results = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0));
     private final int price = 1000;
     private int money;
-    private int count;
+    private int autoCount;
 
 
     public void startGamble () {
         money = lottoInput.moneyInput();
-        count = money / price;
-        generateLottoList();
-        lottoOutput.printLottoList(lottoList);
+        autoCount = money / price;
+        generateUserInputLotto();
+        generateAutoLottoList();
+        lottoOutput.printLottoList(lottoList, autoCount);
         winningNumbers = lottoInput.winningNumbersInput();
+        bonusNumber = lottoInput.bonusNumberInput();
         checkLottoNumber();
         lottoOutput.printResult(rewards, results, money);
     }
 
-    private void generateLottoList() {
-        for (int i = 0; i < count; i++) {
+    private void generateUserInputLotto() {
+        int count = lottoInput.selectCountInput();
+        autoCount -= count;
+        lottoInput.userInputLottoNumbers(lottoList, count);
+    }
+
+    private void generateAutoLottoList() {
+        for (int i = 0; i < autoCount; i++) {
             lottoList.add(new LottoNumbers());
         }
     }
 
     private void checkLottoNumber() {
         for (LottoNumbers lotto : lottoList) {
-            int count = lotto.calculateContain(winningNumbers);
+            int count = lotto.calculateContain(winningNumbers, bonusNumber);
             results.set(count, results.get(count) + 1);
         }
     }
