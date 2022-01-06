@@ -18,7 +18,16 @@ public class Lotto {
         this.lottoNumbers = new ArrayList<>(lottoNumbers);
     }
 
-    public static Lotto purchaseLotto() {
+    public static Lotto purchaseManualLotto(List<Integer> manaulNumbers) {
+        validate(manaulNumbers);
+        List<LottoNumber> lottoNumbers = manaulNumbers.stream()
+            .map(LottoNumber::new)
+            .sorted()
+            .collect(Collectors.toList());
+        return new Lotto(lottoNumbers);
+    }
+
+    public static Lotto purchaseAutoLotto() {
         List<Integer> shuffledNumbers = RandomUtil.generateRandomNumbers();
         validate(shuffledNumbers);
         List<LottoNumber> lottoNumbers = shuffledNumbers.stream()
