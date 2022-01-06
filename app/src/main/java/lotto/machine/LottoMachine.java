@@ -11,7 +11,7 @@ public class LottoMachine {
     private static final List<LottoNumber> numbers = new ArrayList<>(45);
 
     static {
-        for (int i = 1; i <= 45; i++)
+        for (int i = LottoNumber.MIN_NUMBER; i <= LottoNumber.MAX_NUMBER; i++)
             numbers.add(LottoNumber.from(i));
     }
 

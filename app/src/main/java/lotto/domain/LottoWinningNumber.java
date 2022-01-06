@@ -24,16 +24,15 @@ public class LottoWinningNumber extends Lotto {
      */
     public final LottoPrize match(Lotto lotto) {
         int count = 0;
+        boolean bonus = false;
         for (LottoNumber number : lottoNumbers)
             count += lotto.contains(number) ? 1 : 0;
 
-        // 보너스볼 제외하고 다 맞은 경우 (1등)
-        if (count == LOTTO_NUMBERS_COUNT)
-            return LottoPrize.FIRST_PLACE;
-
-        if (lotto.contains(bonusBall))
+        if (lotto.contains(bonusBall)) {
             count += 1;
-        return LottoPrize.from(count);
+            bonus = true;
+        }
+        return LottoPrize.from(count, bonus);
     }
 
     private void checkBonusBallNotNull(LottoNumber bonusBall) {
