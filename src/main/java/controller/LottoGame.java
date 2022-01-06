@@ -18,7 +18,6 @@ public class LottoGame {
 
     public static void start() {
         long purchaseAmount = removeChange(InputView.inputPurchaseAmount());
-        System.out.println(purchaseAmount);
         LottoMachine lottoMachine = new LottoMachine();
         List<Lotto> lottoList = lottoMachine.buySeveralLotto(purchaseAmount);
         ResultView.printLottoList(lottoList);
