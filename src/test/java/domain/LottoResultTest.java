@@ -20,7 +20,7 @@ class LottoResultTest {
     @DisplayName("[성공] 일치하는 로또 번호를 올바르게 계산한다")
     void winningLottoCount() {
         List<Lotto> lottoList = new ArrayList<>();
-        lottoList.add(createLottoNumbers(8, 21, 23, 41, 41, 43));
+        lottoList.add(createLottoNumbers(8, 21, 23, 41, 42, 43));
         lottoList.add(createLottoNumbers(3, 5, 11, 16, 32, 38));
         lottoList.add(createLottoNumbers(7, 11, 16, 35, 36, 44));
         lottoList.add(createLottoNumbers(1, 8, 11, 31, 41, 42));

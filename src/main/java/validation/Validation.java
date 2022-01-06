@@ -1,6 +1,6 @@
 package validation;
 
-import java.util.List;
+import java.util.Set;
 
 public class Validation {
     public static void notLessThanLong(long object, long another, RuntimeException runtimeException) {
@@ -11,7 +11,7 @@ public class Validation {
         condition(Long.compare(object, another) <= 0, runtimeException);
     }
 
-    public static <T> void lengthShouldBe(List<T> object, int length, RuntimeException runtimeException) {
+    public static <T> void sizeShouldBe(Set<T> object, int length, RuntimeException runtimeException) {
         condition(object.size() == length, runtimeException);
     }
 

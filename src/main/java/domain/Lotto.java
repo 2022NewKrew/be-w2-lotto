@@ -4,6 +4,7 @@ import exceptions.InvalidLastWeekWinningNumber;
 import messages.ErrorMessage;
 import validation.Validation;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,13 +17,12 @@ public class Lotto {
     Lotto(Set<Integer> numbers) {
         if (numbers == null)
             throw new IllegalArgumentException();
-        // Validation.lengthShouldBe(numbers, NUMBER_OF_LOTTERY_NUMBERS, new InvalidLastWeekWinningNumber(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
+         Validation.sizeShouldBe(numbers, NUMBER_OF_LOTTERY_NUMBERS, new InvalidLastWeekWinningNumber(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
         numbers.forEach(num -> {
             Validation.notLessThanLong(num, MIN_LOTTO_NUMBER, new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_WINNING_NUMBER.getMessage()));
             Validation.notMoreThanLong(num, MAX_LOTTO_NUMBER, new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_WINNING_NUMBER.getMessage()));
         });
-//        this.numbers = Collections.unmodifiableList(numbers);
-        this.numbers = numbers;
+        this.numbers = Collections.unmodifiableSet(numbers);
     }
 
     public Set<Integer> numbers() {
