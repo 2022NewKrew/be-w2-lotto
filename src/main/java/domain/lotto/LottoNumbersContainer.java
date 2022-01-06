@@ -1,4 +1,4 @@
-package model.datastructure;
+package domain.lotto;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -6,7 +6,11 @@ import java.util.Spliterator;
 import java.util.function.Consumer;
 
 public class LottoNumbersContainer implements Iterable<LottoNumber>{
-    private final ArrayList<LottoNumber> lottoNumbers = new ArrayList<>();
+    private final ArrayList<LottoNumber> lottoNumbers;
+
+    public LottoNumbersContainer() {
+        this.lottoNumbers = new ArrayList<>();
+    }
 
     public LottoNumber get(int i) {
         return lottoNumbers.get(i);
@@ -34,5 +38,13 @@ public class LottoNumbersContainer implements Iterable<LottoNumber>{
 
     public int size() {
         return lottoNumbers.size();
+    }
+
+    public LottoNumberContainerDTO getDTO(){
+        LottoNumberContainerDTO dto = new LottoNumberContainerDTO();
+        for (LottoNumber lottoNumber : lottoNumbers) {
+            dto.addLottoNumber(lottoNumber.getDTO());
+        }
+        return dto;
     }
 }

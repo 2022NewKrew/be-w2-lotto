@@ -1,11 +1,14 @@
 package view;
 
-import model.datastructure.LottoMatchStateDTO;
-import model.datastructure.LottoNumber;
+import domain.match.LottoMatchStateDTO;
+import domain.lotto.LottoNumberContainerDTO;
+import domain.match.WinningLottoNumberDTO;
 
 public interface LottoUI {
     int askUserBudget();
-    LottoNumber askUserWinNumber() throws Exception;
-    void printLine(String str);
+    int askUserHowManyManualNumberLotto(int buyLimitNum);
+    LottoNumberContainerDTO askUserManualLottoNumbers(int num);
+    void showBoughtLottos(int manualLottosNum, int randomLottosNum, LottoNumberContainerDTO lottoNumberContainerDTO);
+    WinningLottoNumberDTO askUserWinningNumbers();
     void showResult(LottoMatchStateDTO lottoMatchStateDTO);
 }

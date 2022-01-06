@@ -1,12 +1,24 @@
-import controller.LottoManager;
-import model.MemoryRepository;
-import view.ConsoleLottoUI;
+import controller.AppStarter;
+import controller.ConsoleAppStarter;
+import controller.LottoController;
+import controller.WebAppStarter;
+import domain.user.NormalUser;
+import domain.user.User;
+import repository.MemoryRepository;
+import repository.Repository;
+import service.LottoService;
 
 public class LottoApplication {
 
     public static void main(String[] args) throws Exception {
-        // Controller, Model, View 연결
-        LottoManager lottoManager = new LottoManager(1L, new MemoryRepository(), new ConsoleLottoUI());
-        lottoManager.run();
+        User user = new NormalUser(1L);
+
+        Repository repository = new MemoryRepository();
+        LottoService lottoService = new LottoService();
+        LottoController lottoController = new LottoController(repository,lottoService);
+
+//        AppStarter appstarter = new ConsoleAppStarter(lottoController, user);
+        AppStarter appstarter = new WebAppStarter(lottoController, user, 8080);
+        appstarter.run();
     }
 }
