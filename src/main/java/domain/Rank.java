@@ -1,11 +1,15 @@
 package domain;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public enum Rank {
-    FIRST(6, 2000000000),
-    SECOND(5, 30000000),
-    THIRD(5, 1500000),
-    FOURTH(4, 50000),
-    FIFTH(3, 5000),
+    FIRST(6, 2_000_000_000),
+    SECOND(5, 30_000_000),
+    THIRD(5, 1_500_000),
+    FOURTH(4, 50_000),
+    FIFTH(3, 5_000),
     EMPTY(0, 0);
 
     private final int countOfMatch;
@@ -21,12 +25,13 @@ public enum Rank {
             return matchBonus ? SECOND : THIRD;
         }
         Rank[] ranks = values();
-        for (Rank rank : ranks) {
-            if (rank.countOfMatch == countOfMatch) {
-                return rank;
-            }
+        List<Rank> returnValue = Arrays.asList(ranks).stream()
+                .filter(rank->rank.countOfMatch == countOfMatch)
+                .collect(Collectors.toList());
+        if (returnValue.isEmpty()) {
+            return EMPTY;
         }
-        return EMPTY;
+        return returnValue.get(0);
     }
 
     public int getCountOfMatch() {
@@ -37,3 +42,4 @@ public enum Rank {
         return winningMoney;
     }
 }
+
