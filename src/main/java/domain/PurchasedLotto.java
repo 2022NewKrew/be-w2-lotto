@@ -25,10 +25,12 @@ public class PurchasedLotto implements Lotto {
         numbers = manualNumbers;
     }
 
+    @Override
     public List<Integer> getNumbers() {
         return numbers;
     }
 
+    @Override
     public String toString() {
         return String.join(", ", numbers.toString());
     }
