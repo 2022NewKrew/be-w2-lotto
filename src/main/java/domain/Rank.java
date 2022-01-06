@@ -11,13 +11,13 @@ public enum Rank {
     MISS(0, false, 0, "3개 미만 일치 (0원)");
 
     private final int matchCount;
-    private final boolean bonusMatched;
+    private final boolean bonusRequired;
     private final long prize;
     private final String description;
 
-    Rank(int matchCount, boolean bonusMatched, long prize, String description) {
+    Rank(int matchCount, boolean bonusRequired, long prize, String description) {
         this.matchCount = matchCount;
-        this.bonusMatched = bonusMatched;
+        this.bonusRequired = bonusRequired;
         this.prize = prize;
         this.description = description;
     }
@@ -37,7 +37,7 @@ public enum Rank {
 
         return Arrays.stream(Rank.values())
                 .filter((rank) -> rank.matchCount == matchCount)
-                .filter((rank) -> !rank.bonusMatched || bonusMatched)
+                .filter((rank) -> !rank.bonusRequired || bonusMatched)
                 .findFirst()
                 .orElse(MISS);
     }
