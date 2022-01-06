@@ -5,6 +5,10 @@ import parameters.UserLottoLines;
 
 
 public class UserLottoViewer {
+    private UserLottoViewer() {
+        
+    }
+
     public static void viewUserLottoList(UserLottoLines userLottoLines) {
         userLottoLines.getUserLottoLinesStream()
                 .forEach(UserLottoViewer::viewLottoList);

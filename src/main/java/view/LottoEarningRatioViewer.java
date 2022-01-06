@@ -1,7 +1,7 @@
 package view;
 
 public class LottoEarningRatioViewer {
-    public LottoEarningRatioViewer() {
+    private LottoEarningRatioViewer() {
     }
 
     public static void viewEarningRatio(double earned) {

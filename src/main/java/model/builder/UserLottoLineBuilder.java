@@ -8,6 +8,10 @@ import parameters.UserLottoLines;
 
 public class UserLottoLineBuilder {
 
+    private UserLottoLineBuilder() {
+        
+    }
+
     public static UserLottoLines makeUserLottoLines() {
         int amountOfLotto = AmountOfLottoScanner.getAmountOfLotto();
         int manualCount = ManualCountScanner.getManualCount(amountOfLotto);

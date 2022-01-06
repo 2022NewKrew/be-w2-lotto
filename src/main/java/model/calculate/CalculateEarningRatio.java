@@ -5,7 +5,7 @@ import constants.RankInfo;
 import parameters.LottoResult;
 
 public class CalculateEarningRatio {
-    public CalculateEarningRatio() {
+    private CalculateEarningRatio() {
     }
 
     public static double calculateEarningRatio(LottoResult lottoResult, int amountOfLotto) {
