@@ -8,7 +8,7 @@ import java.util.List;
  * 로또 정보를 가지는 객체입니다.
  * @author jm.hong
  */
-public class Lotto {
+public abstract class Lotto {
 
     protected static final int LOTTO_END_NUMBER = 45;
     protected static final int LOTTO_START_NUMBER = 1;
