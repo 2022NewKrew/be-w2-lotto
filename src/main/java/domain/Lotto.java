@@ -8,12 +8,9 @@ import java.util.stream.IntStream;
 
 public class Lotto {
 
-    private static final int LOTTO_MIN_NUMBER = 1;
-    private static final int LOTTO_MAX_NUMBER = 45;
+    public static final int LOTTO_MIN_NUMBER = 1;
+    public static final int LOTTO_MAX_NUMBER = 45;
     private static final int LOTTO_LENGTH = 6;
-
-    private static List<Integer> lottoWinningNumbers;
-    private static int bonusNumber;
 
     private final List<Integer> lottoNumbers;
 
@@ -33,19 +30,7 @@ public class Lotto {
         return list;
     }
 
-    public static void setLottoWinningNumbers(String lottoInput, int bonusNumber) {
-        Lotto.lottoWinningNumbers = splitLottoNumbers(lottoInput);
-        validateBonusNumber(bonusNumber);
-        Lotto.bonusNumber = bonusNumber;
-    }
-
-    private static void validateBonusNumber(int bonusNumber) {
-        if (bonusNumber < LOTTO_MAX_NUMBER || bonusNumber > LOTTO_MAX_NUMBER) {
-            throw new IllegalArgumentException("보너스 볼 번호는 1~45여야 합니다.");
-        }
-    }
-
-    private static List<Integer> splitLottoNumbers(String lottoInput) {
+    public List<Integer> splitLottoNumbers(String lottoInput) {
         List<Integer> lottoNumbers = Arrays.stream(lottoInput.split(",")).map(Integer::parseInt).collect(Collectors.toList());
         validateLottoNumbers(lottoNumbers);
         return lottoNumbers;
@@ -63,9 +48,9 @@ public class Lotto {
         }
     }
 
-    public void compareLottoNumbers() {
-        int correctCount = lottoWinningNumbers.stream().filter(lottoNumbers::contains).toArray().length;
-        boolean bonusCorrect = lottoNumbers.contains(bonusNumber);
+    public void compareLottoNumbers(WinningLotto winningLotto) {
+        int correctCount = winningLotto.getLottoNumbers().stream().filter(lottoNumbers::contains).toArray().length;
+        boolean bonusCorrect = lottoNumbers.contains(winningLotto.getBonusNumber());
 
         Rank.addRankCount(correctCount, bonusCorrect);
     }
