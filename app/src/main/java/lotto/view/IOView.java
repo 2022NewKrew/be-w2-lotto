@@ -7,7 +7,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import static java.util.stream.Collectors.toList;
 
@@ -17,7 +16,7 @@ public final class IOView {
     }
 
     public static int inputToInt(String message, BufferedReader input, BufferedWriter output) throws IOException {
-        output.write(message+"\n");
+        output.write(message + "\n");
         output.flush();
         return Integer.parseInt(input.readLine().trim());
     }
@@ -26,7 +25,7 @@ public final class IOView {
                                                         BufferedReader input,
                                                         BufferedWriter output,
                                                         int iterableCount) throws IOException {
-        output.write(message+"\n");
+        output.write(message + "\n");
         output.flush();
         List<List<Integer>> inputList = new ArrayList<>();
         for (int i = 0; i < iterableCount; i++) {
@@ -38,7 +37,7 @@ public final class IOView {
     }
 
     public static List<Integer> inputToList(String message, BufferedReader input, BufferedWriter output) throws IOException {
-        output.write(message+"\n");
+        output.write(message + "\n");
         output.flush();
         return StringParsingUtil.parse(input.readLine(), ",").stream()
                 .map(Integer::parseInt)

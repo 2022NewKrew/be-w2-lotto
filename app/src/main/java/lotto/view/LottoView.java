@@ -23,7 +23,7 @@ public final class LottoView {
     public void printView(BufferedWriter output) throws IOException {
         output.write("수동으로 " + manualCount + "장 " + "자동으로 " + (lotteries.size() - manualCount) + "장을 구매했습니다\n");
         for (Lotto lotto : lotteries) {
-            output.write(lotto.toString()+"\n");
+            output.write(lotto.toString() + "\n");
         }
         output.flush();
     }

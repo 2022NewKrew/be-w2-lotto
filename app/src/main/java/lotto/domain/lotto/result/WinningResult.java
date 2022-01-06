@@ -8,7 +8,8 @@ import lotto.dto.WinningResultOutput;
 import java.util.EnumMap;
 import java.util.Map;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.groupingBy;
 
 public class WinningResult {
 

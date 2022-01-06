@@ -12,7 +12,7 @@ public class Number {
     }
 
     private void validNumRange(int num) {
-        if(num < 1 || num > 45) {
+        if (num < 1 || num > 45) {
             throw new IllegalArgumentException();
         }
     }
@@ -30,6 +30,6 @@ public class Number {
 
     @Override
     public String toString() {
-        return ""+num+"";
+        return "" + num + "";
     }
 }

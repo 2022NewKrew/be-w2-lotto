@@ -4,7 +4,6 @@ import lotto.domain.lotto.number.BonusNumber;
 import lotto.domain.lotto.number.Lotto;
 import lotto.domain.lotto.number.WinningNumber;
 
-
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;

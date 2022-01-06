@@ -2,11 +2,8 @@ package lotto.domain;
 
 import lotto.domain.lotto.Lotteries;
 import lotto.domain.lotto.Money;
-import lotto.domain.lotto.number.LottoNumberFactory;
-import lotto.domain.lotto.number.Lotto;
 import lotto.domain.lotto.number.Number;
-import lotto.domain.lotto.number.BonusNumber;
-import lotto.domain.lotto.number.WinningNumber;
+import lotto.domain.lotto.number.*;
 import lotto.domain.lotto.result.WinningResult;
 import lotto.dto.WinningResultInput;
 import lotto.dto.WinningResultOutput;
