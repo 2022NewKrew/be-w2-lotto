@@ -5,6 +5,7 @@ import lotto.domain.player.PlayerLotto;
 import lotto.domain.purchase.LottoPurchaseMachine;
 import lotto.domain.result.*;
 import lotto.domain.player.PlayerLottoList;
+import lotto.validator.InputValidator;
 import lotto.view.LottoGameInput;
 import lotto.view.LottoGameOutput;
 
@@ -27,9 +28,11 @@ public class LottoGame {
 
     private void purchase(Scanner scanner){
         purchaseAmount = LottoGameInput.inputPurchaseAmount(scanner);
+        InputValidator.validateNumber(purchaseAmount);
+
         numberOfLotto = purchaseAmount / Lotto.LOTTO_PRICE;
         int numberOfManualLotto = LottoGameInput.inputNumberOfManualLotto(scanner);
-        validateCanPurchaseLotto(numberOfManualLotto);
+        InputValidator.validateCanPurchaseLotto(numberOfLotto, numberOfManualLotto);
         purchaseManualLotto(scanner, numberOfManualLotto);
 
         int numberOfAutoLotto = numberOfLotto - numberOfManualLotto;
@@ -76,9 +79,5 @@ public class LottoGame {
         return ((totalEarnMoney-purchaseAmount)*100 / purchaseAmount);
     }
 
-    private void validateCanPurchaseLotto(int numberOfManualLotto){
-        if(numberOfLotto < numberOfManualLotto){
-            throw new IllegalArgumentException("수동으로 " + numberOfLotto + "장만 구매가 가능합니다.");
-        }
-    }
+
 }
