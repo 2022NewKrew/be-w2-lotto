@@ -1,5 +1,6 @@
 package domain;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -10,12 +11,14 @@ class LottoMachineTest {
     @Test
     @DisplayName("[성공] 생성된 로또에는 중복이 없어야 한다")
     void buySeveralLotto() {
-        int purchaseAmount = 20000;
+        int purchaseAmount = 200000;
+        int NumberOfLotteryNumbers = 6;
+        LottoMachine lottoMachine = new LottoMachine();
 
-        List<Lotto> lottoListResult = LottoMachine.buySeveralLotto(purchaseAmount);
+        List<Lotto> lottoListResult = lottoMachine.buySeveralLotto(purchaseAmount);
 
         lottoListResult.forEach((lotto) -> {
-            // FIXME - 원래 여기서 중복을 확인하려 했으나 lotto안의 numbers를 꺼내올 방법이 없네요
+            Assertions.assertEquals(lotto.numbers().size(), NumberOfLotteryNumbers);
         });
     }
 }
