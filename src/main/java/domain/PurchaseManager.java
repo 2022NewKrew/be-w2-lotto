@@ -31,7 +31,7 @@ public class PurchaseManager {
 
         List<Lotto> manualLottoList = new ArrayList<>();
         for(int i=0; i<numOfManualLotto; i++) {
-            Lotto lotto = new Lotto(InputManager.inputLottoNums());
+            Lotto lotto = new Lotto("수동으로 구매할 번호를 입력해 주세요.");
             manualLottoList.add(lotto);
         }
 

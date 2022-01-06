@@ -48,11 +48,6 @@ public class InputManager {
         }
     }
 
-    public static List<Integer> inputWinningLotto() {
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        return inputLottoNums();
-    }
-
     public static List<Integer> inputLottoNums() {
         List<String> lottoNumInput = Arrays.asList(scanner.nextLine().split(","));
         try{

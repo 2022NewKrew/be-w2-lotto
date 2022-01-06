@@ -5,17 +5,12 @@ import view.InputManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WinningLotto{
-    private final List<Integer> winningNums;
+public class WinningLotto extends Lotto{
     private final int bonusNum;
 
     public WinningLotto() {
-        winningNums = InputManager.inputWinningLotto();
+        super("지난 주 당첨 번호를 입력해 주세요.");
         bonusNum = InputManager.inputBonusNum();
-    }
-
-    public List<Integer> getWinningNums() {
-        return winningNums;
     }
 
     public int getBonusNum() {
