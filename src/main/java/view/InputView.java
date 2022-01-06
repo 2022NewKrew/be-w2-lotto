@@ -1,5 +1,6 @@
 package view;
 
+import domain.Money;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,9 +18,9 @@ public class InputView {
 
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    public static int inputMoney() throws IOException {
+    public static Money inputMoney() throws IOException {
         System.out.println(INPUT_MONEY_MESSAGE);
-        return Integer.parseInt(br.readLine());
+        return new Money(Integer.parseInt(br.readLine()));
     }
 
     public static List<Integer> inputWinningNumbers() throws IOException {

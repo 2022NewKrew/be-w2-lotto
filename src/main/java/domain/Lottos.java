@@ -1,32 +1,44 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Lottos {
 
 
-    private final List<Lotto> Lottos;
+    private final List<Lotto> lottos;
 
-    public Lottos(List<Lotto> Lottos) {
-        this.Lottos = new ArrayList<>(Lottos);
+    private Lottos(List<Lotto> Lottos) {
+        this.lottos = new ArrayList<>(Lottos);
     }
 
-    public static Lottos purchaseLottos(int countOfPurchaseLotto){
-        List<Lotto> lottos = IntStream.range(0,countOfPurchaseLotto)
-            .mapToObj(i->Lotto.purchaseLotto())
+    public static Lottos purchaseLottos(int countOfPurchaseLotto) {
+        List<Lotto> lottos = IntStream.range(0, countOfPurchaseLotto)
+            .mapToObj(i -> Lotto.purchaseLotto())
             .collect(Collectors.toList());
         return new Lottos(lottos);
     }
 
-    public List<Lotto> getLottos() {
-        return Collections.unmodifiableList(Lottos);
+    public Map<Rank, Integer> winningConfirm(WinningNumbers winningNumbers) {
+        Map<Rank, Integer> winningStatistics = new HashMap<>();
+        for (Lotto lotto : this.lottos) {
+            Rank rank = winningNumbers.countMatchNumber(lotto);
+            int countOfLottoByMatch = winningStatistics.getOrDefault(rank, 0);
+            winningStatistics.put(rank, countOfLottoByMatch + 1);
+        }
+
+        return winningStatistics;
     }
 
-    public int size(){
-        return this.Lottos.size();
+    public List<Lotto> getLottos() {
+        return lottos;
+    }
+
+    public int size() {
+        return this.lottos.size();
     }
 }
