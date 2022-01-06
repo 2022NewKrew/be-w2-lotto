@@ -20,6 +20,8 @@ public class LottoTickets {
      * @param numOfTickets 랜덤 생성할 로또 수
      */
     public void addRandomLottoTickets(int numOfTickets) {
+        assert numOfTickets > 0;
+
         tickets.addAll(
                 IntStream.range(0, numOfTickets)
                         .mapToObj(i -> RandomLottoNumberGenerator.generateRandomLottoNumbers())
@@ -35,6 +37,8 @@ public class LottoTickets {
      * @param inputView    번호 입력받는 뷰
      */
     public void addManualLottoTickets(int numOfTickets, InputView inputView) {
+        assert numOfTickets > 0;
+
         List<Set<Integer>> pickedNumbers = IntStream.rangeClosed(1, numOfTickets)
                 .mapToObj(i -> inputView.getWinnerNumbersFromScanner(String.format("%d번째장: ", i)))
                 .collect(Collectors.toList());
