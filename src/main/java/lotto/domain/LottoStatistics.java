@@ -4,67 +4,63 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class LottoStatistics {
-    private final Map<LottoResult, Integer> resultMap = new EnumMap<>(LottoResult.class);
+    private final Map<LottoResult, Integer> resultMap;
+    private final long revenueRate;
 
-    public LottoStatistics (WinningNumbers winningNumbers, LottoTickets lottoTickets) {
-        initResultMap();
-        match(winningNumbers, lottoTickets);
+    private LottoStatistics(Map<LottoResult, Integer> resultMap, long revenueRate) {
+        this.resultMap = resultMap;
+        this.revenueRate = revenueRate;
     }
 
-    private void initResultMap() {
+    public static LottoStatistics of(WinningNumbers winningNumbers, LottoTickets lottoTickets, Money inputMoney) {
+        Map<LottoResult, Integer> resultMap = new EnumMap<>(LottoResult.class);
+        initResultMap(resultMap);
+
+        match(resultMap, winningNumbers, lottoTickets);
+        Money totalReward = calculateTotalReward(resultMap);
+        long revenueRate = totalReward.divideBy(inputMoney);
+
+        return new LottoStatistics(resultMap, revenueRate);
+    }
+
+    private static void initResultMap(Map<LottoResult, Integer> resultMap) {
         for (LottoResult lottoResult : LottoResult.values()) {
             resultMap.put(lottoResult, 0);
         }
     }
 
-    private void match(WinningNumbers winningNumbers, LottoTickets lottoTickets) {
+    private static void match(Map<LottoResult, Integer> resultMap, WinningNumbers winningNumbers, LottoTickets lottoTickets) {
         for (LottoTicket ticket : lottoTickets) {
-            putResult(winningNumbers, ticket);
+            putResult(resultMap, winningNumbers, ticket);
         }
     }
 
-    private void putResult(WinningNumbers winningNumbers, LottoTicket ticket) {
+    private static void putResult(Map<LottoResult, Integer> resultMap, WinningNumbers winningNumbers, LottoTicket ticket) {
         int count = 0;
-        int matchCountPerTicket = getMatchCount(winningNumbers, ticket);
-        boolean matchBonus = getMatchBonus(winningNumbers, ticket);
-        LottoResult result = LottoResult.valueOf(matchCountPerTicket, matchBonus);
-        if (resultMap.get(result) != null) {
+        LottoResult result = winningNumbers.result(ticket);
+        if (resultMap.containsKey(result)) {
             count = resultMap.get(result);
         }
-
         resultMap.put(result, count + 1);
     }
 
-    private int getMatchCount(WinningNumbers winningNumbers, LottoTicket lottoTicket) {
-        int matchCount = 0;
+    private static Money calculateTotalReward(Map<LottoResult, Integer> resultMap) {
+        long totalPrice = 0;
 
-        for (LottoNumber number : winningNumbers) {
-            matchCount += lottoTicket.contains(number) ? 1 : 0;
+        for (Map.Entry<LottoResult, Integer> resultEntry : resultMap.entrySet()) {
+            LottoResult lottoResult = resultEntry.getKey();
+            int count = resultEntry.getValue();
+            totalPrice += lottoResult.getTotalReward(count);
         }
 
-        return matchCount;
-    }
-
-    private boolean getMatchBonus(WinningNumbers winningNumbers, LottoTicket lottoTicket) {
-        return lottoTicket.contains(winningNumbers.getBonusNumber());
+        return new Money(totalPrice);
     }
 
     public Map<LottoResult, Integer> getResultMap() {
         return resultMap;
     }
 
-    public int calculateRevenueRate(Money inputMoney) {
-        long totalPrice = 0;
-
-        for (Map.Entry<LottoResult, Integer> resultEntry : resultMap.entrySet()) {
-            LottoResult lottoResult = resultEntry.getKey();
-            int count = resultEntry.getValue();
-
-            totalPrice += (long) lottoResult.getReward() * count;
-        }
-
-        Money totalMoney = new Money(totalPrice);
-
-        return totalMoney.getRevenueRate(inputMoney);
+    public long getRevenueRate() {
+        return revenueRate;
     }
 }

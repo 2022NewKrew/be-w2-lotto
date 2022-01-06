@@ -27,7 +27,7 @@ class LottoStatisticsTest {
 
         LottoTickets lottoTickets = LottoTickets.from(tickets);
 
-        LottoStatistics lottoStatistics = new LottoStatistics(winningNumbers, lottoTickets);
+        LottoStatistics lottoStatistics = LottoStatistics.of(winningNumbers, lottoTickets, new Money(1000));
 
         assertThat(lottoStatistics.getResultMap().get(LottoResult.FIRST)).isEqualTo(1);
     }
@@ -50,9 +50,9 @@ class LottoStatisticsTest {
 
         LottoTickets lottoTickets = LottoTickets.from(tickets);
 
-        LottoStatistics lottoStatistics = new LottoStatistics(winningNumbers, lottoTickets);
+        LottoStatistics lottoStatistics = LottoStatistics.of(winningNumbers, lottoTickets, new Money(1000));
 
-        assertThat(lottoStatistics.calculateRevenueRate(new Money(1000))).isEqualTo(200000000);
+        assertThat(lottoStatistics.getRevenueRate()).isEqualTo(200000000);
     }
 
     @DisplayName("2등 당첨 테스트")
@@ -78,8 +78,8 @@ class LottoStatisticsTest {
 
         LottoTickets lottoTickets = LottoTickets.from(tickets);
 
-        LottoStatistics lottoStatistics = new LottoStatistics(winningNumbers, lottoTickets);
+        LottoStatistics lottoStatistics = LottoStatistics.of(winningNumbers, lottoTickets, new Money(1000));
 
-        assertThat(lottoStatistics.calculateRevenueRate(new Money(1000))).isEqualTo(3000000);
+        assertThat(lottoStatistics.getRevenueRate()).isEqualTo(3000000);
     }
 }

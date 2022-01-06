@@ -28,10 +28,10 @@ public class ConsoleOutputView implements OutputView {
         StringBuilder stringBuilder = new StringBuilder(LOTTO_TICKET_START_DELIMITER);
 
         Set<LottoNumber> numbers = lottoNumbers.getLottoNumbers();
-        for (LottoNumber number : numbers) {
-            stringBuilder.append(number.getNumber())
-                    .append(LOTTO_NUMBER_SPLIT_DELIMITER);
-        }
+        numbers.stream()
+                .map(LottoNumber::getNumber)
+                .sorted()
+                .forEach(number -> stringBuilder.append(number + LOTTO_NUMBER_SPLIT_DELIMITER));
         stringBuilder.append(LOTTO_TICKET_END_DELIMITER);
 
         System.out.println(stringBuilder);
@@ -49,12 +49,12 @@ public class ConsoleOutputView implements OutputView {
         for (Map.Entry<LottoResult, Integer> resultEntry : resultMap.entrySet()) {
             LottoResult lottoResult = resultEntry.getKey();
             int matchCount = lottoResult.getMatchCount();
-            int reward = lottoResult.getReward();
+            long reward = lottoResult.getRewardPrice();
             int count = resultEntry.getValue();
             stringBuilder.append(String.format("%d개 일치 (%d)원- %d개\n", matchCount, reward, count));
         }
 
-        int revenueRate = lottoStatistics.calculateRevenueRate(inputMoney);
+        long revenueRate = lottoStatistics.getRevenueRate();
         stringBuilder.append(String.format("총 수익률은 %d%%입니다.\n", revenueRate));
 
         System.out.println(stringBuilder);

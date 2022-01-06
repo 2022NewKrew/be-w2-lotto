@@ -19,14 +19,17 @@ public class LottoNumber {
     private int number;
 
     private LottoNumber(int number) {
+        if (!isValidRange(number)) {
+            throw new IllegalArgumentException("1~45 사이의 값을 입력해야합니다.");
+        }
         this.number = number;
     }
 
     public static LottoNumber from(int number) {
-        if (!isValidRange(number)) {
-            throw new IllegalArgumentException("1~45 사이의 값을 입력해야합니다.");
+        if (lottoNumberCache.containsKey(number)) {
+            return lottoNumberCache.get(number);
         }
-        return lottoNumberCache.get(number);
+        return new LottoNumber(number);
     }
 
     private static boolean isValidRange(int number) {

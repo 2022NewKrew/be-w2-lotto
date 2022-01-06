@@ -8,17 +8,17 @@ public class LottoNumbers {
     private final Set<LottoNumber> lottoNumbers;
 
     private LottoNumbers(Set<LottoNumber> lottoNumbers) {
+        if (!isValidLengthAndNoDuplication(lottoNumbers)) {
+            throw new IllegalArgumentException("로또 번호는 중복없는 6개의 숫자여야 합니다.");
+        }
         this.lottoNumbers = lottoNumbers;
     }
 
     public static LottoNumbers from(Set<LottoNumber> lottoNumbers) {
-        if (!isValid(lottoNumbers)) {
-            throw new IllegalArgumentException("로또 번호는 중복없는 6개의 숫자여야 합니다.");
-        }
         return new LottoNumbers(lottoNumbers);
     }
 
-    private static boolean isValid(Set<LottoNumber> lottoNumbers) {
+    private static boolean isValidLengthAndNoDuplication(Set<LottoNumber> lottoNumbers) {
         return lottoNumbers.size() == LOTTO_NUMBER_COUNT;
     }
 

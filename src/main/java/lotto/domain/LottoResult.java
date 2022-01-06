@@ -11,12 +11,12 @@ public enum LottoResult {
     NONE(0, 0, false);
 
     private final int matchCount;
-    private final int reward;
+    private final Money reward;
     private final boolean matchBonus;
 
-    LottoResult(int matchCount, int reward, boolean matchBonus) {
+    LottoResult(int matchCount, long reward, boolean matchBonus) {
         this.matchCount = matchCount;
-        this.reward = reward;
+        this.reward = new Money(reward);
         this.matchBonus = matchBonus;
     }
 
@@ -28,8 +28,12 @@ public enum LottoResult {
                 .orElse(LottoResult.NONE);
     }
 
-    public int getReward() {
-        return reward;
+    public long getRewardPrice() {
+        return reward.getPrice();
+    }
+
+    public long getTotalReward(int count) {
+        return reward.multiplyBy(count);
     }
 
     public int getMatchCount() {
