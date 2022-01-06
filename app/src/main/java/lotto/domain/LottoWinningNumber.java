@@ -33,7 +33,7 @@ public class LottoWinningNumber extends Lotto {
 
         if (lotto.contains(bonusBall))
             count += 1;
-        return LottoPrize.of(count);
+        return LottoPrize.from(count);
     }
 
     private void checkBonusBallNotNull(LottoNumber bonusBall) {
