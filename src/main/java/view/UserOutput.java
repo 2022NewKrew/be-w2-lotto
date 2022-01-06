@@ -27,8 +27,8 @@ public class UserOutput {
         }
     }
 
-    public static void printBuyMessage(int numberOfLotto) {
-        System.out.println(numberOfLotto + "개를 구매했습니다.");
+    public static void printBuyMessage(int numberOfManualLotto, int numberOfAutoLotto) {
+        System.out.printf("수동으로 %d장, 자동으로 %d장을 구매했습니다.\n", numberOfManualLotto, numberOfAutoLotto);
     }
 
     private static void printResultByLottoRank(LottoRank lottoRank, LottoResultDto lottoResultDto) {
