@@ -1,5 +1,7 @@
 package view;
 
+import DTO.ResultDTO;
+
 public class OutputView {
     private OutputView() {
     }
@@ -25,12 +27,13 @@ public class OutputView {
         System.out.println("---------");
     }
 
-    public static void printResult(int matchNum, boolean hasBonus, Long price, int lineNum) {
-        if (!hasBonus) {
-            System.out.printf("%d개 일치 (%d원)- %d개\n", matchNum, price, lineNum);
+    public static void printResult(ResultDTO result) {
+        if (!result.isMatchBonus()) {
+            System.out.printf("%d개 일치 (%d원)- %d개\n", result.getMatchNum(), result.getPrice(), result.getNumLotto());
             return;
         }
-        System.out.printf("%d개 일치, 보너스 볼 일치 (%d원)- %d개\n", matchNum, price, lineNum);
+        System.out.printf("%d개 일치, 보너스 볼 일치 (%d원)- %d개\n",
+                result.getMatchNum(), result.getPrice(), result.getNumLotto());
     }
 
     public static void printYield(Long yield) {
