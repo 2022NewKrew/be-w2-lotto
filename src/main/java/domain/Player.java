@@ -16,10 +16,10 @@ public class Player {
 
     private final int payAutoCount;
     private final int payManualCount;
-    public Player(int playerMoney) {
-        this.payManualCount = InputView.getManualCountInput(playerMoney/LOTTO_PRICE);
+    public Player(int playerMoney, List<Lotto> manualLottoList) {
+        this.payManualCount = manualLottoList.size();
         this.payAutoCount = playerMoney/LOTTO_PRICE - payManualCount;
-        lottoList.addAll(InputView.getManualLottoInput(payManualCount));
+        lottoList.addAll(manualLottoList);
         IntStream.range(0,payAutoCount).forEach(i -> lottoList.add(new Lotto()));
     }
     public int getPayAutoCount() {
