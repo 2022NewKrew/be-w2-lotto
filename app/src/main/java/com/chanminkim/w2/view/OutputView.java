@@ -21,7 +21,6 @@ public class OutputView {
         for (Lotto lotto : wholeLottoList) {
             System.out.println(lotto);
         }
-        System.out.println();
     }
 
     public void printWinningStatistics(WinningStatistics statistics) {
