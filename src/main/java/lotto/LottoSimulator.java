@@ -85,8 +85,10 @@ public class LottoSimulator {
     private @NotNull PurchasedLottos purchaseLotto(@NotNull PurchaseInfo purchasedInfo, List<Lotto> manualLottoList) {
         LottoAutoGenerator lottoAutoGenerator = new LottoAutoGenerator();
         List<Lotto> purchasedLottoList = new ArrayList<>(manualLottoList);
+        long numOfAutoLottos = purchasedInfo.getNumOfAutoLottos();
+        List<Lotto> autoLottoList = lottoAutoGenerator.getRandomLottos(numOfAutoLottos);
 
-        purchasedLottoList.addAll(lottoAutoGenerator.getRandomLottos(purchasedInfo.getNumOfAutoLottos()));
+        purchasedLottoList.addAll(autoLottoList);
         lottoOutputPrinter.printPurchaseResult(purchasedInfo.getNumOfManualLottos(), purchasedLottoList);
 
         return new PurchasedLottos(purchasedLottoList);
