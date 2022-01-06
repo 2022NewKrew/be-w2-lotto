@@ -23,7 +23,7 @@ class LottoNumbersTest {
 
         // when
         // then
-        assertDoesNotThrow(() -> new LottoNumbers(numbers));
+        assertDoesNotThrow(() -> new LottoTicket(numbers));
     }
 
     @DisplayName("로또 번호는 6개여야만 한다.")
@@ -32,7 +32,7 @@ class LottoNumbersTest {
     void lottoNumbersSizeTest(List<Integer> numbers){
         // given
         // when
-        Throwable e = assertThrows(IllegalArgumentException.class, () -> new LottoNumbers(numbers));
+        Throwable e = assertThrows(IllegalArgumentException.class, () -> new LottoTicket(numbers));
 
         // then
         assertThat(e.getMessage()).isEqualTo("로또 번호는 6개여야만 합니다.");
@@ -54,7 +54,7 @@ class LottoNumbersTest {
         List<Integer> numbers = Arrays.asList(1,2,3,4,5,1);
 
         // when
-        Throwable e = assertThrows(IllegalArgumentException.class, () -> new LottoNumbers(numbers));
+        Throwable e = assertThrows(IllegalArgumentException.class, () -> new LottoTicket(numbers));
 
         // then
         assertThat(e.getMessage()).isEqualTo("로또 번호는 중복될 수 없습니다.");
@@ -66,7 +66,7 @@ class LottoNumbersTest {
     void lottoNumbersTest(List<Integer> numbers){
         // given
         // when
-        Throwable e = assertThrows(IllegalArgumentException.class, () -> new LottoNumbers(numbers));
+        Throwable e = assertThrows(IllegalArgumentException.class, () -> new LottoTicket(numbers));
 
         // then
         assertThat(e.getMessage()).isEqualTo("로또 번호는 1~45 사이의 숫자여야 합니다.");
