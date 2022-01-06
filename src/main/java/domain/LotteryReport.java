@@ -15,13 +15,6 @@ public class LotteryReport {
         profitRate = (double) (revenue - cost) / cost;
     }
 
-    public LotteryReport(LotteryTickets lotteryTickets, LotteryResult lotteryResult) {
-        int cost = lotteryTickets.getCost();
-        prizeCount = lotteryTickets.getPrizeCount(lotteryResult);
-        int revenue = prizeCount.entrySet().stream().map(entry -> entry.getKey().getValue() * entry.getValue()).reduce(0, Integer::sum);
-        profitRate = (double) (revenue - cost) / cost;
-    }
-
     public LotteryReportDTO toDTO() {
         return new LotteryReportDTO(profitRate, prizeCount);
     }
