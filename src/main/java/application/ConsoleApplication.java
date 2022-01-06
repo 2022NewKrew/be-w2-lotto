@@ -17,8 +17,6 @@ public class ConsoleApplication {
     private LottoStatistic lottoStatistic;
     private final LottoService lottoService;
 
-    private int purchasePrice;
-    private int purchaseCount;
     private int normalLottoCount;
     private int autoLottoCount;
 
@@ -42,8 +40,8 @@ public class ConsoleApplication {
     }
 
     public void createLottoStatic() {
-        purchasePrice = inputPurchasePrice();
-        purchaseCount = lottoService.calculateLottoCount(purchasePrice);
+        int purchasePrice = inputPurchasePrice();
+        int purchaseCount = lottoService.calculateLottoCount(purchasePrice);
         normalLottoCount = inputNormalPurchaseCount();
         autoLottoCount = purchaseCount - normalLottoCount;
         lottoStatistic = lottoService.createLottoStatistic(purchaseCount, normalLottoCount, autoLottoCount);
