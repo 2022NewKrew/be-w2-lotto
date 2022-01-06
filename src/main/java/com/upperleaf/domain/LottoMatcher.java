@@ -23,4 +23,12 @@ public class LottoMatcher {
     public List<LottoRanking> match() {
         return lottos.matchWinningNumber(winningNumber);
     }
+
+    public Long getLottoPrice() {
+        return lottos.getLottoPrice();
+    }
+
+    public Long getLottosId() {
+        return lottos.getId();
+    }
 }

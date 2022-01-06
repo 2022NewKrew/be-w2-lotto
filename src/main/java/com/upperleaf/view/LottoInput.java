@@ -3,10 +3,12 @@ package com.upperleaf.view;
 import com.upperleaf.domain.LottoPaymentInfo;
 import com.upperleaf.domain.lotto.LottoWinningNumber;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class LottoInput {
 
@@ -19,8 +21,13 @@ public class LottoInput {
     public LottoPaymentInfo inputPaymentInfoByUser() {
         System.out.println("구입 금액을 입력해 주세요.");
         long paymentAmount = Long.parseLong(sc.nextLine());
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        int lottoNum = Integer.parseInt(sc.nextLine());
 
-        return new LottoPaymentInfo(paymentAmount);
+        List<String> numbers = IntStream.range(0, lottoNum)
+                .mapToObj(idx -> sc.nextLine())
+                .collect(Collectors.toList());
+        return new LottoPaymentInfo(paymentAmount, numbers);
     }
 
     /**

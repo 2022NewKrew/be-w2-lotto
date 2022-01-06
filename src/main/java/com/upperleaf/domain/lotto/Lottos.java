@@ -1,5 +1,6 @@
 package com.upperleaf.domain.lotto;
 
+import com.upperleaf.domain.lotto.create.LottoConstants;
 import com.upperleaf.domain.lotto.create.LottoCreateStrategy;
 
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.stream.LongStream;
 public class Lottos {
 
     private final List<Lotto> lottoList;
+
+    private Long id;
 
     private Lottos(List<Lotto> lottoList) {
         this.lottoList = lottoList;
@@ -44,5 +47,21 @@ public class Lottos {
 
     public List<String> getLottosInfo() {
         return lottoList.stream().map(Lotto::getLottoInfo).collect(Collectors.toList());
+    }
+
+    public List<List<Integer>> getLottoNumbers() {
+        return lottoList.stream().map(Lotto::getNumbers).collect(Collectors.toList());
+    }
+
+    public long getLottoPrice() {
+        return lottoList.size() * LottoConstants.LOTTO_PRICE;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
