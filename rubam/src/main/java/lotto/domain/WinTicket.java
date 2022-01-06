@@ -2,12 +2,13 @@ package lotto.domain;
 
 import java.util.List;
 
-public class WinTicket {
+public class WinTicket extends Ticket{
 
     private final TicketNumbers ticketNumbers;
     private final TicketNumber bonusTicketNumber;
 
     public WinTicket(List<Integer> ticketNumbers, int bonusTicketNumber) {
+        super(ticketNumbers);
         this.ticketNumbers = new TicketNumbers(ticketNumbers);
         this.bonusTicketNumber = checkDuplicatedNumber(bonusTicketNumber);
     }
@@ -16,11 +17,7 @@ public class WinTicket {
         return ticketNumbers.checkDuplicatedNumber(bonusTicketNumber);
     }
 
-    public TicketNumbers getTicketNumbers() {
-        return ticketNumbers;
-    }
-
-    public TicketNumber getBonusTicketNumber() {
-        return bonusTicketNumber;
+    public Rank checkTicketRank(Ticket ticket) {
+        return ticket.ticketNumbers.compareTicket(this.ticketNumbers, this.bonusTicketNumber);
     }
 }

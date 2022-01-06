@@ -7,34 +7,34 @@ import java.util.Map;
 
 public class LottoController {
 
-    public static void lottoGameStart() {
-        initiateGame();
+    private final Money money;
+    private final Customer customer;
+
+    public LottoController() {
+        money = new Money(InputInformation.inputMoney());
+        customer = new Customer(money);
     }
 
-    private static void initiateGame() {
-        // 돈 입력
-        Integer amount = InputInformation.inputMoney();
-        Money spent = new Money(amount);
-        Customer customer = new Customer(spent);
+    public void lottoGameStart() {
+        buyTickets();
+        WinTicket winTicket = initiateLastWeekWinTickets();
+        run(winTicket);
+    }
 
-        // 티켓 구매
+    private void buyTickets() {
         int count = InputInformation.inputDirectTicketsCount();
         customer.buyTickets(new DirectTicketsGenerator(InputInformation.inputAllTicketsNumbers(count)), count);
         customer.buyAllTickets(new RandomTicketsGenerator());
         PrintInformation.printAllTickets(customer, count);
-
-        // 당첨번호 및 보너스 번호 세팅
-        //TicketNumbers winTicketNumbers = new TicketNumbers(InputInformation.inputWinNumbers());
-        //TicketNumber bonusNumber = new TicketNumber(InputInformation.inputBonusNumber());
-        WinTicket winTicket = new WinTicket(InputInformation.inputWinNumbers(), InputInformation.inputBonusNumber());
-
-        // 계산 실행
-        run(customer, winTicket, spent);
     }
 
-    private static void run(Customer customer, WinTicket winTicket, Money spent) {
+    private WinTicket initiateLastWeekWinTickets() {
+        return new WinTicket(InputInformation.inputWinNumbers(), InputInformation.inputBonusNumber());
+    }
+
+    private void run(WinTicket winTicket) {
         Map<Rank, Integer> results = customer.calculateRankResult(winTicket);
         PrintInformation.printRankStatistics(results);
-        PrintInformation.printEarningRewardRate(Money.calculateEarningRewardRate(spent, results));
+        PrintInformation.printEarningRewardRate(Money.calculateEarningRewardRate(money, results));
     }
 }

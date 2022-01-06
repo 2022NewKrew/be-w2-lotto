@@ -15,11 +15,11 @@ public class Customer {
     }
 
     public void buyTickets(TicketsGenerator ticketsGenerator, int count) {
-        tickets.addAll(money.buyTickets(ticketsGenerator, count));
+        tickets.addAll(money.changeToTickets(ticketsGenerator, count));
     }
 
     public void buyAllTickets(TicketsGenerator ticketsGenerator) {
-        tickets.addAll(money.buyAllTickets(ticketsGenerator));
+        tickets.addAll(money.changeAllToTickets(ticketsGenerator));
     }
 
     public Map<Rank, Integer> calculateRankResult(WinTicket winTicket) {
@@ -31,9 +31,9 @@ public class Customer {
             put(Rank.FIFTH, 0);
         }};
 
-        tickets.stream().filter(ticket -> (ticket.checkTicketRank(winTicket.getTicketNumbers(), winTicket.getBonusTicketNumber()) != null))
+        tickets.stream().filter(ticket -> (winTicket.checkTicketRank(ticket) != null))
                 .forEach(ticket -> {
-                    results.merge(ticket.checkTicketRank(winTicket.getTicketNumbers(), winTicket.getBonusTicketNumber()), 1, Integer::sum);
+                    results.merge(winTicket.checkTicketRank(ticket), 1, Integer::sum);
                 });
         return results;
     }

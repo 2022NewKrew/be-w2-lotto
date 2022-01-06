@@ -35,7 +35,7 @@ public class MoneyTest {
 
         // then
         String errorMessage = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            money.buyTickets(ticketsGenerator, ticketCount);
+            money.changeToTickets(ticketsGenerator, ticketCount);
         }).getMessage();
         assertThat(errorMessage).isEqualTo("티켓 개수는 음수값을 가질 수 없습니다.");
     }
@@ -51,7 +51,7 @@ public class MoneyTest {
 
         // then
         String errorMessage = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            money.buyTickets(ticketsGenerator, ticketCount);
+            money.changeToTickets(ticketsGenerator, ticketCount);
         }).getMessage();
         assertThat(errorMessage).isEqualTo("잔액이 부족합니다.");
     }
