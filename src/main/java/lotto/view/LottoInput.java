@@ -22,4 +22,11 @@ public class LottoInput {
                 .map(Integer::parseInt).collect(Collectors.toCollection(ArrayList::new));
         return winningNumbers;
     }
+
+    public int bonusNumberInput() {
+        int bonusNumber;
+        System.out.println("보너스 볼을 입력해 주세요");
+        bonusNumber = Integer.parseInt(sc.nextLine());
+        return bonusNumber;
+    }
 }
