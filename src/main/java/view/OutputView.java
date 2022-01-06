@@ -20,7 +20,7 @@ public class OutputView {
     }
     private static void printLottoNumber(List<Integer> lottoNumber) {
         System.out.print("[");
-        System.out.print(lottoNumber.stream().map(v -> v.toString()).collect(Collectors.joining(",")));
+        System.out.print(lottoNumber.stream().map(Object::toString).collect(Collectors.joining(",")));
         System.out.println("]");
     }
     public static void printLottoSize(int payAutoCount, int payManualCount)
