@@ -3,7 +3,6 @@ package com.kakao.lotto.step4.view;
 import com.kakao.lotto.step4.core.LottoResult;
 import com.kakao.lotto.step4.core.Rank;
 
-import java.util.Arrays;
 import java.util.Map;
 
 public class LottoResultPrinter {
