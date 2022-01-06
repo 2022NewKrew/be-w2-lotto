@@ -9,8 +9,7 @@ public class LottoGame {
 
     private int purchaseMoney;
     private List<Lotto> lottos;
-    private List<Integer> correctNumbers;
-    private int bonusBall;
+    private LastWinningLotto lastWinningLotto;
     private final Map<Prize, Integer> correctCountsWithPrize = new HashMap<>();
 
     public LottoGame() {
@@ -25,33 +24,47 @@ public class LottoGame {
 
     }
 
-    private final void generateLottos() {
-        purchaseMoney = InputView.askPurchaseAmount();
-        lottos = new ArrayList<>(purchaseMoney / Lotto.COST);
-        for (int i = 0; i < purchaseMoney / Lotto.COST; i++) {
+    private void generateLottos() {
+        purchaseMoney = InputView.askPurchaseMoney();
+        int lottoCount = purchaseMoney / Lotto.COST;
+        int manualLottoCount = InputView.askPurchaseManualLottoCount();
+        lottos = new ArrayList<>(lottoCount);
+        createManualLotto(manualLottoCount);
+        createAutolLotto(lottoCount - manualLottoCount);
+        OutputView.printPurchaseMessage(manualLottoCount, lottoCount - manualLottoCount);
+
+    }
+
+    private void createManualLotto(int manualLottoCount) {
+        for (int i = 0; i < manualLottoCount; i++) {
+            List<Integer> manualLottoNumbers = InputView.askPurchaseManualLottoNumbers();
+            lottos.add(LottoFactory.createManualLotto(manualLottoNumbers));
+        }
+    }
+
+    private void createAutolLotto(int autoLottoCount) {
+        for (int i = 0; i < autoLottoCount; i++) {
             lottos.add(LottoFactory.createAutoLotto());
         }
-        OutputView.printPurchaseMessage(lottos.size());
     }
 
-    private final void showLottos() {
-        for (int i = 0; i < lottos.size(); i++) {
-            OutputView.printLottoNumber(lottos.get(i).getNumbers());
+    private void showLottos() {
+        for (Lotto lotto : lottos) {
+            OutputView.printLottoNumber(lotto);
         }
     }
 
-    private final void generateCorrectNumbers() {
-        correctNumbers = InputView.askLastLottoNumbers();
-        bonusBall = InputView.askBonusBallNumber();
+    private void generateCorrectNumbers() {
+        lastWinningLotto = LottoFactory.createLastWinningLotto(InputView.askLastLottoNumbers(), InputView.askBonusBallNumber());
     }
 
-    private final void showResult() {
+    private void showResult() {
         calculateCorrectCounts();
         OutputView.printResult(correctCountsWithPrize);
         OutputView.printRateOfReturn(calculateRateOfReturn());
     }
 
-    private final void calculateCorrectCounts() {
+    private void calculateCorrectCounts() {
         setCorrectCountsWithPrize();
         for (Lotto lotto : lottos) {
             Prize prize = Prize.valueOf(getCorrectCountsOfLotto(lotto), containBonusBall(lotto));
@@ -59,37 +72,36 @@ public class LottoGame {
         }
     }
 
-    private final void setCorrectCountsWithPrize() {
+    private void setCorrectCountsWithPrize() {
         for (Prize prize : Prize.values()) {
             correctCountsWithPrize.put(prize, 0);
         }
     }
 
-    private final int getCorrectCountsOfLotto(Lotto lotto) {
+    private int getCorrectCountsOfLotto(Lotto lotto) {
         int cnt = 0;
-        for (int lnum : correctNumbers) {
-            if (lotto.contains(lnum)) cnt += 1;
+        for (LottoNumber num : lastWinningLotto.getNumbers()) {
+            if (lotto.contains(num)) cnt += 1;
         }
         return cnt;
     }
 
-    private final boolean containBonusBall(Lotto lotto) {
-        return lotto.contains(bonusBall);
+    private boolean containBonusBall(Lotto lotto) {
+        return lotto.contains(lastWinningLotto.getBonusBall());
     }
 
-    private final void addUpCorrectCount(Prize prize) {
+    private void addUpCorrectCount(Prize prize) {
         if (prize != null) {
             correctCountsWithPrize.put(prize, correctCountsWithPrize.get(prize) + 1);
         }
     }
 
-    private final int calculateRateOfReturn() {
+    private int calculateRateOfReturn() {
         int totalReturn = 0;
         for (Map.Entry<Prize, Integer> entry : correctCountsWithPrize.entrySet()) {
             totalReturn += (entry.getKey().getWinningMoney() * entry.getValue());
         }
-        System.out.println(totalReturn);
-        return (totalReturn-purchaseMoney) / purchaseMoney * 100;
+        return (totalReturn - purchaseMoney) / purchaseMoney * 100;
     }
 
 }

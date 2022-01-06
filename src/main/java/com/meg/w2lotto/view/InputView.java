@@ -8,9 +8,19 @@ public class InputView {
 
     private static final Scanner sc = new Scanner(System.in);
 
-    public static final int askPurchaseAmount() {
+    public static final int askPurchaseMoney() {
         System.out.println("구입금액을 입력해주세요.");
         return sc.nextInt();
+    }
+
+    public static final int askPurchaseManualLottoCount() {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        return sc.nextInt();
+    }
+
+    public static final List<Integer> askPurchaseManualLottoNumbers() {
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        return StrListToIntList(List.of(sc.next().split(",")));
     }
 
     public static final List<Integer> askLastLottoNumbers() {

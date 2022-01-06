@@ -35,7 +35,7 @@ public enum Prize {
         return  winningMoney;
     }
 
-    public final boolean getIsBonus() {
+    public final boolean isBonus() {
         return isBonus;
     }
 }
