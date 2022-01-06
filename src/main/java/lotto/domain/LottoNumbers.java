@@ -1,9 +1,6 @@
 package lotto.domain;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -11,19 +8,31 @@ import java.util.stream.Stream;
 import static lotto.domain.LottoConstants.*;
 
 public class LottoNumbers {
-    private final List<Integer> lottoNumbers;
-
-    LottoNumbers() {
-        List<Integer> randomNumList = makeRandomNumList();
-        lottoNumbers = chooseLottoNumbers(randomNumList);
-        sortLottoNumbers();
-        checkLottoNumbers();
+    public List<Integer> getLottoNumbers() {
+        return lottoNumbers;
     }
 
-    LottoNumbers(List<Integer> lottoNumbers) {
+    private final List<Integer> lottoNumbers;
+
+    public LottoNumbers() {
+        List<Integer> randomNumList = makeRandomNumList();
+        lottoNumbers = chooseLottoNumbers(randomNumList);
+        setAfterInit();
+    }
+
+    public LottoNumbers(List<Integer> lottoNumbers) {
         this.lottoNumbers = lottoNumbers;
-        sortLottoNumbers();
-        checkLottoNumbers();
+        setAfterInit();
+    }
+
+    public LottoNumbers(String lnStr) {
+        String[] strArr = lnStr.split(",");
+        Integer[] intArr = new Integer[strArr.length];
+        for (int i = 0; i < strArr.length; i++) {
+            intArr[i] = Integer.parseInt(strArr[i].trim());
+        }
+        lottoNumbers = new ArrayList<>(Arrays.asList(intArr));
+        setAfterInit();
     }
 
     private List<Integer> makeRandomNumList() {
@@ -36,6 +45,11 @@ public class LottoNumbers {
 
     private List<Integer> chooseLottoNumbers(List<Integer> randomNumList) {
         return randomNumList.subList(0, COUNT_OF_LOTTO_NUMBER);
+    }
+
+    private void setAfterInit() {
+        sortLottoNumbers();
+        checkLottoNumbers();
     }
 
     private void sortLottoNumbers() {

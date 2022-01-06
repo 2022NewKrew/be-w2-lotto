@@ -10,7 +10,7 @@ public class LottoManager {
     private int moneyAmount;
     private int numOfLottos;
     private int numOfManualLottos;
-    private final List<LottoNumbers> lottos = new ArrayList<>();
+    private final Lottos lottos = new Lottos();
     private LottoNumbers winningLottoNumbers;
     private int bonusWinningLottoNumber;
     private final LottoView lv = new LottoView();
@@ -95,12 +95,7 @@ public class LottoManager {
 
     private LottoNumbers readLottoNumbers() throws RuntimeException {
         Scanner sc = new Scanner(System.in);
-        String[] strArr = sc.nextLine().split(",");
-        Integer[] intArr = new Integer[strArr.length];
-        for (int i = 0; i < strArr.length; i++) {
-            intArr[i] = Integer.parseInt(strArr[i].trim());
-        }
-        return new LottoNumbers(new ArrayList<>(Arrays.asList(intArr)));
+        return new LottoNumbers(sc.nextLine());
     }
 
     private int readBonusWinningLottoNumber() throws RuntimeException {

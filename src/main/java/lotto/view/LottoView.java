@@ -1,14 +1,13 @@
 package lotto.view;
 
-import lotto.domain.LottoNumbers;
+import lotto.domain.Lottos;
 import lotto.domain.Rank;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class LottoView {
 
-    public void printLottos(List<LottoNumbers> lottos, int numOfManualLottos) {
+    public void printLottos(Lottos lottos, int numOfManualLottos) {
         System.out.println("수동으로 " + numOfManualLottos +
                 "개, 자동으로 " + (lottos.size() - numOfManualLottos) +
                 "개를 구매했습니다.");
