@@ -13,7 +13,7 @@ public class LottoEmployee {
     }
 
     private static void validatePurchaseAmount(int purchasedAmount) {
-        if (purchasedAmount < MINIMUM_PURCHASE_AMOUNT) {
+        if ((purchasedAmount/LOTTO_PRICE) < MINIMUM_PURCHASE_AMOUNT) {
             throw new InvalidPurchaseAmount(InvalidPurchaseAmount.MINIMUM_PURCHASE_AMOUNT);
         }
     }
