@@ -17,9 +17,9 @@ public class LottoController {
         this.lottoMoney = lottoMoney;
     }
 
-    public static LottoController valueOf(long money) {
+    public static LottoController valueOf(long money, List<List<Integer>> selfLottoNumbers) {
         LottoMoney lottoMoney = new LottoMoney(money);
-        Lottos lottos = Lottos.from(lottoMoney.purchase());
+        Lottos lottos = Lottos.from(lottoMoney.purchase(), selfLottoNumbers);
         return new LottoController(lottos, lottoMoney);
     }
 

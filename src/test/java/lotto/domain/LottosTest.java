@@ -1,11 +1,14 @@
 package lotto.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
+import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -23,6 +26,23 @@ class LottosTest {
 
         // then
         assertThat(lottos.getLottos()).hasSize(count);
+    }
+
+    @Test
+    @DisplayName("총 구매개수보다 수동구매 개수가 많으면 에러가 발생한다.")
+    void test_CreateLottos_WhenSelfLottoSizeOver() {
+        // given
+        int buySize = 3;
+        List<List<Integer>> selfLottoNumbers = new ArrayList<>();
+        for (int i = 0; i < buySize + 1; i++) {
+            selfLottoNumbers.add(new ArrayList<>());
+        }
+
+        // when
+        ThrowingCallable callable = () -> Lottos.from(buySize, selfLottoNumbers);
+
+        // then
+        assertThatThrownBy(callable).isExactlyInstanceOf(IllegalArgumentException.class);
     }
 
     @ParameterizedTest

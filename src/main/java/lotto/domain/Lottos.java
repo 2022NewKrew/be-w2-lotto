@@ -14,11 +14,26 @@ public class Lottos {
     }
 
     public static Lottos from(int lottoCount) {
+        return from(lottoCount, new ArrayList<>());
+    }
+
+    public static Lottos from(int lottoCount, List<List<Integer>> selfLottoNumbers) {
+        int autoBuySize = lottoCount - selfLottoNumbers.size();
+        validateSize(autoBuySize);
         final List<Lotto> lottos = new ArrayList<>();
-        for (int i = 0; i < lottoCount; i++) {
+        for (List<Integer> selfLottoNumber : selfLottoNumbers) {
+            lottos.add(new Lotto(selfLottoNumber));
+        }
+        for (int i = 0; i < autoBuySize; i++) {
             lottos.add(new Lotto());
         }
         return new Lottos(lottos);
+    }
+
+    private static void validateSize(int size) {
+        if (size < 0) {
+            throw new IllegalArgumentException("[ERROR] 총 구매 장수보다 수동구입이 많을 수 없습니다.");
+        }
     }
 
     public List<Lotto> getLottos() {
