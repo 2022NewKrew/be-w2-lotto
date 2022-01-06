@@ -65,7 +65,7 @@ public class InputView {
                 .map(String::trim)
                 .mapToInt(Integer::parseInt)
                 .distinct()
-                .mapToObj(n -> new Number(n))
+                .mapToObj(Number::new)
                 .collect(Collectors.toList());
         validator.isValidNumberList(numberList);
         return numberList;
