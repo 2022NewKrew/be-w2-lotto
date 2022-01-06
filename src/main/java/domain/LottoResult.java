@@ -2,6 +2,7 @@ package domain;
 
 import enums.Prize;
 import exceptions.InvalidLastWeekWinningNumber;
+import exceptions.InvalidPurchaseAmount;
 import messages.ErrorMessage;
 import validation.Validation;
 
@@ -20,7 +21,7 @@ public class LottoResult {
     public LottoResult(Set<Integer> lastWeekWinningNumbers) {
         if (lastWeekWinningNumbers == null)
             throw new IllegalArgumentException();
-//        Validation.lengthShouldBe(lastWeekWinningNumbers, NUMBER_OF_LOTTERY_NUMBERS, new InvalidPurchaseAmount(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
+        Validation.sizeShouldBe(lastWeekWinningNumbers, NUMBER_OF_LOTTERY_NUMBERS, new InvalidPurchaseAmount(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
         lastWeekWinningNumbers.forEach(num -> {
             Validation.notLessThanLong(num, MIN_LOTTO_NUMBER, new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_WINNING_NUMBER.getMessage()));
             Validation.notMoreThanLong(num, MAX_LOTTO_NUMBER, new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_WINNING_NUMBER.getMessage()));
