@@ -1,6 +1,7 @@
 package model.lotto;
 
 import model.lotto.number.LottoNumber;
+import utility.NullChecker;
 import utility.RandomSeed;
 
 import java.util.*;
@@ -10,10 +11,18 @@ import java.util.stream.IntStream;
 public class Lotto {
     public static final int LOTTO_PRICE = 1000;
     public static final int LENGTH_OF_NUMBERS = 6;
-    private static final List<LottoNumber> LOTTO_NUMBERS =
-            IntStream.rangeClosed(LottoNumber.START_NUMBER, LottoNumber.FINAL_NUMBER)
-                    .mapToObj(LottoNumber::new)
-                    .collect(Collectors.toList());
+    private static final List<LottoNumber> LOTTO_NUMBERS;
+
+    static {
+        LOTTO_NUMBERS = getLegalNumbers();
+    }
+
+    private static List<LottoNumber> getLegalNumbers() {
+        return IntStream
+                .rangeClosed(LottoNumber.START_NUMBER, LottoNumber.FINAL_NUMBER)
+                .mapToObj(LottoNumber::new)
+                .collect(Collectors.toList());
+    }
 
     private final List<LottoNumber> lottoNumbers;
 
@@ -28,15 +37,21 @@ public class Lotto {
     }
 
     public static Lotto getDefinedLotto(List<Integer> definedLottoNumbers) {
+        NullChecker.checkNull(definedLottoNumbers);
+
         return new Lotto(definedLottoNumbers.stream().map(LottoNumber::new).collect(Collectors.toList()));
     }
 
-    public int countDuplicateNumberWith(Lotto lotto) {
+    public int contain(Lotto lotto) {
         return (int) lotto
                 .getNumbers()
                 .stream()
                 .filter(lottoNumbers::contains)
                 .count();
+    }
+
+    public boolean contain(LottoNumber targetLottoNumber) {
+        return lottoNumbers.contains(targetLottoNumber);
     }
 
     private void checkNumbers(List<LottoNumber> lottoNumbers) {
@@ -46,9 +61,7 @@ public class Lotto {
     }
 
     private void checkNull(List<LottoNumber> lottoNumbers) {
-        if (lottoNumbers == null){
-            throw new IllegalArgumentException("리스트가 Null입니다.");
-        }
+        NullChecker.checkNull(lottoNumbers);
     }
 
     private void checkNumbersLength(List<LottoNumber> lottoNumbers) {

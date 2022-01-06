@@ -5,7 +5,7 @@ import java.util.Random;
 public class RandomSeed {
     public static Random random = new Random();
 
-    public static void setSeed(int seedNumber){
+    public static void setSeed(int seedNumber) {
         random = new Random(seedNumber);
     }
 

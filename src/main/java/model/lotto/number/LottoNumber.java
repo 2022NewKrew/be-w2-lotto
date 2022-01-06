@@ -3,8 +3,8 @@ package model.lotto.number;
 import java.util.Objects;
 
 public class LottoNumber implements Comparable<LottoNumber> {
-    public static int START_NUMBER = 1;
-    public static int FINAL_NUMBER = 45;
+    public static final int START_NUMBER = 1;
+    public static final int FINAL_NUMBER = 45;
 
     public static int convertToInt(LottoNumber lottoNumber) {
         return lottoNumber.value;
@@ -54,5 +54,4 @@ public class LottoNumber implements Comparable<LottoNumber> {
     public int compareTo(LottoNumber otherLottoNumber) {
         return Integer.compare(this.value, otherLottoNumber.value);
     }
-
 }

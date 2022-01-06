@@ -1,9 +1,12 @@
 package controller;
 
+import dto.LottoResultDto;
+import dto.LottoResultRevenuePercentDto;
+import dto.LottosDto;
 import model.lotto.Lotto;
 import model.lotto.LottoRank;
-import model.lotto.result.LottoResult;
 import model.lotto.number.LottoNumber;
+import model.lotto.result.LottoResult;
 import view.UserInput;
 import view.UserOutput;
 
@@ -13,15 +16,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class LottoController {
-    private static final int FIRST_INDEX_TO_PRESENT = 2;
+    private static final int FIRST_INDEX_TO_PRESENT = 1;
     private static final int LAST_INDEX_TO_PRESENT = LottoRank.values().length;
 
     public static void run() {
         List<Lotto> lottos = SellLottoController.buyLottos(UserInput.getMoney());
-        UserOutput.printLotto(getLottoNumbers(lottos));
+        UserOutput.printLotto(new LottosDto(getLottoNumbers(lottos)));
         LottoResult lottoResult = MatchLottoController.matchingResult(lottos);
-        UserOutput.printHistory(getValidLottoResult(FIRST_INDEX_TO_PRESENT, LAST_INDEX_TO_PRESENT), lottoResult.getResult());
-        UserOutput.printRevenueRate(lottoResult.getRevenuePercent());
+        UserOutput.printHistory(getValidLottoResult(FIRST_INDEX_TO_PRESENT, LAST_INDEX_TO_PRESENT), new LottoResultDto(lottoResult.getResult()));
+        UserOutput.printRevenueRate(new LottoResultRevenuePercentDto(lottoResult.getRevenuePercent()));
     }
 
     private static List<List<Integer>> getLottoNumbers(List<Lotto> lottos) {

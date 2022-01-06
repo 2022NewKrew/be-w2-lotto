@@ -1,6 +1,5 @@
 package model.lotto;
 
-import model.lotto.number.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -48,29 +47,28 @@ class LottoPreconditionTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    static Stream<List<LottoNumber>> legalNumbers() {
+    static Stream<List<Integer>> legalNumbers() {
         return Stream.of(
-                Arrays.asList(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)),
-                Arrays.asList(new LottoNumber(1), new LottoNumber(5), new LottoNumber(9), new LottoNumber(13), new LottoNumber(17), new LottoNumber(21))
+                Arrays.asList(1, 2, 3, 4, 5, 6),
+                Arrays.asList(1, 2, 3, 4, 5, 6)
         );
     }
 
-    static Stream<List<LottoNumber>> duplicatedNumbers() {
+    static Stream<List<Integer>> duplicatedNumbers() {
         return Stream.of(
-                Arrays.asList(new LottoNumber(1), new LottoNumber(1), new LottoNumber(3), new LottoNumber(4), new LottoNumber(5), new LottoNumber(6)),
-                Arrays.asList(new LottoNumber(1), new LottoNumber(1), new LottoNumber(1), new LottoNumber(13), new LottoNumber(17), new LottoNumber(21)),
-                Arrays.asList(new LottoNumber(1), new LottoNumber(1), new LottoNumber(1), new LottoNumber(5), new LottoNumber(5), new LottoNumber(6)),
-                Arrays.asList(new LottoNumber(1), new LottoNumber(1), new LottoNumber(1), new LottoNumber(5), new LottoNumber(5), new LottoNumber(5)),
-                Arrays.asList(new LottoNumber(1), new LottoNumber(1), new LottoNumber(1), new LottoNumber(1), new LottoNumber(1), new LottoNumber(1))
+                Arrays.asList(1, 1, 3, 4, 5, 6),
+                Arrays.asList(1, 1, 1, 4, 5, 6),
+                Arrays.asList(1, 1, 1, 4, 4, 6),
+                Arrays.asList(1, 1, 1, 4, 4, 4),
+                Arrays.asList(1, 1, 3, 3, 5, 5)
         );
     }
 
-    static Stream<List<LottoNumber>> outOfRangeNumbers() {
+    static Stream<List<Integer>> outOfRangeNumbers() {
         return Stream.of(
                 null,
-                Arrays.asList(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4), new LottoNumber(5)),
-                Arrays.asList(new LottoNumber(1), new LottoNumber(1), new LottoNumber(9), new LottoNumber(13), new LottoNumber(17), new LottoNumber(21), new LottoNumber(35))
+                Arrays.asList(1, 2, 3, 4, 5),
+                Arrays.asList(1, 2, 3, 4, 5, 6, 7)
         );
     }
-
 }
