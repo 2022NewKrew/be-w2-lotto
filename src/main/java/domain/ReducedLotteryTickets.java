@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 public class ReducedLotteryTickets {
     private final List<LotteryTicket> lotteryTickets;
 
-    public ReducedLotteryTickets() {
-        lotteryTickets = new ArrayList<>();
+    public ReducedLotteryTickets(List<LotteryTicket> lotteryTickets) {
+        this.lotteryTickets = lotteryTickets;
     }
 
     public Map<LotteryPrize, Integer> getPrizeCount(LotteryResult lotteryResult) {

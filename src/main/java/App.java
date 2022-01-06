@@ -2,6 +2,8 @@ import domain.*;
 import domain.util.LotteryNumbersFactory;
 import view.View;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.IntStream;
 
 public class App {
@@ -13,26 +15,46 @@ public class App {
         LotteryWallet lotteryWallet = new LotteryWallet(view.getBudget());
         int numberOfManualTickets = view.getNumberOfManualTickets();
 
-        lotteryWallet.buyTickets(numberOfManualTickets);
 
-        LotteryTickets manualLotteryTickets = new LotteryTickets(TICKET_PRICE);
+        /*LotteryTickets manualLotteryTickets = new LotteryTickets(TICKET_PRICE);
         view.promptToInputLotteryNumbersToBuy();
         for (int i = 0; i < numberOfManualTickets; i++) {
             manualLotteryTickets.add(new LotteryTicket(view.getLotteryNumbers()));
-        }
+        }*/
+        lotteryWallet.buyTickets(numberOfManualTickets);
+        List<LotteryTicket> manualLotteryTicketsAsList = view.getLotteryTickets(numberOfManualTickets);
 
-        LotteryTickets randomLotteryTickets = new LotteryTickets(TICKET_PRICE);
-        addRandomTickets(randomLotteryTickets, lotteryWallet.getNumberOfTicketsAffordable());
 
-        view.showBoughtTickets(manualLotteryTickets.toDTO(), randomLotteryTickets.toDTO());
+        /*LotteryTickets randomLotteryTickets = new LotteryTickets(TICKET_PRICE);
+        addRandomTickets(randomLotteryTickets, lotteryWallet.getNumberOfTicketsAffordable());*/
+        int numberOfRandomTickets = lotteryWallet.getNumberOfTicketsAffordable();
+        lotteryWallet.buyTickets(numberOfRandomTickets);
+        List<LotteryTicket> randomLotteryTicketsAsList = getRandomTickets(numberOfRandomTickets);
 
-        LotteryResult lotteryResult = new LotteryResult(view.getResultNumbers(), view.getResultBonusBall());
 
-        manualLotteryTickets.add(randomLotteryTickets);
+        // view.showBoughtTickets(manualLotteryTickets.toDTO(), randomLotteryTickets.toDTO());
+        view.showBoughtTickets(new ReducedLotteryTickets(manualLotteryTicketsAsList).toDTO(), new ReducedLotteryTickets(randomLotteryTicketsAsList).toDTO());
+
+
+        // LotteryResult lotteryResult = new LotteryResult(view.getResultNumbers(), view.getResultBonusBall());
+        LotteryResult lotteryResult = view.getLotteryResult();
+
+
+        /*manualLotteryTickets.add(randomLotteryTickets);
         LotteryTickets boughtLotteryTickets = manualLotteryTickets;
-        LotteryReport lotteryReport = new LotteryReport(boughtLotteryTickets, lotteryResult);
+        LotteryReport lotteryReport = new LotteryReport(boughtLotteryTickets, lotteryResult);*/
+        manualLotteryTicketsAsList.addAll(randomLotteryTicketsAsList);
+        LotteryReport lotteryReport = new LotteryReport(manualLotteryTicketsAsList, lotteryResult, lotteryWallet.getSpent());
+
 
         view.showReport(lotteryReport.toDTO());
+    }
+
+    private static List<LotteryTicket> getRandomTickets(int numberOfTickets) {
+        List<LotteryTicket> lotteryTickets = new ArrayList<>();
+        LotteryNumbersFactory lotteryNumbersFactory = new LotteryNumbersFactory();
+        IntStream.range(0, numberOfTickets).forEach(i -> lotteryTickets.add(new LotteryTicket(lotteryNumbersFactory.getRandomNumbers())));
+        return lotteryTickets;
     }
 
     private static void addRandomTickets(LotteryTickets lotteryTickets, int numberOfTickets) {
