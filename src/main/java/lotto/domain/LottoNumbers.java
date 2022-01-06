@@ -46,7 +46,7 @@ public class LottoNumbers {
         return ln.countIntersectionSize(lottoNumbers);
     }
 
-    public int countIntersectionSize(List<Integer> ln) {
+    private int countIntersectionSize(List<Integer> ln) {
         List<Integer> intersection = new ArrayList<>();
         intersection.addAll(lottoNumbers);
         intersection.retainAll(ln);
