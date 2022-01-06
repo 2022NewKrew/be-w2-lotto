@@ -42,9 +42,7 @@ public class Lottos {
         return lottoList.size();
     }
 
-    public String getLottosInfo() {
-        StringBuilder sb = new StringBuilder();
-        lottoList.forEach(lotto -> sb.append(lotto.getLottoInfo()).append('\n'));
-        return sb.toString();
+    public List<String> getLottosInfo() {
+        return lottoList.stream().map(Lotto::getLottoInfo).collect(Collectors.toList());
     }
 }

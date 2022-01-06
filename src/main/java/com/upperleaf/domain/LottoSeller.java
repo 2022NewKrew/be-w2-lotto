@@ -1,7 +1,7 @@
 package com.upperleaf.domain;
 
-import com.upperleaf.domain.lotto.create.CustomLottoStrategy;
 import com.upperleaf.domain.lotto.Lottos;
+import com.upperleaf.domain.lotto.create.LottoCreateStrategy;
 
 public class LottoSeller {
 
@@ -14,11 +14,12 @@ public class LottoSeller {
     /**
      * 지불 방법에 따라 Lottos 객체를 생성하는 메서드
      * @param paymentInfo 사용자가 지불한 정보를 표현하는 객체
+     * @param strategy 로또 생성 전략
      * @return 사용자가 지불한 금액에 따라 적절한 개수의 로또를 포함하는 Lottos 객체 반환
      */
-    public Lottos sell(LottoPaymentInfo paymentInfo) {
+    public Lottos sell(LottoPaymentInfo paymentInfo, LottoCreateStrategy strategy) {
         long amount = getLottoAmount(paymentInfo);
-        return Lottos.createLottos(amount, new CustomLottoStrategy(paymentInfo));
+        return Lottos.createLottos(amount, strategy);
     }
 
     private long getLottoAmount(LottoPaymentInfo paymentInfo) {

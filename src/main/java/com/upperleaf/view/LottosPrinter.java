@@ -15,7 +15,7 @@ public class LottosPrinter {
      */
     public void printLottos(Lottos lottos) {
         System.out.println(lottos.getLottosSize() + "개를 구매했습니다.");
-        System.out.println(lottos.getLottosInfo());
+        lottos.getLottosInfo().forEach(System.out::println);
     }
 
     /**
