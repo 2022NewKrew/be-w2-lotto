@@ -4,6 +4,7 @@ import exceptions.InvalidLastWeekWinningNumber;
 import messages.ErrorMessage;
 import validation.Validation;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Lotto {
@@ -29,7 +30,8 @@ public class Lotto {
     }
 
     public Integer checkMatchCount(Set<Integer> winningNumbers) {
-        // TODO - 몇개의 번호가 일치하는지 확인
-        return 6;
+        Set<Integer> copyWinningNumbers = new HashSet<>(winningNumbers);
+        copyWinningNumbers.retainAll(numbers);
+        return copyWinningNumbers.size();
     }
 }
