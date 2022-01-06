@@ -3,11 +3,101 @@
  */
 package lotto;
 
+import lotto.domain.Lotto;
+import lotto.domain.LottoNumber;
+import lotto.domain.LottoPrize;
+import lotto.domain.LottoWinningNumber;
+import lotto.machine.LottoMachine;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class AppTest {
-    @Test public void appHasAGreeting() {
-        LottoApp classUnderTest = new LottoApp();
+    @Test
+    @DisplayName("1등 당첨 테스트")
+    public void testLottoMatchFirstPlace() {
+        List<LottoNumber> lottoNumberList = new ArrayList<>();
+        for (int i = 1; i <= 6; i++)
+            lottoNumberList.add(LottoNumber.from(i));
+        LottoWinningNumber lottoWinningNumber = new LottoWinningNumber(lottoNumberList, LottoNumber.from(7));
+
+        Lotto lotto = LottoMachine.generateLottoManually(lottoNumberList);
+
+        assertEquals(LottoPrize.FIRST_PLACE, lottoWinningNumber.match(lotto));
+    }
+
+    @Test
+    @DisplayName("2등 당첨 테스트")
+    public void testLottoMatchSecondPlace() {
+        List<LottoNumber> winningLottoNumberList = new ArrayList<>();
+        List<LottoNumber> lottoNumberList = new ArrayList<>();
+
+        for (int i = 1; i <= 6; i++)
+            winningLottoNumberList.add(LottoNumber.from(i));
+        LottoWinningNumber lottoWinningNumber = new LottoWinningNumber(winningLottoNumberList, LottoNumber.from(7));
+
+        for (int i = 2; i <= 7; i++)
+            lottoNumberList.add(LottoNumber.from(i));
+
+        Lotto lotto = LottoMachine.generateLottoManually(lottoNumberList);
+
+        assertEquals(LottoPrize.SECOND_PLACE, lottoWinningNumber.match(lotto));
+    }
+
+    @Test
+    @DisplayName("Lotto Number 생성 테스트")
+    public void testLottoNumberOutOfRange() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            LottoNumber.from(-1);
+        });
+
+        assertEquals("Lotto Number out of range.", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("잘못된 개수의 로또 번호가 주어질 때")
+    public void testLottoInvalidCount() {
+        List<LottoNumber> lottoNumberList = new ArrayList<>();
+        for (int i = 1; i <= 5; i++)
+            lottoNumberList.add(LottoNumber.from(i));
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Lotto(lottoNumberList);
+        });
+
+        assertEquals("The size of lottoNumbers must be 6.", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("중복된 로또 번호가 있을 때")
+    public void testLottoDuplicate() {
+        List<LottoNumber> lottoNumberList = new ArrayList<>();
+        for (int i = 1; i <= 5; i++)
+            lottoNumberList.add(LottoNumber.from(i));
+        lottoNumberList.add(LottoNumber.from(5));
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Lotto(lottoNumberList);
+        });
+
+        assertEquals("There are duplicated numbers in lottoNumbers.", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("보너스볼 번호가 중복될 때")
+    public void testBonusBallDuplicate() {
+        List<LottoNumber> lottoNumberList = new ArrayList<>();
+        for (int i = 1; i <= 6; i++)
+            lottoNumberList.add(LottoNumber.from(i));
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new LottoWinningNumber(lottoNumberList, LottoNumber.from(6));
+        });
+
+        assertEquals("Duplicate bonusBall number", exception.getMessage());
     }
 }
