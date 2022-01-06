@@ -23,7 +23,7 @@ public class OutputView {
         System.out.print(lottoNumber.stream().map(v -> v.toString()).collect(Collectors.joining(",")));
         System.out.println("]");
     }
-    public static void PrintLottoSize(int payAutoCount, int payManualCount)
+    public static void printLottoSize(int payAutoCount, int payManualCount)
     {
         System.out.println(String.format("수동으로 %d장, 자동으로 %d개를 구매했습니다.",payManualCount,payAutoCount));
     }

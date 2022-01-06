@@ -17,7 +17,7 @@ public class main {
 
         Player player = new Player(payAutoCount, manualLottoList);
         OutputView.printLottoList(player);
-        OutputView.PrintLottoSize(payAutoCount, payManualCount);
+        OutputView.printLottoSize(payAutoCount, payManualCount);
 
         Matching matching = new Matching();
         matching.addMatchingLotto(player);
