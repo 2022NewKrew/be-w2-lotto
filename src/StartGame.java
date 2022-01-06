@@ -1,3 +1,6 @@
+import Controller.TestLotteryController;
+import Domain.LotteryRound;
+
 public class StartGame {
     public static void main(String[] args) {
         LotteryRound lotteryRound = new LotteryRound(new TestLotteryController());
