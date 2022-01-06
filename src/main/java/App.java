@@ -1,7 +1,4 @@
-import domain.LotteryReport;
-import domain.LotteryResult;
-import domain.LotteryTicket;
-import domain.LotteryTickets;
+import domain.*;
 import view.View;
 
 public class App {
@@ -39,8 +36,9 @@ public class App {
     }
 
     private static void addRandomTicketsUnderBudget(LotteryTickets lotteryTickets, int budget) {
+        LotteryNumbersFactory lotteryNumbersFactory = new LotteryNumbersFactory();
         while (budget >= TICKET_PRICE) {
-            lotteryTickets.add(new LotteryTicket());
+            lotteryTickets.add(new LotteryTicket(lotteryNumbersFactory.getRandomNumbers()));
             budget -= TICKET_PRICE;
         }
     }
