@@ -17,13 +17,13 @@ public final class StandardOutLottoServiceRenderer implements LottoServiceRender
 
 
     @Override
-    public void displayPurchaseStatus(List<LottoTicket> lottoes) {
-        long numberOfManualTicket = lottoes.stream().filter(e -> e.getPurchaseWay() == LottoStatus.MANUAL).count();
-        long numberOfAutoTicket = lottoes.stream().filter(e -> e.getPurchaseWay() == LottoStatus.AUTO).count();
+    public void displayPurchaseStatus(List<LottoTicket> lottoTickets) {
+        long numberOfManualTicket = lottoTickets.stream().filter(e -> e.getPurchaseWay() == LottoStatus.MANUAL).count();
+        long numberOfAutoTicket = lottoTickets.stream().filter(e -> e.getPurchaseWay() == LottoStatus.AUTO).count();
 
         System.out.println("수동으로 " + numberOfManualTicket + "장, 자동으로 " + numberOfAutoTicket + "개를 구매했습니다.");
 
-        lottoes.forEach(this::displayLotto);
+        lottoTickets.forEach(this::displayLotto);
     }
 
     private void displayLotto(LottoTicket lotto) {

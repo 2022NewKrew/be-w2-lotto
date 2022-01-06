@@ -29,10 +29,10 @@ public final class LottoService {
 
     public void start() {
         final int purchaseAmount = getPurchaseAmount();
-        final List<LottoTicket> purchasedLottoes = purchaseLottoes(purchaseAmount / LOTTO_PRICE.getValue());
+        final List<LottoTicket> purchasedLottoTickets = purchaseLottoTickets(purchaseAmount / LOTTO_PRICE.getValue());
         final LottoTicket lastWeekWinning = getLastWeekWinningNumber();
         final int bonusBallNumber = getBonusBallNumber();
-        printWinningStatistics(purchaseAmount, purchasedLottoes, lastWeekWinning, bonusBallNumber);
+        printWinningStatistics(purchaseAmount, purchasedLottoTickets, lastWeekWinning, bonusBallNumber);
     }
 
     /**+
@@ -51,39 +51,39 @@ public final class LottoService {
 
     /**+
      * 인자 값으로 주어진 개수만큼 로또를 구매하는 메소드입니다.
-     * @param numberOfLottoes
+     * @param numberOfLottoTickets
      * @return 구매한 LottoTicket 리스트
      */
-    private List<LottoTicket> purchaseLottoes(int numberOfLottoes) {
-        final List<LottoTicket> purchasedLottoes = new ArrayList<>();
-        final int numberOfManualPurchase = getNumberOfManualPurchase(numberOfLottoes);
+    private List<LottoTicket> purchaseLottoTickets(int numberOfLottoTickets) {
+        final List<LottoTicket> purchasedLottoTickets = new ArrayList<>();
+        final int numberOfManualPurchase = getNumberOfManualPurchase(numberOfLottoTickets);
 
-        purchasedLottoes.addAll(purchaseManualLottoes(numberOfManualPurchase));
-        purchasedLottoes.addAll(purchaseAutoLottoes(numberOfLottoes - numberOfManualPurchase));
+        purchasedLottoTickets.addAll(purchaseManualLottoTickets(numberOfManualPurchase));
+        purchasedLottoTickets.addAll(purchaseAutoLottTickets(numberOfLottoTickets - numberOfManualPurchase));
 
-        renderer.displayPurchaseStatus(purchasedLottoes);
-        return Collections.unmodifiableList(purchasedLottoes);
+        renderer.displayPurchaseStatus(purchasedLottoTickets);
+        return Collections.unmodifiableList(purchasedLottoTickets);
     }
 
-    private int getNumberOfManualPurchase(int numberOfLottoes) {
+    private int getNumberOfManualPurchase(int numberOfLottoTickets) {
         final int numberOfManualPurchase = inputController.getNumberOfManualPurchase();
-        if(!ConditionCheck.isNegativeInteger(numberOfManualPurchase) && numberOfManualPurchase <= numberOfLottoes) {
+        if(!ConditionCheck.isNegativeInteger(numberOfManualPurchase) && numberOfManualPurchase <= numberOfLottoTickets) {
             return numberOfManualPurchase;
         }
 
         renderer.displaySentence(PLEASE_INPUT_WITHIN_TOTAL_PURCHASE_TICKET.getString());
-        return getNumberOfManualPurchase(numberOfLottoes);
+        return getNumberOfManualPurchase(numberOfLottoTickets);
     }
 
-    private List<LottoTicket> purchaseManualLottoes(int numberOfLottoes) {
+    private List<LottoTicket> purchaseManualLottoTickets(int numberOfLottoTickets) {
         renderer.displaySentence(MANUAL_LOTTO_NUMBER_REQUEST.getString());
-        return IntStream.range(0, numberOfLottoes)
+        return IntStream.range(0, numberOfLottoTickets)
                 .mapToObj(e -> manualLottoGenerator.getLottoTicket())
                 .collect(Collectors.toUnmodifiableList());
     }
 
-    private List<LottoTicket> purchaseAutoLottoes(int numberOfLottoes) {
-        return IntStream.range(0, numberOfLottoes)
+    private List<LottoTicket> purchaseAutoLottTickets(int numberOfLottoTickets) {
+        return IntStream.range(0, numberOfLottoTickets)
                 .mapToObj(e -> autoLottoGenerator.getLottoTicket())
                 .collect(Collectors.toUnmodifiableList());
     }
@@ -113,13 +113,13 @@ public final class LottoService {
     /**+
      * 당첨 통계 출력하는 메소드입니다. 당첨된 등수와 해당 등수의 개수를 map으로 묶고, 수익률을 (평가금액 - 원금) / 원금 으로 퍼센티지를 계산하여 renderer에 전달합니다.
      * @param purchaseAmount
-     * @param purchasedLottoes
+     * @param purchasedLottoTickets
      * @param lastWeekWinning
      * @param bonusBallNumber
      */
-    private void printWinningStatistics(int purchaseAmount, List<LottoTicket> purchasedLottoes, LottoTicket lastWeekWinning, int bonusBallNumber) {
-        Map<LottoPrize, Long> winningTickets = purchasedLottoes.stream()
-                .collect(groupingBy(purchasedLotto -> LottoPrize.getLottoRank(numberOfSameNumbers(purchasedLotto ,lastWeekWinning), isMatchBonusBall(purchasedLotto, bonusBallNumber)), counting()));
+    private void printWinningStatistics(int purchaseAmount, List<LottoTicket> purchasedLottoTickets, LottoTicket lastWeekWinning, int bonusBallNumber) {
+        Map<LottoPrize, Long> winningTickets = purchasedLottoTickets.stream()
+                .collect(groupingBy(purchasedLottoTicket -> LottoPrize.getLottoRank(numberOfSameNumbers(purchasedLottoTicket ,lastWeekWinning), isMatchBonusBall(purchasedLottoTicket, bonusBallNumber)), counting()));
 
         long sumOfPrize = winningTickets.entrySet().stream()
                 .mapToLong( e -> e.getKey().getPrizeMoney() * e.getValue())
