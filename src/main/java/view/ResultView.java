@@ -4,17 +4,18 @@ import domain.Lotto;
 import enums.Prize;
 import messages.GameMessage;
 
-import java.util.EnumMap;
-import java.util.List;
+import java.util.*;
 
 public class ResultView {
     private static void printLotto(Lotto lotto) {
-        List<Integer> numbers = lotto.numbers();
+        Set<Integer> numbers = lotto.numbers();
+        List<Integer> numbersToList = new ArrayList<>(numbers);
 
+        Collections.sort(numbersToList);
         System.out.print("[");
-        for (int i = 0; i < numbers.size(); i++) {
-            System.out.print(numbers.get(i));
-            if (i != numbers.size() - 1)
+        for (int i = 0; i < numbersToList.size(); i++) {
+            System.out.print(numbersToList.get(i));
+            if (i != numbersToList.size() - 1)
                 System.out.print(", ");
         }
         System.out.println("]");

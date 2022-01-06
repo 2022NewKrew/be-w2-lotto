@@ -5,9 +5,9 @@ import messages.ErrorMessage;
 import utils.RandomMaker;
 import validation.Validation;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -36,13 +36,11 @@ public class LottoMachine {
     }
 
     private static Lotto buy() {
-        List<Integer> numbers = new ArrayList<>();
+        Set<Integer> numbers = new HashSet<>();
 
-        for (int i = MIN_LOTTO_NUMBER; i <= MAX_LOTTO_NUMBER; i++)
-            numbers.add(i);
-        Collections.shuffle(numbers);
-        List<Integer> sortedNumbers = numbers.subList(0, NUMBER_OF_LOTTERY_NUMBERS);
-        Collections.sort(sortedNumbers);
-        return new Lotto(sortedNumbers);
+        while(numbers.size() < NUMBER_OF_LOTTERY_NUMBERS) {
+            numbers.add(randomMaker.getRandomNumber(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER));
+        }
+        return new Lotto(numbers);
     }
 }

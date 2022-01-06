@@ -6,12 +6,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
+import java.util.*;
 
 class LottoResultTest {
-    static List<Integer> winningNumbers;
+    static Set<Integer> winningNumbers;
     static int NUMBER_OF_LOTTERY_NUMBERS = 6;
 
     @BeforeAll
@@ -65,7 +63,7 @@ class LottoResultTest {
     }
 
     Lotto createLottoNumbers(int n1, int n2, int n3, int n4, int n5, int n6) {
-        List<Integer> lottoNumbers = new ArrayList<>(NUMBER_OF_LOTTERY_NUMBERS);
+        Set<Integer> lottoNumbers = new HashSet<>();
         lottoNumbers.add(n1);
         lottoNumbers.add(n2);
         lottoNumbers.add(n3);
@@ -76,7 +74,7 @@ class LottoResultTest {
     }
 
     static void createWinningNumbers() {
-        winningNumbers = new ArrayList<>(NUMBER_OF_LOTTERY_NUMBERS);
+        winningNumbers = new HashSet<>();
         winningNumbers.add(1);
         winningNumbers.add(2);
         winningNumbers.add(3);

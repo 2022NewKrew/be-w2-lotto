@@ -7,6 +7,7 @@ import view.InputView;
 import view.ResultView;
 
 import java.util.List;
+import java.util.Set;
 
 public class LottoGame {
     public static void start() {
@@ -14,7 +15,7 @@ public class LottoGame {
         List<Lotto> lottoList = LottoMachine.buySeveralLotto(purchaseAmount);
         ResultView.printLottoList(lottoList);
 
-        List<Integer> lastWeekWinningNumbers = InputView.inputLastWeekWinningNumber();
+        Set<Integer> lastWeekWinningNumbers = InputView.inputLastWeekWinningNumber();
         LottoResult lottoResult = new LottoResult(lastWeekWinningNumbers);
         ResultView.printLottoResult(lottoResult.winningLottoCount(lottoList));
         ResultView.printRateOfReturn(lottoResult.rateOfReturn(purchaseAmount));

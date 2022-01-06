@@ -3,8 +3,8 @@ package view;
 import messages.GameMessage;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class InputView {
@@ -17,7 +17,7 @@ public class InputView {
         return purchaseAmount;
     }
 
-    public static List<Integer> inputLastWeekWinningNumber() {
+    public static Set<Integer> inputLastWeekWinningNumber() {
         System.out.println(GameMessage.INPUT_LAST_WEEK_WINNING_NUMBER.getMessage());
         String input = in.nextLine();
 
@@ -27,6 +27,6 @@ public class InputView {
                 .mapToInt(Integer::parseInt)
                 .distinct()
                 .boxed()
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 }

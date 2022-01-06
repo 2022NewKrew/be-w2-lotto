@@ -7,11 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 class LottoTest {
-    static List<Integer> winningNumbers;
+    static Set<Integer> winningNumbers;
     static int NUMBER_OF_LOTTERY_NUMBERS = 6;
 
     @BeforeAll
@@ -22,7 +22,7 @@ class LottoTest {
     @Test
     @DisplayName("[성공] Lotto 객체를 생성한다")
     void Lotto() {
-        List<Integer> numbers = new ArrayList<>(NUMBER_OF_LOTTERY_NUMBERS);
+        Set<Integer> numbers = new HashSet<>();
         numbers.add(1);
         numbers.add(2);
         numbers.add(3);
@@ -44,7 +44,7 @@ class LottoTest {
     @ParameterizedTest(name = "{6}개가 일치하는 경우")
     @CsvSource({"1, 2, 3, 4, 5, 6, 6", "1, 2, 3, 4, 5, 10, 5", "1, 2, 3, 4, 10, 10, 4", "1, 2, 3, 10, 10, 10, 3", "1, 2, 10, 10, 10, 10, 2", "1, 10, 10, 10, 10, 10, 1"})
     void checkMatchCount(int n1, int n2, int n3, int n4, int n5, int n6, int result) {
-        List<Integer> numbers = new ArrayList<>(NUMBER_OF_LOTTERY_NUMBERS);
+        Set<Integer> numbers = new HashSet<>();
         numbers.add(n1);
         numbers.add(n2);
         numbers.add(n3);
@@ -57,7 +57,7 @@ class LottoTest {
     }
 
     static void createWinningNumbers() {
-        winningNumbers = new ArrayList<>(NUMBER_OF_LOTTERY_NUMBERS);
+        winningNumbers = new HashSet<>(NUMBER_OF_LOTTERY_NUMBERS);
         winningNumbers.add(1);
         winningNumbers.add(2);
         winningNumbers.add(3);
