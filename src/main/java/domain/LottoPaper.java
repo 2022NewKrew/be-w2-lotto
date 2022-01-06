@@ -23,6 +23,18 @@ public class LottoPaper {
                 .forEach(rank -> cntToRank.put(rank.getCountOfMatch(), rank));
     }
 
+    public LottoPaper(long money, List<List<Integer>> manualNum) {
+        manualNum.forEach(nums -> paper.add(new Lotto(nums)));
+
+        int buyMax = (int) money / LOTTO_PRICE - manualNum.size();
+        IntStream.range(0, buyMax)
+                .forEach(buy -> paper.add(new Lotto()));
+
+        Arrays.stream(Rank.values())
+                .filter(rank -> rank != Rank.SECOND)
+                .forEach(rank -> cntToRank.put(rank.getCountOfMatch(), rank));
+    }
+
     @Override
     public String toString() {
         return paper.stream()
@@ -34,7 +46,7 @@ public class LottoPaper {
         return paper.size();
     }
 
-    public HashMap<Rank, Integer> winningResult(List<Integer> winningNum, int bonusNum) {
+    public HashMap<Rank, Integer> winningResult(Lotto winningNum, int bonusNum) {
         Arrays.stream(Rank.values()).forEach(rank -> rankToCnt.put(rank, 0));
         Rank rank;
         for (Lotto lotto : paper) {
@@ -48,7 +60,7 @@ public class LottoPaper {
         return rankToCnt;
     }
 
-    private void bonusCheck(List<Integer> winningNum, int bonusNum) {
+    private void bonusCheck(Lotto winningNum, int bonusNum) {
         int sameBonus = (int) paper.stream()
                 .filter(lotto -> lotto.sameWithWinningNum(winningNum) == 5)
                 .filter(lotto -> lotto.containBonusNum(bonusNum))
