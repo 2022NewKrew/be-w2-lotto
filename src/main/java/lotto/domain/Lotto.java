@@ -1,6 +1,5 @@
 package lotto.domain;
 
-import lotto.domain.userinput.WinningLottoInput;
 import lotto.domain.util.LottoValidator;
 
 import java.util.List;
@@ -15,14 +14,18 @@ public class Lotto {
         VALIDATOR.validateLottoNumbers(numbers);
     }
 
-    public LottoMatchResult countMatchedNumber(WinningLottoInput winningLottoInput) {
-        int matchCount = (int) winningLottoInput.getWinningTicket().getNumbers().stream()
+    public LottoMatchDto countMatchedNumber(Lotto winningTicket, int bonusBall) {
+        int matchCount = (int) winningTicket.getNumbers().stream()
                 .filter(numbers::contains).count();
-        boolean isBonusBallMatched = numbers.contains(winningLottoInput.getBonusBall());
-        return new LottoMatchResult(matchCount, isBonusBallMatched);
+        boolean isBonusBallMatched = numbers.contains(bonusBall);
+        return new LottoMatchDto(matchCount, isBonusBallMatched);
     }
 
-    public List<Integer> getNumbers() {
+    public void validateWithBonusBall(int bonusBall){
+        VALIDATOR.validateBonusBall(numbers, bonusBall);
+    }
+
+    private List<Integer> getNumbers() {
         return numbers;
     }
 

@@ -1,8 +1,8 @@
 package lotto.view;
 
 import lotto.domain.Lotto;
-import lotto.domain.userinput.PurchasedLottoInput;
-import lotto.domain.userinput.WinningLottoInput;
+import lotto.domain.userinput.PurchasedInfoDto;
+import lotto.domain.userinput.WinningLottoDto;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,26 +14,26 @@ import java.util.stream.IntStream;
 public class LottoInput {
     public void lottoSimulation() {
         try (Scanner sc = new Scanner(System.in)) {
-            PurchasedLottoInput purchasedLottoInput = userInputPurchasedLotto(sc);
-            LottoView lottoView = new LottoView(purchasedLottoInput);
+            PurchasedInfoDto purchasedInfoDto = userInputPurchasedInfo(sc);
+            LottoView lottoView = new LottoView(purchasedInfoDto);
             System.out.println(lottoView.printPurchasedLotto());
 
-            WinningLottoInput winningLottoInput = userInputWinningLotto(sc);
-            System.out.println(lottoView.printLottoResult(winningLottoInput));
+            WinningLottoDto winningLottoDto = userInputWinningLotto(sc);
+            System.out.println(lottoView.printLottoResult(winningLottoDto));
         }
     }
 
-    private PurchasedLottoInput userInputPurchasedLotto(Scanner sc) {
+    private PurchasedInfoDto userInputPurchasedInfo(Scanner sc) {
         int purchasePrice = inputIntValue(sc, "구입금액을 입력해 주세요.");
         int countOfManualLotto = inputIntValue(sc, "수동으로 구매할 로또 수를 입력해 주세요.");
         List<Lotto> manualLottoBundle = inputManualLottoBundle(sc, countOfManualLotto);
-        return new PurchasedLottoInput(purchasePrice, countOfManualLotto, manualLottoBundle);
+        return new PurchasedInfoDto(purchasePrice, countOfManualLotto, manualLottoBundle);
     }
 
-    private WinningLottoInput userInputWinningLotto(Scanner sc) {
+    private WinningLottoDto userInputWinningLotto(Scanner sc) {
         Lotto winningTicket = inputWinningTicket(sc);
         int bonusBall = inputIntValue(sc, "보너스 볼을 입력해 주세요.");
-        return new WinningLottoInput(winningTicket, bonusBall);
+        return new WinningLottoDto(winningTicket, bonusBall);
     }
 
     private List<Lotto> inputManualLottoBundle(Scanner sc, int countOfManualLotto) {
