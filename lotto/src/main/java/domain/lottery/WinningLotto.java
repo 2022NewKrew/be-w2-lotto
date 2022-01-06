@@ -1,5 +1,9 @@
 package domain.lottery;
 
+import static utils.ErrorMessage.INVALID_BONUS_NUMBER_DUPLICATION;
+import static utils.ErrorMessage.NULL_PARAMETER;
+import static utils.ErrorMessage.format;
+
 import domain.lotto.Lotto;
 import domain.lotto.LottoNumber;
 import java.util.List;
@@ -18,13 +22,11 @@ public class WinningLotto extends Lotto {
 
   private WinningLotto(List<LottoNumber> winningLottoNumbers, LottoNumber bonusNumber) {
     super(winningLottoNumbers);
-    this.bonusNumber = Objects.requireNonNull(bonusNumber, "bonusNumber 값이 null 입니다.");
+    this.bonusNumber = Objects.requireNonNull(bonusNumber,
+        format(NULL_PARAMETER, bonusNumber));
     if (hasNumber(bonusNumber)) {
       throw new IllegalArgumentException(
-          "bonusNumber 값은 로또 값과 중복될 수 없습니다."
-              + "[bonusNumber : " + bonusNumber
-              + " / 로또 번호" + winningLottoNumbers + "]"
-      );
+          format(INVALID_BONUS_NUMBER_DUPLICATION, bonusNumber, winningLottoNumbers));
     }
   }
 

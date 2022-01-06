@@ -1,12 +1,16 @@
 package domain.lotto;
 
+import static utils.ErrorMessage.INVALID_LOTTO_DUPLICATION;
+import static utils.ErrorMessage.INVALID_LOTTO_NUMBERS;
+import static utils.ErrorMessage.NULL_PARAMETER;
+import static utils.ErrorMessage.format;
+
 import domain.lottery.WinningLotto;
 import domain.statistics.MatchInfo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -37,7 +41,7 @@ public class Lotto {
 
 
   protected Lotto(List<LottoNumber> holder) {
-    Objects.requireNonNull(holder, "holder 값이 null 입니다.");
+    Objects.requireNonNull(holder, format(NULL_PARAMETER, holder));
     this.holder = new TreeSet<>(holder);
     this.randomGenerated = false;
     validCheck(holder);
@@ -46,11 +50,10 @@ public class Lotto {
 
   public static void validCheck(List<LottoNumber> holder) {
     if (holder.size() != TOTAL_NUMBER) {
-      throw new IllegalArgumentException(
-          "로또 생성 시 필요한 Integer 의 개수는 " + TOTAL_NUMBER + " 입니다. [입력 인자 : " + holder + "]");
+      throw new IllegalArgumentException(format(INVALID_LOTTO_NUMBERS, holder));
     }
     if (hasDuplicatedNumber(holder)) {
-      throw new IllegalArgumentException("로또 의 각 숫자는 중복되어서는 안됩니다. [입력 인자 : " + holder + "]");
+      throw new IllegalArgumentException(format(INVALID_LOTTO_DUPLICATION, holder));
     }
   }
 

@@ -1,9 +1,9 @@
 package domain.lotto;
 
-import static utils.Message.INVALID_BONUS_NUMBER_NON_NUMBER;
-import static utils.Message.INVALID_BONUS_NUMBER_RANGE;
-import static utils.Message.NULL_PARAMETER;
-import static utils.Message.format;
+import static utils.ErrorMessage.INVALID_BONUS_NUMBER_NON_NUMBER;
+import static utils.ErrorMessage.INVALID_BONUS_NUMBER_RANGE;
+import static utils.ErrorMessage.NULL_PARAMETER;
+import static utils.ErrorMessage.format;
 
 import java.util.Objects;
 

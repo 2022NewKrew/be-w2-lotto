@@ -65,8 +65,8 @@ public class LottoManager {
 
 
   private void reportWinningStatistics() throws IOException {
-    YieldStatistics statistics = YieldStatistics.of(lotteryMachine.getCurrentWinningLottery(),
-        wallet);
+    YieldStatistics statistics = YieldStatistics.of(
+        lotteryMachine.getCurrentWinningLottery(), wallet);
     writer.write(statistics);
   }
 

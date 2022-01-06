@@ -1,5 +1,9 @@
 package view.read;
 
+import static utils.ErrorMessage.INVALID_INPUT_NUMBER_NEGATIVE;
+import static utils.ErrorMessage.INVALID_OVER_BUY_LIMIT;
+import static utils.ErrorMessage.format;
+
 import domain.lotto.LottoNumber;
 import domain.lottery.WinningLotto;
 import domain.lotto.Lotto;
@@ -19,7 +23,6 @@ import utils.StringUtils;
  * @author leo.jung
  * @since 1.0
  */
-//TODO: 예외 처리는 STEP2 에서 추가... 이후에
 public class BufferedInputReader implements InputReader {
 
   private final BufferedReader reader;
@@ -56,10 +59,7 @@ public class BufferedInputReader implements InputReader {
     int manualBuyQuantity = getIntegerFromReader();
     if (manualBuyQuantity > buyLimitation) {
       throw new IllegalArgumentException(
-          "구매 가능한 수량 초과. "
-              + "[구매 가능 개수 : " + buyLimitation
-              + " / 입력 구매 개수 : " + manualBuyQuantity + "]"
-      );
+          format(INVALID_OVER_BUY_LIMIT, buyLimitation, manualBuyQuantity));
     }
     return manualBuyQuantity;
   }
@@ -112,9 +112,7 @@ public class BufferedInputReader implements InputReader {
       parsedNumber = Integer.parseUnsignedInt(input);
     } catch (NumberFormatException e) {
       throw new IllegalArgumentException(
-          "입력 값은 0 이상의 정수이어야 합니다."
-              + "[입력 값 : " + input + "]"
-      );
+          format(INVALID_INPUT_NUMBER_NEGATIVE, input));
     }
     return parsedNumber;
   }
