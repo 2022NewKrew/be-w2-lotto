@@ -65,4 +65,19 @@ class LottoPurchaseMachineTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("중복 된 입력 번호가 있습니다.");
     }
+
+    @Test
+    @DisplayName("입력받은 숫자는 1~45 사이어야 한다.")
+    public void validateLottoMinMaxNumber(){
+        // given
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 46);
+
+        // when
+        Throwable thrown = catchThrowable(() -> LottoPurchaseMachine.purchaseManualLotto(numbers));
+
+        //then
+        assertThat(thrown)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("숫자가 1~45가 아닙니다.");
+    }
 }

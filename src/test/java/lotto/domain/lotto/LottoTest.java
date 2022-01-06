@@ -63,6 +63,21 @@ public class LottoTest {
                 .hasMessage("중복 된 입력 번호가 있습니다.");
     }
 
+    @Test
+    @DisplayName("수동 번호는 1~45 사이어야 한다.")
+    public void validateLottoMinMaxNumber(){
+        //given
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 46);
+
+        // when
+        Throwable thrown = catchThrowable(() -> new PlayerLotto(numbers));
+
+        //then
+        assertThat(thrown)
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("숫자가 1~45가 아닙니다.");
+    }
+
     private static Stream<List<Integer>> getNumbers(){
         return Stream.of(
                 List.of(1, 2, 3, 4, 5, 6),
