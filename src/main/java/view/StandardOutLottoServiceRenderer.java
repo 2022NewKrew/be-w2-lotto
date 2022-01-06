@@ -1,8 +1,8 @@
 package view;
 
 import domain.LottoPrize;
-import domain.LottoStatus;
 import domain.LottoTicket;
+import domain.WinningStatus;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,11 +17,8 @@ public final class StandardOutLottoServiceRenderer implements LottoServiceRender
 
 
     @Override
-    public void displayPurchaseStatus(List<LottoTicket> lottoTickets) {
-        long numberOfManualTicket = lottoTickets.stream().filter(e -> e.getPurchaseWay() == LottoStatus.MANUAL).count();
-        long numberOfAutoTicket = lottoTickets.stream().filter(e -> e.getPurchaseWay() == LottoStatus.AUTO).count();
-
-        System.out.println("수동으로 " + numberOfManualTicket + "장, 자동으로 " + numberOfAutoTicket + "개를 구매했습니다.");
+    public void displayPurchaseStatus(List<LottoTicket> lottoTickets, int numberOfManualTickets, int numberOfAutoTickets) {
+        System.out.println("수동으로 " + numberOfManualTickets + "장, 자동으로 " + numberOfAutoTickets + "개를 구매했습니다.");
 
         lottoTickets.forEach(this::displayLotto);
     }
@@ -31,10 +28,13 @@ public final class StandardOutLottoServiceRenderer implements LottoServiceRender
     }
 
     @Override
-    public void displayResults(Map<LottoPrize, Long> winningTickets, double rateOfReturn) {
+    public void displayResults(WinningStatus winningStatus, double rateOfReturn) {
         System.out.println("당첨 통계");
         System.out.println("------------------------------");
-        Arrays.stream(LottoPrize.values()).filter(e -> e != LottoPrize.NOTHING).forEach(lottoPrize -> displayResult(lottoPrize, winningTickets));
+
+        final Map<LottoPrize, Long> myWinningStatus = winningStatus.getWinningStatus(); //TODO: 변수명 고민
+
+        Arrays.stream(LottoPrize.values()).filter(e -> e != LottoPrize.NOTHING).forEach(lottoPrize -> displayResult(lottoPrize, myWinningStatus));
 
         System.out.println("총 수익률은 " + rateOfReturn + "%입니다.");
     }

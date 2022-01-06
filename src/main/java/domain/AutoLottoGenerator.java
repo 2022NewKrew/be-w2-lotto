@@ -21,6 +21,6 @@ public final class AutoLottoGenerator implements LottoGenerator{
     public LottoTicket getLottoTicket() {
         List<Integer> copyLottoNumbers = new ArrayList<>(lottoNumbers);
         Collections.shuffle(copyLottoNumbers);
-        return new LottoTicket(copyLottoNumbers.subList(0, NUMBER_OF_LOTTO_NUMBERS.getValue()), LottoStatus.AUTO);
+        return new LottoTicket(copyLottoNumbers.subList(0, NUMBER_OF_LOTTO_NUMBERS.getValue()));
     }
 }
