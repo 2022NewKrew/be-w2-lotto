@@ -11,6 +11,7 @@ import static lotto.constant.LottoConstant.LOTTO_PRICE;
 public class LottoSystem {
     int totalCost;
     int lottoCount;
+    int bonusNumber;
 
     List<Lotto> userLottos;
     Lotto pastWinningLotto;
@@ -45,7 +46,7 @@ public class LottoSystem {
     private static List<Lotto> generateRandomLottos(int num) {
         List<Lotto> lottos = new ArrayList<Lotto>();
         for (int i = 0; i < num; i++) {
-            Lotto lotto = new Lotto();
+            Lotto lotto = new DefaultLotto();
             lotto.generateRandomLotto();
             lottos.add(lotto);
         }
@@ -55,6 +56,8 @@ public class LottoSystem {
     private void enterPastWinningLotto() {
         lottoOutput.printEnterPastWinningLotto();
         pastWinningLotto = lottoInput.enterPastWinningLotto();
+        lottoOutput.printEnterBonusNumber();
+        bonusNumber = lottoInput.enterBonusNumber();
     }
 
     private void calculateStatistic() {

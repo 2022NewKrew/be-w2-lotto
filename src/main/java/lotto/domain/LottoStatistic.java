@@ -12,6 +12,7 @@ import static lotto.constant.LottoConstant.LOTTO_PRICE;
 public class LottoStatistic {
     int lottoCount;
     int profitPercentage;
+    boolean isBonus;
 
     Map<Integer, Long> winningCountMap;
     List<Lotto> userLottos;
