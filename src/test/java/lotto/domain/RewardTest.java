@@ -16,7 +16,7 @@ class RewardTest {
     @ParameterizedTest
     @MethodSource("getRewardSet")
     @DisplayName("맞춘 개수와 보너스 매치로 보상 객체를 가져온다.")
-    void valueOf(Reward expected) {
+    void testReward(Reward expected) {
         // given
 
         // when
@@ -34,7 +34,7 @@ class RewardTest {
     @ParameterizedTest
     @ValueSource(ints = {-1, 7})
     @DisplayName("맞춘 개수가 0~6개가 아니라면 에러가 발생한다.")
-    void valueOfWithBoundOver(int matchCount) {
+    void testRewardWithBoundOver(int matchCount) {
         // given
 
         // when

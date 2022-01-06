@@ -15,7 +15,7 @@ class LottoRandomUtilsTest {
 
     @Test
     @DisplayName("중복되지 않은 6개 숫자가 나와야 한다.")
-    void getLottoNumbersDuplicateTest() {
+    void testLottoNumbersDuplicate() {
         // given
 
         // when
@@ -27,7 +27,7 @@ class LottoRandomUtilsTest {
 
     @Test
     @DisplayName("나온 숫자는 1~45 사이여야 한다.")
-    void getLottoNumbersBoundTest() {
+    void testLottoNumbersBoundOver() {
         // given
 
         // when

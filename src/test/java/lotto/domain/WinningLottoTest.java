@@ -13,7 +13,7 @@ class WinningLottoTest {
     @ParameterizedTest
     @MethodSource("getTestLotto")
     @DisplayName("로또 번호를 넣으면 등수가 나온다.")
-    void test_MatchReward_WithLotto(Item item) {
+    void testMatchRewardWithLotto(Item item) {
         // given
         Lotto lotto = item.getLotto();
         Reward reward = item.getReward();

@@ -23,13 +23,17 @@ public class OutputView {
 
     public static void printLottos(LottosVo lottosVo) {
         for (Lotto lotto : lottosVo.getLottos()) {
-            StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
-            for (Integer number : lotto.getNumbers()) {
-                stringJoiner.add(String.valueOf(number));
-            }
-            System.out.println(stringJoiner);
+            printLotto(lotto);
         }
         System.out.println();
+    }
+
+    private static void printLotto(Lotto lotto) {
+        StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
+        for (Integer number : lotto.getNumbers()) {
+            stringJoiner.add(String.valueOf(number));
+        }
+        System.out.println(stringJoiner);
     }
 
     public static void printLottoResult(LottoResult lottoResult) {

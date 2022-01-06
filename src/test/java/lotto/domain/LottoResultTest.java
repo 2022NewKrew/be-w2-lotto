@@ -15,7 +15,7 @@ class LottoResultTest {
 
     @Test
     @DisplayName("당첨결과에 따른 총 당첨금액을 반환한다.")
-    void test_TotalReward() {
+    void testTotalReward() {
         // given
         final Map<Reward, Integer> rewardCounter = getRewardCounter();
         final LottoResult lottoResult = new LottoResult(rewardCounter);
@@ -38,7 +38,7 @@ class LottoResultTest {
     @ParameterizedTest
     @MethodSource("getReward")
     @DisplayName("Reward의 당첨 횟수를 반환한다.")
-    void test_GetRewardCount_WithReward(Item item) {
+    void testGetRewardCountWithReward(Item item) {
         // given
         final Map<Reward, Integer> rewardCounter = getRewardCounter();
         final LottoResult lottoResult = new LottoResult(rewardCounter);

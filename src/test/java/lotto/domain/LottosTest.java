@@ -18,7 +18,7 @@ class LottosTest {
     @ParameterizedTest
     @ValueSource(ints = {0, 1, 5, 10})
     @DisplayName("주문한 개수만큼 로또가 구매되어야 한다.")
-    void test_CreateLottos_WhenCountIsGiven(int count) {
+    void testCreateLottosWhenCountIsGiven(int count) {
         // given
 
         // when
@@ -31,7 +31,7 @@ class LottosTest {
     @ParameterizedTest
     @MethodSource("getTestLotto")
     @DisplayName("구매한 로또들의 당첨 결과를 반환한다.")
-    void test_MatchReward_WhenLottoListIsGiven(Item item) {
+    void testMatchRewardWhenLottoListIsGiven(Item item) {
         // given
         List<Lotto> targetLottoList = getLottoList();
         targetLottoList.add(item.getLotto());
@@ -94,7 +94,7 @@ class LottosTest {
 
     @Test
     @DisplayName("로또 수동 구매는 구매 가능한 개수를 초과하여 진행할 수 없다.")
-    void test_CreateLottos_WhenManualCountBoundOver() {
+    void testCreateLottosWhenManualCountBoundOver() {
         // given
         int lottoCount = 1;
         List<List<Integer>> manualLottoNumbers = List.of(
