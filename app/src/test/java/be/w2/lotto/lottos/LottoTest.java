@@ -33,7 +33,7 @@ class LottoTest {
     void isContain_notContain() {
         //Given
         int numberWhichIsNotInLotto = 10;
-        LottoNumber lottoNumberNotInLotto = LottoNumber.of(10);
+        LottoNumber lottoNumberNotInLotto = LottoNumber.of(numberWhichIsNotInLotto);
         List<Integer> numbersOfLotto = Arrays.asList(1, 5, 29, 32, 36, 44);
         Lotto lotto = getInstance(numbersOfLotto);
 
