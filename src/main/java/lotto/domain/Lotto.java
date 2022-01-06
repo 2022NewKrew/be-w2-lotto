@@ -64,4 +64,8 @@ public class Lotto {
         set.retainAll(lotto.getNumbers());
         return set.size();
     }
+
+    public boolean bonusMatch(int number) {
+        return numbers.contains(number);
+    }
 }

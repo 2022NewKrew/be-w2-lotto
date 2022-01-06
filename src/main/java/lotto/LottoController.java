@@ -17,7 +17,7 @@ public class LottoController {
         this.lottoMoney = lottoMoney;
     }
 
-    public static LottoController valueOf(long money) {
+    public static LottoController from(long money) {
         LottoMoney lottoMoney = new LottoMoney(money);
         Lottos lottos = Lottos.valueOf(lottoMoney.purchase());
         return new LottoController(lottos, lottoMoney);
@@ -32,7 +32,7 @@ public class LottoController {
     }
 
     public LottoResult result(List<Integer> winningNumbers) {
-        WinningLotto winningLotto = new WinningLotto(winningNumbers);
+        WinningLotto winningLotto = new WinningLotto(winningNumbers, 1);
         return lottos.matchCounts(winningLotto);
     }
 

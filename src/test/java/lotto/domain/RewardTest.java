@@ -15,12 +15,12 @@ class RewardTest {
 
     @ParameterizedTest
     @MethodSource("getRewardSet")
-    @DisplayName("맞춘 개수로 객체를 가져온다.")
+    @DisplayName("맞춘 개수와 보너스 매치로 보상 객체를 가져온다.")
     void valueOf(Reward expected) {
         // given
 
         // when
-        Reward reward = Reward.valueOf(expected.getMatchCount());
+        Reward reward = Reward.of(expected.getMatchCount(), expected.getBonusMatch());
 
         // then
         assertThat(reward).isEqualTo(expected);
@@ -38,7 +38,7 @@ class RewardTest {
         // given
 
         // when
-        ThrowingCallable callable = () -> Reward.valueOf(matchCount);
+        ThrowingCallable callable = () -> Reward.of(matchCount, false);
 
         // then
         assertThatThrownBy(callable).isExactlyInstanceOf(IllegalArgumentException.class);

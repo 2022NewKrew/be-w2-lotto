@@ -33,7 +33,7 @@ class LottosTest {
         List<Lotto> targetLottoList = getLottoList();
         targetLottoList.add(item.getLotto());
         Lottos lottos = new Lottos(targetLottoList);
-        WinningLotto winningLotto = new WinningLotto(List.of(1, 2, 3, 4, 5, 6));
+        WinningLotto winningLotto = new WinningLotto(List.of(1, 2, 3, 4, 5, 6), 7);
 
         // when
         LottoResult lottoResult = lottos.matchCounts(winningLotto);
@@ -56,9 +56,10 @@ class LottosTest {
     private static Stream<Item> getTestLotto() {
         return Stream.of(
             new Item(new Lotto(List.of(1, 2, 3, 4, 5, 6)), Reward.FIRST, 1),
-            new Item(new Lotto(List.of(1, 2, 3, 4, 5, 16)), Reward.SECOND, 1),
-            new Item(new Lotto(List.of(1, 2, 3, 4, 15, 16)), Reward.THIRD, 2),
-            new Item(new Lotto(List.of(1, 2, 3, 14, 15, 16)), Reward.FOURTH, 3),
+            new Item(new Lotto(List.of(1, 2, 3, 4, 5, 7)), Reward.SECOND, 1),
+            new Item(new Lotto(List.of(1, 2, 3, 4, 5, 16)), Reward.THIRD, 1),
+            new Item(new Lotto(List.of(1, 2, 3, 4, 15, 16)), Reward.FOURTH, 2),
+            new Item(new Lotto(List.of(1, 2, 3, 14, 15, 16)), Reward.FIFTH, 3),
             new Item(new Lotto(List.of(1, 2, 13, 14, 15, 16)), Reward.NONE, 4)
         );
     }

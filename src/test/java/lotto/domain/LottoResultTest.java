@@ -24,7 +24,15 @@ class LottoResultTest {
         final BigDecimal totalReward = lottoResult.totalReward();
 
         // then
-        assertThat(totalReward).isEqualTo(BigDecimal.valueOf(2_000_120_000));
+        assertThat(totalReward).isEqualTo(BigDecimal.valueOf(2_003_200_000));
+    }
+
+    private Map<Reward, Integer> getRewardCounter() {
+        final Map<Reward, Integer> rewardCounter = new EnumMap<>(Reward.class);
+        rewardCounter.put(Reward.FIRST, 1);
+        rewardCounter.put(Reward.THIRD, 2);
+        rewardCounter.put(Reward.FOURTH, 4);
+        return rewardCounter;
     }
 
     @ParameterizedTest
@@ -40,14 +48,6 @@ class LottoResultTest {
 
         // then
         assertThat(rewardCount).isEqualTo(item.count);
-    }
-
-    private Map<Reward, Integer> getRewardCounter() {
-        final Map<Reward, Integer> rewardCounter = new EnumMap<>(Reward.class);
-        rewardCounter.put(Reward.FIRST, 1);
-        rewardCounter.put(Reward.THIRD, 2);
-        rewardCounter.put(Reward.FOURTH, 4);
-        return rewardCounter;
     }
 
     private static Stream<Item> getReward() {
