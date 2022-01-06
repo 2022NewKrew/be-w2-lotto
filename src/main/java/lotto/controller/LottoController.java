@@ -1,46 +1,35 @@
 package lotto.controller;
 
-import lotto.domain.Lottos;
-import lotto.domain.Rank;
-import lotto.domain.issue.ManualIssuePolicy;
-import lotto.domain.issue.RandomIssuePolicy;
-import lotto.view.InputView;
-import lotto.view.OutputView;
-
-import java.util.List;
-
-import static lotto.domain.LottoConstant.LOTTO_PRICE;
+import lotto.dto.LottoCheckRequestDto;
+import lotto.dto.LottoBundleCheckResponseDto;
+import lotto.dto.LottoPurchaseRequestDto;
+import lotto.dto.LottoPurchaseResponseDto;
+import lotto.service.LottoService;
 
 public class LottoController {
 
-    private final Lottos lottos;
-
-    public LottoController() {
-        this.lottos = new Lottos();
+    private LottoController() {
+        throw new AssertionError();
     }
 
     /**
-     * 구매금액을 입력받고, 발행정책에 따라 복권을 구입하고, 복권 리스트를 출력.
+     * 로또 구입금액을 입력 받고, 최대 구입 개수를 계산을 한 뒤, 응답을 반환.
      */
-    public void buyLotto() {
-        int purchaseAmount = InputView.getPurchaseAmount();
-        int maximumPurchaseCount = purchaseAmount / LOTTO_PRICE;
-        int manualPurchaseCount = InputView.getManualPurchaseCount(maximumPurchaseCount);
-        OutputView.printManualInputGuide();
-        for (int i = 0; i < manualPurchaseCount; i++) {
-            lottos.addLotto(LOTTO_PRICE, new ManualIssuePolicy(InputView.getManualPurchaseNumberList()));
-        }
-        lottos.addLotto(purchaseAmount - manualPurchaseCount * LOTTO_PRICE, new RandomIssuePolicy());
-        OutputView.printLottos(manualPurchaseCount, lottos.size(), lottos.printLottos());
+    public static int calculateLottoPurchaseCount(int purchaseAmount) {
+        return LottoService.calculateLottoPurchaseCount(purchaseAmount);
     }
 
     /**
-     * 당첨번호, 보너스볼을 입력받고, 복권 리스트의 당첨 여부를 확인하고, 수익률을 계산하고, 당첨 통계를 출력.
+     * 구매 정보를 입력 받고, 구매를 한 뒤, 응답을 반환.
      */
-    public void checkLotto() {
-        List<Integer> winningNumberList = InputView.getWinningNumberList();
-        int bonusNumber = InputView.getBonusNumber();
-        lottos.checkLottoList(winningNumberList, bonusNumber);
-        OutputView.printLottoResults(lottos.getEarningRate(), Rank.printStatistics());
+    public static LottoPurchaseResponseDto purchaseLottoBundle(LottoPurchaseRequestDto lottoPurchaseRequestDto) {
+        return LottoService.purchaseLottoBundle(lottoPurchaseRequestDto);
+    }
+
+    /**
+     * 확인하고 싶은 내용<당첨번호, 보너스 볼, 복권 리스트>을 입력 받고, 당첨 정보 및 수익률을 계산한 뒤, 응답을 반환.
+     */
+    public static LottoBundleCheckResponseDto checkLottoBundle(LottoCheckRequestDto lottoCheckRequestDto) {
+        return LottoService.checkLottoBundle(lottoCheckRequestDto);
     }
 }
