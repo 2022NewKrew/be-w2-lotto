@@ -2,6 +2,7 @@ package domain;
 
 import exceptions.InvalidPurchaseAmount;
 import messages.ErrorMessage;
+import utils.RandomMaker;
 import validation.Validation;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LottoMachine {
+    private static final RandomMaker randomMaker = new RandomMaker();
     private static final int NUMBER_OF_LOTTERY_NUMBERS = 6;
     private static final int MIN_LOTTO_NUMBER = 1;
     private static final int MAX_LOTTO_NUMBER = 45;
