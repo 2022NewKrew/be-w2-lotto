@@ -7,6 +7,7 @@ import validation.Validation;
 
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class LottoResult {
@@ -44,8 +45,14 @@ public class LottoResult {
         return lottoResult;
     }
 
-    public double rateOfReturn(long purchaseAmount) {
-        // TODO - 수익률을 계산하는 메소드
-        return -64.28;
+    public double rateOfReturn(long purchaseAmount, List<Lotto> lottoList) {
+        EnumMap<Prize, Integer> lottoResult = winningLottoCount(lottoList);
+        long totalEarn = 0;
+
+        for (Map.Entry<Prize, Integer> entry : lottoResult.entrySet())
+            totalEarn += entry.getKey().getMoney() * entry.getValue();
+
+        // (평가금액 - 원금) / 원금 * 100
+        return (totalEarn - purchaseAmount) / purchaseAmount * 100;
     }
 }

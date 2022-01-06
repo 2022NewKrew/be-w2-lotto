@@ -10,7 +10,6 @@ import java.util.*;
 
 class LottoResultTest {
     static Set<Integer> winningNumbers;
-    static int NUMBER_OF_LOTTERY_NUMBERS = 6;
 
     @BeforeAll
     static void setUp() {
@@ -56,8 +55,10 @@ class LottoResultTest {
         int purchaseAmount = 14000;
         double rateOfReturn_Answer = -64.28;
         LottoResult lottoResult = new LottoResult(winningNumbers);
+        List<Lotto> lottoList = new ArrayList<>();
+        lottoList.add(createLottoNumbers(8, 21, 23, 41, 41, 43));
 
-        double rateOfReturn = lottoResult.rateOfReturn(purchaseAmount);
+        double rateOfReturn = lottoResult.rateOfReturn(purchaseAmount, lottoList);
 
         Assertions.assertEquals(rateOfReturn, rateOfReturn_Answer);
     }

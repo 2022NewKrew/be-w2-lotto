@@ -18,6 +18,6 @@ public class LottoGame {
         Set<Integer> lastWeekWinningNumbers = InputView.inputLastWeekWinningNumber();
         LottoResult lottoResult = new LottoResult(lastWeekWinningNumbers);
         ResultView.printLottoResult(lottoResult.winningLottoCount(lottoList));
-        ResultView.printRateOfReturn(lottoResult.rateOfReturn(purchaseAmount));
+        ResultView.printRateOfReturn(lottoResult.rateOfReturn(purchaseAmount, lottoList));
     }
 }
