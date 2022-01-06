@@ -1,5 +1,7 @@
 package lotto.domain.lotto.number;
 
+import java.util.Objects;
+
 public class Number {
 
     private final int num;
@@ -15,13 +17,19 @@ public class Number {
         }
     }
 
-    public boolean numberIsIncluded(Number num) {
-        return this.equals(num);
+    @Override
+    public boolean equals(Object o) {
+        Number number = (Number) o;
+        return num == number.num;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        Number number = (Number) obj;
-        return number.num == this.num;
+    public int hashCode() {
+        return Objects.hash(num);
+    }
+
+    @Override
+    public String toString() {
+        return ""+num+"";
     }
 }
