@@ -23,10 +23,10 @@ public class LottoSimulator {
 
         final Lottos lottos = new Lottos();
         final Money left = userInput.requestLottoManual(lottos, money);
-        final int countOfManuals = lottos.getList().size();
+        final int countOfManuals = lottos.size();
 
         lottos.addAll(left.buyLottoAutoAll(sRand));
-        final int countOfAutos = lottos.getList().size() - countOfManuals;
+        final int countOfAutos = lottos.size() - countOfManuals;
         lottoSimulatorView.printLottos(lottos, countOfManuals, countOfAutos);
 
         final LottoWinnings lottoWinnings = userInput.requestLottoWinnings();
