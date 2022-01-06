@@ -17,11 +17,12 @@ public class LottoNumbers {
     public LottoNumbers(List<LottoNumber> list)
             throws IllegalArgumentException
     {
-        this.list = Objects.requireNonNull(list);
+        Objects.requireNonNull(list);
         if (list.size() != SIZE) {
             throw new IllegalArgumentException("list's size is not " + SIZE + "!");
         }
         validateNumbers();
+        this.list = list;
     }
 
     public LottoNumbers(final String[] numbers)
