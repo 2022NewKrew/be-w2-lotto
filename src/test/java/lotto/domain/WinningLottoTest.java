@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import lotto.DuplicationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -27,7 +28,7 @@ class WinningLottoTest {
     void invalidCreate(String numbers, int bonus, String expectedMessage) {
         Lotto winningLotto = new Lotto(getLottoNumberListFrom(numbers));
         LottoNumber bonusNumber = new LottoNumber(bonus);
-        IllegalArgumentException iae = assertThrows(IllegalArgumentException.class, () -> new WinningLotto(winningLotto, bonusNumber));
+        DuplicationException iae = assertThrows(DuplicationException.class, () -> new WinningLotto(winningLotto, bonusNumber));
         assertEquals(expectedMessage, iae.getMessage());
     }
 

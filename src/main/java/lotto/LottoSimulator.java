@@ -34,11 +34,16 @@ public class LottoSimulator {
         }
 
         long numOfManualLottos = getNumOfManualLotto();
-        List<String> manualLottoList = lottoInputScanner.getManualLottoNumberStringList(numOfManualLottos);
-        PurchaseInfo purchasedInfo = new PurchaseInfo(purchaseAmount, numOfManualLottos, manualLottoList);
-        PurchasedLottos purchasedLottos = purchaseLotto(purchasedInfo);
-        WinningLotto winningLotto = getWinningInfo();
-        printWinningStat(purchaseAmount, purchasedLottos, winningLotto);
+        try {
+            List<String> manualLottoList = lottoInputScanner.getManualLottoNumberStringList(numOfManualLottos);
+            PurchaseInfo purchasedInfo = new PurchaseInfo(purchaseAmount, numOfManualLottos, manualLottoList);
+            PurchasedLottos purchasedLottos = purchaseLotto(purchasedInfo);
+            WinningLotto winningLotto = getWinningInfo();
+            printWinningStat(purchaseAmount, purchasedLottos, winningLotto);
+        } catch (IllegalLottoNumberException | DuplicationException | NumOfLottoNumbersMismatchException e) {
+            lottoOutputPrinter.printDescription(e.getMessage());
+            start();
+        }
     }
 
     private long getPurchaseAmount() {
@@ -65,19 +70,14 @@ public class LottoSimulator {
         }
     }
 
-    private @NotNull PurchasedLottos purchaseLotto(@NotNull PurchaseInfo purchaseInfo) {
-        try {
-            long numOfManualLottos = purchaseInfo.getNumOfManualLottos();
-            List<Lotto> purchasedLottoList = getPurchasedLottoList(purchaseInfo);
-            lottoOutputPrinter.printPurchaseResult(numOfManualLottos, purchasedLottoList);
-            return new PurchasedLottos(purchasedLottoList);
-        } catch (IllegalArgumentException iae) {
-            lottoOutputPrinter.printDescription(iae.getMessage());
-            return purchaseLotto(purchaseInfo);
-        }
+    private @NotNull PurchasedLottos purchaseLotto(@NotNull PurchaseInfo purchaseInfo) throws IllegalLottoNumberException, DuplicationException, NumOfLottoNumbersMismatchException {
+        long numOfManualLottos = purchaseInfo.getNumOfManualLottos();
+        List<Lotto> purchasedLottoList = getPurchasedLottoList(purchaseInfo);
+        lottoOutputPrinter.printPurchaseResult(numOfManualLottos, purchasedLottoList);
+        return new PurchasedLottos(purchasedLottoList);
     }
 
-    private List<Lotto> getPurchasedLottoList(PurchaseInfo purchaseInfo) throws IllegalArgumentException {
+    private List<Lotto> getPurchasedLottoList(PurchaseInfo purchaseInfo) throws IllegalLottoNumberException, DuplicationException, NumOfLottoNumbersMismatchException {
         LottoGenerator manualLottoGenerator = new ManualLottoGenerator(purchaseInfo.getManualLottoList());
         LottoGenerator autoLottoGenerator = new AutoLottoGenerator(purchaseInfo.getNumOfAutoLottos());
         List<Lotto> purchasedLottoList = new ArrayList<>();
@@ -93,8 +93,9 @@ public class LottoSimulator {
             List<LottoNumber> winningLottoNumberList = lottoInputScanner.getWinningLottoNumberList();
             LottoNumber bonusNumber = lottoInputScanner.getBonusNumber();
             return new WinningLotto(new Lotto(winningLottoNumberList), bonusNumber);
-        } catch (IllegalArgumentException iae) {
-            lottoOutputPrinter.printDescription(iae.getMessage());
+        } catch (DuplicationException | NumOfLottoNumbersMismatchException | IllegalLottoNumberException e) {
+            e.printStackTrace();
+            lottoOutputPrinter.printDescription(e.getMessage());
             return getWinningInfo();
         }
     }

@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import lotto.DuplicationException;
+import lotto.NumOfLottoNumbersMismatchException;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ public class AutoLottoGenerator implements LottoGenerator {
                 .collect(Collectors.toList());
     }
 
-    private @NotNull Lotto generateRandomLotto() throws IllegalArgumentException {
+    private @NotNull Lotto generateRandomLotto() throws DuplicationException, NumOfLottoNumbersMismatchException {
         List<LottoNumber> tmpList = new ArrayList<>(randomLottoNumberList);
         Collections.shuffle(tmpList);
         return new Lotto(tmpList.subList(0, NUM_OF_LOTTO_NUMBERS_IN_LOTTO));

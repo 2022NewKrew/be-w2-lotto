@@ -1,25 +1,25 @@
 package lotto.domain;
 
-import java.util.*;
+import lotto.DuplicationException;
 
-import static lotto.view.LottoOutputPrinter.CHECK_DUPLICATION_MESSAGE;
+import java.util.*;
 
 public class WinningLotto {
     private final Lotto lotto;
     private final LottoNumber bonusNumber;
 
-    public WinningLotto(Lotto lotto, LottoNumber bonusNumber) {
+    public WinningLotto(Lotto lotto, LottoNumber bonusNumber) throws DuplicationException {
         checkDuplicationInWinningLotto(lotto, bonusNumber);
         this.lotto = lotto;
         this.bonusNumber = bonusNumber;
     }
 
-    private void checkDuplicationInWinningLotto(Lotto lotto, LottoNumber bonusNumber) {
+    private void checkDuplicationInWinningLotto(Lotto lotto, LottoNumber bonusNumber) throws DuplicationException {
         List<LottoNumber> lottoNumberList = new ArrayList<>(lotto.getNumberList());
         lottoNumberList.add(bonusNumber);
         Set<LottoNumber> lottoNumberSet = new HashSet<>(lottoNumberList);
         if (lottoNumberList.size() != lottoNumberSet.size()) {
-            throw new IllegalArgumentException(CHECK_DUPLICATION_MESSAGE);
+            throw new DuplicationException();
         }
     }
 

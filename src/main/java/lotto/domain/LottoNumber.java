@@ -1,10 +1,9 @@
 package lotto.domain;
 
+import lotto.IllegalLottoNumberException;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
-
-import static lotto.view.LottoOutputPrinter.CHECK_LOTTO_NUMBER_MESSAGE;
 
 public class LottoNumber implements Comparable<LottoNumber> {
     public static final int MIN_NUMBER = 1;
@@ -12,14 +11,14 @@ public class LottoNumber implements Comparable<LottoNumber> {
 
     private final int number;
 
-    public LottoNumber(int number) {
+    public LottoNumber(int number) throws IllegalLottoNumberException {
         checkLottoNumber(number);
         this.number = number;
     }
 
-    private void checkLottoNumber(int number) {
+    private void checkLottoNumber(int number) throws IllegalLottoNumberException {
         if (MIN_NUMBER > number || number > MAX_NUMBER)
-            throw new IllegalArgumentException(CHECK_LOTTO_NUMBER_MESSAGE);
+            throw new IllegalLottoNumberException();
     }
 
     public int getNumber() {

@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import lotto.IllegalLottoNumberException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -18,7 +19,7 @@ class LottoNumberTest {
     @ParameterizedTest
     @MethodSource("invalidParameters")
     void invalidCreate(int num, String expectedMessage) {
-        IllegalArgumentException iae = assertThrows(IllegalArgumentException.class, () -> new LottoNumber(num));
+        IllegalLottoNumberException iae = assertThrows(IllegalLottoNumberException.class, () -> new LottoNumber(num));
         assertEquals(iae.getMessage(), expectedMessage);
     }
 

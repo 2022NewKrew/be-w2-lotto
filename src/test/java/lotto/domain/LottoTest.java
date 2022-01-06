@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import lotto.DuplicationException;
+import lotto.NumOfLottoNumbersMismatchException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -28,17 +30,31 @@ class LottoTest {
 
     @DisplayName("Lotto 생성 유효성 검사")
     @ParameterizedTest
-    @MethodSource("invalidParameters")
-    void invalidCreate(String numbers, String expectedMessage) {
+    @MethodSource("duplicationExceptionTestParameters")
+    void invalidDuplicationCreate(String numbers, String expectedMessage) {
         List<LottoNumber> lottoNumberList = getLottoNumberListFrom(numbers);
-        IllegalArgumentException iae = assertThrows(IllegalArgumentException.class, () -> new Lotto(lottoNumberList));
+        DuplicationException iae = assertThrows(DuplicationException.class, () -> new Lotto(lottoNumberList));
         assertEquals(iae.getMessage(), expectedMessage);
     }
 
-    static Stream<Arguments> invalidParameters() {
+    static Stream<Arguments> duplicationExceptionTestParameters() {
         return Stream.of(
                 Arguments.of("1,1,2,3,4,5", CHECK_DUPLICATION_MESSAGE),
-                Arguments.of("41,42,43,44,45,45", CHECK_DUPLICATION_MESSAGE),
+                Arguments.of("41,42,43,44,45,45", CHECK_DUPLICATION_MESSAGE)
+        );
+    }
+
+    @DisplayName("Lotto 생성 유효성 검사")
+    @ParameterizedTest
+    @MethodSource("numOfLottoNumbersExceptionTestParameters")
+    void invalidNumOfLottoNumbersCreate(String numbers, String expectedMessage) {
+        List<LottoNumber> lottoNumberList = getLottoNumberListFrom(numbers);
+        NumOfLottoNumbersMismatchException iae = assertThrows(NumOfLottoNumbersMismatchException.class, () -> new Lotto(lottoNumberList));
+        assertEquals(iae.getMessage(), expectedMessage);
+    }
+
+    static Stream<Arguments> numOfLottoNumbersExceptionTestParameters() {
+        return Stream.of(
                 Arguments.of("1,2,3,4,5,6,7", CHECK_NUM_OF_LOTTO_NUMBERS),
                 Arguments.of("39,40,41,42,43,44,45", CHECK_NUM_OF_LOTTO_NUMBERS)
         );

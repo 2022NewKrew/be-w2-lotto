@@ -1,5 +1,6 @@
 package lotto.view;
 
+import lotto.IllegalLottoNumberException;
 import lotto.domain.LottoNumber;
 
 import java.util.Arrays;
@@ -41,13 +42,13 @@ public class LottoInputScanner {
                 .collect(Collectors.toList());
     }
 
-    public List<LottoNumber> getWinningLottoNumberList() throws IllegalArgumentException {
+    public List<LottoNumber> getWinningLottoNumberList() throws IllegalLottoNumberException {
         return Arrays.stream(sc.nextLine().split(SEPARATOR))
                 .map(s -> new LottoNumber(Integer.parseInt(s.trim())))
                 .collect(Collectors.toList());
     }
 
-    public LottoNumber getBonusNumber() throws IllegalArgumentException {
+    public LottoNumber getBonusNumber() throws IllegalLottoNumberException {
         System.out.println("보너스 볼을 입력해 주세요.");
         return new LottoNumber(Integer.parseInt(sc.nextLine()));
     }

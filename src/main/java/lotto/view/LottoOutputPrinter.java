@@ -12,9 +12,9 @@ import static lotto.LottoSimulator.SEPARATOR;
 import static lotto.domain.Lotto.NUM_OF_LOTTO_NUMBERS_IN_LOTTO;
 
 public class LottoOutputPrinter {
-    public static final String CHECK_LOTTO_NUMBER_MESSAGE = "각 번호는 1~45 사이의 숫자 값을 가져야 합니다.";
-    public static final String CHECK_DUPLICATION_MESSAGE = "각 번호는 서로 중복될 수 없습니다.";
-    public static final String CHECK_NUM_OF_LOTTO_NUMBERS = "번호는 " + NUM_OF_LOTTO_NUMBERS_IN_LOTTO + "개를 입력해야 합니다.";
+    public static final String CHECK_LOTTO_NUMBER_MESSAGE = "[Error] 각 번호는 1~45 사이의 숫자 값을 가져야 합니다.\n";
+    public static final String CHECK_DUPLICATION_MESSAGE = "[Error] 각 번호는 서로 중복될 수 없습니다.\n";
+    public static final String CHECK_NUM_OF_LOTTO_NUMBERS = "[Error] 번호는 " + NUM_OF_LOTTO_NUMBERS_IN_LOTTO + "개를 입력해야 합니다.\n";
     public static final String SPACE = " ";
     public static final String PREFIX = "[";
     public static final String SUFFIX = "]";
