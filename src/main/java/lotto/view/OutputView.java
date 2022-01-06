@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.util.StringJoiner;
 import lotto.domain.Lotto;
 import lotto.domain.LottoResult;
-import lotto.domain.Lottos;
 import lotto.domain.Reward;
+import lotto.vo.LottosVo;
 
 public class OutputView {
 
@@ -21,8 +21,8 @@ public class OutputView {
             NEW_LINE);
     }
 
-    public static void printLottos(Lottos lottos) {
-        for (Lotto lotto : lottos.getLottos()) {
+    public static void printLottos(LottosVo lottosVo) {
+        for (Lotto lotto : lottosVo.getLottos()) {
             StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
             for (Integer number : lotto.getNumbers()) {
                 stringJoiner.add(String.valueOf(number));

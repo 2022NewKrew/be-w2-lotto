@@ -7,21 +7,23 @@ import lotto.domain.LottoMoney;
 import lotto.domain.LottoResult;
 import lotto.domain.Lottos;
 import lotto.domain.WinningLotto;
+import lotto.vo.LottoMoneyVo;
+import lotto.vo.LottosVo;
 
 public class LottoController {
 
-    private final Lottos lottos;
-    private final LottoMoney lottoMoney;
+    private final LottosVo lottosVo;
+    private final LottoMoneyVo lottoMoneyVo;
 
-    private LottoController(Lottos lottos, LottoMoney lottoMoney) {
-        this.lottos = lottos;
-        this.lottoMoney = lottoMoney;
+    private LottoController(LottosVo lottosVo, LottoMoneyVo lottoMoneyVo) {
+        this.lottosVo = lottosVo;
+        this.lottoMoneyVo = lottoMoneyVo;
     }
 
     public static LottoController of(long money, List<List<Integer>> manualLottoNumbers) {
-        LottoMoney lottoMoney = new LottoMoney(money);
-        Lottos lottos = Lottos.of(lottoMoney.purchase(), manualLottoNumbers);
-        return new LottoController(lottos, lottoMoney);
+        LottoMoneyVo lottoMoneyVo = new LottoMoneyVo(new LottoMoney(money));
+        LottosVo lottosVo = new LottosVo(Lottos.of(lottoMoneyVo.purchase(), manualLottoNumbers));
+        return new LottoController(lottosVo, lottoMoneyVo);
     }
 
     public static LottoController of(long money) {
@@ -29,23 +31,23 @@ public class LottoController {
     }
 
     public int manualPurchase() {
-        return lottos.getManualPurchase();
+        return lottosVo.getManualPurchase();
     }
 
     public int autoPurchase() {
-        return lottos.getAutoPurchase();
+        return lottosVo.getAutoPurchase();
     }
 
-    public Lottos getLottos() {
-        return lottos;
+    public LottosVo getLottos() {
+        return lottosVo;
     }
 
     public LottoResult result(List<Integer> winningNumbers, int bonusNumber) {
         WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNumber);
-        return lottos.matchCounts(winningLotto);
+        return lottosVo.matchCounts(winningLotto);
     }
 
     public BigDecimal profit(BigDecimal totalReward) {
-        return lottoMoney.profit(totalReward);
+        return lottoMoneyVo.profit(totalReward);
     }
 }

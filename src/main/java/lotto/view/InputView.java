@@ -37,10 +37,9 @@ public class InputView {
     public static List<Integer> inputWinningNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         String[] values = scanner.nextLine().split(",");
-        List<Integer> winningNumbers = Arrays.stream(values)
+        return Arrays.stream(values)
             .map(value -> Integer.parseInt(value.trim()))
             .collect(Collectors.toList());
-        return winningNumbers;
     }
 
     public static int inputBonusNumber() {

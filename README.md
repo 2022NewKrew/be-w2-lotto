@@ -43,4 +43,6 @@
   - [x] 생성자 다형성 구현
   - [x] 입출력 구현
   - [x] 구매금액보다 수동 구매 많을 경우 에러
-- [ ] dto
+- [x] vo
+  - [x] LottoMoneyVo
+  - [x] LottosVo
