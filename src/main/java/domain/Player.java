@@ -1,10 +1,7 @@
 package domain;
 
-import view.InputView;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -16,6 +13,7 @@ public class Player {
 
     private final int payAutoCount;
     private final int payManualCount;
+
     public Player(int playerMoney, List<Lotto> manualLottoList) {
         this.payManualCount = manualLottoList.size();
         this.payAutoCount = playerMoney/LOTTO_PRICE - payManualCount;

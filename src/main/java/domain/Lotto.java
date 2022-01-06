@@ -7,7 +7,7 @@ public class Lotto {
     private final List<Integer> numberList;
     /*자동 생성 하는 경우*/
     public Lotto() {
-        numberList = LottoGenerator.generateLottoNumbers();
+        this.numberList = LottoGenerator.generateLottoNumbers();
     }
     /*수동 생성 하는 경우*/
     public Lotto(List<Integer> numberList) {
