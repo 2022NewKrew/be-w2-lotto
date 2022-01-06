@@ -151,5 +151,4 @@ public class LottoCalculateTest {
         assertThat(money.earningRate(benefit)).isEqualTo(35);
     }
 
-
 }
