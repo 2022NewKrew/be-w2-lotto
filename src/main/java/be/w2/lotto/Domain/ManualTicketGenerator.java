@@ -6,7 +6,7 @@ import java.util.Queue;
 
 public class ManualTicketGenerator implements TicketGenerator {
 
-    Queue<List<Integer>> inputList;
+    private Queue<List<Integer>> inputList;
 
     public ManualTicketGenerator(List<List<Integer>> inputList, Amount amount) {
         this.inputList = new LinkedList<>();
