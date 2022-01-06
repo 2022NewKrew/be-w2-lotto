@@ -1,4 +1,4 @@
-package lotto.domain.result;
+package lotto.domain.lotto.result;
 
 import lotto.domain.lotto.MatchType;
 
@@ -11,6 +11,7 @@ public enum WinningRanking {
     FOURTH(v -> v * 50_000),
     FIFTH(v -> v * 5_000),
     UNRANKED(v -> 0);
+
 
     private final Function<Integer, Integer> expression;
 

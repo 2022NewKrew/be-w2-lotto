@@ -1,5 +1,7 @@
 package lotto.domain.result;
 
+import lotto.domain.lotto.result.EarningRate;
+import lotto.domain.lotto.result.WinningRanking;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

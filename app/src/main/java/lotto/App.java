@@ -5,14 +5,17 @@ package lotto;
 
 import lotto.controller.LottoController;
 
-import java.util.Scanner;
+import java.io.*;
 
 public class App {
 
     public static void main(String[] args) {
-        try (Scanner sc = new Scanner(System.in)) {
-            LottoController lottoController = new LottoController(sc);
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out))) {
+            LottoController lottoController = new LottoController(writer, reader);
             lottoController.lottoStart();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

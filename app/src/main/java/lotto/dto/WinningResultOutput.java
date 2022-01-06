@@ -1,6 +1,6 @@
 package lotto.dto;
 
-import lotto.domain.result.WinningRanking;
+import lotto.domain.lotto.result.WinningRanking;
 
 import java.util.Map;
 

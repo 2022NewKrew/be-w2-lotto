@@ -1,4 +1,4 @@
-package lotto.domain;
+package lotto.domain.lotto;
 
 public class Money {
 
@@ -11,12 +11,12 @@ public class Money {
     }
 
     private void validMoneyAmount(int money) {
-        if (money < 1000) {
+        if (money < LOTTO_PRICE) {
             throw new IllegalArgumentException("구매 금액이 1000원을 넘어야 합니다");
         }
     }
 
     public int howManyAutoLottoBuy(int manualLottoCount) {
-        return money / LOTTO_PRICE - manualLottoCount;
+        return (money / LOTTO_PRICE) - manualLottoCount;
     }
 }

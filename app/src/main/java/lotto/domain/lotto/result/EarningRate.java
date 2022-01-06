@@ -1,6 +1,4 @@
-package lotto.domain.result;
-
-import lotto.domain.lotto.MatchType;
+package lotto.domain.lotto.result;
 
 import java.util.Map;
 
