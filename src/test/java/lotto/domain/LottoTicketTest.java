@@ -23,15 +23,4 @@ class LottoTicketTest {
 
         assertThat(lottoTicket.getLottoNumbers()).isEqualTo(lottoNumbers);
     }
-
-    @DisplayName("랜덤 로또 티켓 생성 테스트")
-    @Test
-    void issue() {
-        LottoNumbersGenerator lottoNumbersGenerator = new RandomLottoNumberGenerator();
-
-        LottoTicket lottoTicket = LottoTicket.issue(lottoNumbersGenerator);
-        LottoNumbers lottoNumbers = lottoTicket.getLottoNumbers();
-
-        assertThat(lottoNumbers.getLottoNumbers()).hasSize(6);
-    }
 }

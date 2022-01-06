@@ -7,10 +7,6 @@ public class LottoTicket{
         this.lottoNumbers = lottoNumbers;
     }
 
-    public static LottoTicket issue(LottoNumbersGenerator lottoNumbersGenerator) {
-        return new LottoTicket(lottoNumbersGenerator.generateLottoNumbers());
-    }
-
     public LottoNumbers getLottoNumbers() {
         return lottoNumbers;
     }
