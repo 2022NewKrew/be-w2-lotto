@@ -1,53 +1,28 @@
 import controller.LottoGameController;
-import dto.LottoResponse;
-import dto.LottoResultResponse;
-import spark.ModelAndView;
-import spark.template.handlebars.HandlebarsTemplateEngine;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static spark.Spark.*;
 
 public class LottoGame {
 
     private static final LottoGameController game = new LottoGameController();
+    private static final int WEB_SERVER_PORT = 8080;
+    private static final int BAD_REQUEST = 400;
 
     public static void main(String[] args) {
-        port(8080);
+        port(WEB_SERVER_PORT);
         mapping();
     }
 
     private static void mapping() {
-        get("/", (req, res) -> render(null ,"/index.html"));
+        get("/", game::index);
 
-        post("/buyLotto", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
+        post("/buyLotto", game::createLotto);
 
-            String inputMoney = req.queryParams("inputMoney");
-            String manualNumber = req.queryParams("manualNumber");
+        post("/matchLotto", game::getLottoResult);
 
-            List<LottoResponse> lottoResponses = game.createLotto(inputMoney, manualNumber);
-            model.put("lottosSize", lottoResponses.size());
-            model.put("lottos", lottoResponses);
-
-            return render(model, "/show.html");
+        exception(IllegalArgumentException.class, (e, req, res) -> {
+            res.status(BAD_REQUEST);
+            res.body(e.getMessage());
         });
-
-        post("/matchLotto", (req, res) -> {
-            Map<String, Object> model = new HashMap<>();
-
-            String winningNumber = req.queryParams("winningNumber");
-            String bonusNumber = req.queryParams("bonusNumber");
-
-            LottoResultResponse lottoResult = game.getLottoResult(winningNumber, bonusNumber);
-
-            return render(lottoResult, "/result.html");
-        });
-    }
-
-    private static String render(Object model, String templatePath) {
-        return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
     }
 }

@@ -19,7 +19,7 @@ class LottoGeneratorTest {
         LottoGameInfo lottoGameInfo = new LottoGameInfo(MONEY);
 
         //when
-        List<Lotto> result = LottoGenerator.generateAllLotto(lottoGameInfo);
+        List<Lotto> result = LottoGenerator.generateLottos(lottoGameInfo.getAutomaticallyPurchaseQuantity());
 
         //then
         assertThat(result.size()).isEqualTo(MONEY / LOTTO_PRICE);
@@ -41,7 +41,7 @@ class LottoGeneratorTest {
 
     @Test
     @DisplayName("로또 문자열의 순서를 무작위로 섞어도 정렬된 로또를 생성한다")
-    void generateOneLottoWithReverseOrder() {
+    void generateOneLottoWithAscendingOrder() {
         //given
         List<Integer> lottoInputSequence = List.of(5, 6, 3, 1, 4, 2);
 

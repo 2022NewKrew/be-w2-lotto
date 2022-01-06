@@ -1,81 +1,62 @@
 package controller;
 
 import domain.lotto.*;
-import dto.LottoRequest;
-import dto.LottoResponse;
-import dto.LottoResultResponse;
-import service.LottoInputService;
-import service.LottoService;
-import view.LottoRenderer;
+import dto.*;
+import service.*;
+import spark.*;
+import spark.template.handlebars.HandlebarsTemplateEngine;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class LottoGameController {
 
     private final LottoInputService lottoInputService;
     private final LottoService lottoService;
-    private List<Lotto> lottos;
 
     public LottoGameController() {
         this.lottoInputService = new LottoInputService();
         this.lottoService = new LottoService();
     }
 
-    public List<LottoResponse> createLotto(String inputMoney, String inputManualRequests) {
+    public String index(Request request, Response response) {
+        return render(null, "/index.html");
+    }
+
+    public String createLotto(Request request, Response response) {
+        String inputMoney = request.queryParams("inputMoney");
+        String inputManualRequests = request.queryParams("manualNumber");
 
         int money = lottoInputService.getIntegerFromString(inputMoney);
         List<LottoRequest> lottoRequests = new ArrayList<>();
+
         if (!inputManualRequests.isEmpty()) {
             lottoRequests = lottoInputService.getManualLottoRequests(inputManualRequests);
         }
 
-        lottos = lottoService.createLotto(money, lottoRequests);
-        return lottos.stream()
-                .map(LottoResponse::new)
-                .collect(Collectors.toList());
+        List<Lotto> lottos = lottoService.createLotto(money, lottoRequests);
+        request.session().attribute("lottos", lottos);
+        LottoCreateResponse lottoCreateResponse = new LottoCreateResponse(lottos);
+
+        return render(lottoCreateResponse, "/show.html");
     }
 
-    public LottoResultResponse getLottoResult(String winningNumber, String bonusNumber) {
-        int bonusLottoNumber = lottoInputService.getIntegerFromString(bonusNumber);
+    public String getLottoResult(Request request, Response response) {
+        String winningNumber = request.queryParams("winningNumber");
+        String bonusNumber = request.queryParams("bonusNumber");
 
+        int bonusLottoNumber = lottoInputService.getIntegerFromString(bonusNumber);
         LottoRequest lottoRequest = lottoInputService.parseLottoRequest(winningNumber);
-        WinningLotto winningLotto = lottoService.createWinningLotto(lottoRequest, bonusLottoNumber);
+        WinningLotto winningLotto = lottoRequest.toWinningLotto(bonusLottoNumber);
+        List<Lotto> lottos = request.session().attribute("lottos");
 
         LottoTotalResult totalResult = LottoCalculator.calculate(lottos, winningLotto);
-        return new LottoResultResponse(totalResult);
+        LottoResultResponse lottoResultResponse = new LottoResultResponse(totalResult);
+
+        return render(lottoResultResponse, "/result.html");
     }
 
-//    public void start() {
-//        LottoGameInfo lottoGameInfo = null;
-//
-//        WinningLotto winningLotto = inputWinningLottoNumbersAndValidate();
-//
-//        LottoTotalResult lottoTotalResult = LottoCalculator.calculate(lottoGameInfo.getInputMoney(), lottoList, winningLotto);
-//        renderResult(lottoTotalResult);
-//    }
-
-//    private WinningLotto inputWinningLottoNumbersAndValidate() {
-//        WinningLotto winningLotto = null;
-//        while (winningLotto == null) {
-//            winningLotto = inputWinningLottoNumbers();
-//        }
-//        return winningLotto;
-//    }
-//
-//    private WinningLotto inputWinningLottoNumbers() {
-//        try {
-//            return lottoInputService.inputWinningLottoNumbers();
-//        } catch (IllegalArgumentException e) {
-//            System.out.println(e.getMessage());
-//            return null;
-//        }
-//    }
-//
-//    private void renderResult(LottoTotalResult lottoTotalResult) {
-//        LottoRenderer.renderResult(lottoTotalResult);
-//        LottoRenderer.renderEarningRatio(lottoTotalResult);
-//    }
-
+    private static String render(Object model, String templatePath) {
+        return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
+    }
 }
