@@ -13,15 +13,18 @@ public class Matching {
     public Integer getPrizeCount(Prize prize) {
         return matchingMap.getOrDefault(prize, 0);
     }
+
     public void addMatchingMap(Prize prize) {
-        if(prize == NO_PRIZE)
+        if (prize == NO_PRIZE)
             return;
         matchingMap.put(prize, matchingMap.getOrDefault(prize, 0) + 1);
     }
 
-    public long getTotalPrizeSum() {
-        return matchingMap.entrySet().stream().map(e -> e.getKey().getPrizeMoney() * e.getValue()).
-                mapToLong(Integer::intValue).sum();
+    public double getTotalEarningRate(int payPrice) {
+        int sum = matchingMap.entrySet().stream().
+                map(e -> e.getKey().getPrizeMoney() * e.getValue()).
+                mapToInt(i -> i).sum();
+        return (sum - payPrice)/(double)payPrice*100;
     }
 
     public void addMatchingLotto(Player player) {
