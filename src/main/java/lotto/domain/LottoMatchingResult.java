@@ -4,6 +4,9 @@ import java.util.Map;
 
 import static lotto.Main.PRICE;
 
+/**
+ * 로또 매칭 결과({@link Prize}별 맞은 횟수)를 갖고 있는 클래스
+ */
 public class LottoMatchingResult {
     private final Map<Prize, Long> occurrencesByPrize;
 

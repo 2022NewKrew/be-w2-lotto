@@ -49,9 +49,7 @@ public class LottoTickets {
     /**
      * @param winnerNumber 1등 번호
      * @param bonusBall    보너스 숫자
-     * @return <pre>{@code
-     *     Map<Prize, 횟수>
-     * }</pre>
+     * @return {@link LottoMatchingResult}
      */
     public LottoMatchingResult getMatchingResult(Set<Integer> winnerNumber, int bonusBall) {
         return new LottoMatchingResult(
