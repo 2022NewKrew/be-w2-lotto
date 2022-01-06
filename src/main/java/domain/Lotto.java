@@ -29,7 +29,7 @@ public class Lotto {
         return this.numbers;
     }
 
-    public Integer checkMatchCount(Set<Integer> winningNumbers) {
+    public Integer matchCount(Set<Integer> winningNumbers) {
         Set<Integer> copyWinningNumbers = new HashSet<>(winningNumbers);
         copyWinningNumbers.retainAll(numbers);
         return copyWinningNumbers.size();

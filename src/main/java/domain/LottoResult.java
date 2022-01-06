@@ -52,7 +52,7 @@ public class LottoResult {
 
         InitializeMap(lottoResult);
         for (Lotto lotto : lottoList) {
-            int matchCount = lotto.checkMatchCount(lastWeekWinningNumbers);
+            int matchCount = lotto.matchCount(lastWeekWinningNumbers);
             lottoResult.put(Prize.valueOf(matchCount), lottoResult.get(Prize.valueOf(matchCount)) + 1);
         }
         return lottoResult;

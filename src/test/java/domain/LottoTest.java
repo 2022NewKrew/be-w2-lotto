@@ -85,7 +85,7 @@ class LottoTest {
         numbers.add(n6);
         Lotto lotto = new Lotto(numbers);
 
-        Assertions.assertEquals(lotto.checkMatchCount(winningNumbers), result);
+        Assertions.assertEquals(lotto.matchCount(winningNumbers), result);
     }
 
     static void createWinningNumbers() {
