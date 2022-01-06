@@ -13,38 +13,53 @@ import view.OutputView;
 public class LottoController {
 
     public static void startLotto() throws IOException {
-        Money money = InputView.inputMoney();
-        final Lottos lottos = Lottos.purchaseLottos(money.countOfPurchaseLotto());
+        final Money money = inputMoney();
 
-        OutputView.outputLottos(lottos);
+        final Lottos lottos = purchaseLotto(money.countOfPurchaseLotto());
 
         final WinningNumbers winningNumbers = inputWinningNumbers();
 
         final Map<Rank, Integer> winningStatistics = lottos.winningConfirm(winningNumbers);
-        final float profitRate = calculateProfitRate(winningStatistics,
-            money.moneyOfPurchaseLotto());
+        final float profitRate = money.calculateProfitRate(winningStatistics);
         OutputView.outputWinning(winningStatistics, profitRate);
     }
 
-    private static WinningNumbers inputWinningNumbers() throws IOException {
-        final List<Integer> inputWinningNumbers = InputView.inputWinningNumbers();
-        final int BonusNumber = InputView.inputBonusNumber();
-        return WinningNumbers.createWinningNumbers(
-            inputWinningNumbers, BonusNumber);
-    }
-
-    private static float calculateProfitRate(Map<Rank, Integer> winningStatistics, int money) {
-        float totalProfitMoney = calculateProfitMoney(winningStatistics);
-        return (totalProfitMoney - money) / money * 100;
-    }
-
-    private static float calculateProfitMoney(Map<Rank, Integer> winningStatistics) {
-        float totalProfitMoney = 0.0f;
-        final Rank[] ranks = Rank.values();
-        for (Rank rank : ranks) {
-            int countOfWinningRank = winningStatistics.getOrDefault(rank, 0);
-            totalProfitMoney += rank.calculateProfitMoney(countOfWinningRank);
+    private static Money inputMoney() throws IOException {
+        while (true) {
+            try {
+                return new Money(InputView.inputMoney());
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
         }
-        return totalProfitMoney;
+    }
+
+    private static Lottos purchaseLotto(int countOfPurchaseLotto) throws IOException {
+        while (true) {
+            try {
+                final int countOfManual = InputView.inputCountOfManual();
+                final List<List<Integer>> manualLottos = InputView.inputManualLottos(countOfManual);
+                Lottos lottos = Lottos.purchaseLottos(countOfPurchaseLotto, manualLottos);
+                final int countOfAuto = countOfPurchaseLotto - countOfManual;
+
+                OutputView.outputLottos(lottos, countOfAuto, countOfManual);
+                return lottos;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private static WinningNumbers inputWinningNumbers() throws IOException {
+        while (true) {
+            try {
+                final List<Integer> inputWinningNumbers = InputView.inputWinningNumbers();
+                final int BonusNumber = InputView.inputBonusNumber();
+                return WinningNumbers.createWinningNumbers(
+                    inputWinningNumbers, BonusNumber);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }

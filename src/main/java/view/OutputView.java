@@ -8,19 +8,20 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class OutputView {
+
     private static final String LOTTO_START = "[";
     private static final String LOTTO_SPLIT = ", ";
     private static final String LOTTO_END = "]\n";
 
-    private static final String LOTTO_PURCHASE_MESSAGE = "%d개를 구매했습니다.\n";
+    private static final String LOTTO_PURCHASE_MESSAGE = "수동으로 %d장, 자동으로 %d개를 구매했습니다.\n";
     private static final String WINNING_STATISTICS_INFO_MESSAGE = "\n당첨 통계\n---------\n";
 
     private static final String WINNING_STATISTICS_MESSAGE = "%d개 일치 (%d원)- %d개\n";
     private static final String WINNING_STATISTICS_BONUS_MESSAGE = "%d개 일치, 보너스 볼 일치 (%d원)- %d개\n";
     private static final String OUTPUT_PROFIT_RATE_MESSAGE = "총 수익률은 %.2f%%입니다.";
 
-    public static void outputLottos(Lottos lottos) {
-        StringBuilder sb = new StringBuilder(String.format(LOTTO_PURCHASE_MESSAGE, lottos.size()));
+    public static void outputLottos(Lottos lottos, int countOfAuto, int countOfManual) {
+        StringBuilder sb = new StringBuilder(String.format(LOTTO_PURCHASE_MESSAGE, countOfManual, countOfAuto));
         for (Lotto lotto : lottos.getLottos()) {
             sb.append(outputLotto(lotto));
         }
