@@ -33,14 +33,14 @@ public class OutputView {
         System.out.println("----------");
         for(Prize prize : Prize.values())
         {
-            Long prizeCount = matching.getPrizeCount(prize);
+            Integer prizeCount = matching.getPrizeCount(prize);
             printMatchNumberResult(prizeCount, prize);
         }
         long sum = matching.getTotalPrizeSum();
         System.out.println("총 수익률은 " + (sum - payPrice)/(double)payPrice*100 + "%입니다.");
     }
 
-    private static void printMatchNumberResult(Long prizeCount, Prize prize) {
+    private static void printMatchNumberResult(Integer prizeCount, Prize prize) {
         if(prize == Prize.NO_PRIZE)
             return;
         System.out.println(prize==SECOND_PRIZE ?
