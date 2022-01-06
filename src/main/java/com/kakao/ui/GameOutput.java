@@ -3,7 +3,6 @@ package com.kakao.ui;
 import com.kakao.domain.Lotto;
 import com.kakao.domain.Rank;
 import com.kakao.domain.Result;
-import com.kakao.domain.WinningLotto;
 
 import java.util.*;
 
@@ -16,8 +15,7 @@ public class GameOutput {
         lottos.forEach(System.out::println);
     }
 
-    public void printTotalResult(int money, List<Lotto> lottos, WinningLotto winningLotto) {
-        Result result = new Result(money, lottos, winningLotto);
+    public void printTotalResult(Result result) {
         System.out.println("\n당첨 통계\n----------");
         printResult(result.getResult());
         System.out.printf("총 수익률은 %d%% 입니다.\n", result.getProfitRatio());

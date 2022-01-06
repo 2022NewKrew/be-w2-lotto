@@ -2,6 +2,7 @@ package com.kakao;
 
 import com.kakao.domain.Lotto;
 import com.kakao.domain.LottoMachine;
+import com.kakao.domain.Result;
 import com.kakao.domain.WinningLotto;
 import com.kakao.ui.GameInput;
 import com.kakao.ui.GameOutput;
@@ -21,12 +22,14 @@ public class RunLottoGame {
 
     public void run() {
         int money = gameInput.inputMoney();
-
         List<Lotto> lottos = buyLottos(money);
+
         gameOutput.printLottos(lottos);
 
         WinningLotto winningLotto = setWinningLotto();
-        gameOutput.printTotalResult(money, lottos, winningLotto);
+
+        Result result = lottoMachine.setResult(money, lottos, winningLotto);
+        gameOutput.printTotalResult(result);
     }
 
     private List<Lotto> buyLottos(int money) {

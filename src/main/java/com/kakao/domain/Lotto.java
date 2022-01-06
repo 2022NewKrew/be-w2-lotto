@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 public class Lotto {
 
     private List<Integer> lottoNumbers;
-    private String lottoType;
+    private LottoType lottoType;
 
     public Lotto() {
         makeAutoLotto();
@@ -19,19 +19,19 @@ public class Lotto {
 
     public List<Integer> getLottoNumber() { return lottoNumbers; }
 
-    public String getType() { return lottoType; }
+    public LottoType getType() { return lottoType; }
 
     private void makeAutoLotto() {
         List<Integer> lottoNumberList = IntStream.range(1, 46).boxed().collect(Collectors.toList());
         Collections.shuffle(lottoNumberList);
         lottoNumbers = lottoNumberList.subList(0, 6);
         Collections.sort(lottoNumbers);
-        lottoType = "auto";
+        lottoType = LottoType.AUTO;
     }
 
     private void makeCustomLotto(List<Integer> lottoNumbers) {
         this.lottoNumbers = lottoNumbers;
-        lottoType = "custom";
+        lottoType = LottoType.CUSTOM;
     }
 
     @Override

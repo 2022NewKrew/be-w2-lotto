@@ -15,11 +15,9 @@ public class LottoMachine {
     }
 
     private List<Lotto> buyAutoLottos(int lottoCount) {
-        List<Lotto> lottos = new ArrayList<>();
-        for (int i = 0; i < lottoCount; i++) {
-            lottos.add(new Lotto());
-        }
-        return lottos;
+        return Arrays.stream(new Lotto[lottoCount])
+                .map(lotto -> new Lotto())
+                .collect(Collectors.toList());
     }
 
     private List<Lotto> buyCustomLottos(List<List<Integer>> customLottoNumberList) {
@@ -30,5 +28,9 @@ public class LottoMachine {
 
     public WinningLotto setWinningLotto(List<Integer> winningLottoNumbers, int bonusNumber) {
         return new WinningLotto(winningLottoNumbers, bonusNumber);
+    }
+
+    public Result setResult(int money, List<Lotto> lottos, WinningLotto winningLotto) {
+        return new Result(money, lottos, winningLotto);
     }
 }

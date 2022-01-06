@@ -3,6 +3,7 @@ package com.kakao.ui;
 import com.kakao.validation.CheckGameInput;
 
 import java.util.*;
+import java.util.stream.IntStream;
 
 public class GameInput {
 
@@ -25,6 +26,7 @@ public class GameInput {
         List<List<Integer>> lottoNumbersList = new ArrayList<>();
         int totalLottoCnt = money / 1000;
         int customLottoCount = inputCustomLottoCount(totalLottoCnt);
+        if (customLottoCount == 0) { return lottoNumbersList; }
         System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
         for (int i = 0; i < customLottoCount; i++) {
             lottoNumbersList.add(inputCustomLottoNumbers());

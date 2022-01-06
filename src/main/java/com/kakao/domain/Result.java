@@ -47,7 +47,7 @@ public class Result {
 
     public static int getCutomLottoCount(List<Lotto> lottos) {
         return (int) lottos.stream()
-                .filter(lotto -> lotto.getType().equals("custom"))
+                .filter(lotto -> lotto.getType().equals(LottoType.CUSTOM))
                 .count();
     }
 }
