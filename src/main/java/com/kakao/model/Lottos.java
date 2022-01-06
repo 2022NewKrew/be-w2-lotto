@@ -1,8 +1,10 @@
 package com.kakao.model;
 
 import com.kakao.data.LottoData;
-import com.kakao.exception.MoneyRangeException;
-import com.kakao.exception.PickedNumbersFormatException;
+import com.kakao.exception.PickedNumberException;
+import com.kakao.helper.LottoHelper;
+import com.kakao.model.lotto.AutoLotto;
+import com.kakao.model.lotto.Lotto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,63 +14,59 @@ public class Lottos {
     private List<Lotto> lottoList;
 
     // 생성자
-    public Lottos(final int moneyToBuyLottos) throws MoneyRangeException {
-        checkMoneyRange(moneyToBuyLottos);
-
-        int numberOfLotto = moneyToBuyLottos/LottoData.PRICE_OF_LOTTO;
-        this.lottoList = getNewLottos(numberOfLotto);
+    public Lottos(Money moneyToBuyLottos) {
+        int numberOfLotto = moneyToBuyLottos.getMoney()/LottoData.PRICE_OF_LOTTO;
+        this.lottoList = getNewAutoLottos(null, numberOfLotto);
     }
-
-    // 유효성 검사
-    private void checkMoneyRange(final int moneyToBuyLottos) throws MoneyRangeException {
-        if(moneyToBuyLottos < LottoData.PRICE_OF_LOTTO ) {
-            throw new MoneyRangeException();
-        }
+    public Lottos(Money moneyToBuyLottos, List<Lotto> manualLottoList) {
+        int numberOfLotto = moneyToBuyLottos.getMoney()/LottoData.PRICE_OF_LOTTO;
+        this.lottoList = getNewAutoLottos(manualLottoList, numberOfLotto);
     }
 
     // 로또용지들 생성함수
-    private List<Lotto> getNewLottos(int numberOfLottos) {
+    private List<Lotto> getNewAutoLottos(List<Lotto> manualLottoList, int numberOfLottos) {
         List<Lotto> lottoList = new ArrayList<>();
-        for(int i=0; i<numberOfLottos; i++){
-            lottoList.add(getNewLotto());
+        if(manualLottoList != null) {
+            lottoList.addAll(manualLottoList);
+        }
+        for(int i=lottoList.size(); i<numberOfLottos; i++){
+            lottoList.add(getNewAutoLotto());
         }
         return lottoList;
     }
-    private Lotto getNewLotto() {
+    private Lotto getNewAutoLotto() {
         Lotto newLotto = null;
         while(newLotto == null) {
-            newLotto = generateLotto();
+            newLotto = generateAutoLotto();
         }
         return newLotto;
     }
 
     // 로또 생성
-    private Lotto generateLotto() {
+    private Lotto generateAutoLotto() {
         Lotto newLotto = null;
         try {
-            newLotto = new Lotto(LottoData.generatePickedNumber());
-        } catch (PickedNumbersFormatException e) {
+            newLotto = new AutoLotto(LottoHelper.generatePickedNumber());
+        } catch (PickedNumberException e) {
             e.printStackTrace();
-        } finally {
-            return newLotto;
         }
+        return newLotto;
     }
 
     // 로또의 당첨 등수 확인
-    public List<Integer> matchLottosAreWinning(LottoWinning lottoWinning) {
-        List<Integer> countOfWinningLottos = new ArrayList<>();
-        for(int i=0; i<=LottoData.NUMBER_OF_PICK; i++) {
-            countOfWinningLottos.add(0);
+    public LottoWinningResult matchLottosAreWinning(LottoWinning lottoWinning) {
+        LottoWinningResult countOfWinningLottos = new LottoWinningResult();
+        if( lottoWinning == null ){
+            return countOfWinningLottos;
         }
         for(Lotto lotto: this.lottoList) {
-            int winningNumber = lotto.matchNumberIsWinning(lottoWinning);
-            updateCountOfWinningLottos(countOfWinningLottos, winningNumber);
+            int winningNumber = lotto.matchNumberIsWinning(lottoWinning); // 일치한 갯수
+            boolean bonusBallIsMatched = lotto.matchBonusBall(lottoWinning.getBonusBall());
+
+            LottoWinningReward rewardKey = new LottoWinningReward(winningNumber, bonusBallIsMatched);
+            countOfWinningLottos.addCountAndUpdateByKey(rewardKey);
         }
         return countOfWinningLottos;
-    }
-    private void updateCountOfWinningLottos(List<Integer> countOfWinningLottos, int winningNumber) {
-        int countOfWinningNumber = countOfWinningLottos.get(winningNumber);
-        countOfWinningLottos.set(winningNumber, countOfWinningNumber+1);
     }
 
     // getter

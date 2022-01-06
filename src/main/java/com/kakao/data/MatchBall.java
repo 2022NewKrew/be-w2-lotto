@@ -11,14 +11,20 @@ public enum MatchBall {
     ;
 
     private final LottoWinningReward lottoWinningReward;
+    private final int rewardPrice;
 
     MatchBall(int countOfMatchNumber, int rewardPrice) {
-        this.lottoWinningReward = new LottoWinningReward(countOfMatchNumber, rewardPrice);
+        this.rewardPrice = rewardPrice;
+        this.lottoWinningReward = new LottoWinningReward(countOfMatchNumber);
     }
     MatchBall(int countOfMatchNumber, int rewardPrice, boolean useBonusBall) {
-        this.lottoWinningReward = new LottoWinningReward(countOfMatchNumber, rewardPrice, useBonusBall);
+        this.rewardPrice = rewardPrice;
+        this.lottoWinningReward = new LottoWinningReward(countOfMatchNumber, useBonusBall);
     }
 
+    public int getRewardPrice() {
+        return rewardPrice;
+    }
     public LottoWinningReward getLottoWinningReward(){
         return lottoWinningReward;
     }

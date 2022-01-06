@@ -1,5 +1,6 @@
 package com.kakao.exception;
 
+
 public class PickedNumberRangeException extends PickedNumberException {
     @Override
     public void printStackTrace() {
