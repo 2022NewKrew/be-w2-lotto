@@ -1,8 +1,8 @@
-import step3.LottoApplicationStep3;
+import step4.LottoWebApplication;
 
 public class Main {
     public static void main(String[] args){
-     LottoApplicationStep3 lottoApplication = new LottoApplicationStep3();
+     LottoWebApplication lottoApplication = new LottoWebApplication();
      lottoApplication.start();
     }
 }
