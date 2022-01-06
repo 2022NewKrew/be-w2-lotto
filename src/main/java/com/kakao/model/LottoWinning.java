@@ -1,20 +1,14 @@
 package com.kakao.model;
 
 import com.kakao.data.LottoData;
-import com.kakao.exception.PickedNumberException;
+import com.kakao.exception.PickedNumberExistException;
 import com.kakao.exception.PickedNumberRangeException;
-import com.kakao.exception.PickedNumberFormatException;
-
-import java.util.List;
 
 // 이번주 당첨정보
 public class LottoWinning {
     private Integer bonusBall;
     private LottoNumbers numberOfWinning;
 
-    public LottoWinning(List<Integer> numberOfWinning) throws PickedNumberException {
-        this.numberOfWinning = new LottoNumbers(numberOfWinning);
-    }
     public LottoWinning(LottoNumbers numberOfWinning) {
         this.numberOfWinning = numberOfWinning;
     }
@@ -25,9 +19,12 @@ public class LottoWinning {
     }
 
     // BonusBall 세팅
-    public void setBonusBall(Integer bonusBall) throws PickedNumberRangeException {
+    public void setBonusBall(Integer bonusBall) throws PickedNumberRangeException, PickedNumberExistException {
         if(bonusBall == null || !checkBonusBallRangeOfPickedNumber(bonusBall)) {
             throw new PickedNumberRangeException();
+        }
+        if(numberOfWinning.hasNumber(bonusBall)) {
+            throw new PickedNumberExistException();
         }
         this.bonusBall = bonusBall;
     }

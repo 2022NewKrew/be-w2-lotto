@@ -1,21 +1,16 @@
 package com.kakao.model;
 
 import com.kakao.data.LottoData;
-import com.kakao.exception.MoneyRangeException;
 import com.kakao.exception.PickedNumberException;
 import com.kakao.helper.LottoHelper;
 import com.kakao.model.lotto.AutoLotto;
 import com.kakao.model.lotto.Lotto;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Lottos {
 
-    private Integer numberOfAutoLotto;
-    private Integer numberOfManualLotto;
     private List<Lotto> lottoList;
 
     // 생성자

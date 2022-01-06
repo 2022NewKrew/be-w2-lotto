@@ -1,7 +1,5 @@
 package com.kakao.io;
 
-
-import com.kakao.data.LottoData;
 import com.kakao.data.MatchBall;
 import com.kakao.data.io.LottoOutputData;
 import com.kakao.model.*;
@@ -11,7 +9,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.List;
-import java.util.Map;
 
 class LottoOutput {
     private LottoOutput() {}

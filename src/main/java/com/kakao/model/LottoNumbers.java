@@ -2,10 +2,13 @@ package com.kakao.model;
 
 import com.kakao.data.LottoData;
 import com.kakao.exception.PickedNumberException;
+import com.kakao.exception.PickedNumberExistException;
 import com.kakao.exception.PickedNumberFormatException;
 import com.kakao.exception.PickedNumberRangeException;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class LottoNumbers {
     List<Integer> lottoNumbers;
@@ -13,6 +16,7 @@ public class LottoNumbers {
     public LottoNumbers(List<Integer> lottoNumbers) throws PickedNumberException {
         checkFormatOfPickedNumbers(lottoNumbers);
         checkRangeOfPickedNumbers(lottoNumbers);
+        checkExistOfPickedNumber(lottoNumbers);
         this.lottoNumbers = lottoNumbers;
     }
 
@@ -36,6 +40,13 @@ public class LottoNumbers {
     }
     private boolean checkAllNumbersAreExistInRange(boolean allResult, boolean isInRnage) {
         return allResult && isInRnage;
+    }
+    private void checkExistOfPickedNumber(List<Integer> pickedNumbersOfWinning) throws PickedNumberExistException {
+        // 중복 여부 확인
+        Set<Integer> numberSet = pickedNumbersOfWinning.stream().collect(Collectors.toSet());
+        if(numberSet.size() != LottoData.NUMBER_OF_PICK ) {
+            throw new PickedNumberExistException();
+        }
     }
 
     // getter

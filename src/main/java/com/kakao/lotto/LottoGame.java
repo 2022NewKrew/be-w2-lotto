@@ -4,12 +4,9 @@ import com.kakao.exception.MoneyRangeException;
 import com.kakao.helper.LottoHelper;
 import com.kakao.io.LottoIO;
 import com.kakao.model.LottoWinning;
-
 import com.kakao.model.Lottos;
 import com.kakao.model.Money;
 import com.kakao.model.lotto.Lotto;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class LottoGame {

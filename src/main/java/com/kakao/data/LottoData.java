@@ -1,14 +1,5 @@
 package com.kakao.data;
 
-import com.kakao.exception.PickedNumberFormatException;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
 public class LottoData {
     private LottoData(){}
 
@@ -17,6 +8,4 @@ public class LottoData {
 
     public static final int MIN_LOTTO_NUMBER = 1;
     public static final int MAX_LOTTO_NUMBER = 45;
-
-    public static final int DEFAULT_INTEGER_VALUE = 0;
 }

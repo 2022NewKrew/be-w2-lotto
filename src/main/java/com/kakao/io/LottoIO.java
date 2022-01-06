@@ -3,8 +3,8 @@ package com.kakao.io;
 import com.kakao.data.LottoData;
 import com.kakao.data.io.LottoInputData;
 import com.kakao.exception.MoneyRangeException;
+import com.kakao.exception.PickedNumberExistException;
 import com.kakao.exception.PickedNumberRangeException;
-import com.kakao.model.LottoNumbers;
 import com.kakao.model.Money;
 import com.kakao.model.lotto.Lotto;
 import com.kakao.model.LottoWinning;
@@ -64,7 +64,7 @@ public class LottoIO {
         boolean success = true;
         try {
             lottoWinning.setBonusBall(LottoInput.inputBonusBall());
-        } catch (PickedNumberRangeException e) {
+        } catch (PickedNumberRangeException | PickedNumberExistException e) {
             e.printStackTrace();
             success = false;
         }

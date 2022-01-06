@@ -1,9 +1,6 @@
 package com.kakao.model.lotto;
 
-import com.kakao.data.LottoData;
 import com.kakao.exception.PickedNumberException;
-import com.kakao.exception.PickedNumberRangeException;
-import com.kakao.exception.PickedNumberFormatException;
 import com.kakao.model.LottoNumbers;
 import com.kakao.model.LottoWinning;
 

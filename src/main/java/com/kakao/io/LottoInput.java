@@ -6,7 +6,6 @@ import com.kakao.helper.TextHelper;
 import com.kakao.data.io.LottoInputData;
 import com.kakao.model.LottoNumbers;
 import com.kakao.model.LottoWinning;
-import com.kakao.model.lotto.Lotto;
 import com.kakao.model.lotto.ManualLotto;
 
 import java.io.BufferedReader;
