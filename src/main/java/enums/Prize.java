@@ -3,25 +3,26 @@ package enums;
 import java.util.Arrays;
 
 public enum Prize {
-    MISS(0, 0),
-    ONE(1, 0),
-    TWO(2, 0),
-    THREE(3, 5000),
-    FOUR(4, 50000),
-    FIVE(5, 1500000),
-    SIX(6, 2000000000);
+    MISS(0, 0L, false),
+    THREE(3, 5_000L, false),
+    FOUR(4, 50_000L, false),
+    FIVE(5, 1_500_000L, false),
+    BONUS(5, 30_000_000L, true),
+    SIX(6, 2_000_000_000L, false);
 
     private final int matchCount;
-    private final int money;
+    private final long money;
+    private final boolean bonus;
 
-    Prize(int matchCount, int money) {
+    Prize(int matchCount, long money, boolean bonus) {
         this.matchCount = matchCount;
         this.money = money;
+        this.bonus = bonus;
     }
 
-    public static Prize valueOf(int matchedNumber) {
+    public static Prize valueOf(int matchedNumber, boolean bonus) {
         return Arrays.stream(Prize.values())
-                .filter(i -> i.getMatchCount() == matchedNumber)
+                .filter(i -> i.getMatchCount() == matchedNumber && i.getBonus() == bonus)
                 .findAny()
                 .orElse(MISS);
     }
@@ -30,7 +31,11 @@ public enum Prize {
         return matchCount;
     }
 
-    public int getMoney() {
+    public long getMoney() {
         return money;
+    }
+
+    public boolean getBonus() {
+        return bonus;
     }
 }

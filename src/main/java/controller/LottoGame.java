@@ -3,27 +3,29 @@ package controller;
 import domain.Lotto;
 import domain.LottoMachine;
 import domain.LottoResult;
-import exceptions.InvalidPurchaseAmount;
-import messages.ErrorMessage;
-import validation.Validation;
 import view.InputView;
 import view.ResultView;
 
 import java.util.List;
+import java.util.Set;
 
 public class LottoGame {
-    private List<Lotto> lottoList;
-    private int purchaseAmount;
 
-    public void start() {
-        purchaseAmount = InputView.inputPurchaseAmount();
-        Validation.notLessThanInt(purchaseAmount, 0, new InvalidPurchaseAmount(ErrorMessage.NEGATIVE_PURCHASE_AMOUNT.getMessage()));
-        lottoList = LottoMachine.buySeveralLotto(purchaseAmount);
+    private static long removeChange(long money) {
+        final int LOTTO_PRICE = 1000;
+        return money / LOTTO_PRICE * LOTTO_PRICE;
+    }
+
+    public static void start() {
+        long purchaseAmount = removeChange(InputView.inputPurchaseAmount());
+        LottoMachine lottoMachine = new LottoMachine();
+        List<Lotto> lottoList = lottoMachine.buySeveralLotto(purchaseAmount);
         ResultView.printLottoList(lottoList);
 
-        List<Integer> lastWeekWinningNumbers = InputView.inputLastWeekWinningNumber();
-        Validation.lengthShouldBe(lastWeekWinningNumbers, 6, new InvalidPurchaseAmount(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
-        ResultView.printLottoResult(LottoResult.winningLottoCount(lastWeekWinningNumbers, lottoList));
-        ResultView.printRateOfReturn(LottoResult.rateOfReturn(lastWeekWinningNumbers, purchaseAmount));
+        Set<Integer> lastWeekWinningNumbers = InputView.inputLastWeekWinningNumber();
+        int bonusNumber = InputView.inputBonusNumber();
+        LottoResult lottoResult = new LottoResult(lastWeekWinningNumbers, bonusNumber);
+        ResultView.printLottoResult(lottoResult.winningLottoCount(lottoList));
+        ResultView.printRateOfReturn(lottoResult.rateOfReturn(purchaseAmount, lottoList));
     }
 }
