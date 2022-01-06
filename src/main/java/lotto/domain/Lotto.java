@@ -7,9 +7,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static lotto.domain.LottoNumber.MAX_NUMBER;
-import static lotto.domain.LottoNumber.MIN_NUMBER;
-
 public class Lotto {
     public static final int NUM_OF_LOTTO_NUMBERS_IN_LOTTO = 6;
     public static final String CHECK_LOTTO_NUMBER_MESSAGE = "각 번호는 1~45 사이의 숫자 값을 가져야 합니다.";
@@ -20,7 +17,6 @@ public class Lotto {
 
     public Lotto(List<LottoNumber> numberList) {
         checkNumOfLottoNumbers(numberList);
-        checkLottoNumbersInLotto(numberList);
         checkDuplicationInLotto(numberList);
         this.numberList = numberList;
     }
@@ -29,15 +25,6 @@ public class Lotto {
         if (lottoNumberList.size() != NUM_OF_LOTTO_NUMBERS_IN_LOTTO) {
             throw new IllegalArgumentException(CHECK_NUM_OF_LOTTO_NUMBERS);
         }
-    }
-
-    private void checkLottoNumbersInLotto(@NotNull List<LottoNumber> lottoNumberList) {
-        if (!lottoNumberList.stream().allMatch(this::checkLottoNumber))
-            throw new IllegalArgumentException(CHECK_LOTTO_NUMBER_MESSAGE);
-    }
-
-    private boolean checkLottoNumber(@NotNull LottoNumber lottoNumber) {
-        return MIN_NUMBER <= lottoNumber.getNumber() && lottoNumber.getNumber() <= MAX_NUMBER;
     }
 
     private void checkDuplicationInLotto(List<LottoNumber> lottoNumberList) {

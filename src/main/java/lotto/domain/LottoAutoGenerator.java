@@ -17,13 +17,13 @@ public class LottoAutoGenerator {
             .boxed()
             .collect(Collectors.toList());
 
-    public List<Lotto> getRandomLottos(long numOfLottos) {
+    public List<Lotto> getRandomLottos(long numOfLottos) throws IllegalArgumentException {
         return Stream.generate(() -> new Lotto(getRandomLottoNumbers()))
                 .limit(numOfLottos)
                 .collect(Collectors.toList());
     }
 
-    private @NotNull List<LottoNumber> getRandomLottoNumbers() {
+    private @NotNull List<LottoNumber> getRandomLottoNumbers() throws IllegalArgumentException {
         Collections.shuffle(randomNumbers);
         return randomNumbers.subList(0, NUM_OF_LOTTO_NUMBERS_IN_LOTTO)
                 .stream()

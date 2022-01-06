@@ -33,13 +33,13 @@ public class LottoInputScanner {
         return numOfManualLottos;
     }
 
-    public List<LottoNumber> getLottoNumbers() {
+    public List<LottoNumber> getLottoNumbers() throws IllegalArgumentException {
         return Arrays.stream(sc.nextLine().split(SEPARATOR))
                 .map(s -> new LottoNumber(Integer.parseInt(s.trim())))
                 .collect(Collectors.toList());
     }
 
-    public LottoNumber getBonusNumber() {
+    public LottoNumber getBonusNumber() throws IllegalArgumentException {
         System.out.println("보너스 볼을 입력해 주세요.");
         return new LottoNumber(Integer.parseInt(sc.nextLine()));
     }

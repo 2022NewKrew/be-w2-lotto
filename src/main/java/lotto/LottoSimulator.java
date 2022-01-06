@@ -86,12 +86,15 @@ public class LottoSimulator {
         LottoAutoGenerator lottoAutoGenerator = new LottoAutoGenerator();
         List<Lotto> purchasedLottoList = new ArrayList<>(manualLottoList);
         long numOfAutoLottos = purchasedInfo.getNumOfAutoLottos();
-        List<Lotto> autoLottoList = lottoAutoGenerator.getRandomLottos(numOfAutoLottos);
-
-        purchasedLottoList.addAll(autoLottoList);
-        lottoOutputPrinter.printPurchaseResult(purchasedInfo.getNumOfManualLottos(), purchasedLottoList);
-
-        return new PurchasedLottos(purchasedLottoList);
+        try {
+            List<Lotto> autoLottoList = lottoAutoGenerator.getRandomLottos(numOfAutoLottos);
+            purchasedLottoList.addAll(autoLottoList);
+            lottoOutputPrinter.printPurchaseResult(purchasedInfo.getNumOfManualLottos(), purchasedLottoList);
+            return new PurchasedLottos(purchasedLottoList);
+        } catch (IllegalArgumentException iae) {
+            lottoOutputPrinter.printDescription(iae.getMessage());
+            return purchaseLotto(purchasedInfo, manualLottoList);
+        }
     }
 
     private @NotNull WinningLotto getWinningInfo() {

@@ -33,8 +33,6 @@ class WinningLottoTest {
 
     static Stream<Arguments> invalidParameters() {
         return Stream.of(
-                Arguments.of("1,2,3,4,5,6", 46, CHECK_LOTTO_NUMBER_MESSAGE),
-                Arguments.of("40,41,42,43,44,45", -1, CHECK_LOTTO_NUMBER_MESSAGE),
                 Arguments.of("1,2,3,4,5,6", 3, CHECK_DUPLICATION_MESSAGE),
                 Arguments.of("40,41,42,43,44,45", 43, CHECK_DUPLICATION_MESSAGE)
         );

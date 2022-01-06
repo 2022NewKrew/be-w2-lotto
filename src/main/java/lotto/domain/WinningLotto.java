@@ -1,16 +1,11 @@
 package lotto.domain;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import static lotto.domain.Lotto.CHECK_DUPLICATION_MESSAGE;
-import static lotto.domain.Lotto.CHECK_LOTTO_NUMBER_MESSAGE;
-import static lotto.domain.LottoNumber.MAX_NUMBER;
-import static lotto.domain.LottoNumber.MIN_NUMBER;
 
 public class WinningLotto {
     private final Lotto lotto;
@@ -18,7 +13,6 @@ public class WinningLotto {
 
     public WinningLotto(Lotto lotto, LottoNumber bonusNumber) {
         checkDuplicationInWinningLotto(lotto, bonusNumber);
-        checkLottoNumber(bonusNumber);
         this.lotto = lotto;
         this.bonusNumber = bonusNumber;
     }
@@ -30,11 +24,6 @@ public class WinningLotto {
         if (lottoNumberList.size() != lottoNumberSet.size()) {
             throw new IllegalArgumentException(CHECK_DUPLICATION_MESSAGE);
         }
-    }
-
-    private void checkLottoNumber(@NotNull LottoNumber lottoNumber) {
-        if (MIN_NUMBER > lottoNumber.getNumber() || lottoNumber.getNumber() > MAX_NUMBER)
-            throw new IllegalArgumentException(CHECK_LOTTO_NUMBER_MESSAGE);
     }
 
     public Lotto getLotto() {
