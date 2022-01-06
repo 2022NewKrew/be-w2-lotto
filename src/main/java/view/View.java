@@ -40,7 +40,7 @@ public class View {
     }
 
     public List<Integer> getLotteryNumbers() {
-        return Arrays.asList(scanner.nextLine().split(",")).stream().map(String::strip).map(Integer::valueOf).collect(Collectors.toList());
+        return Arrays.stream(scanner.nextLine().split(",")).map(String::strip).map(Integer::valueOf).collect(Collectors.toList());
     }
 
     public int getResultBonusBall() {

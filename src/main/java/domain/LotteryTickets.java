@@ -21,14 +21,14 @@ public class LotteryTickets {
     public Map<LotteryPrize, Integer> getPrizeCount(LotteryResult lotteryResult) {
         Map<LotteryPrize, Integer> prizeCount = createInitializedPrizeCount();
         lotteryTickets.forEach(lotteryTicket -> {
-                LotteryPrize ticketLotteryPrize = LotteryPrize.getPrize(lotteryResult, lotteryTicket);
-                prizeCount.put(ticketLotteryPrize, prizeCount.get(ticketLotteryPrize) + 1);
+            LotteryPrize ticketLotteryPrize = LotteryPrize.getPrize(lotteryResult, lotteryTicket);
+            prizeCount.put(ticketLotteryPrize, prizeCount.get(ticketLotteryPrize) + 1);
         });
         return prizeCount;
     }
 
     private Map<LotteryPrize, Integer> createInitializedPrizeCount() {
-        return Arrays.stream(LotteryPrize.values()).collect(Collectors.toMap(Function.identity(), prize -> Integer.valueOf(0)));
+        return Arrays.stream(LotteryPrize.values()).collect(Collectors.toMap(Function.identity(), prize -> 0));
     }
 
     public void add(LotteryTicket lotteryTicket) {

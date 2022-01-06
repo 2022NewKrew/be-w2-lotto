@@ -18,7 +18,7 @@ public class LotteryResult {
     }
 
     public int getMatchingCountOf(LotteryTicket lotteryTicket) {
-        return (int) numbers.stream().filter(number -> lotteryTicket.contains(number)).count();
+        return (int) numbers.stream().filter(lotteryTicket::contains).count();
     }
 
     public boolean isBonusBallMatched(LotteryTicket lotteryTicket) {
