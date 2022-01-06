@@ -11,7 +11,7 @@ import java.util.List;
 public class LottoGame {
 
     public void start() {
-        int purchaseAmount = InputView.inputPurchaseAmount();
+        long purchaseAmount = InputView.inputPurchaseAmount();
         List<Lotto> lottoList = LottoMachine.buySeveralLotto(purchaseAmount);
         ResultView.printLottoList(lottoList);
 

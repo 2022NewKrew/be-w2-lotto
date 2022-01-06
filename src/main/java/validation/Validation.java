@@ -3,8 +3,8 @@ package validation;
 import java.util.List;
 
 public class Validation {
-    public static void notLessThanInt(int object, int another, RuntimeException runtimeException) {
-        condition(Integer.compare(object, another) >= 0, runtimeException);
+    public static void notLessThanLong(long object, long another, RuntimeException runtimeException) {
+        condition(Long.compare(object, another) >= 0, runtimeException);
     }
 
     public static void notMoreThanInt(int object, int another, RuntimeException runtimeException) {

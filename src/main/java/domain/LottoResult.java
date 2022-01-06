@@ -37,7 +37,7 @@ public class LottoResult {
         return lottoResult;
     }
 
-    public double rateOfReturn(int purchaseAmount) {
+    public double rateOfReturn(long purchaseAmount) {
         // TODO - 수익률을 계산하는 메소드
         return -64.28;
     }

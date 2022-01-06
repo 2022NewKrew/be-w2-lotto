@@ -15,7 +15,7 @@ class ValidationTest {
         int n1 = 10;
         int n2 = 1;
 
-        Validation.notLessThanInt(n1, n2, new RuntimeException());
+        Validation.notLessThanLong(n1, n2, new RuntimeException());
     }
 
     @Test
@@ -25,7 +25,7 @@ class ValidationTest {
         int n2 = 1;
 
         Assertions.assertThrows(RuntimeException.class,
-                () -> Validation.notLessThanInt(n1, n2, new RuntimeException()));
+                () -> Validation.notLessThanLong(n1, n2, new RuntimeException()));
     }
 
     @Test

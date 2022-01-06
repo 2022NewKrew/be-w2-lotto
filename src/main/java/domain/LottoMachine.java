@@ -21,10 +21,10 @@ public class LottoMachine {
     public LottoMachine() {
     }
 
-    public static List<Lotto> buySeveralLotto(int purchaseAmount) {
-        Validation.notLessThanInt(purchaseAmount, 0, new InvalidPurchaseAmount(ErrorMessage.NEGATIVE_PURCHASE_AMOUNT.getMessage()));
+    public static List<Lotto> buySeveralLotto(long purchaseAmount) {
+        Validation.notLessThanLong(purchaseAmount, 0, new InvalidPurchaseAmount(ErrorMessage.NEGATIVE_PURCHASE_AMOUNT.getMessage()));
         // TODO - 남은 금액 계산
-        int lottoCount = purchaseAmount / LOTTO_PRICE;
+        long lottoCount = purchaseAmount / LOTTO_PRICE;
 
         return Stream.generate(LottoMachine::buy)
                 .limit(lottoCount)
