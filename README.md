@@ -177,8 +177,8 @@
 - 이전 단계와 동일하게 적용한다.
 ### 상세 구현사항
 - SparkJava와 Template Engine 중 Handlebars Template Engine을 활용
-- 제공받은 템플릿 중 `index.html`는 정적 페이지이므로 resources/static에, 나머지는 동적 페이지로 활용되므로 resources/templates에 넣음
-- 각 페이지를 탐색할 때 사용할 `LottoController` 클래스를 만듦
+- 제공받은 템플릿 중 `index.html`는 정적 페이지이므로 resources/static에, 나머지는 동적 페이지로 활용되므로 resources/templates에 위치
+- 각 페이지를 탐색하기 위해 `LottoController` 클래스 정의
 - 기존에 UI 로직을 담당하던 `LottoView` 클래스를 삭제하고 `LottoGame` 클래스와 통합, 고로 게임을 진행하는 핵심 로직은 전부 `LottoGame`에 포함
 - Template Engine에서 읽어내기 위해 부득이하게 `Lottos` 클래스에서 getter 사용
 - 예외가 발생하면 `error.html`에 메시지를 보내도록 처리
