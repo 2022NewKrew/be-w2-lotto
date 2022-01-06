@@ -1,6 +1,7 @@
 package service;
 
 import domain.lotto.*;
+import dto.LottoRequest;
 
 import java.util.*;
 import java.util.stream.Collectors;

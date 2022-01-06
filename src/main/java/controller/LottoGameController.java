@@ -1,6 +1,7 @@
 package controller;
 
 import domain.lotto.*;
+import dto.LottoRequest;
 import service.LottoInputService;
 import service.LottoService;
 import view.LottoRenderer;

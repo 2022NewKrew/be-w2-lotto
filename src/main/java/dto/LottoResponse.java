@@ -1,4 +1,6 @@
-package domain.lotto;
+package dto;
+
+import domain.lotto.Lotto;
 
 public class LottoResponse {
 

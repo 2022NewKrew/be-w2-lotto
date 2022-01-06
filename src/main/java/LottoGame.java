@@ -1,6 +1,6 @@
 import controller.LottoGameController;
 import domain.lotto.Lotto;
-import domain.lotto.LottoResponse;
+import dto.LottoResponse;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
