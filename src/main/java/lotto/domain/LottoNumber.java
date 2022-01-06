@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
-import static lotto.domain.Lotto.CHECK_LOTTO_NUMBER_MESSAGE;
+import static lotto.view.LottoOutputPrinter.CHECK_LOTTO_NUMBER_MESSAGE;
 
 public class LottoNumber implements Comparable<LottoNumber> {
     public static final int MIN_NUMBER = 1;

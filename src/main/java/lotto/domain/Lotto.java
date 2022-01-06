@@ -7,11 +7,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static lotto.view.LottoOutputPrinter.CHECK_DUPLICATION_MESSAGE;
+import static lotto.view.LottoOutputPrinter.CHECK_NUM_OF_LOTTO_NUMBERS;
+
 public class Lotto {
     public static final int NUM_OF_LOTTO_NUMBERS_IN_LOTTO = 6;
-    public static final String CHECK_LOTTO_NUMBER_MESSAGE = "각 번호는 1~45 사이의 숫자 값을 가져야 합니다.";
-    public static final String CHECK_DUPLICATION_MESSAGE = "각 번호는 서로 중복될 수 없습니다.";
-    public static final String CHECK_NUM_OF_LOTTO_NUMBERS = "번호는 " + NUM_OF_LOTTO_NUMBERS_IN_LOTTO + "개를 입력해야 합니다.";
 
     private final List<LottoNumber> numberList;
 

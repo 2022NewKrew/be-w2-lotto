@@ -2,7 +2,7 @@ package lotto.domain;
 
 import java.util.*;
 
-import static lotto.domain.Lotto.CHECK_DUPLICATION_MESSAGE;
+import static lotto.view.LottoOutputPrinter.CHECK_DUPLICATION_MESSAGE;
 
 public class WinningLotto {
     private final Lotto lotto;

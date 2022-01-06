@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static lotto.domain.Lotto.*;
+import static lotto.view.LottoOutputPrinter.CHECK_DUPLICATION_MESSAGE;
 import static org.junit.jupiter.api.Assertions.*;
 
 class WinningLottoTest {
