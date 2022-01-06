@@ -2,7 +2,6 @@ package application;
 
 import config.AppConfig;
 import domain.Lotto;
-import domain.LottoAuto;
 import domain.LottoNormal;
 import domain.LottoStatistic;
 import service.LottoService;
@@ -47,13 +46,13 @@ public class ConsoleApplication {
         purchaseCount = calculateLottoCount();
         normalLottoCount = inputNormalPurchaseCount();
         autoLottoCount = purchaseCount - normalLottoCount;
-        lottoStatistic = new LottoStatistic(purchaseCount, normalLottoCount, autoLottoCount);
+        lottoStatistic = lottoService.createLottoStatistic(purchaseCount, normalLottoCount, autoLottoCount);
     }
 
     private void createLottoList() {
 
         List<Lotto> normalLottoList = inputNormalLottoList(normalLottoCount);
-        List<Lotto> autoLottoList = createAutoLottoList(autoLottoCount);
+        List<Lotto> autoLottoList = lottoService.createAutoLottoList(autoLottoCount);
         lottoStatistic.addLottos(normalLottoList);
         lottoStatistic.addLottos(autoLottoList);
     }
@@ -161,17 +160,5 @@ public class ConsoleApplication {
         }
 
         return result;
-    }
-
-    private List<Lotto> createAutoLottoList(int count) {
-        List<Lotto> lottos = new ArrayList<>();
-
-        for (int i = 0; i < count; i++) {
-            LottoAuto lottoAuto = new LottoAuto();
-            lottoAuto.createRandomNumber();
-            lottos.add(lottoAuto);
-        }
-
-        return lottos;
     }
 }
