@@ -3,7 +3,10 @@ package lotto.domain.result;
 import lotto.domain.lotto.Lotteries;
 import lotto.domain.lotto.number.BonusNumber;
 import lotto.domain.lotto.number.Lotto;
+import lotto.domain.lotto.number.LottoNumberFactory;
 import lotto.domain.lotto.number.WinningNumber;
+import lotto.domain.lotto.result.WinningRanking;
+import lotto.domain.lotto.result.WinningResult;
 import lotto.dto.WinningResultOutput;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +16,8 @@ import java.util.*;
 
 public class WinningResultTest {
 
+    LottoNumberFactory numberFactory = new LottoNumberFactory();
+
     @Test
     @DisplayName("당첨자 확인 테스트")
     void lottoWinningResultTest() {
@@ -20,8 +25,8 @@ public class WinningResultTest {
         WinningNumber winningNumber = new WinningNumber(Arrays.asList(5, 12, 25, 1, 2, 3));
         BonusNumber bonusNumber = new BonusNumber(4);
         List<Lotto> lotteries = new ArrayList<>();
-        lotteries.add(Lotto.createLotto(() -> Arrays.asList(5, 12, 25, 32, 35, 39)));
-        lotteries.add(Lotto.createLotto(() -> Arrays.asList(5, 23, 32, 37, 38, 43)));
+        lotteries.add(Lotto.createLotto(numberFactory.generateManualLotto(Arrays.asList(5, 12, 25, 32, 35, 39))));
+        lotteries.add(Lotto.createLotto(numberFactory.generateManualLotto(Arrays.asList(5, 23, 32, 37, 38, 43))));
         int lottoPrice = 2000;
 
         Map<WinningRanking, Long> expected = new HashMap<>();
@@ -41,9 +46,9 @@ public class WinningResultTest {
         WinningNumber winningNumber = new WinningNumber(Arrays.asList(5, 12, 25, 1, 2, 3));
         BonusNumber bonusNumber = new BonusNumber(4);
         List<Lotto> lotteries = new ArrayList<>();
-        lotteries.add(Lotto.createLotto(() -> Arrays.asList(5, 12, 25, 32, 35, 39)));
-        lotteries.add(Lotto.createLotto(() -> Arrays.asList(5, 12, 25, 1, 2, 4)));
-        lotteries.add(Lotto.createLotto(() -> Arrays.asList(5, 23, 32, 37, 38, 43)));
+        lotteries.add(Lotto.createLotto(numberFactory.generateManualLotto(Arrays.asList(5, 12, 25, 32, 35, 39))));
+        lotteries.add(Lotto.createLotto(numberFactory.generateManualLotto(Arrays.asList(5, 12, 25, 1, 2, 4))));
+        lotteries.add(Lotto.createLotto(numberFactory.generateManualLotto(Arrays.asList(5, 23, 32, 37, 38, 43))));
         int lottoPrice = 3000;
 
         Map<WinningRanking, Long> expected = new HashMap<>();
