@@ -5,11 +5,13 @@
 controller
   ⎩ LottoController
 domain
+  ├ LottoNumber
+  ├ LottoNumbers
   ├ LottoRank
   ├ LottoResultCalculator
   ├ LottoTicket
-  ├ LottoTicketFactory
-  ⎩ LottoTicketFactoryImpl
+  ├ RandomLottoTicket
+  ⎩ WinningCondition
 expection
   ⎩ InvalidInputFormatException
 view
@@ -29,6 +31,22 @@ Main
 <br>
 
 ### domain
+#### `LottoNumber`
+- 로또 번호
+- 로또 번호와 관련된 유효성 검사
+
+#### `LottoNumbers`
+- 로또 티켓에 들어가는 로또 번호 목록 (로또 번호 6개)
+- 로또 번호가 중복된 것이 있는지, 로또 번호는 6개가 맞는지 유효성 검사
+
+|메서드| 설명                                |
+|---|-----------------------------------|
+|`createByNumbers()`| 숫자 리스트를 전달하면 LottoNumbers를 반환한다.  |
+|`contains()`| 로또 번호가 포함되어 있는지 확인한다.             |
+|`countMatchNumberOfLottoNumbers()`| LottoNumbers를 전달하면 일치하는 개수를 반환한다. |
+
+<br>
+
 #### `LottoRank`
 - 로또 등수
 
@@ -51,27 +69,28 @@ Main
 #### `LottoTicket`
 - 로또 티켓
 
-|메서드|설명|
-|---|---|
-|`containNumbers()`|숫자를 포함하고 있는지 확인한다.|
-|`countEqualNumbers()`|전달하는 넘버 리스트와 비교해서 같은 숫자 개수를 반환한다.|
+|메서드| 설명                                  |
+|---|-------------------------------------|
+|`containLottoNumber()`| 로또 번호를 포함하고 있는지 확인한다.               |
+|`countMatchNumberOfLottoNumbers()`| 전달하는 로또 번호 목록와 비교해서 같은 숫자 개수를 반환한다. |
 
 <br>
 
-#### `LottoTicketFactory`
-- 로또 티켓을 생성하는 역할의 인터페이스
-
-|메서드|설명|
-|---|---|
-|`createRandomLottoTicket()`|랜덤한 숫자의 로또 티켓을 생성한다.|
-|`createRandomLottoTickets()`|전달하는 개수만큼의 로또 티켓 리스트를 생성한다.|
-|`createLottoTicket()`|지정하는 번호의 로또 티켓을 생성한다.|
-|`createLottoTickets()`|지정하는 번호의 로또 티켓 리스트를 생성한다.|
+#### `RandomLottoTicket`
+- 랜덤으로 생성되는 로또 티켓
+- `LottoTicket`을 상속받는다.
 
 <br>
 
-#### `LottoTicketFactoryImpl`
-- `LottoTicketFactory` 인터페이스의 구현체
+#### `WinningCondition`
+- 당첨 로또 번호 목록과 보너스 로또 번호를 가지고 있다.
+
+|메서드| 설명                                         |
+|---|--------------------------------------------|
+|`countMatchNumberOfLottoTicket()`| 로또 티켓을 전달하면 당첨 로또 번호와 일치하는 로또 넘버 개수를 반환한다. |
+|`containsBonusLottoNumber()`| 보너스 넘버를 포함하고 있는지 확인한다.                     |
+
+<br>
 
 ### exception
 #### `InvalidInputException`
