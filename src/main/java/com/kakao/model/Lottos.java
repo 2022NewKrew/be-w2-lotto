@@ -59,9 +59,8 @@ public class Lottos {
     }
 
     // 로또의 당첨 등수 확인
-    public Map<LottoWinningReward, Integer> matchLottosAreWinning(LottoWinning lottoWinning) {
-        // 해시맵 사용
-        Map<LottoWinningReward, Integer> countOfWinningLottos = new HashMap<>();
+    public LottoWinningResult matchLottosAreWinning(LottoWinning lottoWinning) {
+        LottoWinningResult countOfWinningLottos = new LottoWinningResult();
         if( lottoWinning == null ){
             return countOfWinningLottos;
         }
@@ -70,16 +69,9 @@ public class Lottos {
             boolean bonusBallIsMatched = lotto.matchBonusBall(lottoWinning.getBonusBall());
 
             LottoWinningReward rewardKey = new LottoWinningReward(winningNumber, bonusBallIsMatched);
-            updateCountOfWinningLottos(countOfWinningLottos, rewardKey);
+            countOfWinningLottos.addCountAndUpdateByKey(rewardKey);
         }
         return countOfWinningLottos;
-    }
-    private void updateCountOfWinningLottos(Map<LottoWinningReward, Integer> countOfWinningLottos, LottoWinningReward rewardKey) {
-        Integer countOfWinningNumber = countOfWinningLottos.get(rewardKey);
-        if(countOfWinningNumber == null){
-            countOfWinningNumber = 0;
-        }
-        countOfWinningLottos.put(rewardKey, countOfWinningNumber+1);
     }
 
     // getter
