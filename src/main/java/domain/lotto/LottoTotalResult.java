@@ -9,14 +9,14 @@ import static java.util.stream.Collectors.*;
 public class LottoTotalResult {
 
     private final List<LottoResult> lottoResults;
+    private final int totalEarning;
     private final double earningRatio;
-    private int totalEarning;
 
     public LottoTotalResult(List<LottoResult> lottoResults, int inputMoney) {
         this.lottoResults = lottoResults;
-        for (LottoResult lottoResult : lottoResults) {
-            this.totalEarning += lottoResult.getPrizeMoney();
-        }
+        this.totalEarning = lottoResults.stream()
+                .mapToInt(LottoResult::getPrizeMoney)
+                .sum();
         this.earningRatio = calculateEarningRatio(inputMoney);
     }
 
