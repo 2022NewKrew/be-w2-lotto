@@ -3,6 +3,7 @@ package controller;
 import domain.lotto.*;
 import dto.LottoRequest;
 import dto.LottoResponse;
+import dto.LottoResultResponse;
 import service.LottoInputService;
 import service.LottoService;
 import view.LottoRenderer;
@@ -15,6 +16,7 @@ public class LottoGameController {
 
     private final LottoInputService lottoInputService;
     private final LottoService lottoService;
+    private List<Lotto> lottos;
 
     public LottoGameController() {
         this.lottoInputService = new LottoInputService();
@@ -23,51 +25,57 @@ public class LottoGameController {
 
     public List<LottoResponse> createLotto(String inputMoney, String inputManualRequests) {
 
-        int money = lottoInputService.getMoney(inputMoney);
+        int money = lottoInputService.getIntegerFromString(inputMoney);
         List<LottoRequest> lottoRequests = new ArrayList<>();
         if (!inputManualRequests.isEmpty()) {
             lottoRequests = lottoInputService.getManualLottoRequests(inputManualRequests);
         }
 
-        List<Lotto> lottos = lottoService.createLotto(money, lottoRequests);
+        lottos = lottoService.createLotto(money, lottoRequests);
         return lottos.stream()
                 .map(LottoResponse::new)
                 .collect(Collectors.toList());
     }
 
-    public void start() {
-        LottoGameInfo lottoGameInfo = null;
+    public LottoResultResponse getLottoResult(String winningNumber, String bonusNumber) {
+        int bonusLottoNumber = lottoInputService.getIntegerFromString(bonusNumber);
 
-        List<Lotto> lottoList = lottoGameInfo.getManualPurchaseLottoList();
-        lottoList.addAll(LottoGenerator.generateAllLotto(lottoGameInfo));
-        LottoRenderer.renderLotto(lottoList, lottoGameInfo);
+        LottoRequest lottoRequest = lottoInputService.parseLottoRequest(winningNumber);
+        WinningLotto winningLotto = lottoService.createWinningLotto(lottoRequest, bonusLottoNumber);
 
-        WinningLotto winningLotto = inputWinningLottoNumbersAndValidate();
-
-        LottoTotalResult lottoTotalResult = LottoCalculator.calculate(lottoGameInfo.getInputMoney(), lottoList, winningLotto);
-        renderResult(lottoTotalResult);
+        LottoTotalResult totalResult = LottoCalculator.calculate(lottos, winningLotto);
+        return new LottoResultResponse(totalResult);
     }
 
-    private WinningLotto inputWinningLottoNumbersAndValidate() {
-        WinningLotto winningLotto = null;
-        while (winningLotto == null) {
-            winningLotto = inputWinningLottoNumbers();
-        }
-        return winningLotto;
-    }
+//    public void start() {
+//        LottoGameInfo lottoGameInfo = null;
+//
+//        WinningLotto winningLotto = inputWinningLottoNumbersAndValidate();
+//
+//        LottoTotalResult lottoTotalResult = LottoCalculator.calculate(lottoGameInfo.getInputMoney(), lottoList, winningLotto);
+//        renderResult(lottoTotalResult);
+//    }
 
-    private WinningLotto inputWinningLottoNumbers() {
-        try {
-            return lottoInputService.inputWinningLottoNumbers();
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-
-    private void renderResult(LottoTotalResult lottoTotalResult) {
-        LottoRenderer.renderResult(lottoTotalResult);
-        LottoRenderer.renderEarningRatio(lottoTotalResult);
-    }
+//    private WinningLotto inputWinningLottoNumbersAndValidate() {
+//        WinningLotto winningLotto = null;
+//        while (winningLotto == null) {
+//            winningLotto = inputWinningLottoNumbers();
+//        }
+//        return winningLotto;
+//    }
+//
+//    private WinningLotto inputWinningLottoNumbers() {
+//        try {
+//            return lottoInputService.inputWinningLottoNumbers();
+//        } catch (IllegalArgumentException e) {
+//            System.out.println(e.getMessage());
+//            return null;
+//        }
+//    }
+//
+//    private void renderResult(LottoTotalResult lottoTotalResult) {
+//        LottoRenderer.renderResult(lottoTotalResult);
+//        LottoRenderer.renderEarningRatio(lottoTotalResult);
+//    }
 
 }

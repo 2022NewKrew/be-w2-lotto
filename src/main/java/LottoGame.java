@@ -1,5 +1,6 @@
 import controller.LottoGameController;
 import dto.LottoResponse;
+import dto.LottoResultResponse;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -33,9 +34,20 @@ public class LottoGame {
 
             return render(model, "/show.html");
         });
+
+        post("/matchLotto", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+
+            String winningNumber = req.queryParams("winningNumber");
+            String bonusNumber = req.queryParams("bonusNumber");
+
+            LottoResultResponse lottoResult = game.getLottoResult(winningNumber, bonusNumber);
+
+            return render(lottoResult, "/result.html");
+        });
     }
 
-    private static String render(Map<String, Object> model, String templatePath) {
+    private static String render(Object model, String templatePath) {
         return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
     }
 }
