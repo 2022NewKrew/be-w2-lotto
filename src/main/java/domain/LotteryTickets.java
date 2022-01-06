@@ -2,6 +2,7 @@ package domain;
 
 import dto.LotteryTicketsDTO;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -12,7 +13,13 @@ public class LotteryTickets {
     private final List<LotteryTicket> lotteryTickets;
 
     public LotteryTickets(List<LotteryTicket> lotteryTickets) {
-        this.lotteryTickets = lotteryTickets;
+        this.lotteryTickets = new ArrayList<>(lotteryTickets);
+    }
+
+    public LotteryTickets(LotteryTickets lotteryTickets1, LotteryTickets lotteryTickets2) {
+        lotteryTickets = new ArrayList<>();
+        lotteryTickets.addAll(lotteryTickets1.lotteryTickets);
+        lotteryTickets.addAll(lotteryTickets2.lotteryTickets);
     }
 
     public Map<LotteryPrize, Integer> getPrizeCount(LotteryResult lotteryResult) {
