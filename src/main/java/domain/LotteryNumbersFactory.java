@@ -3,18 +3,16 @@ package domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+
+import static domain.util.LotteryConfigs.NUMBERS_LENGTH;
+import static domain.util.LotteryConfigs.NUMBERS_DOMAIN;
 
 public class LotteryNumbersFactory {
-    private static final int NUMBER_DOMAIN_START = 1;
-    private static final int NUMBER_DOMAIN_END = 45;
-    private static final List<Integer> NUMBERS_DOMAIN = IntStream.rangeClosed(NUMBER_DOMAIN_START, NUMBER_DOMAIN_END).boxed().collect(Collectors.toList());
-    private static final int NUMBERS_LENGTH = 6;
+    private final static List<Integer> NUMBERS_DOMAIN_AS_LIST = new ArrayList<>(NUMBERS_DOMAIN);
 
     public List<Integer> getRandomNumbers() {
-        Collections.shuffle(NUMBERS_DOMAIN);
-        List<Integer> numbers = new ArrayList<>(NUMBERS_DOMAIN.subList(0, NUMBERS_LENGTH));
+        Collections.shuffle(NUMBERS_DOMAIN_AS_LIST);
+        List<Integer> numbers = new ArrayList<>(NUMBERS_DOMAIN_AS_LIST.subList(0, NUMBERS_LENGTH));
         Collections.sort(numbers);
         return numbers;
     }
