@@ -1,6 +1,8 @@
-package domain.lotto;
+package domain;
 
 import domain.lottery.LotteryMachine;
+import domain.lotto.Lotto;
+import domain.lotto.LottoWallet;
 import domain.statistics.YieldStatistics;
 import java.io.IOException;
 import java.util.List;

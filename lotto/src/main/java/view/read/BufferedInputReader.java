@@ -1,6 +1,6 @@
 package view.read;
 
-import domain.lottery.BonusNumber;
+import domain.lotto.LottoNumber;
 import domain.lottery.WinningLotto;
 import domain.lotto.Lotto;
 import java.io.BufferedReader;
@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import utils.StringUtils;
 
 /**
@@ -76,28 +77,31 @@ public class BufferedInputReader implements InputReader {
 
   @Override
   public WinningLotto getLastWinningLottery() throws IOException {
-    List<Integer> winningLotto = getWinningLotto();
-    BonusNumber bonusNumber = getBonusNumber();
+    List<LottoNumber> winningLotto = getWinningLotto();
+    LottoNumber bonusNumber = getBonusNumber();
     return WinningLotto.of(winningLotto, bonusNumber);
   }
 
 
-  private List<Integer> getWinningLotto() throws IOException {
+  private List<LottoNumber> getWinningLotto() throws IOException {
     println("지난 주 당첨 번호를 입력해 주세요.");
     return getValidLottoNumbers();
   }
 
 
-  private List<Integer> getValidLottoNumbers() throws IOException {
-    List<Integer> numbers = StringUtils.integersSplitByDelimiter(reader.readLine());
-    Lotto.validCheck(numbers);
-    return numbers;
+  private List<LottoNumber> getValidLottoNumbers() throws IOException {
+    List<LottoNumber> lottoList = StringUtils.integersSplitByDelimiter(reader.readLine())
+        .stream()
+        .map(LottoNumber::of)
+        .collect(Collectors.toList());
+    Lotto.validCheck(lottoList);
+    return lottoList;
   }
 
 
-  private BonusNumber getBonusNumber() throws IOException {
+  private LottoNumber getBonusNumber() throws IOException {
     println("보너스 볼을 입력해 주세요.");
-    return BonusNumber.of(reader.readLine());
+    return LottoNumber.of(reader.readLine());
   }
 
 

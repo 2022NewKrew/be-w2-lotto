@@ -1,4 +1,4 @@
-import domain.lotto.LottoManager;
+import domain.LottoManager;
 import java.io.IOException;
 
 public class App {

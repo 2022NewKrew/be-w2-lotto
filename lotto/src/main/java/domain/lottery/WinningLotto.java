@@ -1,6 +1,7 @@
 package domain.lottery;
 
 import domain.lotto.Lotto;
+import domain.lotto.LottoNumber;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,12 +14,12 @@ import java.util.Objects;
  */
 public class WinningLotto extends Lotto {
 
-  private final BonusNumber bonusNumber;
+  private final LottoNumber bonusNumber;
 
-  private WinningLotto(List<Integer> winningLottoNumbers, BonusNumber bonusNumber) {
+  private WinningLotto(List<LottoNumber> winningLottoNumbers, LottoNumber bonusNumber) {
     super(winningLottoNumbers);
     this.bonusNumber = Objects.requireNonNull(bonusNumber, "bonusNumber 값이 null 입니다.");
-    if (isBonusMatched(bonusNumber)) {
+    if (hasNumber(bonusNumber)) {
       throw new IllegalArgumentException(
           "bonusNumber 값은 로또 값과 중복될 수 없습니다."
               + "[bonusNumber : " + bonusNumber
@@ -28,12 +29,12 @@ public class WinningLotto extends Lotto {
   }
 
 
-  public static WinningLotto of(List<Integer> winningLottoNumbers, BonusNumber bonusNumber) {
+  public static WinningLotto of(List<LottoNumber> winningLottoNumbers, LottoNumber bonusNumber) {
     return new WinningLotto(winningLottoNumbers, bonusNumber);
   }
 
 
-  public BonusNumber getBonusNumber() {
+  public LottoNumber getBonusNumber() {
     return bonusNumber;
   }
 
