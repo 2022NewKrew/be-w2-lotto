@@ -12,9 +12,11 @@ public class ConsoleOutputView implements OutputView {
     private static final String LOTTO_STATISTICS_TITLE = "당첨 통계";
     private static final String TITLE_END_DELIMITER = "---------";
 
-    public void printLottoTicketCount(int inputPrice) {
-        int lottoTicketCount = inputPrice / LottoMachine.TICKET_PRICE;
-        System.out.println(lottoTicketCount + "개를 구매했습니다.");
+    public void printLottoTicketCount(LottoTicketCount ticketCount) {
+        System.out.println();
+        int manualCount = ticketCount.getManualTicketCount();
+        int autoCount = ticketCount.getAutoTicketCount();
+        System.out.printf("수동으로 %d장, 자동으로 %d장을 구매했습니다.%n", manualCount, autoCount);
     }
 
     public void printLottoTickets(LottoTickets lottoTickets) {
