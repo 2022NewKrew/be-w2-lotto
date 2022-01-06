@@ -20,10 +20,10 @@ public class LotteryTickets {
 
     public Map<LotteryPrize, Integer> getPrizeCount(LotteryResult lotteryResult) {
         Map<LotteryPrize, Integer> prizeCount = createInitializedPrizeCount();
-        for (var ticket : lotteryTickets) {
-            LotteryPrize ticketLotteryPrize = LotteryPrize.getPrize(lotteryResult, ticket);
-            prizeCount.put(ticketLotteryPrize, prizeCount.get(ticketLotteryPrize) + 1);
-        }
+        lotteryTickets.forEach(lotteryTicket -> {
+                LotteryPrize ticketLotteryPrize = LotteryPrize.getPrize(lotteryResult, lotteryTicket);
+                prizeCount.put(ticketLotteryPrize, prizeCount.get(ticketLotteryPrize) + 1);
+        });
         return prizeCount;
     }
 
