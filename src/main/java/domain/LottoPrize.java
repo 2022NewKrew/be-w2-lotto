@@ -34,11 +34,9 @@ public enum LottoPrize {
     }
 
     public static LottoPrize getLottoRank(long numberOfMatches, boolean isMatchBonusBall) {
-        if(numberOfMatches == SECOND_PLACE.numberOfMatches && isMatchBonusBall == SECOND_PLACE.allowBonusBall)
-            return SECOND_PLACE;
-
         return Arrays.stream(values())
                 .filter(value -> value.numberOfMatches == numberOfMatches)
+                .filter(value -> value.numberOfMatches != SECOND_PLACE.getNumberOfMatches() || value.allowBonusBall == isMatchBonusBall)
                 .findFirst()
                 .orElse(NOTHING);
     }
