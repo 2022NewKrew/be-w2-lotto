@@ -10,12 +10,19 @@ public class WinningLotto {
     private final LottoNumber bonusNumber;
 
     private WinningLotto(Lotto lotto, LottoNumber bonusNumber) {
+        validate(lotto, bonusNumber);
         this.lotto = lotto;
         this.bonusNumber = bonusNumber;
     }
 
     public static WinningLotto of(Lotto lotto, LottoNumber bonusNumber) {
         return new WinningLotto(lotto, bonusNumber);
+    }
+
+    private void validate(Lotto lotto, LottoNumber bonusNumber) {
+        if (lotto.contains(bonusNumber)) {
+            throw new IllegalArgumentException("보너스 번호가 이미 당첨 번호에 속해 있습니다.");
+        }
     }
 
     public Criteria compare(Lotto lotto) {

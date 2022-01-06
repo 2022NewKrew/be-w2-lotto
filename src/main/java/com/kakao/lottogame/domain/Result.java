@@ -39,8 +39,7 @@ public class Result {
     }
 
     public long calculateProfitRate(Money money) {
-        System.out.println(money.getValue());
-        return (calculateProfit() - money.getValue()) * 100 / money.getValue();
+        return (calculateProfit() - money.getValue()) * 100 / money.getPrincipal();
     }
 
     private long calculateProfit() {
