@@ -7,21 +7,39 @@ import com.kakao.model.Lottos;
 
 public class LottoGame {
 
+    private Integer countOfManualLotto;
     private Integer moneyToBuyLotto;
     private Lottos lottos;
     private LottoWinning lottoWinning;
 
     // 로또 구매 진행
-    private void inputLotto() {
+    private void generateLottos() {
+        Integer moneyToBuyNewLotto = null; // 돈 입력
+        Integer countOfManualLotto = null; // 수동으로 입력할 로또
         Lottos newLottos = null;
-        Integer moneyToBuyNewLotto = null;
+
         while(newLottos == null) {
             moneyToBuyNewLotto = LottoIO.inputMoney();
             newLottos = LottoIO.buyLottos(moneyToBuyNewLotto);
         }
+        while( countOfManualLotto == null ) {
+            countOfManualLotto = LottoIO.inputCountOfManualLotto();
+        }
+
+
         this.moneyToBuyLotto = moneyToBuyNewLotto;
         this.lottos = newLottos;
     }
+    private void inputMoney () { // 돈입력
+
+    }
+    private void inputManualLottos () { // 수동 로또
+
+    }
+    private void inputAutoLottos () { // 자동 로또
+
+    }
+
 
     // 당첨번호 입력
     private void inputWinning() {
@@ -42,7 +60,7 @@ public class LottoGame {
 
     // 메인에서 호출할 실행함수
     public void play() {
-        inputLotto();
+        generateLottos();
         printLotto();
 
         inputWinning();

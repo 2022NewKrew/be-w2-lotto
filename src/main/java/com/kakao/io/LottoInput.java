@@ -16,17 +16,19 @@ class LottoInput {
 
     private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-    public static Integer inputMoney() {
-        Integer money = null; // 기본값은 null 이므로, 에러가 발생하면 null 반환
+    // 단일 숫자 입력
+    static Integer inputSingleNumber() {
+        Integer number = null; // 기본값은 null 이므로, 에러가 발생하면 null 반환
         try {
-            money = Integer.parseInt(br.readLine());
+            number = Integer.parseInt(br.readLine());
         } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
         }
-        return money;
+        return number;
     }
 
-    public static LottoWinning inputWinning() {
+    // 로또 당첨 정보
+    static LottoWinning inputWinning() {
         LottoWinning lottoWinning = null;
         try {
             List<String> strList = TextHelper.seperateString(br.readLine(), LottoInputData.REQUEST_SEPERATOR_OF_WINNING);
@@ -37,8 +39,8 @@ class LottoInput {
         }
         return lottoWinning;
     }
-
-    public static Integer inputBonusBall() {
+    // 보너스볼
+    static Integer inputBonusBall() {
         Integer bonusBallNumber = null;
         try {
             bonusBallNumber = Integer.parseInt(br.readLine());

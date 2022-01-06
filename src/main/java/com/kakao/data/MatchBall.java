@@ -11,7 +11,7 @@ public enum MatchBall {
     ;
 
     private final LottoWinningReward lottoWinningReward;
-    private int rewardPrice;
+    private final int rewardPrice;
 
     MatchBall(int countOfMatchNumber, int rewardPrice) {
         this.rewardPrice = rewardPrice;

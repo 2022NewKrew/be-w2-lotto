@@ -3,6 +3,9 @@ package com.kakao.model;
 import com.kakao.data.LottoData;
 import com.kakao.exception.MoneyRangeException;
 import com.kakao.exception.PickedNumberException;
+import com.kakao.helper.LottoHelper;
+import com.kakao.model.lotto.AutoLotto;
+import com.kakao.model.lotto.Lotto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +21,7 @@ public class Lottos {
         checkMoneyRange(moneyToBuyLottos);
 
         int numberOfLotto = moneyToBuyLottos/LottoData.PRICE_OF_LOTTO;
-        this.lottoList = getNewLottos(numberOfLotto);
+        this.lottoList = getNewAutoLottos(numberOfLotto);
     }
 
     // 유효성 검사
@@ -29,26 +32,26 @@ public class Lottos {
     }
 
     // 로또용지들 생성함수
-    private List<Lotto> getNewLottos(int numberOfLottos) {
+    private List<Lotto> getNewAutoLottos(int numberOfLottos) {
         List<Lotto> lottoList = new ArrayList<>();
         for(int i=0; i<numberOfLottos; i++){
-            lottoList.add(getNewLotto());
+            lottoList.add(getNewAutoLotto());
         }
         return lottoList;
     }
-    private Lotto getNewLotto() {
+    private Lotto getNewAutoLotto() {
         Lotto newLotto = null;
         while(newLotto == null) {
-            newLotto = generateLotto();
+            newLotto = generateAutoLotto();
         }
         return newLotto;
     }
 
     // 로또 생성
-    private Lotto generateLotto() {
+    private Lotto generateAutoLotto() {
         Lotto newLotto = null;
         try {
-            newLotto = new Lotto(LottoData.generatePickedNumber());
+            newLotto = new AutoLotto(LottoHelper.generatePickedNumber());
         } catch (PickedNumberException e) {
             e.printStackTrace();
         }

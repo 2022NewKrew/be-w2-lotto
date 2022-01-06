@@ -1,10 +1,10 @@
 package com.kakao.io;
 
 
+import com.kakao.data.LottoData;
 import com.kakao.data.MatchBall;
 import com.kakao.data.io.LottoOutputData;
-import com.kakao.helper.MapHelper;
-import com.kakao.model.Lotto;
+import com.kakao.model.lotto.Lotto;
 import com.kakao.model.LottoWinning;
 import com.kakao.model.LottoWinningReward;
 import com.kakao.model.Lottos;
@@ -20,7 +20,7 @@ class LottoOutput {
 
     private static BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
-    public static void printString (String str) {
+    static void printString (String str) {
         if(str == null) {
             return;
         }
@@ -32,7 +32,7 @@ class LottoOutput {
         }
     }
 
-    public static void printResult (Lottos lottos) {
+    static void printResult (Lottos lottos) {
         if(lottos == null) {
             return;
         }
@@ -64,7 +64,7 @@ class LottoOutput {
     }
 
     // winning 정보 출력
-    public static void printLottoWinning(Integer moneyToBuyLotto, Lottos lottos, LottoWinning lottoWinning){
+    static void printLottoWinning(Integer moneyToBuyLotto, Lottos lottos, LottoWinning lottoWinning){
         if(moneyToBuyLotto == null || lottos == null || lottoWinning == null) {
             return;
         }
@@ -98,7 +98,7 @@ class LottoOutput {
         LottoWinningReward winningReward = matchBall.getLottoWinningReward();
         int countOfMatchNumber = winningReward.getCountOfMatchNumber();
         int rewardPrice = matchBall.getRewardPrice();
-        int count = MapHelper.getIntegerValue(countOfWinningLottos, winningReward);
+        int count = countOfWinningLottos.getOrDefault(winningReward, LottoData.DEFAULT_INTEGER_VALUE);
 
         String resultFormat = LottoOutputData.RESULT_FORMAT_OF_WINNING_MATCH;
         if(winningReward.getUseBaseBall()){
@@ -123,7 +123,7 @@ class LottoOutput {
         LottoWinningReward winningReward = matchBall.getLottoWinningReward();
 
         int rewardPrice = matchBall.getRewardPrice();
-        int count = MapHelper.getIntegerValue(countOfWinningLottos, winningReward);
+        int count = countOfWinningLottos.getOrDefault(winningReward, LottoData.DEFAULT_INTEGER_VALUE);
 
         return rewardPrice * count;
     }

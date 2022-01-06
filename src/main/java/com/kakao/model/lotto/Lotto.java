@@ -1,19 +1,21 @@
-package com.kakao.model;
+package com.kakao.model.lotto;
 
 import com.kakao.data.LottoData;
+import com.kakao.exception.PickedNumberException;
 import com.kakao.exception.PickedNumberRangeException;
 import com.kakao.exception.PickedNumberFormatException;
+import com.kakao.model.LottoWinning;
 
 import java.util.List;
 
-public class Lotto {
+public abstract class Lotto {
     private List<Integer> pickedNumbersOfLotto;
 
-    Lotto(List<Integer> pickedNumbersOfLotto) throws PickedNumberFormatException {
+    Lotto(List<Integer> pickedNumbersOfLotto) throws PickedNumberException {
         checkFormatOfPickedNumbers(pickedNumbersOfLotto);
+        checkRangeOfPickedNumbers(pickedNumbersOfLotto);
         this.pickedNumbersOfLotto = pickedNumbersOfLotto;
     }
-
 
     private void checkFormatOfPickedNumbers(List<Integer> pickedNumbersOfLotto) throws PickedNumberFormatException {
         if(pickedNumbersOfLotto == null || pickedNumbersOfLotto.size() != LottoData.NUMBER_OF_PICK) {
