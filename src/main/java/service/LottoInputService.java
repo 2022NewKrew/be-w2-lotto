@@ -1,18 +1,16 @@
 package service;
 
-import dto.LottoRequest;
+import domain.lotto.LottoOrder;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static domain.lotto.LottoValidator.*;
 
 public class LottoInputService {
 
     private static final String LOTTO_REQUEST_DELIMITER = "\r?\n";
     private static final String INPUT_DELIMITER = ",";
 
-    public List<LottoRequest> getManualLottoRequests(String manualString) {
+    public List<LottoOrder> getManualLottoRequests(String manualString) {
         if (manualString.isEmpty()) {
             return Collections.emptyList();
         }
@@ -23,10 +21,9 @@ public class LottoInputService {
                 .collect(Collectors.toList());
     }
 
-    public LottoRequest parseLottoRequest(String lottoRequest) {
+    public LottoOrder parseLottoRequest(String lottoRequest) {
         List<Integer> inputNumbers = inputNumbersToList(lottoRequest);
-        validateInputNumbers(inputNumbers);
-        return new LottoRequest(inputNumbers);
+        return new LottoOrder(inputNumbers);
     }
 
     public int getIntegerFromString(String input) {

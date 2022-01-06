@@ -27,8 +27,8 @@ public class LottoGameController {
         String inputManualRequests = request.queryParams("manualNumber");
 
         int money = lottoInputService.getIntegerFromString(inputMoney);
-        List<LottoRequest> manualLottoRequests = lottoInputService.getManualLottoRequests(inputManualRequests);
-        List<Lotto> lottos = lottoService.createLotto(money, manualLottoRequests);
+        List<LottoOrder> manualLottoOrders = lottoInputService.getManualLottoRequests(inputManualRequests);
+        List<Lotto> lottos = lottoService.createLotto(money, manualLottoOrders);
 
         request.session().attribute("lottos", lottos);
         return render(new LottoCreateResponse(lottos), "/show.html");
@@ -39,8 +39,8 @@ public class LottoGameController {
         String bonusNumber = request.queryParams("bonusNumber");
 
         int bonusLottoNumber = lottoInputService.getIntegerFromString(bonusNumber);
-        LottoRequest lottoRequest = lottoInputService.parseLottoRequest(winningNumber);
-        WinningLotto winningLotto = lottoRequest.toWinningLotto(bonusLottoNumber);
+        LottoOrder lottoOrder = lottoInputService.parseLottoRequest(winningNumber);
+        WinningLotto winningLotto = lottoOrder.toWinningLotto(bonusLottoNumber);
 
         List<Lotto> lottos = request.session().attribute("lottos");
         LottoTotalResult totalResult = LottoCalculator.calculate(lottos, winningLotto);
