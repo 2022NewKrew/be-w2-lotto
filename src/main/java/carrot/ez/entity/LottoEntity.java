@@ -1,19 +1,19 @@
-package carrot.ez.lotto;
+package carrot.ez.entity;
+
+import carrot.ez.lotto.LotteryDiv;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Lottery {
-    public static final int LOTTO_PRICE = 1000;
-    private static final int MIN = 1;
-    private static final int MAX = 45;
-    private static final int LOTTO_NUMBERS_SIZE = 6;
+import static carrot.ez.constants.LottoConstant.*;
+import static carrot.ez.constants.LottoConstant.LOTTO_NUMBERS_SIZE;
 
+public class LottoEntity {
     private final List<Integer> numbers;
     private final LotteryDiv div;
 
-    public Lottery(List<Integer> numbers, LotteryDiv div) {
+    public LottoEntity(List<Integer> numbers, LotteryDiv div) {
         validate(numbers);
         this.numbers = numbers;
         this.div = div;
@@ -47,10 +47,6 @@ public class Lottery {
         }
     }
 
-    public boolean contains(int number) {
-        return numbers.contains(number);
-    }
-
     public int getNumOfCorrect(List<Integer> winNums) {
         return winNums.stream()
                 .reduce(0, (total, num) -> contains(num) ? total + 1 : total);
@@ -60,18 +56,11 @@ public class Lottery {
         return contains(bonus);
     }
 
-    public boolean isAuto() {
-        return div == LotteryDiv.AUTO;
+    private boolean contains(int number) {
+        return numbers.contains(number);
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
-        for (Integer number : numbers) {
-            sb.append(number).append(", ");
-        }
-        sb.replace(sb.length() - 2, sb.length(), "]");
-        return sb.toString();
+    public List<Integer> getNumbers() {
+        return numbers;
     }
 }
