@@ -27,13 +27,11 @@ public class LottoStatistic {
     List<Integer> winningNumbers;
     List<Lotto> lottos = new ArrayList<>();
 
-    private LottoStatistic() {
-    }
-
-    public LottoStatistic(int purchaseCount, int normalLottoCount, int autoLottoCount) {
+    public LottoStatistic(int purchaseCount, int normalLottoCount, int autoLottoCount, List<Lotto> lottos) {
         this.purchaseCount = purchaseCount;
         this.normalLottoCount = normalLottoCount;
         this.autoLottoCount = autoLottoCount;
+        this.lottos = lottos;
     }
 
     public void addLottos(List<Lotto> lottos) {
@@ -158,4 +156,51 @@ public class LottoStatistic {
         return amount;
     }
 
+    public int getTreeMatch() {
+        return treeMatch;
+    }
+
+    public int getFourMatch() {
+        return fourMatch;
+    }
+
+    public int getFiveMatch() {
+        return fiveMatch;
+    }
+
+    public int getFiveAndBonusMatch() {
+        return fiveAndBonusMatch;
+    }
+
+    public int getSixMatch() {
+        return sixMatch;
+    }
+
+    public int getProfitRate() {
+        return profitRate;
+    }
+
+    public int getPurchaseCount() {
+        return purchaseCount;
+    }
+
+    public int getNormalLottoCount() {
+        return normalLottoCount;
+    }
+
+    public int getAutoLottoCount() {
+        return autoLottoCount;
+    }
+
+    public int getWinningBonusNumber() {
+        return winningBonusNumber;
+    }
+
+    public List<Integer> getWinningNumbers() {
+        return winningNumbers;
+    }
+
+    public List<Lotto> getLottos() {
+        return lottos;
+    }
 }

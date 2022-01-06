@@ -22,8 +22,8 @@ public class LottoServiceImpl implements LottoService {
     }
 
     @Override
-    public LottoStatistic createLottoStatistic(int purchaseCount, int normalLottoCount, int autoLottoCount) {
-        return new LottoStatistic(purchaseCount, normalLottoCount, autoLottoCount);
+    public LottoStatistic createLottoStatistic(int purchaseCount, int normalLottoCount, int autoLottoCount, List<Lotto> lottos) {
+        return new LottoStatistic(purchaseCount, normalLottoCount, autoLottoCount, lottos);
     }
 
     @Override

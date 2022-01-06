@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로또 통계</title>
+    <link rel="stylesheet" href="/public/reset.css">
+    <link rel="stylesheet" href="/public/base.css">
+    <style>
+    </style>
+</head>
+<body>
+    <header class="my-header">
+        <div class="my-header__content">
+            <h1 class="my-header__logo">KAKAO LOTTO GAME</h1>
+        </div>
+    </header>
+    <main class="main">
+        <div class="content">
+            <h2>수동으로 {{lottoStatistic.normalLottoCount}}장, 자동으로 {{lottoStatistic.autoLottoCount}}개를 구매했습니다.</h2>
+            <ul>
+                {{#lottoStatistic.lottos}}
+                <li>{{this.numbers}}</li>
+                {{/lottoStatistic.lottos}}
+            </ul>
+
+
+            <h2>당첨 통계</h2>
+            <table>
+                <tr>
+                    <th>3개 일치</th> <td>(5000원) - </td> <td> {{lottoStatistic.treeMatch}}개</td>
+                </tr>
+                <tr>
+                    <th>4개 일치</th> <td>(50000원) - </td> <td> {{lottoStatistic.fourMatch}}개</td>
+                </tr>
+                <tr>
+                    <th>5개 일치</th> <td>(1500000원) - </td> <td> {{lottoStatistic.fiveMatch}}개</td>
+                </tr>
+                <tr>
+                    <th>5개 일치, 보너스 볼 일치</th> <td>(30000000원) - </td> <td> {{lottoStatistic.fiveAndBonusMatch}}개</td>
+                </tr>
+                <tr>
+                    <th>6개 일치</th> <td>(2000000000원) - </td> <td> {{lottoStatistic.sixMatch}}개</td>
+                </tr>
+            </table>
+            <p>총 수익률은 {{lottoStatistic.profitRate}}%입니다.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="my-footer">
+            <em>@maker : jm.hong</em>
+        </div>
+        
+    </footer>
+</body>
+</html>

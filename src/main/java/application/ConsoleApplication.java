@@ -19,6 +19,8 @@ public class ConsoleApplication {
 
     private int normalLottoCount;
     private int autoLottoCount;
+    private int purchasePrice;
+    private int purchaseCount;
 
     public ConsoleApplication() {
         AppConfig appConfig = new AppConfig();
@@ -40,19 +42,19 @@ public class ConsoleApplication {
     }
 
     public void createLottoStatic() {
-        int purchasePrice = inputPurchasePrice();
-        int purchaseCount = lottoService.calculateLottoCount(purchasePrice);
+        purchasePrice = inputPurchasePrice();
+        purchaseCount = lottoService.calculateLottoCount(purchasePrice);
         normalLottoCount = inputNormalPurchaseCount();
         autoLottoCount = purchaseCount - normalLottoCount;
-        lottoStatistic = lottoService.createLottoStatistic(purchaseCount, normalLottoCount, autoLottoCount);
     }
 
     private void createLottoList() {
-
+        List<Lotto> lottos = new ArrayList<>();
         List<Lotto> normalLottoList = inputNormalLottoList(normalLottoCount);
         List<Lotto> autoLottoList = lottoService.createAutoLottoList(autoLottoCount);
-        lottoStatistic.addLottos(normalLottoList);
-        lottoStatistic.addLottos(autoLottoList);
+        lottos.addAll(normalLottoList);
+        lottos.addAll(autoLottoList);
+        lottoStatistic = lottoService.createLottoStatistic(purchaseCount, normalLottoCount, autoLottoCount, lottos);
     }
 
     private void printLottoStatic() {

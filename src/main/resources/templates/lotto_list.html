@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>로또 게임</title>
+    <link rel="stylesheet" href="/public/reset.css">
+    <link rel="stylesheet" href="/public/base.css">
+    <style>
+        .sub-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .form {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="my-header">
+        <div class="my-header__content">
+            <h1 class="my-header__logo">KAKAO LOTTO GAME</h1>
+        </div>
+    </header>
+    <main class="main">
+        <div class="content">
+            <h2>수동으로 {{normalLottoCount}}장, 자동으로 {{autoLottoCount}}개를 구매했습니다.</h2>
+            <ul>
+                {{#lottoList}}
+                    <li>{{this.numbers}}</li>
+                {{/lottoList}}
+            </ul>
+
+            <form action= "/lottoWinning" method="post" class="form">
+                <input type="hidden" name="id" value="{{id}}"/>
+                지난 주 당첨 번호를 입력해 주세요.<br/>
+                <input type="text" name="winningNumbers" /><br/><br/>
+                보너스 볼을 입력해 주세요.<br/>
+                <input type="text" name="winningBonusNumber"/><br/><br/>
+                <input type="submit" value="제출하기">
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <div class="my-footer">
+            <em>@maker : jm.hong</em>
+        </div>
+        
+    </footer>
+</body>
+</html>

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface LottoService {
 
-    LottoStatistic createLottoStatistic(int purchaseCount, int normalLottoCount, int autoLottoCount);
+    LottoStatistic createLottoStatistic(int purchaseCount, int normalLottoCount, int autoLottoCount, List<Lotto> lottos);
 
     List<Lotto> createAutoLottoList(int autoLottoCount);
 
