@@ -1,12 +1,9 @@
-import application.LottoApplication;
-import config.AppConfig;
+import application.ConsoleApplication;
 
 public class Main {
 
     public static void main(String[] args) {
-        AppConfig appConfig = new AppConfig();
-        LottoApplication lottoApplication = new LottoApplication();
-        lottoApplication.run();
+        new ConsoleApplication().run();
     }
 
 }

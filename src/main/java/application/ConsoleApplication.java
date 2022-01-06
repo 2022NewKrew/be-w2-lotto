@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LottoApplication {
+public class ConsoleApplication {
 
     private LottoStatistic lottoStatistic;
     private final LottoService lottoService;
@@ -23,7 +23,7 @@ public class LottoApplication {
     private int normalLottoCount;
     private int autoLottoCount;
 
-    public LottoApplication() {
+    public ConsoleApplication() {
         AppConfig appConfig = new AppConfig();
         this.lottoService = appConfig.lottoService();
     }
