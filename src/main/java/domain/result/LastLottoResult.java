@@ -6,11 +6,11 @@ import domain.lotto.Number;
 import java.util.List;
 
 
-public class Result {
+public class LastLottoResult {
     private final Lotto lastLottoResult;
     private final Number bonusNumber;
 
-    public Result(List<Number> lottoNumbers, Number bonusNumber) {
+    public LastLottoResult(List<Number> lottoNumbers, Number bonusNumber) {
         lastLottoResult = new Lotto(lottoNumbers);
         this.bonusNumber = bonusNumber;
     }

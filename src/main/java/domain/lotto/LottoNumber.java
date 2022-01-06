@@ -44,7 +44,7 @@ public class LottoNumber {
 
         for (Number targetNum : targetLottoNumber.numbers) {
             sameCnt += numbers.stream()
-                    .filter(n -> n.isSame(targetNum))
+                    .filter(n -> n.equals(targetNum))
                     .collect(Collectors.toList())
                     .size();
         }
@@ -54,7 +54,7 @@ public class LottoNumber {
 
     public int compareBonusNumber(Number bonusNumber) {
         return numbers.stream()
-                .filter(n -> n.isSame(bonusNumber))
+                .filter(n -> n.equals(bonusNumber))
                 .collect(Collectors.toList())
                 .size();
     }
