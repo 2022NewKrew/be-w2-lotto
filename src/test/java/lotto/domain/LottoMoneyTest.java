@@ -15,7 +15,7 @@ class LottoMoneyTest {
     @ParameterizedTest
     @ValueSource(ints = {-10000, -1287234, 0, 999})
     @DisplayName("구매 금액이 1000원 미만이면 에러가 발생한다.")
-    void test_PurchaseLotto_WhitNotEnoughMoney(int money) {
+    void testPurchaseLottoWhitNotEnoughMoney(int money) {
         // given
 
         // when
@@ -28,7 +28,7 @@ class LottoMoneyTest {
     @ParameterizedTest
     @CsvSource(value = {"1000:1", "14000:14"}, delimiter = ':')
     @DisplayName("구매 금액을 천원 단위로 절삭한 만큼 로또를 구매한다.")
-    void test_PurchaseLotto_WithCorrectTicketCount(int money, int expectedTicket) {
+    void testPurchaseLottoWithCorrectTicketCount(int money, int expectedTicket) {
         // given
         LottoMoney lottoPurchase = new LottoMoney(money);
 
@@ -43,7 +43,7 @@ class LottoMoneyTest {
     @CsvSource(value = {"10000:3000:-70.00", "1000:10000:900.00", "10000:15121:51.21",
         "1000:0:-100.00"}, delimiter = ':')
     @DisplayName("구매 금액을 천원 단위로 절삭한 만큼 로또를 구매한다.")
-    void test_Profit(int beforeMoney, int afterMoney, double expectedProfit) {
+    void testProfit(int beforeMoney, int afterMoney, double expectedProfit) {
         // given
         LottoMoney lottoMoney = new LottoMoney(beforeMoney);
 

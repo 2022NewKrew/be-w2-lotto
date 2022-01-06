@@ -1,42 +1,53 @@
 package lotto;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import lotto.domain.LottoMoney;
 import lotto.domain.LottoResult;
 import lotto.domain.Lottos;
 import lotto.domain.WinningLotto;
+import lotto.vo.LottoMoneyVo;
+import lotto.vo.LottosVo;
 
 public class LottoController {
 
-    private final Lottos lottos;
-    private final LottoMoney lottoMoney;
+    private final LottosVo lottosVo;
+    private final LottoMoneyVo lottoMoneyVo;
 
-    private LottoController(Lottos lottos, LottoMoney lottoMoney) {
-        this.lottos = lottos;
-        this.lottoMoney = lottoMoney;
+    private LottoController(LottosVo lottosVo, LottoMoneyVo lottoMoneyVo) {
+        this.lottosVo = lottosVo;
+        this.lottoMoneyVo = lottoMoneyVo;
     }
 
-    public static LottoController valueOf(long money) {
-        LottoMoney lottoMoney = new LottoMoney(money);
-        Lottos lottos = Lottos.valueOf(lottoMoney.purchase());
-        return new LottoController(lottos, lottoMoney);
+    public static LottoController of(long money, List<List<Integer>> manualLottoNumbers) {
+        LottoMoneyVo lottoMoneyVo = new LottoMoneyVo(new LottoMoney(money));
+        LottosVo lottosVo = new LottosVo(Lottos.of(lottoMoneyVo.purchase(), manualLottoNumbers));
+        return new LottoController(lottosVo, lottoMoneyVo);
     }
 
-    public int purchase() {
-        return lottoMoney.purchase();
+    public static LottoController of(long money) {
+        return of(money, new ArrayList<>());
     }
 
-    public Lottos getLottos() {
-        return lottos;
+    public int manualPurchase() {
+        return lottosVo.getManualPurchase();
     }
 
-    public LottoResult result(List<Integer> winningNumbers) {
-        WinningLotto winningLotto = new WinningLotto(winningNumbers);
-        return lottos.matchCounts(winningLotto);
+    public int autoPurchase() {
+        return lottosVo.getAutoPurchase();
+    }
+
+    public LottosVo getLottos() {
+        return lottosVo;
+    }
+
+    public LottoResult result(List<Integer> winningNumbers, int bonusNumber) {
+        WinningLotto winningLotto = new WinningLotto(winningNumbers, bonusNumber);
+        return lottosVo.matchCounts(winningLotto);
     }
 
     public BigDecimal profit(BigDecimal totalReward) {
-        return lottoMoney.profit(totalReward);
+        return lottoMoneyVo.profit(totalReward);
     }
 }

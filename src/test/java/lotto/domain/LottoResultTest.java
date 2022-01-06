@@ -15,7 +15,7 @@ class LottoResultTest {
 
     @Test
     @DisplayName("당첨결과에 따른 총 당첨금액을 반환한다.")
-    void test_TotalReward() {
+    void testTotalReward() {
         // given
         final Map<Reward, Integer> rewardCounter = getRewardCounter();
         final LottoResult lottoResult = new LottoResult(rewardCounter);
@@ -24,13 +24,21 @@ class LottoResultTest {
         final BigDecimal totalReward = lottoResult.totalReward();
 
         // then
-        assertThat(totalReward).isEqualTo(BigDecimal.valueOf(2_000_120_000));
+        assertThat(totalReward).isEqualTo(BigDecimal.valueOf(2_003_200_000));
+    }
+
+    private Map<Reward, Integer> getRewardCounter() {
+        final Map<Reward, Integer> rewardCounter = new EnumMap<>(Reward.class);
+        rewardCounter.put(Reward.FIRST, 1);
+        rewardCounter.put(Reward.THIRD, 2);
+        rewardCounter.put(Reward.FOURTH, 4);
+        return rewardCounter;
     }
 
     @ParameterizedTest
     @MethodSource("getReward")
     @DisplayName("Reward의 당첨 횟수를 반환한다.")
-    void test_GetRewardCount_WithReward(Item item) {
+    void testGetRewardCountWithReward(Item item) {
         // given
         final Map<Reward, Integer> rewardCounter = getRewardCounter();
         final LottoResult lottoResult = new LottoResult(rewardCounter);
@@ -40,14 +48,6 @@ class LottoResultTest {
 
         // then
         assertThat(rewardCount).isEqualTo(item.count);
-    }
-
-    private Map<Reward, Integer> getRewardCounter() {
-        final Map<Reward, Integer> rewardCounter = new EnumMap<>(Reward.class);
-        rewardCounter.put(Reward.FIRST, 1);
-        rewardCounter.put(Reward.THIRD, 2);
-        rewardCounter.put(Reward.FOURTH, 4);
-        return rewardCounter;
     }
 
     private static Stream<Item> getReward() {

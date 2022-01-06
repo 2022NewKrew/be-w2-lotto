@@ -21,7 +21,7 @@ class LottoTest {
 
     @Test
     @DisplayName("로또를 생성하면 사이즈는 6개이다.")
-    void create() {
+    void testCreateLottoSizeIsSix() {
         // given
 
         // when
@@ -35,7 +35,7 @@ class LottoTest {
     @ParameterizedTest
     @ValueSource(ints = {0, 46})
     @DisplayName("로또 숫자가 1~45를 벗어나면 에러가 발생한다.")
-    void createWithBoundOver(int number) {
+    void testCreateLottoWithBoundOver(int number) {
         // given
         List<Integer> numbers = new ArrayList<>(List.of(1, 2, 3, 4, 5));
         numbers.add(number);
@@ -50,7 +50,7 @@ class LottoTest {
     @ParameterizedTest
     @MethodSource("getLottoNums")
     @DisplayName("로또의 숫자가 6개가 아니면 에러가 발생한다.")
-    void createWithSizeIsNotSix(List<Integer> numbers) {
+    void testCreateLottoWithSizeNotSix(List<Integer> numbers) {
         // given
 
         // when
@@ -71,7 +71,7 @@ class LottoTest {
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 3, 4, 5})
     @DisplayName("로또의 숫자 중 중복된 값이 있다면 에러가 발생한다.")
-    void createWithDuplicateNumber(int number) {
+    void testCreateLottoWithDuplicateNumber(int number) {
         // given
         List<Integer> numbers = new ArrayList<>(List.of(1, 2, 3, 4, 5));
         numbers.add(number);
@@ -85,7 +85,7 @@ class LottoTest {
 
     @Test
     @DisplayName("매번 랜덤하게 숫자가 생성되어야 한다.")
-    void createWithRepeatTest() {
+    void testCreateLottoWithRepeatTest() {
         // given
         Set<Integer> numbers = new HashSet<>();
         int repeat = 10;
