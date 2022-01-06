@@ -4,10 +4,7 @@ import lotto.domain.Lotto;
 import lotto.domain.LottoWinningRating;
 import lotto.domain.LottoWinningResult;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class View {
@@ -77,16 +74,18 @@ public class View {
         return Integer.parseInt(scanner.nextLine());
     }
 
-    public List<String> readManualLottoNumbers(int manualPurchaseCountForLotto) {
+    public List<List<Integer>> readManualLottoNumbers(int manualPurchaseCountForLotto) {
         if (manualPurchaseCountForLotto == 0) {
             return new ArrayList<>();
         }
 
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
 
-        List<String> manualLottoNumbers = new ArrayList<>();
+        List<List<Integer>> manualLottoNumbers = new ArrayList<>();
         for (int i = 0; i < manualPurchaseCountForLotto; i++) {
-            manualLottoNumbers.add(scanner.nextLine());
+            manualLottoNumbers.add(Arrays.stream(scanner.nextLine().split(SPLIT_DELIMITER))
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList()));
         }
 
         return manualLottoNumbers;

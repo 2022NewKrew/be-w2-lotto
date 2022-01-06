@@ -10,8 +10,8 @@ public class LottoTicket {
     private final List<Lotto> automaticLottoList;
     private final List<Lotto> manualLottoList;
 
-    public LottoTicket(int purchaseAmount, List<String> manualLottoNumberTexts) {
-        this.manualLottoList = Collections.unmodifiableList(makeManualLotto(manualLottoNumberTexts));
+    public LottoTicket(int purchaseAmount, List<List<Integer>> manualLottoNumbers) {
+        this.manualLottoList = Collections.unmodifiableList(makeManualLotto(manualLottoNumbers));
         this.automaticLottoList = Collections.unmodifiableList(makeAutomaticLotto(calculateAutomaticLottoCount(purchaseAmount, getManualLottoCount())));
     }
 
@@ -25,11 +25,11 @@ public class LottoTicket {
         return automaticLotto;
     }
 
-    private List<Lotto> makeManualLotto(List<String> manualLottoNumberTexts) {
+    private List<Lotto> makeManualLotto(List<List<Integer>> manualLottoNumbers) {
         List<Lotto> manualLotto = new ArrayList<>();
 
-        for (String manualLottoNumberText : manualLottoNumberTexts) {
-            manualLotto.add(new Lotto(manualLottoNumberText));
+        for (List<Integer> manualLottoNumber : manualLottoNumbers) {
+            manualLotto.add(new Lotto(manualLottoNumber));
         }
 
         return manualLotto;

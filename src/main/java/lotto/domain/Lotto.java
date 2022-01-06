@@ -1,24 +1,22 @@
 package lotto.domain;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Lotto {
 
     public static final int COUNT_OF_WINNING_NUMBERS = 6;
     public static final int MAX_NUMBER_OF_LOTTO = 45;
-    private static final String SPLIT_DELIMITER = ", ";
     private final List<Integer> lottoNumbers;
 
     public Lotto() {
         this.lottoNumbers = Collections.unmodifiableList(makeAutomaticLottoNumbers());
     }
 
-    public Lotto(String manualLottoNumberText) {
-        this.lottoNumbers = Collections.unmodifiableList(makeManualLottoNumbers(manualLottoNumberText));
+    public Lotto(List<Integer> manualLottoNumbers) {
+        validateLottoNumbers(manualLottoNumbers);
+        this.lottoNumbers = Collections.unmodifiableList(manualLottoNumbers);
     }
 
     private List<Integer> makeAutomaticLottoNumbers() {
@@ -34,10 +32,7 @@ public class Lotto {
         return numbers;
     }
 
-    private List<Integer> makeManualLottoNumbers(String manualLottoNumberText) {
-        List<Integer> manualLottoNumbers = Arrays.stream(manualLottoNumberText.split(SPLIT_DELIMITER))
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
+    private void validateLottoNumbers(List<Integer> manualLottoNumbers) {
 
         if (!isValidLottoNumbers(manualLottoNumbers)) {
             throw new IllegalArgumentException("로또 번호는 1에서 45 사이여야 합니다.");
@@ -46,8 +41,6 @@ public class Lotto {
         if (!isValidLottoNumbersCount(manualLottoNumbers)) {
             throw new IllegalArgumentException("로또 번호는 6개가 입력이 되어야 합니다.");
         }
-
-        return manualLottoNumbers;
     }
 
     private boolean isValidLottoNumbers(List<Integer> lottoNumbers) {
