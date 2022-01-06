@@ -30,8 +30,9 @@ public class Main {
 
         int moneyToBuy = inputView.getPositiveIntFromScanner("구입 금액을 입력해주세요: ");
         int manualBuyCount = inputView.getPositiveIntFromScanner("수동으로 구매할 로또 수를 입력해주세요: ");
-        if (moneyToBuy < PRICE || moneyToBuy < manualBuyCount * PRICE)
+        if (moneyToBuy < PRICE || moneyToBuy < manualBuyCount * PRICE) {
             throw new RuntimeException("돈이 부족합니다!");
+        }
 
         int autoBuyCount = (moneyToBuy - manualBuyCount * PRICE) / PRICE;
         List<LottoTicket> allTickets = purchaseLottoTickets(lottoShop, inputView, manualBuyCount, autoBuyCount);
