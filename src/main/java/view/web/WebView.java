@@ -1,11 +1,11 @@
-package view.console;
+package view.web;
 
 import view.View;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public interface ConsoleView extends View {
+public interface WebView extends View {
     Map<String, Long> ATTRIBUTES = new HashMap<>();
 
     String lottoId = "lottoId";

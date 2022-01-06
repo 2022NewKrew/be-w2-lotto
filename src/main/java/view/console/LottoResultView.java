@@ -1,19 +1,20 @@
 package view.console;
 
-import controller.ConsoleController;
+import controller.Controller;
 import dto.request.LottoCheckDTO;
 import dto.response.CheckedLottoDTO;
-import util.console.input.*;
+import util.console.BonusNumberInputInterface;
+import util.console.WinningNumbersInputInterface;
 
 import java.util.List;
 
 public class LottoResultView implements ConsoleView {
-    private final ConsoleController consoleController;
+    private final Controller consoleController;
 
     private final WinningNumbersInputInterface winningNumbersInputInterface = new WinningNumbersInputInterface();
     private final BonusNumberInputInterface bonusNumberInputInterface = new BonusNumberInputInterface();
 
-    public LottoResultView(ConsoleController consoleController) {
+    public LottoResultView(Controller consoleController) {
         this.consoleController = consoleController;
     }
 
