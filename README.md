@@ -46,3 +46,4 @@
 - [x] 사용하지 않는 import 정리
 - [x] Main클래스의 try catch보다는 명확한 exception throw로 변경
 - [x] exception을 위로 전달하는 방식 -> 해당 exception 위치에서 바로 throw하는 방식으로 변경
+- [x] LottoService 클래스 생성자 간소화
