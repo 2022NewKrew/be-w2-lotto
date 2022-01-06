@@ -1,9 +1,9 @@
 package lotto.view;
 
+import lotto.domain.Prize;
+
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static lotto.domain.RandomLottoNumberGenerator.NUMBERS_TO_PICK;
 
 public class InputView {
     private static final Scanner scanner = new Scanner(System.in);
@@ -26,13 +26,13 @@ public class InputView {
 
     /**
      * @param prompt 출력할 문자열
-     * @return {@value lotto.domain.RandomLottoNumberGenerator#NUMBERS_TO_PICK}개의 자연수로 구성된 {@link Set}
+     * @return 로또 번호 개수의 자연수로 구성된 {@link Set}
      */
     public Set<Integer> getWinnerNumbersFromScanner(String prompt) {
         System.out.print(prompt);
         Set<Integer> result = new TreeSet<>();
         String input;
-        while (result.size() < NUMBERS_TO_PICK) {
+        while (result.size() < Prize.FIRST.getMatchedCount()) {
             result = getNumbers();
         }
         return result;
