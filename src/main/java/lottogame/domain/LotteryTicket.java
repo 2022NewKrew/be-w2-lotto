@@ -2,7 +2,6 @@ package lottogame.domain;
 
 public class LotteryTicket {
     private LotteryNumbers lotteryNumbers;
-    private Rank rank;
 
     LotteryTicket(LotteryNumbers lotteryNumbers) {
         validateIsNull(lotteryNumbers);

@@ -39,7 +39,7 @@ public class LotteryNumbers {
         return (int) winningNumbers.lotteryNumbers.stream()
                 .filter(winningNumber -> isContain(winningNumber))
                 .count();
-    };
+    }
 
     public boolean isContain(LotteryNumber lotteryNumber) {
         return lotteryNumbers.contains(lotteryNumber);

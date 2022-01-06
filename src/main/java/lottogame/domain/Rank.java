@@ -24,17 +24,17 @@ public enum Rank {
                 .filter(rank -> numberOfMatch == rank.numberOfMatch)
                 .collect(Collectors.toList());
 
-        if(matchRanks.size() == 1)
+        if (matchRanks.size() == 1)
             return matchRanks.get(0);
 
-        if(matchRanks.size() == 2)
+        if (matchRanks.size() == 2)
             return rankByBonusMatch(bonusMatch);
 
         return null;
     }
 
     private static Rank rankByBonusMatch(boolean bonusMatch) {
-        if(bonusMatch)
+        if (bonusMatch)
             return SECOND;
         return THIRD;
     }
