@@ -1,104 +1,116 @@
 package lotto.domain;
 
+import lotto.model.Lotto;
+import lotto.model.WinningLotto;
+
 import java.util.*;
 
 public class LottoApp {
     public static final LottoGenerator GENERATOR = new LottoGenerator();
 
 
-    private final List<Lotto> lottos = new ArrayList<>();
+    private final Lottos lottos = new Lottos();
     private WinningLotto winningLotto;
-    private Rewards rewards;
+    private LottoResultManager resultManager;
     private int accumPayment;
+    private int countOfCustomLotto;
 
     public LottoApp() {
         this.accumPayment = 0;
+        this.countOfCustomLotto = 0;
     }
 
 
-    public int purchaseLotto(Money payment) throws IllegalArgumentException{
+    public void purchaseLotto(Money payment) throws IllegalArgumentException {
         int numOfNewLotto = payment.getAmount() / Lotto.PRICE;
-        return purchaseLotto(payment, numOfNewLotto);
+        purchaseLotto(payment, numOfNewLotto);
     }
 
-    public int purchaseLotto(Money payment, int numOfNewLotto) throws IllegalArgumentException{
-        try{
+    public void purchaseLotto(Money payment, int numOfNewLotto) throws IllegalArgumentException {
+        try {
             payment.decrement(numOfNewLotto * Lotto.PRICE);
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException();
         }
-
 
         for (int i = 0; i < numOfNewLotto; i++) {
             this.lottos.add(GENERATOR.generateLotto());
         }
         this.accumPayment += numOfNewLotto * Lotto.PRICE;
         System.out.println(numOfNewLotto + "개를 구매했습니다.");
-        return numOfNewLotto;
     }
 
-    public int purchaseCustomLotto(Money payment, Lotto lotto) throws IllegalArgumentException{
-        try{
+    public void purchaseCustomLotto(Money payment, Lotto lotto) throws IllegalArgumentException {
+        try {
             payment.decrement(Lotto.PRICE);
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException();
         }
 
         this.lottos.add(lotto);
         this.accumPayment += Lotto.PRICE;
-        return 1;
+        this.countOfCustomLotto += 1;
     }
 
+    public LottoResult getLottoResult() {
+        return resultManager.getLottoResult();
+    }
 
-
-    public String getResultString() {
-        if (this.winningLotto == null) {
-            return "지난 주 로또 번호가 입력되지 않았습니다.";
+    public float calculateRateOfReturn() {
+        if (resultManager == null) {
+            return 0.0f;
         }
-
-        this.compareHowManyMatch();
-
-        StringBuilder builder = new StringBuilder();
-        builder.append(this.rewards.toString());
-        builder.append("총 수익률은 ");
-
-
-        builder.append(String.format("%.2f%%", (float) (rewards.getTotalReward() - accumPayment) / accumPayment * 100));
-
-
-        builder.append("입니다.");
-
-        return builder.toString();
+        return (float) (resultManager.getTotalReturn() - accumPayment) / accumPayment * 100;
     }
 
     public void compareHowManyMatch() {
-        this.rewards = new Rewards();
+        this.resultManager = new LottoResultManager();
         for (Lotto lotto : this.lottos) {
-            int countOfMatch = lotto.howManyMatch(this.winningLotto);
-            boolean matchBonus = lotto.isMatchBonus(this.winningLotto);
-            this.rewards.addReward(countOfMatch, matchBonus);
+            int countOfMatch = howManyMatch(lotto);
+            boolean matchBonus = isMatchBonus(lotto);
+            this.resultManager.addResult(countOfMatch, matchBonus);
         }
+    }
+
+    public int howManyMatch(Lotto lotto) {
+        int count = 0;
+        List<Integer> winningLottoNumbers = winningLotto.getNumbers();
+        for (int i = 0; i < Lotto.N_NUMBERS; i++) {
+            count += lotto.getNumbers().contains(winningLottoNumbers.get(i)) ? 1 : 0;
+        }
+        return count;
+    }
+
+    public boolean isMatchBonus(Lotto lotto) {
+        return lotto.getNumbers().contains(winningLotto.getBonusNumber());
     }
 
     public void setWinLotto(WinningLotto winningLotto) {
         this.winningLotto = winningLotto;
     }
 
-    public int getAccumPayment(){
+    public int getAccumPayment() {
         return this.accumPayment;
     }
 
-    public int getCountOfLottos(){
+    public int getCountOfLottos() {
         return this.lottos.size();
     }
 
+    public int getCountOfCustomLotto() {
+        return this.countOfCustomLotto;
+    }
+
+    public int getCountOfAutoLotto() {
+        return this.getCountOfLottos() - getCountOfCustomLotto();
+    }
+
+    public Lottos getLottos(){
+        return this.lottos;
+    }
+
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        for (Lotto lotto : lottos) {
-            builder.append(lotto.toString());
-            builder.append("\n");
-        }
-        return builder.toString();
+        return this.lottos.toString();
     }
 
 }

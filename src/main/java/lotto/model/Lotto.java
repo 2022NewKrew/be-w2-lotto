@@ -1,4 +1,4 @@
-package lotto.domain;
+package lotto.model;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,24 +20,8 @@ public class Lotto {
         Collections.sort(numbers);
     }
 
-<<<<<<< HEAD
-=======
-    public Lotto(Lotto lotto){
+    public Lotto(Lotto lotto) {
         this(lotto.getNumbers());
-    }
-
->>>>>>> 73407950a993c8ab02b196cc1f9fecf44a984723
-    public int howManyMatch(WinningLotto winningLotto) {
-        int count = 0;
-        List<Integer> winningLottoNumbers = winningLotto.getNumbers();
-        for (int i = 0; i < N_NUMBERS; i++) {
-            count += this.numbers.contains(winningLottoNumbers.get(i)) ? 1 : 0;
-        }
-        return count;
-    }
-
-    public boolean isMatchBonus(WinningLotto winningLotto) {
-        return this.numbers.contains(winningLotto.getBonusNumber());
     }
 
     public List<Integer> getNumbers() {
