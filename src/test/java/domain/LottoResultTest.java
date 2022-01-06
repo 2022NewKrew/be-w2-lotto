@@ -44,7 +44,6 @@ class LottoResultTest {
         EnumMap<Prize, Integer> winningLottoCount = lottoResult.winningLottoCount(lottoList);
 
         winningLottoCount_Answer.forEach((key, value) -> {
-            System.out.println(key + " " + value);
             Assertions.assertEquals(winningLottoCount.get(key), value);
         });
     }
@@ -52,11 +51,11 @@ class LottoResultTest {
     @Test
     @DisplayName("[성공] 수익률을 올바르게 계산한다")
     void rateOfReturn() {
-        int purchaseAmount = 14000;
-        double rateOfReturn_Answer = -64.28;
+        long purchaseAmount = 14000;
+        double rateOfReturn_Answer = (Prize.THREE.getMoney() - purchaseAmount) / (double)purchaseAmount * 100.0d;
         LottoResult lottoResult = new LottoResult(winningNumbers);
         List<Lotto> lottoList = new ArrayList<>();
-        lottoList.add(createLottoNumbers(8, 21, 23, 41, 41, 43));
+        lottoList.add(createLottoNumbers(1, 2, 3, 10, 11, 12));
 
         double rateOfReturn = lottoResult.rateOfReturn(purchaseAmount, lottoList);
 

@@ -53,6 +53,6 @@ public class LottoResult {
             totalEarn += entry.getKey().getMoney() * entry.getValue();
 
         // (평가금액 - 원금) / 원금 * 100
-        return (totalEarn - purchaseAmount) / purchaseAmount * 100;
+        return (totalEarn - purchaseAmount) / (double)purchaseAmount * 100.0d;
     }
 }
