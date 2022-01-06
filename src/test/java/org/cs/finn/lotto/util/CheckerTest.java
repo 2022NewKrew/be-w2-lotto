@@ -31,8 +31,12 @@ class CheckerTest {
     @Test
     @DisplayName("IntBound - min이 max보다 크면 예외를 발생시킨다")
     public void testCheckIntBoundMinIsBigDaddyOfMax() {
+        // given
+        final int val = 1;
+        final int min = 3;
+        final int max = 2;
         // then
-        assertThatThrownBy(() -> Checker.checkIntBound(1, 3, 2))
+        assertThatThrownBy(() -> Checker.checkIntBound(val, min, max))
                 .isInstanceOf(IllegalStateException.class);
     }
 
@@ -133,14 +137,65 @@ class CheckerTest {
         );
     }
 
+    @ParameterizedTest
+    @MethodSource("argsForCheckIntMinMaxNegative")
+    @DisplayName("IntMinMax - 음수가 전달되면 예외를 발생시킨다")
+    public void testCheckIntMinMaxNegative(int min, int max) {
+        assertThatThrownBy(() -> Checker.checkIntMinMax(min, max))
+                .isInstanceOf(IllegalStateException.class);
+    }
 
-
-
-    @Test
-    void checkIntMinMax() {
+    public static Stream<Arguments> argsForCheckIntMinMaxNegative() {
+        return Stream.of(
+                Arguments.of(-1, 1),
+                Arguments.of(1, -1)
+        );
     }
 
     @Test
-    void checkString() {
+    @DisplayName("IntMinMax - min이 max보다 크면 예외를 발생시킨다")
+    public void testCheckIntMinMaxMinIsBigDaddyOfMax() {
+        // given
+        final int min = 100_000;
+        final int max = 100;
+        // then
+        assertThatThrownBy(() -> Checker.checkIntMinMax(min, max))
+                .isInstanceOf(IllegalStateException.class);
+    }
+
+    @Test
+    @DisplayName("IntMinMax - 음수 입력이 없고 min보다 max가 크면 메서드가 정상적으로 종료된다")
+    public void testCheckIntMinMaxSuccess() {
+        // given
+        final int min = 100;
+        final int max = 100_000;
+        // then
+        assertThatNoException().isThrownBy(() -> Checker.checkIntMinMax(min, max));
+    }
+
+    @ParameterizedTest
+    @MethodSource("argsForCheckStringNullOrBlank")
+    @DisplayName("String - null 또는 공백, newline, tab 문자들로만 구성된 값이 입력되면 예외를 발생시킨다")
+    public void testCheckStringNullOrBlank(String str) {
+        assertThatThrownBy(() -> Checker.checkString(str))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    public static Stream<Arguments> argsForCheckStringNullOrBlank() {
+        return Stream.of(
+                Arguments.of(""),
+                Arguments.of((Object)null),
+                Arguments.of("  "),
+                Arguments.of(" \t\r\n ")
+        );
+    }
+
+    @Test
+    @DisplayName("String - 빈 값을 제외한 문자열 값이 들어오면 메서드가 정상적으로 종료된다")
+    public void testCheckStringSuccess() {
+        // given
+        final String str = "testForCheckString1234567890";
+        // then
+        assertThatNoException().isThrownBy(() -> Checker.checkString(str));
     }
 }
