@@ -10,9 +10,9 @@ import java.util.stream.Collectors;
 public class InputView {
     private static final Scanner in = new Scanner(System.in);
 
-    public static int inputPurchaseAmount() {
+    public static long inputPurchaseAmount() {
         System.out.println(GameMessage.INPUT_PURCHASE_AMOUNT.getMessage());
-        int purchaseAmount = in.nextInt();
+        long purchaseAmount = in.nextLong();
         in.nextLine(); // For Buffer
         return purchaseAmount;
     }

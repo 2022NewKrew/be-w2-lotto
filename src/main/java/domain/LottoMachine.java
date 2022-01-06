@@ -15,12 +15,16 @@ public class LottoMachine {
     private static final int MIN_LOTTO_NUMBER = 1;
     private static final int MAX_LOTTO_NUMBER = 45;
     private static final int LOTTO_PRICE = 1000;
+    private static final int MIN_PRISE = 0;
+    private static final int MAX_PRISE = 1_000_000_000;
 
     public LottoMachine() {
     }
 
     public static List<Lotto> buySeveralLotto(long purchaseAmount) {
-        Validation.notLessThanLong(purchaseAmount, 0, new InvalidPurchaseAmount(ErrorMessage.NEGATIVE_PURCHASE_AMOUNT.getMessage()));
+        Validation.notLessThanLong(purchaseAmount, MIN_PRISE, new InvalidPurchaseAmount(ErrorMessage.NEGATIVE_PURCHASE_AMOUNT.getMessage()));
+        Validation.notMoreThanLong(purchaseAmount, MAX_PRISE, new InvalidPurchaseAmount(ErrorMessage.MAX_PURCHASE_AMOUNT.getMessage()));
+
         // TODO - 남은 금액 계산
         long lottoCount = purchaseAmount / LOTTO_PRICE;
 
