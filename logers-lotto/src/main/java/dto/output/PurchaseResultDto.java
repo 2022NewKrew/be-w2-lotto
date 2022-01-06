@@ -1,8 +1,8 @@
 package dto.output;
 
 
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class PurchaseResultDto {
     private final List<List<Integer>> lottoNumberLists;
@@ -12,24 +12,11 @@ public class PurchaseResultDto {
         this.lottoNumberLists = lottoNumberLists;
     }
 
-    @Override
-    public String toString() {
-        return String.valueOf(lottoNumberLists.size())
-                .concat("개를 구매했습니다.\n")
-                .concat(toStringLottoNumberLists(lottoNumberLists));
+    public int getSize(){
+        return lottoNumberLists.size();
     }
 
-    private static String toStringLottoNumberLists(List<List<Integer>> lottoNumberLists){
-        return lottoNumberLists.stream()
-                .map(PurchaseResultDto::toStringLottoNumbers)
-                .collect(Collectors.joining("\n"));
-    }
-
-    private static String toStringLottoNumbers(List<Integer> lottoNumbers) {
-        return "["
-                .concat(lottoNumbers.stream()
-                        .map(String::valueOf)
-                        .collect(Collectors.joining(","))
-                ).concat("]");
+    public List<List<Integer>> getLottoNumberLists() {
+        return Collections.unmodifiableList(lottoNumberLists);
     }
 }
