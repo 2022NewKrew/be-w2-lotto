@@ -43,3 +43,5 @@
 - option + command + L 을 누르면 코드가 깔끔히 정렬된다!
 
 # reviewfix
+- [x] 사용하지 않는 import 정리
+- [x] Main클래스의 try catch보다는 명확한 exception throw로 변경

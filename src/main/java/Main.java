@@ -1,10 +1,8 @@
+import exception.InvalidInputException;
+
 public class Main {
-    public static void main(String[] args) {
-        try {
-            LottoGame lottoGame = new LottoGame();
-            lottoGame.start();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+    public static void main(String[] args) throws InvalidInputException {
+        LottoGame lottoGame = new LottoGame();
+        lottoGame.start();
     }
 }
