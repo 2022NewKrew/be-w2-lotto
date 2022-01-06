@@ -17,7 +17,7 @@ public class LottoEmployee {
         double profit = 0.0;
         for (Map.Entry<LottoRank, Integer> resultIndex : lottoRankMatch.getLottoResult().entrySet()) {
             profit += (resultIndex.getKey().getMoney() * resultIndex.getValue());
-            System.out.println(resultIndex.getKey().getMessage() + resultIndex.getValue() + "개");
+//            System.out.println(resultIndex.getKey().getMessage() + resultIndex.getValue() + "개");
         }
         return (profit - purchasedAmount) / (purchasedAmount * 100);
     }
