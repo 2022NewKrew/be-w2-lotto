@@ -15,6 +15,9 @@ public abstract class Lotto {
     Lotto(List<Integer> pickedNumbersOfLotto) throws PickedNumberException {
         this.pickedNumbersOfLotto = new LottoNumbers(pickedNumbersOfLotto);
     }
+    Lotto(LottoNumbers pickedNumbersOfLotto) {
+        this.pickedNumbersOfLotto = pickedNumbersOfLotto;
+    }
 
     // 당첨여부 확인
     public int matchNumberIsWinning(LottoWinning lottoWinning) {

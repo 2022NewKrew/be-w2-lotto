@@ -2,6 +2,7 @@ package com.kakao.helper;
 
 import com.kakao.data.LottoData;
 import com.kakao.exception.PickedNumberFormatException;
+import com.kakao.model.Money;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,5 +26,12 @@ public class LottoHelper {
         List<Integer> pickedNumberList = numberList.subList(START_INDEX_OF_PICK_UP,LAST_INDEX_OF_PICK_UP); // 잘라내기
         Collections.sort(pickedNumberList); // 잘라낸 배열을 정렬
         return pickedNumberList; // 반환
+    }
+
+    public static boolean canBuyLottos(Money money, Integer count) {
+        if( money == null || count == null ) {
+            return false;
+        }
+        return money.getMoney()/LottoData.PRICE_OF_LOTTO >= count;
     }
 }

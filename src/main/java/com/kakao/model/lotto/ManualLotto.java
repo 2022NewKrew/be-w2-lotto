@@ -1,11 +1,11 @@
 package com.kakao.model.lotto;
 
 import com.kakao.exception.PickedNumberException;
+import com.kakao.model.LottoNumbers;
 
-import java.util.List;
 
 public class ManualLotto extends Lotto {
-    ManualLotto(List<Integer> pickedNumbersOfLotto) throws PickedNumberException {
+    public ManualLotto(LottoNumbers pickedNumbersOfLotto) {
         super(pickedNumbersOfLotto);
     }
 }

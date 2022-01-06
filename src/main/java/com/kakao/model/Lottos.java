@@ -14,27 +14,27 @@ import java.util.Map;
 
 public class Lottos {
 
+    private Integer numberOfAutoLotto;
+    private Integer numberOfManualLotto;
     private List<Lotto> lottoList;
 
     // 생성자
-    public Lottos(final Integer moneyToBuyLottos) throws MoneyRangeException {
-        checkMoneyRange(moneyToBuyLottos);
-
-        int numberOfLotto = moneyToBuyLottos/LottoData.PRICE_OF_LOTTO;
-        this.lottoList = getNewAutoLottos(numberOfLotto);
+    public Lottos(Money moneyToBuyLottos) {
+        int numberOfLotto = moneyToBuyLottos.getMoney()/LottoData.PRICE_OF_LOTTO;
+        this.lottoList = getNewAutoLottos(null, numberOfLotto);
     }
-
-    // 유효성 검사
-    private void checkMoneyRange(final Integer moneyToBuyLottos) throws MoneyRangeException {
-        if( moneyToBuyLottos == null || moneyToBuyLottos < LottoData.PRICE_OF_LOTTO ) {
-            throw new MoneyRangeException();
-        }
+    public Lottos(Money moneyToBuyLottos, List<Lotto> manualLottoList) {
+        int numberOfLotto = moneyToBuyLottos.getMoney()/LottoData.PRICE_OF_LOTTO;
+        this.lottoList = getNewAutoLottos(manualLottoList, numberOfLotto);
     }
 
     // 로또용지들 생성함수
-    private List<Lotto> getNewAutoLottos(int numberOfLottos) {
+    private List<Lotto> getNewAutoLottos(List<Lotto> manualLottoList, int numberOfLottos) {
         List<Lotto> lottoList = new ArrayList<>();
-        for(int i=0; i<numberOfLottos; i++){
+        if(manualLottoList != null) {
+            lottoList.addAll(manualLottoList);
+        }
+        for(int i=lottoList.size(); i<numberOfLottos; i++){
             lottoList.add(getNewAutoLotto());
         }
         return lottoList;

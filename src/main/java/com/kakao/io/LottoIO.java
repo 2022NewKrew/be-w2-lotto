@@ -4,9 +4,12 @@ import com.kakao.data.LottoData;
 import com.kakao.data.io.LottoInputData;
 import com.kakao.exception.MoneyRangeException;
 import com.kakao.exception.PickedNumberRangeException;
+import com.kakao.model.LottoNumbers;
+import com.kakao.model.Money;
 import com.kakao.model.lotto.Lotto;
 import com.kakao.model.LottoWinning;
 import com.kakao.model.Lottos;
+import com.kakao.model.lotto.ManualLotto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +18,10 @@ public class LottoIO {
     private LottoIO() {}
 
     // 돈 입력받기
-    public static Integer inputMoney() {
+    public static Money inputMoney() throws MoneyRangeException {
         String requestPrice = String.format(LottoInputData.REQUEST_COMMNET_OF_PRICE, LottoData.PRICE_OF_LOTTO);
         LottoOutput.printString(requestPrice);
-        return LottoInput.inputSingleNumber();
+        return new Money(LottoInput.inputSingleNumber());
     }
 
     // 수동 로또 갯수 입력
@@ -26,25 +29,23 @@ public class LottoIO {
         LottoOutput.printString(LottoInputData.REQUEST_COMMENT_OF_MANUAL_LOTTO_COUNT);
         return LottoInput.inputSingleNumber();
     }
-    // 수동 로또 구매
-    public static List<Lotto> buyManualLottos () {
+
+    // 수동 로또
+    public static List<Lotto> inputManualLottos (int count) {
+        LottoOutput.printString(LottoInputData.REQUEST_COMMENT_OF_MANUAL_LOTTO_NUMBER);
+
         List<Lotto> newManualLottoList = new ArrayList<>();
+        for(int i=0; i<count; i++) {
+            newManualLottoList.add(inputManualLotto());
+        }
         return newManualLottoList;
     }
-    private static Lotto inputManualLotto () {
-        Lotto newManualLotto = null;
-        return newManualLotto;
-    }
-
-    // 로또 구매 시도
-    public static Lottos buyLottos(Integer moneyToBuyLottos) {
-        Lottos lottosToBuy = null;
-        try {
-            lottosToBuy = new Lottos(moneyToBuyLottos);
-        } catch (MoneyRangeException e) {
-            e.printStackTrace();
+    private static ManualLotto inputManualLotto () {
+        ManualLotto manualLotto = null;
+        while(manualLotto == null){
+            manualLotto = LottoInput.inputManualLotto();
         }
-        return lottosToBuy;
+        return manualLotto;
     }
 
     // 당첨 정보 입력 및 생성
@@ -76,7 +77,7 @@ public class LottoIO {
     }
 
     // 당첨결과 출력
-    public static void printLottoWinning(Integer moneyToBuyLotto, Lottos lottos, LottoWinning lottoWinning) {
+    public static void printLottoWinning(Money moneyToBuyLotto, Lottos lottos, LottoWinning lottoWinning) {
         LottoOutput.printLottoWinning(moneyToBuyLotto, lottos, lottoWinning);
     }
 }

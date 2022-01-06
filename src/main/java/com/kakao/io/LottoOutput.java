@@ -4,11 +4,8 @@ package com.kakao.io;
 import com.kakao.data.LottoData;
 import com.kakao.data.MatchBall;
 import com.kakao.data.io.LottoOutputData;
-import com.kakao.model.LottoWinningResult;
+import com.kakao.model.*;
 import com.kakao.model.lotto.Lotto;
-import com.kakao.model.LottoWinning;
-import com.kakao.model.LottoWinningReward;
-import com.kakao.model.Lottos;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -65,7 +62,7 @@ class LottoOutput {
     }
 
     // winning 정보 출력
-    static void printLottoWinning(Integer moneyToBuyLotto, Lottos lottos, LottoWinning lottoWinning){
+    static void printLottoWinning(Money moneyToBuyLotto, Lottos lottos, LottoWinning lottoWinning){
         if(moneyToBuyLotto == null || lottos == null || lottoWinning == null) {
             return;
         }
@@ -110,13 +107,14 @@ class LottoOutput {
     }
 
     // 이득 비율 출력
-    private static String appendYieldRate(Integer moneyToBuyLotto, LottoWinningResult countOfWinningLottos) {
+    private static String appendYieldRate(Money moneyToBuyLotto, LottoWinningResult countOfWinningLottos) {
+        long longMoneyToBuyLotto = moneyToBuyLotto.getMoney();
         long sumOfReward = 0 ;
         for(MatchBall matchBall: MatchBall.values()) {
             sumOfReward += countOfWinningLottos.getYieldByMatchBall(matchBall);
         }
 
-        long yeildRate = (sumOfReward - moneyToBuyLotto) * 100 / moneyToBuyLotto;
+        long yeildRate = (sumOfReward - longMoneyToBuyLotto) * 100 / longMoneyToBuyLotto;
         return String.format(LottoOutputData.RESULT_FORMAT_OF_YIELD_RATE, yeildRate);
     }
 

@@ -15,6 +15,9 @@ public class LottoWinning {
     public LottoWinning(List<Integer> numberOfWinning) throws PickedNumberException {
         this.numberOfWinning = new LottoNumbers(numberOfWinning);
     }
+    public LottoWinning(LottoNumbers numberOfWinning) {
+        this.numberOfWinning = numberOfWinning;
+    }
 
     // 유효성 검사
     private boolean checkBonusBallRangeOfPickedNumber (Integer pickedNumber) {
