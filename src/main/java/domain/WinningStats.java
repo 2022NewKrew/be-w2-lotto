@@ -24,7 +24,7 @@ public class WinningStats {
         prizeMap.forEach((ranking, count) -> System.out.printf((LottoOutput.PRIZE_STR_FORMAT) + "%n", ranking.getMatchCount(), ranking.getWiningPrize(), count));
     }
 
-    public double getTotalIncome() {
-        return ((double) (winningPrize - BuyLotto.buyPrice)) * 100 / BuyLotto.buyPrice;
+    public double getTotalIncome(int buyPrice) {
+        return ((double) (winningPrize - buyPrice)) * 100 / buyPrice;
     }
 }

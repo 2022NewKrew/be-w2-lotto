@@ -6,6 +6,11 @@ import java.util.stream.Collectors;
 
 public class LottoPack {
     private static final List<Lotto> lottoList = new ArrayList<>();
+
+    public int getBuyPrice() {
+        return buyPrice;
+    }
+
     private final int buyPrice;
 
     public LottoPack(int buyPrice) {
@@ -21,8 +26,8 @@ public class LottoPack {
         lottoList.forEach(e -> System.out.print(e + "\n"));
     }
 
-    public RankingPack makeRankingPack(Lotto prize) {
-        return new RankingPack(lottoList.stream().map(lotto -> Match.makeLottoRank(lotto, prize)).collect(Collectors.toList()));
+    public RankingPack makeRankingPack(Lotto prize,int bonus) {
+        return new RankingPack(lottoList.stream().map(lotto -> Match.makeLottoRank(lotto, prize, bonus)).collect(Collectors.toList()));
     }
 
 

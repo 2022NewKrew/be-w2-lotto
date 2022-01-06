@@ -14,21 +14,21 @@ public class CheckPrize {
 
     }
 
-    public static WinningStats calculateWinningLottoStats(LottoPack lottoPack, String prizeString) {
+    private static WinningStats calculateWinningLottoStats(LottoPack lottoPack, String prizeString,int bonus) {
         Lotto lottoPrize = parseLottoNumbers(prizeString);
-        RankingPack rankingPack = lottoPack.makeRankingPack(lottoPrize);
+        RankingPack rankingPack = lottoPack.makeRankingPack(lottoPrize,bonus);
         return rankingPack.makeWiningStats();
     }
 
-    public static void printPrize(LottoPack lottoPack, String prizeString) {
-        WinningStats winningStats = calculateWinningLottoStats(lottoPack, prizeString);
-        LottoOutput.printWinningStats(winningStats);
+    public static void printPrize(LottoPack lottoPack, String prizeString, int bonus) {
+        WinningStats winningStats = calculateWinningLottoStats(lottoPack, prizeString,bonus);
+        LottoOutput.printWinningStats(winningStats,lottoPack.getBuyPrice());
     }
-
 
     private static Lotto parseLottoNumbers(String prizeString) {
         String[] spt = prizeString.split(NUMBER_SPLIT_REGEX);
         List<Integer> prizeList = Arrays.stream(spt).map(Integer::parseInt).collect(Collectors.toList());
         return new Lotto(prizeList);
     }
+
 }
