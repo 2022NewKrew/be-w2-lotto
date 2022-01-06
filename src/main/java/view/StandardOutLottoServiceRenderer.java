@@ -32,7 +32,7 @@ public final class StandardOutLottoServiceRenderer implements LottoServiceRender
         System.out.println("당첨 통계");
         System.out.println("------------------------------");
 
-        final Map<LottoPrize, Long> myWinningStatus = winningStatus.getWinningStatus(); //TODO: 변수명 고민
+        final Map<LottoPrize, Long> myWinningStatus = winningStatus.getWinningStatus();
 
         Arrays.stream(LottoPrize.values()).filter(e -> e != LottoPrize.NOTHING).forEach(lottoPrize -> displayResult(lottoPrize, myWinningStatus));
 
