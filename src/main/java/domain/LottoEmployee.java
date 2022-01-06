@@ -2,14 +2,24 @@ package domain;
 
 import exception.InvalidPurchaseAmount;
 
+import java.util.Map;
+
 public class LottoEmployee {
     private static final int MINIMUM_PURCHASE_AMOUNT = 1;
     private static final int LOTTO_PRICE = 1000;
 
-
-    public static int buyLottos(int purchasedAmount) {
+    public int buyLottos(int purchasedAmount) {
         validatePurchaseAmount(purchasedAmount);
         return purchasedAmount / LOTTO_PRICE;
+    }
+
+    public double getProfitRate(LottoRankMatch lottoRankMatch, int purchasedAmount) {
+        double profit = 0.0;
+        for (Map.Entry<LottoRank, Integer> resultIndex : lottoRankMatch.getLottoResult().entrySet()) {
+            profit += (resultIndex.getKey().getMoney() * resultIndex.getValue());
+            System.out.println(resultIndex.getKey().getMessage() + resultIndex.getValue() + "개");
+        }
+        return (profit - purchasedAmount) / (purchasedAmount * 100);
     }
 
     private static void validatePurchaseAmount(int purchasedAmount) {

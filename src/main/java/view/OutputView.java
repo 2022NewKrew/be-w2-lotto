@@ -1,11 +1,8 @@
 package view;
 
 import domain.Lotto;
-import domain.LottoProfitRate;
-import domain.LottoRank;
+import domain.LottoRankMatch;
 import domain.LottoRepository;
-
-import java.util.Map;
 
 public class OutputView {
     private static final String STATISTICS = "당첨 통계";
@@ -17,10 +14,9 @@ public class OutputView {
         }
     }
 
-    public static void printProfit(Map<LottoRank, Integer> lottoRankResult, int purchasedAmount) {
+    public static void printProfit(LottoRankMatch lottoRankMatch, double profitRate) {
         System.out.println();
         System.out.println(STATISTICS);
         System.out.println(DASH);
-        LottoProfitRate.createProfitRate(lottoRankResult, purchasedAmount);
     }
 }
