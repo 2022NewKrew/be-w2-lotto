@@ -1,7 +1,8 @@
 package lotto.view;
 
 import lotto.domain.Constants;
-import lotto.domain.LottoNumbers;
+import lotto.domain.LottoTicket;
+import lotto.service.LottoTicketFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,25 +12,21 @@ import java.util.stream.Collectors;
 
 public class InputView {
 
-    public static final String NUMBERS_PATTERN = "((\\d{1,2} *, *){5}(\\d{1,2}) *)";
-    public static final String DELIMITER = "\\s*,\\s*";
+    public static final String LINE_DELIMITER = "\r?\n";
 
-    private final Scanner scanner;
-
-    public InputView() {
-        scanner = new Scanner(System.in);
+    public int inputPurchaseAmount(String purchaseAmount) {
+        return Integer.parseInt(purchaseAmount) / Constants.LOTTO_PRICE;
     }
 
-    public int inputPurchaseAmount() {
-        System.out.println("구입금액을 입력해 주세요.");
-        return Integer.parseInt(scanner.nextLine()) / Constants.LOTTO_PRICE;
-    }
+    public List<LottoTicket> inputManualLottoNumbers(String manualNumber, int purchaseCount) {
+        String[] manualNumbers = manualNumber.split(LINE_DELIMITER);
+        validateManualPurchaseCount(purchaseCount, manualNumber.length());
 
-    public int inputManualPurchaseCount(int purchaseCount) {
-        System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
-        int manualPurchaseCount = Integer.parseInt(scanner.nextLine());
-        validateManualPurchaseCount(purchaseCount, manualPurchaseCount);
-        return manualPurchaseCount;
+        List<LottoTicket> lottoNumbers = new ArrayList<>();
+        for (String number : manualNumbers) {
+            lottoNumbers.add(LottoTicketFactory.createManualLottoTicket(number));
+        }
+        return lottoNumbers;
     }
 
     private void validateManualPurchaseCount(int purchaseCount, int manualPurchaseCount) {
@@ -38,53 +35,13 @@ public class InputView {
         }
     }
 
-    public List<LottoNumbers> inputManualLottoNumbers(int manualPurchaseCount) {
-        System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
-        List<LottoNumbers> lottoNumbers = new ArrayList<>();
-        for (int i = 0; i < manualPurchaseCount; i++) {
-            lottoNumbers.add(inputManualLottoNumber());
-        }
-        return lottoNumbers;
-    }
-
-    private LottoNumbers inputManualLottoNumber() {
-        String stringNumbers = scanner.nextLine().trim();
-        validateStringNumbers(stringNumbers);
-
-        String[] manualLottoNumbers = stringNumbers.split(DELIMITER);
-
-        return new LottoNumbers(Arrays.stream(manualLottoNumbers)
-                .map(Integer::parseInt)
-                .collect(Collectors.toList()));
-    }
-
-    public LottoNumbers inputWinningNumbers() {
-        System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
-        String stringNumbers = scanner.nextLine().trim();
-        validateStringNumbers(stringNumbers);
-
-        String[] winningNumbers = stringNumbers.split(DELIMITER);
-
-        return new LottoNumbers(Arrays.stream(winningNumbers)
-                .map(Integer::parseInt)
-                .collect(Collectors.toList()));
-    }
-
-    private void validateStringNumbers(String stringNumbers) {
-        if (!stringNumbers.matches(NUMBERS_PATTERN)) {
-            throw new IllegalArgumentException("숫자 6개만 입력해주세요.");
-        }
-    }
-
-    public int inputBonusNumber(LottoNumbers winningNumbers) {
-        System.out.println("보너스 볼을 입력해 주세요.");
-        int bonusNumber = Integer.parseInt(scanner.nextLine());
+    public int inputBonusNumber(LottoTicket winningNumbers, int bonusNumber) {
         validateBonusNumber(winningNumbers, bonusNumber);
         return bonusNumber;
     }
 
-    private void validateBonusNumber(LottoNumbers winningNumbers, int bonusNumber) {
-        if (winningNumbers.contains(bonusNumber)) {
+    private void validateBonusNumber(LottoTicket winningNumbers, int bonusNumber) {
+        if (winningNumbers.hasNumber(bonusNumber)) {
             throw new IllegalArgumentException("당첨 번호와 보너스 볼은 중복될 수 없습니다.");
         }
     }
