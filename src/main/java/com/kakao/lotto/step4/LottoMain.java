@@ -27,7 +27,7 @@ public class LottoMain {
     }
 
     public void makeLotto() {
-        lottos = Lotto.makeLottos(lottoNumber, lottos);
+        lottos.addAll(Lotto.makeLottos(lottoNumber - lottos.size()));
         lottoPrinter.printLottos(lottos);
     }
 
