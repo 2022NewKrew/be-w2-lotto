@@ -19,7 +19,7 @@ public class App {
 
     public static void main(String[] args) {
         List<Lotto> boughtLottoList = buyLotto();
-        Lotto winningLotto = new Lotto(INPUT_VIEW.getWinningLottoNumbers());
+        Lotto winningLotto = INPUT_VIEW.getWinningLotto();
         LottoNumber bonus = new LottoNumber(INPUT_VIEW.getBonusNumber());
         WinningStatistics winningStatistics = new WinningStatistics(boughtLottoList, winningLotto, bonus);
         OUTPUT_VIEW.printWinningStatistics(winningStatistics);

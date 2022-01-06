@@ -22,7 +22,7 @@ public class RandomLottoGenerator {
     private static List<Integer> pickLottoNumbersRandomly() {
         List<Integer> allLottoNumbers = new ArrayList<>(ALL_LOTTO_NUMBERS);
         Collections.shuffle(allLottoNumbers);
-        return allLottoNumbers.subList(0, Lotto.NUMBERS_LENGTH);
+        return Collections.unmodifiableList(allLottoNumbers.subList(0, Lotto.NUMBERS_LENGTH));
     }
 
     private static ImmutableList<Integer> getAllLottoNumbers() {
