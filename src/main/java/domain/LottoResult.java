@@ -6,10 +6,7 @@ import exceptions.InvalidPurchaseAmount;
 import messages.ErrorMessage;
 import validation.Validation;
 
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class LottoResult {
     private final Set<Integer> lastWeekWinningNumbers;
@@ -26,7 +23,7 @@ public class LottoResult {
             Validation.notLessThanLong(num, MIN_LOTTO_NUMBER, new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_WINNING_NUMBER.getMessage()));
             Validation.notMoreThanLong(num, MAX_LOTTO_NUMBER, new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_WINNING_NUMBER.getMessage()));
         });
-        this.lastWeekWinningNumbers = lastWeekWinningNumbers;
+        this.lastWeekWinningNumbers = Collections.unmodifiableSet(lastWeekWinningNumbers);
     }
 
     private void InitializeMap(EnumMap<Prize, Integer> lottoResult) {
