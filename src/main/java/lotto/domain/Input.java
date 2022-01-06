@@ -1,21 +1,24 @@
 package lotto.domain;
 
 import lotto.util.ValidInput;
-
 import java.util.*;
 import java.util.stream.Collectors;
-
 import static lotto.util.ConstantValue.*;
+
 
 public abstract class Input {
     protected final Scanner sc = new Scanner(System.in);
 }
 
-
+/**
+ * 단일 입력을 위한 클래스
+ */
 class SingleInput extends Input {
     protected int input;
 
-
+    /**
+     * int 값 input을 받고 조건에 맞는 값인지 확인합니다.
+     */
     protected void init(){
         printMessage();
         input = sc.nextInt();
@@ -29,9 +32,16 @@ class SingleInput extends Input {
 }
 
 
+/**
+ * 다중 입력을 위한 클래스
+ */
 class MultipleInput extends Input {
     protected List<Integer> numList;
 
+    /**
+     * 여러 정수 값(로또 한 줄)을 입력받습니다.
+     * @return 입력받은 정수들이 담긴 List<Integer>
+     */
     protected List<Integer> getIntegers(){
         String numInput = sc.nextLine();
         String[] numInputString = numInput.replaceAll(" ", "").split(",");
@@ -49,6 +59,9 @@ class MultipleInput extends Input {
 }
 
 
+/**
+ * 구입 금액을 입력받는 클래스
+ */
 class PriceInput extends SingleInput {
 
     @Override
@@ -67,6 +80,9 @@ class PriceInput extends SingleInput {
 }
 
 
+/**
+ * 수동으로 입력할 로또 한 줄의 갯수를 입력받는 클래스
+ */
 class ManualInput extends SingleInput{
     private final int numOfLottoNumbers;
 
@@ -87,6 +103,9 @@ class ManualInput extends SingleInput{
 }
 
 
+/**
+ * 보너스 볼의 숫자를 입력하는 클래스
+ */
 class BonusNumberInput extends SingleInput {
 
 
@@ -102,6 +121,9 @@ class BonusNumberInput extends SingleInput {
 }
 
 
+/**
+ * 지난 당첨 번호들을 입력하는 클래스
+ */
 class WinningInput extends MultipleInput {
 
     WinningInput(){
@@ -115,6 +137,9 @@ class WinningInput extends MultipleInput {
 }
 
 
+/**
+ * 수동으로 로또 번호를 입력하는 클래스, 입력받은 횟수에 기반하여 입력값 생성
+ */
 class ManualNumberInput extends MultipleInput{
     private final List<LottoNumber> manualNumbers = new ArrayList<>();
     private final int numOfManual;
@@ -124,6 +149,9 @@ class ManualNumberInput extends MultipleInput{
         numOfManual = numOfTry;
     }
 
+    /**
+     * 생성한 로또 여러 줄을 List<LottoNumber>에 추가
+     */
     public void convertToList(){
         for(int i=0;i<numOfManual;i++){
             numList = getIntegers();

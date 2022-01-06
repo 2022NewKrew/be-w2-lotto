@@ -1,5 +1,8 @@
 package lotto.util;
 
+/**
+ * 상수를 정리해놓은 클래스
+ */
 public class ConstantValue {
     public static final int LOTTO_START_NUMBER = 1;
     public static final int LOTTO_LAST_NUMBER = 45;
