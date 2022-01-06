@@ -14,7 +14,7 @@ public class BuyLotto {
     }
 
     public void buy(int buyPrice){
-        this.buyPrice = buyPrice;
+        BuyLotto.buyPrice = buyPrice;
         int numberOfLotto = buyPrice / LottoPrice;
         for (int i = 0; i < numberOfLotto; i++) {
             lottoPack.add(new Lotto());

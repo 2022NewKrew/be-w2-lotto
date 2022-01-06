@@ -3,7 +3,6 @@ package domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Lotto {
 
@@ -28,7 +27,7 @@ public class Lotto {
     }
 
     private int countNumbersMatch(Lotto prize){
-        return this.numbers.stream().filter(num->prize.contains(num)).collect(Collectors.toList()).size();
+        return (int) this.numbers.stream().filter(prize::contains).count();
     }
     public Ranking makeLottoRank(Lotto prize){
         switch (countNumbersMatch(prize)){
