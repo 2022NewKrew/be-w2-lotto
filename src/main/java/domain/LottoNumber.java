@@ -2,7 +2,7 @@ package domain;
 
 public class LottoNumber implements Comparable<LottoNumber> {
 
-    private final static String NUMBER_RANGE_ERROR_MESSAGE = "로또번호는 1이상 45이하이어야 합니다.";
+    private final static String NUMBER_RANGE_ERROR_MESSAGE = "[ERROR] 로또번호는 1이상 45이하이어야 합니다.";
 
     private static final int LOTTO_NUMBER_MIN = 1;
     private static final int LOTTO_NUMBER_MAX = 45;

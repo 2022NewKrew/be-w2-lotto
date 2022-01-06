@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 public class WinningNumbers {
 
-    private final static String NUMBER_SIZE_ERROR_MESSAGE = "6개의 번호를 입력해주세요.";
+    private final static String NUMBER_SIZE_ERROR_MESSAGE = "[ERROR] 6개의 번호를 입력해주세요.";
 
     private static final int WINNING_NUMBERS_SIZE = 6;
 

@@ -3,7 +3,7 @@ package domain;
 import java.util.Map;
 
 public class Money {
-    private final static String MONEY_RANGE_ERROR_MESSAGE = "구입금액은 0원 이상이어야 합니다.";
+    private final static String MONEY_RANGE_ERROR_MESSAGE = "[ERROR] 구입금액은 0원 이상이어야 합니다.";
 
     private final static int LOTTO_PURCHASE_PRICE = 1000;
 
