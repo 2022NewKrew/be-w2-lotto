@@ -43,7 +43,7 @@ public class ConsoleApplication {
 
     public void createLottoStatic() {
         purchasePrice = inputPurchasePrice();
-        purchaseCount = calculateLottoCount();
+        purchaseCount = lottoService.calculateLottoCount(purchasePrice);
         normalLottoCount = inputNormalPurchaseCount();
         autoLottoCount = purchaseCount - normalLottoCount;
         lottoStatistic = lottoService.createLottoStatistic(purchaseCount, normalLottoCount, autoLottoCount);
@@ -74,7 +74,7 @@ public class ConsoleApplication {
 
             for (int i = 0; i < normalLottoCount; i++) {
                 String line = bufferedReader.readLine();
-                LottoNormal lottoNormal = LottoNormal.createStringToLottoNumbers(line);
+                LottoNormal lottoNormal = lottoService.createStringToLottoNumbers(line);
                 lottos.add(lottoNormal);
             }
 
@@ -132,18 +132,6 @@ public class ConsoleApplication {
         }
 
         return result;
-    }
-
-    private int calculateLottoCount() {
-        if (purchasePrice == 0) {
-            throw new IllegalArgumentException("0원 입니다.");
-        }
-
-        if (purchasePrice % 1000 != 0) {
-            throw new IllegalArgumentException("1000원 단위가 아닙니다.");
-        }
-
-        return purchasePrice / 1000;
     }
 
     private int inputPurchasePrice() {

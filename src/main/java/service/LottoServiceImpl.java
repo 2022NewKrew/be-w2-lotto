@@ -2,11 +2,15 @@ package service;
 
 import domain.Lotto;
 import domain.LottoAuto;
+import domain.LottoNormal;
 import domain.LottoStatistic;
 import repository.LottoRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.Arrays.stream;
 
 public class LottoServiceImpl implements LottoService {
 
@@ -34,4 +38,25 @@ public class LottoServiceImpl implements LottoService {
 
         return lottos;
     }
+
+    @Override
+    public int calculateLottoCount(int purchasePrice) {
+        if (purchasePrice == 0) {
+            throw new IllegalArgumentException("0원 입니다.");
+        }
+
+        if (purchasePrice % 1000 != 0) {
+            throw new IllegalArgumentException("1000원 단위가 아닙니다.");
+        }
+
+        return purchasePrice / 1000;
+    }
+
+    @Override
+    public LottoNormal createStringToLottoNumbers(String numbers) {
+        List<Integer> list = stream(numbers.split(",")).map(s -> Integer.parseInt(s.trim())).collect(Collectors.toList());
+        LottoNormal lottoNormal = new LottoNormal(list);
+        return lottoNormal;
+    }
+
 }
