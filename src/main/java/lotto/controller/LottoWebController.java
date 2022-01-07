@@ -48,8 +48,6 @@ public class LottoWebController {
 
     private static Map<String, Object> matchLotto(Request req, Response res){
         Map<String, Object> model = new HashMap<>();
-        // "winningNumber", "bonusNumber"
-        // "lottosResult", "message", "totalRateOfReturn"
         LottoResult lr = new LottoResult(
                 req.session().attribute("lottoPaper"),
                 req.queryParams("winningNumber"),
