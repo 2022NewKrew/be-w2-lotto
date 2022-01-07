@@ -1,4 +1,4 @@
-package lotto.io;
+package lotto.util;
 
 import lotto.domain.Lotto;
 import lotto.domain.LottoGenerator;

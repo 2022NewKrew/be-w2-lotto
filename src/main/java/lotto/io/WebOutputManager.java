@@ -34,9 +34,10 @@ public class WebOutputManager implements OutputManager{
     public String printPrizes(PurchaseInfo purchaseInfo, WinningInfo winningInfo) {
         double returnRate = (double) (winningInfo.getReturnAmount() - purchaseInfo.getPurchaseAmount()) * 100 / purchaseInfo.getPurchaseAmount();
         Map<String, Object> model = new HashMap<>();
-        model.put(QUERY_PARAMS_LOTTO_RESULT, new LottoResult(winningInfo.buildMessage(), returnRate));
-        model.put(QUERY_PARAMS_MESSAGE, winningInfo.buildMessage());
-        model.put(QUERY_PARAMS_TOTAL_RATE_OF_RETURN, returnRate);
+        LottoResult lottoResult = new LottoResult(winningInfo.buildMessage(), returnRate);
+        model.put(QUERY_PARAMS_LOTTO_RESULT, lottoResult);
+        model.put(QUERY_PARAMS_MESSAGE, lottoResult.getMessage());
+        model.put(QUERY_PARAMS_TOTAL_RATE_OF_RETURN, lottoResult.getTotalRateOfReturn());
         return render(model, PATH_RESULT_HTML);
     }
 

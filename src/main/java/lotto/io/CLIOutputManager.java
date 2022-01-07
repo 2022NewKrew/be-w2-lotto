@@ -41,10 +41,7 @@ public class CLIOutputManager implements OutputManager {
 
     private String printAllLotto(List<Lotto> lottoList) {
         StringBuilder result = new StringBuilder();
-        lottoList.stream().forEach(lotto -> {
-            result.append(lotto.getNumbers())
-                    .append(LINE_BREAK);
-        });
+        lottoList.forEach(lotto -> result.append(lotto.getNumbers()).append(LINE_BREAK));
         return result.toString();
     }
 

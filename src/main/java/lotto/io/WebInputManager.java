@@ -2,6 +2,8 @@ package lotto.io;
 
 import lotto.domain.Lotto;
 import lotto.domain.LottoGenerator;
+import lotto.util.ExceptionCheck;
+import lotto.util.Parser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +12,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class WebInputManager implements InputManager<String> {
+    private static final String SPLIT_REGEX_LINE_BREAK = "\r?\n";
+
     @Override
     public int getPurchaseAmount(String string) {
         int purchaseAmount = Integer.parseInt(string);
@@ -30,7 +34,7 @@ public class WebInputManager implements InputManager<String> {
             return Collections.unmodifiableList(new ArrayList<>());
         }
 
-        List<Lotto> manualLottoList = Arrays.stream(string.split("\r?\n"))
+        List<Lotto> manualLottoList = Arrays.stream(string.split(SPLIT_REGEX_LINE_BREAK))
                 .map(number ->
                         Arrays.stream(number.replace(" ", "").split(","))
                                 .map(Integer::parseInt)

@@ -1,10 +1,10 @@
 package lotto.io;
 
 import lotto.domain.Lotto;
-import lotto.domain.LottoGenerator;
+import lotto.util.ExceptionCheck;
+import lotto.util.Parser;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 public class CLIInputManager implements InputManager<Scanner> {
     private static final String CLI_PURCHASE_AMOUNT_TITLE = "구입금액을 입력해 주세요.";

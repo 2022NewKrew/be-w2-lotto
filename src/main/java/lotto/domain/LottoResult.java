@@ -10,4 +10,8 @@ public class LottoResult {
         this.message = message;
         this.totalRateOfReturn = totalRateOfReturn;
     }
+
+    public List<String> getMessage() { return message; }
+
+    public double getTotalRateOfReturn() { return totalRateOfReturn; }
 }
