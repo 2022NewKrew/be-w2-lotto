@@ -5,14 +5,19 @@ import domain.LottoNumber;
 import enums.Prize;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 import messages.GameMessage;
 
 public class ResultView {
 
     private static void printLotto(Lotto lotto) {
         Set<LottoNumber> numbers = lotto.numbers();
-        // TODO - 배열 형식으로 출력
+        List<String> printNumList =
+                numbers.stream().sorted().map((lottoNumber) -> Objects.toString(lottoNumber.get())).collect(Collectors.toList());
+
+        System.out.println("[" + String.join(", ", printNumList) + "]");
     }
 
     public static void printLottoList(List<Lotto> lottoList) {
@@ -23,6 +28,10 @@ public class ResultView {
 
     private static void printOneResult(Prize key, int value) {
         if (key.getMatchCount() == 0) {
+            return;
+        }
+        if (key.getMatchCount() == Prize.BONUS.getMatchCount() && key.getBonus() == Prize.BONUS.getBonus()) {
+            System.out.printf("%d개 일치, 보너스 볼 일치(%d원) - %d개\n", key.getMatchCount(), key.getMoney(), value);
             return;
         }
         System.out.printf("%d개 일치 (%d원)- %d개\n", key.getMatchCount(), key.getMoney(), value);

@@ -6,7 +6,7 @@ import java.util.Objects;
 import messages.ErrorMessage;
 import validation.Validation;
 
-public class LottoNumber {
+public class LottoNumber implements Comparable<LottoNumber> {
 
     private final int number;
 
@@ -19,7 +19,7 @@ public class LottoNumber {
         this.number = number;
     }
 
-    int get() {
+    public int get() {
         return number;
     }
 
@@ -38,5 +38,10 @@ public class LottoNumber {
     @Override
     public int hashCode() {
         return Objects.hash(number);
+    }
+
+    @Override
+    public int compareTo(LottoNumber o) {
+        return this.number - o.get();
     }
 }
