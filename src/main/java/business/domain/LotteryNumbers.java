@@ -14,7 +14,7 @@ public class LotteryNumbers implements Iterable<LotteryNumber> {
 
     private final Set<LotteryNumber> lotteryNumbers;
 
-    public LotteryNumbers(Set<LotteryNumber> lotteryNumbers) {
+    private LotteryNumbers(Set<LotteryNumber> lotteryNumbers) {
         if (!isLotteryNumberValid(lotteryNumbers)) {
             throw new IllegalArgumentException(
                 String.format("로또 번호는 중복되지 않는 %d개의 숫자만 사용 가능합니다.", LOTTERY_NUMBER_COUNT));
