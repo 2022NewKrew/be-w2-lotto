@@ -9,13 +9,14 @@ import lotto.util.LottoGenerator;
 import java.util.*;
 
 public class LottoService {
+    private static final int LOTTO_PRICE = 1000;
 
     public LottoPurchaseDto autoBuy(int money) {
-        int purchaseGameCnt = money / Lotto.PRICE.getValue();
+        int purchaseGameCnt = money / LOTTO_PRICE;
         List<LottoGameDto> lottoGames = new ArrayList<>();
 
         for(int i = 0; i < purchaseGameCnt; i++) {
-            lottoGames.add(new LottoGameDto(LottoGenerator.getNumbers()));
+            lottoGames.add(new LottoGameDto(LottoGenerator.getRandomNumbers()));
         }
         return new LottoPurchaseDto(money, purchaseGameCnt, lottoGames);
     }

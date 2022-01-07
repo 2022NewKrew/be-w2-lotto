@@ -1,6 +1,7 @@
 package lotto.util;
 
-import lotto.constant.Msg;
+import lotto.constant.InputMessage;
+import lotto.constant.OutputMessage;
 import lotto.constant.Rank;
 import lotto.dto.LottoGameDto;
 
@@ -25,7 +26,7 @@ public class OutputUtil {
 
         for (Map.Entry<Rank, Integer> entry : ranks.entrySet()) {
             System.out.println(String.format(
-                    entry.getKey() != Rank.SECOND ? Msg.OUTPUT_RANK.getMsg() : Msg.OUTPUT_RANK_2ND.getMsg()
+                    entry.getKey() != Rank.SECOND ? OutputMessage.OUTPUT_RANK.getMessage() : OutputMessage.OUTPUT_RANK_2ND.getMessage()
                     ,entry.getKey().getCountOfMatch()
                     ,entry.getKey().getWinningMoney()
                     ,entry.getValue()));

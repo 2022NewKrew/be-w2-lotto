@@ -5,18 +5,18 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import static lotto.constant.Msg.*;
+import static lotto.constant.InputMessage.*;
 
 // 예외처리 추가하기
 public class InputUtil {
     private static final Scanner sc = new Scanner(System.in);
     public int inputPrice() {
-        System.out.println(INPUT_PURCHASE_PRICE.getMsg());
+        System.out.println(INPUT_PURCHASE_PRICE.getMessage());
         return Integer.parseInt(sc.nextLine());
     }
 
     public List<Integer> inputWinningNumber() {
-        System.out.println(INPUT_WINNING_NUMBERS.getMsg());
+        System.out.println(INPUT_WINNING_NUMBERS.getMessage());
         return Arrays.stream(sc.nextLine().split(","))
                 .map(String::trim)
                 .mapToInt(Integer::parseInt)
@@ -25,7 +25,7 @@ public class InputUtil {
     }
 
     public int inputBonusNumber() {
-        System.out.println(INPUT_BONUS_NUMBER.getMsg());
+        System.out.println(INPUT_BONUS_NUMBER.getMessage());
         return Integer.parseInt(sc.nextLine());
     }
 }

@@ -13,7 +13,7 @@ public class LottoGenerator {
             .boxed()
             .collect(Collectors.toList());
 
-    public static List<Integer> getNumbers() {
+    public static List<Integer> getRandomNumbers() {
         Collections.shuffle(numbers);
         return List.copyOf(numbers.subList(0, Lotto.PICK_SIZE.getValue()));
     }
