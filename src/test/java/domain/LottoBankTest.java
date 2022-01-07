@@ -26,4 +26,12 @@ class LottoBankTest {
 
 
     }
+
+    @Test
+    void testBuyLottos() {
+    }
+
+    @Test
+    void testGetProfitRate() {
+    }
 }
