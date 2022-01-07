@@ -12,10 +12,12 @@ public class LottoGameController {
 
     private final LottoInputService lottoInputService;
     private final LottoGenerateService lottoGenerateService;
+    private final LottoCalculateService lottoCalculateService;
 
     public LottoGameController() {
         this.lottoInputService = new LottoInputService();
         this.lottoGenerateService = new LottoGenerateService();
+        this.lottoCalculateService = new LottoCalculateService();
     }
 
     public String index(Request request, Response response) {
@@ -43,7 +45,7 @@ public class LottoGameController {
         WinningLotto winningLotto = lottoGenerateService.createWinningLotto(winningLottoOrder, bonusLottoNumber);
 
         List<Lotto> lottos = request.session().attribute("lottos");
-        LottoTotalResult totalResult = LottoCalculator.calculate(lottos, winningLotto);
+        LottoTotalResult totalResult = lottoCalculateService.calculate(lottos, winningLotto);
         return render(new LottoResultResponse(totalResult), "/result.html");
     }
 
