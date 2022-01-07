@@ -10,6 +10,7 @@ public class InputValidator {
     private static final int LOTTERY_NUMBER_COUNT = 6;
 
     private static final long LOTTERY_UNIT_PRICE = 1_000L;
+    private static final long BUDGET_MAX = Integer.MAX_VALUE * LOTTERY_UNIT_PRICE;
 
     public void validateLotteryNumber(int value) throws IllegalArgumentException {
         if (value < LOTTERY_NUMBER_START || value > LOTTERY_NUMBER_END) {
@@ -20,9 +21,9 @@ public class InputValidator {
     }
 
     public void validateBudget(long value) throws IllegalArgumentException {
-        if (value <= 0 || value % LOTTERY_UNIT_PRICE != 0) {
+        if (value <= 0 || value % LOTTERY_UNIT_PRICE != 0 || value > BUDGET_MAX) {
             throw new IllegalArgumentException(
-                String.format("%d원 단위의 양수만 입력 가능합니다.", LOTTERY_UNIT_PRICE));
+                String.format("%,d원 이하, %,d원 단위의 양수만 입력 가능합니다.", BUDGET_MAX, LOTTERY_UNIT_PRICE));
         }
     }
 
