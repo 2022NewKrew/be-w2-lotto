@@ -17,11 +17,10 @@ public class LottoMachine {
             .boxed()
             .collect(Collectors.toList());
 
-    public LottoRepository createAutoLottos(int purchasedLottoNumbers) {
-        List<Lotto> autoLottos = Stream.generate(this::createAutoLotto)
+    public List<Lotto> createAutoLottos(int purchasedLottoNumbers) {
+        return Stream.generate(this::createAutoLotto)
                 .limit(purchasedLottoNumbers)
                 .collect(Collectors.toList());
-        return new LottoRepository(autoLottos);
     }
 
     private Lotto createAutoLotto() {

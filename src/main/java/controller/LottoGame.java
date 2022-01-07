@@ -4,6 +4,8 @@ import domain.*;
 import view.InputView;
 import view.OutputView;
 
+import java.util.List;
+
 public class LottoGame {
     public void run() {
 
@@ -12,7 +14,7 @@ public class LottoGame {
 
         LottoMachine lottoMachine = new LottoMachine();
         LottoBank lottoBank = new LottoBank();
-        LottoRepository autoLottos = lottoMachine.createAutoLottos(lottoBank.buyLottos(purchasedAmount, manualQuantity));
+        List<Lotto> autoLottos = lottoMachine.createAutoLottos(lottoBank.buyLottos(purchasedAmount, manualQuantity));
 
         OutputView.printAutoLottos(autoLottos);
         LottoWinningNumber inputLastWeekWinNumber = InputView.bonusNumber();
