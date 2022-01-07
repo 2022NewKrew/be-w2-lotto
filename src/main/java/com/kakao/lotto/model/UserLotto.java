@@ -58,13 +58,15 @@ public class UserLotto {
     }
 
     public Map<Integer, List<Integer>> printLottos(){
-        Map<Integer, List<Integer>> tempMap = new HashMap<>();
+        Map<Integer, List<Integer>> tempResultSaveMap = new HashMap<>();
 
         for(int i = 0 ; i < lottoNumbers.size() ; i++){
-            tempMap.put(i, lottoNumbers.get(i).getAll().stream().sorted().collect(Collectors.toList()));
+            tempResultSaveMap.put(i, lottoNumbers.get(i).getAll().stream()
+                    .sorted()
+                    .collect(Collectors.toList()));
         }
 
-        return tempMap;
+        return tempResultSaveMap;
     }
 
     public int getNumOfCustomLotto() {

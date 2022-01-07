@@ -49,8 +49,8 @@ public class LottoResultCheck {
     /**
      * 현재 Enum 상수 상태와 로또가 일치하는지 확인하고 일치할 경우 count를 올려주는 메서드입니다.
      *
-     * @param result    결과를 저장할 Map 객체
-     * @param state     현재 확인중인 Enum 상수
+     * @param result 결과를 저장할 Map 객체
+     * @param state  현재 확인중인 Enum 상수
      */
     private void addResultHashMap(Map<LottoResultState, Integer> result, LottoResultState state) {
         result.put(state, result.get(state) + 1);

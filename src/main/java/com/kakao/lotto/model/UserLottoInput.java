@@ -73,7 +73,7 @@ public class UserLottoInput {
             return this;
         }
 
-        public Builder setNumberOfAllNumber(String numberOfAllNumber){
+        public Builder setNumberOfAllNumber(String numberOfAllNumber) {
             this.numberOfAllNumber = Integer.parseInt(numberOfAllNumber) / ConstLottoConfig.LOTTO_PRICE;
 
             return this;
@@ -95,7 +95,7 @@ public class UserLottoInput {
 
         public Builder setNumberOfCustomNumber(String customLotto) {
             int numOfCustomNumber = 0;
-            if(!"".equals(customLotto))
+            if (!"".equals(customLotto))
                 numOfCustomNumber = customLotto.split("\n").length;
 
             this.numberOfCustomNumber = Math.min(numberOfAllNumber, numOfCustomNumber);
@@ -122,7 +122,7 @@ public class UserLottoInput {
         public Builder setCustomLottos(String customLottos) {
             this.createdCustomLotto = new ArrayList<>();
 
-            if(this.numberOfCustomNumber != 0) {
+            if (this.numberOfCustomNumber != 0) {
                 this.createdCustomLotto = Arrays.stream(customLottos.split("\n"))
                         .limit(numberOfCustomNumber)
                         .map(LottoNumber::new)

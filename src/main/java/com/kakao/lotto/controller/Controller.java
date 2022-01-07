@@ -1,12 +1,12 @@
 package com.kakao.lotto.controller;
 
 import com.kakao.lotto.model.LottoResultCheck;
+import com.kakao.lotto.model.PreLottoResultInput;
 import com.kakao.lotto.model.SystemLotto;
 import com.kakao.lotto.model.UserLotto;
-import com.kakao.lotto.view.ChangeVaildInput;
-import com.kakao.lotto.model.PreLottoResultInput;
-import com.kakao.lotto.view.ResultPrinter;
 import com.kakao.lotto.model.UserLottoInput;
+import com.kakao.lotto.view.ChangeVaildInput;
+import com.kakao.lotto.view.ResultPrinter;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static spark.Spark.*;
-import static spark.Spark.post;
 
 /**
  * author    : brody.moon
@@ -31,6 +30,9 @@ public class Controller {
     private final SystemLotto systemLotto;
     private final ResultPrinter resultPrinter;
     private final boolean isAcceptWebUI;
+
+    private int saveIndex = 0;
+    private Map<Integer, UserLotto> saveUserLotto;
 
     public Controller() {
         userLotto = new UserLotto(new UserLottoInput.Builder()
@@ -53,21 +55,22 @@ public class Controller {
         isAcceptWebUI = false;
     }
 
-    public Controller(boolean isAcceptWebUI){
-        if(!isAcceptWebUI)
+    public Controller(boolean isAcceptWebUI) {
+        if (!isAcceptWebUI)
             throw new IllegalArgumentException("true를 입력하거나 default 생성자를 사용하세요");
 
         userLotto = null;
         systemLotto = null;
         resultPrinter = null;
         this.isAcceptWebUI = isAcceptWebUI;
+        saveUserLotto = new HashMap<>();
     }
 
     /**
      * Model 과 View 사이의 프로그램 진행 과정을 모아준 메서드입니다.
      */
     public void start() {
-        if(isAcceptWebUI)
+        if (isAcceptWebUI)
             throw new IllegalAccessError("Web UI 처리로는 부적절한 접근입니다");
 
         resultPrinter.printBuyLottoNumbers();
@@ -81,8 +84,8 @@ public class Controller {
         resultPrinter.printAllLottoResult(lottoResultCheck.lottoResult());
     }
 
-    public void run(){
-        if(!isAcceptWebUI)
+    public void run() {
+        if (!isAcceptWebUI)
             throw new IllegalAccessError("UserInput 처리로는 부적절한 접근입니다");
 
         port(8080);
@@ -105,8 +108,11 @@ public class Controller {
                     .build()
             );
 
+            saveUserLotto.put(saveIndex, userLotto);
+
             model.put("lottosSize", userLotto.getLottoNumbers().size());
             model.put("lottos", userLotto.printLottos());
+            model.put("id", saveIndex++);
 
             return render(model, "/show.html");
         });
@@ -115,6 +121,7 @@ public class Controller {
             Map<String, Object> model = new HashMap<>();
             String winningNumber = req.queryParams("winningNumber");
             String bonusNumber = req.queryParams("bonusNumber");
+            String index = req.queryParams("index");
 
             SystemLotto systemLotto = new SystemLotto(new PreLottoResultInput.Builder()
                     .setPreLottoNumber(winningNumber)
@@ -122,6 +129,7 @@ public class Controller {
                     .build()
             );
 
+            UserLotto userLotto = saveUserLotto.get(Integer.parseInt(index));
             LottoResultCheck lottoResultCheck = new LottoResultCheck(userLotto, systemLotto);
             ResultPrinter resultPrinter = new ResultPrinter(userLotto, systemLotto);
 
@@ -132,7 +140,7 @@ public class Controller {
         });
     }
 
-    public static String render(Map model, String templatePath) {
+    public static String render(Map<String, Object> model, String templatePath) {
         return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
     }
 }

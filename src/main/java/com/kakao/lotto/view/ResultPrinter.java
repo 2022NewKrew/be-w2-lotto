@@ -104,7 +104,7 @@ public class ResultPrinter {
             sum += state.getPrice() * result.get(state);
         }
 
-        if(buyLottoNumbers.size() == 0)
+        if (buyLottoNumbers.size() == 0)
             return 0;
         return (int) ((sum - buyLottoNumbers.size() * ConstLottoConfig.LOTTO_PRICE) / (double) (buyLottoNumbers.size() * ConstLottoConfig.LOTTO_PRICE) * 100);
     }

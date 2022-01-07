@@ -16,19 +16,24 @@ public class LottoNumber {
         this.lottonumber = lottonumber;
     }
 
-    public LottoNumber(int[] lottonumber){
-        this.lottonumber = Arrays.stream(lottonumber).boxed().collect(Collectors.toUnmodifiableSet());
+    public LottoNumber(int[] lottonumber) {
+        this.lottonumber = Arrays.stream(lottonumber)
+                .boxed()
+                .collect(Collectors.toUnmodifiableSet());
     }
 
-    public LottoNumber(String lottoNumberString){
-        this.lottonumber = Arrays.stream(lottoNumberString.split(",")).map(String::trim).map(Integer::parseInt).collect(Collectors.toUnmodifiableSet());
+    public LottoNumber(String lottoNumberString) {
+        this.lottonumber = Arrays.stream(lottoNumberString.split(","))
+                .map(String::trim)
+                .map(Integer::parseInt)
+                .collect(Collectors.toUnmodifiableSet());
     }
 
-    public int size(){
+    public int size() {
         return lottonumber.size();
     }
 
-    public Set<Integer> getAll(){
+    public Set<Integer> getAll() {
         return lottonumber;
     }
 

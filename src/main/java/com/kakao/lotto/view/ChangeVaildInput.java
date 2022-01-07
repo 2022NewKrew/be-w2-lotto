@@ -79,8 +79,9 @@ public class ChangeVaildInput {
 
     /**
      * 위 메서드랑 같은 기능인데 Stream.generate 가 Supplier 를 매개변수로 받아 따로 만들어주었습니다.
-     * @param printString   출력할 문자열
-     * @return              유효한 로또 번호
+     *
+     * @param printString 출력할 문자열
+     * @return 유효한 로또 번호
      */
     public static LottoNumber inputIntArrayStringManufactor(String printString) {
         LottoNumber tempLottoNumber;

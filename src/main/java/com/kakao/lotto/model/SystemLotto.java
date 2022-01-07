@@ -31,7 +31,7 @@ public class SystemLotto {
         bonus = tmpIntArray[ConstLottoConfig.LOTTO_PICK_NUMBER];
     }
 
-    public SystemLotto(PreLottoResultInput preLottoResultInput){
+    public SystemLotto(PreLottoResultInput preLottoResultInput) {
         winningLottoNumbers = preLottoResultInput.getLottoNumber();
         bonus = preLottoResultInput.getBonus();
     }
