@@ -22,7 +22,7 @@ public class LotteryCountTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {1, 2, 3})
+    @ValueSource(ints = {0, 1, Integer.MAX_VALUE})
     void equals_ValueIsSame_ReturnsTrue(int parameter) {
         LotteryCount it = new LotteryCount(parameter);
         LotteryCount that = new LotteryCount(parameter);
@@ -31,7 +31,7 @@ public class LotteryCountTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {1, 2, 3})
+    @ValueSource(ints = {0, 1, Integer.MAX_VALUE - 1})
     void equals_ValueIsNotSame_ReturnsFalse(int parameter) {
         LotteryCount it = new LotteryCount(parameter);
         LotteryCount that = new LotteryCount(parameter + 1);
@@ -40,7 +40,7 @@ public class LotteryCountTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {1, 2, 3})
+    @ValueSource(ints = {0, 1, Integer.MAX_VALUE - 2})
     void sub_ValidParameters_ReturnsCorrectObject(int parameter) {
         LotteryCount it = new LotteryCount(parameter + 2);
         LotteryCount that = new LotteryCount(parameter);
@@ -52,7 +52,7 @@ public class LotteryCountTest {
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {1, 2, 3})
+    @ValueSource(ints = {0, 1, Integer.MAX_VALUE - 2})
     void sub_InValidParameters_ThrowsIllegalArgumentsException(int parameter) {
         LotteryCount it = new LotteryCount(parameter);
         LotteryCount that = new LotteryCount(parameter + 2);
