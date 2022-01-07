@@ -7,9 +7,13 @@ public class Ball {
     public static final int MAX_LOTTO_NUMBER = 45;
     private final int number;
 
-    public Ball(int number) {
+    private Ball(int number) {
         assertValidNumber(number);
         this.number = number;
+    }
+
+    public static Ball create(int number) {
+        return new Ball(number);
     }
 
     private void assertValidNumber(int number) throws IllegalArgumentException {

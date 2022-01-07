@@ -8,11 +8,15 @@ public class WinningLotto {
     private final List<Ball> balls;
     private final Ball bonusBall;
 
-    public WinningLotto(List<Ball> balls, Ball bonusBall) {
+    private WinningLotto(List<Ball> balls, Ball bonusBall) {
         assertValidBalls(balls);
         assertValidBonusBall(balls, bonusBall);
         this.balls = balls;
         this.bonusBall = bonusBall;
+    }
+
+    public static WinningLotto create(List<Ball> balls, Ball bonusBall) {
+        return new WinningLotto(balls, bonusBall);
     }
 
     private void assertValidBalls(List<Ball> balls) throws IllegalArgumentException {

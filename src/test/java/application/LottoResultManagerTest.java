@@ -15,34 +15,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
 class LottoResultManagerTest {
-    private static final WinningLotto winningLotto = createWinningLotto(createBallList(List.of(1, 2, 3, 4, 5, 6)), createBall(7));
+    private static final WinningLotto winningLotto = WinningLotto.create(createBallList(List.of(1, 2, 3, 4, 5, 6)), Ball.create(7));
+
     private static final List<Lotto> lottoList = List.of(
-            createLotto(createBallList(List.of(4, 5, 6, 1, 2, 3))),
-            createLotto(createBallList(List.of(4, 5, 6, 1, 2, 45))),
-            createLotto(createBallList(List.of(4, 5, 6, 1, 2, 7))),
-            createLotto(createBallList(List.of(4, 5, 6, 1, 44, 45))),
-            createLotto(createBallList(List.of(4, 5, 6, 43, 44, 45))),
-            createLotto(createBallList(List.of(4, 41, 42, 43, 44, 45))),
-            createLotto(createBallList(List.of(40, 41, 42, 43, 44, 45)))
+            Lotto.create(createBallList(List.of(4, 5, 6, 1, 2, 3))),
+            Lotto.create(createBallList(List.of(4, 5, 6, 1, 2, 45))),
+            Lotto.create(createBallList(List.of(4, 5, 6, 1, 2, 7))),
+            Lotto.create(createBallList(List.of(4, 5, 6, 1, 44, 45))),
+            Lotto.create(createBallList(List.of(4, 5, 6, 43, 44, 45))),
+            Lotto.create(createBallList(List.of(4, 41, 42, 43, 44, 45))),
+            Lotto.create(createBallList(List.of(40, 41, 42, 43, 44, 45)))
     );
     private final List<Long> prizeList = List.of(5000L, 50000L, 1500000L, 30000000L, 2000000000L);
 
-    private static Ball createBall(int number) {
-        return new Ball(number);
-    }
-
     private static List<Ball> createBallList(List<Integer> list) {
         return list.stream()
-                .map(Ball::new)
+                .map(Ball::create)
                 .collect(Collectors.toList());
-    }
-
-    private static Lotto createLotto(List<Ball> balls) {
-        return new Lotto(balls);
-    }
-
-    private static WinningLotto createWinningLotto(List<Ball> balls, Ball bonusBall) {
-        return new WinningLotto(balls, bonusBall);
     }
 
     @DisplayName("당첨 결과가 올바른지 검증")

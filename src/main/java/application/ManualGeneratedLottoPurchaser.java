@@ -16,7 +16,7 @@ public class ManualGeneratedLottoPurchaser implements LottoPurchaser {
     @Override
     public List<Lotto> generateLotto() {
         return ballList.stream()
-                .map(e -> new Lotto(e.stream().map(Ball::new).collect(Collectors.toList())))
+                .map(e -> Lotto.create(e.stream().map(Ball::create).collect(Collectors.toList())))
                 .collect(Collectors.toList());
     }
 }

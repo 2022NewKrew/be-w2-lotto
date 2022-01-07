@@ -10,11 +10,11 @@ import java.util.stream.IntStream;
 
 public class AutoLottoGenerator {
     private final List<Ball> numbers = IntStream.rangeClosed(Ball.MIN_LOTTO_NUMBER, Ball.MAX_LOTTO_NUMBER)
-            .mapToObj(Ball::new).collect(Collectors.toList());
+            .mapToObj(Ball::create).collect(Collectors.toList());
 
     public Lotto getLotto() {
         Collections.shuffle(numbers);
-        return new Lotto(numbers.stream()
+        return Lotto.create(numbers.stream()
                 .distinct()
                 .limit(Lotto.NUMBER_OF_BALLS)
                 .collect(Collectors.toList()));
