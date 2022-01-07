@@ -18,10 +18,11 @@ public class LottoTickets {
         lottoTickets.addAll(autoAmount.makeLottoTicket(new RandomTicketGenerator(lottoMaker)));
     }
 
-    public void addManualTickets(List<List<Integer>> inputs, Money money, Amount manualAmount) throws IllegalArgumentException {
-        LottoTicket.subMoney(manualAmount, money);
+    public Money addManualTickets(List<List<Integer>> inputs, Money money, Amount manualAmount) throws IllegalArgumentException {
+        Money leftMoney = LottoTicket.subMoney(manualAmount, money);
         this.manualAmount = manualAmount;
         lottoTickets.addAll(manualAmount.makeLottoTicket(new ManualTicketGenerator(inputs, manualAmount)));
+        return leftMoney;
     }
 
     public LottoTickets(List<LottoTicket> lottoTickets) {

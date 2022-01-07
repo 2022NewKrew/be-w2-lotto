@@ -42,7 +42,7 @@ public class UserInterface {
         printString("보너스 볼을 입력해 주세요.");
     }
 
-    public void printBenefit(int benefit) {
+    public void printBenefit(long benefit) {
         printString(String.format("총 수익률은 %d %%입니다.", benefit));
     }
 
@@ -128,7 +128,7 @@ public class UserInterface {
     }
 
 
-    public WebLottoResult makeWebLottosResult(List<List<String>> statistics, int earningRate){
+    public WebLottoResult makeWebLottosResult(List<List<String>> statistics, long earningRate){
         return new WebLottoResult(statistics, earningRate);
     }
 }

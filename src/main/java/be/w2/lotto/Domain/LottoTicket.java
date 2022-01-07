@@ -20,8 +20,8 @@ public class LottoTicket {
         return new LottoTicket(LottoNumbers.getInstanceByIntList(list));
     }
 
-    public static void subMoney(Amount amount, Money money) {
-        money.sub(amount.fullPrice(PRICE));
+    public static Money subMoney(Amount amount, Money money) {
+        return money.sub(amount.fullPrice(PRICE));
     }
 
     public static Amount calculateAmount(Money money) {

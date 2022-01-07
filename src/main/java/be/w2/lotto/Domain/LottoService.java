@@ -29,13 +29,13 @@ public class LottoService {
 
     public void sell(List<List<Integer>> manualNumbers) {
         LottoTickets lottoTickets = new LottoTickets();
-        sellManual(manualNumbers, this.money, lottoTickets, this.manualAmount);
-        sellAuto(money, lottoTickets);
+        Money leftMoney = sellManual(manualNumbers, this.money, lottoTickets, this.manualAmount);
+        sellAuto(leftMoney, lottoTickets);
         this.lottoTickets = lottoTickets;
     }
 
-    private void sellManual(List<List<Integer>> manualNumbers, Money money, LottoTickets lottoTickets, Amount amount) {
-        lottoTickets.addManualTickets(manualNumbers, money, amount);
+    private Money sellManual(List<List<Integer>> manualNumbers, Money money, LottoTickets lottoTickets, Amount amount) {
+        return lottoTickets.addManualTickets(manualNumbers, money, amount);
     }
 
     private void sellAuto(Money money, LottoTickets lottoTickets) {
@@ -48,7 +48,7 @@ public class LottoService {
         this.lottoResult = lottoTickets.calculateResult(answers, bonusNumber);
     }
 
-    public int calculateBenefit() {
+    public long calculateBenefit() {
         int benefit = lottoResult.benefit();
         return money.earningRate(benefit);
     }

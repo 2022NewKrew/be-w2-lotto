@@ -5,9 +5,9 @@ import java.util.List;
 
 public class WebLottoResult {
     List<String> message;
-    int totalRateOfReturn;
+    long totalRateOfReturn;
 
-    public WebLottoResult(List<List<String>> statistics, int earningRate){
+    public WebLottoResult(List<List<String>> statistics, long earningRate){
         message = new ArrayList<>();
         for(List<String> statistic : statistics){
             String webString = String.format("%s - %s 개", statistic.get(0), statistic.get(1));
@@ -20,7 +20,7 @@ public class WebLottoResult {
         return message;
     }
 
-    public int getTotalRateOfReturn(){
+    public long getTotalRateOfReturn(){
         return totalRateOfReturn;
     }
 

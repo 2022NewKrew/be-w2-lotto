@@ -29,8 +29,8 @@ public class LottoApplication {
 
     public static void main(String[] args) {
         LottoApplication lottoApplication = new LottoApplication();
-        lottoApplication.webApplication();
-//        lottoApplication.cliApplication();
+//        lottoApplication.webApplication();
+        lottoApplication.cliApplication();
     }
 
     private void cliApplication(){
