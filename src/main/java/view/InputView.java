@@ -3,10 +3,9 @@ package view;
 import domain.Lotto;
 import domain.LottoWinningNumber;
 
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class InputView {
     private static final String INPUT_PURCHASE_AMOUNT = "구입금액을 입력해 주세요.";
@@ -26,9 +25,15 @@ public class InputView {
         return scanner.nextInt();
     }
 
-    public static Lotto manualNumbers() {
-        System.out.println("\n" + INPUT_LOTTO_MANUAL_LOTTO_NUMBERS);
-        return inputNumbers();
+    public static List<Lotto> manualNumbers(int manualQuantity) {
+        if (manualQuantity > 0) {
+            System.out.println("\n" + INPUT_LOTTO_MANUAL_LOTTO_NUMBERS);
+        }
+        List<Lotto> manualLottos = new ArrayList<>();
+        IntStream.range(0, manualQuantity).forEach(manualIndex -> {
+            manualLottos.add(inputNumbers());
+        });
+        return manualLottos;
     }
 
     public static Lotto lastWeekNumbers() {

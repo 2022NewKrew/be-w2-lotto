@@ -41,13 +41,6 @@ public class LottoMachine {
     }
 
     public List<Lotto> createManualLottos(int manualQuantity) {
-        return Stream.generate(this::createManualLotto)
-                .limit(manualQuantity)
-                .collect(Collectors.toList());
+        return InputView.manualNumbers(manualQuantity);
     }
-
-    private Lotto createManualLotto() {
-        return InputView.manualNumbers();
-    }
-
 }
