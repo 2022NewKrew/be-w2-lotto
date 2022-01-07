@@ -3,12 +3,14 @@ package model;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
+
 import static CONST.Const.*;
 
 
 public class Lotto {
     private static final Random random = new Random();
     private final List<Integer> lotto;
+    private final String numbers;
 
     //자동으로 구매할 때
     public Lotto() {
@@ -19,10 +21,13 @@ public class Lotto {
                 .sorted()
                 .boxed()
                 .collect(Collectors.toList());
+        this.numbers = lotto.toString();
     }
+
     //수동으로 구매할 때
-    public Lotto(List<Integer> manualNubmer){
+    public Lotto(List<Integer> manualNubmer) {
         this.lotto = manualNubmer;
+        this.numbers = lotto.toString();
     }
 
 
@@ -35,6 +40,7 @@ public class Lotto {
         return lotto.toString();
     }
 
+
     public int checkNumber(List<Integer> winningNumber, int bonusNumber) {
         int correctCount = (int) winningNumber
                 .stream()
@@ -44,5 +50,9 @@ public class Lotto {
             return LOTTO_FIVE_BONUS_WIN;
         }
         return correctCount;
+    }
+
+    public String getNumbers() {
+        return numbers;
     }
 }

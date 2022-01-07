@@ -26,12 +26,12 @@ public class Lottos {
                 + BUY_COUNT_POSTFIX);
     }
 
-    private int size() {
-        return lottos.size();
-    }
-
     public Lottos(List<Lotto> lottos) {
         this.lottos = lottos;
+    }
+
+    private int size() {
+        return lottos.size();
     }
 
     public List<Lotto> getLottos() {
