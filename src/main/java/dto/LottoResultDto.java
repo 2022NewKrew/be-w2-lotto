@@ -22,7 +22,6 @@ public class LottoResultDto implements Comparable<LottoResultDto> {
 
     @Override
     public int compareTo(LottoResultDto o) {
-        return lottoResult.getPrizeMoney() > o.getLottoResult().getPrizeMoney() ? 1 :
-                (lottoResult.getPrizeMoney() == o.getLottoResult().getPrizeMoney() ? 0 : -1);
+        return Long.compare(lottoResult.getPrizeMoney(), o.getLottoResult().getPrizeMoney());
     }
 }
