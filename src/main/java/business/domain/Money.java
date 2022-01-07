@@ -13,7 +13,8 @@ public class Money {
     public Money(long value) {
         if (!isValueValid(value)) {
             throw new IllegalArgumentException(
-                String.format("%,d원 이상, %,d원 이하, %,d원 단위의 값만 금액으로 사용 가능합니다.", MONEY_MIN, MONEY_MAX, UNIT_VALUE));
+                String.format("%,d원 이상, %,d원 이하, %,d원 단위의 값만 금액으로 사용 가능합니다.", MONEY_MIN, MONEY_MAX,
+                    UNIT_VALUE));
         }
 
         this.value = value;
@@ -33,11 +34,6 @@ public class Money {
 
     public LotteryCount calculateMaxLotteryCount() {
         return new LotteryCount((int) (this.value / UNIT_VALUE));
-    }
-
-    public static RateOfYield calculateRateOfYield(Money base, Money income) {
-        return new RateOfYield(
-            ((double) (100 * (income.getValue() - base.getValue()))) / base.getValue());
     }
 
     public long getValue() {

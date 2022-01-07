@@ -17,7 +17,7 @@ public class Statistics {
         LotteryResult lotteryResult) {
         RankMap rankmap = RankMap.of(lotteryResult, lotteryTicket);
         Money prize = rankmap.getTotalPrize();
-        return new Statistics(rankmap, Money.calculateRateOfYield(baseMoney, prize));
+        return new Statistics(rankmap, RateOfYield.of(baseMoney, prize));
     }
 
     private boolean isRateOfYieldValid(RateOfYield rateOfYield) {

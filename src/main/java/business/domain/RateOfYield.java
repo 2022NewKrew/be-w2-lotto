@@ -6,8 +6,13 @@ public class RateOfYield {
 
     private final double value;
 
-    public RateOfYield(double value) {
+    private RateOfYield(double value) {
         this.value = value;
+    }
+
+    public static RateOfYield of(Money base, Money income) {
+        return new RateOfYield(
+            ((double) (100 * (income.getValue() - base.getValue()))) / base.getValue());
     }
 
     public double getValue() {
