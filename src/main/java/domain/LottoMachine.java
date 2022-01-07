@@ -18,8 +18,8 @@ public class LottoMachine {
 
     public LottoRepository getAllLottos(List<Lotto> autoLottos, List<Lotto> manualLottos) {
         List<Lotto> allLottos = new ArrayList<>();
-        allLottos.addAll(autoLottos);
         allLottos.addAll(manualLottos);
+        allLottos.addAll(autoLottos);
         return new LottoRepository(allLottos);
     }
 
