@@ -10,7 +10,7 @@ public class LottoBox {
     private static final int LOTTO_NUM_MIN = 1;
     private final List<Integer> lottoList = new ArrayList<>();
 
-    private LottoBox(){
+    private LottoBox() {
         for (int i = LOTTO_NUM_MIN; i <= LOTTO_NUM_MAX; i++) {
             lottoList.add(i);
         }
@@ -24,7 +24,8 @@ public class LottoBox {
     public static LottoBox getInstance() {
         return InnerInstanceClass.instance;
     }
-    public List<Integer> getCopiedLottoList(){
+
+    public List<Integer> getCopiedLottoList() {
         return new ArrayList<>(lottoList);
     }
 }

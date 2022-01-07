@@ -7,7 +7,7 @@ public class LottoOutput {
     public static final String PRIZE_STR_FORMAT = "%s (%d원)- %d 개";
 
     public static void printLottoPack(LottoPack lottoPack) {
-        lottoPack.printLottoPack();
+        System.out.println(lottoPack.printLottoPack());
     }
 
     public static void printWinningStats(WinningStats winningStats, int buyPrice) {

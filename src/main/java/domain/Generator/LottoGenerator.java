@@ -2,7 +2,6 @@ package domain.Generator;
 
 import domain.Lotto;
 
-import java.util.Collections;
 import java.util.List;
 
 public abstract class LottoGenerator {

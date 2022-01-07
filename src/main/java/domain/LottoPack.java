@@ -22,8 +22,12 @@ public class LottoPack {
     }
 
 
-    public void printLottoPack() {
-        lottoList.forEach(e -> System.out.print(e + "\n"));
+    public String printLottoPack() {
+        StringBuilder stringBuilder = new StringBuilder();
+        lottoList.forEach(e ->
+                stringBuilder.append(e + "\n")
+        );
+        return stringBuilder.toString();
     }
 
     public RankingPack makeRankingPack(Lotto prize,int bonus) {
