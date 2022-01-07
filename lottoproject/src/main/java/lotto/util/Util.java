@@ -1,9 +1,8 @@
 package lotto.util;
 
-import spark.ModelAndView;
-import spark.template.handlebars.HandlebarsTemplateEngine;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Util {
     public static final int LOTTO_PRICE = 1000;
@@ -25,16 +24,6 @@ public class Util {
     public static List<Integer> generateLottoRandomNumbers(){
         return generateRandomNumbers(Util.LOTTO_NUMBER_COUNT, Util.LOTTO_MIN_NUMBER, Util.LOTTO_MAX_NUMBER);
     }
-
-
-    public static List<String> convStringToStringArraylist(String input, String gubun){
-        List<String> stringArrayList = new ArrayList<>();
-        for (String string : input.split(gubun)){
-            stringArrayList.add(string);
-        }
-        return stringArrayList;
-    }
-
     public static List<Integer> convStringToIntegerArraylist(String input, String gubun){
         List<Integer> inputIntegerArrayList = new ArrayList<>();
         for (String string : input.split(gubun)){

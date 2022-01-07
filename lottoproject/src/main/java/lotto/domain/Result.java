@@ -1,9 +1,8 @@
 package lotto.domain;
 
-import lombok.AccessLevel;
-import lombok.Getter;
 import lotto.util.Rank;
 import lotto.util.Util;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
