@@ -28,8 +28,8 @@ public enum LottoResult {
                 .orElse(LottoResult.NONE);
     }
 
-    public long getRewardPrice() {
-        return reward.getPrice();
+    public Money getReward() {
+        return reward;
     }
 
     public long getTotalReward(int count) {

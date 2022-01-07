@@ -51,7 +51,7 @@ public class ConsoleOutputView implements OutputView {
         for (Map.Entry<LottoResult, Integer> resultEntry : resultMap.entrySet()) {
             LottoResult lottoResult = resultEntry.getKey();
             int matchCount = lottoResult.getMatchCount();
-            long reward = lottoResult.getRewardPrice();
+            long reward = lottoResult.getReward().getPrice();
             int count = resultEntry.getValue();
             stringBuilder.append(String.format("%d개 일치 (%d)원- %d개\n", matchCount, reward, count));
         }
