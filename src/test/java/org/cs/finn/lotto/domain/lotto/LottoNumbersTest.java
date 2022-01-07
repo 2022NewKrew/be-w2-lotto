@@ -111,7 +111,8 @@ class LottoNumbersTest {
                 Arguments.of(List.of(6, 1, 2, 3, 4, 5), expected),
                 Arguments.of(List.of(5, 1, 2, 6, 4, 3), expected),
                 Arguments.of(List.of(2, 4, 6, 3, 1, 5), expected),
-                Arguments.of(List.of(1, 6, 2, 5, 4, 3), expected)
+                Arguments.of(List.of(1, 6, 2, 5, 4, 3), expected),
+                Arguments.of(List.of(1, 2, 3, 4, 5, 6), expected)
         );
     }
 }
