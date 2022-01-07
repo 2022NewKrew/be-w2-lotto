@@ -12,9 +12,9 @@ public class ResultController {
     }
 
     public static void printResult(MatchStore matchStore) {
-        List<WinningClassifier> msLst = WinningClassifier.getWinObjLst();
+        List<WinningClassifier> gradeLst = WinningClassifier.getWinObjLst();
 
-        for (WinningClassifier grade : msLst) {
+        for (WinningClassifier grade : gradeLst) {
             OutputView.printResult(makeResultDTOFromGrade(grade, matchStore.getCnt(grade)));
         }
     }

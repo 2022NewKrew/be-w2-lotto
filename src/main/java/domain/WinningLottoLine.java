@@ -9,7 +9,6 @@ public class WinningLottoLine {
 
     private static final int MIN_NUM = 1;
     private static final int MAX_NUM = 45;
-    private static final int NUM_PER_LINE = 6;
 
     public WinningLottoLine(LottoLine paramLottoLine) {
         lottoLine = paramLottoLine;
@@ -25,9 +24,9 @@ public class WinningLottoLine {
     }
 
     public List<Integer> getBonusList() {
-        List<Integer> foo = new ArrayList<>();
-        foo.add(bonus);
-        return foo;
+        List<Integer> bonusLst = new ArrayList<>();
+        bonusLst.add(bonus);
+        return bonusLst;
     }
 
     public List<Integer> getLottoLine() {

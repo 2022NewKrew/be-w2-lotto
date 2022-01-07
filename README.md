@@ -35,3 +35,9 @@
   * enum만 하는 객체 WinningClassifier
   * 중간 결과를 저장하는 객체 MatchStore
 * Controller를 static 메소드의 집합으로
+* 마이너 refactoring
+  * WinningClassifier 상수 도입 및 초기화를 엔터로 구분
+  * OutputView printResult 메소드의 로직 리팩토링
+  * 불분명한 변수 이름 조정
+  * 쓰이지 않는 상수 제거
+  * DTO 객체의 setter 함수 제거 및 상수 final화

@@ -28,12 +28,13 @@ public class OutputView {
     }
 
     public static void printResult(ResultDTO result) {
-        if (!result.isMatchBonus()) {
-            System.out.printf("%d개 일치 (%d원)- %d개\n", result.getMatchNum(), result.getPrice(), result.getNumLotto());
+        if (result.isMatchBonus()) {
+            System.out.printf("%d개 일치, 보너스 볼 일치 (%d원)- %d개\n",
+                    result.getMatchNum(), result.getPrice(), result.getNumLotto());
             return;
         }
-        System.out.printf("%d개 일치, 보너스 볼 일치 (%d원)- %d개\n",
-                result.getMatchNum(), result.getPrice(), result.getNumLotto());
+
+        System.out.printf("%d개 일치 (%d원)- %d개\n", result.getMatchNum(), result.getPrice(), result.getNumLotto());
     }
 
     public static void printYield(Long yield) {

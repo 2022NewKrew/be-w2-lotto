@@ -21,10 +21,10 @@ public class StartController {
 
     public static void addLottoLines(MyLottoLines lottoLines, int numLotto) {
         for (int i = 0; i < numLotto; i++) {
-            LottoLine curLine = new RandomLottoLine();
+            LottoLine curLotto = new RandomLottoLine();
 
-            lottoLines.addLotto(curLine);
-            OutputView.printLottoLine(curLine.getPrintLine());
+            lottoLines.addLotto(curLotto);
+            OutputView.printLottoLine(curLotto.getPrintLine());
         }
     }
 
