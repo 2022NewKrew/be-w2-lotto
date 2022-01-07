@@ -1,4 +1,4 @@
-package com.meg.w2lotto.constants;
+package com.meg.w2lotto.domain.lotto;
 
 public final class LottoConstant {
 

@@ -10,20 +10,25 @@ import java.util.List;
 
 public class ResultService {
 
-    private static final ResultService INSTANCE = new ResultService();
+    private static ResultService INSTANCE;
 
     private ResultService() {}
 
     public static ResultService getInstance() {
+        if (INSTANCE==null) {
+            INSTANCE = new ResultService();
+        }
         return INSTANCE;
     }
 
-    public Statistic createStatistic(List<Integer> winningLotto, int bonusBall, LottoPack lottoPack, int purchaseMoney) {
-        Statistic statistic = new Statistic(purchaseMoney);
+    public Statistic createStatistic(List<Integer> winningLotto, int bonusBall, LottoPack lottoPack) {
+
+        Statistic statistic = new Statistic(lottoPack.getPrice());
         for (Lotto lotto : lottoPack.getLottos()) {
             Result result = new Result(new LastWinningLotto(winningLotto, bonusBall), lotto);
             statistic.addUpCorrectCounts(result.getPrize());
         }
+        statistic.calculateTotalReturn();
         return statistic;
     }
 

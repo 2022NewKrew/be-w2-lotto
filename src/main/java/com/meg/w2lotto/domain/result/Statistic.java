@@ -17,7 +17,6 @@ public class Statistic {
 
     public Statistic(int purchaseMoney) {
         this.purchaseMoney = purchaseMoney;
-        calculateTotalReturn();
     }
 
     public Map<Prize, Integer> getCorrectCounts() {
@@ -28,7 +27,7 @@ public class Statistic {
         correctCounts.put(prize, correctCounts.get(prize)+1);
     }
 
-    private void calculateTotalReturn() {
+    public void calculateTotalReturn() {
         int total = 0;
         for (Map.Entry<Prize, Integer> entry : correctCounts.entrySet()) {
             total += (entry.getKey().getWinningMoney() * entry.getValue());

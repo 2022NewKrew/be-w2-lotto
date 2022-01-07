@@ -5,12 +5,12 @@ import java.util.List;
 
 public class LottoPack {
 
-    private int size;
     private List<Lotto> lottos;
+    private int capacity;
 
     public LottoPack(int size) {
-        this.size = size;
         lottos = new ArrayList<>(size);
+        capacity = size;
     }
 
     public void addLotto(Lotto lotto) {
@@ -21,4 +21,15 @@ public class LottoPack {
         return lottos;
     }
 
+    public int getCount() {
+        return lottos.size();
+    }
+
+    public int getPrice() {
+        return getCount()* LottoConstant.LOTTO_COST;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
 }

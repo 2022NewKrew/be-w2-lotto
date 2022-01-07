@@ -1,7 +1,5 @@
 package com.meg.w2lotto.domain.lotto;
 
-import com.meg.w2lotto.constants.LottoConstant;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

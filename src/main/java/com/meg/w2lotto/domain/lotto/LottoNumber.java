@@ -1,6 +1,5 @@
 package com.meg.w2lotto.domain.lotto;
 
-import com.meg.w2lotto.constants.LottoConstant;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -18,6 +17,10 @@ public class LottoNumber implements Comparable<LottoNumber> {
 
     public static LottoNumber valueOf(int n) {
         return numbers.get(n-1);
+    }
+
+    public int getNumber() {
+        return number;
     }
 
     @Override
