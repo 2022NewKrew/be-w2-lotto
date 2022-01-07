@@ -7,10 +7,7 @@ import domain.WinningLottoManual;
 import exception.InvalidInputException;
 import validation.Validator;
 
-import java.util.Arrays;
-import java.util.InputMismatchException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static utils.Symbol.*;
@@ -50,6 +47,15 @@ public class InputView {
         return new WinningLottoManual(winningLotto, bonusNumber);
     }
 
+    public List<Lotto> getManualLottoList(int manualLottoCount) {
+        System.out.println("\n" + MANUAL_INPUT_MESSAGE);
+        List<Lotto> manualLottolist = new ArrayList<>();
+        for (int i = 0; i < manualLottoCount; i++) {
+            manualLottolist.add(getManualLotto());
+        }
+        return manualLottolist;
+    }
+
     public Lotto getManualLotto() {
         List<Number> inputNumberList = getNumberList();
         return new Lotto(inputNumberList);
@@ -72,4 +78,5 @@ public class InputView {
         sc.nextLine();
         return new Number(bonusNumber);
     }
+
 }

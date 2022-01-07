@@ -6,10 +6,7 @@ import service.ResultService;
 import view.InputView;
 import view.OutputView;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static utils.Symbol.MANUAL_INPUT_MESSAGE;
 
 public class LottoGame {
     private final InputView inputView = new InputView();
@@ -19,12 +16,7 @@ public class LottoGame {
     public void start() throws InvalidInputException {
         int purchaseAmount = inputView.getPurchaseAmount();
         int manualLottoCount = inputView.getManualLottoCount(purchaseAmount);
-
-        List<Lotto> manualLottolist = new ArrayList<>();
-        System.out.println("\n" + MANUAL_INPUT_MESSAGE);
-        for (int i = 0; i < manualLottoCount; i++) {
-            manualLottolist.add(inputView.getManualLotto());
-        }
+        List<Lotto> manualLottolist = inputView.getManualLottoList(manualLottoCount);
 
         LottoService lottoService = new LottoService(purchaseAmount, manualLottolist);
         List<Lotto> lottos = lottoService.getLottos();
