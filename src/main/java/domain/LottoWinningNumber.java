@@ -31,7 +31,7 @@ public class LottoWinningNumber extends Lotto {
 
     private void validateBonus(Set<Integer> lotto, Integer bonus) {
         if (lotto.contains(bonus)) {
-            throw new InvalidLottoNumberException(InvalidLottoNumberException.INVALID_BONUX_BALL);
+            throw new InvalidLottoNumberException(InvalidLottoNumberException.INVALID_BONUS_BALL);
         }
 
     }
