@@ -18,6 +18,17 @@ public class LottoWinningNumber extends Lotto {
         return bonus;
     }
 
+    public int checkMatchedNumbers(Lotto autoLotto, Set<Integer> inputLastWeekWinNumbers) {
+        return (int) inputLastWeekWinNumbers.stream()
+                .filter(inputLastWeekWinNumber -> checkMatchedNumber(autoLotto, inputLastWeekWinNumber))
+                .count();
+    }
+
+    private Boolean checkMatchedNumber(Lotto autoLotto, Integer inputLastWeekWinNumber) {
+        return autoLotto.getLotto().stream()
+                .anyMatch(autoLottoNumber -> (autoLottoNumber.equals(inputLastWeekWinNumber)));
+    }
+
     private void validateBonus(Set<Integer> lotto, Integer bonus) {
         if (lotto.contains(bonus)) {
             throw new InvalidLottoNumberException(InvalidLottoNumberException.INVALID_BONUX_BALL);

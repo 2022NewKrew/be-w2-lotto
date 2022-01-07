@@ -37,17 +37,7 @@ public class LottoRankMatch {
     private static LottoRank createLottoRank(Lotto autoLotto, Set<Integer> inputLastWeekWinNumber, Integer bonusNumber) {
         boolean flag;
         flag = autoLotto.contains(bonusNumber);
-        return LottoRank.valueOf(checkMatchedNumbers(autoLotto, inputLastWeekWinNumber), flag);
-    }
-
-    private static int checkMatchedNumbers(Lotto autoLotto, Set<Integer> inputLastWeekWinNumbers) {
-        return (int) inputLastWeekWinNumbers.stream()
-                .filter(inputLastWeekWinNumber -> checkMatchedNumber(autoLotto, inputLastWeekWinNumber))
-                .count();
-    }
-
-    private static Boolean checkMatchedNumber(Lotto autoLotto, Integer inputLastWeekWinNumber) {
-        return autoLotto.getLotto().stream()
-                        .anyMatch(autoLottoNumber -> (autoLottoNumber.equals(inputLastWeekWinNumber)));
+        LottoWinningNumber lottoWinningNumber = new LottoWinningNumber(inputLastWeekWinNumber, bonusNumber);
+        return LottoRank.valueOf(lottoWinningNumber.checkMatchedNumbers(autoLotto, inputLastWeekWinNumber), flag);
     }
 }
