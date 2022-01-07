@@ -35,7 +35,7 @@ public class LottoView {
     }
 
     public void printAllTickets(List<LottoTicket> tickets) {
-        tickets.forEach(ticket -> System.out.println(ticket.listToString()));
+        tickets.forEach(ticket -> System.out.println(ticket.toString()));
     }
 
     public void printAllTicketsResult(Map<Rank, Integer> rankCount) {
