@@ -23,6 +23,6 @@ public class LottoApplication {
 
         LottoGame lottoGame = new LottoGame();
         lottoGame.createLottoResult(lottoBundle, winningLotto);
-        lottoGame.printStatistics(lottoBundle);
+        lottoGame.printStatistics();
     }
 }

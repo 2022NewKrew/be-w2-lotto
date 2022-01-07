@@ -2,6 +2,8 @@ package lotto.domain;
 
 import lotto.view.LottoPrinter;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 /**
@@ -11,11 +13,13 @@ import java.util.*;
  */
 public class LottoGame {
     private final Map<Rank, Integer> statistics;
-    private long winningAmount;
+    private BigDecimal winningAmount;
+    private BigDecimal totalRateOfReturn;
 
     public LottoGame() {
         statistics = new HashMap<>();
-        winningAmount = 0;
+        winningAmount = BigDecimal.ZERO;
+        totalRateOfReturn = BigDecimal.ZERO;
     }
 
     private void calculateWinningAmount() {
@@ -23,7 +27,7 @@ public class LottoGame {
         for (Rank rank : ranks) {
             Integer countOfMatched = statistics.getOrDefault(rank, 0);
             LottoPrinter.printLottoRankResult(rank, countOfMatched);
-            winningAmount += rank.getWinningMoney() * countOfMatched;
+            winningAmount = winningAmount.add(BigDecimal.valueOf(rank.getWinningMoney() * countOfMatched));
         }
     }
 
@@ -34,10 +38,10 @@ public class LottoGame {
         }
     }
 
-    public void printStatistics(LottoBundle lottoBundle) {
+    public void printStatistics() {
         LottoPrinter.printLottoStatisticsTitle();
         calculateWinningAmount();
-        LottoPrinter.printLottoYield(winningAmount, lottoBundle.getLottoCount() * Constants.LOTTO_PRICE);
+        LottoPrinter.printLottoYield(totalRateOfReturn);
     }
 
     private void appendStatistics(Rank rank) {
@@ -49,13 +53,14 @@ public class LottoGame {
     public LottoResult createResult(LottoBundle lottoBundle, WinningLotto winningLotto) {
         createLottoResult(lottoBundle, winningLotto);
         calculateWinningAmount();
-        int purchaseAmount = lottoBundle.getLottoCount() * Constants.LOTTO_PRICE;
-        float totalRateOfReturn = 100 * (winningAmount - purchaseAmount) / purchaseAmount;
+        BigDecimal purchaseAmount = BigDecimal.valueOf(lottoBundle.getLottoCount() * Constants.LOTTO_PRICE);
+        totalRateOfReturn = winningAmount.subtract(purchaseAmount)
+                .multiply(BigDecimal.valueOf(100)).divide(purchaseAmount, 2, RoundingMode.HALF_EVEN);
 
-        return createStatistics(totalRateOfReturn);
+        return createStatistics();
     }
 
-    private LottoResult createStatistics(float totalRateOfReturn) {
+    private LottoResult createStatistics() {
         List<String> message = new ArrayList<>();
         List<Rank> ranks = Arrays.asList(Rank.FIFTH, Rank.FOURTH, Rank.THIRD, Rank.SECOND, Rank.FIRST);
         for (Rank rank : ranks) {

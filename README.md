@@ -42,4 +42,15 @@
 
 ### 구현 내용
 
-- 
+- 웹 UI 추가 (`LottoWebMain`)
+- spark 관련 의존성 추가
+- 웹 UI에 맞게 로직 추가 및 변경
+  - `LottoResult` 추가
+  - `LottoBundle`, `WiningLotto` 생성자 추가
+- 불필요한 import 제거
+- 생성자에 주석 추가
+- 수동 입력 없을 경우 오류 발생하지 않도록 수정
+
+### 피어세션 및 자체 피드백
+
+- `BigDecimal` 자료형 도입

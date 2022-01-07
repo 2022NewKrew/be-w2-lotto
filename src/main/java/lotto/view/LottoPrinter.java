@@ -3,6 +3,8 @@ package lotto.view;
 import lotto.domain.Constants;
 import lotto.domain.Rank;
 
+import java.math.BigDecimal;
+
 /**
  * Created by melodist
  * Date: 2022-01-03 003
@@ -30,8 +32,7 @@ public class LottoPrinter {
                 rank.getMatchString(), rank.getWinningMoney(), countOfMatched));
     }
 
-    public static void printLottoYield(long winningAmount, int purchaseAmount) {
-        float lottoYield = 100 * (winningAmount - purchaseAmount) / purchaseAmount;
-        System.out.println(String.format(Constants.PRINT_YIELD_FORMAT, lottoYield));
+    public static void printLottoYield(BigDecimal totalRateOfReturn) {
+        System.out.println(String.format(Constants.PRINT_YIELD_FORMAT, totalRateOfReturn));
     }
 }
