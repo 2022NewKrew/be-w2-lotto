@@ -11,7 +11,7 @@ import static lotto.util.ConstantValue.*;
 /**
  * 로또 번호들로 이루어진 한 줄을 의미하는 클래스
  */
-public class LottoNumber {
+public class Lotto {
     private static final List<Integer> allNumbers =
             IntStream.rangeClosed(1, 45)
                     .boxed()
@@ -23,11 +23,11 @@ public class LottoNumber {
      * parameter 없이 생성 시: 자동 생성
      * parameter 받아 생성 시: 수동 생성
      */
-    public LottoNumber(){
+    public Lotto(){
         generateNumbers();
     }
 
-    public LottoNumber(List<Integer> manualNumbers){
+    public Lotto(List<Integer> manualNumbers){
         numbers = manualNumbers;
     }
 

@@ -53,7 +53,7 @@ public class LottoGame {
      * 각각의 로또 줄을 확인하며, 일치하는 번호 수, 보너스 볼 당첨 여부를 파악하여 업데이트하는 메소드
      */
     private void searchResult(){
-        for(LottoNumber ln : lp.lottoNumbers){
+        for(LottoNumbers ln : lp.lottoNumbers){
             int countOfMatch = intersection(ln.getNumbers());
             boolean matchBonus = ln.getNumbers().contains(bonusNumber);
             LottoRank lr = LottoRank.valueOf(countOfMatch, matchBonus);
