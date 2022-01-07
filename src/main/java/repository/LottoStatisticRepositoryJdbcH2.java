@@ -20,23 +20,15 @@ public class LottoStatisticRepositoryJdbcH2 implements LottoStatisticRepository 
         ResultSet rs = null;
 
         String sql = "INSERT INTO LOTTO_STATISTIC("
-                + "WINNING_NUMBER_1,WINNING_NUMBER_2,WINNING_NUMBER_3,WINNING_NUMBER_4,WINNING_NUMBER_5,WINNING_NUMBER_6,"
                 + "WINNING_NUMBER_BONUS,PURCHASE_COUNT,NORMAL_LOTTO_COUNT,AUTO_LOTTO_COUNT"
                 + ")"
-                + " VALUES (?,?,?,?,?,?,?,?,?,?)";
+                + " VALUES (?,?,?,?)";
 
         pstmt = conn.prepareStatement(sql);
-
-        pstmt.setString(1, lottoStatistics.getWinningNumbers().get(0) + "");
-        pstmt.setString(2, lottoStatistics.getWinningNumbers().get(1) + "");
-        pstmt.setString(3, lottoStatistics.getWinningNumbers().get(2) + "");
-        pstmt.setString(4, lottoStatistics.getWinningNumbers().get(3) + "");
-        pstmt.setString(5, lottoStatistics.getWinningNumbers().get(4) + "");
-        pstmt.setString(6, lottoStatistics.getWinningNumbers().get(5) + "");
-        pstmt.setString(7, lottoStatistics.getWinningBonusNumber() + "");
-        pstmt.setString(8, lottoStatistics.getPurchaseCount() + "");
-        pstmt.setString(9, lottoStatistics.getNormalLottoCount() + "");
-        pstmt.setString(10, lottoStatistics.getAutoLottoCount() + "");
+        pstmt.setString(1, lottoStatistics.getWinningBonusNumber() + "");
+        pstmt.setString(2, lottoStatistics.getPurchaseCount() + "");
+        pstmt.setString(3, lottoStatistics.getNormalLottoCount() + "");
+        pstmt.setString(4, lottoStatistics.getAutoLottoCount() + "");
 
         int count = pstmt.executeUpdate();
 
@@ -56,7 +48,7 @@ public class LottoStatisticRepositoryJdbcH2 implements LottoStatisticRepository 
         Connection conn = JdbcConnection.createConnection();
         PreparedStatement pstmt = null;
 
-        String sql = "SELECT LOTTO_STATISTIC_ID,WINNING_NUMBER_1,WINNING_NUMBER_2,WINNING_NUMBER_3,WINNING_NUMBER_4,WINNING_NUMBER_5,WINNING_NUMBER_6,"
+        String sql = "SELECT LOTTO_STATISTIC_ID,"
                 + "WINNING_NUMBER_BONUS,PURCHASE_COUNT,NORMAL_LOTTO_COUNT,AUTO_LOTTO_COUNT"
                 + " FROM LOTTO_STATISTIC WHERE LOTTO_STATISTIC_ID=?";
 
@@ -70,17 +62,6 @@ public class LottoStatisticRepositoryJdbcH2 implements LottoStatisticRepository 
             LottoStatistic lottoStatistic = new LottoStatistic();
 
             lottoStatistic.setId(Long.parseLong(rs.getString("LOTTO_STATISTIC_ID")));
-
-            List<Integer> winningNumbers = new ArrayList<>();
-
-            winningNumbers.add(Integer.parseInt(rs.getString("WINNING_NUMBER_1")));
-            winningNumbers.add(Integer.parseInt(rs.getString("WINNING_NUMBER_2")));
-            winningNumbers.add(Integer.parseInt(rs.getString("WINNING_NUMBER_3")));
-            winningNumbers.add(Integer.parseInt(rs.getString("WINNING_NUMBER_4")));
-            winningNumbers.add(Integer.parseInt(rs.getString("WINNING_NUMBER_5")));
-            winningNumbers.add(Integer.parseInt(rs.getString("WINNING_NUMBER_6")));
-
-            lottoStatistic.setWinningNumbers(winningNumbers);
             lottoStatistic.setWinningBonusNumber(Integer.parseInt(rs.getString("WINNING_NUMBER_BONUS")));
             lottoStatistic.setPurchaseCount(Integer.parseInt(rs.getString("PURCHASE_COUNT")));
             lottoStatistic.setNormalLottoCount(Integer.parseInt(rs.getString("NORMAL_LOTTO_COUNT")));

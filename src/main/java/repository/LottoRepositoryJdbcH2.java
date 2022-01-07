@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoRepositoryJdbcH2 implements LottoRepository {
-    
+
     @Override
     public Long save(Lotto lotto, Long lottoStatisticId) throws SQLException {
         Connection conn = JdbcConnection.createConnection();
@@ -81,7 +81,7 @@ public class LottoRepositoryJdbcH2 implements LottoRepository {
             PreparedStatement pstmt = null;
 
             String sql = "SELECT LOTTO_ID,LOTTO_STATISTIC_ID,NUMBER_1,NUMBER_2,NUMBER_3,NUMBER_4,NUMBER_5,NUMBER_6,STATUS"
-                    + " FROM LOTTO WHERE LOTTO_ID=?";
+                    + " FROM LOTTO WHERE LOTTO_STATISTIC_ID=?";
 
             pstmt = conn.prepareStatement(sql);
             pstmt.setLong(1, id);
