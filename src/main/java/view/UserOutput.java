@@ -1,9 +1,9 @@
 package view;
 
+import dto.LottoRankDto;
 import dto.LottoResultDto;
 import dto.LottoResultRevenuePercentDto;
 import dto.LottosDto;
-import model.lotto.LottoRank;
 
 import java.util.List;
 
@@ -19,27 +19,27 @@ public class UserOutput {
         System.out.println("총 수익률은 " + revenuePercentDto.getRevenuePercent() + "% 입니다.");
     }
 
-    public static void printHistory(List<LottoRank> lottoRanks, LottoResultDto result) {
+    public static void printHistory(List<LottoRankDto> lottoRanks, LottoResultDto result) {
         System.out.println("당첨 통계");
         System.out.println("----------");
-        for (LottoRank value : lottoRanks) {
-            printResultByLottoRank(value, result);
+        for (LottoRankDto lottoRankDto : lottoRanks) {
+            printResultByLottoRank(lottoRankDto, result);
         }
     }
 
-    public static void printBuyMessage(int numberOfLotto) {
-        System.out.println(numberOfLotto + "개를 구매했습니다.");
+    public static void printBuyMessage(int numberOfManualLotto, int numberOfAutoLotto) {
+        System.out.printf("수동으로 %d장, 자동으로 %d장을 구매했습니다.\n", numberOfManualLotto, numberOfAutoLotto);
     }
 
-    private static void printResultByLottoRank(LottoRank lottoRank, LottoResultDto lottoResultDto) {
-        System.out.println(getFormattedString(lottoRank, lottoResultDto));
+    private static void printResultByLottoRank(LottoRankDto lottoRankDto, LottoResultDto lottoResultDto) {
+        System.out.println(getFormattedString(lottoRankDto, lottoResultDto));
     }
 
-    private static String getFormattedString(LottoRank lottoRank, LottoResultDto lottoResultDto) {
-        if (lottoResultDto.containsKey(lottoRank.getReward())) {
-            return getResultFormat(lottoRank.getMatchNumber(), lottoRank.getReward(), lottoResultDto.get(lottoRank.getReward()));
+    private static String getFormattedString(LottoRankDto lottoRankDto, LottoResultDto lottoResultDto) {
+        if (lottoResultDto.containsKey(lottoRankDto.getReward())) {
+            return getResultFormat(lottoRankDto.getMatchNumber(), lottoRankDto.getReward(), lottoResultDto.get(lottoRankDto.getReward()));
         }
-        return getResultFormat(lottoRank.getMatchNumber(), lottoRank.getReward(), 0);
+        return getResultFormat(lottoRankDto.getMatchNumber(), lottoRankDto.getReward(), 0);
     }
 
     private static String getResultFormat(int matchingNumber, int reward, int numberOfMatchTicket) {

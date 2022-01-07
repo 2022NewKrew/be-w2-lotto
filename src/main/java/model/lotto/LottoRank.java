@@ -4,11 +4,11 @@ import java.util.Arrays;
 
 public enum LottoRank {
     FAIL(0, false, 0),
-    FIFTH_PRIZE(3, false, 5000),
-    FORTH_PRIZE(4, false, 50000),
-    THIRD_PRIZE(5, false, 1500000),
-    SECOND_PRIZE(5, true, 30000000),
-    FIRST_PRIZE(6, false, 2000000000);
+    FIFTH_PRIZE(3, false, 5_000),
+    FORTH_PRIZE(4, false, 50_000),
+    THIRD_PRIZE(5, false, 1_500_000),
+    SECOND_PRIZE(5, true, 30_000_000),
+    FIRST_PRIZE(6, false, 2_000_000_000);
 
     private final int reward;
     private final int matchNumber;
@@ -22,16 +22,16 @@ public enum LottoRank {
 
     public static LottoRank convertToLottoRank(int numberOfSameNumber, boolean needBonusNumber) {
         return Arrays.stream(LottoRank.values())
-                .filter(lottoRank -> checkLottoRank(lottoRank, numberOfSameNumber, needBonusNumber))
+                .filter(lottoRank -> lottoRank.checkLottoRank(numberOfSameNumber, needBonusNumber))
                 .findFirst()
                 .orElse(LottoRank.FAIL);
     }
 
-    private static boolean checkLottoRank(LottoRank lottoRank, int numberOfSameNumber, boolean needBonusNumber) {
-        if (lottoRank == LottoRank.SECOND_PRIZE || lottoRank == LottoRank.THIRD_PRIZE) {
-            return lottoRank.getMatchNumber() == numberOfSameNumber && lottoRank.getNeedBonusNumber() == needBonusNumber;
+    private boolean checkLottoRank(int numberOfSameNumber, boolean needBonusNumber) {
+        if (this == LottoRank.SECOND_PRIZE || this == LottoRank.THIRD_PRIZE) {
+            return getMatchNumber() == numberOfSameNumber && getNeedBonusNumber() == needBonusNumber;
         }
-        return lottoRank.getMatchNumber() == numberOfSameNumber;
+        return getMatchNumber() == numberOfSameNumber;
     }
 
     public int getReward() {
