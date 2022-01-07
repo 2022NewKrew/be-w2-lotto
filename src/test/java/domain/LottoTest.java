@@ -61,7 +61,6 @@ class LottoTest {
         });
 
         // then
-        System.out.println(throw1.getMessage());
         Assertions.assertEquals("Lotto number has wrong range.", throw1.getMessage());
         Assertions.assertEquals("Lotto number has wrong range.", throw2.getMessage());
         Assertions.assertEquals("Lotto number has wrong range.", throw3.getMessage());

@@ -1,5 +1,5 @@
 package domain;
-import exception.InvalidLottoLengthException;
+
 import exception.InvalidLottoNumberException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class LottoWinningNumberTest {
 
