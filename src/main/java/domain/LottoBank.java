@@ -9,9 +9,9 @@ public class LottoBank {
     private static final int MAXIMUM_PURCHASE_AMOUNT = 100;
     private static final int LOTTO_PRICE = 1000;
 
-    public int buyLottos(int purchasedAmount) {
+    public int buyLottos(int purchasedAmount, int manualQuantity) {
         validatePurchaseAmount(purchasedAmount);
-        return purchasedAmount / LOTTO_PRICE;
+        return (purchasedAmount / LOTTO_PRICE) - manualQuantity;
     }
 
     public double getProfitRate(LottoRankMatch lottoRankMatch, int purchasedAmount) {

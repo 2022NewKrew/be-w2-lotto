@@ -19,12 +19,12 @@ class LottoBankTest {
         int money3 = 999;
 
         // when
-        Integer lottoNumber1 = lottoBank.buyLottos(money1);
+        Integer lottoNumber1 = lottoBank.buyLottos(money1, 0);
         InvalidPurchaseAmount throw1 = Assertions.assertThrows(InvalidPurchaseAmount.class, () -> {
-            lottoBank.buyLottos(money2);
+            lottoBank.buyLottos(money2, 0);
         });
         InvalidPurchaseAmount throw2 = Assertions.assertThrows(InvalidPurchaseAmount.class, () -> {
-            lottoBank.buyLottos(money3);
+            lottoBank.buyLottos(money3, 0);
         });
 
         // then
