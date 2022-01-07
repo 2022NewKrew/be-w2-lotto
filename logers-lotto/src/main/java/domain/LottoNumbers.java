@@ -2,8 +2,10 @@ package domain;
 
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toSet;
+import static java.util.Comparator.comparing;
 
 public class LottoNumbers {
     private final Set<LottoNumber> lottoNumbers;
@@ -12,7 +14,8 @@ public class LottoNumbers {
         validate(numbers);
         this.lottoNumbers = numbers.stream()
                 .map(LottoNumber::new)
-                .collect(toSet());
+                .collect(Collectors.toCollection(()
+                        -> new TreeSet<>(comparing(LottoNumber::getNumber))));
     }
 
     static void validate(List<Integer> numbers){

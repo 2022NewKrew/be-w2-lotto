@@ -17,7 +17,7 @@ public class StringToNumbersConverter implements Converter<String, List<Integer>
     }
 
     @Override
-    public List<Integer> convert(String param) {
+    public List<Integer> apply(String param) {
         return Arrays.stream(param.split(","))
                 .map(String::trim)
                 .map(Integer::parseInt)

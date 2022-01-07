@@ -11,7 +11,7 @@ public class PurchaseDto {
         this.manualLottoNumberLists = manualLottoNumberLists;
     }
 
-    public int getPurchasePrise() {
+    public int getPurchasePrice() {
         return purchasePrise;
     }
 
