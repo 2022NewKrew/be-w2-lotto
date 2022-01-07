@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <title>결과확인</title>
+	<meta charset="UTF-8">
+	<title>결과확인</title>
 
-    <!-- Latest compiled and minified CSS -->
-    <link crossorigin="anonymous"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-          rel="stylesheet">
+	<!-- Latest compiled and minified CSS -->
+	<link crossorigin="anonymous"
+		  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		  integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		  rel="stylesheet">
 
-    <!-- Optional theme -->
+	<!-- Optional theme -->
     <link crossorigin="anonymous"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
@@ -74,16 +74,20 @@
 			</thead>
 		<tbody>
 		{{#lottosResult}}
+			<tr>
+				<th><h4 class="text-center">{{@index_1}}회차</h4></th>
+			</tr>
 		{{#message}}
 			<tr>
 				<th>{{this}}</th>
 			</tr>
 		{{/message}}
-		</tbody>
-		<tfoot>
-			<th><h4 class="text-center">총 수익률은 {{totalRateOfReturn}}%입니다.</h4></th>
-		</tfoot>
+			<tr>
+				<th><h4 class="text-center">수익률은 {{totalRateOfReturn}}%입니다.</h4></th>
+			</tr>
 		{{/lottosResult}}
+		</tbody>
+		<tfoot></tfoot>
 	</table>
 </pre>
 </body>

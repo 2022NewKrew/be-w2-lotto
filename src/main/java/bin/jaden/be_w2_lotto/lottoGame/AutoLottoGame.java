@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class AutoLottoGame extends LottoGame {
-    private static List<Integer> allNumbers;
+    private final static List<Integer> allNumbers;
 
     public AutoLottoGame() {
         Collections.shuffle(allNumbers);
@@ -15,7 +15,7 @@ public class AutoLottoGame extends LottoGame {
         super.setNumbers(numbers);
     }
 
-    public static void initAllNumbers() {
+    static {
         allNumbers = new ArrayList<>(Constants.MAX_LOTTO_NUMBER);
         for (int i = Constants.MIN_LOTTO_NUMBER; i <= Constants.MAX_LOTTO_NUMBER; i++) {
             allNumbers.add(i);
