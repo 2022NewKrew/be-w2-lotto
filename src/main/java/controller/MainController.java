@@ -3,7 +3,7 @@ package controller;
 import config.AppConfig;
 import domain.Lotto;
 import domain.LottoStatistic;
-import repository.LottoRepository;
+import repository.LottoStatisticRepository;
 import service.LottoService;
 import spark.ModelAndView;
 import spark.Request;
@@ -20,7 +20,7 @@ import static spark.Spark.*;
 
 public class MainController {
     private final LottoService lottoService;
-    private final LottoRepository lottoRepository;
+    private final LottoStatisticRepository lottoRepository;
 
     public MainController() {
         AppConfig appConfig = new AppConfig();

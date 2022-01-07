@@ -4,7 +4,7 @@ import domain.Lotto;
 import domain.LottoAuto;
 import domain.LottoNormal;
 import domain.LottoStatistic;
-import repository.LottoRepository;
+import repository.LottoStatisticRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +19,10 @@ import static java.util.Arrays.stream;
  */
 public class LottoServiceImpl implements LottoService {
 
-    private final LottoRepository lottoRepository;
+    private final LottoStatisticRepository lottoStatisticRepository;
 
-    public LottoServiceImpl(LottoRepository lottoRepository) {
-        this.lottoRepository = lottoRepository;
+    public LottoServiceImpl(LottoStatisticRepository lottoStatisticRepository) {
+        this.lottoStatisticRepository = lottoStatisticRepository;
 
     }
 

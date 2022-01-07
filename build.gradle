@@ -12,10 +12,12 @@ repositories {
 dependencies {
     implementation 'com.sparkjava:spark-core:2.9.3'
     implementation 'com.sparkjava:spark-template-handlebars:2.7.1'
+    implementation 'junit:junit:4.13.1'
+    implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
     testImplementation 'org.junit.jupiter:junit-jupiter-api'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     runtimeOnly 'com.h2database:h2:1.4.195' // 최신버전은 slf4 에러 발생.
-    implementation 'org.slf4j:slf4j-nop:1.7.32'
+//    implementation 'org.slf4j:slf4j-nop:1.7.32'
 }
 
 test {

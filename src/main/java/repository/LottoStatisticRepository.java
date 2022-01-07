@@ -7,13 +7,13 @@ import domain.LottoStatistic;
  *
  * @author jm.hong
  */
-public interface LottoRepository {
+public interface LottoStatisticRepository {
     /**
      *
-     * @param LottoStatistics 로또통계에 대한 정보가 담긴 객체를 입력합니다.
+     * @param lottoStatistics 로또통계에 대한 정보가 담긴 객체를 입력합니다.
      * @return database key 값을 반환합니다.
      */
-    Long save(LottoStatistic LottoStatistics);
+    Long save(LottoStatistic lottoStatistics);
 
     /**
      *
