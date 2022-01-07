@@ -1,45 +1,37 @@
 package domain;
 
 import exceptions.InvalidLastWeekWinningNumber;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 import messages.ErrorMessage;
 import validation.Validation;
 
 public class Lotto {
 
     private static final int NUMBER_OF_LOTTERY_NUMBERS = 6;
-    private static final int MIN_LOTTO_NUMBER = 1;
-    private static final int MAX_LOTTO_NUMBER = 45;
-    private final Set<Integer> numbers;
+    private final Set<LottoNumber> numbers;
 
-    Lotto(Set<Integer> numbers) {
-        if (numbers == null) {
+    Lotto(Set<Integer> intNumbers) {
+        if (intNumbers == null) {
             throw new IllegalArgumentException();
         }
-        Validation.sizeShouldBe(numbers, NUMBER_OF_LOTTERY_NUMBERS,
+        Validation.sizeShouldBe(intNumbers, NUMBER_OF_LOTTERY_NUMBERS,
                 new InvalidLastWeekWinningNumber(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
-        numbers.forEach(num -> {
-            Validation.notLessThanLong(num, MIN_LOTTO_NUMBER,
-                    new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
-            Validation.notMoreThanLong(num, MAX_LOTTO_NUMBER,
-                    new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
-        });
-        this.numbers = Collections.unmodifiableSet(numbers);
+        numbers = intNumbers.stream().map(LottoNumber::new).collect(Collectors.toUnmodifiableSet());
     }
 
-    public Set<Integer> numbers() {
+    public Set<LottoNumber> numbers() {
         return this.numbers;
     }
 
-    public Integer matchCount(Set<Integer> winningNumbers) {
-        Set<Integer> copyWinningNumbers = new HashSet<>(winningNumbers);
+    public Integer matchCount(Set<LottoNumber> winningNumbers) {
+        Set<LottoNumber> copyWinningNumbers = new HashSet<>(winningNumbers);
         copyWinningNumbers.retainAll(numbers);
         return copyWinningNumbers.size();
     }
 
-    public boolean contains(int findNumber) {
+    public boolean contains(LottoNumber findNumber) {
         return numbers.contains(findNumber);
     }
 }

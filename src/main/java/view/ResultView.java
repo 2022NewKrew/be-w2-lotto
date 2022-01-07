@@ -1,9 +1,8 @@
 package view;
 
 import domain.Lotto;
+import domain.LottoNumber;
 import enums.Prize;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Set;
@@ -12,18 +11,8 @@ import messages.GameMessage;
 public class ResultView {
 
     private static void printLotto(Lotto lotto) {
-        Set<Integer> numbers = lotto.numbers();
-        List<Integer> numbersToList = new ArrayList<>(numbers);
-
-        Collections.sort(numbersToList);
-        System.out.print("[");
-        for (int i = 0; i < numbersToList.size(); i++) {
-            System.out.print(numbersToList.get(i));
-            if (i != numbersToList.size() - 1) {
-                System.out.print(", ");
-            }
-        }
-        System.out.println("]");
+        Set<LottoNumber> numbers = lotto.numbers();
+        // TODO - 배열 형식으로 출력
     }
 
     public static void printLottoList(List<Lotto> lottoList) {

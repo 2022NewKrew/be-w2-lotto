@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 class LottoTest {
 
-    static Set<Integer> winningNumbers;
+    static Set<LottoNumber> winningNumbers;
     static int NUMBER_OF_LOTTERY_NUMBERS = 6;
 
     @BeforeAll
@@ -86,16 +86,16 @@ class LottoTest {
         numbers.add(n6);
         Lotto lotto = new Lotto(numbers);
 
-        Assertions.assertEquals(lotto.matchCount(winningNumbers), result);
+        Assertions.assertEquals(result, lotto.matchCount(winningNumbers));
     }
 
     static void createWinningNumbers() {
         winningNumbers = new HashSet<>(NUMBER_OF_LOTTERY_NUMBERS);
-        winningNumbers.add(1);
-        winningNumbers.add(2);
-        winningNumbers.add(3);
-        winningNumbers.add(4);
-        winningNumbers.add(5);
-        winningNumbers.add(6);
+        winningNumbers.add(new LottoNumber(1));
+        winningNumbers.add(new LottoNumber(2));
+        winningNumbers.add(new LottoNumber(3));
+        winningNumbers.add(new LottoNumber(4));
+        winningNumbers.add(new LottoNumber(5));
+        winningNumbers.add(new LottoNumber(6));
     }
 }

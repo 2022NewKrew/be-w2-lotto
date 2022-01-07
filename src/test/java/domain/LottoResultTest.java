@@ -52,7 +52,7 @@ class LottoResultTest {
     @DisplayName("[성공] 수익률을 올바르게 계산한다")
     void rateOfReturn() {
         long purchaseAmount = 14000;
-        double rateOfReturn_Answer = (Prize.THREE.getMoney() - purchaseAmount) / (double) purchaseAmount * 100.0d;
+        double rateOfReturn_Answer = -64.28571428571429;
         int bonusNumber = 7;
         LottoResult lottoResult = new LottoResult(winningNumbers, bonusNumber);
         List<Lotto> lottoList = new ArrayList<>();
