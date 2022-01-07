@@ -2,6 +2,9 @@ package com.kakaocorp.lotto.ui;
 
 import com.kakaocorp.lotto.test.StringInputStream;
 import com.kakaocorp.lotto.test.StringPrintStream;
+import com.kakaocorp.lotto.ui.controller.LottoController;
+import com.kakaocorp.lotto.ui.view.LottoView;
+import com.kakaocorp.lotto.ui.view.StreamLottoView;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;

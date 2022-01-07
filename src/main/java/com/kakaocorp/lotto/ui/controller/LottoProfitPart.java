@@ -1,22 +1,22 @@
-package com.kakaocorp.lotto.ui;
+package com.kakaocorp.lotto.ui.controller;
 
 import com.kakaocorp.lotto.domain.ProfitCalculator;
 import com.kakaocorp.lotto.domain.ResultCounter;
 import com.kakaocorp.lotto.model.LottoRecord;
 import com.kakaocorp.lotto.model.LottoResult;
 import com.kakaocorp.lotto.model.LottoTicket;
+import com.kakaocorp.lotto.ui.view.LottoProfitPartView;
 
 import java.util.List;
 import java.util.Set;
 
-public class ProfitPart {
+public class LottoProfitPart extends LottoControllerPart<LottoProfitPartView> {
 
-    private final LottoView view;
     private final ResultCounter counter;
     private final ProfitCalculator calculator;
 
-    public ProfitPart(LottoView view, ResultCounter counter, ProfitCalculator calculator) {
-        this.view = view;
+    public LottoProfitPart(LottoProfitPartView view, ResultCounter counter, ProfitCalculator calculator) {
+        super(view);
         this.counter = counter;
         this.calculator = calculator;
     }

@@ -1,8 +1,8 @@
 package com.kakaocorp.lotto;
 
-import com.kakaocorp.lotto.ui.LottoController;
-import com.kakaocorp.lotto.ui.LottoView;
-import com.kakaocorp.lotto.ui.StreamLottoView;
+import com.kakaocorp.lotto.ui.controller.LottoController;
+import com.kakaocorp.lotto.ui.view.LottoView;
+import com.kakaocorp.lotto.ui.view.StreamLottoView;
 
 import java.util.Random;
 

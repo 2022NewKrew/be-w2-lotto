@@ -1,4 +1,4 @@
-package com.kakaocorp.lotto.ui;
+package com.kakaocorp.lotto.ui.view;
 
 import com.kakaocorp.lotto.model.LottoTicket;
 

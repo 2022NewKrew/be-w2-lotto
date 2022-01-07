@@ -1,20 +1,20 @@
-package com.kakaocorp.lotto.ui;
+package com.kakaocorp.lotto.ui.controller;
 
 import com.kakaocorp.lotto.domain.LottoDispenser;
 import com.kakaocorp.lotto.model.LottoTicket;
+import com.kakaocorp.lotto.ui.view.LottoTicketPartView;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-public class TicketPart {
+public class LottoTicketPart extends LottoControllerPart<LottoTicketPartView> {
 
-    private final LottoView view;
     private final LottoDispenser dispenser;
 
-    public TicketPart(LottoView view, LottoDispenser dispenser) {
-        this.view = view;
+    public LottoTicketPart(LottoTicketPartView view, LottoDispenser dispenser) {
+        super(view);
         this.dispenser = dispenser;
     }
 
