@@ -5,16 +5,14 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static domain.Constants.*;
+
 public class LottoService {
-    private static final double COST_PER_LOTTO = 1000.0;
-    private static final Integer LOTTO_NUMBER_SIZE = 6;
-    private static final Integer MIN_NUMBER_RANGE = 1;
-    private static final Integer MAX_NUMBER_RANGE = 46;
 
     public LottoService() {
     }
 
-    public static List<Lotto> buyLottos(int money, int manualLottoCount, List<List<Integer>> manualNumbers) {
+    public static List<Lotto> buyLottos(int money, int manualLottoCount, List<List<LottoNumber>> manualNumbers) {
         validateMoney(money);
 
         int totalLottoCount = calcLottoCount(money);
@@ -27,15 +25,15 @@ public class LottoService {
                 .collect(Collectors.toUnmodifiableList());
     }
 
-    private static List<Lotto> buyAutoLottos(int autoCount) {
-        return Stream.generate(LottoService::generateRandomLottoNumbers)
-                .limit(autoCount)
-                .map(Lotto::new)
+    private static List<Lotto> buyAutoLottos(int count) {
+        return Stream.generate(() -> new Lotto(new RandomLottoNumbersGenerator()))
+                .limit(count)
                 .collect(Collectors.toUnmodifiableList());
     }
 
-    private static List<Lotto> buyManualLottos(List<List<Integer>> manualNumbers) {
+    private static List<Lotto> buyManualLottos(List<List<LottoNumber>> manualNumbers) {
         return manualNumbers.stream()
+                .map(ManualLottoNumbersGenerator::new)
                 .map(Lotto::new)
                 .collect(Collectors.toUnmodifiableList());
     }
@@ -44,22 +42,8 @@ public class LottoService {
         return (int) Math.floor(money / COST_PER_LOTTO);
     }
 
-    private static List<Integer> generateRandomLottoNumbers() {
-        List<Integer> lottoNumberList = IntStream.range(MIN_NUMBER_RANGE, MAX_NUMBER_RANGE)
-                .boxed()
-                .collect(Collectors.toList());
-
-        Collections.shuffle(lottoNumberList);
-
-        return lottoNumberList.stream()
-                .limit(LOTTO_NUMBER_SIZE)
-                .sorted()
-                .collect(Collectors.toUnmodifiableList());
-    }
-
-
-    private static void validateManualNumbers(int manualLottoCount, List<List<Integer>> manualNumbers){
-        if(manualLottoCount != manualNumbers.size()) throw new IllegalArgumentException();
+    private static void validateManualNumbers(int manualLottoCount, List<List<LottoNumber>> manualNumbers) {
+        if (manualLottoCount != manualNumbers.size()) throw new IllegalArgumentException();
     }
 
     private static void validateMoney(int money) {

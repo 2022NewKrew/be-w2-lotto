@@ -24,7 +24,7 @@ public class ResultView {
     }
 
     private static void printLottoCount(List<Lotto> lottos, int manualLottoCount) {
-        System.out.println("수동으로 " + manualLottoCount + "개, 자동으로 " + (lottos.size() -manualLottoCount) + "개를 구매했습니다.");
+        System.out.println("수동으로 " + manualLottoCount + "개, 자동으로 " + (lottos.size() - manualLottoCount) + "개를 구매했습니다.");
     }
 
     private static void printLottos(List<Lotto> lottos) {
@@ -33,7 +33,7 @@ public class ResultView {
                 .forEach(System.out::println);
     }
 
-    private static String lottoToString(Lotto lotto){
+    private static String lottoToString(Lotto lotto) {
         return lotto.getNumbers().stream()
                 .map(LottoNumber::getNumber)
                 .collect(Collectors.toUnmodifiableList())
@@ -49,7 +49,7 @@ public class ResultView {
         copiedResults.forEach(copiedResult -> System.out.println(resultToString(copiedResult)));
     }
 
-    private static String resultToString(Result result){
+    private static String resultToString(Result result) {
         Rank rank = result.getRank();
         int count = result.getCount();
 

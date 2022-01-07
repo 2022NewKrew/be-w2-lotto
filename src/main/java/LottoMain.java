@@ -4,6 +4,7 @@ import view.ResultView;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LottoMain {
     public static void main(String[] args) {
@@ -14,15 +15,14 @@ public class LottoMain {
         int money = InputView.getMoney();
 
         int manualLottoCount = InputView.getManualLottoCount();
-        List<List<Integer>> manualNumbers = InputView.getManualLottoNumbers(manualLottoCount);
-        System.out.println(manualNumbers.toString());
+        List<List<LottoNumber>> manualNumbers = InputView.getManualLottoNumbers(manualLottoCount);
 
         List<Lotto> lottos = LottoService.buyLottos(money, manualLottoCount, manualNumbers);
 
         ResultView.printPurchaseResult(lottos, manualLottoCount);
 
-        List<Integer> winningNumbers = InputView.getWinningNumbers();
-        int bonusNum = InputView.getBounusNum();
+        List<LottoNumber> winningNumbers = InputView.getWinningNumbers();
+        LottoNumber bonusNum = InputView.getBounusNum();
 
         Results results = new Results(lottos, winningNumbers, bonusNum);
 
