@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="lotto.domain.LottoTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-01-07T09:36:42" hostname="kakaoui-MacBookPro.local" time="0.026">
-  <properties/>
-  <testcase name="[1] 1,2,333,4,5,6" classname="lotto.domain.LottoTest" time="0.021"/>
-  <testcase name="[2] 1,2,3,4,5,666" classname="lotto.domain.LottoTest" time="0.0"/>
-  <testcase name="[3] -11,2,3,4,5,6" classname="lotto.domain.LottoTest" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

@@ -4,6 +4,7 @@ import lotto.exception.InvalidValueRangeException;
 import lotto.util.Util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class LottoGenerator {
@@ -34,7 +35,7 @@ public class LottoGenerator {
 
     private List<List<Integer>> convManualStringToDoubleList(String manualNumberString){
         if (manualNumberString.equals("")) return new ArrayList<>();
-        List<String> manualNumberStrings = Util.convStringToStringArraylist(manualNumberString, "\r?\n");
+        List<String> manualNumberStrings = Arrays.asList(manualNumberString.split("\r?\n"));
         List<List<Integer>> manualNumbers = new ArrayList<>();
         for(String string : manualNumberStrings){
             manualNumbers.add(Util.convStringToIntegerArraylist(string, ","));
