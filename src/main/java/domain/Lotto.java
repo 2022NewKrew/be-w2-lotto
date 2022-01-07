@@ -34,7 +34,7 @@ public class Lotto {
 
     private void validateInvalidNumber(Set<Integer> lotto) {
         boolean invalidRangeNumber = lotto.stream()
-                .anyMatch(i -> i > 45 || i < 0);
+                .anyMatch(i -> i > 45 || i < 1);
 
         if (invalidRangeNumber) {
             throw new InvalidLottoNumberException(InvalidLottoNumberException.INVALID_RANGE_NUMBER);
