@@ -44,7 +44,7 @@ public class MainController {
 
         int winningBonusNumber = Integer.parseInt(req.queryParams("winningBonusNumber"));
 
-        LottoStatistic lottoStatistic = lottoStatisticRepository.findOne(id);
+        LottoStatistic lottoStatistic = lottoService.findLottoStatistic(id);
 
         lottoStatistic.updateStatus(winningNumbers, winningBonusNumber);
 
@@ -77,7 +77,7 @@ public class MainController {
         }
 
         LottoStatistic lottoStatistics = lottoService.createLottoStatistic(purchaseCount, normalLottoCount, autoLottoCount, lottoList);
-        Long id =  lottoStatisticRepository.save(lottoStatistics);
+        Long id =  lottoService.saveLottoStatistic(lottoStatistics);
         Map<String, Object> model = new HashMap<>();
 
         model.put("id", id);

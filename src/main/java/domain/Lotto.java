@@ -88,4 +88,8 @@ public abstract class Lotto {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public void setStatus(LottoWinningStatus status) {
+        this.status = status;
+    }
 }

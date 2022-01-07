@@ -1,13 +1,17 @@
 package repository;
 
+import common.LottoWinningStatus;
 import database.JdbcConnection;
 import domain.Lotto;
+import domain.LottoAuto;
+import domain.LottoNormal;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
-public class LottoRepositoryJdbcH2 implements LottoRepository{
-
+public class LottoRepositoryJdbcH2 implements LottoRepository {
+    
     @Override
     public Long save(Lotto lotto, Long lottoStatisticId) throws SQLException {
         Connection conn = JdbcConnection.createConnection();
@@ -30,7 +34,7 @@ public class LottoRepositoryJdbcH2 implements LottoRepository{
 
         int count = pstmt.executeUpdate();
 
-        if(count == 0) {
+        if (count == 0) {
             throw new SQLException("실패");
         }
 
@@ -60,7 +64,7 @@ public class LottoRepositoryJdbcH2 implements LottoRepository{
 
         int count = pstmt.executeUpdate();
 
-        if(count == 0) {
+        if (count == 0) {
             throw new SQLException("실패");
         }
 
@@ -72,6 +76,38 @@ public class LottoRepositoryJdbcH2 implements LottoRepository{
 
     @Override
     public List<Lotto> findAllAsLottoStatisticId(Long id) {
+        try {
+            Connection conn = JdbcConnection.createConnection();
+            PreparedStatement pstmt = null;
+
+            String sql = "SELECT LOTTO_ID,LOTTO_STATISTIC_ID,NUMBER_1,NUMBER_2,NUMBER_3,NUMBER_4,NUMBER_5,NUMBER_6,STATUS"
+                    + " FROM LOTTO WHERE LOTTO_ID=?";
+
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setLong(1, id);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            List<Lotto> lottos = new ArrayList<>();
+            while(rs.next()) {
+                List<Integer> numbers = new ArrayList<>();
+                numbers.add(Integer.valueOf(rs.getString("NUMBER_1")));
+                numbers.add(Integer.valueOf(rs.getString("NUMBER_2")));
+                numbers.add(Integer.valueOf(rs.getString("NUMBER_3")));
+                numbers.add(Integer.valueOf(rs.getString("NUMBER_4")));
+                numbers.add(Integer.valueOf(rs.getString("NUMBER_5")));
+                numbers.add(Integer.valueOf(rs.getString("NUMBER_6")));
+                Lotto lotto = new LottoNormal(numbers);
+                lotto.setId(rs.getLong("LOTTO_ID"));
+                lotto.setStatus(LottoWinningStatus.valueOf(rs.getString("STATUS")));
+                lottos.add(lotto);
+            }
+
+            return lottos;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
         return null;
     }
 }

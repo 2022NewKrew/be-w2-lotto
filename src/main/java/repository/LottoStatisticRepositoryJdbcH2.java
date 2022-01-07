@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoStatisticRepositoryJdbcH2 implements LottoStatisticRepository {
-    
+
     @Override
     public Long save(LottoStatistic lottoStatistics) throws SQLException {
 
