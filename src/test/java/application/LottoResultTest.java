@@ -1,12 +1,10 @@
 package application;
 
-import domain.Ball;
-import domain.Lotto;
-import domain.MatchStatus;
-import domain.WinningLotto;
+import domain.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -14,7 +12,7 @@ import java.util.stream.Collectors;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
-class LottoResultManagerTest {
+class LottoResultTest {
     private static final WinningLotto winningLotto = WinningLotto.create(createBallList(List.of(1, 2, 3, 4, 5, 6)), Ball.create(7));
 
     private static final List<Lotto> lottoList = List.of(
@@ -37,9 +35,12 @@ class LottoResultManagerTest {
     @DisplayName("당첨 결과가 올바른지 검증")
     @Test
     void isResultCorrect() {
-        LottoResultManager resultManager = new LottoResultManager(winningLotto, lottoList);
+        LottoResult lottoResult = new LottoResult(winningLotto, lottoList);
+        Map<MatchStatus, Integer> result = new EnumMap<>(MatchStatus.class);
 
-        Map<MatchStatus, Integer> result = resultManager.getMatchingResult();
+        for (var status: MatchStatus.values()) {
+            result.put(status, lottoResult.getCountByMatchResult(status));
+        }
 
         assertThat(result.entrySet())
                 .extracting(Map.Entry::getKey, Map.Entry::getValue)
@@ -57,9 +58,8 @@ class LottoResultManagerTest {
     @DisplayName("총 상금이 올바른지 검증")
     @Test
     void isTotalPrizeMoneyCorrect() {
-        LottoResultManager resultManager = new LottoResultManager(winningLotto, lottoList);
+        LottoResult resultManager = new LottoResult(winningLotto, lottoList);
 
-        resultManager.getMatchingResult();
         Long totalPrizeMoney = resultManager.getTotalPrizeMoney();
 
         assertThat(totalPrizeMoney)

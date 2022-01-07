@@ -1,11 +1,11 @@
 package view;
 
 import domain.Lotto;
+import domain.LottoResult;
 import domain.MatchStatus;
 import domain.Purchase;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class LottoGuidePrinter {
@@ -38,23 +38,23 @@ public class LottoGuidePrinter {
         System.out.println(MessageContent.WINNING_LOTTO_REQUEST);
     }
 
-    public static void printLottoResult(int purchaseAmount, Map<MatchStatus, Integer> matchResult, Long totalPrizeMoney) {
+    public static void printLottoResult(int purchaseAmount, LottoResult lottoResult) {
         System.out.println(MessageContent.WINNING_STATISTICS);
-        for (Map.Entry<MatchStatus, Integer> e : matchResult.entrySet()) {
-            printResultOfMatchStatus(e);
+        for (var e: MatchStatus.values()) {
+            printResultOfMatchStatus(e, lottoResult);
         }
-        System.out.printf(MessageContent.TOTAL_RETURN, ((totalPrizeMoney - purchaseAmount) / ((double) purchaseAmount)) * 100);
+        System.out.printf(MessageContent.TOTAL_RETURN, ((lottoResult.getTotalPrizeMoney() - purchaseAmount) / ((double) purchaseAmount)) * 100);
     }
 
-    private static void printResultOfMatchStatus(Map.Entry<MatchStatus, Integer> status) {
-        if (status.getKey().equals(MatchStatus.NOTHING) || status.getKey().equals(MatchStatus.INVALID)) {
+    private static void printResultOfMatchStatus(MatchStatus status, LottoResult lottoResult) {
+        if (status.equals(MatchStatus.NOTHING) || status.equals(MatchStatus.INVALID)) {
             return;
         }
-        System.out.printf(MessageContent.MATCH_COUNT, status.getKey().getMatchCount());
-        if (status.getKey().isBonusMatched()) {
+        System.out.printf(MessageContent.MATCH_COUNT, status.getMatchCount());
+        if (status.isBonusMatched()) {
             System.out.print(MessageContent.IS_BONUS_MATCHED);
         }
-        System.out.printf(MessageContent.PRIZE_MONEY_AND_COUNT, status.getKey().getPrizeMoney(), status.getValue());
+        System.out.printf(MessageContent.PRIZE_MONEY_AND_COUNT, status.getPrizeMoney(), lottoResult.getCountByMatchResult(status));
     }
 
     public static void requestBonusBallInput() {
