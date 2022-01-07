@@ -35,7 +35,7 @@ public class Lotto {
         return copyWinningNumbers.size();
     }
 
-    public boolean hasNumber(int findNumber) {
+    public boolean contains(int findNumber) {
         return numbers.contains(findNumber);
     }
 }

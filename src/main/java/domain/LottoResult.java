@@ -51,7 +51,7 @@ public class LottoResult {
         int matchCount = lotto.matchCount(lastWeekWinningNumbers);
 
         if (matchCount == 5) {
-            lottoResult.put(Prize.valueOf(matchCount, lotto.hasNumber(bonusNumber)), lottoResult.get(Prize.valueOf(matchCount, lotto.hasNumber(bonusNumber))) + 1);
+            lottoResult.put(Prize.valueOf(matchCount, lotto.contains(bonusNumber)), lottoResult.get(Prize.valueOf(matchCount, lotto.contains(bonusNumber))) + 1);
             return;
         }
         lottoResult.put(Prize.valueOf(matchCount, false), lottoResult.get(Prize.valueOf(matchCount, false)) + 1);
