@@ -22,7 +22,7 @@ public class LottoMain {
         ResultView.printPurchaseResult(lottos, manualLottoCount);
 
         List<LottoNumber> winningNumbers = InputView.getWinningNumbers();
-        int bonusNum = InputView.getBounusNum();
+        LottoNumber bonusNum = InputView.getBounusNum();
 
         Results results = new Results(lottos, winningNumbers, bonusNum);
 

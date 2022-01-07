@@ -9,11 +9,11 @@ import java.util.stream.Collectors;
 public class Results {
     private final List<Result> results;
 
-    public Results(List<Lotto> lottos, List<LottoNumber> winningNumbers, int bonusNum) {
+    public Results(List<Lotto> lottos, List<LottoNumber> winningNumbers, LottoNumber bonusNum) {
         this.results = generate(lottos,winningNumbers,bonusNum);
     }
 
-    private static List<Result> generate(List<Lotto> lottos, List<LottoNumber> winningNumbers, int bonusNum) {
+    private static List<Result> generate(List<Lotto> lottos, List<LottoNumber> winningNumbers, LottoNumber bonusNum) {
         validateBonusNumNotDuplicate(winningNumbers, bonusNum);
 
         List<Rank> resultRanks = getResultRanks(lottos, winningNumbers, bonusNum);
@@ -27,16 +27,16 @@ public class Results {
         return results;
     }
 
-    private static void validateBonusNumNotDuplicate(List<LottoNumber> winningNumbers, int bonusNum){
-        if(winningNumbers.contains(LottoNumber.of(bonusNum))) throw new IllegalArgumentException();
+    private static void validateBonusNumNotDuplicate(List<LottoNumber> winningNumbers, LottoNumber bonusNum){
+        if(winningNumbers.contains(bonusNum)) throw new IllegalArgumentException();
     }
 
 
-    private static List<Rank> getResultRanks(List<Lotto> lottos, List<LottoNumber> winningNumbers, int bonusNum){
+    private static List<Rank> getResultRanks(List<Lotto> lottos, List<LottoNumber> winningNumbers, LottoNumber bonusNum){
 
 
         return lottos.stream()
-                .map(lotto -> Rank.of(lotto, new Lotto(new ManualLottoNumbersGenerator(winningNumbers)), LottoNumber.of(bonusNum)))
+                .map(lotto -> Rank.of(lotto, new Lotto(new ManualLottoNumbersGenerator(winningNumbers)), bonusNum))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
