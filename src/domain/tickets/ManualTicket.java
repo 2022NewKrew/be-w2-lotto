@@ -1,4 +1,4 @@
-package Domain.Tickets;
+package domain.tickets;
 
 import java.util.Collections;
 import java.util.List;
