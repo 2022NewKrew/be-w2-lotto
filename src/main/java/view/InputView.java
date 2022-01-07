@@ -11,6 +11,7 @@ public class InputView {
     private static final String SEPARATOR = ",";
 
     private InputView() {
+        throw new AssertionError();
     }
 
     public static int getNumLotto() {

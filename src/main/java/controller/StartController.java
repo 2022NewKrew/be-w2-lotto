@@ -9,6 +9,10 @@ import view.InputView;
 import view.OutputView;
 
 public class StartController {
+    private StartController() {
+        throw new AssertionError();
+    }
+
     public static int inputNumLotto() {
         int numLotto = InputView.getNumLotto();
         while (numLotto == 0) {

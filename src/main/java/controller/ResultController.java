@@ -9,6 +9,7 @@ import java.util.List;
 
 public class ResultController {
     private ResultController() {
+        throw new AssertionError();
     }
 
     public static void printResult(MatchStore matchStore) {

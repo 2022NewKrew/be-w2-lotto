@@ -4,6 +4,7 @@ import DTO.ResultDTO;
 
 public class OutputView {
     private OutputView() {
+        throw new AssertionError();
     }
 
     public static void printPayInputError() {
