@@ -1,7 +1,7 @@
 package lotto.domain;
 
-import lotto.exception.InvaildListSizeException;
-import lotto.exception.InvaildValueRangeException;
+import lotto.exception.InvalidListSizeException;
+import lotto.exception.InvalidValueRangeException;
 import lotto.util.Rank;
 import lotto.util.Util;
 
@@ -24,7 +24,7 @@ public class Round {
 
     private List<Integer> checkWinningNumbers(List<Integer> numbers){
         if(numbers.size()!= Util.LOTTO_NUMBER_COUNT){
-            throw new InvaildListSizeException("당첨 번호 개수가 잘못되었습니다.");
+            throw new InvalidListSizeException("당첨 번호 개수가 잘못되었습니다.");
         }
         for(Integer number : numbers){
             checkWinningNumberRange(number);
@@ -34,7 +34,7 @@ public class Round {
 
     private int checkWinningNumberRange(int number){
         if(number< Util.LOTTO_MIN_NUMBER||number>Util.LOTTO_MAX_NUMBER){
-            throw new InvaildValueRangeException("당첨 번호 숫자가 정상범위를 벗어났습니다.");
+            throw new InvalidValueRangeException("당첨 번호 숫자가 정상범위를 벗어났습니다.");
         }
         return number;
     }
