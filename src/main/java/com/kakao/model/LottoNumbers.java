@@ -6,11 +6,12 @@ import com.kakao.exception.PickedNumberExistException;
 import com.kakao.exception.PickedNumberFormatException;
 import com.kakao.exception.PickedNumberRangeException;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class LottoNumbers {
+public class LottoNumbers implements Serializable {
     List<Integer> lottoNumbers;
 
     public LottoNumbers(List<Integer> lottoNumbers) throws PickedNumberException {
