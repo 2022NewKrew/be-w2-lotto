@@ -32,10 +32,7 @@ public class LottoInput {
             ec.checkLotto(lotto);
             manualLotto.add(lotto);
         }
-
-        if(manualLotto.size() * LottoConst.ONE_LOTTO_PRICE > totalPrice){
-            throw new IllegalArgumentException("금액을 초과했습니다.");
-        }
+        ec.checkOverTotalPrice(manualLotto.size() * LottoConst.ONE_LOTTO_PRICE, totalPrice);
 
         return manualLotto;
     }

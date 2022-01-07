@@ -1,31 +1,35 @@
 package controller;
 
-import domain.Lotto;
-import domain.LottoList;
-import domain.LottoResult;
-import domain.Rank;
+import domain.*;
 import input.LottoInput;
 
 import java.text.DecimalFormat;
 import java.util.*;
 
 public class WebLottoController {
-    private final LottoInput lottoInput = new LottoInput();
-    private LottoList lottoList;
+    private final LottoInput lottoInput;
+    private final LottoMachine lottoMachine;
     private LottoResult lottoResult;
+
+    public WebLottoController() {
+        lottoInput = new LottoInput();
+        lottoMachine = new LottoMachine();
+    }
 
     public Map<String, Object> buyLotto(String inputMoney, String manualLotto) throws IllegalArgumentException{
         Map<String, Object> model = new HashMap<>();
-        lottoList = new LottoList();
 
         int price = lottoInput.inputPrice(inputMoney);
 
         if(!manualLotto.equals("")){
             List<Lotto> lottos = lottoInput.inputManualLotto(manualLotto, price);
-            lottoList.createManualLottoList(lottos);
+            lottoMachine.manualLottoList(lottos);
         }
-        lottoList.createAutoLottoList(price - lottoList.getLottoPrice());
 
+        int autoBuyPrice = price - lottoMachine.getLottoList().getCount() * LottoConst.ONE_LOTTO_PRICE;
+        lottoMachine.autoLottoList(autoBuyPrice);
+
+        LottoList lottoList = lottoMachine.getLottoList();
         model.put("lottosSize", lottoList.getCount());
         model.put("lottos", lottoList.getLottoList());
 
@@ -38,7 +42,7 @@ public class WebLottoController {
         Lotto winningLotto = lottoInput.inputResultLotto(winningNumber);
         int bonus = lottoInput.inputResultBonusLotto(bonusNumber);
 
-        lottoResult = new LottoResult(lottoList, winningLotto, bonus);
+        lottoResult = new LottoResult(lottoMachine.getLottoList(), winningLotto, bonus);
         model.put("lottoResult", mapToList());
 
         DecimalFormat df = new DecimalFormat("0.00");

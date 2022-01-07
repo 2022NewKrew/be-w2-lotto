@@ -1,8 +1,6 @@
 package controller;
 
-import domain.Lotto;
-import domain.LottoList;
-import domain.LottoResult;
+import domain.*;
 import input.LottoConsoleInput;
 import view.LottoView;
 
@@ -10,34 +8,30 @@ public class ConsoleLottoController {
     private final LottoConsoleInput lottoInput = new LottoConsoleInput();
 
     public void startLotto(){
-        try{
-            LottoView lottoView = new LottoView();
-            LottoList lottoList = createLottoList();
+        LottoView lottoView = new LottoView();
+        LottoList lottoList = createLottoList();
 
-            if(lottoList.getLottoPrice() == 0){
-                System.out.println("로또를 구매하지 않습니다.");
-                return;
-            }
-
-            lottoView.printLottoList(lottoList);
-            LottoResult lottoResult = createLottoResult(lottoList);
-            lottoView.printLottoResult(lottoResult);
-        } catch(NumberFormatException e){
-            System.out.println("숫자만 입력할 수 있습니다.");
-        } catch (IllegalArgumentException e){
-            System.out.println(e.getMessage());
+        if(lottoList.getCount() == 0){
+            System.out.println("로또를 구매하지 않습니다.");
+            return;
         }
+
+        lottoView.printLottoList(lottoList);
+        LottoResult lottoResult = createLottoResult(lottoList);
+        lottoView.printLottoResult(lottoResult);
     }
 
     private LottoList createLottoList() throws IllegalArgumentException {
-        LottoList lottoList = new LottoList();
+        LottoMachine lottoMachine = new LottoMachine();
         int price = lottoInput.inputPrice();
 
         if(price > 0){
-            lottoList.createManualLottoList(lottoInput.inputManualLotto(price));
-            lottoList.createAutoLottoList(price - lottoList.getLottoPrice());
+            lottoMachine.manualLottoList(lottoInput.inputManualLotto(price));
+            int autoBuyPrice = lottoMachine.getLottoList().getCount() * LottoConst.ONE_LOTTO_PRICE;
+            lottoMachine.autoLottoList(price - autoBuyPrice);
         }
-        return lottoList;
+
+        return lottoMachine.getLottoList();
     }
 
     private LottoResult createLottoResult(LottoList lottoList) throws IllegalArgumentException{

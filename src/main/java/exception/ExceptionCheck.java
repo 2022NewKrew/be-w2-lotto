@@ -15,6 +15,12 @@ public class ExceptionCheck {
         }
     }
 
+    public void checkOverTotalPrice(int curPrice, int totalPrice){
+        if(curPrice > totalPrice){
+            throw new IllegalArgumentException("금액을 초과했습니다.");
+        }
+    }
+
     public void checkMinPrice(int price){
         if(price < LottoConst.ONE_LOTTO_PRICE){
             throw new IllegalArgumentException("최소 가격 이상 입력해야 합니다.");

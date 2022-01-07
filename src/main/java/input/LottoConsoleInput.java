@@ -24,9 +24,8 @@ public class LottoConsoleInput extends LottoInput {
 
     public List<Lotto> inputManualLotto(int totalPrice){
         int manualCount = inputManualCount();
-        if(manualCount * LottoConst.ONE_LOTTO_PRICE > totalPrice){
-            throw new IllegalArgumentException("금액을 초과했습니다.");
-        }
+
+        ec.checkOverTotalPrice(manualCount * LottoConst.ONE_LOTTO_PRICE, totalPrice);
 
         System.out.println("수동으로 구매할 번호를 입력하세요.");
         StringBuilder sb = new StringBuilder();

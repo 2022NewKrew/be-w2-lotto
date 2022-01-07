@@ -3,18 +3,18 @@ package domain;
 import java.util.List;
 
 public class Lotto {
-    private final List<Integer> lotto;
+    private final List<Integer> lottoNumbers;
 
-    public Lotto(List<Integer> lotto) {
-        this.lotto = lotto;
+    public Lotto(List<Integer> lottoNumbers) {
+        this.lottoNumbers = lottoNumbers;
     }
 
     public List<Integer> getLotto() {
-        return lotto;
+        return lottoNumbers;
     }
 
     @Override
     public String toString() {
-        return lotto.toString();
+        return lottoNumbers.toString();
     }
 }
