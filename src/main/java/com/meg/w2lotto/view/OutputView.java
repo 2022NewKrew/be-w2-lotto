@@ -7,12 +7,12 @@ import java.util.Map;
 
 public class OutputView {
 
-    public static void printPurchaseMessage(int count) {
-        System.out.println(count + "개를 구매했습니다.");
+    public static final void printPurchaseMessage(int manualCount, int autoCount) {
+        System.out.println(String.format("수동으로 %d장, 자동으로 %d개를 구매했습니다.", manualCount, autoCount));
     }
 
-    public static void printLottoNumber(Lotto numbers) {
-        System.out.println(numbers.toString());
+    public static final void printLottoNumber(Lotto lotto) {
+        System.out.println(lotto.toString());
     }
 
     public static void printResult(Map<Prize, Integer> correctCounts) {
