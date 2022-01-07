@@ -1,18 +1,22 @@
 package domain.lotto;
 
+import java.util.List;
+
 import static util.LottoConst.LOTTO_PRICE;
 
 public class LottoGameInfo {
 
     private final int lottoQuantity;
     private final int autoLottoQuantity;
+    private final List<LottoOrder> manualLottoOrders;
 
-    public LottoGameInfo(int inputMoney, int manualLottoQuantity) {
+    public LottoGameInfo(int inputMoney, List<LottoOrder> manualLottoOrders) {
         validatePositiveNumber(inputMoney);
         validateInputMoney(inputMoney);
-        validateNumOfPurchaseManually(inputMoney, manualLottoQuantity);
+        validateNumOfPurchaseManually(inputMoney, manualLottoOrders.size());
         this.lottoQuantity = inputMoney / LOTTO_PRICE;
-        this.autoLottoQuantity = this.lottoQuantity - manualLottoQuantity;
+        this.autoLottoQuantity = this.lottoQuantity - manualLottoOrders.size();
+        this.manualLottoOrders = manualLottoOrders;
     }
 
     private void validatePositiveNumber(int number) {
@@ -41,5 +45,9 @@ public class LottoGameInfo {
 
     public int getAutomaticallyPurchaseQuantity() {
         return autoLottoQuantity;
+    }
+
+    public List<LottoOrder> getManualLottoOrders() {
+        return manualLottoOrders;
     }
 }

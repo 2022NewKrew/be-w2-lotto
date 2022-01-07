@@ -3,7 +3,6 @@ package domain.lotto;
 import domain.prize.Prize;
 
 import java.util.*;
-
 import static java.util.stream.Collectors.*;
 
 public class LottoTotalResult {

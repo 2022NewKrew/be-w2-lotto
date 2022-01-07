@@ -6,13 +6,15 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.*;
 
 class LottoGameInfoTest {
 
-    private static final int NO_MANUAL_LOTTO_QUANTITY = 0;
+    private static final List<LottoOrder> EMPTY_MANUAL_LOTTO_ORDER = Collections.emptyList();
 
     @ParameterizedTest
     @MethodSource
@@ -20,7 +22,7 @@ class LottoGameInfoTest {
     void testForPurchaseQuantityByInputMoney(int money, int expectedQuantity) {
 
         //when
-        LottoGameInfo lottoGameInfo = new LottoGameInfo(money, NO_MANUAL_LOTTO_QUANTITY);
+        LottoGameInfo lottoGameInfo = new LottoGameInfo(money, EMPTY_MANUAL_LOTTO_ORDER);
 
         //then
         assertThat(lottoGameInfo.getPurchaseQuantity()).isEqualTo(expectedQuantity);
@@ -41,7 +43,7 @@ class LottoGameInfoTest {
     void failToCreateLottoGameInfoWithNotEnoughMoney() {
         //when
         assertThatIllegalArgumentException()
-                .isThrownBy(() -> new LottoGameInfo(999, NO_MANUAL_LOTTO_QUANTITY))
+                .isThrownBy(() -> new LottoGameInfo(999, EMPTY_MANUAL_LOTTO_ORDER))
                 .withMessage("[에러] 구입 금액은 반드시 1000원 이상이어야 합니다.");
     }
 }

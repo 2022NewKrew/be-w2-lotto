@@ -16,13 +16,12 @@ public class LottoGenerateService {
         return new WinningLotto(lottoOrder.getLottoNumbers(), bonusNumber);
     }
 
-    public List<Lotto> createLottos(int money, List<LottoOrder> manualLottoOrders) {
-        List<Lotto> lottos = manualLottoOrders.stream()
+    public List<Lotto> createLottos(LottoGameInfo info) {
+        List<Lotto> lottos = info.getManualLottoOrders().stream()
                 .map(this::generateOneLotto)
                 .collect(Collectors.toList());
 
-        LottoGameInfo lottoGameInfo = new LottoGameInfo(money, lottos.size());
-        lottos.addAll(generateLottosByQuantity(lottoGameInfo.getAutomaticallyPurchaseQuantity()));
+        lottos.addAll(generateLottosByQuantity(info.getAutomaticallyPurchaseQuantity()));
         return lottos;
     }
 

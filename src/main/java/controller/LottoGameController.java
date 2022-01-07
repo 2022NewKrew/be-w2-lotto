@@ -30,7 +30,8 @@ public class LottoGameController {
 
         int money = lottoInputService.getIntegerFromString(inputMoney);
         List<LottoOrder> manualLottoOrders = lottoInputService.getManualLottoRequests(inputManualRequests);
-        List<Lotto> lottos = lottoGenerateService.createLottos(money, manualLottoOrders);
+        LottoGameInfo lottoGameInfo = new LottoGameInfo(money, manualLottoOrders);
+        List<Lotto> lottos = lottoGenerateService.createLottos(lottoGameInfo);
 
         request.session().attribute("lottos", lottos);
         return render(new LottoCreateResponse(lottos), "/show.html");
