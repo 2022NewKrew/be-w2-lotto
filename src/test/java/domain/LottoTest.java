@@ -1,6 +1,8 @@
 package domain;
 
 import exceptions.InvalidLastWeekWinningNumber;
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -9,11 +11,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
-import java.util.HashSet;
-import java.util.Set;
-
 class LottoTest {
-    static Set<Integer> winningNumbers;
+
+    static Set<LottoNumber> winningNumbers;
     static int NUMBER_OF_LOTTERY_NUMBERS = 6;
 
     @BeforeAll
@@ -74,7 +74,8 @@ class LottoTest {
 
     @DisplayName("[성공] checkMatchCount가 정상적으로 동작한다 ")
     @ParameterizedTest(name = "{6}개가 일치하는 경우")
-    @CsvSource({"1, 2, 3, 4, 5, 6, 6", "1, 2, 3, 4, 5, 10, 5", "1, 2, 3, 4, 10, 11, 4", "1, 2, 3, 10, 11, 12, 3", "1, 2, 10, 11, 12, 13, 2", "1, 10, 11, 12, 13, 14, 1"})
+    @CsvSource({"1, 2, 3, 4, 5, 6, 6", "1, 2, 3, 4, 5, 10, 5", "1, 2, 3, 4, 10, 11, 4", "1, 2, 3, 10, 11, 12, 3",
+            "1, 2, 10, 11, 12, 13, 2", "1, 10, 11, 12, 13, 14, 1"})
     void checkMatchCount(int n1, int n2, int n3, int n4, int n5, int n6, int result) {
         Set<Integer> numbers = new HashSet<>();
         numbers.add(n1);
@@ -85,16 +86,16 @@ class LottoTest {
         numbers.add(n6);
         Lotto lotto = new Lotto(numbers);
 
-        Assertions.assertEquals(lotto.matchCount(winningNumbers), result);
+        Assertions.assertEquals(result, lotto.matchCount(winningNumbers));
     }
 
     static void createWinningNumbers() {
         winningNumbers = new HashSet<>(NUMBER_OF_LOTTERY_NUMBERS);
-        winningNumbers.add(1);
-        winningNumbers.add(2);
-        winningNumbers.add(3);
-        winningNumbers.add(4);
-        winningNumbers.add(5);
-        winningNumbers.add(6);
+        winningNumbers.add(new LottoNumber(1));
+        winningNumbers.add(new LottoNumber(2));
+        winningNumbers.add(new LottoNumber(3));
+        winningNumbers.add(new LottoNumber(4));
+        winningNumbers.add(new LottoNumber(5));
+        winningNumbers.add(new LottoNumber(6));
     }
 }

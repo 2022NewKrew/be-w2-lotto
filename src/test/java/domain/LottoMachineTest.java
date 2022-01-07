@@ -15,7 +15,7 @@ class LottoMachineTest {
         int NumberOfLotteryNumbers = 6;
         LottoMachine lottoMachine = new LottoMachine();
 
-        List<Lotto> lottoListResult = lottoMachine.buySeveralLotto(purchaseAmount);
+        List<Lotto> lottoListResult = lottoMachine.buyLottos(purchaseAmount);
 
         lottoListResult.forEach((lotto) -> {
             Assertions.assertEquals(lotto.numbers().size(), NumberOfLotteryNumbers);

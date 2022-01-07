@@ -1,24 +1,23 @@
 package view;
 
 import domain.Lotto;
+import domain.LottoNumber;
 import enums.Prize;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 import messages.GameMessage;
 
-import java.util.*;
-
 public class ResultView {
-    private static void printLotto(Lotto lotto) {
-        Set<Integer> numbers = lotto.numbers();
-        List<Integer> numbersToList = new ArrayList<>(numbers);
 
-        Collections.sort(numbersToList);
-        System.out.print("[");
-        for (int i = 0; i < numbersToList.size(); i++) {
-            System.out.print(numbersToList.get(i));
-            if (i != numbersToList.size() - 1)
-                System.out.print(", ");
-        }
-        System.out.println("]");
+    private static void printLotto(Lotto lotto) {
+        Set<LottoNumber> numbers = lotto.numbers();
+        List<String> printNumList =
+                numbers.stream().sorted().map((lottoNumber) -> Objects.toString(lottoNumber.get())).collect(Collectors.toList());
+
+        System.out.println("[" + String.join(", ", printNumList) + "]");
     }
 
     public static void printLottoList(List<Lotto> lottoList) {
@@ -27,14 +26,20 @@ public class ResultView {
         }
     }
 
+    private static void printOneResult(Prize key, int value) {
+        if (key.getMatchCount() == 0) {
+            return;
+        }
+        if (key.getMatchCount() == Prize.BONUS.getMatchCount() && key.getBonus() == Prize.BONUS.getBonus()) {
+            System.out.printf("%d개 일치, 보너스 볼 일치(%d원) - %d개\n", key.getMatchCount(), key.getMoney(), value);
+            return;
+        }
+        System.out.printf("%d개 일치 (%d원)- %d개\n", key.getMatchCount(), key.getMoney(), value);
+    }
+
     public static void printLottoResult(EnumMap<Prize, Integer> lottoResult) {
         System.out.println(GameMessage.WINNING_STATISTICS.getMessage());
-        lottoResult.forEach((key, value) -> {
-                    if (key.getMatchCount() == 0)
-                        return;
-                    System.out.printf("%d개 일치 (%d원)- %d개\n", key.getMatchCount(), key.getMoney(), value);
-                }
-        );
+        lottoResult.forEach(ResultView::printOneResult);
     }
 
     public static void printRateOfReturn(double rateOfReturn) {

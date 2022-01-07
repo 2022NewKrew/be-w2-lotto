@@ -10,6 +10,14 @@ public enum Prize {
     BONUS(5, 30_000_000L, true),
     SIX(6, 2_000_000_000L, false);
 
+    public static Prize valueOf(int matchedNumber, boolean bonus) {
+        boolean checkedBonus = matchedNumber == BONUS.matchCount && bonus;
+        return Arrays.stream(Prize.values())
+                .filter(i -> i.getMatchCount() == matchedNumber && i.getBonus() == checkedBonus)
+                .findAny()
+                .orElse(MISS);
+    }
+
     private final int matchCount;
     private final long money;
     private final boolean bonus;
@@ -20,12 +28,6 @@ public enum Prize {
         this.bonus = bonus;
     }
 
-    public static Prize valueOf(int matchedNumber, boolean bonus) {
-        return Arrays.stream(Prize.values())
-                .filter(i -> i.getMatchCount() == matchedNumber && i.getBonus() == bonus)
-                .findAny()
-                .orElse(MISS);
-    }
 
     public int getMatchCount() {
         return matchCount;
