@@ -1,13 +1,13 @@
-package com.kakao.lotto.view;
+package com.kakao.lotto.model;
 
-import com.kakao.lotto.model.ConstLottoConfig;
-import com.kakao.lotto.model.LottoNumber;
+import com.kakao.lotto.view.ChangeVaildInput;
+import com.kakao.lotto.view.ConstStringSpace;
 
 public class PreLottoResultInput {
     private final LottoNumber lottoNumber;
     private final int bonus;
 
-    private PreLottoResultInput(Builder builder){
+    private PreLottoResultInput(Builder builder) {
         lottoNumber = builder.preLottoNumber;
         bonus = builder.bonus;
     }
@@ -57,16 +57,17 @@ public class PreLottoResultInput {
 
         /**
          * 보너스 번호 정보를 입력받는 메서드입니다.
-         * @return  builder 클래스 자신
+         *
+         * @return builder 클래스 자신
          */
-        public Builder setBonusNumber(){
-            this.bonus = ChangeVaildInput.inputIntStringManufactor(ConstStringSpace.INPUT_BONUS_NUMBER,number -> number,
+        public Builder setBonusNumber() {
+            this.bonus = ChangeVaildInput.inputIntStringManufactor(ConstStringSpace.INPUT_BONUS_NUMBER, number -> number,
                     number -> preLottoNumber.getAll().contains(number) || (number <= 0 || number > ConstLottoConfig.LOTTO_NUMBER_RANGE));
 
             return this;
         }
 
-        public Builder setBonusNumber(String bonus){
+        public Builder setBonusNumber(String bonus) {
             this.bonus = Integer.parseInt(bonus);
 
             return this;

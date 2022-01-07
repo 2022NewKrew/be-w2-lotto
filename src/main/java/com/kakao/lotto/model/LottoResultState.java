@@ -46,25 +46,26 @@ public enum LottoResultState {
         curLottoNumberDiffSet.removeAll(winningLottoNumber.getAll());
 
         LottoResultState resultState = mapResultToState(LOTTO_PICK_NUMBER - winningLottoNumberDiffSet.size());
-        if(resultState != LottoResultState.SECOND)
+        if (resultState != LottoResultState.SECOND)
             return resultState;
 
         return winningLottoBonus == curLottoNumberDiffSet.iterator().next() ? LottoResultState.SECOND : LottoResultState.THIRD;
     }
 
     private static LottoResultState mapResultToState(int matchResult) {
-        switch (matchResult) {
-            case LOTTO_PICK_NUMBER:
-                return LottoResultState.FIRST;
-            case LOTTO_PICK_NUMBER - 1:
-                return LottoResultState.SECOND;
-            case LOTTO_PICK_NUMBER - 2:
-                return LottoResultState.FOURTH;
-            case LOTTO_PICK_NUMBER - 3:
-                return LottoResultState.FIFTH;
-            default:
-                return LottoResultState.NOTMATCH;
-        }
+        if (matchResult == LOTTO_PICK_NUMBER)
+            return LottoResultState.FIRST;
+
+        if (matchResult == LOTTO_PICK_NUMBER - 1)
+            return LottoResultState.SECOND;
+
+        if (matchResult == LOTTO_PICK_NUMBER - 2)
+            return LottoResultState.FOURTH;
+
+        if (matchResult == LOTTO_PICK_NUMBER - 3)
+            return LottoResultState.FIFTH;
+
+        return LottoResultState.NOTMATCH;
     }
 
     public int getNumOfMatchs() {

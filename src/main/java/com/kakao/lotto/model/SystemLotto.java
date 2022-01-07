@@ -1,7 +1,5 @@
 package com.kakao.lotto.model;
 
-import com.kakao.lotto.view.PreLottoResultInput;
-
 import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -33,7 +31,7 @@ public class SystemLotto {
         bonus = tmpIntArray[ConstLottoConfig.LOTTO_PICK_NUMBER];
     }
 
-    public SystemLotto(PreLottoResultInput preLottoResultInput){
+    public SystemLotto(PreLottoResultInput preLottoResultInput) {
         winningLottoNumbers = preLottoResultInput.getLottoNumber();
         bonus = preLottoResultInput.getBonus();
     }
