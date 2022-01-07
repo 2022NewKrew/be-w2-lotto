@@ -1,5 +1,6 @@
 package controller;
 
+import dto.LottoRankDto;
 import dto.LottoResultDto;
 import dto.LottoResultRevenuePercentDto;
 import dto.LottosDto;
@@ -16,14 +17,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class LottoController {
-    private static final int FIRST_INDEX_TO_PRESENT = 1;
-    private static final int LAST_INDEX_TO_PRESENT = LottoRank.values().length;
+
+    private static final int START_NUMBER_PRESENT = 1;
 
     public static void run() {
         List<Lotto> lottos = SellLottoController.buyLottos(UserInput.getMoney());
         UserOutput.printLotto(new LottosDto(getLottoNumbers(lottos)));
         LottoResult lottoResult = MatchLottoController.matchingResult(lottos);
-        UserOutput.printHistory(getValidLottoResult(FIRST_INDEX_TO_PRESENT, LAST_INDEX_TO_PRESENT), new LottoResultDto(lottoResult.getResult()));
+        UserOutput.printHistory(getValidLottoResult(), new LottoResultDto(lottoResult.getResult()));
         UserOutput.printRevenueRate(new LottoResultRevenuePercentDto(lottoResult.getRevenuePercent()));
     }
 
@@ -43,7 +44,11 @@ public class LottoController {
                 .collect(Collectors.toList());
     }
 
-    private static List<LottoRank> getValidLottoResult(int startIndex, int finishIndex) {
-        return Arrays.asList(LottoRank.values()).subList(startIndex, finishIndex);
+    private static List<LottoRankDto> getValidLottoResult() {
+        return Arrays
+                .stream(LottoRank.values())
+                .skip(START_NUMBER_PRESENT)
+                .map(LottoRankDto::new)
+                .collect(Collectors.toList());
     }
 }

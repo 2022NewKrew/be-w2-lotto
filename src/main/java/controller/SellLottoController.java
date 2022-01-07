@@ -24,11 +24,18 @@ public class SellLottoController {
     }
 
     private static List<Lotto> buyLottosByAuto(int numberOfRandomLotto) {
-        return IntStream.range(0, numberOfRandomLotto).mapToObj(index -> Lotto.getRandomLotto()).collect(Collectors.toList());
+        return IntStream
+                .range(0, numberOfRandomLotto)
+                .mapToObj(index -> Lotto.getRandomLotto())
+                .collect(Collectors.toList());
     }
 
     private static List<Lotto> buyLottosByManual(int numberOfManualLotto) {
-        return UserInput.getManualLotto(numberOfManualLotto).stream().map(SellLottoController::getLottoByManual).collect(Collectors.toList());
+        return UserInput
+                .getManualLotto(numberOfManualLotto)
+                .stream()
+                .map(SellLottoController::getLottoByManual)
+                .collect(Collectors.toList());
     }
 
     private static Lotto getLottoByManual(List<Integer> numbers) {
