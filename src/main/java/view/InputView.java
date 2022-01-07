@@ -9,6 +9,28 @@ import java.util.List;
 import java.util.Scanner;
 
 public class InputView {
+    private final static Scanner scanner = new Scanner(System.in);
+
+    public static int getMoney() {
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public static int getManualAmount() {
+        return Integer.parseInt(scanner.nextLine());
+    }
+
+    public static String getManualLottoString() {
+        return scanner.nextLine();
+    }
+
+    public static String getWinningLottoString() {
+        return scanner.nextLine();
+    }
+
+    public static int getBonusNumber() {
+        return Integer.parseInt(scanner.nextLine());
+    }
+    /*
     Scanner scanner = new Scanner(System.in);
 
     public int getPurchaseAmountFromClient() {
@@ -50,4 +72,6 @@ public class InputView {
         System.out.println("보너스 볼을 입력해 주세요");
         return scanner.nextInt();
     }
+
+     */
 }

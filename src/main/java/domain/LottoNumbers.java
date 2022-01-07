@@ -4,15 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoNumbers {
-    private final List<Integer> allLottoNumbers = new ArrayList<Integer>();
+    private final List<Integer> allLottoNumbers = new ArrayList<>();
 
-    LottoNumbers() {
-        setUpAllLottoNumbers();
-    }
-
-    private void setUpAllLottoNumbers() {
+    public LottoNumbers() {
         for (int i = 1 ; i <= 45 ; i++) {
-            allLottoNumbers.add(i);
+            this.allLottoNumbers.add(i);
         }
     }
 

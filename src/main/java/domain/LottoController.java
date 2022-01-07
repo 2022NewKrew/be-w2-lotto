@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoController {
+    /*
     private InputView inputView = new InputView();
     private OutputView outputView = new OutputView();
     private WinningStats winningStats;
@@ -34,7 +35,7 @@ public class LottoController {
     private void buyLotto() {
         allLotto.addAll(inputView.purchaseLotto(manualPurchaseAmount));
         for (int i = 0 ; i < purchaseAmount ; i++) {
-            allLotto.add(new PurchasedLotto());
+            //allLotto.add(new PurchasedLotto());
         }
     }
 
@@ -60,4 +61,6 @@ public class LottoController {
         int purchasedMoney = purchaseAmount*1000;
         return ((double) winningStats.getEarnedMoney()-(double) purchasedMoney)/purchasedMoney*100;
     }
+
+     */
 }

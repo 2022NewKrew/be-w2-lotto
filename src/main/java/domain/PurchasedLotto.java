@@ -6,23 +6,8 @@ import java.util.List;
 public class PurchasedLotto implements Lotto {
     private List<Integer> numbers;
 
-    public PurchasedLotto() {
-        pickRandomNumbers();
-    }
-
-    public PurchasedLotto(List<Integer> manualNumbers) {
-        pickManualNumbers(manualNumbers);
-    }
-
-    private void pickRandomNumbers() {
-        List<Integer> allLottoNumbers = new LottoNumbers().getAllLottoNumbers();
-        Collections.shuffle(allLottoNumbers);
-        numbers = allLottoNumbers.subList(0,6);
-        Collections.sort(numbers);
-    }
-
-    private void pickManualNumbers(List<Integer> manualNumbers) {
-        numbers = manualNumbers;
+    public PurchasedLotto(List<Integer> numbers) {
+        this.numbers = numbers;
     }
 
     @Override
