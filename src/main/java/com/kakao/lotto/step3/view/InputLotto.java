@@ -42,12 +42,12 @@ public class InputLotto {
     }
 
     private void checkDuplicate(List<Integer> lottoNumbers) throws Exception {
-        Set<Integer> winningSet = new HashSet<>(lottoNumbers);
-        if(lottoNumbers.size() != winningSet.size())
+        Set<Integer> lottoSet = new HashSet<>(lottoNumbers);
+        if(lottoNumbers.size() != lottoSet.size())
             throw new Exception("중복 요소가 있습니다.");
     }
 
-    private void checkNumbers(List<Integer> lottoNumbers) throws RuntimeException {
+    private void checkLottoNumbers(List<Integer> lottoNumbers) throws RuntimeException {
         lottoNumbers.stream()
                 .filter(number -> number < 1 || number > 45)
                 .findAny()
@@ -61,7 +61,7 @@ public class InputLotto {
                 .map(string -> Integer.valueOf(string)).collect(Collectors.toList());
         checkSize(lottoNumbers);
         checkDuplicate(lottoNumbers);
-        checkNumbers(lottoNumbers);
+        checkLottoNumbers(lottoNumbers);
         Collections.sort(lottoNumbers);
         return lottoNumbers;
     }
@@ -105,37 +105,37 @@ public class InputLotto {
         }
     }
 
-    private void checkManualLottoNumber(int manualLottoNumber, int lottoNumber) throws Exception {
-        if(manualLottoNumber < 0 || manualLottoNumber > lottoNumber)
+    private void checkManualLottoCount(int manualLottoCount, int lottoCount) throws Exception {
+        if(manualLottoCount < 0 || manualLottoCount > lottoCount)
             throw new Exception("구매할 lotto 개수 이하인 음이 아닌 정수를 입력하세요.");
     }
 
-    private int inputManualLottoNumber(int lottoNumber) throws Exception {
+    private int inputManualLottoCount(int lottoCount) throws Exception {
         System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
-        int manualLottoNumber = Integer.parseInt(scanner.nextLine());
-        checkManualLottoNumber(manualLottoNumber, lottoNumber);
-        return manualLottoNumber;
+        int manualLottoCount = Integer.parseInt(scanner.nextLine());
+        checkManualLottoCount(manualLottoCount, lottoCount);
+        return manualLottoCount;
     }
 
-    private int getManualLottoNumber(int lottoNumber) {
+    private int getManualLottoCount(int lottoCount) {
         while(true) {
             try {
-                return inputManualLottoNumber(lottoNumber);
+                return inputManualLottoCount(lottoCount);
             } catch (Exception exception) {
                 System.out.println("구매할 수 있는 lotto의 수보다 작은 값을 입력하세요");
             }
         }
     }
 
-    private List<Lotto> inputManualLottos(int manualLottoNumber) {
-        if(manualLottoNumber > 0)
+    private List<Lotto> inputManualLottos(int manualLottoCount) {
+        if(manualLottoCount > 0)
             System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
-        return Stream.generate(() -> new Lotto(getLottoNumbers())).limit(manualLottoNumber).collect(Collectors.toList());
+        return Stream.generate(() -> new Lotto(getLottoNumbers())).limit(manualLottoCount).collect(Collectors.toList());
     }
 
-    public List<Lotto> getManualLottos(int lottoNumber) {
-        int manualLottoNumber = getManualLottoNumber(lottoNumber);
-        return inputManualLottos(manualLottoNumber);
+    public List<Lotto> getManualLottos(int lottoCount) {
+        int manualLottoCount = getManualLottoCount(lottoCount);
+        return inputManualLottos(manualLottoCount);
     }
 
 }

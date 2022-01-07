@@ -20,7 +20,12 @@ public class LottoMain {
 
     private void init() {
         port(8080);
-        staticFiles.location("/public");
+        staticFiles.location("/templates");
+        get("/", (req, res) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("lottoPrice", LottoParser.LOTTO_PRICE);
+            return render(model, "main.html");
+        });
     }
 
     public void makeRandomLotto() {

@@ -6,11 +6,7 @@ import com.kakao.lotto.step3.view.InputLotto;
 import com.kakao.lotto.step3.view.LottoPrinter;
 import com.kakao.lotto.step3.view.LottoResultPrinter;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
-
 
 public class LottoMain {
 
@@ -27,11 +23,13 @@ public class LottoMain {
 
     public void inputManualLottos() {
         lottos = inputLotto.getManualLottos(lottoCount);
-        lottoPrinter.printBuyLottoCount(lottoCount, lottos.size());
+        int manualLottoCount = lottos.size();
+        lottoPrinter.printBuyLottoCount(lottoCount, manualLottoCount);
     }
 
     public void makeLotto() {
-        lottos.addAll(Lotto.makeLottos(lottoCount - lottos.size()));
+        int randomLottoCount = lottoCount - lottos.size();
+        lottos.addAll(Lotto.makeRandomLottos(randomLottoCount));
         lottoPrinter.printLottos(lottos);
     }
 
@@ -48,15 +46,6 @@ public class LottoMain {
         LottoResultPrinter lottoResultPrinter = new LottoResultPrinter(lottoResult);
         lottoResultPrinter.printResults();
         lottoResultPrinter.printProfitRate();
-    }
-
-    public static Lotto stringToLotto(String s) {
-        return new Lotto(Pattern.compile(", ").splitAsStream(s)
-                .map(string -> Integer.valueOf(string)).collect(Collectors.toList()));
-    }
-
-    public static List<Lotto> getManualLottos(String s) {
-        return Arrays.stream(s.split("\r?\n")).map(LottoMain::stringToLotto).collect(Collectors.toList());
     }
 
     public static void main(String[] args) {
