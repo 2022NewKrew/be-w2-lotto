@@ -1,7 +1,10 @@
 package org.cs.finn.lotto.domain;
 
 import org.cs.finn.lotto.domain.lotto.LottoNumbers;
+import org.cs.finn.lotto.util.Checker;
+import org.cs.finn.lotto.util.LottoNumbersGenerator;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,15 +19,20 @@ public class Lottos {
         list.add(Objects.requireNonNull(lottoNumbers));
     }
 
-    public void addAll(final List<LottoNumbers> lottoNumbersList) {
-        list.addAll(Objects.requireNonNull(lottoNumbersList));
-    }
-
     public List<LottoNumbers> getList() {
         return Collections.unmodifiableList(list);
     }
 
     public int size() {
         return list.size();
+    }
+
+    public void buyLottoAutoAll(final SecureRandom sRand, final int count) {
+        Objects.requireNonNull(sRand);
+        Checker.checkInt(count, false);
+
+        for (int i = 0; i < count; i++) {
+            list.add(LottoNumbersGenerator.getLottoNumbers(sRand));
+        }
     }
 }

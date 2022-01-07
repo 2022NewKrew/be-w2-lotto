@@ -12,12 +12,14 @@ public class LottoWinnings {
     private final LottoNumber bonusNumber;
 
     public LottoWinnings(final LottoNumbers lottoNumbers, final LottoNumber bonusNumber) {
-        this.lottoNumbers = Objects.requireNonNull(lottoNumbers);
-        this.bonusNumber = Objects.requireNonNull(bonusNumber);
-
+        Objects.requireNonNull(lottoNumbers);
+        Objects.requireNonNull(bonusNumber);
         if (lottoNumbers.contains(bonusNumber)) {
             throw new IllegalArgumentException("BonusNumber is found in winningNumbers!");
         }
+
+        this.lottoNumbers = lottoNumbers;
+        this.bonusNumber = bonusNumber;
     }
 
     public List<LottoNumber> getWinningsList() {
