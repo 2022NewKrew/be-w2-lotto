@@ -1,14 +1,18 @@
 package domain;
 
 import enums.Prize;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
-
 class LottoResultTest {
+
     static Set<Integer> winningNumbers;
 
     @BeforeAll
@@ -47,7 +51,7 @@ class LottoResultTest {
     @DisplayName("[성공] 수익률을 올바르게 계산한다")
     void rateOfReturn() {
         long purchaseAmount = 14000;
-        double rateOfReturn_Answer = (Prize.THREE.getMoney() - purchaseAmount) / (double)purchaseAmount * 100.0d;
+        double rateOfReturn_Answer = (Prize.THREE.getMoney() - purchaseAmount) / (double) purchaseAmount * 100.0d;
         int bonusNumber = 7;
         LottoResult lottoResult = new LottoResult(winningNumbers, bonusNumber);
         List<Lotto> lottoList = new ArrayList<>();

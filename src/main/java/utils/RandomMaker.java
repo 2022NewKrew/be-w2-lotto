@@ -3,6 +3,7 @@ package utils;
 import java.util.Random;
 
 public class RandomMaker {
+
     private final Random random;
 
     public RandomMaker() {

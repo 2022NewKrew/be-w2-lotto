@@ -2,11 +2,15 @@ package view;
 
 import domain.Lotto;
 import enums.Prize;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Set;
 import messages.GameMessage;
 
-import java.util.*;
-
 public class ResultView {
+
     private static void printLotto(Lotto lotto) {
         Set<Integer> numbers = lotto.numbers();
         List<Integer> numbersToList = new ArrayList<>(numbers);
@@ -15,8 +19,9 @@ public class ResultView {
         System.out.print("[");
         for (int i = 0; i < numbersToList.size(); i++) {
             System.out.print(numbersToList.get(i));
-            if (i != numbersToList.size() - 1)
+            if (i != numbersToList.size() - 1) {
                 System.out.print(", ");
+            }
         }
         System.out.println("]");
     }
@@ -28,8 +33,9 @@ public class ResultView {
     }
 
     private static void printOneResult(Prize key, int value) {
-        if (key.getMatchCount() == 0)
+        if (key.getMatchCount() == 0) {
             return;
+        }
         System.out.printf("%d개 일치 (%d원)- %d개\n", key.getMatchCount(), key.getMoney(), value);
     }
 

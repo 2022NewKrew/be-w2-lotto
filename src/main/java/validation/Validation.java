@@ -3,6 +3,7 @@ package validation;
 import java.util.Set;
 
 public class Validation {
+
     public static void notLessThanLong(long object, long another, RuntimeException runtimeException) {
         condition(Long.compare(object, another) >= 0, runtimeException);
     }
@@ -20,7 +21,8 @@ public class Validation {
     }
 
     private static void condition(boolean predicate, RuntimeException runtimeException) {
-        if (!predicate)
+        if (!predicate) {
             throw runtimeException;
+        }
     }
 }

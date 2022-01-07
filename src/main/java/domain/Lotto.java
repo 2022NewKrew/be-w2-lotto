@@ -8,18 +8,23 @@ import messages.ErrorMessage;
 import validation.Validation;
 
 public class Lotto {
+
     private static final int NUMBER_OF_LOTTERY_NUMBERS = 6;
     private static final int MIN_LOTTO_NUMBER = 1;
     private static final int MAX_LOTTO_NUMBER = 45;
     private final Set<Integer> numbers;
 
     Lotto(Set<Integer> numbers) {
-        if (numbers == null)
+        if (numbers == null) {
             throw new IllegalArgumentException();
-         Validation.sizeShouldBe(numbers, NUMBER_OF_LOTTERY_NUMBERS, new InvalidLastWeekWinningNumber(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
+        }
+        Validation.sizeShouldBe(numbers, NUMBER_OF_LOTTERY_NUMBERS,
+                new InvalidLastWeekWinningNumber(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
         numbers.forEach(num -> {
-            Validation.notLessThanLong(num, MIN_LOTTO_NUMBER, new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
-            Validation.notMoreThanLong(num, MAX_LOTTO_NUMBER, new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
+            Validation.notLessThanLong(num, MIN_LOTTO_NUMBER,
+                    new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
+            Validation.notMoreThanLong(num, MAX_LOTTO_NUMBER,
+                    new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
         });
         this.numbers = Collections.unmodifiableSet(numbers);
     }

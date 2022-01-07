@@ -11,6 +11,7 @@ import utils.RandomMaker;
 import validation.Validation;
 
 public class LottoMachine {
+
     private static final int NUMBER_OF_LOTTERY_NUMBERS = 6;
     private static final int MIN_LOTTO_NUMBER = 1;
     private static final int MAX_LOTTO_NUMBER = 45;
@@ -23,8 +24,10 @@ public class LottoMachine {
     }
 
     public List<Lotto> buyLottos(long purchaseAmount) {
-        Validation.notLessThanLong(purchaseAmount, MIN_PRISE, new InvalidPurchaseAmount(ErrorMessage.NEGATIVE_PURCHASE_AMOUNT.getMessage()));
-        Validation.notMoreThanLong(purchaseAmount, MAX_PRISE, new InvalidPurchaseAmount(ErrorMessage.MAX_PURCHASE_AMOUNT.getMessage()));
+        Validation.notLessThanLong(purchaseAmount, MIN_PRISE,
+                new InvalidPurchaseAmount(ErrorMessage.NEGATIVE_PURCHASE_AMOUNT.getMessage()));
+        Validation.notMoreThanLong(purchaseAmount, MAX_PRISE,
+                new InvalidPurchaseAmount(ErrorMessage.MAX_PURCHASE_AMOUNT.getMessage()));
 
         long lottoCount = purchaseAmount / LOTTO_PRICE;
         return Stream.generate(this::buy)

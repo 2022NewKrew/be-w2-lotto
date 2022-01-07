@@ -1,13 +1,13 @@
 package view;
 
-import messages.GameMessage;
-
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
+import messages.GameMessage;
 
 public class InputView {
+
     private static final Scanner in = new Scanner(System.in);
 
     public static long inputPurchaseAmount() {

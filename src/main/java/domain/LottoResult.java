@@ -13,6 +13,7 @@ import messages.ErrorMessage;
 import validation.Validation;
 
 public class LottoResult {
+
     private static final int NUMBER_OF_LOTTERY_NUMBERS = 6;
     private static final int MIN_LOTTO_NUMBER = 1;
     private static final int MAX_LOTTO_NUMBER = 45;
@@ -21,19 +22,26 @@ public class LottoResult {
     private final int bonusNumber;
 
     private void checkLastWeekWinningNumbers(Set<Integer> lastWeekWinningNumbers) {
-        if (lastWeekWinningNumbers == null)
+        if (lastWeekWinningNumbers == null) {
             throw new IllegalArgumentException();
-        Validation.sizeShouldBe(lastWeekWinningNumbers, NUMBER_OF_LOTTERY_NUMBERS, new InvalidPurchaseAmount(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
+        }
+        Validation.sizeShouldBe(lastWeekWinningNumbers, NUMBER_OF_LOTTERY_NUMBERS,
+                new InvalidPurchaseAmount(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
         lastWeekWinningNumbers.forEach(num -> {
-            Validation.notLessThanLong(num, MIN_LOTTO_NUMBER, new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
-            Validation.notMoreThanLong(num, MAX_LOTTO_NUMBER, new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
+            Validation.notLessThanLong(num, MIN_LOTTO_NUMBER,
+                    new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
+            Validation.notMoreThanLong(num, MAX_LOTTO_NUMBER,
+                    new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
         });
     }
 
     private void checkBonusNumber(Set<Integer> lastWeekWinningNumbers, int bonusNumber) {
-        Validation.notLessThanLong(bonusNumber, MIN_LOTTO_NUMBER, new InvalidBonusNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
-        Validation.notMoreThanLong(bonusNumber, MAX_LOTTO_NUMBER, new InvalidBonusNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
-        Validation.notContains(lastWeekWinningNumbers, bonusNumber, new InvalidBonusNumber(ErrorMessage.DUPLICATE_BONUS_NUMBER.getMessage()));
+        Validation.notLessThanLong(bonusNumber, MIN_LOTTO_NUMBER,
+                new InvalidBonusNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
+        Validation.notMoreThanLong(bonusNumber, MAX_LOTTO_NUMBER,
+                new InvalidBonusNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
+        Validation.notContains(lastWeekWinningNumbers, bonusNumber,
+                new InvalidBonusNumber(ErrorMessage.DUPLICATE_BONUS_NUMBER.getMessage()));
     }
 
     public LottoResult(Set<Integer> lastWeekWinningNumbers, int bonusNumber) {
@@ -54,7 +62,8 @@ public class LottoResult {
         int matchCount = lotto.matchCount(lastWeekWinningNumbers);
 
         if (matchCount == 5) {
-            lottoResult.put(Prize.valueOf(matchCount, lotto.contains(bonusNumber)), lottoResult.get(Prize.valueOf(matchCount, lotto.contains(bonusNumber))) + 1);
+            lottoResult.put(Prize.valueOf(matchCount, lotto.contains(bonusNumber)),
+                    lottoResult.get(Prize.valueOf(matchCount, lotto.contains(bonusNumber))) + 1);
             return;
         }
         lottoResult.put(Prize.valueOf(matchCount, false), lottoResult.get(Prize.valueOf(matchCount, false)) + 1);
@@ -64,8 +73,9 @@ public class LottoResult {
         EnumMap<Prize, Integer> lottoResult = new EnumMap<>(Prize.class);
 
         InitializeMap(lottoResult);
-        for (Lotto lotto : lottoList)
+        for (Lotto lotto : lottoList) {
             addLottoResult(lotto, lottoResult);
+        }
         return lottoResult;
     }
 
@@ -73,8 +83,9 @@ public class LottoResult {
         EnumMap<Prize, Integer> lottoResult = winningLottoCount(lottoList);
         long totalEarn = 0;
 
-        for (Map.Entry<Prize, Integer> entry : lottoResult.entrySet())
+        for (Map.Entry<Prize, Integer> entry : lottoResult.entrySet()) {
             totalEarn += entry.getKey().getMoney() * entry.getValue();
+        }
 
         // (평가금액 - 원금) / 원금 * 100
         return (totalEarn - purchaseAmount) / (double) purchaseAmount * 100.0d;
