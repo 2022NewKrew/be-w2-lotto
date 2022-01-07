@@ -4,7 +4,7 @@ import exception.InvalidPurchaseAmount;
 
 import java.util.Map;
 
-public class LottoCashier {
+public class LottoBank {
     private static final int MINIMUM_PURCHASE_AMOUNT = 1;
     private static final int MAXIMUM_PURCHASE_AMOUNT = 100;
     private static final int LOTTO_PRICE = 1000;

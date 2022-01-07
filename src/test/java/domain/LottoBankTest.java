@@ -4,17 +4,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class LottoCashierTest {
+class LottoBankTest {
 
     @Test
     @DisplayName("로또 구매 갯수를 확인")
     void buyLottos() {
         // given
-        LottoCashier lottoCashier = new LottoCashier();
+        LottoBank lottoBank = new LottoBank();
         int money = 15999;
 
         // when
-        Integer lottoNumber = lottoCashier.buyLottos(money);
+        Integer lottoNumber = lottoBank.buyLottos(money);
 
         // then
         assertThat(lottoNumber).isEqualTo(money / 1000);
