@@ -29,8 +29,9 @@ public class Lotto {
 
     private void checkIsAlreadyContainByAddToSet(Set<LottoNumber> lottoNumberSet, LottoNumber lottoNumber) {
         boolean isAlreadyContain = !lottoNumberSet.add(lottoNumber);
-        if(isAlreadyContain)
+        if (isAlreadyContain) {
             throw new LottoNumberDuplicationFoundedException(ErrorMessage.LOTTO_NUMBER_DUPLICATION_FOUNDED);
+        }
     }
 
     public List<String> getListOfStringForLottoNumbers() {
