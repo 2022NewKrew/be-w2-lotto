@@ -21,10 +21,6 @@ public class Money {
         return new Money(m1.getValue() + m2.getValue());
     }
 
-    public static Money sub(Money m1, Money m2) {
-        return new Money(m1.getValue() - m2.getValue());
-    }
-
     public Money multiply(int multiplier) {
         return new Money(this.value * multiplier);
     }
