@@ -7,24 +7,15 @@ import java.util.List;
 public class Lotto {
 
     private final List<Integer> numbers = new ArrayList<>();
-    public static final int NUM_OF_LOTTO = 6;
 
+    private Lotto(){}
     public Lotto(List<Integer> numbers) {
         sortAndAdd(numbers);
-    }
-
-    public Lotto() {
-        sortAndAdd(makeRandomLottoNum());
     }
 
     void sortAndAdd(List<Integer> rawNumbers) {
         Collections.sort(rawNumbers);
         numbers.addAll(rawNumbers);
-    }
-
-    private List<Integer> makeRandomLottoNum() {
-        LottoGenerator lottoGenerator = new LottoGenerator();
-        return lottoGenerator.generateRandomLotto().subList(0, NUM_OF_LOTTO);
     }
 
     public int countNumbersMatch(Lotto prize) {

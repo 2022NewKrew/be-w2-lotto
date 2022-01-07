@@ -1,5 +1,6 @@
 package controller;
 
+import domain.Generator.AutoLottoGenerator;
 import domain.Lotto;
 import domain.LottoPack;
 import view.LottoInput;
@@ -15,8 +16,9 @@ public class BuyLotto {
     public static LottoPack buy(int buyPrice) {
         LottoPack lottoPack = new LottoPack(buyPrice);
         int numberOfLotto = buyPrice / LottoPrice;
+        AutoLottoGenerator autoLottoGenerator = new AutoLottoGenerator();
         for (int i = 0; i < numberOfLotto; i++) {
-            lottoPack.add(new Lotto());
+            lottoPack.add(autoLottoGenerator.generateLotto());
         }
         return lottoPack;
     }
