@@ -17,6 +17,8 @@ public class LottoStatistic {
     private static final int FIVE_WINNING_AND_BONUS_AMOUNT = 30000000;
     private static final int SIX_WINNING_AMOUNT = 2000000000;
 
+    private Long id;
+
     private int treeMatch = 0;
     private int fourMatch = 0;
     private int fiveMatch = 0;
@@ -232,5 +234,13 @@ public class LottoStatistic {
 
     public List<Lotto> getLottos() {
         return lottos;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

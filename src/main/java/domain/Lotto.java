@@ -16,6 +16,8 @@ public abstract class Lotto {
     protected List<Integer> numbers;
     protected LottoWinningStatus status = LottoWinningStatus.NORMAL;
 
+    private Long id;
+
     protected Lotto() {
     }
 
@@ -77,5 +79,13 @@ public abstract class Lotto {
     @Override
     public String toString() {
         return numbers.toString();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
