@@ -23,9 +23,9 @@ public class LottoMachine {
 
     public List<Lotto> buyLottos(long purchaseAmount) {
         Validation.notLessThanLong(purchaseAmount, MIN_PRISE,
-                new InvalidPurchaseAmount(ErrorMessage.NEGATIVE_PURCHASE_AMOUNT.getMessage()));
+                () -> new InvalidPurchaseAmount(ErrorMessage.NEGATIVE_PURCHASE_AMOUNT.getMessage()));
         Validation.notMoreThanLong(purchaseAmount, MAX_PRISE,
-                new InvalidPurchaseAmount(ErrorMessage.MAX_PURCHASE_AMOUNT.getMessage()));
+                () -> new InvalidPurchaseAmount(ErrorMessage.MAX_PURCHASE_AMOUNT.getMessage()));
 
         long lottoCount = purchaseAmount / LOTTO_PRICE;
         return Stream.generate(this::buy)

@@ -1,11 +1,10 @@
 package validation;
 
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
-import java.util.HashSet;
-import java.util.Set;
 
 class ValidationTest {
 
@@ -15,7 +14,7 @@ class ValidationTest {
         int n1 = 10;
         int n2 = 1;
 
-        Validation.notLessThanLong(n1, n2, new RuntimeException());
+        Validation.notLessThanLong(n1, n2, RuntimeException::new);
     }
 
     @Test
@@ -25,7 +24,7 @@ class ValidationTest {
         int n2 = 1;
 
         Assertions.assertThrows(RuntimeException.class,
-                () -> Validation.notLessThanLong(n1, n2, new RuntimeException()));
+                () -> Validation.notLessThanLong(n1, n2, RuntimeException::new));
     }
 
     @Test
@@ -34,7 +33,7 @@ class ValidationTest {
         int n1 = 10;
         int n2 = 45;
 
-        Validation.notMoreThanLong(n1, n2, new RuntimeException());
+        Validation.notMoreThanLong(n1, n2, RuntimeException::new);
     }
 
     @Test
@@ -44,7 +43,7 @@ class ValidationTest {
         int n2 = 45;
 
         Assertions.assertThrows(RuntimeException.class,
-                () -> Validation.notMoreThanLong(n1, n2, new RuntimeException()));
+                () -> Validation.notMoreThanLong(n1, n2, RuntimeException::new));
     }
 
     @Test
@@ -59,7 +58,7 @@ class ValidationTest {
         set.add(6);
         int lengthToBe = 6;
 
-        Validation.sizeShouldBe(set, lengthToBe, new RuntimeException());
+        Validation.sizeShouldBe(set, lengthToBe, RuntimeException::new);
     }
 
     @Test
@@ -74,6 +73,6 @@ class ValidationTest {
         int lengthToBe = 6;
 
         Assertions.assertThrows(RuntimeException.class,
-                () -> Validation.sizeShouldBe(set, lengthToBe, new RuntimeException()));
+                () -> Validation.sizeShouldBe(set, lengthToBe, RuntimeException::new));
     }
 }

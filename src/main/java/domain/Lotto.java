@@ -17,7 +17,7 @@ public class Lotto {
             throw new IllegalArgumentException();
         }
         Validation.sizeShouldBe(intNumbers, LottoConstants.NUMBER_OF_LOTTERY_NUMBERS.get(),
-                new InvalidLastWeekWinningNumber(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
+                () -> new InvalidLastWeekWinningNumber(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
         numbers = intNumbers.stream().map(LottoNumber::new).collect(Collectors.toUnmodifiableSet());
     }
 

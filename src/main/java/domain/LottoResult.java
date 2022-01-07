@@ -23,9 +23,9 @@ public class LottoResult {
             throw new IllegalArgumentException();
         }
         Validation.sizeShouldBe(lastWeekWinningNumbers, LottoConstants.NUMBER_OF_LOTTERY_NUMBERS.get(),
-                new InvalidPurchaseAmount(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
+                () -> new InvalidPurchaseAmount(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
         Validation.notContains(lastWeekWinningNumbers, bonusNumber,
-                new InvalidBonusNumber(ErrorMessage.DUPLICATE_BONUS_NUMBER.getMessage()));
+                () -> new InvalidBonusNumber(ErrorMessage.DUPLICATE_BONUS_NUMBER.getMessage()));
 
         this.lastWeekWinningNumbers = lastWeekWinningNumbers.stream().map(LottoNumber::new)
                 .collect(Collectors.toUnmodifiableSet());

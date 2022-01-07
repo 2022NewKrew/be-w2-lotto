@@ -12,9 +12,9 @@ public class LottoNumber {
 
     LottoNumber(int number) {
         Validation.notLessThanLong(number, LottoConstants.MIN_LOTTO_NUMBER.get(),
-                new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
+                () -> new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
         Validation.notMoreThanLong(number, LottoConstants.MAX_LOTTO_NUMBER.get(),
-                new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
+                () -> new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
 
         this.number = number;
     }
