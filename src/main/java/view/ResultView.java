@@ -27,14 +27,15 @@ public class ResultView {
         }
     }
 
+    private static void printOneResult(Prize key, int value) {
+        if (key.getMatchCount() == 0)
+            return;
+        System.out.printf("%d개 일치 (%d원)- %d개\n", key.getMatchCount(), key.getMoney(), value);
+    }
+
     public static void printLottoResult(EnumMap<Prize, Integer> lottoResult) {
         System.out.println(GameMessage.WINNING_STATISTICS.getMessage());
-        lottoResult.forEach((key, value) -> {
-                    if (key.getMatchCount() == 0)
-                        return;
-                    System.out.printf("%d개 일치 (%d원)- %d개\n", key.getMatchCount(), key.getMoney(), value);
-                }
-        );
+        lottoResult.forEach(ResultView::printOneResult);
     }
 
     public static void printRateOfReturn(double rateOfReturn) {
