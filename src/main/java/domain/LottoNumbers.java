@@ -4,9 +4,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LottoNumbers {
-    private static final Integer LOTTO_NUMBER_SIZE = 6;
+import static domain.Constants.LOTTO_NUMBER_SIZE;
 
+public class LottoNumbers {
     private final List<LottoNumber> numbers;
 
     public LottoNumbers(List<Integer> lottoNumbers) {

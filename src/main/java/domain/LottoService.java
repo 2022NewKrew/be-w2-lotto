@@ -5,11 +5,9 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static domain.Constants.*;
+
 public class LottoService {
-    private static final double COST_PER_LOTTO = 1000.0;
-    private static final Integer LOTTO_NUMBER_SIZE = 6;
-    private static final Integer MIN_NUMBER_RANGE = 1;
-    private static final Integer MAX_NUMBER_RANGE = 46;
 
     public LottoService() {
     }
