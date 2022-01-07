@@ -20,7 +20,6 @@
 * 사용자가 입력한 값에 대한 예외 처리를 철저히 한다.
 
 ### TODO
-* 수동 입력 부분 구현
 * Exception
 * 또 테스트 코드 작업.
 * Interface 조금 더 잘 쓸 수 있지 않을까?
@@ -40,3 +39,4 @@
   * 쓰이지 않는 상수 제거
   * DTO 객체의 setter 함수 제거 및 상수 final화
 * private 생성자에 AssertionError 적용
+* 수동 입력 부분 구현

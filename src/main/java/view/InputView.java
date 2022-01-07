@@ -23,8 +23,12 @@ public class InputView {
         return payAmount / PRICE;
     }
 
-    public static List<String> getWinNumber() {
-        System.out.println("지난 주 당첨 번호를 입력해 주세요.");
+    public static int getManualNumLotto() {
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        return sc.nextInt();
+    }
+
+    public static List<String> getManualNumber() {
         String WinNumbers = sc.next();
         return new ArrayList<>(Arrays.asList(WinNumbers.split(SEPARATOR)));
     }

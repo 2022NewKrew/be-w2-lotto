@@ -23,7 +23,27 @@ public class StartController {
         return numLotto;
     }
 
-    public static void addLottoLines(MyLottoLines lottoLines, int numLotto) {
+    public static int inputNumManualLotto(int totalNum) {
+        int numLotto = InputView.getManualNumLotto();
+        while (numLotto < 0 || totalNum < numLotto) {
+            OutputView.printManualNumberError(totalNum);
+            numLotto = InputView.getManualNumLotto();
+        }
+
+        return numLotto;
+    }
+
+    public static void addManualLottoLines(MyLottoLines lottoLines, int numLotto) {
+        OutputView.announceBeforeManualLine();
+        for (int i = 0; i < numLotto; i++) {
+            LottoLine curLotto = inputManualLottoLine();
+
+            lottoLines.addLotto(curLotto);
+            OutputView.printLottoLine(curLotto.getPrintLine());
+        }
+    }
+
+    public static void addAutoLottoLines(MyLottoLines lottoLines, int numLotto) {
         for (int i = 0; i < numLotto; i++) {
             LottoLine curLotto = new RandomLottoLine();
 
@@ -33,10 +53,11 @@ public class StartController {
     }
 
     private static LottoLine inputManualLottoLine() {
-        return ManualLottoLine.makeManualLottoLineFromStrLst(InputView.getWinNumber());
+        return ManualLottoLine.makeManualLottoLineFromStrLst(InputView.getManualNumber());
     }
 
     public static WinningLottoLine makeWinningLine() {
+        OutputView.announceBeforeWinningLine();
         LottoLine lottoLine = inputManualLottoLine();
 
         while (lottoLine == null) {
@@ -56,5 +77,9 @@ public class StartController {
             OutputView.printBonusInputError();
             isValid = winningLine.setBonus(InputView.getBonus());
         }
+    }
+
+    public static void printPurchaseSummary(int numManLotto, int numAutoLotto) {
+        OutputView.printAutoManualNum(numAutoLotto, numManLotto);
     }
 }

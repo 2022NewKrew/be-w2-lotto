@@ -6,10 +6,13 @@ import domain.WinningLottoLine;
 
 public class Main {
     public static void main(String[] args) {
-        int numLotto = StartController.inputNumLotto();
         MyLottoLines myLottoLines = new MyLottoLines();
+        int numLotto = StartController.inputNumLotto();
+        int numManLotto = StartController.inputNumManualLotto(numLotto);
 
-        StartController.addLottoLines(myLottoLines, numLotto);
+        StartController.addManualLottoLines(myLottoLines, numManLotto);
+        StartController.addAutoLottoLines(myLottoLines, numLotto-numManLotto);
+        StartController.printPurchaseSummary(numManLotto, numLotto-numManLotto);
 
         WinningLottoLine winningLottoLine = StartController.makeWinningLine();
 
