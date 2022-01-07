@@ -1,11 +1,11 @@
-package view;
+package view.console;
 
 import domain.lottonumber.BasicNumber;
 import domain.lottonumber.BonusNumber;
 import domain.lottonumber.LottoNumber;
 import exception.NegativeException;
-import view.dto.lottoticket.LottoTicketInputDto;
-import view.dto.lottoticket.LottoTicketsInputDto;
+import view.console.dto.lottoticket.LottoTicketInputDto;
+import view.console.dto.lottoticket.LottoTicketsInputDto;
 
 import java.util.*;
 import java.util.stream.Collectors;

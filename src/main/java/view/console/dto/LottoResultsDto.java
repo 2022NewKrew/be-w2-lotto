@@ -1,4 +1,4 @@
-package view.dto;
+package view.console.dto;
 
 import domain.LottoResult;
 import domain.LottoResults;

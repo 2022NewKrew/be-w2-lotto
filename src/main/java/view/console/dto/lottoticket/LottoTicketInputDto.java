@@ -1,4 +1,4 @@
-package view.dto.lottoticket;
+package view.console.dto.lottoticket;
 
 import domain.LottoTicket;
 import domain.lottonumber.LottoNumber;
