@@ -45,7 +45,7 @@ class LottoTest {
 
     @Test
     @DisplayName("로또 내에 1~45 이외의 범위 exception 검증")
-    void invalidLottoNumberException() {
+    void invalidLottoNumberRangeException() {
         // given
         Set<Integer> numbers1 = new HashSet<>(Arrays.asList(1, 2, 3, 4, 5, 99));
         Set<Integer> numbers2 = new HashSet<>(Arrays.asList(0, 2, 3, 4, 5, 6));
@@ -68,4 +68,23 @@ class LottoTest {
         Assertions.assertEquals("Lotto number has wrong range.", throw2.getMessage());
         Assertions.assertEquals("Lotto number has wrong range.", throw3.getMessage());
     }
+
+    @Test
+    @DisplayName("정수 이외의 숫자 exception 검증")
+            void invalidLottoNumberIntegerException(){
+            // given
+        Set<Double> numbers = new HashSet<>(Arrays.asList(1.5, 2.5, 3.5, 4.9, 5.1, 44.99999));
+
+
+            // when
+            InvalidLottoNumberException throw = Assertions.assertThrows(InvalidLottoNumberException.class, () -> {
+        new Lotto(numbers);
+    });
+
+        // then
+        System.out.println(throw1.getMessage());
+        Assertions.assertEquals("Lotto number has wrong range.", throw.getMessage());
+    }
+
+
 }
