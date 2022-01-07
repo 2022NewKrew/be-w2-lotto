@@ -131,3 +131,22 @@
   - LottoController 클래스에서 수동 복권 개수 입력받은 후 Lotto 클래스에서 입력 개수에 맞게 수동, 자동 복권 생성
 - LottoTicket 의 테스트 코드 추가
   - LottoTicketTest 클래스에서 입력 번호 개수, 중복 여부, 숫자 범위 초과 여부 테스트 수행
+
+## 로또 4단계 구현 - 웹 UI 적용
+### 요구사항
+- https://lucas.codesquad.kr/2022-kakao/course/%EC%9B%B9%EB%B0%B1%EC%97%94%EB%93%9C/Lotto/SparkJava 를 참고해서 구현한다.
+- 스프링은 사용하지 않는다.
+- 콘솔 UI 대신 웹 UI를 적용한다.
+- 웹 페이지 템플릿
+
+### 구현 내용
+- CLI용 코드와 Web용 코드 분리
+  - LottoController, TicketReader 클래스에서 CLI용 메서드와 Web용 메서드 분리
+  - view는 아예 LottoView와 LottoWebView로 별도의 클래스로 분리
+- url routing을 위한 AppRouter 클래스 추가
+- LottoApi 클래스 추가
+- 웹 스테틱 html 파일과 템플릿 html 파일 추가
+
+### 추가 구현 필요 사항
+- 테스트 코드 작성 필요
+- 3단계 pr에서 리뷰받은 내용 적용 필요
