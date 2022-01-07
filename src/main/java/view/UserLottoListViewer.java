@@ -4,14 +4,14 @@ import parameters.LottoLine;
 import parameters.UserLottoLines;
 
 
-public class UserLottoViewer {
-    private UserLottoViewer() {
-        
+public class UserLottoListViewer {
+    private UserLottoListViewer() {
+
     }
 
-    public static void viewUserLottoList(UserLottoLines userLottoLines) {
+    public static void view(UserLottoLines userLottoLines) {
         userLottoLines.getUserLottoLinesStream()
-                .forEach(UserLottoViewer::viewLottoList);
+                .forEach(UserLottoListViewer::viewLottoList);
     }
 
     private static void viewLottoList(LottoLine line) {

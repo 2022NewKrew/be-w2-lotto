@@ -4,8 +4,8 @@ import constants.LottoRule;
 import constants.RankInfo;
 import parameters.LottoResult;
 
-public class CalculateEarningRatio {
-    private CalculateEarningRatio() {
+public class EarningRatioCalculator {
+    private EarningRatioCalculator() {
     }
 
     public static double calculateEarningRatio(LottoResult lottoResult, int amountOfLotto) {

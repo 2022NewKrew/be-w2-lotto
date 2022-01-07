@@ -1,6 +1,6 @@
 package model.scan;
 
-import util.InputData;
+import util.LottoScanner;
 import validator.LottoNumberValidator;
 import validator.ValidatorInterface;
 
@@ -13,7 +13,7 @@ public class LottoNumberScanner {
 
     public static List<Integer> getLottoNumbers() {
         ValidatorInterface validatorInterface = new LottoNumberValidator();
-        String winningNumbers = InputData.getInputUnitValid(validatorInterface);
+        String winningNumbers = LottoScanner.getInputUnitValid(validatorInterface);
         return convertToList(winningNumbers);
     }
 
