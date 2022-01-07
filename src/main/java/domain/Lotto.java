@@ -1,8 +1,7 @@
 package domain;
 
-import validator.LottoValidator;
-
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 public class Lotto {
@@ -10,8 +9,14 @@ public class Lotto {
     private final List<Ball> balls;
 
     public Lotto(List<Ball> balls) {
-        LottoValidator.assertValidBalls(balls);
+        assertValidBalls(balls);
         this.balls = balls;
+    }
+
+    private void assertValidBalls(List<Ball> balls) throws IllegalArgumentException {
+        if (new HashSet<>(balls).size() != Lotto.NUMBER_OF_BALLS) {
+            throw new IllegalArgumentException();
+        }
     }
 
     public List<Ball> getBalls() {
