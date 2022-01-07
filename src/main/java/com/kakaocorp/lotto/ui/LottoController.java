@@ -28,26 +28,36 @@ public class LottoController {
 
     public void onStart() {
         int payment = view.showPaymentPrompt();
-        int manualCount = view.showManualCountPrompt();
-        List<LottoTicket> tickets = generateTickets(payment, manualCount);
-        printTickets(tickets);
-
-        List<Integer> winningNumbers = view.showWinningNumbersPrompt();
-        int bonusNumber = view.showBonusNumberPrompt();
-
-        LottoRecord record = new LottoRecord(Set.copyOf(winningNumbers), bonusNumber);
-        checkResult(payment, tickets, record);
+        List<LottoTicket> tickets = handleTicketsPart(payment);
+        handleProfitPart(payment, tickets);
     }
 
-    private List<LottoTicket> generateTickets(int payment, int manualCount) {
-        List<LottoTicket> manualTickets = new ArrayList<>(manualCount);
+    private List<LottoTicket> handleTicketsPart(int payment) {
+        int manualCount = view.showManualCountPrompt();
         view.showManualTicketPromptHeader();
+        List<LottoTicket> manual = showManualTicketsPrompts(manualCount);
+        List<LottoTicket> tickets = dispenser.purchase(payment, manual);
+        printTickets(tickets);
+        return tickets;
+    }
+
+    private void handleProfitPart(int payment, List<LottoTicket> tickets) {
+        List<Integer> winningNumbers = view.showWinningNumbersPrompt();
+        int bonusNumber = view.showBonusNumberPrompt();
+        view.printResultHeader();
+        LottoRecord record = new LottoRecord(Set.copyOf(winningNumbers), bonusNumber);
+        float profit = computeProfit(payment, tickets, record);
+        view.printProfit((int) (100 * profit));
+    }
+
+    private List<LottoTicket> showManualTicketsPrompts(int manualCount) {
+        List<LottoTicket> manualTickets = new ArrayList<>(manualCount);
         for (int i = 0; i < manualCount; i++) {
             List<Integer> numbers = view.acceptManualTicketInput();
             LottoTicket ticket = new LottoTicket(Set.copyOf(numbers));
             manualTickets.add(ticket);
         }
-        return dispenser.purchase(payment, manualTickets);
+        return manualTickets;
     }
 
     private void printTickets(Collection<LottoTicket> tickets) {
@@ -57,15 +67,13 @@ public class LottoController {
         }
     }
 
-    private void checkResult(int payment, List<LottoTicket> tickets, LottoRecord record) {
+    private float computeProfit(int payment, List<LottoTicket> tickets, LottoRecord record) {
         for (LottoTicket ticket : tickets) {
             counter.count(ticket, record);
         }
-        view.printResultHeader();
         counter.forEachOrdered(LottoResult.VALUE_COMPARATOR_ASC, this::printResult);
         int gain = counter.getTotalGain();
-        float profit = calculator.calculate(payment, gain);
-        view.printProfit((int) (100 * profit));
+        return calculator.calculate(payment, gain);
     }
 
     private void printResult(LottoResult result, int count) {
