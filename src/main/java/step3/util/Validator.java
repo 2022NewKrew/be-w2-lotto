@@ -23,16 +23,6 @@ public class Validator {
         return numbers;
     }
 
-    public static List<Integer> DB_LOTTO_CONVERT(String strList){
-        strList = strList.replace("[", "");
-        strList = strList.replace("]", "");
-        List<String> list2 = Arrays.asList(strList.split(","));
-        return list2.stream()
-                .map(String::trim)
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
-    }
-
     public static List<List<Integer>> INSUFFICIENCY_MANUAL_LOTTO(int numberOfLotto, List<List<Integer>> lottoList){
         if(numberOfLotto != lottoList.size()) throw new LackOfLottoInputException("구입한 개수만큼의 로또번호를 입력하세요");
         return lottoList;

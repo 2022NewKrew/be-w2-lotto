@@ -4,6 +4,7 @@ import step2.domain.Lotto;
 import step2.domain.LottoSheetWithId;
 import step2.dto.LottoResultDto;
 import step2.repository.LottoSheetRepository;
+import step3.util.TypeConverter;
 import step3.util.Validator;
 import step5.data.DataSource;
 import step5.data.DataSourceUtils;
@@ -83,7 +84,7 @@ public class MemLottoSheetRepository implements LottoSheetRepository {
             List<Lotto> lottoList = new ArrayList<>();
             while (rs.next()) {
                 String numberStr = rs.getString("lotto");
-                Lotto lotto = new Lotto(Validator.DB_LOTTO_CONVERT(numberStr));
+                Lotto lotto = new Lotto(TypeConverter.DB_LOTTO_CONVERT(numberStr));
                 lottoList.add(lotto);
             }
 
