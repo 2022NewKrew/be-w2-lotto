@@ -3,7 +3,6 @@ package lotto.view;
 import lotto.domain.Lotto;
 import lotto.domain.LottoNumber;
 import lotto.domain.LottoWinningNumber;
-import lotto.machine.LottoMachine;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -16,6 +15,7 @@ public class InputView {
     private static final String MSG_INPUT_MANUAL_LOTTO = "수동으로 구매할 번호를 입력해 주세요.";
     private static final String MSG_INPUT_MANUAL_COUNT = "수동으로 구매할 로또 수를 입력해 주세요.";
     private static Scanner scanner;
+    private static boolean isCalled = false;
 
     private InputView() {
     }
@@ -43,15 +43,12 @@ public class InputView {
         return new LottoWinningNumber(inputNumbers(), inputBonusBall());
     }
 
-    public static void inputLottoNumbersManually(final List<Lotto> lottoList) {
-        final int lottoCount = inputManualLottoCount();
-
-        if (lottoCount == 0) return;
-
-        System.out.println(MSG_INPUT_MANUAL_LOTTO);
-        for (int i = 0; i < lottoCount; i++) {
-            lottoList.add(LottoMachine.generateLottoManually(inputNumbers()));
+    public static List<LottoNumber> inputLottoNumbersManually() {
+        if (!isCalled) {
+            System.out.println(MSG_INPUT_MANUAL_LOTTO);
+            isCalled = true;
         }
+        return inputNumbers();
     }
 
     public static LottoNumber inputBonusBall() {
@@ -65,7 +62,7 @@ public class InputView {
         return LottoNumber.from(bonusBall);
     }
 
-    private static int inputManualLottoCount() {
+    public static int inputManualLottoCount() {
         final int manualLottoCount;
 
         System.out.println(MSG_INPUT_MANUAL_COUNT);
@@ -77,7 +74,7 @@ public class InputView {
     }
 
     private static List<LottoNumber> inputNumbers() {
-        List<LottoNumber> numbers = new ArrayList<>(Lotto.LOTTO_NUMBERS_COUNT);
+        List<LottoNumber> numbers = new ArrayList<>(Lotto.LENGTH);
 
         for (String s : scanner.nextLine().replaceAll(" ", "").split(",")) {
             numbers.add(LottoNumber.from(Integer.parseInt(s)));

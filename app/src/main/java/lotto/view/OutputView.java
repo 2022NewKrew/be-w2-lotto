@@ -22,25 +22,25 @@ public class OutputView {
     public static void printResult(Map<LottoPrize, Integer> result) {
         System.out.println("당첨 통계\n-------");
         for (LottoPrize lottoPrize : LottoPrize.values()) {
-            if (lottoPrize == LottoPrize.NONE)
-                continue;
-
-            System.out.println(getMessageFromLottoPrize(lottoPrize) + " (" + lottoPrize.getReward()+ "원)- " + result.get(lottoPrize) + "개");
+            printLottoPrize(lottoPrize, result);
         }
     }
 
     public static void printYield(double yield) {
-        System.out.printf("총 수익률은 %.2f%s 입니다.", yield, "%"); // ?
+        System.out.printf("총 수익률은 %.2f%s 입니다.", yield, "%");
+    }
+
+    private static void printLottoPrize(LottoPrize lottoPrize, Map<LottoPrize, Integer> result) {
+        if (lottoPrize == LottoPrize.NONE) return;
+        System.out.println(getMessageFromLottoPrize(lottoPrize) + " (" + lottoPrize.getReward()+ "원)- " + result.get(lottoPrize) + "개");
     }
 
     private static String getMessageFromLottoPrize(LottoPrize lottoPrize) {
-        switch (lottoPrize){
-            case FIFTH_PLACE:   return "3개 일치";
-            case FOURTH_PLACE:  return "4개 일치";
-            case THIRD_PLACE:   return "5개 일치";
-            case SECOND_PLACE:  return "5개 일치, 보너스 볼 일치";
-            case FIRST_PLACE:   return "6개 일치";
-            default: return null;
-        }
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(String.format("%d개 일치", lottoPrize.getMatchedCount()));
+        if (lottoPrize == LottoPrize.SECOND_PLACE)
+            stringBuilder.append(", 보너스 볼 일치");
+
+        return stringBuilder.toString();
     }
 }

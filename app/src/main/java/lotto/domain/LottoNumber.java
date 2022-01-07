@@ -8,8 +8,8 @@ import java.util.List;
  *  로또 숫자 한 개를 담고 있는 클래스입니다.
  */
 public class LottoNumber implements Comparable<LottoNumber> {
-    private static final int MAX_NUMBER = 45;
-    private static final int MIN_NUMBER = 1;
+    public static final int MAX_NUMBER = 45;
+    public static final int MIN_NUMBER = 1;
     private static final List<LottoNumber> INSTANCES;
     private final Integer number;
 
@@ -19,11 +19,11 @@ public class LottoNumber implements Comparable<LottoNumber> {
      *  해당되는 숫자의 인스턴스만 from 메소드를 통해 반환
      */
     static {
-        List<LottoNumber> tmpList = new ArrayList<>(MAX_NUMBER);
+        List<LottoNumber> lottoNumberList = new ArrayList<>(MAX_NUMBER);
 
         for (int i = MIN_NUMBER; i <= MAX_NUMBER; i++)
-            tmpList.add(new LottoNumber(i));
-        INSTANCES = Collections.unmodifiableList(tmpList);
+            lottoNumberList.add(new LottoNumber(i));
+        INSTANCES = Collections.unmodifiableList(lottoNumberList);
     }
 
     private LottoNumber(int number) {
