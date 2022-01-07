@@ -22,7 +22,7 @@ public class WinningInfo {
     }
 
     public List<String> buildMessage() {
-        return Arrays.stream(Rank.values()).map(rank -> {
+        return Arrays.stream(Rank.values()).filter(Rank::isWin).map(rank -> {
             String format = setFormat(rank);
             return String.format(format, rank.getMatchCount(), rank.getWinningMoney(), winCount.get(rank));
         }).collect(Collectors.toList());
