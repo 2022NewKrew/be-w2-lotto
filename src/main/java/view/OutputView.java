@@ -19,7 +19,7 @@ public class OutputView {
     private static final String TOTAL_PROFIT_RATE = "총 수익률은 %.2f%s 입니다.";
 
     public static void printAllLottos(LottoRepository allLottos, Integer manualQuantity) {
-        System.out.println(String.format(NUMBERS_OF_BOUGHT, manualQuantity, allLottos.getLottoRepositorySize()));
+        System.out.println(String.format(NUMBERS_OF_BOUGHT, manualQuantity, allLottos.getLottoRepositorySize() - manualQuantity));
         for (Lotto autoLotto : allLottos.getLottos()) {
             List<Integer> lottoNumbers = new ArrayList<>(List.copyOf(autoLotto.getLotto()));
             Collections.sort(lottoNumbers);
