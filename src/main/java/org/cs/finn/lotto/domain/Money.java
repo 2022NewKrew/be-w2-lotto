@@ -67,19 +67,8 @@ public class Money {
         return new Money(money, count * Lottos.PRICE);
     }
 
-    public List<LottoNumbers> buyLottoAutoAll(final SecureRandom sRand) {
-        final List<LottoNumbers> list = new ArrayList<>();
-        Objects.requireNonNull(sRand);
-        for (int i = maxNumberToBuyLottos(); i > 0; i--) {
-            list.add(
-                    LottoNumbersGenerator.getLottoNumbers(sRand)
-            );
-        }
-        return Collections.unmodifiableList(list);
-    }
-
-    public int getMoney() {
-        return money;
+    public Money buyLottoAutoAll() {
+        return new Money(money, used + maxNumberToBuyLottos() * Lottos.PRICE);
     }
 
     @Override

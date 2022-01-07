@@ -47,9 +47,7 @@ public class LottoSimulatorView {
 
         final int totalMoneyUsed = lottoResult.getTotalLottos() * Lottos.PRICE;
         final double profitRate = (double)(sumOfPrize - totalMoneyUsed) / totalMoneyUsed * 100.0;
-        System.out.printf("\n남은 돈은 %s원이고 총 수익률은 %.2f%% 입니다.\n",
-                NumberFormatter.strNumberWithComma(money.getMoney() - totalMoneyUsed),
-                profitRate);
+        System.out.printf("\n남은 돈은 %s이고 총 수익률은 %.2f%% 입니다.\n", money, profitRate);
     }
 
     private void printWonLottos(final LottoPrize lottoPrize, final Lottos lottos) {
