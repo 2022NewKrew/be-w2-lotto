@@ -20,7 +20,7 @@ public class LottoGame {
         lottoMachine.buyManualLotto(lottoList, InputView.inputManualLottoCount());
         OutputView.printLottoList(lottoList);
 
-        LottoResult lottoResult = new LottoResult();
+        LottoResult lottoResult = new LottoResult(InputView.inputLastWinningNumbers());
         OutputView.printResult(lottoResult.getResultOfAllLotto(lottoList));
         OutputView.printYield(lottoResult.calculateYield(lottoList.size()));
 

@@ -17,8 +17,8 @@ public class LottoResult {
     ));
     private final LottoWinningNumber lottoWinningNumber;
 
-    public LottoResult() {
-        lottoWinningNumber = InputView.inputLastWinningNumbers();
+    public LottoResult(LottoWinningNumber lottoWinningNumber) {
+        this.lottoWinningNumber = lottoWinningNumber;
     }
 
     /**

@@ -1,5 +1,8 @@
 package lotto.domain;
 
+import lotto.domain.generator.AutoLottoGenerator;
+import lotto.domain.generator.LottoGenerator;
+import lotto.domain.generator.ManualLottoGenerator;
 import lotto.view.InputView;
 
 import java.util.ArrayList;
@@ -8,24 +11,22 @@ import java.util.List;
 
 /**
  *  LottoMachine 객체를 통해 로또를 구매할 수 있습니다.
- *  로또를 구매하면 (buyLotto),
- *  자동로또와 수동로또를 생성해서 반환합니다. (generateAutoLotto / generateManualLotto)
+ *  LottoGenerator 객체를 이용해 로또를 생성해 lottoList에 추가해줍니다.
  */
 public class LottoMachine {
     public static final int LOTTO_PRICE = 1000;
-    private static final List<LottoNumber> numbers = new ArrayList<>(LottoNumber.MAX_NUMBER);
+    private static final LottoGenerator autoLottoGenerator = new AutoLottoGenerator();
+    private static final LottoGenerator manualLottoGenerator = new ManualLottoGenerator();
     private static LottoMachine INSTANCE;
-
-    static {
-        for (int i = LottoNumber.MIN_NUMBER; i <= LottoNumber.MAX_NUMBER; i++)
-            numbers.add(LottoNumber.from(i));
-    }
 
     private LottoMachine() {
     }
 
     public static synchronized LottoMachine getInstance() {
-        if (INSTANCE == null) { INSTANCE = new LottoMachine(); }
+        if (INSTANCE == null) {
+            LottoGenerator.initNumbers();
+            INSTANCE = new LottoMachine();
+        }
         return INSTANCE;
     }
 
@@ -33,22 +34,13 @@ public class LottoMachine {
         final int numberOfAutoLotto = purchasePrice / LOTTO_PRICE; // 구매할 자동 로또 개수
 
         for (int i = 0; i < numberOfAutoLotto; i++) { // 자동 구매
-            lottoList.add(generateAutoLotto());
+            lottoList.add(autoLottoGenerator.generate());
         }
     }
 
     public void buyManualLotto(List<Lotto> lottoList, int numberOfManualLotto) {
         for (int i = 0; i < numberOfManualLotto; i++) { // 수동 구매
-            lottoList.add(generateManualLotto());
+            lottoList.add(manualLottoGenerator.generate());
         }
-    }
-
-    private Lotto generateAutoLotto() {
-        Collections.shuffle(numbers);
-        return new Lotto(new ArrayList<>(numbers.subList(0, Lotto.LENGTH)));
-    }
-
-    private Lotto generateManualLotto() {
-        return new Lotto(InputView.inputLottoNumbersManually());
     }
 }
