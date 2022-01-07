@@ -20,6 +20,8 @@ public class OrderPhase {
 
     private static OrderPhase INSTANCE;
 
+    private OrderSheet orderSheet;
+
     private OrderPhase() {
     }
 
@@ -28,8 +30,6 @@ public class OrderPhase {
             INSTANCE = new OrderPhase();
         return INSTANCE;
     }
-
-    private OrderSheet orderSheet;
 
     public List<Lotto> start() {
         createOrder();

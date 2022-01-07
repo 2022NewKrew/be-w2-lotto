@@ -18,6 +18,8 @@ public final class ResultPhase {
 
     private static ResultPhase INSTANCE;
 
+    private LastWinningLotto lastWinningLotto;
+
     private ResultPhase() {
     }
 
@@ -26,8 +28,6 @@ public final class ResultPhase {
             INSTANCE = new ResultPhase();
         return INSTANCE;
     }
-
-    private LastWinningLotto lastWinningLotto;
 
     public void start(List<Lotto> purchaseLotto) {
         inputLastWinningLotto();
