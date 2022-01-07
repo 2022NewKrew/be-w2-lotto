@@ -1,11 +1,7 @@
 package com.kakaocorp.lotto.ui;
 
-import com.kakaocorp.lotto.domain.LottoDispenser;
-import com.kakaocorp.lotto.domain.ProfitCalculator;
-import com.kakaocorp.lotto.domain.ResultCounter;
 import com.kakaocorp.lotto.test.StringInputStream;
 import com.kakaocorp.lotto.test.StringPrintStream;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
@@ -19,19 +15,9 @@ class UiTest {
 
     private static final long RANDOM_SEED = 1234L;
 
-    private LottoDispenser dispenser;
-    private ProfitCalculator calculator;
-    private ResultCounter counter;
+    private final Random random = new Random(RANDOM_SEED);
     private PrintStream out;
     private LottoController presenter;
-
-    @BeforeEach
-    void setUp() {
-        Random random = new Random(RANDOM_SEED);
-        dispenser = new LottoDispenser(random);
-        calculator = new ProfitCalculator();
-        counter = new ResultCounter();
-    }
 
     @Test
     void onStart() {
@@ -71,6 +57,6 @@ class UiTest {
         InputStream in = new StringInputStream(input.getBytes(StandardCharsets.UTF_8));
         out = new StringPrintStream();
         LottoView view = new StreamLottoView(in, out);
-        presenter = new LottoController(view, dispenser, counter, calculator);
+        presenter = new LottoController(view, random);
     }
 }

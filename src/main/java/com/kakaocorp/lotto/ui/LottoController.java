@@ -7,10 +7,7 @@ import com.kakaocorp.lotto.model.LottoRecord;
 import com.kakaocorp.lotto.model.LottoResult;
 import com.kakaocorp.lotto.model.LottoTicket;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class LottoController {
 
@@ -19,11 +16,11 @@ public class LottoController {
     private final ResultCounter counter;
     private final ProfitCalculator calculator;
 
-    public LottoController(LottoView view, LottoDispenser dispenser, ResultCounter counter, ProfitCalculator calculator) {
+    public LottoController(LottoView view, Random random) {
         this.view = view;
-        this.dispenser = dispenser;
-        this.counter = counter;
-        this.calculator = calculator;
+        this.dispenser = new LottoDispenser(random);
+        this.counter = new ResultCounter();
+        this.calculator = new ProfitCalculator();
     }
 
     public void onStart() {
