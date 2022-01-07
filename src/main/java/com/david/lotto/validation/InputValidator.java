@@ -13,38 +13,38 @@ public class InputValidator {
     private static final String LOTTO_DUPLICATION_ERROR_MESSAGE = "로또 번호가 중복되었습니다.";
     private static final String BONUS_NUMBER_ERROR_MESSAGE = "당첨 번호와 중복되었습니다.";
 
-    public void validateAmount(int amount) throws AmountException {
+    public void validateAmount(int amount) throws LottoInputException {
         if (amount < LottoMachine.lottoPrice) {
-            throw new AmountException(AMOUNT_ERROR_MESSAGE);
+            throw new LottoInputException(AMOUNT_ERROR_MESSAGE);
         }
     }
 
-    public void validateManualCount(int manualCount, int amount) throws ManualCountException {
+    public void validateManualCount(int manualCount, int amount) throws LottoInputException {
         if (manualCount * LottoMachine.lottoPrice > amount) {
-            throw new ManualCountException(MANUAL_COUNT_ERROR_MESSAGE);
+            throw new LottoInputException(MANUAL_COUNT_ERROR_MESSAGE);
         }
     }
 
-    public void validateLottoNumber(List<Integer> lottoNumber) throws LottoNumberException {
+    public void validateLottoNumber(List<Integer> lottoNumber) throws LottoInputException {
         if (lottoNumber.size() != 6) {
-            throw new LottoNumberException(LOTTO_SIZE_ERROR_MESSAGE);
+            throw new LottoInputException(LOTTO_SIZE_ERROR_MESSAGE);
         }
 
         if (lottoNumber.stream().anyMatch(number -> number < 1 || number > 45)) {
-            throw new LottoNumberException(LOTTO_NUMBER_ERROR_MESSAGE);
+            throw new LottoInputException(LOTTO_NUMBER_ERROR_MESSAGE);
         }
 
         if (lottoNumber.stream().distinct().count() < 6) {
-            throw new LottoNumberException(LOTTO_DUPLICATION_ERROR_MESSAGE);
+            throw new LottoInputException(LOTTO_DUPLICATION_ERROR_MESSAGE);
         }
     }
 
-    public void validateBonusNumber(int bonusNumber, List<Integer> winningNumber) throws BonusNumberException {
+    public void validateBonusNumber(int bonusNumber, List<Integer> winningNumber) throws LottoInputException {
         if (winningNumber.contains(bonusNumber)) {
-            throw new BonusNumberException(BONUS_NUMBER_ERROR_MESSAGE);
+            throw new LottoInputException(BONUS_NUMBER_ERROR_MESSAGE);
         }
         if (bonusNumber < 1 || bonusNumber > 45) {
-            throw new BonusNumberException(LOTTO_NUMBER_ERROR_MESSAGE);
+            throw new LottoInputException(LOTTO_NUMBER_ERROR_MESSAGE);
         }
     }
 
