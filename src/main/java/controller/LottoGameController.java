@@ -47,10 +47,11 @@ public class LottoGameController {
 
         List<Lotto> lottos = request.session().attribute("lottos");
         LottoTotalResult totalResult = lottoCalculateService.calculate(lottos, winningLotto);
-        return render(new LottoResultResponse(totalResult), "/result.html");
+        return render(totalResult.toResponse(), "/result.html");
     }
 
     private static String render(Object model, String templatePath) {
         return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
     }
 }
+
