@@ -35,7 +35,7 @@ public class InputValidator {
 
     public void validateLotteryNumberSet(Set<Integer> lotteryNumberSet)
         throws IllegalArgumentException {
-        if (lotteryNumberSet.size() != LOTTERY_NUMBER_COUNT) {
+        if (lotteryNumberSet == null || lotteryNumberSet.size() != LOTTERY_NUMBER_COUNT) {
             throw new IllegalArgumentException(
                 String.format("서로 다른 %d개의 숫자만 입력 가능합니다.", LOTTERY_NUMBER_COUNT));
         }
@@ -45,6 +45,10 @@ public class InputValidator {
 
     public void validateLotteryNumberSetList(List<Set<Integer>> lotteryNumberSetList)
         throws IllegalArgumentException {
+        if (lotteryNumberSetList == null || lotteryNumberSetList.isEmpty()) {
+            throw new IllegalArgumentException("입력을 처리할 수 없습니다.");
+        }
+
         lotteryNumberSetList.forEach(this::validateLotteryNumberSet);
     }
 }
