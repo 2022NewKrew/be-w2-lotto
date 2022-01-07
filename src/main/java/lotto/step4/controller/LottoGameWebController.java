@@ -5,6 +5,7 @@ import lotto.step1.dto.request.LottoPurchaseSheetDTO;
 import lotto.step1.dto.response.LottoResultsDTO;
 import lotto.step1.dto.response.PurchasedLottoDTO;
 import lotto.step1.model.LottoGenerator;
+import lotto.step1.model.LottoResult;
 import lotto.step1.repository.LottoRepository;
 import lotto.step1.util.TypeConverter;
 import lotto.step1.util.Validator;
@@ -50,7 +51,7 @@ public class LottoGameWebController extends LottoAddBonusBallController {
         final LottoResultsDTO lottoResultsDTO = super.confirmTheWin(lottoId, confirmTheWinDTO);
 
         final Map<String, Object> model = new HashMap<>();
-        model.put("results", lottoResultsDTO.getNumOfWinsMap());
+        model.put("results", lottoResultsDTO.getNumOfWinsMapStr());
         model.put("yield", lottoResultsDTO.getYield());
 
         res.status(200);

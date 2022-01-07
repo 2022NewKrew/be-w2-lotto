@@ -5,7 +5,7 @@ import lotto.step1.dto.request.LottoPurchaseSheetDTO;
 import lotto.step1.util.TypeConverter;
 import lotto.step1.util.Validator;
 import lotto.step2.dto.request.ConfirmTheWinAddBonusBallDTO;
-import lotto.step3.dto.request.NoAutoLottoPurchaseSheetDTO;
+import lotto.step3.dto.request.NonAutoLottoPurchaseSheetDTO;
 import spark.Request;
 
 import java.util.Arrays;
@@ -21,7 +21,7 @@ public class DTOMapper {
                 .map(str -> TypeConverter.strToIntList(str, Validator.FROM_1_TO_45_VALIDATOR))
                 .collect(Collectors.toList());
 
-        return new NoAutoLottoPurchaseSheetDTO(purchaseAmount, nonAutoLottoNumbersList);
+        return new NonAutoLottoPurchaseSheetDTO(purchaseAmount, nonAutoLottoNumbersList);
     }
 
     public static ConfirmTheWinDTO reqToConfirmTheWinAddBonusBallDTO(Request req) {

@@ -37,6 +37,12 @@ public class LottoNumbers extends BaseEntity {
         return result.getPrizeMoney();
     }
 
+    public String toNumbersListStr() {
+        return numbers.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(","));
+    }
+
     @Override
     public String toString() {
         String result = numbers.stream()

@@ -23,8 +23,8 @@ public class LottoDAO implements Closeable {
             final Statement statement = connection.createStatement();
             final String sql = "CREATE TABLE lotto (" +
                     "id BIGINT NOT NULL, " +
-                    "numbers VARCHAR(30) NOT NULL, " +
-                    "result VARCHAR(10) NOT NULL " +
+                    "numbers VARCHAR(50) NOT NULL, " +
+                    "result VARCHAR(50) NOT NULL " +
                     ");";
 
             statement.execute(sql);
@@ -44,8 +44,8 @@ public class LottoDAO implements Closeable {
                 final PreparedStatement ps = connection.prepareStatement(sql);
 
                 ps.setLong(1, lottoId);
-                ps.setString(2, lottoNumbers.toString());
-                ps.setString(3, lottoNumbers.getResult().toString());
+                ps.setString(2, lottoNumbers.toNumbersListStr());
+                ps.setString(3, lottoNumbers.getResult().name());
 
                 final int result = ps.executeUpdate();
 
@@ -69,7 +69,7 @@ public class LottoDAO implements Closeable {
 
                 ps.setString(1, lottoNumbers.getResult().name());
                 ps.setLong(2, lottoId);
-                ps.setString(3, lottoNumbers.toString());
+                ps.setString(3, lottoNumbers.toNumbersListStr());
 
                 final int result = ps.executeUpdate();
 

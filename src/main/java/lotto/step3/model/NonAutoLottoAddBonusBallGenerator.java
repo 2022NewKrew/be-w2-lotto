@@ -7,7 +7,7 @@ import lotto.step1.model.LottoNumbers;
 import lotto.step2.model.LottoAddBonusBall;
 import lotto.step2.model.LottoAddBonusBallGenerator;
 import lotto.step2.model.LottoNumbersAddBonusBall;
-import lotto.step3.dto.request.NoAutoLottoPurchaseSheetDTO;
+import lotto.step3.dto.request.NonAutoLottoPurchaseSheetDTO;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,10 +27,10 @@ public class NonAutoLottoAddBonusBallGenerator extends LottoAddBonusBallGenerato
 
     @Override
     protected List<LottoNumbers> generateLottoNumbersList(LottoPurchaseSheetDTO lottoPurchaseSheetDTO) {
-        final NoAutoLottoPurchaseSheetDTO noAutoLottoPurchaseSheetDTO = checkAndConvertType(lottoPurchaseSheetDTO);
+        final NonAutoLottoPurchaseSheetDTO nonAutoLottoPurchaseSheetDTO = checkAndConvertType(lottoPurchaseSheetDTO);
 
         final int PRICE = 1000;
-        final List<List<Integer>> nonAutoLottoNumbersList = noAutoLottoPurchaseSheetDTO.getNonAutoLottoNumbersList();
+        final List<List<Integer>> nonAutoLottoNumbersList = nonAutoLottoPurchaseSheetDTO.getNonAutoLottoNumbersList();
         final int numOfNonAuto = nonAutoLottoNumbersList.size();
         final int count = (lottoPurchaseSheetDTO.getPurchaseAmount() / PRICE) - numOfNonAuto;
 
@@ -40,19 +40,19 @@ public class NonAutoLottoAddBonusBallGenerator extends LottoAddBonusBallGenerato
     }
 
     private List<LottoNumbers> generateNonAutoLottoNumbersList(LottoPurchaseSheetDTO lottoPurchaseSheetDTO) {
-        final NoAutoLottoPurchaseSheetDTO noAutoLottoPurchaseSheetDTO = checkAndConvertType(lottoPurchaseSheetDTO);
+        final NonAutoLottoPurchaseSheetDTO nonAutoLottoPurchaseSheetDTO = checkAndConvertType(lottoPurchaseSheetDTO);
 
-        final List<List<Integer>> nonAutoLottoNumbersList = noAutoLottoPurchaseSheetDTO.getNonAutoLottoNumbersList();
+        final List<List<Integer>> nonAutoLottoNumbersList = nonAutoLottoPurchaseSheetDTO.getNonAutoLottoNumbersList();
 
         return nonAutoLottoNumbersList.stream()
                 .map(LottoNumbersAddBonusBall::new)
                 .collect(Collectors.toList());
     }
 
-    private NoAutoLottoPurchaseSheetDTO checkAndConvertType(LottoPurchaseSheetDTO lottoPurchaseSheetDTO) {
-        if (!(lottoPurchaseSheetDTO instanceof NoAutoLottoPurchaseSheetDTO)) {
+    private NonAutoLottoPurchaseSheetDTO checkAndConvertType(LottoPurchaseSheetDTO lottoPurchaseSheetDTO) {
+        if (!(lottoPurchaseSheetDTO instanceof NonAutoLottoPurchaseSheetDTO)) {
             throw new LottoGameException("");
         }
-        return ((NoAutoLottoPurchaseSheetDTO) lottoPurchaseSheetDTO);
+        return ((NonAutoLottoPurchaseSheetDTO) lottoPurchaseSheetDTO);
     }
 }

@@ -1,22 +1,24 @@
-package lotto.step1.model;
+package lotto.step2.model;
 
 import lotto.step1.dto.request.LottoPurchaseSheetDTO;
+import lotto.step1.model.Lotto;
+import lotto.step1.model.LottoGenerator;
+import lotto.step1.model.LottoNumbers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledOnJre;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LottoGeneratorTest {
+class LottoAddBonusBallGeneratorTest {
 
     @Test
-    @DisplayName("로또 번호 3개를 가지는 로또를 정상적으로 생성하는 테스트")
+    @DisplayName("보너스볼이 추가된 로또를 정상적으로 생성하는 테스트")
     void generate() {
         // given
         final int price = 1000;
         final int purchaseAmount = 3000;
 
-        final LottoGenerator lottoGenerator = new LottoGenerator();
+        final LottoGenerator lottoGenerator = new LottoAddBonusBallGenerator();
         final LottoPurchaseSheetDTO lottoPurchaseSheetDTO = new LottoPurchaseSheetDTO(purchaseAmount);
 
         // when
@@ -24,5 +26,10 @@ class LottoGeneratorTest {
 
         // then
         assertEquals(lotto.getPurchasedLottoNumbersList().size(), purchaseAmount / price);
+
+        final LottoNumbers actualLottoNumbers = lotto.getPurchasedLottoNumbersList().get(0);
+        assertEquals(actualLottoNumbers.getClass(), LottoNumbersAddBonusBall.class);
+
+        assertEquals(lotto.getClass(), LottoAddBonusBall.class);
     }
 }

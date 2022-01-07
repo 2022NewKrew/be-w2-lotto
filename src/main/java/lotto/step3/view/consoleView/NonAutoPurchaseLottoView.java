@@ -7,7 +7,7 @@ import lotto.step1.exception.ConsoleInputCountExceededException;
 import lotto.step1.util.consoleInput.InputConsole;
 import lotto.step1.util.consoleInput.PurchaseAmountInputConsole;
 import lotto.step1.view.consoleView.ConsoleView;
-import lotto.step3.dto.request.NoAutoLottoPurchaseSheetDTO;
+import lotto.step3.dto.request.NonAutoLottoPurchaseSheetDTO;
 import lotto.step3.util.consoleInput.LottoNumbersListInputConsole;
 import lotto.step3.util.consoleInput.LottoNumbersListNoMsgInputConsole;
 import lotto.step3.util.consoleInput.NumOfNonAutoInputConsole;
@@ -44,7 +44,7 @@ public class NonAutoPurchaseLottoView implements ConsoleView {
         final int numOfNonAuto = getNumOfNonAuto(purchaseAmount);
         final List<List<Integer>> lottoNumbersList = getLottoNumbersListNoAuto(numOfNonAuto);
 
-        return new NoAutoLottoPurchaseSheetDTO(purchaseAmount, lottoNumbersList);
+        return new NonAutoLottoPurchaseSheetDTO(purchaseAmount, lottoNumbersList);
     }
 
     private int getNumOfNonAuto(int purchaseAmount) {

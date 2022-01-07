@@ -13,6 +13,7 @@ public class H2LottoRepository extends LottoRepository {
     @Override
     public Optional<Lotto> findById(Long lottoId) {
         final Optional<Lotto> optionalLotto = super.findById(lottoId);
+
         if (optionalLotto.isPresent()) {
             return optionalLotto;
         }

@@ -37,8 +37,7 @@ public enum LottoResult {
         return UNWINNABLE;
     }
 
-    @Override
-    public String toString() {
+    public String getMsg(){
         return str;
     }
 

@@ -17,8 +17,11 @@ public class LottoResultsDTO {
         this.yield = yield;
     }
 
-    public Map<LottoResult, Integer> getNumOfWinsMap() {
-        return numOfWinsMap;
+    public Map<String, Integer> getNumOfWinsMapStr() {
+        final Map<String, Integer> result = new TreeMap<>();
+        numOfWinsMap.forEach((key, value) -> result.put(key.getMsg(), value));
+
+        return result;
     }
 
     public double getYield() {
@@ -69,7 +72,7 @@ public class LottoResultsDTO {
     }
 
     protected void appendLottoResult(StringBuilder sb, LottoResult lottoResult, int count) {
-        sb.append(lottoResult)
+        sb.append(lottoResult.getMsg())
                 .append(" - ")
                 .append(count)
                 .append("개")
