@@ -72,9 +72,11 @@ body {
 				<th><h3 class="text-center">당첨 통계</h3></th>
 			</thead>
 		<tbody>
+			{{#matchResults}}
 			<tr>
-				<th>{{matchResults}}</th>
+				<th>{{this}}</th>
 			</tr>
+			{{/matchResults}}
 		</tbody>
 		<tfoot>
 			<th><h4 class="text-center">총 수익률은 {{totalRateOfReturn}}%입니다.</h4></th>
