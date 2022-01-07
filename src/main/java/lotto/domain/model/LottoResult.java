@@ -27,7 +27,7 @@ public class LottoResult {
                 .filter(item -> item.getValue() > 0)
                 .map(item -> BigInteger.valueOf(item.getKey().getWinnings() * item.getValue()))
                 .reduce(BigInteger.valueOf(0), (total, winnings) -> total.add(winnings));
-        return totalPrize.doubleValue() / (new BigInteger(Integer.toString(investment))).doubleValue();
+        return (totalPrize.doubleValue() - (double) investment) / (new BigInteger(Integer.toString(investment))).doubleValue();
     }
 
     public Integer getCount(Prize prize) {
