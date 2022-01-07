@@ -11,9 +11,9 @@ public enum Prize {
     FAILED(Rank.FAILED, 0);
 
     private final Rank rank;
-    private final int winnings;
+    private final long winnings;
 
-    Prize(Rank rank, int winnings) {
+    Prize(Rank rank, long winnings) {
         this.rank = rank;
         this.winnings = winnings;
     }
@@ -22,7 +22,7 @@ public enum Prize {
         return rank;
     }
 
-    public int getWinnings() {
+    public long getWinnings() {
         return winnings;
     }
 

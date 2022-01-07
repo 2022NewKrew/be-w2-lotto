@@ -3,18 +3,18 @@ package lotto.domain.model;
 import lotto.domain.constant.LottoMessage;
 
 import java.util.*;
-import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 public class Lotto {
-    private static final List<Integer> allNumbers;
+    private static final List<Long> allNumbers;
 
     static {
-        List<Integer> range = new ArrayList<>();
-        IntStream.rangeClosed(1, 45).forEach(range::add);
+        List<Long> range = new ArrayList<>();
+        LongStream.rangeClosed(1, 45).forEach(range::add);
         allNumbers = Collections.unmodifiableList(range);
     }
 
-    private List<Integer> numbers;
+    private List<Long> numbers;
 
     public Lotto() {
         numbers = new ArrayList<>(allNumbers.size());
@@ -24,7 +24,7 @@ public class Lotto {
         Collections.sort(numbers);
     }
 
-    public Lotto(List<Integer> numbers) throws IllegalArgumentException {
+    public Lotto(List<Long> numbers) throws IllegalArgumentException {
         if (numbers.size() != 6) {
             throw new IllegalArgumentException(LottoMessage.NUMBER_OF_INPUT_NOT_MATCH_ERROR.toString());
         }
@@ -34,20 +34,20 @@ public class Lotto {
         this.numbers = numbers;
     }
 
-    protected void verifyBounds(int value) throws IllegalArgumentException {
+    protected void verifyBounds(Long value) throws IllegalArgumentException {
         if (1 > value || value > 45) {
             throw new IllegalArgumentException(LottoMessage.NUMBER_OUT_OF_BOUND_ERROR.toString());
         }
     }
 
-    private void verifyDuplication(List<Integer> numbers) throws IllegalArgumentException {
-        Set<Integer> numberSet = new HashSet<>(numbers);
+    private void verifyDuplication(List<Long> numbers) throws IllegalArgumentException {
+        Set<Long> numberSet = new HashSet<>(numbers);
         if (numbers.size() != numberSet.size()) {
-            throw new IllegalArgumentException(LottoMessage.NUMBER_DUPLECATED_ERROR.toString());
+            throw new IllegalArgumentException(LottoMessage.NUMBER_DUPLICATED_ERROR.toString());
         }
     }
 
-    public List<Integer> getNumbers() {
+    public List<Long> getNumbers() {
         return numbers;
     }
 

@@ -1,9 +1,10 @@
 package lotto;
 
-import lotto.manager.LottoManager;
+import lotto.manager.LottoConsoleManager;
+import lotto.manager.LottoWebManager;
 
 public class Application {
     public static void main(String[] args) {
-        LottoManager.getInstance().run();
+        LottoWebManager.getInstance().run();
     }
 }

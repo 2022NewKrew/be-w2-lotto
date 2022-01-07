@@ -10,15 +10,15 @@ public enum Rank {
     RANK1(6, false),
     FAILED(0, false);
 
-    private final int numberOfMatches;
+    private final long numberOfMatches;
     private final boolean bonus;
 
-    Rank(int numberOfMatches, boolean bonus) {
+    Rank(long numberOfMatches, boolean bonus) {
         this.numberOfMatches = numberOfMatches;
         this.bonus = bonus;
     }
 
-    public int getNumberOfMatches() {
+    public long getNumberOfMatches() {
         return numberOfMatches;
     }
 
@@ -26,14 +26,14 @@ public enum Rank {
         return bonus;
     }
 
-    public static Rank of(int numberOfMatches, boolean bonus) {
+    public static Rank of(long numberOfMatches, boolean bonus) {
         return Arrays.stream(values())
                 .filter(type -> type.valuesEqualTo(numberOfMatches, bonus))
                 .findFirst()
                 .orElse(FAILED);
     }
 
-    private boolean valuesEqualTo(int numberOfMatches, boolean bonus) {
+    private boolean valuesEqualTo(long numberOfMatches, boolean bonus) {
         return this.numberOfMatches == numberOfMatches && (!this.bonus || this.bonus == bonus);
     }
 }
