@@ -1,5 +1,7 @@
 package view;
 
+import domain.LottoNumber;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +25,7 @@ public class InputView {
         return scanner.nextInt();
     }
 
-    public static List<List<Integer>> getManualLottoNumbers(int manualLottoCount){
+    public static List<List<LottoNumber>> getManualLottoNumbers(int manualLottoCount){
         if(manualLottoCount > 0 ){
             System.out.println("수동으로 구매할 번호를 입력해 주세요.");
         }
@@ -32,19 +34,19 @@ public class InputView {
                 .collect(Collectors.toUnmodifiableList());
     }
 
-    public static List<Integer> getWinningNumbers() {
+    public static List<LottoNumber> getWinningNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         return getInputNumbers();
     }
 
-    private static List<Integer> getInputNumbers(){
+    private static List<LottoNumber> getInputNumbers(){
         String numbers = scanner.next();
         return convertStringNumbersToIntegerList(numbers);
     }
 
-    private static List<Integer> convertStringNumbersToIntegerList(String numbers){
+    private static List<LottoNumber> convertStringNumbersToIntegerList(String numbers){
         return Arrays.stream(numbers.split(COMMA))
-                .map(Integer::parseInt)
+                .map(number -> LottoNumber.of(Integer.parseInt(number)))
                 .collect(Collectors.toUnmodifiableList());
     }
 
