@@ -131,4 +131,9 @@ public class StreamLottoView implements LottoView {
         //noinspection RedundantStringFormatCall
         out.println(String.format("%d개를 입력해야 합니다.", expected));
     }
+
+    @Override
+    public void printNumberFormatError() {
+        out.println("숫자만 입력해 주세요.");
+    }
 }

@@ -13,14 +13,17 @@ public class PaymentPart {
 
     public int handle() {
         try {
-            return getValidPayment();
+            return getPayment();
         } catch (LessThanMinimumException e) {
             view.printLessThanMinimum(e.getMinimum());
+            return handle();
+        } catch (NumberFormatException e) {
+            view.printNumberFormatError();
             return handle();
         }
     }
 
-    private int getValidPayment() {
+    private int getPayment() {
         int minimum = LottoTicket.PRICE;
         int payment = view.showPaymentPrompt();
         if (payment < minimum) {

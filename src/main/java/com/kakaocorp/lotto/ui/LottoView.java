@@ -23,4 +23,5 @@ public interface LottoView {
     void printDuplicateNotAllowed();
     void printValueNotAllowed(int value);
     void printWrongSize(int expected);
+    void printNumberFormatError();
 }
