@@ -1,23 +1,26 @@
 package lotto.domain.winningstats;
 
-import lotto.domain.winningstats.lastweeknumber.LastWeekNumber;
+import lotto.domain.winningstats.lastweeknumberBundle.LastWeekLottoNumberList;
+import lotto.domain.winningstats.lastweeknumberBundle.LastWeekNumberBundle;
+import lotto.domain.winningstats.lottobundle.LottoList;
 import lotto.domain.winningstats.lottobundle.lottoticket.Lotto;
 import lotto.domain.winningstats.lottobundle.LottoBundle;
 import lotto.domain.winningstats.winningstate.WinningState;
 import lotto.domain.winningstats.winningprice.WinningPrice;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 public class WinningStats {
     private final HashMap<WinningState, WinningPrice> winningPriceHashMap;
     private final LottoBundle lottoBundle;
-    private final LastWeekNumber lastWeekNumber;
+    private final LastWeekNumberBundle lastWeekNumber;
 
-    public WinningStats(LottoBundle lottoBundle, List<Integer> lastWeekLottoNumberList, int bonusBall) {
+    public WinningStats(LottoBundle lottoBundle, LastWeekLottoNumberList lastWeekLottoNumberList, int bonusBall) {
         this.lottoBundle = lottoBundle;
         this.winningPriceHashMap = new HashMap<>();
-        this.lastWeekNumber = new LastWeekNumber(lastWeekLottoNumberList, bonusBall);
+        this.lastWeekNumber = new LastWeekNumberBundle(lastWeekLottoNumberList, bonusBall);
         setWinningPriceHashMap();
         addCountInWinningPriceHashMapAllLotto();
     }
@@ -43,8 +46,10 @@ public class WinningStats {
     }
 
     private void addCountInWinningPriceHashMapAllLotto() {
-        List<Lotto> LottoList = this.lottoBundle.getLottoList();
-        for (Lotto lotto : LottoList) {
+        LottoList lottoList = this.lottoBundle.getLottoList();
+        Iterator<Lotto> lottoIterator = lottoList.getIterator();
+        while (lottoIterator.hasNext()) {
+            Lotto lotto = lottoIterator.next();
             addCountInWinningPrice(getLottoCorrectCount(lotto), isBonusBall(lotto));
         }
     }

@@ -1,13 +1,10 @@
 package lotto.controller;
 
-import lotto.domain.LottoDTO;
 import lotto.domain.winningstats.WinningStats;
-import lotto.domain.winningstats.lastweeknumber.LastWeekNumber;
+import lotto.domain.winningstats.lastweeknumberBundle.LastWeekLottoNumberList;
 import lotto.domain.winningstats.lottobundle.LottoBundle;
 import lotto.view.ConsoleInputView;
 import lotto.view.ConsoleOutputView;
-
-import java.util.List;
 
 public class LottoController {
 
@@ -18,6 +15,7 @@ public class LottoController {
         int lottoPurchaseMoney = ConsoleInputView.getLottoPurchaseMoney();
         LottoBundle lottoBundle = new LottoBundle(lottoPurchaseMoney);
         printLottoBundle(lottoBundle);
+        return lottoBundle;
     }
 
     public void printLottoBundle(LottoBundle lottoBundle) {
@@ -25,12 +23,13 @@ public class LottoController {
         ConsoleOutputView.printLottoBundle(lottoBundle);
     }
 
-    public List<Integer> getLastWeekLottoNumberList() {
-        return LottoDTO.getLastWeekLottoNumberList(ConsoleInputView.getLastWeekLottoNumbers());
+    public LastWeekLottoNumberList getLastWeekLottoNumberList() {
+        String lastWeekLottoNumbers = ConsoleInputView.getLastWeekLottoNumbers();
+        return new LastWeekLottoNumberList(lastWeekLottoNumbers);
     }
 
     public WinningStats constructWinningStats(LottoBundle lottoBundle) {
-        List<Integer> lastWeekLottoNumberList = getLastWeekLottoNumberList();
+        LastWeekLottoNumberList lastWeekLottoNumberList = getLastWeekLottoNumberList();
         int bonusBall = getBonusBall();
         return new WinningStats(lottoBundle, lastWeekLottoNumberList, bonusBall);
     }

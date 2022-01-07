@@ -1,18 +1,17 @@
-package lotto.domain.winningstats.lastweeknumber;
+package lotto.domain.winningstats.lastweeknumberBundle;
 
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class LastWeekNumberTest {
+class LastWeekNumberBundleTest {
 
     List<Integer> lastWeekLottoNumberList = List.of(1,2,3,4,5,6);
     int bonusBall = 7;
 
-    LastWeekNumber lastWeekNumber = new LastWeekNumber(lastWeekLottoNumberList,bonusBall);
+    LastWeekNumberBundle lastWeekNumber = new LastWeekNumberBundle(lastWeekLottoNumberList,bonusBall);
 
     @Test
     void getBonusBall() {

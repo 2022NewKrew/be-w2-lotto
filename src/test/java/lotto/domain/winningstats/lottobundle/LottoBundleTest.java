@@ -11,18 +11,18 @@ class LottoBundleTest {
     @Test
     void getCount() {
 
-        assertEquals(lottoBundle.getCount(),4);
+        assertEquals(lottoBundle.getCount(), 4);
 
         LottoBundle lottoBundle2 = new LottoBundle(0);
-        assertEquals(lottoBundle2.getCount(),0);
+        assertEquals(lottoBundle2.getCount(), 0);
 
         LottoBundle lottoBundle3 = new LottoBundle(2000000000);
-        assertEquals(lottoBundle3.getCount(),2000000);
+        assertEquals(lottoBundle3.getCount(), 2000000);
     }
 
     @Test
     void getLottoList() {
-        assertEquals(lottoBundle.getLottoList().size(),4);
+        assertEquals(lottoBundle.getLottoList().size(), 4);
     }
 
     @Test

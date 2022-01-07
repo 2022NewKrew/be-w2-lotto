@@ -1,13 +1,13 @@
-package lotto.domain.winningstats.lastweeknumber;
+package lotto.domain.winningstats.lastweeknumberBundle;
 
 import java.util.List;
 
-public class LastWeekNumber {
+public class LastWeekNumberBundle {
 
-    private final List<Integer> lastWeekLottoNumberList;
+    private final LastWeekLottoNumberList lastWeekLottoNumberList;
     private final int bonusBall;
 
-    public LastWeekNumber(List<Integer> lastWeekLottoNumberList, int bonusBall) {
+    public LastWeekNumberBundle(LastWeekLottoNumberList lastWeekLottoNumberList, int bonusBall) {
         this.lastWeekLottoNumberList = lastWeekLottoNumberList;
         this.bonusBall = bonusBall;
     }
