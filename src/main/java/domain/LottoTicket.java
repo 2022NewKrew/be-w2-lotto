@@ -2,7 +2,7 @@ package domain;
 
 import constant.Constants;
 import domain.lottonumber.LottoNumber;
-import dto.LottoMatchResultDto;
+import domain.dto.LottoMatchResultDto;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package dto;
+package view.dto;
 
 
 public class YieldDto {
