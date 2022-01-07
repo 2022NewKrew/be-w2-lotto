@@ -47,4 +47,8 @@ public interface LottoService {
      * @return
      */
     LottoNormal createStringToLottoNumbers(String line);
+
+    LottoStatistic findLottoStatistic(Long id);
+
+    Long saveLottoStatistic(LottoStatistic lottoStatistic);
 }

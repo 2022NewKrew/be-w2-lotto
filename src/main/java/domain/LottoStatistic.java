@@ -48,6 +48,10 @@ public class LottoStatistic {
         this.lottos = lottos;
     }
 
+    public LottoStatistic() {
+
+    }
+
     /**
      * @deprecated
      * @param lottos 로또 리스트를 추가합니다.
@@ -242,5 +246,29 @@ public class LottoStatistic {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setPurchaseCount(int purchaseCount) {
+        this.purchaseCount = purchaseCount;
+    }
+
+    public void setNormalLottoCount(int normalLottoCount) {
+        this.normalLottoCount = normalLottoCount;
+    }
+
+    public void setAutoLottoCount(int autoLottoCount) {
+        this.autoLottoCount = autoLottoCount;
+    }
+
+    public void setWinningBonusNumber(int winningBonusNumber) {
+        this.winningBonusNumber = winningBonusNumber;
+    }
+
+    public void setWinningNumbers(List<Integer> winningNumbers) {
+        this.winningNumbers = winningNumbers;
+    }
+
+    public void setLottos(List<Lotto> lottos) {
+        this.lottos = lottos;
     }
 }

@@ -4,8 +4,10 @@ import domain.Lotto;
 import domain.LottoAuto;
 import domain.LottoNormal;
 import domain.LottoStatistic;
+import repository.LottoRepository;
 import repository.LottoStatisticRepository;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,10 +22,11 @@ import static java.util.Arrays.stream;
 public class LottoServiceImpl implements LottoService {
 
     private final LottoStatisticRepository lottoStatisticRepository;
+    private final LottoRepository lottoRepository;
 
-    public LottoServiceImpl(LottoStatisticRepository lottoStatisticRepository) {
+    public LottoServiceImpl(LottoStatisticRepository lottoStatisticRepository, LottoRepository lottoRepository) {
         this.lottoStatisticRepository = lottoStatisticRepository;
-
+        this.lottoRepository = lottoRepository;
     }
 
     @Override
@@ -61,6 +64,41 @@ public class LottoServiceImpl implements LottoService {
         List<Integer> list = stream(numbers.split(",")).map(s -> Integer.parseInt(s.trim())).collect(Collectors.toList());
         LottoNormal lottoNormal = new LottoNormal(list);
         return lottoNormal;
+    }
+
+    @Override
+    public LottoStatistic findLottoStatistic(Long id) {
+
+        try {
+            LottoStatistic lottoStatistic = lottoStatisticRepository.findOne(id);
+            List<Lotto> lottos = lottoRepository.findAllAsLottoStatisticId(id);
+            lottoStatistic.setLottos(lottos);
+            return lottoStatistic;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    @Override
+    public Long saveLottoStatistic(LottoStatistic lottoStatistic) {
+        try {
+            Long id = lottoStatisticRepository.save(lottoStatistic);
+
+            List<Lotto> lottos = lottoStatistic.getLottos();
+
+            for (Lotto lotto : lottos) {
+                lottoRepository.save(lotto, id);
+            }
+
+            return id;
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
     }
 
 }
