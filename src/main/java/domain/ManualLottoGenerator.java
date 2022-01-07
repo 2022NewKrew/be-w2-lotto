@@ -21,7 +21,7 @@ public class ManualLottoGenerator implements LottoGenerator{
         List<Integer> numbers = inputController.getManualLottoNumber();
 
         if(ConditionCheck.isValidLottoNumber(numbers)) {
-            return new LottoTicket(numbers, LottoStatus.MANUAL);
+            return new LottoTicket(numbers);
         }
 
         System.out.println(ERROR_INAPPROPRIATE_LOTTO_NUMBER.getString());

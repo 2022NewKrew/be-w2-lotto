@@ -1,13 +1,12 @@
 package view;
 
-import domain.LottoPrize;
 import domain.LottoTicket;
+import domain.WinningStatus;
 
 import java.util.List;
-import java.util.Map;
 
 public interface LottoServiceRenderer {
     void displaySentence(String sentence);
-    void displayPurchaseStatus(List<LottoTicket> lottoes);
-    void displayResults(Map<LottoPrize, Long> winningTickets, double rateOfReturn);
+    void displayPurchaseStatus(List<LottoTicket> lottoTickets, int numberOfManualLottoTickets, int numberOfAutoLottoTickets);
+    void displayResults(WinningStatus winningTickets, double rateOfReturn);
 }

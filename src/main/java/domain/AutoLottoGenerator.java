@@ -10,10 +10,10 @@ import static domain.Lotto.*;
 
 public final class AutoLottoGenerator implements LottoGenerator{
 
-    private static final List<Integer> lottoNumbers;
+    private final List<Integer> lottoNumbers;
 
-    static {
-        lottoNumbers = IntStream.rangeClosed(MIN_LOTTO_NUMBER.getValue(), MAX_LOTTO_NUMBER.getValue())
+    public AutoLottoGenerator() {
+        this.lottoNumbers = IntStream.rangeClosed(MIN_LOTTO_NUMBER.getValue(), MAX_LOTTO_NUMBER.getValue())
                 .boxed().collect(Collectors.toList());
     }
 
@@ -21,6 +21,6 @@ public final class AutoLottoGenerator implements LottoGenerator{
     public LottoTicket getLottoTicket() {
         List<Integer> copyLottoNumbers = new ArrayList<>(lottoNumbers);
         Collections.shuffle(copyLottoNumbers);
-        return new LottoTicket(copyLottoNumbers.subList(0, NUMBER_OF_LOTTO_NUMBERS.getValue()), LottoStatus.AUTO);
+        return new LottoTicket(copyLottoNumbers.subList(0, NUMBER_OF_LOTTO_NUMBERS.getValue()));
     }
 }
