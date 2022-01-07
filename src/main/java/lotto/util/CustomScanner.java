@@ -1,11 +1,7 @@
 package lotto.util;
 
-import lotto.domain.constant.LottoMessage;
-
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class CustomScanner {
     private final Scanner scanner;
@@ -14,21 +10,11 @@ public class CustomScanner {
         this.scanner = new Scanner(System.in);
     }
 
-    public List<Integer> readCommaSeparatedInt() throws NumberFormatException {
-        try {
-            return Arrays.stream(scanner.nextLine().split(","))
-                    .map(number -> Integer.parseInt(number.trim()))
-                    .collect(Collectors.toList());
-        } catch (NumberFormatException e) {
-            throw new NumberFormatException(LottoMessage.PARSING_ERROR.toString());
-        }
+    public List<Long> readCommaSeparatedLong() throws NumberFormatException {
+        return StringConverter.parseCommaSeparatedInt(scanner.nextLine());
     }
 
-    public int readInt() throws NumberFormatException {
-        try {
-            return Integer.parseInt(scanner.nextLine().trim());
-        } catch (NumberFormatException e) {
-            throw new NumberFormatException(LottoMessage.PARSING_ERROR.toString());
-        }
+    public long readLong() throws NumberFormatException {
+        return StringConverter.convertToLong(scanner.nextLine());
     }
 }

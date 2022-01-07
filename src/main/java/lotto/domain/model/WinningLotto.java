@@ -9,17 +9,17 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class WinningLotto extends Lotto {
-    private int bonusNumber;
+    private long bonusNumber;
 
-    public WinningLotto(List<Integer> winningNumbers, int bonusNumber) throws IllegalArgumentException {
+    public WinningLotto(List<Long> winningNumbers, Long bonusNumber) throws IllegalArgumentException {
         super(winningNumbers);
         verifyBounds(bonusNumber);
         verifyDuplication(winningNumbers, bonusNumber);
         this.bonusNumber = bonusNumber;
     }
 
-    private void verifyDuplication(List<Integer> numbers, int bonusNumber) throws IllegalArgumentException {
-        Set<Integer> numberSet = new HashSet<>(numbers);
+    private void verifyDuplication(List<Long> numbers, Long bonusNumber) throws IllegalArgumentException {
+        Set<Long> numberSet = new HashSet<>(numbers);
         if (numbers.size() != numberSet.size() || numberSet.contains(bonusNumber)) {
             throw new IllegalArgumentException(LottoMessage.NUMBER_DUPLICATED_ERROR.toString());
         }
@@ -34,10 +34,10 @@ public class WinningLotto extends Lotto {
     }
 
     private Rank checkLotto(Lotto lotto) {
-        List<Integer> numbers = lotto.getNumbers();
+        List<Long> numbers = lotto.getNumbers();
         boolean bonus = numbers.contains(bonusNumber);
         numbers.retainAll(this.getNumbers());
-        int numberOfMatches = numbers.size();
+        long numberOfMatches = numbers.size();
         return Rank.of(numberOfMatches, bonus);
     }
 }
