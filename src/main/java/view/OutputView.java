@@ -16,13 +16,12 @@ public final class OutputView {
 
     public static void outputLotteries(List<Lottery> autoLotteries, List<Lottery> manualLotteries) {
         System.out.printf(OUTPUT_QUANTITY_MESSAGE, manualLotteries.size(), autoLotteries.size());
-        for (int i = 0; i < manualLotteries.size(); i++) {
-            System.out.println(manualLotteries.get(i).getNumbers());
+        for (Lottery manualLottery : manualLotteries) {
+            System.out.println(manualLottery.getNumbers());
         }
-        for (int i = 0; i < autoLotteries.size(); i++) {
-            System.out.println(autoLotteries.get(i).getNumbers());
+        for (Lottery autoLottery : autoLotteries) {
+            System.out.println(autoLottery.getNumbers());
         }
-
         System.out.println();
     }
 

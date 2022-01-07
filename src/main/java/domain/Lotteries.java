@@ -43,7 +43,7 @@ public class Lotteries {
     public Result compareLotteries(WinningLottery winningLottery) {
         Map<Rank, Integer> results = new EnumMap<>(Rank.class);
 
-        Arrays.asList(Rank.values()).stream().forEach(rank -> results.put(rank, 0));
+        Arrays.asList(Rank.values()).forEach(rank -> results.put(rank, 0));
         Stream.concat(autoLotteries.stream(), manualLotteries.stream())
                 .forEach(lottery -> {
                     Rank rank = lottery.compareNumbers(winningLottery);
