@@ -34,35 +34,8 @@ public class GameLogic {
         }
     }
 
-    public static double calculateProfitRate(WholeTickets wholeTickets) {
-        double spentMoney = calculateSpentMoney(wholeTickets);
-        double earnedMoney = calculateEarnedMoney(wholeTickets.getWholeResult());
-        return (earnedMoney - spentMoney) * 100 / spentMoney;
-
-    }
-
-    private static double calculateSpentMoney(WholeTickets wholeTickets) {
-        int purchaseCount = wholeTickets.getTickets().size();
-        return purchaseCount * PRICE_PER_TICKET;
-    }
-
-    private static int calculateEarnedMoney(Map<String, Integer> wholeResult) {
-        int sum = 0;
-        for (String key : wholeResult.keySet()) {
-            sum += checkEachCase(key, wholeResult).getWinningReward();
-        }
-        return sum;
-    }
-
-    private static Prices checkEachCase(String key, Map<String, Integer> wholeResult) {
-        if (wholeResult.get(key) != 0) {
-            return getWinningReward(key);
-        }
-        return Prices.EMPTY;
-    }
-
-    private static Prices getWinningReward(String key) {
-        return Prices.valueOf(key);
+    public static Object calculateTotalLottoCount(Integer manualLottoCount, Integer autoLottoCount) {
+        return manualLottoCount + autoLottoCount;
     }
 }
 

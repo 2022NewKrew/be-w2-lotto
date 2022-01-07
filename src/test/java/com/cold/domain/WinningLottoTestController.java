@@ -3,10 +3,12 @@ package com.cold.domain;
 
 import java.util.List;
 import static org.assertj.core.api.Assertions.*;
+
+import com.cold.models.WinningLotto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class WinningLottoTest {
+class WinningLottoTestController {
 
     @Test
     @DisplayName("올바른 지난 당첨 번호 유효성 검사 테스트")

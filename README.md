@@ -3,3 +3,8 @@
 
 ## Step3 구현 실행화면
 ![](./img/step3_display.png)
+
+## Step4 구현 실행화면
+![](./img/step4_display1.png)
+![](./img/step4_display2.png)
+![](./img/step4_display3.png)

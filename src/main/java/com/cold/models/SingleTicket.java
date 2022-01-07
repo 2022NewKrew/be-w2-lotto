@@ -1,4 +1,4 @@
-package com.cold.domain;
+package com.cold.models;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,7 +9,6 @@ import lombok.Getter;
 @Getter
 public class SingleTicket {
     private Integer CHECK_BONUS_BALL_MATCHES_COUNT = 5;
-    private Integer MAP_BONUS_MATCH_KEY = 7;
 
     private List<Integer> numbers;
     private Boolean bonusMatch;
@@ -24,7 +23,7 @@ public class SingleTicket {
     }
 
     public SingleTicket(List<Integer> numberSet) {
-        bonusMatch = false;
+        this.bonusMatch = false;
         this.numbers = numberSet;
     }
 
@@ -44,16 +43,15 @@ public class SingleTicket {
     private int countMatches(WinningLotto winningLotto) {
         int count = countNormalMatches(winningLotto.getLastWinningNums());
         if (count == CHECK_BONUS_BALL_MATCHES_COUNT) {
-            return checkBonusMatch(winningLotto.getBonusBall(), count);
+            setBonusMatch(winningLotto.getBonusBall(), count);
         }
         return count;
     }
 
-    private int checkBonusMatch(Integer bonusBall, int cnt) {
+    private void setBonusMatch(Integer bonusBall, int count) {
         if (numbers.contains(bonusBall)) {
-            return MAP_BONUS_MATCH_KEY;
+            this.bonusMatch = true;
         }
-        return cnt;
     }
 
     private int countNormalMatches(List<Integer> lastWinningNums) {

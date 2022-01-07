@@ -3,33 +3,36 @@ package com.cold.domain;
 import static org.assertj.core.api.Assertions.*;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.cold.models.WholeTickets;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 class GameLogicTest {
-
+    
     @Test
     @DisplayName("수익률 설정 테스트")
     void setProfitRate() {
         //given
-        WholeTickets wholeTickets = new WholeTickets(5);
-        Map sampleMap = new HashMap<Integer, Integer>() {
+        WholeTickets wholeTickets = new WholeTickets();
+        wholeTickets.initTickets(4);
+        Map sampleMap = new HashMap<String, Integer>() {
             {
-                put(3, 0);
-                put(4, 1);
-                put(5, 0);
-                put(6, 0);
-                put(7, 1);
+                put("THREE", 0);
+                put("FOUR", 1);
+                put("FIVE", 0);
+                put("BONUS", 1);
+                put("SIX", 0);
             }
         };
 
-        wholeTickets.wholeResult = sampleMap;
-
         //when
-        double profitRate = GameLogic.calculateProfitRate(wholeTickets);
-        wholeTickets.setProfitRate(profitRate);
+        wholeTickets.wholeResult = sampleMap;
+        wholeTickets.setProfitRate();
 
         //then
-        assertThat(wholeTickets.getProfitRate()).isEqualTo((double) 600900);
+        assertThat(wholeTickets.getProfitRate()).isEqualTo(751150);
+
+
     }
 }

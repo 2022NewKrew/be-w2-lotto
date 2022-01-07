@@ -1,4 +1,4 @@
-package com.cold.domain;
+package com.cold.models;
 
 import java.util.List;
 
@@ -16,9 +16,9 @@ public class WinningLotto {
     private List<Integer> lastWinningNums;
     private Integer bonusBall;
 
-    public WinningLotto(List<Integer> lastWinningNums, Integer bonusBall) throws IllegalArgumentException {
-        validateRangeEachNum(bonusBall);
-        this.bonusBall = bonusBall;
+    public WinningLotto(List<Integer> lastWinningNums, Integer bonusNumber) throws IllegalArgumentException {
+        validateRangeEachNum(bonusNumber);
+        this.bonusBall = bonusNumber;
         validateLastWinningNums(lastWinningNums);
         this.lastWinningNums = lastWinningNums;
     }
