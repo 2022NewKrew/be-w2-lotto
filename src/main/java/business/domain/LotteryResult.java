@@ -6,7 +6,8 @@ public class LotteryResult {
     private final LotteryNumber bonusNumber;
 
     public LotteryResult(LotteryNumbers drawnNumbers, LotteryNumber bonusNumber) {
-        if (!(isDrawnNumbersValid(drawnNumbers) && isBonusNumberValid(bonusNumber))) {
+        if (!(isDrawnNumbersValid(drawnNumbers) && isBonusNumberValid(bonusNumber)
+            && isBonusNumberNotIncludedInDrawnNumbers(drawnNumbers, bonusNumber))) {
             throw new IllegalArgumentException("로또 추첨 결과를 생성할 수 없습니다.");
         }
         this.drawnNumbers = drawnNumbers;
@@ -19,6 +20,11 @@ public class LotteryResult {
 
     private boolean isBonusNumberValid(LotteryNumber bonusNumber) {
         return bonusNumber != null;
+    }
+
+    private boolean isBonusNumberNotIncludedInDrawnNumbers(LotteryNumbers drawnNumbers,
+        LotteryNumber bonusNumber) {
+        return !drawnNumbers.containsBonusNumber(bonusNumber).getValue();
     }
 
     public Rank calculateRank(LotteryNumbers lotteryNumbers) {

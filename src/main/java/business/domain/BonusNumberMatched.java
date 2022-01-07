@@ -6,11 +6,11 @@ import java.util.Objects;
 
 public class BonusNumberMatched {
 
-    private static final Map<Boolean, BonusNumberMatched> BONUS_BALL_MATCHED_POOL = new HashMap<>();
+    private static final Map<Boolean, BonusNumberMatched> BONUS_NUMBER_MATCHED_POOL = new HashMap<>();
 
     static {
-        BONUS_BALL_MATCHED_POOL.put(true, new BonusNumberMatched(true));
-        BONUS_BALL_MATCHED_POOL.put(false, new BonusNumberMatched(false));
+        BONUS_NUMBER_MATCHED_POOL.put(true, new BonusNumberMatched(true));
+        BONUS_NUMBER_MATCHED_POOL.put(false, new BonusNumberMatched(false));
     }
 
     private final boolean value;
@@ -20,7 +20,7 @@ public class BonusNumberMatched {
     }
 
     public static BonusNumberMatched from(boolean value) {
-        return BONUS_BALL_MATCHED_POOL.get(value);
+        return BONUS_NUMBER_MATCHED_POOL.get(value);
     }
 
     public boolean getValue() {
