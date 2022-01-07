@@ -27,13 +27,14 @@ class LottoResultTest {
         lottoList.add(createLottoNumbers(1, 2, 10, 11, 12, 13));
         lottoList.add(createLottoNumbers(1, 2, 3, 10, 11, 12));
         lottoList.add(createLottoNumbers(1, 2, 3, 4, 10, 11));
+        lottoList.add(createLottoNumbers(1, 2, 3, 4, 10, 7));
         lottoList.add(createLottoNumbers(1, 2, 3, 4, 5, 10));
         lottoList.add(createLottoNumbers(1, 2, 3, 4, 5, 7));
         lottoList.add(createLottoNumbers(1, 2, 3, 4, 5, 6));
         EnumMap<Prize, Integer> winningLottoCount_Answer = new EnumMap<>(Prize.class);
         winningLottoCount_Answer.put(Prize.MISS, 1);
         winningLottoCount_Answer.put(Prize.THREE, 1);
-        winningLottoCount_Answer.put(Prize.FOUR, 1);
+        winningLottoCount_Answer.put(Prize.FOUR, 2);
         winningLottoCount_Answer.put(Prize.FIVE, 1);
         winningLottoCount_Answer.put(Prize.BONUS, 1);
         winningLottoCount_Answer.put(Prize.SIX, 1);
