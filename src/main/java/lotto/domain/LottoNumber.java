@@ -1,7 +1,7 @@
 package lotto.domain;
 
 import java.util.Objects;
-import lotto.IllegalLottoNumberException;
+import lotto.exception.IllegalLottoNumberException;
 import org.jetbrains.annotations.NotNull;
 
 public class LottoNumber implements Comparable<LottoNumber> {

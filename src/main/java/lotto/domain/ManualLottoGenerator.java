@@ -5,9 +5,9 @@ import static lotto.LottoSimulator.SEPARATOR;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import lotto.DuplicationException;
-import lotto.IllegalLottoNumberException;
-import lotto.NumOfLottoNumbersMismatchException;
+import lotto.exception.DuplicationException;
+import lotto.exception.IllegalLottoNumberException;
+import lotto.exception.NumOfLottoNumbersMismatchException;
 
 public class ManualLottoGenerator implements LottoGenerator {
 

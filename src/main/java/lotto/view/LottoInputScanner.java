@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.LongStream;
-import lotto.IllegalLottoNumberException;
 import lotto.domain.LottoNumber;
+import lotto.exception.IllegalLottoNumberException;
 
 public class LottoInputScanner {
 

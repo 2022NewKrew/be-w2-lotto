@@ -1,4 +1,4 @@
-package lotto;
+package lotto.exception;
 
 import static lotto.view.LottoOutputPrinter.CHECK_NUM_OF_LOTTO_NUMBERS;
 

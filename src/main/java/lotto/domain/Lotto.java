@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import lotto.DuplicationException;
-import lotto.NumOfLottoNumbersMismatchException;
+import lotto.exception.DuplicationException;
+import lotto.exception.NumOfLottoNumbersMismatchException;
 import org.jetbrains.annotations.NotNull;
 
 public class Lotto {
