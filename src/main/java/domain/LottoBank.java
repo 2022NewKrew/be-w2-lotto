@@ -32,5 +32,8 @@ public class LottoBank {
         if (manualQuantity > (purchasedAmount / LOTTO_PRICE)) {
             throw new InvalidPurchaseAmount(InvalidPurchaseAmount.MANUAL_COST_SHOULD_LARGER_THAN_PURCHASE_AMOUNT);
         }
+        if (manualQuantity < 0) {
+            throw new InvalidPurchaseAmount(InvalidPurchaseAmount.MANUAL_NUM_SHOULD_BIGGER_THAN_MINUS);
+        }
     }
 }
