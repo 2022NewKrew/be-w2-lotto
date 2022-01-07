@@ -1,12 +1,13 @@
 package be.w2.lotto.domain.lottoticket;
 
-import static be.w2.lotto.common.exception.ExceptionMessages.FORBIDDEN_INSTANCE_GENERATION_EXCEPTION;
-import static be.w2.lotto.common.exception.ExceptionMessages.PURCHASE_AMOUNT_LOWERBOUND_EXCEPTION;
+import be.w2.lotto.common.exception.ForbiddenInstanceException;
+import be.w2.lotto.common.exception.PurchaseAmountLowerboundException;
+
 import static be.w2.lotto.domain.lottoticket.LottoTicket.LOTTO_TICKET_PRICE;
 
 public class LottoTicketAmount {
-    private LottoTicketAmount() {
-        throw new RuntimeException(FORBIDDEN_INSTANCE_GENERATION_EXCEPTION);
+    private LottoTicketAmount() throws ForbiddenInstanceException {
+        throw new ForbiddenInstanceException();
     }
 
     public static int createLottoAmount(int purchaseAmount) {
@@ -16,7 +17,7 @@ public class LottoTicketAmount {
 
     public static void validatePurchaseAmount(int purchaseAmount) throws IllegalArgumentException {
         if (purchaseAmount <= LOTTO_AMOUNT_LOWERBOUND) {
-            throw new IllegalArgumentException(PURCHASE_AMOUNT_LOWERBOUND_EXCEPTION);
+            throw new PurchaseAmountLowerboundException();
         }
     }
 

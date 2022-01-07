@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static be.w2.lotto.common.exception.ExceptionMessages.*;
+import static be.w2.lotto.common.exception.InvalidLottoTicketSizeException.INVALID_LOTTO_TICKET_SIZE_EXCEPTION;
+import static be.w2.lotto.common.exception.LottoNumberDuplicationNotAllowedException.LOTTO_NUMBERS_DUPLICATION_NOT_ALLOWED_EXCEPTION;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
@@ -49,6 +50,6 @@ class ManualLottoTicketTest {
         // then
         assertThatThrownBy(actual)
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage(NUMBERS_DUPLICATION_NOT_ALLOWED_EXCEPTION);
+                .hasMessage(LOTTO_NUMBERS_DUPLICATION_NOT_ALLOWED_EXCEPTION);
     }
 }

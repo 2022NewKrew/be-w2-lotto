@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 
 import static be.w2.lotto.domain.lottonumber.LottoNumber.LOTTO_NUMBER_LOWERBOUND;
 import static be.w2.lotto.domain.lottonumber.LottoNumber.LOTTO_NUMBER_UPPERBOUND;
-import static be.w2.lotto.domain.lottoticket.LottoTickets.LOTTO_TICKET_SIZE;
+import static be.w2.lotto.domain.lottoticket.LottoTicket.LOTTO_TICKET_SIZE;
 
 public class AutoLottoNumberGenerator implements LottoNumberGeneratable {
     private static final List<Integer> entireLottoNumbers = IntStream

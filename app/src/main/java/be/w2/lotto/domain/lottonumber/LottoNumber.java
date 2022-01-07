@@ -1,6 +1,6 @@
 package be.w2.lotto.domain.lottonumber;
 
-import static be.w2.lotto.common.exception.ExceptionMessages.INVALID_NUMBER_RANGE_EXCEPTION;
+import be.w2.lotto.common.exception.InvalidLottoNumberRangeException;
 
 public class LottoNumber {
     protected final int number;
@@ -16,7 +16,7 @@ public class LottoNumber {
 
     protected static void validateRange(int lottoNumber) throws IllegalArgumentException {
         if (lottoNumber < LOTTO_NUMBER_LOWERBOUND || lottoNumber > LOTTO_NUMBER_UPPERBOUND) {
-            throw new IllegalArgumentException(INVALID_NUMBER_RANGE_EXCEPTION);
+            throw new InvalidLottoNumberRangeException();
         }
     }
 

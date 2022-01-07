@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static be.w2.lotto.common.exception.ExceptionMessages.INVALID_NUMBER_RANGE_EXCEPTION;
+import static be.w2.lotto.common.exception.InvalidLottoNumberRangeException.INVALID_LOTTO_NUMBER_RANGE_EXCEPTION;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
@@ -37,7 +37,7 @@ class LottoNumberTest {
         lottoNumberInputs.forEach(lottoNumber ->
             assertThatThrownBy(() -> LottoNumber.from(lottoNumber))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessage(INVALID_NUMBER_RANGE_EXCEPTION)
+                    .hasMessage(INVALID_LOTTO_NUMBER_RANGE_EXCEPTION)
         );
     }
 

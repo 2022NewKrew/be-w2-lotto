@@ -4,7 +4,7 @@ import org.assertj.core.api.ThrowableAssert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
-import static be.w2.lotto.common.exception.ExceptionMessages.PURCHASE_AMOUNT_LOWERBOUND_EXCEPTION;
+import static be.w2.lotto.common.exception.PurchaseAmountLowerboundException.PURCHASE_AMOUNT_LOWERBOUND_EXCEPTION;
 import static be.w2.lotto.domain.lottoticket.LottoTicket.LOTTO_TICKET_PRICE;
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.junit.jupiter.api.Assertions.*;

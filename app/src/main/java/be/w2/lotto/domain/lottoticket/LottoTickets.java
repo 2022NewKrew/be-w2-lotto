@@ -47,6 +47,4 @@ public class LottoTickets {
             new AutoLottoNumberGenerator(),
             new ManualLottoNumberGenerator()
     );
-
-    public static final int LOTTO_TICKET_SIZE = 6;
 }

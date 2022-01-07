@@ -1,5 +1,6 @@
 package be.w2.lotto.domain.winningresult;
 
+import be.w2.lotto.common.exception.ForbiddenInstanceException;
 import be.w2.lotto.domain.lottonumber.BonusNumber;
 import be.w2.lotto.domain.lottoticket.LottoTicket;
 import be.w2.lotto.domain.lottoticket.LottoTickets;
@@ -7,11 +8,9 @@ import be.w2.lotto.domain.lottoticket.WinningLottoTicket;
 
 import java.util.List;
 
-import static be.w2.lotto.common.exception.ExceptionMessages.FORBIDDEN_INSTANCE_GENERATION_EXCEPTION;
-
 public class WinningMatching {
-    private WinningMatching() {
-        throw new RuntimeException(FORBIDDEN_INSTANCE_GENERATION_EXCEPTION);
+    private WinningMatching() throws ForbiddenInstanceException {
+        throw new ForbiddenInstanceException();
     }
 
     public static int countMatchingResult(
