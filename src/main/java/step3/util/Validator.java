@@ -2,7 +2,9 @@ package step3.util;
 
 import step3.exception.LackOfLottoInputException;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Validator {
 
