@@ -3,10 +3,7 @@
  */
 package lotto;
 
-import lotto.domain.Lotto;
-import lotto.domain.LottoNumber;
-import lotto.domain.LottoPrize;
-import lotto.domain.LottoWinningNumber;
+import lotto.domain.*;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.Assert.*;
@@ -98,5 +95,32 @@ public class AppTest {
         });
 
         assertEquals("Duplicate bonusBall number", exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("수익률 계산 테스트")
+    public void testCalculateYield() {
+        List<LottoNumber> lottoNumberList = new ArrayList<>();
+        for (int i = 1; i <= 6; i++)
+            lottoNumberList.add(LottoNumber.from(i));
+        LottoWinningNumber lottoWinningNumber = new LottoWinningNumber(lottoNumberList, LottoNumber.from(7));
+        LottoResult lottoResult = new LottoResult(lottoWinningNumber);
+
+        List<Lotto> testLottoList = new ArrayList<>(5);
+        for (int i = 0; i < 5; i++)
+            testLottoList.add(new Lotto(lottoNumberList));
+
+        lottoResult.getResultOfAllLotto(testLottoList);
+        assertTrue(lottoResult.calculateYield(lottoNumberList.size()) > 0);
+    }
+
+    @Test
+    @DisplayName("자동 로또 구매 테스트")
+    public void testBuyAutoLotto() {
+        LottoMachine lottoMachine = LottoMachine.getInstance();
+        List<Lotto> testLottoList = new ArrayList<>();
+
+        lottoMachine.buyAutoLotto(testLottoList, 10000);
+        assertEquals(10, testLottoList.size());
     }
 }

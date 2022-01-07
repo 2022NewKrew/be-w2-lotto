@@ -3,10 +3,7 @@ package lotto.domain;
 import lotto.domain.generator.AutoLottoGenerator;
 import lotto.domain.generator.LottoGenerator;
 import lotto.domain.generator.ManualLottoGenerator;
-import lotto.view.InputView;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
