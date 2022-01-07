@@ -5,6 +5,7 @@ import org.junit.jupiter.api.*;
 import static org.assertj.core.api.Assertions.*;
 
 class LottoTicketsTest {
+
     private LottoTickets lottoTickets;
 
     @BeforeEach

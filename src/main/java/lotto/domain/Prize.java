@@ -51,8 +51,8 @@ public enum Prize {
         }
 
         return Arrays.stream(values())
-                .filter(prize -> prize.matchedCount == matchedCount)
-                .findFirst()
-                .orElse(NOTHING);
+            .filter(prize -> prize.matchedCount == matchedCount)
+            .findFirst()
+            .orElse(NOTHING);
     }
 }

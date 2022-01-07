@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class InputView {
+
     private static final Scanner scanner = new Scanner(System.in);
 
     /**
@@ -42,10 +43,10 @@ public class InputView {
         try {
             String input = scanner.nextLine();
             result = Arrays.stream(input.split(","))
-                    .map(String::trim)
-                    .mapToInt(Integer::parseInt)
-                    .boxed()
-                    .collect(Collectors.toSet());
+                .map(String::trim)
+                .mapToInt(Integer::parseInt)
+                .boxed()
+                .collect(Collectors.toSet());
         } catch (NumberFormatException e) {
             System.out.println("** 컴마(,)로 구분된 숫자만 입력해주세요 **");
         }

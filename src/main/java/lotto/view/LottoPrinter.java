@@ -11,8 +11,10 @@ public class LottoPrinter {
     /**
      * 로또 당첨 결과 출력
      */
-    public void printLottoResult(LottoTickets lottoTickets, Set<Integer> winnerNumber, int bonusBall) {
-        LottoMatchingResult matchingResult = lottoTickets.getMatchingResult(winnerNumber, bonusBall);
+    public void printLottoResult(LottoTickets lottoTickets, Set<Integer> winnerNumber,
+        int bonusBall) {
+        LottoMatchingResult matchingResult = lottoTickets.getMatchingResult(winnerNumber,
+            bonusBall);
 
         printLottoMatchingResult(matchingResult);
         printLottoEarningsRate(matchingResult);
@@ -24,8 +26,8 @@ public class LottoPrinter {
         System.out.println("--------------");
         for (Prize prize : Prize.values()) {
             System.out.printf("%d개 일치 %s (%d원) - %d개%n", prize.getMatchedCount(),
-                    (prize.isBonusBallMatched() ? "+ 보너스 볼" : ""),
-                    prize.getMoney(), matchingResult.calculateOccurrences(prize));
+                (prize.isBonusBallMatched() ? "+ 보너스 볼" : ""),
+                prize.getMoney(), matchingResult.calculateOccurrences(prize));
         }
     }
 

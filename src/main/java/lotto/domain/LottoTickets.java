@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LottoTickets {
+
     private final List<LottoTicket> tickets = new ArrayList<>();
 
     public List<LottoTicket> getTickets() {
@@ -23,10 +24,10 @@ public class LottoTickets {
         assert numOfTickets > 0;
 
         tickets.addAll(
-                IntStream.range(0, numOfTickets)
-                        .mapToObj(i -> RandomLottoNumberGenerator.generateRandomLottoNumbers())
-                        .map(LottoTicket::new)
-                        .collect(Collectors.toList())
+            IntStream.range(0, numOfTickets)
+                .mapToObj(i -> RandomLottoNumberGenerator.generateRandomLottoNumbers())
+                .map(LottoTicket::new)
+                .collect(Collectors.toList())
         );
     }
 
@@ -40,13 +41,13 @@ public class LottoTickets {
         assert numOfTickets > 0;
 
         List<Set<Integer>> pickedNumbers = IntStream.rangeClosed(1, numOfTickets)
-                .mapToObj(i -> inputView.getWinnerNumbersFromScanner(String.format("%d번째장: ", i)))
-                .collect(Collectors.toList());
+            .mapToObj(i -> inputView.getWinnerNumbersFromScanner(String.format("%d번째장: ", i)))
+            .collect(Collectors.toList());
 
         tickets.addAll(
-                pickedNumbers.stream()
-                        .map(LottoTicket::new)
-                        .collect(Collectors.toList())
+            pickedNumbers.stream()
+                .map(LottoTicket::new)
+                .collect(Collectors.toList())
         );
     }
 
@@ -57,9 +58,9 @@ public class LottoTickets {
      */
     public LottoMatchingResult getMatchingResult(Set<Integer> winnerNumber, int bonusBall) {
         return new LottoMatchingResult(
-                tickets.stream()
-                        .map(ticket -> ticket.matchWithWinnerNumber(winnerNumber, bonusBall))
-                        .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+            tickets.stream()
+                .map(ticket -> ticket.matchWithWinnerNumber(winnerNumber, bonusBall))
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
         );
     }
 }

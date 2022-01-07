@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 public class Main {
+
     public static final int PRICE = 1000;
 
     public static void main(String[] args) {

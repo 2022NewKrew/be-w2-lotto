@@ -21,21 +21,21 @@ class PrizeTest {
 
     private static Stream<Arguments> provideLottoNumbersAndExpectations() {
         return Stream.of(
-                // without bonus
-                Arguments.of(6, false, FIRST),
-                Arguments.of(5, false, THIRD),
-                Arguments.of(4, false, FOURTH),
-                Arguments.of(3, false, FIFTH),
-                Arguments.of(2, false, SIXTH),
-                Arguments.of(1, false, SEVENTH),
-                Arguments.of(0, false, NOTHING),
+            // without bonus
+            Arguments.of(6, false, FIRST),
+            Arguments.of(5, false, THIRD),
+            Arguments.of(4, false, FOURTH),
+            Arguments.of(3, false, FIFTH),
+            Arguments.of(2, false, SIXTH),
+            Arguments.of(1, false, SEVENTH),
+            Arguments.of(0, false, NOTHING),
 
-                // with bonus
-                Arguments.of(5, true, SECOND),
-                Arguments.of(4, true, FOURTH),
-                Arguments.of(3, true, FIFTH),
-                Arguments.of(2, true, SIXTH),
-                Arguments.of(1, true, SEVENTH)
+            // with bonus
+            Arguments.of(5, true, SECOND),
+            Arguments.of(4, true, FOURTH),
+            Arguments.of(3, true, FIFTH),
+            Arguments.of(2, true, SIXTH),
+            Arguments.of(1, true, SEVENTH)
         );
     }
 }

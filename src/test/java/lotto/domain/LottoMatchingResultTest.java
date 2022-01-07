@@ -23,8 +23,8 @@ class LottoMatchingResultTest {
 
     private static Stream<Arguments> provideOccurrencesAndExpects() {
         return Stream.of(
-                Arguments.of(Map.of(Prize.NOTHING, 1L), -100f),
-                Arguments.of(Map.of(Prize.FIFTH, 1L), 400f)
+            Arguments.of(Map.of(Prize.NOTHING, 1L), -100f),
+            Arguments.of(Map.of(Prize.FIFTH, 1L), 400f)
         );
     }
 
@@ -32,8 +32,8 @@ class LottoMatchingResultTest {
     @Test
     void calculateOccurrences() {
         LottoMatchingResult lottoMatchingResult = new LottoMatchingResult(Map.of(
-                Prize.FIRST, 123L,
-                Prize.SECOND, 456L
+            Prize.FIRST, 123L,
+            Prize.SECOND, 456L
         ));
 
         assertThat(lottoMatchingResult.calculateOccurrences(Prize.FIRST)).isEqualTo(123L);

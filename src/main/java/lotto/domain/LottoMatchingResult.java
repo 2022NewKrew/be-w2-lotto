@@ -8,6 +8,7 @@ import static lotto.Main.PRICE;
  * 로또 매칭 결과({@link Prize}별 맞은 횟수)를 갖고 있는 클래스
  */
 public class LottoMatchingResult {
+
     private final Map<Prize, Long> occurrencesByPrize;
 
     public LottoMatchingResult(Map<Prize, Long> occurrencesByPrize) {
@@ -19,10 +20,10 @@ public class LottoMatchingResult {
      */
     public float calculateEarningsRate() {
         long purchaseCosts = PRICE * occurrencesByPrize.values().stream()
-                .reduce(0L, Long::sum);
+            .reduce(0L, Long::sum);
         long prizeMoneySum = occurrencesByPrize.entrySet().stream()
-                .mapToLong(entry -> entry.getKey().getMoney() * entry.getValue())
-                .sum();
+            .mapToLong(entry -> entry.getKey().getMoney() * entry.getValue())
+            .sum();
         return ((float) (prizeMoneySum - purchaseCosts) / purchaseCosts) * 100;
     }
 

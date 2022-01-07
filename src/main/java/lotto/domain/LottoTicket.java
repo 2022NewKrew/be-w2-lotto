@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class LottoTicket {
+
     private final Set<Integer> numbers;
 
     public LottoTicket(Set<Integer> numbers) {
@@ -12,7 +13,7 @@ public class LottoTicket {
 
     /**
      * @param winnerNumber 1등 번호
-     * @param bonusBall 보너스 숫자
+     * @param bonusBall    보너스 숫자
      * @return {@link LottoTicket#numbers}가 해당되는 {@link Prize}
      */
     public Prize matchWithWinnerNumber(Set<Integer> winnerNumber, int bonusBall) {
