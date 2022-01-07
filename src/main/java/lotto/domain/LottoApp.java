@@ -1,5 +1,7 @@
 package lotto.domain;
 
+
+import lotto.VO.LackOfMoneyException;
 import lotto.model.Lotto;
 import lotto.model.WinningLotto;
 
@@ -21,16 +23,19 @@ public class LottoApp {
     }
 
 
-    public void purchaseLotto(Money payment) throws IllegalArgumentException {
+    public void purchaseLotto(Money payment) throws LackOfMoneyException {
+
         int numOfNewLotto = payment.getAmount() / Lotto.PRICE;
         purchaseLotto(payment, numOfNewLotto);
     }
 
-    public void purchaseLotto(Money payment, int numOfNewLotto) throws IllegalArgumentException {
+
+    public void purchaseLotto(Money payment, int numOfNewLotto) throws LackOfMoneyException {
         try {
             payment.decrement(numOfNewLotto * Lotto.PRICE);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException();
+        } catch (LackOfMoneyException e) {
+            throw e;
+
         }
 
         for (int i = 0; i < numOfNewLotto; i++) {
@@ -40,16 +45,29 @@ public class LottoApp {
         System.out.println(numOfNewLotto + "개를 구매했습니다.");
     }
 
-    public void purchaseCustomLotto(Money payment, Lotto lotto) throws IllegalArgumentException {
+
+    public void purchaseCustomLotto(Money payment, Lotto lotto) throws LackOfMoneyException {
         try {
             payment.decrement(Lotto.PRICE);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException();
+        } catch (LackOfMoneyException e) {
+            throw e;
+
         }
 
         this.lottos.add(lotto);
         this.accumPayment += Lotto.PRICE;
         this.countOfCustomLotto += 1;
+    }
+
+
+    public void purchaseCustomLottos(Money payment, List<Lotto> lottos) throws LackOfMoneyException {
+        try {
+            for (Lotto lotto : lottos) {
+                purchaseCustomLotto(payment, lotto);
+            }
+        } catch (LackOfMoneyException e) {
+            throw e;
+        }
     }
 
     public LottoResult getLottoResult() {
@@ -63,7 +81,8 @@ public class LottoApp {
         return (float) (resultManager.getTotalReturn() - accumPayment) / accumPayment * 100;
     }
 
-    public void compareHowManyMatch() {
+    public void match() {
+
         this.resultManager = new LottoResultManager();
         for (Lotto lotto : this.lottos) {
             int countOfMatch = howManyMatch(lotto);
@@ -105,7 +124,9 @@ public class LottoApp {
         return this.getCountOfLottos() - getCountOfCustomLotto();
     }
 
-    public Lottos getLottos(){
+
+    public Lottos getLottos() {
+
         return this.lottos;
     }
 

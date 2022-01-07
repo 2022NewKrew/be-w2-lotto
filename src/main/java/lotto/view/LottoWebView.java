@@ -1,5 +1,7 @@
 package lotto.view;
 
+
+import lotto.VO.InvalidFormatException;
 import lotto.VO.Rank;
 import lotto.domain.LottoResult;
 import lotto.domain.Money;
@@ -27,19 +29,7 @@ public class LottoWebView extends LottoView {
 
         post("/buyLotto", (req, res) -> {
             try {
-
-                Money money = parseMoney(req.queryParams("inputMoney"));
-                List<Lotto> customLottos = parseCustomLottos(req.queryParams("manualNumber"));
-                for (Lotto customLotto : customLottos) {
-                    app.purchaseCustomLotto(money, customLotto);
-                }
-
-                Map<String, Object> data = new HashMap<>();
-                data.put("lottosSize", app.getLottos().size());
-                //TO DO : render lotto.numbers to string
-                data.put("lottos", app.getLottos());
-
-                return render(data, "show.html");
+                return render(buyLotto(req), "show.html");
             } catch (IllegalArgumentException e) {
                 return e.getMessage();
             }
@@ -47,35 +37,69 @@ public class LottoWebView extends LottoView {
 
         post("/matchLotto", (req, res) -> {
             try {
-                WinningLotto winningLotto = new WinningLotto(
-                        parseLotto(req.queryParams("winningNumber")),
-                        parseBonusNumber(req.queryParams("bonusNumber"))
-                );
-                app.setWinLotto(winningLotto);
-                app.compareHowManyMatch();
-                LottoResult lottoResult = app.getLottoResult();
+                return render(matchLotto(req), "result.html");
 
-                Map<String, Object> data = new HashMap<>();
-                Map<String, Object> dataLottoResult = new HashMap<>();
-                List<String> message = new ArrayList<>();
-
-                for(Rank rank : Rank.values()){
-                    StringBuilder builder = new StringBuilder();
-                    builder.append(rank.toString());
-                    builder.append(" - ");
-                    builder.append(lottoResult.getCountOf(rank));
-                    builder.append("개");
-                    message.add(builder.toString());
-                }
-                dataLottoResult.put("message", message);
-                dataLottoResult.put("totalRateOfReturn", app.calculateRateOfReturn());
-                data.put("lottosResult", dataLottoResult);
-
-                return render(data, "result.html");
             } catch (IllegalArgumentException e) {
                 return e.getMessage();
             }
         });
+    }
+
+    public Map<String, Object> buyLotto(spark.Request req) {
+
+        Money money = parseMoney(req.queryParams("inputMoney"));
+        List<Lotto> customLottos = parseCustomLottos(req.queryParams("manualNumber"));
+        app.purchaseCustomLottos(money, customLottos);
+        app.purchaseLotto(money);
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("lottosSize", app.getLottos().size());
+        data.put("lottos", renderLottos());
+
+        return data;
+    }
+
+    public List<Lotto> renderLottos() {
+        List<Lotto> lottos = new ArrayList<>();
+        for (Lotto lotto : app.getLottos()) {
+            lottos.add(lotto);
+        }
+        return lottos;
+    }
+
+    public Map<String, Object> matchLotto(spark.Request req) {
+
+        WinningLotto winningLotto = new WinningLotto(
+                parseLotto(req.queryParams("winningNumber")),
+                parseBonusNumber(req.queryParams("bonusNumber"))
+        );
+        app.setWinLotto(winningLotto);
+        app.match();
+        LottoResult lottoResult = app.getLottoResult();
+
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> dataLottoResult = new HashMap<>();
+
+        dataLottoResult.put("message", renderLottoResultMessage(lottoResult));
+        dataLottoResult.put("totalRateOfReturn", app.calculateRateOfReturn());
+        data.put("lottosResult", dataLottoResult);
+
+        return data;
+    }
+
+    public List<String> renderLottoResultMessage(LottoResult lottoResult) {
+        List<String> message = new ArrayList<>();
+
+        for (Rank rank : Rank.values()) {
+            StringBuilder builder = new StringBuilder();
+            builder.append(rank.toString());
+            builder.append(" - ");
+            builder.append(lottoResult.getCountOf(rank));
+            builder.append("개");
+            message.add(builder.toString());
+        }
+
+        return message;
     }
 
     public Money parseMoney(String inputString) throws InvalidFormatException {

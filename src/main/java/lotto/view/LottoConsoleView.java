@@ -1,8 +1,10 @@
 package lotto.view;
 
+
+import lotto.VO.InvalidFormatException;
 import lotto.VO.Rank;
 import lotto.model.Lotto;
-import lotto.domain.LottoApp;
+
 
 import lotto.domain.Money;
 import lotto.domain.LottoResult;
@@ -36,7 +38,9 @@ public class LottoConsoleView extends LottoView {
             app.setWinLotto(inputWinLotto());
 
             //당첨 여부를 계산한다.
-            app.compareHowManyMatch();
+
+            app.match();
+
 
             //당첨 결과를 출력한다.
             printLottoResult();

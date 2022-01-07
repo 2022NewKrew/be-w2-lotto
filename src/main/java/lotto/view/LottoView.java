@@ -1,5 +1,7 @@
 package lotto.view;
 
+
+import lotto.VO.InvalidFormatException;
 import lotto.domain.LottoApp;
 import lotto.model.Lotto;
 
@@ -43,8 +45,3 @@ public abstract class LottoView {
     }
 }
 
-class InvalidFormatException extends RuntimeException{
-    public InvalidFormatException(String message){
-        super(message);
-    }
-}
