@@ -1,21 +1,18 @@
-package lotto.controller;
+package lotto.domain;
 
-
-import lotto.domain.*;
 import lotto.util.LottoRank;
-import lotto.view.ViewLotto;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-
-/**
- * 전반적인 로또 게임을 진행하는 클래스
- */
-public class LottoController {
-    private LottoPaper lp;
-    private List<Integer> preWeekNumber;
-    private int bonusNumber;
+public class LottoResult {
+    private final LottoPaper lp;
+    private final List<Integer> winningNumbers;
+    private final int bonusNumber;
+    private static final StringBuilder sb = new StringBuilder();
     private final Map<Integer, Integer> rank = new HashMap<>(Map.of(
             5, 0,
             4, 0,
@@ -23,36 +20,37 @@ public class LottoController {
             2, 0,
             1, 0
     ));
+    public String message;
+    public long totalRateOfReturn;
 
-    public LottoController() {}
+
+    public LottoResult(LottoPaper lottopaper, String winningNumber, String bn){
+        lp = lottopaper;
+        winningNumbers = LottoInput.postPurchase(winningNumber);
+        bonusNumber = LottoInput.getBonusNumber(bn);
+    }
 
 
-    /**
-     * 로또 게임을 진행하는 메소드
-     */
-    public void proceed(){
-        LottoPaper emptyLottoPaper = new LottoPaper();
+    public void updateMessage(){
+        for(LottoRank lr : LottoRank.values()){
+            rankToString(lr);
+        }
+        message = sb.toString();
+    }
 
-        LottoInput li = new LottoInput(emptyLottoPaper);
-        li.prePurchase();
 
-        LottoGenerator lg = new LottoGenerator(li.getLottoPaper());
-        lg.generateLotto(li.manualPurchase());
-        lp = lg.getLottoPaper();
-
-        ViewLotto.printLotto(lp);
-        preWeekNumber = LottoInput.postPurchase();
-        bonusNumber = LottoInput.getBonusNumber();
-
-        searchResult();
-        ViewLotto.printResult(rank);
-        ViewLotto.printPriceRatio(calculatePrize(lp.inputPrice));
+    private void rankToString(LottoRank lr){
+        sb.append(lr.getCountOfMatch() + "개 일치");
+        if(lr.getResultRank() == 2){
+            sb.append(", 보너스 불 일치");
+        }
+        sb.append("("+ lr.getWinningPrize() +"원) - " + rank.get(lr.getResultRank()) + "개\n");
     }
 
     /**
      * 각각의 로또 줄을 확인하며, 일치하는 번호 수, 보너스 볼 당첨 여부를 파악하여 업데이트하는 메소드
      */
-    private void searchResult(){
+    public void searchResult(){
         for(LottoNumbers ln : lp.lottoNumbers){
             int countOfMatch = intersection(ln.getNumbers());
             boolean matchBonus = ln.getNumbers().contains(bonusNumber);
@@ -81,23 +79,21 @@ public class LottoController {
     private int intersection(List<Integer> lottoPaper){
         Set<Integer> intSet = lottoPaper.stream()
                 .distinct()
-                .filter(preWeekNumber::contains)
+                .filter(winningNumbers::contains)
                 .collect(Collectors.toSet());
         return intSet.size();
     }
 
     /**
      * 수익률을 계산하는 메소드
-     * @param inputPrice 구매 금액
-     * @return 수익률
      */
-    private long calculatePrize(int inputPrice){
+    public void calculatePrize(){
         long sum = 0;
         for(LottoRank lr : LottoRank.values()){
             int matchPrize = lr.getWinningPrize();
             int resultRank = lr.getResultRank();
             sum += (long) matchPrize * rank.get(resultRank);
         }
-        return (sum-inputPrice) / inputPrice * 100;
+        totalRateOfReturn = (sum-lp.inputPrice) / lp.inputPrice * 100;
     }
 }

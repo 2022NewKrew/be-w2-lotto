@@ -1,6 +1,6 @@
 package lotto.view;
 
-import lotto.domain.LottoNumber;
+import lotto.domain.LottoNumbers;
 import lotto.domain.LottoPaper;
 import lotto.util.LottoRank;
 
@@ -17,7 +17,7 @@ public class ViewLotto {
      * @param lp 로또 종이 한 장
      */
     public static void printLotto(LottoPaper lp){
-        for(LottoNumber ln : lp.lottoNumbers){
+        for(LottoNumbers ln : lp.lottoNumbers){
             System.out.println(ln.getNumbers());
         }
         System.out.println();

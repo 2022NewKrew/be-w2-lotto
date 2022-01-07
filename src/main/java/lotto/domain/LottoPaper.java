@@ -9,9 +9,9 @@ import java.util.List;
 public class LottoPaper {
     public int inputPrice;
     public int numOfNumbers;
-    public List<LottoNumber> lottoNumbers = new ArrayList<>();
+    public List<LottoNumbers> lottoNumbers = new ArrayList<>();
 
-    public void add(LottoNumber ln){
+    public void add(LottoNumbers ln){
         lottoNumbers.add(ln);
     }
 }

@@ -3,7 +3,7 @@ package lotto.domain;
 import java.util.List;
 
 /**
- * Input.java의 클래스들을 받아와 패키지 밖에서 활용할 수 있게 하는 클래스
+ * Input.java 의 클래스들을 받아와 패키지 밖에서 활용할 수 있게 하는 클래스
  */
 public class LottoInput {
     private final LottoPaper lp;
@@ -18,6 +18,12 @@ public class LottoInput {
     public void prePurchase(){
         PriceInput pi = new PriceInput();
         pi.init();
+        lp.inputPrice = pi.getInput();
+        lp.numOfNumbers = pi.getNumOfNumbers();
+    }
+
+    public void prePurchase(String inputMoney){
+        PriceInput pi = new PriceInput(Integer.parseInt(inputMoney));
         lp.inputPrice = pi.getInput();
         lp.numOfNumbers = pi.getNumOfNumbers();
     }
@@ -37,9 +43,14 @@ public class LottoInput {
      * @param numOfManual 수동으로 입력할 로또 줄의 갯수
      * @return 입력받은 로또 번호 줄 List<LottoNumber>
      */
-    public static List<LottoNumber> getManualNumbers(int numOfManual){
+    public static List<LottoNumbers> getManualNumbers(int numOfManual){
         ManualNumberInput mni = new ManualNumberInput(numOfManual);
         mni.convertToList();
+        return mni.getInput();
+    }
+
+    public List<LottoNumbers> getManualNumbers(String manualNumbers){
+        ManualNumberInput mni = new ManualNumberInput(manualNumbers, lp.numOfNumbers);
         return mni.getInput();
     }
 
@@ -51,6 +62,10 @@ public class LottoInput {
         WinningInput wi = new WinningInput();
         return wi.getInput();
     }
+    public static List<Integer> postPurchase(String winningNumber){
+        WinningInput wi = new WinningInput(winningNumber);
+        return wi.getInput();
+    }
 
     /**
      * 보너스 볼 숫자를 받아오는 메소드
@@ -59,6 +74,10 @@ public class LottoInput {
     public static int getBonusNumber(){
         BonusNumberInput bni = new BonusNumberInput();
         bni.init();
+        return bni.getInput();
+    }
+    public static int getBonusNumber(String bonusNumber){
+        BonusNumberInput bni = new BonusNumberInput(Integer.parseInt(bonusNumber));
         return bni.getInput();
     }
 
