@@ -8,7 +8,7 @@ public enum Rank {
     FIRST(6, 2000000000),
     NONE(0, 0);
 
-    public static final int MIN_MATCH_COUNT = 3;
+    private static final int MIN_MATCH_COUNT = 3;
 
     private final int matchCount;
     private final int winningMoney;
