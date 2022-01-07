@@ -1,5 +1,6 @@
 package domain;
 
+import enums.LottoConstants;
 import enums.Prize;
 import exceptions.InvalidBonusNumber;
 import exceptions.InvalidPurchaseAmount;
@@ -13,7 +14,6 @@ import validation.Validation;
 
 public class LottoResult {
 
-    private static final int NUMBER_OF_LOTTERY_NUMBERS = 6;
     private static final int INITIALIZE_ZERO = 0;
     private final Set<LottoNumber> lastWeekWinningNumbers;
     private final LottoNumber bonusNumber;
@@ -22,12 +22,13 @@ public class LottoResult {
         if (lastWeekWinningNumbers == null) {
             throw new IllegalArgumentException();
         }
-        Validation.sizeShouldBe(lastWeekWinningNumbers, NUMBER_OF_LOTTERY_NUMBERS,
+        Validation.sizeShouldBe(lastWeekWinningNumbers, LottoConstants.NUMBER_OF_LOTTERY_NUMBERS.get(),
                 new InvalidPurchaseAmount(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
         Validation.notContains(lastWeekWinningNumbers, bonusNumber,
                 new InvalidBonusNumber(ErrorMessage.DUPLICATE_BONUS_NUMBER.getMessage()));
 
-        this.lastWeekWinningNumbers = lastWeekWinningNumbers.stream().map(LottoNumber::new).collect(Collectors.toUnmodifiableSet());
+        this.lastWeekWinningNumbers = lastWeekWinningNumbers.stream().map(LottoNumber::new)
+                .collect(Collectors.toUnmodifiableSet());
         this.bonusNumber = new LottoNumber(bonusNumber);
     }
 

@@ -1,5 +1,6 @@
 package domain;
 
+import enums.LottoConstants;
 import exceptions.InvalidLastWeekWinningNumber;
 import java.util.Objects;
 import messages.ErrorMessage;
@@ -7,15 +8,12 @@ import validation.Validation;
 
 public class LottoNumber {
 
-    private static final int MIN_LOTTO_NUMBER = 1;
-    private static final int MAX_LOTTO_NUMBER = 45;
-
     private final int number;
 
     LottoNumber(int number) {
-        Validation.notLessThanLong(number, MIN_LOTTO_NUMBER,
+        Validation.notLessThanLong(number, LottoConstants.MIN_LOTTO_NUMBER.get(),
                 new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
-        Validation.notMoreThanLong(number, MAX_LOTTO_NUMBER,
+        Validation.notMoreThanLong(number, LottoConstants.MAX_LOTTO_NUMBER.get(),
                 new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
 
         this.number = number;
