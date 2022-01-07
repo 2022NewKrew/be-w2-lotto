@@ -2,6 +2,7 @@ package com.david.lotto.web;
 
 import com.david.lotto.Lotto;
 import com.david.lotto.LottoMachine;
+import com.david.lotto.db.H2;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
@@ -13,17 +14,20 @@ import static spark.Spark.*;
 public class LottoWeb {
 
     private LottoMachine lottoMachine = null;
-
+    private final H2 h2 = new H2();
     public void runWebUI() {
         port(8080);
         staticFiles.location("/templates");
 
+        h2.createLottoTable();
+        h2.createLottoResultTable();
         post("/buyLotto", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             lottoMachine = new LottoMachine(req.queryParams("inputMoney"), req.queryParams("manualNumber"));
             List<Lotto> lottoList = lottoMachine.getLottoList();
             model.put("lottosSize", lottoList.size());
             model.put("lottos", lottoList);
+            h2.insertLotto(lottoList);
             return render(model, "show.html");
         });
 
@@ -34,6 +38,7 @@ public class LottoWeb {
             messageModel.put("message", lottoMachine.getLottoCalculate());
             model.put("lottosResult", messageModel);
             model.put("totalRateOfReturn", lottoMachine.getProfitRate());
+            h2.insertLottoResult(lottoMachine.getLottoCalculate().getTotalCount());
             return render(model, "result.html");
         });
     }

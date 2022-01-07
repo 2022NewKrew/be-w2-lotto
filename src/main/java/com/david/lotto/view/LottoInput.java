@@ -1,10 +1,7 @@
 package com.david.lotto.view;
 
-import com.david.lotto.validation.AmountException;
-import com.david.lotto.validation.BonusNumberException;
+import com.david.lotto.validation.LottoInputException;
 import com.david.lotto.validation.InputValidator;
-import com.david.lotto.validation.LottoNumberException;
-import com.david.lotto.validation.ManualCountException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +25,7 @@ public class LottoInput {
                 isDone = true;
             } catch (NumberFormatException e) {
                 System.out.println("잘못 입력하였습니다.");
-            } catch (AmountException e) {
+            } catch (LottoInputException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -43,7 +40,7 @@ public class LottoInput {
                 System.out.println("지난 주 당첨 번호를 입력해 주세요.");
                 lottoNumber = convertToNumberList(scanner.nextLine());
                 isDone = true;
-            } catch (LottoNumberException e) {
+            } catch (LottoInputException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -61,7 +58,7 @@ public class LottoInput {
                 isDone = true;
             } catch (NumberFormatException e) {
                 System.out.println("잘못 입력하였습니다.");
-            } catch (BonusNumberException e) {
+            } catch (LottoInputException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -79,7 +76,7 @@ public class LottoInput {
                 isDone = true;
             } catch (NumberFormatException e) {
                 System.out.println("잘못 입력하였습니다.");
-            } catch (ManualCountException e) {
+            } catch (LottoInputException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -98,7 +95,7 @@ public class LottoInput {
             } catch (NumberFormatException e) {
                 System.out.println("잘못 입력하였습니다.");
                 System.out.println("수동으로 구매할 번호를 입력해 주세요.");
-            } catch (LottoNumberException e) {
+            } catch (LottoInputException e) {
                 System.out.println(e.getMessage());
                 System.out.println("수동으로 구매할 번호를 입력해 주세요.");
             }
@@ -106,7 +103,7 @@ public class LottoInput {
         return lottoList;
     }
 
-    private List<Integer> convertToNumberList(String inputString) throws LottoNumberException {
+    private List<Integer> convertToNumberList(String inputString) throws LottoInputException {
         List<Integer> lottoNumber = Arrays.stream(inputString.split("\\s*,\\s*"))
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());

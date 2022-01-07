@@ -59,4 +59,8 @@ public class LottoCalculate {
                 .map(this::formatString)
                 .collect(Collectors.joining("\n"));
     }
+
+    public Map<Rank, Integer> getTotalCount() {
+        return totalCount;
+    }
 }
