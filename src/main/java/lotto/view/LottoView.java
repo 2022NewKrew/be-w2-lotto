@@ -62,11 +62,43 @@ public class LottoView {
         return sb.toString();
     }
 
+    public LottoResultWebDto getLottoResult(WinningLottoDto winningLottoDto){
+        LottoResult lottoResult = new LottoResult(lottoList, winningLottoDto);
+
+        StringBuilder sb = new StringBuilder();
+        for (Rank rank : Rank.values()) {
+            sb.append(LottoRankFormat(rank, lottoResult.getCountOfRank(rank))).append(NEW_LINE);
+        }
+        return new LottoResultWebDto(sb.toString(), lottoResult.profitRate(purchaseMoney));
+    }
+
     private String LottoRankFormat(Rank rank, int countOfRank) {
         String bonusString = "";
         if (rank == Rank.SECOND) {
             bonusString = ", 보너스 볼 일치";
         }
         return String.format("%d개 일치%s (%d원)- %d개", rank.getCountOfMatch(), bonusString, rank.getWinningMoney(), countOfRank);
+    }
+
+    public List<Lotto> getLottoList() {
+        return lottoList;
+    }
+
+    public static class LottoResultWebDto{
+        private final String message;
+        private final long totalRateOfReturn;
+
+        public LottoResultWebDto(String message, long totalRateOfReturn) {
+            this.message = message;
+            this.totalRateOfReturn = totalRateOfReturn;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public long getTotalRateOfReturn() {
+            return totalRateOfReturn;
+        }
     }
 }
