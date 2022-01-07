@@ -1,24 +1,29 @@
 package com.kakaocorp.lotto.model;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import com.kakaocorp.lotto.validation.IntCollectionValidator;
+
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class LottoTicket {
 
+    public static final int NUMBER_COUNT = 6;
+    public static final int MIN_NUMBER = 1;
+    public static final int MAX_NUMBER = 45;
+    public static final int PRICE = 1000;
+
     private final Set<Integer> numbers;
 
     public LottoTicket(Set<Integer> numbers) {
         this.numbers = numbers;
+        validate();
     }
 
-    public static LottoTicket from(Rule rule) {
-        IntStream rng = rule.getRandom()
-                .ints(rule.getMinNumber(), rule.getMaxNumber())
+    public static LottoTicket from(Random random) {
+        IntStream rng = random.ints(MIN_NUMBER, MAX_NUMBER)
                 .distinct()
-                .limit(rule.getNumberCount());
+                .limit(NUMBER_COUNT);
         Set<Integer> numbers = rng.boxed().collect(Collectors.toSet());
         return new LottoTicket(numbers);
     }
@@ -33,5 +38,27 @@ public class LottoTicket {
 
     public Set<Integer> getNumbers() {
         return Collections.unmodifiableSet(numbers);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LottoTicket that = (LottoTicket) o;
+        return Objects.equals(numbers, that.numbers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numbers);
+    }
+
+    @SuppressWarnings("UnnecessaryLocalVariable")
+    private void validate() {
+        int expectedSize = LottoTicket.NUMBER_COUNT;
+        int minimum = LottoTicket.MIN_NUMBER;
+        int maximum = LottoTicket.MAX_NUMBER;
+        IntCollectionValidator numbersValidator = new IntCollectionValidator(expectedSize, minimum, maximum);
+        numbersValidator.validate(numbers);
     }
 }

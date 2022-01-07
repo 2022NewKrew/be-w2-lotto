@@ -1,6 +1,9 @@
 package com.kakaocorp.lotto.domain;
 
+import com.kakaocorp.lotto.validation.ValueNotAllowedException;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -8,6 +11,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 class ProfitCalculatorTest {
 
@@ -24,6 +28,13 @@ class ProfitCalculatorTest {
         float result = subject.calculate(payment, gain);
 
         assertEquals(expected, result);
+    }
+
+    @Test
+    void calculator_divideByZero() {
+        Executable body = () -> subject.calculate(0, 1);
+
+        assertThrowsExactly(ValueNotAllowedException.class, body);
     }
 
     private static Stream<Arguments> provideCalculateParameters() {

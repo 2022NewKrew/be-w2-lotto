@@ -1,4 +1,4 @@
-package com.kakaocorp.lotto.ui;
+package com.kakaocorp.lotto.ui.view;
 
 import com.kakaocorp.lotto.model.LottoTicket;
 
@@ -101,5 +101,39 @@ public class StreamLottoView implements LottoView {
     public void printProfit(int profit) {
         //noinspection RedundantStringFormatCall
         out.println(String.format("총 수익률은 %d%%입니다.", profit));
+    }
+
+    @Override
+    public void printLessThanMinimum(int minimum) {
+        //noinspection RedundantStringFormatCall
+        out.println(String.format("%d 이상의 값을 입력해 주세요.", minimum));
+    }
+
+    @Override
+    public void printGreaterThanMaximum(int maximum) {
+        //noinspection RedundantStringFormatCall
+        out.println(String.format("%d 이하의 값을 입력해 주세요.", maximum));
+    }
+
+    @Override
+    public void printDuplicateNotAllowed() {
+        out.println("중복 값은 입력할 수 없습니다.");
+    }
+
+    @Override
+    public void printValueNotAllowed(int value) {
+        //noinspection RedundantStringFormatCall
+        out.println(String.format("%d는 입력할 수 없습니다.", value));
+    }
+
+    @Override
+    public void printWrongSize(int expected) {
+        //noinspection RedundantStringFormatCall
+        out.println(String.format("%d개를 입력해야 합니다.", expected));
+    }
+
+    @Override
+    public void printNumberFormatError() {
+        out.println("숫자만 입력해 주세요.");
     }
 }

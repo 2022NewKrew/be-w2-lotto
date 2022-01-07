@@ -1,35 +1,28 @@
 package com.kakaocorp.lotto.domain;
 
 import com.kakaocorp.lotto.model.LottoTicket;
-import com.kakaocorp.lotto.model.Rule;
+import com.kakaocorp.lotto.validation.LessThanMinimumException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class LottoDispenserTest {
 
     private static final long RANDOM_SEED = 1234L;
-    private static final int PRICE = 10;
+    private static final int PRICE = LottoTicket.PRICE;
 
     private LottoDispenser subject;
 
     @BeforeEach
     void setUp() {
         Random random = new Random(RANDOM_SEED);
-        Rule rule = new Rule.Builder()
-                .minNumber(1)
-                .maxNumber(45)
-                .numberCount(6)
-                .price(PRICE)
-                .random(random)
-                .build();
-        subject = new LottoDispenser(rule);
+        subject = new LottoDispenser(random);
     }
 
     @Test
@@ -47,7 +40,7 @@ class LottoDispenserTest {
 
         List<LottoTicket> result = subject.purchase((int) (count * PRICE), List.of());
 
-        assertEquals(Math.floor(count), result.size());
+        assertEquals((int) Math.floor(count), result.size());
     }
 
     @Test
@@ -76,5 +69,12 @@ class LottoDispenserTest {
         List<LottoTicket> result = subject.purchase(count * PRICE, manualTickets);
 
         assertEquals(count, result.size());
+    }
+
+    @Test
+    void purchase_cannotAffordOne() {
+        Executable body = () -> subject.purchase(PRICE - 1, List.of());
+
+        assertThrowsExactly(LessThanMinimumException.class, body);
     }
 }
