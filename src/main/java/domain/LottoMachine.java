@@ -23,7 +23,7 @@ public class LottoMachine {
 
     public void manualLottoList(List<Lotto> lottos){
         for (Lotto lotto : lottos) {
-            Collections.sort(lotto.getLotto());
+//            Collections.sort(lotto.getLotto());
             lottoList.addLotto(lotto, LottoConst.MANUAL_CREATE);
         }
     }

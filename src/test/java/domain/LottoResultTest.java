@@ -12,11 +12,11 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LottoResultTest {
-    LottoList lottoList;
+    LottoMachine lottoMachine;
 
     @BeforeEach
     void beforeEach(){
-        lottoList = new LottoList();
+        lottoMachine = new LottoMachine();
     }
 
     @Test
@@ -33,9 +33,9 @@ class LottoResultTest {
         manualLottoList.add(new Lotto(new ArrayList<>(Arrays.asList(1, 2, 3, 4, 8, 9))));
         manualLottoList.add(new Lotto(new ArrayList<>(Arrays.asList(1, 2, 3, 8, 9, 10))));
 
-        lottoList.createManualLottoList(manualLottoList);
+        lottoMachine.manualLottoList(manualLottoList);
 
-        LottoResult lottoResult = new LottoResult(lottoList, winningLotto, bonusNumber);
+        LottoResult lottoResult = new LottoResult(lottoMachine.getLottoList(), winningLotto, bonusNumber);
 
         Arrays.stream(Rank.values())
                 .filter(rank -> rank != Rank.NONE)

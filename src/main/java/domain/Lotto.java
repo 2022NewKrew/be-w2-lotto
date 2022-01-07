@@ -1,15 +1,18 @@
 package domain;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Lotto {
-    private final List<Integer> lottoNumbers;
+    private final Set<Integer> lottoNumbers;
 
     public Lotto(List<Integer> lottoNumbers) {
-        this.lottoNumbers = lottoNumbers;
+        this.lottoNumbers = new TreeSet<>(lottoNumbers);
     }
 
-    public List<Integer> getLotto() {
+    public Set<Integer> getLotto() {
         return lottoNumbers;
     }
 

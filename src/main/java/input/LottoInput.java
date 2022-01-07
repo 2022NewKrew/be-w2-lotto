@@ -38,14 +38,13 @@ public class LottoInput {
     }
 
     public Lotto inputResultLotto(String resultLotto){
-        List<Integer> lottoNumber = Arrays.stream(resultLotto.split(","))
+        Lotto lotto = new Lotto(Arrays.stream(resultLotto.split(","))
                 .map(String::trim)
                 .map(Integer::parseInt)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList())
+        );
 
-        Lotto lotto = new Lotto(lottoNumber);
         ec.checkLotto(lotto);
-
         return lotto;
     }
 

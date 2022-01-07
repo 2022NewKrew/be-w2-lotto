@@ -7,11 +7,17 @@ import java.util.Map;
 
 import static spark.Spark.*;
 public class App {
-    private static final WebLottoController controller = new WebLottoController();
+    private static WebLottoController controller = new WebLottoController();
     public static void main(String[] args) {
         port(8080);
 
         get("/", (req, res) -> render(new HashMap<>(), "index.html"));
+
+        get("/reset", (req, res) -> {
+            controller = new WebLottoController();
+            res.redirect("/");
+            return "";
+        });
 
         post("/buyLotto", ((req, res) -> {
             Map<String, Object> model = controller.buyLotto(req.queryParams("inputMoney"), req.queryParams("manualNumber"));

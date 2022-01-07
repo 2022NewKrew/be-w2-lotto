@@ -1,8 +1,6 @@
 package domain;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class LottoResult {
@@ -43,10 +41,14 @@ public class LottoResult {
 
 
     private int matchLotto(Lotto purchaseLotto){
+//        Set<Integer> lottoSet = new HashSet<>(resultLotto.getLotto());
+
         int count = 0;
         for (Integer lottoNumber : purchaseLotto.getLotto()) {
             count += resultLotto.getLotto().contains(lottoNumber) ? 1 : 0;
+//            count += lottoSet.contains(lottoNumber) ? 1 : 0;
         }
+
 
         return count;
     }
