@@ -2,10 +2,7 @@ package domain;
 
 import view.InputView;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -18,6 +15,13 @@ public class LottoMachine {
     private static final List<Integer> LOTTO_BALLS = IntStream.range(MINIMUM_VALUE, MAXIMUM_VALUE)
             .boxed()
             .collect(Collectors.toList());
+
+    public LottoRepository getAllLottos(List<Lotto> autoLottos, List<Lotto> manualLottos) {
+        List<Lotto> allLottos = new ArrayList<>();
+        allLottos.addAll(autoLottos);
+        allLottos.addAll(manualLottos);
+        return new LottoRepository(allLottos);
+    }
 
     public List<Lotto> createAutoLottos(int purchasedLottoNumbers) {
         return Stream.generate(this::createAutoLotto)
