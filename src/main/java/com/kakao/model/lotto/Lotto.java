@@ -4,9 +4,10 @@ import com.kakao.exception.PickedNumberException;
 import com.kakao.model.LottoNumbers;
 import com.kakao.model.LottoWinning;
 
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class Lotto {
+public abstract class Lotto implements Serializable {
     private LottoNumbers pickedNumbersOfLotto;
 
     Lotto(List<Integer> pickedNumbersOfLotto) throws PickedNumberException {

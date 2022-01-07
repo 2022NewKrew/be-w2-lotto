@@ -6,10 +6,11 @@ import com.kakao.helper.LottoHelper;
 import com.kakao.model.lotto.AutoLotto;
 import com.kakao.model.lotto.Lotto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Lottos {
+public class Lottos implements Serializable {
 
     private List<Lotto> lottoList;
 
