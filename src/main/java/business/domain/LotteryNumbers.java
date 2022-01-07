@@ -33,12 +33,8 @@ public class LotteryNumbers implements Iterable<LotteryNumber> {
                 .collect(Collectors.toSet()));
     }
 
-    public BonusNumberMatched containsBonusNumber(LotteryNumber lotteryNumber) {
-        return BonusNumberMatched.from(this.contains(lotteryNumber));
-    }
-
-    private boolean contains(LotteryNumber lotteryNumber) {
-        return lotteryNumbers.contains(lotteryNumber);
+    private boolean isLotteryNumberValid(Set<LotteryNumber> lotteryNumbers) {
+        return lotteryNumbers.size() == LOTTERY_NUMBER_COUNT;
     }
 
     public MatchCount calculateMatchCount(LotteryNumbers otherLotteryNumbers) {
@@ -46,8 +42,12 @@ public class LotteryNumbers implements Iterable<LotteryNumber> {
             (int) lotteryNumbers.stream().filter(otherLotteryNumbers::contains).count());
     }
 
-    private boolean isLotteryNumberValid(Set<LotteryNumber> lotteryNumbers) {
-        return lotteryNumbers.size() == LOTTERY_NUMBER_COUNT;
+    public BonusNumberMatched containsBonusNumber(LotteryNumber lotteryNumber) {
+        return BonusNumberMatched.from(this.contains(lotteryNumber));
+    }
+
+    private boolean contains(LotteryNumber lotteryNumber) {
+        return lotteryNumbers.contains(lotteryNumber);
     }
 
     @Override

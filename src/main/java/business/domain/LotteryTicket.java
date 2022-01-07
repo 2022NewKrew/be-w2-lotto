@@ -23,6 +23,10 @@ public class LotteryTicket implements Iterable<LotteryNumbers> {
                 .collect(Collectors.toList()));
     }
 
+    private boolean isLotteryNumberListValid(List<LotteryNumbers> lotteryNumbersList) {
+        return lotteryNumbersList != null;
+    }
+
     public int getSize() {
         return this.lotteryNumbersList.size();
     }
@@ -30,10 +34,6 @@ public class LotteryTicket implements Iterable<LotteryNumbers> {
     public Ranks calculateRankBy(LotteryResult lotteryResult) {
         return new Ranks(this.lotteryNumbersList.stream().map(lotteryResult::calculateRank)
             .collect(Collectors.toList()));
-    }
-
-    private boolean isLotteryNumberListValid(List<LotteryNumbers> lotteryNumbersList) {
-        return lotteryNumbersList != null;
     }
 
     @Override

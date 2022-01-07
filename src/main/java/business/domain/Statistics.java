@@ -13,19 +13,19 @@ public class Statistics {
         this.rateOfYield = rateOfYield;
     }
 
+    public static Statistics of(Money baseMoney, LotteryTicket lotteryTicket,
+        LotteryResult lotteryResult) {
+        RankMap rankmap = RankMap.of(lotteryResult, lotteryTicket);
+        Money prize = rankmap.getTotalPrize();
+        return new Statistics(rankmap, Money.calculateRateOfYield(baseMoney, prize));
+    }
+
     private boolean isRateOfYieldValid(RateOfYield rateOfYield) {
         return rateOfYield != null;
     }
 
     private boolean isRankMapValid(RankMap rankMap) {
         return rankMap != null;
-    }
-
-    public static Statistics of(Money baseMoney, LotteryTicket lotteryTicket,
-        LotteryResult lotteryResult) {
-        RankMap rankmap = RankMap.of(lotteryResult, lotteryTicket);
-        Money prize = rankmap.getTotalPrize();
-        return new Statistics(rankmap, Money.calculateRateOfYield(baseMoney, prize));
     }
 
     public double getRateOfYield() {

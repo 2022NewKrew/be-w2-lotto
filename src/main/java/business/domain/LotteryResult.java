@@ -13,17 +13,17 @@ public class LotteryResult {
         this.bonusNumber = bonusNumber;
     }
 
-    public Rank calculateRank(LotteryNumbers lotteryNumbers) {
-        return Rank.valueOf(lotteryNumbers.calculateMatchCount(this.drawnNumbers),
-            lotteryNumbers.containsBonusNumber(bonusNumber));
-    }
-
     private boolean isDrawnNumbersValid(LotteryNumbers drawnNumbers) {
         return drawnNumbers != null;
     }
 
     private boolean isBonusNumberValid(LotteryNumber bonusNumber) {
         return bonusNumber != null;
+    }
+
+    public Rank calculateRank(LotteryNumbers lotteryNumbers) {
+        return Rank.valueOf(lotteryNumbers.calculateMatchCount(this.drawnNumbers),
+            lotteryNumbers.containsBonusNumber(bonusNumber));
     }
 
     @Override

@@ -21,6 +21,10 @@ public class Money {
         return new Money(m1.getValue() + m2.getValue());
     }
 
+    private boolean isValueValid(long value) {
+        return value % UNIT_VALUE == 0;
+    }
+
     public Money multiply(int multiplier) {
         return new Money(this.value * multiplier);
     }
@@ -32,10 +36,6 @@ public class Money {
     public static RateOfYield calculateRateOfYield(Money base, Money income) {
         return new RateOfYield(
             ((double) (100 * (income.getValue() - base.getValue()))) / base.getValue());
-    }
-
-    private boolean isValueValid(long value) {
-        return value % UNIT_VALUE == 0;
     }
 
     public long getValue() {

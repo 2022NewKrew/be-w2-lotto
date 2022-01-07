@@ -23,12 +23,12 @@ public class RankMap {
         return new RankMap(rankMap);
     }
 
-    public int getCountOf(Rank rank) {
-        return this.rankMap.get(rank);
-    }
-
     private boolean isRankMapValid(Map<Rank, Integer> rankMap) {
         return rankMap != null;
+    }
+
+    public int getCountOf(Rank rank) {
+        return this.rankMap.get(rank);
     }
 
     public Money getTotalPrize() {

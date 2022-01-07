@@ -36,12 +36,12 @@ public class MatchCount {
         return MATCH_COUNT_POOL.get(value);
     }
 
-    public int getValue() {
-        return value;
-    }
-
     private boolean isValueValid(int value) {
         return value >= MATCH_COUNT_MIN && value <= MATCH_COUNT_MAX;
+    }
+
+    public int getValue() {
+        return value;
     }
 
     @Override

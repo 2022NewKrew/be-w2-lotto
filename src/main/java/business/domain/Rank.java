@@ -22,17 +22,17 @@ public enum Rank {
         this.description = description;
     }
 
+    public static Rank valueOf(MatchCount matchCount, BonusNumberMatched bonusNumberMatched) {
+        return Arrays.stream(Rank.values()).filter((rank) -> matchCount.equals(rank.matchCount))
+            .filter((rank) -> !rank.bonusRequired || bonusNumberMatched.getValue()).findFirst()
+            .orElse(MISS);
+    }
+
     public Money getPrize() {
         return new Money(this.prize);
     }
 
     public String getDescription() {
         return description;
-    }
-
-    public static Rank valueOf(MatchCount matchCount, BonusNumberMatched bonusNumberMatched) {
-        return Arrays.stream(Rank.values()).filter((rank) -> matchCount.equals(rank.matchCount))
-            .filter((rank) -> !rank.bonusRequired || bonusNumberMatched.getValue()).findFirst()
-            .orElse(MISS);
     }
 }
