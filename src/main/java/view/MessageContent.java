@@ -1,6 +1,9 @@
 package view;
 
 public class MessageContent {
+
+    private MessageContent() {}
+
     static final String COMMA = ", ";
     static final String OPEN_BRACKET = "[";
     static final String CLOSING_BRACKET = "]";

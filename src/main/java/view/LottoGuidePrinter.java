@@ -9,6 +9,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class LottoGuidePrinter {
+
+    private LottoGuidePrinter() {}
+
     public static void requestPurchaseAmountInput() {
         System.out.println(MessageContent.PURCHASE_AMOUNT_REQUEST);
     }

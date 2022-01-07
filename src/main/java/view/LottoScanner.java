@@ -12,6 +12,9 @@ import java.util.stream.IntStream;
 public class LottoScanner {
     private static final Scanner in = new Scanner(System.in);
 
+    private LottoScanner() {
+    }
+
     public static int getPurchaseQuantity() {
         try {
             int purchaseAmount = Integer.parseInt(in.nextLine());
