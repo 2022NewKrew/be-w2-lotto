@@ -16,7 +16,11 @@ public class ManualLottoLine implements LottoLine {
         List<Integer> retLst = new ArrayList<>();
 
         for (String str : strLst) {
-            retLst.add(Integer.valueOf(str));
+            try {
+                retLst.add(Integer.parseInt(str));
+            } catch (NumberFormatException e) {
+                return null;
+            }
         }
 
         Collections.sort(retLst);

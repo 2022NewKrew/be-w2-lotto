@@ -14,7 +14,7 @@ public class OutputView {
         System.out.printf("0부터 %d까지의 정수 중 하나의 수를 입력해주세요\n", totalNum);
     }
 
-    public static void printWinningInputError() {
+    public static void printManualInputError() {
         System.out.println("1부터 45까지의 서로 다른 숫자 6개를 ','로 나누어서 입력해주세요.");
     }
 

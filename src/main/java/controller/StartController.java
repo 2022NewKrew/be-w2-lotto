@@ -53,17 +53,19 @@ public class StartController {
     }
 
     private static LottoLine inputManualLottoLine() {
-        return ManualLottoLine.makeManualLottoLineFromStrLst(InputView.getManualNumber());
+        LottoLine ret = ManualLottoLine.makeManualLottoLineFromStrLst(InputView.getManualNumber());
+
+        if (ret == null) {
+            OutputView.printManualInputError();;
+            ret = inputManualLottoLine();
+        }
+
+        return ret;
     }
 
     public static WinningLottoLine makeWinningLine() {
         OutputView.announceBeforeWinningLine();
         LottoLine lottoLine = inputManualLottoLine();
-
-        while (lottoLine == null) {
-            OutputView.printWinningInputError();
-            lottoLine = inputManualLottoLine();
-        }
 
         WinningLottoLine winningLottoLine = new WinningLottoLine(lottoLine);
         setBonus(winningLottoLine);
