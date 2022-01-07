@@ -18,4 +18,9 @@ public interface LottoView {
     void printNormalResult(int matches, int value, int count);
     void printBonusResult(int matches, int value, int count);
     void printProfit(int profit);
+    void printLessThanMinimum(int minimum);
+    void printGreaterThanMaximum(int maximum);
+    void printDuplicateNotAllowed();
+    void printValueNotAllowed(int value);
+    void printWrongSize(int expected);
 }
