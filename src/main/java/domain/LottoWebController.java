@@ -1,11 +1,11 @@
-package view;
+package domain;
 
-import domain.LottoService;
-import domain.LottoTickets;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.template.handlebars.HandlebarsTemplateEngine;
+import view.SparkLottoInputController;
+import view.SparkLottoRenderer;
 
 import java.util.HashMap;
 import java.util.List;

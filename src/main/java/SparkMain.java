@@ -1,5 +1,6 @@
 import domain.AutoLottoGenerator;
 import domain.LottoService;
+import domain.LottoWebController;
 import domain.ManualLottoGenerator;
 import view.*;
 
