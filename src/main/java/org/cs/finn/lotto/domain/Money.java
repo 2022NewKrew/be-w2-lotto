@@ -1,14 +1,8 @@
 package org.cs.finn.lotto.domain;
 
-import org.cs.finn.lotto.domain.lotto.LottoNumbers;
 import org.cs.finn.lotto.util.Checker;
-import org.cs.finn.lotto.util.LottoNumbersGenerator;
 import org.cs.finn.lotto.util.NumberFormatter;
 
-import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 
 public class Money {
