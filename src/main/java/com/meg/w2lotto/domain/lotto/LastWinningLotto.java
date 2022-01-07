@@ -1,4 +1,4 @@
-package com.meg.w2lotto.domain;
+package com.meg.w2lotto.domain.lotto;
 
 import java.util.List;
 

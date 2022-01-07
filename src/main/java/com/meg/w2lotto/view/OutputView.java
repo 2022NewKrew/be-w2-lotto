@@ -1,7 +1,7 @@
 package com.meg.w2lotto.view;
 
-import com.meg.w2lotto.domain.Lotto;
-import com.meg.w2lotto.domain.Prize;
+import com.meg.w2lotto.domain.lotto.Lotto;
+import com.meg.w2lotto.domain.result.Prize;
 
 import java.util.Map;
 
@@ -15,18 +15,28 @@ public class OutputView {
         System.out.println(lotto.toString());
     }
 
-    public static final void printResult(Map<Prize, Integer> correctCounts) {
+    public static void printResult(Map<Prize, Integer> correctCounts) {
         System.out.println("\n당첨 통계");
         System.out.println("---------");
 
-        for (Prize prize : Prize.values()) {
-            System.out.print(prize.getMatchCount()+ "개 일치");
-            if (prize.isBonus()) System.out.print(", 보너스 볼 일치");
-            System.out.println(String.format(" (%d원)- %d개", prize.getWinningMoney(), correctCounts.get(prize)));
+        for (Map.Entry<Prize, Integer> entry : correctCounts.entrySet()) {
+            System.out.println(getCorrectCountOfPrize(entry.getKey(), entry.getValue()));
         }
     }
 
-    public static final void printRateOfReturn(int rateOfReturn) {
+    private static String getCorrectCountOfPrize(Prize prize, int count) {
+        if (prize == Prize.FAIL) {
+            return "";
+        }
+        return String.format(
+                "%d개 일치, %s(%d원)- %d개",
+                prize.getMatchCount(),
+                prize.isBonus() ? "보너스 볼 일치" : "",
+                prize.getWinningMoney(),
+                count);
+    }
+
+    public static void printRateOfReturn(int rateOfReturn) {
         System.out.println("총 수익률은 " + rateOfReturn + "%입니다.");
     }
 }

@@ -1,13 +1,11 @@
-package com.meg.w2lotto.domain;
+package com.meg.w2lotto.domain.lotto;
 
 import java.util.List;
 import java.util.stream.IntStream;
 
 public class LottoNumber implements Comparable<LottoNumber> {
 
-    public static final int MIN = 1;
-    public static final int MAX = 45;
-    private static final List<LottoNumber> numbers = IntStream.range(MIN, MAX + 1)
+    private static final List<LottoNumber> numbers = IntStream.range(LottoConstant.LOTTO_NUMBER_MIN, LottoConstant.LOTTO_NUMBER_MAX + 1)
             .boxed()
             .map(LottoNumber::new)
             .toList();
@@ -19,6 +17,10 @@ public class LottoNumber implements Comparable<LottoNumber> {
 
     public static LottoNumber valueOf(int n) {
         return numbers.get(n-1);
+    }
+
+    public int getNumber() {
+        return number;
     }
 
     @Override

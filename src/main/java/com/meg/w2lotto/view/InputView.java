@@ -8,27 +8,27 @@ public class InputView {
 
     private static final Scanner sc = new Scanner(System.in);
 
-    public static final int askPurchaseMoney() {
+    public static int askPurchaseMoney() {
         System.out.println("구입금액을 입력해주세요.");
         return sc.nextInt();
     }
 
-    public static final int askPurchaseManualLottoCount() {
+    public static int askPurchaseManualLottoCount() {
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
         return sc.nextInt();
     }
 
-    public static final List<Integer> askPurchaseManualLottoNumbers() {
+    public static List<Integer> askPurchaseManualLottoNumbers() {
         System.out.println("수동으로 구매할 번호를 입력해 주세요.");
         return StrListToIntList(List.of(sc.next().split(",")));
     }
 
-    public static final List<Integer> askLastLottoNumbers() {
+    public static List<Integer> askLastWinningLotto() {
         System.out.println("\n지난 주 당첨 번호를 입력해 주세요.");
         return StrListToIntList(List.of(sc.next().split(",")));
     }
 
-    private static final List<Integer> StrListToIntList(List<String> input) {
+    private static List<Integer> StrListToIntList(List<String> input) {
         List<Integer> list = new ArrayList<>();
         for (String c : input) {
             list.add(Integer.parseInt(c.strip()));
@@ -36,7 +36,7 @@ public class InputView {
         return list;
     }
 
-    public static final int askBonusBallNumber() {
+    public static int askBonusBallNumber() {
         System.out.println("\n보너스 볼을 입력해 주세요.");
         return sc.nextInt();
     }

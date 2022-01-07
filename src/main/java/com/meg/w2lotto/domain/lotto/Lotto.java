@@ -1,14 +1,11 @@
-package com.meg.w2lotto.domain;
+package com.meg.w2lotto.domain.lotto;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Lotto {
-
-    public static final int SIZE = 6;
-    public static final int COST = 1000;
-    private final List<LottoNumber> numbers = new ArrayList<>(SIZE);
+    private final List<LottoNumber> numbers = new ArrayList<>(LottoConstant.LOTTO_COST);
 
     public Lotto(List<Integer> numbers) {
 

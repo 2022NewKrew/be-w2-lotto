@@ -1,11 +1,12 @@
-package com.meg.w2lotto.domain;
+package com.meg.w2lotto.domain.result;
 
 public enum Prize {
     FIRST(6, 2000000000, false),
     SECOND(5, 30000000, true),
     THIRD(5, 1500000, false),
     FOURTH(4, 50000, false),
-    FIFTH(3, 5000, false);
+    FIFTH(3, 5000, false),
+    FAIL(0, 0, false);
 
     private final int matchCount;
     private final int winningMoney;
@@ -24,7 +25,7 @@ public enum Prize {
         for (Prize prize : values()) {
             if (prize.matchCount == matchCount) return prize;
         }
-        return null;
+        return FAIL;
     }
 
     public final int getMatchCount() {
