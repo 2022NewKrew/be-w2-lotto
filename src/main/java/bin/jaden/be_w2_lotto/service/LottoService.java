@@ -12,6 +12,10 @@ import bin.jaden.be_w2_lotto.renderer.LottoRenderer;
 import spark.Request;
 import spark.Response;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,6 +24,8 @@ import java.util.stream.Collectors;
 
 public class LottoService {
     LottoRenderer lottoRenderer = new LottoRenderer();
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+    EntityManager entityManager = entityManagerFactory.createEntityManager();
 
     public String index(Request request, Response response) {
         request.session(true);
@@ -50,12 +56,26 @@ public class LottoService {
         String winningString = request.queryParams("winningNumber");
         String bonusString = request.queryParams("bonusNumber");
         LottoGameManager lottoGameManager = request.session().attribute("lottoGameManager");
+
         try {
-            WinLottoGame winLottoGame = getWinLottoGame(winningString, bonusString);
-            return lottoRenderer.getMatchLottoRender(lottoGameManager.getResults(winLottoGame));
+            return getMatchLottoHtml(lottoGameManager, winningString, bonusString);
         } catch (NumberFormatException | InvalidArraySizeException | NumberOutOfRangeException | DuplicateNumberException exception) {
             return lottoRenderer.getBuyLottoErrorRender(exception.getMessage(), lottoGameManager.getLottoGames());
         }
+    }
+
+    private String getMatchLottoHtml(LottoGameManager lottoGameManager, String winningString, String bonusString) {
+        EntityTransaction tx = entityManager.getTransaction();
+        tx.begin();
+        String renderedHtml = "";
+        try {
+            WinLottoGame winLottoGame = getWinLottoGame(winningString, bonusString);
+            renderedHtml = lottoRenderer.getMatchLottoRender(lottoGameManager.getResults(winLottoGame, entityManager));
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        }
+        return renderedHtml;
     }
 
     private LottoGameManager getLottoManager(String inputMoney, String manualNumber) {

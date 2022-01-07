@@ -4,6 +4,7 @@ import bin.jaden.be_w2_lotto.data.Constants;
 import bin.jaden.be_w2_lotto.data.LottoGameResult;
 import bin.jaden.be_w2_lotto.data.LottoRankEnum;
 
+import javax.persistence.EntityManager;
 import java.util.*;
 
 public class LottoGameManager {
@@ -15,7 +16,6 @@ public class LottoGameManager {
         int size = purchasingAmount / Constants.PRICE_PER_GAME - manualLottoGames.size();
         List<LottoGame> lottoGames = new ArrayList<>(manualLottoGames);
 
-        AutoLottoGame.initAllNumbers();
         for (int i = 0; i < size; i++) {
             lottoGames.add(new AutoLottoGame());
         }
@@ -32,8 +32,22 @@ public class LottoGameManager {
         return count;
     }
 
-    public List<LottoGameResult> getResults(WinLottoGame winLottoGame) {
-        List<LottoGameResult> resultList = new ArrayList<>();
+    public List<LottoGameResult> getPreviousResults(EntityManager em) {
+        return em.createQuery("select l from LottoGameResult l", LottoGameResult.class).getResultList();
+    }
+
+    public void insertResult(LottoGameResult lottoGameResult, EntityManager em) {
+        em.persist(lottoGameResult);
+    }
+
+    public List<LottoGameResult> getResults(WinLottoGame winLottoGame, EntityManager em) {
+
+        LottoGameResult lottoGameResult = makeResult(winLottoGame);
+        insertResult(lottoGameResult, em);
+        return getPreviousResults(em);
+    }
+
+    private LottoGameResult makeResult(WinLottoGame winLottoGame) {
         Map<LottoRankEnum, Integer> resultMap = new HashMap<>();
 
         int bonusNumber = winLottoGame.getBonusNumber();
@@ -42,8 +56,7 @@ public class LottoGameManager {
             LottoRankEnum rank = LottoRankEnum.getRank(count, lottoGame.getNumbers().contains(bonusNumber));
             resultMap.put(rank, resultMap.getOrDefault(rank, 0) + 1);
         }
-        resultList.add(new LottoGameResult(resultMap, purchasingAmount));
-        return Collections.unmodifiableList(resultList);
+        return new LottoGameResult(resultMap, purchasingAmount);
     }
 
     public List<LottoGame> getLottoGames() {
