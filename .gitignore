@@ -8,6 +8,7 @@
 
 .idea/
 .DS_Store
+database/
 
 # User-specific stuff
 .idea/**/workspace.xml
