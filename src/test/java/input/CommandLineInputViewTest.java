@@ -1,6 +1,8 @@
 package input;
 
-import input.dto.InputInfo;
+import step3.input.CommandLineInputView;
+import step3.lotto.domain.WinningLotto;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -22,27 +24,9 @@ class CommandLineInputViewTest {
         // when
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(str.getBytes());
         System.setIn(byteArrayInputStream);
-        InputInfo input = commandLineInputView.inputBuyInfo();
+        int amount = commandLineInputView.inputBuyTicketAmount();
 
         // then
-        assertEquals(14, input.getAmountOfTicket());
+        assertEquals(14, amount);
     }
-
-    @Test
-    @DisplayName("입력 받은 내용이 int List로 잘 변환되는가")
-    void targetInputTest() {
-        // given
-        InputInfo inputInfo = new InputInfo(5);
-        CommandLineInputView commandLineInputView = new CommandLineInputView();
-        String str = "1, 3, 4, 5, 6";
-
-        // when
-        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(str.getBytes());
-        System.setIn(byteArrayInputStream);
-        commandLineInputView.inputTargetNum(inputInfo);
-
-        // then
-        assertEquals(true, inputInfo.getTarget() instanceof List);
-    }
-
 }
