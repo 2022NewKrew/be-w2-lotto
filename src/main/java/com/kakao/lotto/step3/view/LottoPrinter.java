@@ -13,8 +13,9 @@ public class LottoPrinter {
 
     // 구매한 로또의 개수를 출력해줍니다.
     public void printBuyLottoCount(int lottoCount, int manualLottoCount) {
+        int randomLottoCount = lottoCount - manualLottoCount;
         System.out.println(String.format("\n수동으로 %d장, 자동으로 %d개를 구매했습니다.",
-                manualLottoCount, lottoCount - manualLottoCount));
+                manualLottoCount, randomLottoCount));
     }
 
 }
