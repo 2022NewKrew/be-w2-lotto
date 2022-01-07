@@ -5,6 +5,9 @@ import domain.LottoRank;
 import domain.LottoRankMatch;
 import domain.LottoRepository;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class OutputView {
@@ -16,7 +19,9 @@ public class OutputView {
 
     public static void printAutoLottos(LottoRepository autoLottos) {
         for (Lotto autoLotto : autoLottos.getLottos()) {
-            System.out.println(autoLotto.getLotto());
+            List<Integer> lottoNumbers = new ArrayList<>(List.copyOf(autoLotto.getLotto()));
+            Collections.sort(lottoNumbers);
+            System.out.println(lottoNumbers);
         }
     }
 

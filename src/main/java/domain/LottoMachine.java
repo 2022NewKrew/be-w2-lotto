@@ -3,6 +3,7 @@ package domain;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -17,21 +18,20 @@ public class LottoMachine {
             .collect(Collectors.toList());
 
     public LottoRepository createAutoLottos(int purchasedLottoNumbers) {
-        List<Lotto> autuLottos = Stream.generate(this::createAutoLotto)
+        List<Lotto> autoLottos = Stream.generate(this::createAutoLotto)
                 .limit(purchasedLottoNumbers)
                 .collect(Collectors.toList());
-        return new LottoRepository(autuLottos);
+        return new LottoRepository(autoLottos);
     }
 
     private Lotto createAutoLotto() {
         return new Lotto(createAutoLottoNumber());
      }
 
-    private List<Integer> createAutoLottoNumber() {
+    private Set<Integer> createAutoLottoNumber() {
         Collections.shuffle(LOTTO_BALLS);
         return LOTTO_BALLS.stream()
                 .limit(PICK_LOTTO)
-                .sorted()
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 }

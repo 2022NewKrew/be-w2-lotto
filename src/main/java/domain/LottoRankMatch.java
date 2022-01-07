@@ -3,6 +3,7 @@ package domain;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class LottoRankMatch {
     private final Map<LottoRank, Integer> lottoResult;
@@ -33,13 +34,13 @@ public class LottoRankMatch {
         return new LottoRankMatch(lottoResult);
     }
 
-    private static LottoRank createLottoRank(Lotto autoLotto, List<Integer> inputLastWeekWinNumber, Integer bonusNumber) {
+    private static LottoRank createLottoRank(Lotto autoLotto, Set<Integer> inputLastWeekWinNumber, Integer bonusNumber) {
         boolean flag;
         flag = autoLotto.contains(bonusNumber);
         return LottoRank.valueOf(checkMatchedNumbers(autoLotto, inputLastWeekWinNumber), flag);
     }
 
-    private static int checkMatchedNumbers(Lotto autoLotto, List<Integer> inputLastWeekWinNumbers) {
+    private static int checkMatchedNumbers(Lotto autoLotto, Set<Integer> inputLastWeekWinNumbers) {
         return (int) inputLastWeekWinNumbers.stream()
                 .filter(inputLastWeekWinNumber -> checkMatchedNumber(autoLotto, inputLastWeekWinNumber))
                 .count();

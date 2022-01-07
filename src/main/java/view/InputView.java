@@ -6,6 +6,7 @@ import domain.LottoWinningNumber;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class InputView {
@@ -28,9 +29,9 @@ public class InputView {
     public static Lotto lastWeekNumbers() {
         System.out.println(INPUT_LAST_WEEK_WIN_NUMBER);
         String numbersBeforeDefined = scanner.next();
-        List<Integer> numbersAfterDefined = Arrays.stream(numbersBeforeDefined.split(","))
+        Set<Integer> numbersAfterDefined = Arrays.stream(numbersBeforeDefined.split(","))
                 .map(Integer::parseInt)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
         return new Lotto(numbersAfterDefined);
     }
 
