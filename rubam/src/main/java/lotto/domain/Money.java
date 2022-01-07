@@ -36,7 +36,7 @@ public class Money {
 
     public static int calculateEarningRewardRate(Money spent, Map<Rank, Integer> results) {
         int reward = 0;
-        for(Rank rank : results.keySet()) {
+        for (Rank rank : results.keySet()) {
             reward += results.get(rank) * rank.getReward();
         }
         return (reward - spent.amount) * ONE_HUNDRED / spent.amount;

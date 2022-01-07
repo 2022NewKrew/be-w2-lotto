@@ -19,9 +19,9 @@ public class TicketNumbersTest {
 
     @Test
     @DisplayName("티켓번호들은 중복이 없어야한다.")
-    void  duplicatedNumbersCheckTest() {
+    void duplicatedNumbersCheckTest() {
         // given
-        List<Integer> numbers = Arrays.asList(1,2,3,4,5,5);
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 5);
 
         // then
         IllegalArgumentException e = Assertions.assertThrows(IllegalArgumentException.class, () -> {
@@ -34,7 +34,7 @@ public class TicketNumbersTest {
     @DisplayName("숫자의 개수가 6개보다 적을 경우")
     void numbersCountLessThanRequiredTest() {
         // given
-        List<Integer> numbers = Arrays.asList(1,2,3,4,5);
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
 
         // then
         IllegalArgumentException e = Assertions.assertThrows(IllegalArgumentException.class, () -> {
@@ -47,7 +47,7 @@ public class TicketNumbersTest {
     @DisplayName("숫자의 개수가 6개보다 많을 경우")
     void numbersCountMoreThanRequiredTest() {
         // given
-        List<Integer> numbers = Arrays.asList(1,2,3,4,5,6,7);
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7);
 
         // then
         IllegalArgumentException e = Assertions.assertThrows(IllegalArgumentException.class, () -> {
@@ -60,14 +60,14 @@ public class TicketNumbersTest {
     @DisplayName("티켓 번호들을 비교하여 적절한 랭크를 반환한다.")
     void compareTicketNumbersTest() {
         // given
-        List<Integer> numbers1 = Arrays.asList(1,2,3,4,5,6);
-        List<Integer> numbers2 = Arrays.asList(1,2,3,4,5,7);
-        List<Integer> numbers3 = Arrays.asList(1,2,3,4,5,8);
-        List<Integer> numbers4 = Arrays.asList(1,2,3,4,7,8);
-        List<Integer> numbers5 = Arrays.asList(1,2,3,7,8,9);
-        List<Integer> numbers6 = Arrays.asList(1,2,7,8,9,10);
+        List<Integer> numbers1 = Arrays.asList(1, 2, 3, 4, 5, 6);
+        List<Integer> numbers2 = Arrays.asList(1, 2, 3, 4, 5, 7);
+        List<Integer> numbers3 = Arrays.asList(1, 2, 3, 4, 5, 8);
+        List<Integer> numbers4 = Arrays.asList(1, 2, 3, 4, 7, 8);
+        List<Integer> numbers5 = Arrays.asList(1, 2, 3, 7, 8, 9);
+        List<Integer> numbers6 = Arrays.asList(1, 2, 7, 8, 9, 10);
 
-        List<Integer> winNumbers = Arrays.asList(1,2,3,4,5,6);
+        List<Integer> winNumbers = Arrays.asList(1, 2, 3, 4, 5, 6);
         int inputBonusNumber = 7;
 
         // when

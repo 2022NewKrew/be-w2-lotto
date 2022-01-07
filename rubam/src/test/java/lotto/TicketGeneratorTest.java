@@ -18,10 +18,10 @@ public class TicketGeneratorTest {
     @DisplayName("티켓 생성 테스트")
     void generateTicketsTest() {
         // given
-        List<Integer> ticketNumbers = Arrays.asList(1,2,3,4,5,6);
+        List<Integer> ticketNumbers = Arrays.asList(1, 2, 3, 4, 5, 6);
         List<List<Integer>> tickets = new ArrayList<>();
         tickets.add(ticketNumbers);
-        
+
         // when
         TicketsGenerator ticketsGenerator = new DirectTicketsGenerator(tickets);
         List<Ticket> createdTickets = ticketsGenerator.generateTickets(tickets.size());

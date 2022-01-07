@@ -20,9 +20,9 @@ public class CustomerTest {
         int inputMoney = 1000;
         Customer customer = new Customer(new Money(inputMoney));
         List<List<Integer>> ticketList = new ArrayList<>();
-        ticketList.add(Arrays.asList(1,2,3,4,5,6));
+        ticketList.add(Arrays.asList(1, 2, 3, 4, 5, 6));
 
-        List<Integer> winNumbers = Arrays.asList(1,2,3,4,5,6);
+        List<Integer> winNumbers = Arrays.asList(1, 2, 3, 4, 5, 6);
         int inputBonusNumber = 7;
 
         // when
@@ -42,9 +42,9 @@ public class CustomerTest {
         int inputMoney = 1000;
         Customer customer = new Customer(new Money(inputMoney));
         List<List<Integer>> ticketList = new ArrayList<>();
-        ticketList.add(Arrays.asList(1,2,3,4,5,7));
+        ticketList.add(Arrays.asList(1, 2, 3, 4, 5, 7));
 
-        List<Integer> winNumbers = Arrays.asList(1,2,3,4,5,6);
+        List<Integer> winNumbers = Arrays.asList(1, 2, 3, 4, 5, 6);
         int inputBonusNumber = 7;
 
         // when

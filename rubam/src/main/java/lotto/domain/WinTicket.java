@@ -2,7 +2,7 @@ package lotto.domain;
 
 import java.util.List;
 
-public class WinTicket extends Ticket{
+public class WinTicket extends Ticket {
 
     private final TicketNumbers ticketNumbers;
     private final TicketNumber bonusTicketNumber;
