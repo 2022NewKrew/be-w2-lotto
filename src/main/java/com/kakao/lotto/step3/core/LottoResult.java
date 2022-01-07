@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class LottoResult {
 
-    private int LOTTO_PRICE = 1000;
+    public final static int LOTTO_PRICE = 1000;
 
     private int bonusNumber;
     private List<Lotto> lottos;
@@ -27,14 +27,19 @@ public class LottoResult {
     }
 
     private void makeResult(Rank rank) {
-        if(rank != null)
-            results.put(rank, results.get(rank) + 1);
+        if(rank != null) {
+            int countOfRank = results.get(rank);
+            results.put(rank, countOfRank + 1);
+        }
     }
 
     // lottos의 각각의 lotto를 가지고 results 값을 변경합니다.
     private void makeResults() {
-        for(Lotto lotto : lottos)
-            makeResult(Rank.valueOf(lotto.getSameNumber(winningNumbers), lotto.hasBonusNumber(bonusNumber)));
+        for(Lotto lotto : lottos) {
+            int countOfMatch = lotto.getCountOfMatch(winningNumbers);
+            boolean matchBonus = lotto.getMatchBonus(bonusNumber);
+            makeResult(Rank.valueOf(countOfMatch, matchBonus));
+        }
     }
 
     // getter

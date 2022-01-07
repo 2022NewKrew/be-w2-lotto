@@ -23,11 +23,13 @@ public class LottoMain {
 
     public void inputManualLottos() {
         lottos = inputLotto.getManualLottos(lottoCount);
-        lottoPrinter.printBuyLottoCount(lottoCount, lottos.size());
+        int manualLottoCount = lottos.size();
+        lottoPrinter.printBuyLottoCount(lottoCount, manualLottoCount);
     }
 
     public void makeLotto() {
-        lottos.addAll(Lotto.makeLottos(lottoCount - lottos.size()));
+        int randomLottoCount = lottoCount - lottos.size();
+        lottos.addAll(Lotto.makeRandomLottos(randomLottoCount));
         lottoPrinter.printLottos(lottos);
     }
 
