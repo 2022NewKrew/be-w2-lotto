@@ -7,20 +7,32 @@ import java.util.List;
 public class Lotto {
 
     public static final int SIZE = 6;
-    public static final int NUMMIN = 1;
-    public static final int NUMMAX = 45;
     public static final int COST = 1000;
-    private List<Integer> numbers;
+    private final List<LottoNumber> numbers = new ArrayList<>(SIZE);
 
     public Lotto(List<Integer> numbers) {
-        this.numbers = numbers;
+
+        Collections.sort(numbers);
+        initLottoNumberList(numbers);
     }
 
-    public List<Integer> getNumbers() {
+    public List<LottoNumber> getNumbers() {
         return numbers;
     }
 
-    public Boolean contains(int n) {
+    public Boolean contains(LottoNumber n) {
         return numbers.contains(n);
+    }
+
+    @Override
+    public String toString() {
+        return numbers.toString();
+    }
+
+    private List<LottoNumber> initLottoNumberList(List<Integer> intnumbers) {
+        for (int i : intnumbers) {
+            this.numbers.add(LottoNumber.valueOf(i));
+        }
+        return numbers;
     }
 }
