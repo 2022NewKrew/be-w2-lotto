@@ -1,9 +1,8 @@
 package lotto.domain;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Arrays;
 import java.util.Optional;
+import org.jetbrains.annotations.NotNull;
 
 public enum LottoResult {
     FIFTH(3, false, 5000),
@@ -22,15 +21,17 @@ public enum LottoResult {
         this.reward = reward;
     }
 
-    public static @NotNull Optional<LottoResult> getResult(int numOfMatchings, boolean bonusMatching) {
+    public static @NotNull Optional<LottoResult> getResult(int numOfMatchings,
+        boolean bonusMatching) {
         return Arrays.stream(LottoResult.values())
-                .filter(result -> result.isEqual(numOfMatchings, bonusMatching))
-                .findAny();
+            .filter(result -> result.isEqual(numOfMatchings, bonusMatching))
+            .findAny();
     }
 
     private boolean isEqual(int numOfMatchings, boolean bonusMatching) {
         if (numOfMatchings == SECOND.getNumOfMatchingNumbers()) {
-            return this.numOfMatchingNumbers == numOfMatchings && this.bonusMatching == bonusMatching;
+            return this.numOfMatchingNumbers == numOfMatchings
+                && this.bonusMatching == bonusMatching;
         }
         return this.numOfMatchingNumbers == numOfMatchings;
     }

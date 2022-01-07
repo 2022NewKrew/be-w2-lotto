@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class PurchasedLottos {
+
     private final List<Lotto> lottoList;
 
     public PurchasedLottos(List<Lotto> lottoList) {

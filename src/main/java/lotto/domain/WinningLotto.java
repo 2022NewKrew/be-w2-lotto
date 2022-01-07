@@ -1,10 +1,14 @@
 package lotto.domain;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import lotto.DuplicationException;
 
-import java.util.*;
-
 public class WinningLotto {
+
     private final Lotto lotto;
     private final LottoNumber bonusNumber;
 
@@ -14,7 +18,8 @@ public class WinningLotto {
         this.bonusNumber = bonusNumber;
     }
 
-    private void checkDuplicationInWinningLotto(Lotto lotto, LottoNumber bonusNumber) throws DuplicationException {
+    private void checkDuplicationInWinningLotto(Lotto lotto, LottoNumber bonusNumber)
+        throws DuplicationException {
         List<LottoNumber> lottoNumberList = new ArrayList<>(lotto.getNumberList());
         lottoNumberList.add(bonusNumber);
         Set<LottoNumber> lottoNumberSet = new HashSet<>(lottoNumberList);
@@ -28,6 +33,7 @@ public class WinningLotto {
     }
 
     public Optional<LottoResult> getPurchasedResult(Lotto purchasedLotto) {
-        return LottoResult.getResult(lotto.getNumOfMatchingNumbersWith(purchasedLotto), purchasedLotto.containsLottoNumber(bonusNumber));
+        return LottoResult.getResult(lotto.getNumOfMatchingNumbersWith(purchasedLotto),
+            purchasedLotto.containsLottoNumber(bonusNumber));
     }
 }

@@ -1,11 +1,12 @@
 package lotto.domain;
 
+import static lotto.LottoSimulator.LOTTO_PRICE;
+
 import java.util.Collections;
 import java.util.List;
 
-import static lotto.LottoSimulator.LOTTO_PRICE;
-
 public class PurchaseInfo {
+
     private final long numOfManualLottos;
     private final long numOfAutoLottos;
     private final List<String> manualLottoList;

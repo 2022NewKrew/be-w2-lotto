@@ -1,15 +1,23 @@
 package lotto;
 
-import lotto.domain.*;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import lotto.domain.AutoLottoGenerator;
+import lotto.domain.Lotto;
+import lotto.domain.LottoGenerator;
+import lotto.domain.LottoNumber;
+import lotto.domain.ManualLottoGenerator;
+import lotto.domain.PurchaseInfo;
+import lotto.domain.PurchasedLottos;
+import lotto.domain.WinningLotto;
+import lotto.domain.WinningResult;
 import lotto.view.LottoInputScanner;
 import lotto.view.LottoOutputPrinter;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.List;
-
 public class LottoSimulator {
+
     public static final long LOTTO_PRICE = 1000;
     public static final String SEPARATOR = ",";
     public static final int NOT_PURCHASE = 0;
@@ -17,13 +25,15 @@ public class LottoSimulator {
     private final LottoInputScanner lottoInputScanner;
     private final LottoOutputPrinter lottoOutputPrinter;
 
-    public LottoSimulator(LottoInputScanner lottoInputScanner, LottoOutputPrinter lottoOutputPrinter) {
+    public LottoSimulator(LottoInputScanner lottoInputScanner,
+        LottoOutputPrinter lottoOutputPrinter) {
         this.lottoInputScanner = lottoInputScanner;
         this.lottoOutputPrinter = lottoOutputPrinter;
     }
 
     public static void main(String[] args) {
-        LottoSimulator lottoSimulator = new LottoSimulator(new LottoInputScanner(), new LottoOutputPrinter());
+        LottoSimulator lottoSimulator = new LottoSimulator(new LottoInputScanner(),
+            new LottoOutputPrinter());
         lottoSimulator.start();
     }
 
@@ -35,8 +45,10 @@ public class LottoSimulator {
 
         long numOfManualLottos = getNumOfManualLotto();
         try {
-            List<String> manualLottoList = lottoInputScanner.getManualLottoNumberStringList(numOfManualLottos);
-            PurchaseInfo purchasedInfo = new PurchaseInfo(purchaseAmount, numOfManualLottos, manualLottoList);
+            List<String> manualLottoList = lottoInputScanner.getManualLottoNumberStringList(
+                numOfManualLottos);
+            PurchaseInfo purchasedInfo = new PurchaseInfo(purchaseAmount, numOfManualLottos,
+                manualLottoList);
             PurchasedLottos purchasedLottos = purchaseLotto(purchasedInfo);
             WinningLotto winningLotto = getWinningInfo();
             printWinningStat(purchaseAmount, purchasedLottos, winningLotto);
@@ -70,16 +82,20 @@ public class LottoSimulator {
         }
     }
 
-    private @NotNull PurchasedLottos purchaseLotto(@NotNull PurchaseInfo purchaseInfo) throws IllegalLottoNumberException, DuplicationException, NumOfLottoNumbersMismatchException {
+    private @NotNull PurchasedLottos purchaseLotto(@NotNull PurchaseInfo purchaseInfo)
+        throws IllegalLottoNumberException, DuplicationException, NumOfLottoNumbersMismatchException {
         long numOfManualLottos = purchaseInfo.getNumOfManualLottos();
         List<Lotto> purchasedLottoList = getPurchasedLottoList(purchaseInfo);
         lottoOutputPrinter.printPurchaseResult(numOfManualLottos, purchasedLottoList);
         return new PurchasedLottos(purchasedLottoList);
     }
 
-    private List<Lotto> getPurchasedLottoList(PurchaseInfo purchaseInfo) throws IllegalLottoNumberException, DuplicationException, NumOfLottoNumbersMismatchException {
-        LottoGenerator manualLottoGenerator = new ManualLottoGenerator(purchaseInfo.getManualLottoList());
-        LottoGenerator autoLottoGenerator = new AutoLottoGenerator(purchaseInfo.getNumOfAutoLottos());
+    private List<Lotto> getPurchasedLottoList(PurchaseInfo purchaseInfo)
+        throws IllegalLottoNumberException, DuplicationException, NumOfLottoNumbersMismatchException {
+        LottoGenerator manualLottoGenerator = new ManualLottoGenerator(
+            purchaseInfo.getManualLottoList());
+        LottoGenerator autoLottoGenerator = new AutoLottoGenerator(
+            purchaseInfo.getNumOfAutoLottos());
         List<Lotto> purchasedLottoList = new ArrayList<>();
         purchasedLottoList.addAll(manualLottoGenerator.generate());
         purchasedLottoList.addAll(autoLottoGenerator.generate());
@@ -100,7 +116,8 @@ public class LottoSimulator {
         }
     }
 
-    private void printWinningStat(long purchaseAmount, @NotNull PurchasedLottos purchasedLottos, WinningLotto winningLotto) {
+    private void printWinningStat(long purchaseAmount, @NotNull PurchasedLottos purchasedLottos,
+        WinningLotto winningLotto) {
         WinningResult winningResult = WinningResult.winningResultOf(winningLotto, purchasedLottos);
         double yield = winningResult.getYield(purchaseAmount);
         lottoOutputPrinter.printWinningResultPrinter(winningResult);
