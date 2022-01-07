@@ -2,6 +2,7 @@ package lotto.controller;
 
 import lotto.domain.LottoDTO;
 import lotto.domain.winningstats.WinningStats;
+import lotto.domain.winningstats.lastweeknumber.LastWeekNumber;
 import lotto.domain.winningstats.lottobundle.LottoBundle;
 import lotto.view.ConsoleInputView;
 import lotto.view.ConsoleOutputView;
@@ -10,44 +11,36 @@ import java.util.List;
 
 public class LottoController {
 
-    private LottoBundle lottoBundle;
-    private WinningStats winningStats;
-    private int lottoPurchaseMoney;
-    List<Integer> lastWeekLottoNumberList;
-    private int bonusBall;
-
     public LottoController() {
     }
 
-    public void purchaseLottoBundleInView() {
+    public LottoBundle purchaseLottoBundleInView() {
         int lottoPurchaseMoney = ConsoleInputView.getLottoPurchaseMoney();
-        constructLottoBundle(lottoPurchaseMoney);
+        LottoBundle lottoBundle = new LottoBundle(lottoPurchaseMoney);
+        printLottoBundle(lottoBundle);
     }
 
-    private void constructLottoBundle(int lottoPurchaseMoney) {
-        this.lottoPurchaseMoney = lottoPurchaseMoney;
-        this.lottoBundle = new LottoBundle(lottoPurchaseMoney);
-    }
-
-    public void printLottoBundle() {
+    public void printLottoBundle(LottoBundle lottoBundle) {
         ConsoleOutputView.printLottoCount(lottoBundle.getCount());
         ConsoleOutputView.printLottoBundle(lottoBundle);
     }
 
-    public void getLastWeekLottoNumberList() {
-        this.lastWeekLottoNumberList = LottoDTO.getLastWeekLottoNumberList(ConsoleInputView.getLastWeekLottoNumbers());
+    public List<Integer> getLastWeekLottoNumberList() {
+        return LottoDTO.getLastWeekLottoNumberList(ConsoleInputView.getLastWeekLottoNumbers());
     }
 
-    public void constructWinningStats() {
-        this.winningStats = new WinningStats(lottoBundle, lastWeekLottoNumberList, lottoPurchaseMoney, bonusBall);
+    public WinningStats constructWinningStats(LottoBundle lottoBundle) {
+        List<Integer> lastWeekLottoNumberList = getLastWeekLottoNumberList();
+        int bonusBall = getBonusBall();
+        return new WinningStats(lottoBundle, lastWeekLottoNumberList, bonusBall);
     }
 
-    public void printWinningStats() {
+    public void printWinningStats(WinningStats winningStats) {
         ConsoleOutputView.printWinningStats(winningStats);
     }
 
-    public void getBonusBall() {
+    public int getBonusBall() {
         String bonusBall = ConsoleInputView.getBonusBall();
-        this.bonusBall = Integer.parseInt(bonusBall);
+        return Integer.parseInt(bonusBall);
     }
 }

@@ -8,12 +8,12 @@ import java.util.List;
 
 public class LottoBundle {
     private static final String SEPARATOR = "\n";
-    private final long totalMoney;
+    private final long lottoPurchaseMoney;
     private final List<Lotto> lottoList;
 
-    public LottoBundle(long totalMoney) {
+    public LottoBundle(long lottoPurchaseMoney) {
         List<Lotto> lottoListTemp;
-        this.totalMoney = totalMoney;
+        this.lottoPurchaseMoney = lottoPurchaseMoney;
         lottoListTemp = new ArrayList<>();
         long count = getCount();
 
@@ -26,7 +26,11 @@ public class LottoBundle {
 
     public long getCount() {
         final long LOTTO_PRICE = 1000;
-        return totalMoney / LOTTO_PRICE;
+        return lottoPurchaseMoney / LOTTO_PRICE;
+    }
+
+    public long getLottoPurchaseMoney(){
+        return lottoPurchaseMoney;
     }
 
     public List<Lotto> getLottoList() {

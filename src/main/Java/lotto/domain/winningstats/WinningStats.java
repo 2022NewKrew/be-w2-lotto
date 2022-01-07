@@ -12,12 +12,10 @@ import java.util.List;
 public class WinningStats {
     private final HashMap<WinningState, WinningPrice> winningPriceHashMap;
     private final LottoBundle lottoBundle;
-    private final int lottoPurchaseMoney;
     private final LastWeekNumber lastWeekNumber;
 
-    public WinningStats(LottoBundle lottoBundle, List<Integer> lastWeekLottoNumberList, int lottoPurchaseMoney, int bonusBall) {
+    public WinningStats(LottoBundle lottoBundle, List<Integer> lastWeekLottoNumberList, int bonusBall) {
         this.lottoBundle = lottoBundle;
-        this.lottoPurchaseMoney = lottoPurchaseMoney;
         this.winningPriceHashMap = new HashMap<>();
         this.lastWeekNumber = new LastWeekNumber(lastWeekLottoNumberList, bonusBall);
         setWinningPriceHashMap();
@@ -33,7 +31,7 @@ public class WinningStats {
     }
 
     private double getProfitRatePercent() {
-        return ((getProfit() - lottoPurchaseMoney) * 100) / lottoPurchaseMoney;
+        return ((getProfit() - lottoBundle.getLottoPurchaseMoney()) * 100) / lottoBundle.getLottoPurchaseMoney();
     }
 
     private long getProfit() {

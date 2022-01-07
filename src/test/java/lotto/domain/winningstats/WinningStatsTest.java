@@ -20,7 +20,7 @@ class WinningStatsTest {
         List<Integer> lastWeekLottoNumberList = List.of(1,2,3,4,5,6);
         int bonusBall = 7;
 
-        WinningStats winningStats = new WinningStats(lottoBundle, lastWeekLottoNumberList,lottoPurchaseMoney,bonusBall);
+        WinningStats winningStats = new WinningStats(lottoBundle, lastWeekLottoNumberList,bonusBall);
 
         winningStats.printWinningStats();
     }
