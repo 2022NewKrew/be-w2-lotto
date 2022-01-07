@@ -19,7 +19,7 @@ public class LottoBank {
         for (Map.Entry<LottoRank, Integer> resultIndex : lottoRankMatch.getLottoResult().entrySet()) {
             profit += (resultIndex.getKey().getMoney() * resultIndex.getValue());
         }
-        return (profit - purchasedAmount) / (purchasedAmount * 100);
+        return (profit - purchasedAmount) / purchasedAmount * 100;
     }
 
     private static void validatePurchaseAmount(int purchasedAmount, int manualQuantity) {
