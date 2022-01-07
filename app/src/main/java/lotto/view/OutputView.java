@@ -22,9 +22,7 @@ public class OutputView {
     public static void printResult(Map<LottoPrize, Integer> result) {
         System.out.println("당첨 통계\n-------");
         for (LottoPrize lottoPrize : LottoPrize.values()) {
-            if (lottoPrize == LottoPrize.NONE)
-                continue;
-            System.out.println(getMessageFromLottoPrize(lottoPrize) + " (" + lottoPrize.getReward()+ "원)- " + result.get(lottoPrize) + "개");
+            printLottoPrize(lottoPrize, result);
         }
     }
 

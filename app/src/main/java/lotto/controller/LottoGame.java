@@ -21,7 +21,8 @@ public class LottoGame {
         OutputView.printLottoList(lottoList);
 
         LottoResult lottoResult = new LottoResult();
-        lottoResult.checkAllLotto(lottoList);
+        OutputView.printResult(lottoResult.getResultOfAllLotto(lottoList));
+        OutputView.printYield(lottoResult.calculateYield(lottoList.size()));
 
         InputView.closeScanner();
     }

@@ -25,6 +25,7 @@ public class LottoWinningNumber extends Lotto {
     public final LottoPrize match(Lotto lotto) {
         int count = 0;
         boolean bonus = false;
+
         for (LottoNumber number : lottoNumbers)
             count += lotto.contains(number) ? 1 : 0;
 

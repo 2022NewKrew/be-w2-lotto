@@ -1,7 +1,6 @@
 package lotto.domain;
 
 import lotto.view.InputView;
-import lotto.view.OutputView;
 
 import java.util.EnumMap;
 import java.util.List;
@@ -27,13 +26,20 @@ public class LottoResult {
      *
      * Map<LottoPrize, Integer> result 에 결과 저장
      */
-    public void checkAllLotto(List<Lotto> lottoList) {
+    public Map<LottoPrize, Integer> getResultOfAllLotto(List<Lotto> lottoList) {
         for (Lotto lotto : lottoList) {
             putResult(lottoWinningNumber.match(lotto));
         }
 
-        OutputView.printResult(result);
-        OutputView.printYield(calculateYield(lottoList.size()));
+        return result;
+    }
+
+    public double calculateYield(int countOfLotto) { // 수익률 계산
+        final int totalPurchase = countOfLotto * LottoMachine.LOTTO_PRICE;
+
+        if (totalPurchase == 0)
+            return 0;
+        return (double) (totalReward() - totalPurchase) / totalPurchase * 100;
     }
 
     private void putResult(LottoPrize lottoPrize) {
@@ -48,13 +54,5 @@ public class LottoResult {
             totalReward += (long) result.get(lottoPrize) * lottoPrize.getReward();
         }
         return totalReward;
-    }
-
-    private double calculateYield(int countOfLotto) { // 수익률 계산
-        final int totalPurchase = countOfLotto * LottoMachine.LOTTO_PRICE;
-
-        if (totalPurchase == 0)
-            return 0;
-        return (double) (totalReward() - totalPurchase) / totalPurchase * 100;
     }
 }
