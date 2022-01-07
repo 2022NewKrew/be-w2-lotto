@@ -11,8 +11,9 @@ public enum Prize {
     SIX(6, 2_000_000_000L, false);
 
     public static Prize valueOf(int matchedNumber, boolean bonus) {
+        boolean checkedBonus = matchedNumber == BONUS.matchCount && bonus;
         return Arrays.stream(Prize.values())
-                .filter(i -> i.getMatchCount() == matchedNumber && i.getBonus() == bonus)
+                .filter(i -> i.getMatchCount() == matchedNumber && i.getBonus() == checkedBonus)
                 .findAny()
                 .orElse(MISS);
     }

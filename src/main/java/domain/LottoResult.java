@@ -58,23 +58,16 @@ public class LottoResult {
         }
     }
 
-    private void addLottoResult(Lotto lotto, EnumMap<Prize, Integer> lottoResult) {
-        int matchCount = lotto.matchCount(lastWeekWinningNumbers);
-
-        if (matchCount == 5) {
-            lottoResult.put(Prize.valueOf(matchCount, lotto.contains(bonusNumber)),
-                    lottoResult.get(Prize.valueOf(matchCount, lotto.contains(bonusNumber))) + 1);
-            return;
-        }
-        lottoResult.put(Prize.valueOf(matchCount, false), lottoResult.get(Prize.valueOf(matchCount, false)) + 1);
-    }
-
     public EnumMap<Prize, Integer> winningLottoCount(List<Lotto> lottoList) {
         EnumMap<Prize, Integer> lottoResult = new EnumMap<>(Prize.class);
 
         InitializeMap(lottoResult);
         for (Lotto lotto : lottoList) {
-            addLottoResult(lotto, lottoResult);
+            int matchCount = lotto.matchCount(lastWeekWinningNumbers);
+            Prize key = Prize.valueOf(matchCount, lotto.contains(bonusNumber));
+            int value = lottoResult.get(Prize.valueOf(matchCount, lotto.contains(bonusNumber))) + 1;
+
+            lottoResult.put(key, value);
         }
         return lottoResult;
     }
