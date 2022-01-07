@@ -31,7 +31,7 @@ public class Lotto {
         return numbers.contains(bonusNumber);
     }
 
-    private List<Integer> checkLottoNumbers(List<Integer> numbers) throws InvaildListSizeException, InvaildValueRangeException {
+    private List<Integer> checkLottoNumbers(List<Integer> numbers){
         if(numbers.size()!= Util.LOTTO_NUMBER_COUNT){
             throw new InvaildListSizeException("로또의 숫자 개수가 잘못되었습니다.");
         }
@@ -41,7 +41,7 @@ public class Lotto {
         return numbers;
     }
 
-    private int checkLottoNumberRange(int number) throws InvaildValueRangeException{
+    private int checkLottoNumberRange(int number){
         if(number<Util.LOTTO_MIN_NUMBER||number>Util.LOTTO_MAX_NUMBER){
             throw new InvaildValueRangeException("로또 숫자가 정상범위를 벗어났습니다.");
         }

@@ -16,14 +16,14 @@ public class LottoGenerator {
         this.lottos = generate(totalCount, manualNumbers);
     }
 
-    private int checkInputMoney(int inputMoney) throws InvaildValueRangeException {
+    private int checkInputMoney(int inputMoney){
         if(inputMoney<1000){
             throw new InvaildValueRangeException("최소 구매 금액보다 입력 금액이 작습니다.");
         }
         return inputMoney;
     }
 
-    private void checkTotalCountWithManualCount(int totalCount, int manualCount) throws InvaildValueRangeException{
+    private void checkTotalCountWithManualCount(int totalCount, int manualCount){
         if(manualCount<0){
             throw new InvaildValueRangeException("수동입력 로또 개수의 값이 음수입니다.");
         }

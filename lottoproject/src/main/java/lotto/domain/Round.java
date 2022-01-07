@@ -22,7 +22,7 @@ public class Round {
         return lottos.findResultMap(winningNumbers, bonusNumber);
     }
 
-    private List<Integer> checkWinningNumbers(List<Integer> numbers) throws InvaildListSizeException, InvaildValueRangeException {
+    private List<Integer> checkWinningNumbers(List<Integer> numbers){
         if(numbers.size()!= Util.LOTTO_NUMBER_COUNT){
             throw new InvaildListSizeException("당첨 번호 개수가 잘못되었습니다.");
         }
@@ -32,7 +32,7 @@ public class Round {
         return numbers;
     }
 
-    private int checkWinningNumberRange(int number) throws InvaildValueRangeException {
+    private int checkWinningNumberRange(int number){
         if(number< Util.LOTTO_MIN_NUMBER||number>Util.LOTTO_MAX_NUMBER){
             throw new InvaildValueRangeException("당첨 번호 숫자가 정상범위를 벗어났습니다.");
         }
