@@ -15,4 +15,12 @@ public class LotteryEntity {
         this.numbers = numbers;
     }
 
+    public String toString() {
+        ArrayList<String> temp = new ArrayList<>();
+        for (Integer el : numbers) {
+            temp.add(el.toString());
+        }
+        return String.join(",", temp);
+    }
+
 }
