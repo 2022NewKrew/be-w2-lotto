@@ -1,5 +1,7 @@
 package domain;
 
+import view.InputView;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -35,7 +37,13 @@ public class LottoMachine {
     }
 
     public List<Lotto> createManualLottos(int manualQuantity) {
+        return Stream.generate(this::createManualLotto)
+                .limit(manualQuantity)
+                .collect(Collectors.toList());
+    }
 
+    private Lotto createManualLotto() {
+        return InputView.manualNumbers();
     }
 
 }
