@@ -16,6 +16,7 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation "com.sparkjava:spark-core:2.9.3"
     implementation "com.sparkjava:spark-template-handlebars:2.7.1"
+    implementation 'com.h2database:h2:1.4.200'
 }
 
 test {

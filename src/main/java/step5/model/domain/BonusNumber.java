@@ -1,6 +1,6 @@
-package step5.domain.model;
+package step5.model.domain;
 
-import step5.exceptions.DuplicatedNumberException;
+import step5.utils.exception.DuplicatedNumberException;
 
 import static step5.utils.CommonConstants.END_LOTTO_NUM;
 import static step5.utils.CommonConstants.START_LOTTO_NUM;

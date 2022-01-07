@@ -1,8 +1,8 @@
-package step5.domain.model;
+package step5.model.domain;
 
 import org.apache.commons.lang3.StringUtils;
-import step5.exceptions.DifferentSizeException;
-import step5.exceptions.EmptyInputException;
+import step5.utils.exception.DifferentSizeException;
+import step5.utils.exception.EmptyInputException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -66,6 +66,14 @@ public class Lotto {
 
     @Override
     public String toString() {
-        return this.lottoList.toString();
+        StringBuilder sb = new StringBuilder();
+
+        for (Integer number : this.lottoList) {
+            sb.append(number).append(", ");
+        }
+
+        sb.setLength(sb.length() - 2);
+
+        return sb.toString();
     }
 }

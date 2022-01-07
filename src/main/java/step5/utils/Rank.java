@@ -3,27 +3,31 @@ package step5.utils;
 import java.util.Arrays;
 
 public enum Rank {
-    OTHER(-1, 0),
-    FIFTH(3, 5000),
-    FOURTH(4, 50000),
-    THIRD(5, 1500000),
-    SECOND(5, 30000000),
-    FIRST(6, 2000000000);
+    OTHER("other", -1, 0),
+    FIFTH("fifth", 3, 5000),
+    FOURTH("fourth", 4, 50000),
+    THIRD("third", 5, 1500000),
+    SECOND("second", 5, 30000000),
+    FIRST("first", 6, 2000000000);
 
+    private final String rankStr;
     private final int countOfMatch;
     private final long winningMoney;
 
-    Rank(int countOfMatch, long winningMoney) {
+    Rank(String rankStr, int countOfMatch, long winningMoney) {
+        this.rankStr = rankStr;
         this.countOfMatch = countOfMatch;
         this.winningMoney = winningMoney;
     }
 
+    public String getRankStr() { return this.rankStr; }
+
     public int getCountOfMatch() {
-        return countOfMatch;
+        return this.countOfMatch;
     }
 
     public long getWinningMoney() {
-        return winningMoney;
+        return this.winningMoney;
     }
 
     public static Rank valueOf(int countOfMatch, boolean matchBonus) {
@@ -33,6 +37,13 @@ public enum Rank {
 
         return Arrays.stream(values())
                 .filter(rank -> rank.countOfMatch == countOfMatch)
+                .findFirst()
+                .orElse(OTHER);
+    }
+
+    public static Rank valueOf(String rankStr, boolean matchBonus) {
+        return Arrays.stream(values())
+                .filter(rank -> rank.rankStr.equals(rankStr))
                 .findFirst()
                 .orElse(OTHER);
     }

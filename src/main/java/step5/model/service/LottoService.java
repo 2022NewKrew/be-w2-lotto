@@ -1,15 +1,14 @@
-package step5.domain;
+package step5.model.service;
 
-import step5.domain.model.*;
+import step5.model.domain.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static step5.utils.CommonConstants.LOTTO_PRICE;
 
-public class LottoGame {
+public class LottoService {
     public static Lottos makeLottos(String moneyForBuy, String manualLottosStr) {
         int lottosQuantity = getLottosQuantity(moneyForBuy);
         List<Lotto> manualLottos = divideManualLottosStr(manualLottosStr);

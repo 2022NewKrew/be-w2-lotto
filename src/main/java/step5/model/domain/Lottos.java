@@ -1,4 +1,4 @@
-package step5.domain.model;
+package step5.model.domain;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,12 +14,20 @@ public class Lottos implements Iterable<Lotto> {
 
     public Lottos(List<Lotto> manualLottos, int autoLottosQuantity) {
         this.lottos = new ArrayList<>();
-        addManualLottos(manualLottos);
+        addLottos(manualLottos);
         makeLottos(autoLottosQuantity);
     }
 
-    private void addManualLottos(List<Lotto> manualLottos) {
-        this.lottos.addAll(manualLottos);
+    public Lottos() {
+        this.lottos = new ArrayList<>();
+    }
+
+    private void addLottos(List<Lotto> lottosForAdd) {
+        this.lottos.addAll(lottosForAdd);
+    }
+
+    public void addLotto(Lotto lottoForAdd) {
+        this.lottos.add(lottoForAdd);
     }
 
     private void makeLottos(int lottosQuantity) {

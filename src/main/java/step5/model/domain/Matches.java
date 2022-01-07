@@ -1,4 +1,4 @@
-package step5.domain.model;
+package step5.model.domain;
 
 import step5.utils.Rank;
 

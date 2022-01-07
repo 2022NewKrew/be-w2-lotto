@@ -1,4 +1,4 @@
-package step5.exceptions;
+package step5.utils.exception;
 
 public class DuplicatedNumberException extends RuntimeException {
     public DuplicatedNumberException(String message) {

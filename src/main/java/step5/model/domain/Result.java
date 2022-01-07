@@ -1,8 +1,8 @@
-package step5.domain.model;
+package step5.model.domain;
 
 import org.apache.commons.lang3.StringUtils;
-import step5.exceptions.DifferentSizeException;
-import step5.exceptions.EmptyInputException;
+import step5.utils.exception.DifferentSizeException;
+import step5.utils.exception.EmptyInputException;
 
 import java.util.Arrays;
 import java.util.List;

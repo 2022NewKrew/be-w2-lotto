@@ -1,13 +1,18 @@
 package step5.controller;
 
+import org.h2.jdbcx.JdbcDataSource;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
-import step5.domain.LottoGame;
-import step5.domain.model.Lottos;
-import step5.domain.model.Matches;
+import step5.model.service.LottoService;
+import step5.model.domain.Lottos;
+import step5.model.domain.Matches;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import static spark.Spark.*;
 
@@ -41,7 +46,7 @@ public class LottoController {
     private static void buyLotto() {
         post("/buyLotto", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            lottos = LottoGame.makeLottos(request.queryParams("moneyForBuy"),
+            lottos = LottoService.makeLottos(request.queryParams("moneyForBuy"),
                                             request.queryParams("manualLottos"));
 
             model.put("lottosQuantity", lottos.size());
@@ -53,7 +58,7 @@ public class LottoController {
     private static void matchLotto() {
         post("/matchLotto", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            Matches matches = LottoGame.startMatch(lottos, request.queryParams("result"),
+            Matches matches = LottoService.startMatch(lottos, request.queryParams("result"),
                                                 request.queryParams("bonusNumber"));
 
             model.put("matchResults", matches);

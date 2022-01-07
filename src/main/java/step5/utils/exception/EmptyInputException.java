@@ -1,4 +1,4 @@
-package step5.exceptions;
+package step5.utils.exception;
 
 public class EmptyInputException extends RuntimeException {
     public EmptyInputException(String message) {

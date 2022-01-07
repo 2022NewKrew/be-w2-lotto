@@ -1,4 +1,4 @@
-package step5.exceptions;
+package step5.utils.exception;
 
 public class DifferentSizeException extends RuntimeException {
     public DifferentSizeException(int insertedSize, int neededSize) {
