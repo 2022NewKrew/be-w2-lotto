@@ -33,6 +33,7 @@ public class LottoGenerator {
     }
 
     private List<List<Integer>> convManualStringToDoubleList(String manualNumberString){
+        if (manualNumberString.equals("")) return new ArrayList<>();
         List<String> manualNumberStrings = Util.convStringToStringArraylist(manualNumberString, "\r?\n");
         List<List<Integer>> manualNumbers = new ArrayList<>();
         for(String string : manualNumberStrings){
