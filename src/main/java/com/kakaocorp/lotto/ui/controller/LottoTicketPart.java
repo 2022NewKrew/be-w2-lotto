@@ -3,6 +3,7 @@ package com.kakaocorp.lotto.ui.controller;
 import com.kakaocorp.lotto.domain.LottoDispenser;
 import com.kakaocorp.lotto.model.LottoTicket;
 import com.kakaocorp.lotto.ui.view.LottoTicketPartView;
+import com.kakaocorp.lotto.validation.LessThanMinimumException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,7 +20,7 @@ public class LottoTicketPart extends LottoControllerPart<LottoTicketPartView> {
     }
 
     public List<LottoTicket> handle(int payment) {
-        int manualCount = view.showManualCountPrompt();
+        int manualCount = getValidValue(this::getManualCount);
         view.showManualTicketPromptHeader();
         List<LottoTicket> manual = showManualTicketsPrompts(manualCount);
         List<LottoTicket> tickets = dispenser.purchase(payment, manual);
@@ -27,10 +28,19 @@ public class LottoTicketPart extends LottoControllerPart<LottoTicketPartView> {
         return tickets;
     }
 
+    private int getManualCount() {
+        int minimum = 1;
+        int count = view.showManualCountPrompt();
+        if (count < minimum) {
+            throw new LessThanMinimumException(minimum);
+        }
+        return count;
+    }
+
     private List<LottoTicket> showManualTicketsPrompts(int manualCount) {
         List<LottoTicket> manualTickets = new ArrayList<>(manualCount);
         for (int i = 0; i < manualCount; i++) {
-            List<Integer> numbers = view.acceptManualTicketInput();
+            List<Integer> numbers = getValidNumbers(view::acceptManualTicketInput);
             LottoTicket ticket = new LottoTicket(Set.copyOf(numbers));
             manualTickets.add(ticket);
         }
