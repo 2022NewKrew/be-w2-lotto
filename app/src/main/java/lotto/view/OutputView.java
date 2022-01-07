@@ -29,7 +29,7 @@ public class OutputView {
     }
 
     public static void printYield(double yield) {
-        System.out.printf("총 수익률은 %.2f%s 입니다.", yield, "%"); // ?
+        System.out.printf("총 수익률은 %.2f%s 입니다.", yield, "%");
     }
 
     private static void printLottoPrize(LottoPrize lottoPrize, Map<LottoPrize, Integer> result) {

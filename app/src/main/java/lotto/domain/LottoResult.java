@@ -41,11 +41,11 @@ public class LottoResult {
         result.put(lottoPrize, result.get(lottoPrize) + 1);
     }
 
-    private int totalReward() {
-        int totalReward = 0;
+    private long totalReward() {
+        long totalReward = 0;
 
         for (LottoPrize lottoPrize : result.keySet()){
-            totalReward += result.get(lottoPrize) * lottoPrize.getReward();
+            totalReward += (long) result.get(lottoPrize) * lottoPrize.getReward();
         }
         return totalReward;
     }
