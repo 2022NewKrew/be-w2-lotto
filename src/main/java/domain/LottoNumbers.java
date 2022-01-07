@@ -9,29 +9,23 @@ import static domain.Constants.LOTTO_NUMBER_SIZE;
 public class LottoNumbers {
     private final List<LottoNumber> numbers;
 
-    public LottoNumbers(List<Integer> lottoNumbers) {
+    public LottoNumbers(List<LottoNumber> lottoNumbers) {
         validateSize(lottoNumbers);
         validateDuplicate(lottoNumbers);
 
-        this.numbers = createLottoNumbers(lottoNumbers);
+        this.numbers = lottoNumbers;
     }
 
-    private void validateSize(List<Integer> lottoNumbers){
+    private void validateSize(List<LottoNumber> lottoNumbers){
         if(lottoNumbers.size() != LOTTO_NUMBER_SIZE) throw new IllegalArgumentException();
     }
 
-    private void validateDuplicate(List<Integer> lottoNumbers){
+    private void validateDuplicate(List<LottoNumber> lottoNumbers){
         int count = (int) lottoNumbers.stream()
                 .distinct()
                 .count();
 
         if(count!= LOTTO_NUMBER_SIZE) throw new IllegalArgumentException();
-    }
-
-    private List<LottoNumber> createLottoNumbers(List<Integer> lottoNumbers){
-        return lottoNumbers.stream()
-                .map(LottoNumber::of)
-                .collect(Collectors.toUnmodifiableList());
     }
 
     public List<LottoNumber> getLottoNumbers() {
