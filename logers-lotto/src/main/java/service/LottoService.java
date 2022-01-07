@@ -19,7 +19,7 @@ public class LottoService {
     }
 
     private LottoOrder createLottoOrder(PurchaseDto purchaseDto){
-        int purchaseAmount = purchaseDto.getPurchasePrise();
+        int purchaseAmount = purchaseDto.getPurchasePrice();
         List<List<Integer>> manualLottoNumberLists = purchaseDto.getManualLottoNumberLists();
 
         return LottoOrderFactory
