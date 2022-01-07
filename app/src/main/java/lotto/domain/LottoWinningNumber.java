@@ -28,10 +28,9 @@ public class LottoWinningNumber extends Lotto {
         for (LottoNumber number : lottoNumbers)
             count += lotto.contains(number) ? 1 : 0;
 
-        if (lotto.contains(bonusBall)) {
-            count += 1;
+        if (lotto.contains(bonusBall))
             bonus = true;
-        }
+
         return LottoPrize.from(count, bonus);
     }
 

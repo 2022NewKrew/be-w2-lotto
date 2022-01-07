@@ -7,7 +7,6 @@ import lotto.domain.Lotto;
 import lotto.domain.LottoNumber;
 import lotto.domain.LottoPrize;
 import lotto.domain.LottoWinningNumber;
-import lotto.domain.LottoMachine;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import static org.junit.Assert.*;

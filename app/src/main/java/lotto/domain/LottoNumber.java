@@ -19,11 +19,11 @@ public class LottoNumber implements Comparable<LottoNumber> {
      *  해당되는 숫자의 인스턴스만 from 메소드를 통해 반환
      */
     static {
-        List<LottoNumber> tmpList = new ArrayList<>(MAX_NUMBER);
+        List<LottoNumber> lottoNumberList = new ArrayList<>(MAX_NUMBER);
 
         for (int i = MIN_NUMBER; i <= MAX_NUMBER; i++)
-            tmpList.add(new LottoNumber(i));
-        INSTANCES = Collections.unmodifiableList(tmpList);
+            lottoNumberList.add(new LottoNumber(i));
+        INSTANCES = Collections.unmodifiableList(lottoNumberList);
     }
 
     private LottoNumber(int number) {

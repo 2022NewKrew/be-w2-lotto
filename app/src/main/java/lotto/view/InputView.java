@@ -3,7 +3,6 @@ package lotto.view;
 import lotto.domain.Lotto;
 import lotto.domain.LottoNumber;
 import lotto.domain.LottoWinningNumber;
-import lotto.domain.LottoMachine;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -45,7 +44,6 @@ public class InputView {
     }
 
     public static List<LottoNumber> inputLottoNumbersManually() {
-
         if (!isCalled) {
             System.out.println(MSG_INPUT_MANUAL_LOTTO);
             isCalled = true;
@@ -76,7 +74,7 @@ public class InputView {
     }
 
     private static List<LottoNumber> inputNumbers() {
-        List<LottoNumber> numbers = new ArrayList<>(Lotto.LOTTO_NUMBERS_COUNT);
+        List<LottoNumber> numbers = new ArrayList<>(Lotto.LENGTH);
 
         for (String s : scanner.nextLine().replaceAll(" ", "").split(",")) {
             numbers.add(LottoNumber.from(Integer.parseInt(s)));
