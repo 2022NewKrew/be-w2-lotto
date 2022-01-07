@@ -20,7 +20,6 @@
 * 사용자가 입력한 값에 대한 예외 처리를 철저히 한다.
 
 ### TODO
-* Controller를 static 메소드의 집합으로
 * 변수명 변경
 * private 생성자에 AssertionError 적용
 * 수동 입력 부분 구현
@@ -35,3 +34,4 @@
 * MatchScore 객체 분리
   * enum만 하는 객체 WinningClassifier
   * 중간 결과를 저장하는 객체 MatchStore
+* Controller를 static 메소드의 집합으로

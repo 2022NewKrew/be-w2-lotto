@@ -1,15 +1,31 @@
 package domain.LottoLineStructure;
 
 import domain.LottoLine;
+import domain.WinningLottoLine;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ManualLottoLine implements LottoLine {
     public List<Integer> lottoLine;
 
-    public ManualLottoLine(List<Integer> paramLottoLine) {
+    private ManualLottoLine(List<Integer> paramLottoLine) {
         lottoLine = paramLottoLine;
+    }
+
+    public static ManualLottoLine makeManualLottoLineFromStrLst(List<String> strLst) {
+        List<Integer> retLst = new ArrayList<>();
+
+        for (String str : strLst) {
+            retLst.add(Integer.valueOf(str));
+        }
+
+        Collections.sort(retLst);
+
+        if (isVerifiedLine(retLst)) {
+            return new ManualLottoLine(retLst);
+        }
+
+        return null;
     }
 
     public int checkWinning(List<Integer> winningNumbers) {
@@ -28,5 +44,11 @@ public class ManualLottoLine implements LottoLine {
 
     public String getPrintLine() {
         return lottoLine.toString();
+    }
+
+    private static boolean isVerifiedLine(List<Integer> srcLst) {
+        Set<Integer> set = new HashSet<>(srcLst);
+
+        return set.size() == NUM_PER_LINE && srcLst.get(0) >= MIN_NUM && srcLst.get(NUM_PER_LINE - 1) <= MAX_NUM;
     }
 }

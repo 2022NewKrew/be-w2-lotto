@@ -1,44 +1,25 @@
 package controller;
 
 import domain.LottoLine;
+import domain.LottoLineStructure.ManualLottoLine;
 import domain.LottoLineStructure.RandomLottoLine;
 import domain.MyLottoLines;
 import domain.WinningLottoLine;
 import view.InputView;
 import view.OutputView;
 
-import java.util.List;
-
 public class StartController {
-    private final MyLottoLines lottoLines = new MyLottoLines();
-    private WinningLottoLine winningLine = null;
-
-    public StartController() {
-        makeLottoLines();
-        makeWinningLine();
-        while (winningLine == null) {
-            OutputView.printWinningInputError();
-            makeWinningLine();
-        }
-
-        setBonus();
-    }
-
-    public MyLottoLines getLottoLines() {
-        return lottoLines;
-    }
-
-    public WinningLottoLine getWinningLine() {
-        return winningLine;
-    }
-
-    private void makeLottoLines() {
+    public static int inputNumLotto() {
         int numLotto = InputView.getNumLotto();
         while (numLotto == 0) {
             OutputView.printPayInputError();
             numLotto = InputView.getNumLotto();
         }
 
+        return numLotto;
+    }
+
+    public static void addLottoLines(MyLottoLines lottoLines, int numLotto) {
         for (int i = 0; i < numLotto; i++) {
             LottoLine curLine = new RandomLottoLine();
 
@@ -47,18 +28,25 @@ public class StartController {
         }
     }
 
-    private void makeWinningLine() {
-        winningLine = null;
-        List<String> strLine = InputView.getWinNumber();
-
-        if (strLine.size() != 6) {
-            return;
-        }
-
-        winningLine = WinningLottoLine.makeWinningLine(strLine);
+    private static LottoLine inputManualLottoLine() {
+        return ManualLottoLine.makeManualLottoLineFromStrLst(InputView.getWinNumber());
     }
 
-    private void setBonus() {
+    public static WinningLottoLine makeWinningLine() {
+        LottoLine lottoLine = inputManualLottoLine();
+
+        while (lottoLine == null) {
+            OutputView.printWinningInputError();
+            lottoLine = inputManualLottoLine();
+        }
+
+        WinningLottoLine winningLottoLine = new WinningLottoLine(lottoLine);
+        setBonus(winningLottoLine);
+
+        return winningLottoLine;
+    }
+
+    private static void setBonus(WinningLottoLine winningLine) {
         boolean isValid = winningLine.setBonus(InputView.getBonus());
         while (!isValid) {
             OutputView.printBonusInputError();

@@ -12,14 +12,19 @@ public class ResultController {
     }
 
     public static void printResult(MatchStore matchStore) {
-        OutputView.printPreResult();
-
         List<WinningClassifier> msLst = WinningClassifier.getWinObjLst();
 
         for (WinningClassifier grade : msLst) {
             OutputView.printResult(makeResultDTOFromGrade(grade, matchStore.getCnt(grade)));
         }
-        OutputView.printYield(matchStore.getYield());
+    }
+
+    public static void printPreResult() {
+        OutputView.printPreResult();
+    }
+
+    public static void printYield(long yield) {
+        OutputView.printYield(yield);
     }
 
     public static ResultDTO makeResultDTOFromGrade(WinningClassifier ms, int numLotto) {
