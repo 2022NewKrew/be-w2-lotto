@@ -1,16 +1,16 @@
 package VO;
 
 public class WinningLottoVO {
-    String winningLotto;
+    String winningLottoString;
     int bonusNumber;
 
-    public WinningLottoVO(String winningLotto, int bonusNumber) {
-        this.winningLotto = winningLotto;
+    public WinningLottoVO(String winningLottoString, int bonusNumber) {
+        this.winningLottoString = winningLottoString;
         this.bonusNumber = bonusNumber;
     }
 
-    public String getWinningLotto() {
-        return winningLotto;
+    public String getWinningLottoString() {
+        return winningLottoString;
     }
 
     public int getBonusNumber() {

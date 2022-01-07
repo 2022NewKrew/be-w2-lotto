@@ -20,12 +20,15 @@ public class Main {
     private static PurchaseVO purchaseVO;
     private static List<Lotto> lottoList = new ArrayList<>();
     private static WinningLottoVO winningLottoVO;
+    private static StatsVO statsVO;
 
     public static void main(String[] args) {
         getPurchaseInput();
         purchaseLotto();
         printPurchasedLotto();
         getWinningLottoInput();
+        calculateStats();
+        printStats();
         //lottoController.runLotto();
     }
 
@@ -46,6 +49,13 @@ public class Main {
 
     private static void getWinningLottoInput() {
         winningLottoVO = inputController.getWinningLottoVO();
-        System.out.println(winningLottoVO.getBonusNumber());
+    }
+
+    private static void calculateStats() {
+
+    }
+
+    private static void printStats() {
+
     }
 }
