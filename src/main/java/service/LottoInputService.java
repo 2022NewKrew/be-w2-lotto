@@ -11,7 +11,7 @@ public class LottoInputService {
     private static final String INPUT_DELIMITER = ",";
 
     public List<LottoOrder> getManualLottoRequests(String manualString) {
-        if (manualString.isEmpty()) {
+        if (manualString == null || manualString.isEmpty()) {
             return Collections.emptyList();
         }
         String[] manualStringRequests = manualString.split(LOTTO_REQUEST_DELIMITER);
