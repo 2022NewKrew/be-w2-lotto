@@ -7,7 +7,8 @@ import lotto.domain.WinningInfo;
 import java.util.List;
 
 public interface OutputManager {
-    void printPurchaseInfo(PurchaseInfo purchaseInfo);
-    void printAllLotto(List<Lotto> lottoList);
-    void printPrizes(PurchaseInfo purchaseInfo, WinningInfo winningInfo);
+    String LINE_BREAK = "\n";
+
+    String printPurchaseInfo(PurchaseInfo purchaseInfo, List<Lotto> lottoList);
+    String printPrizes(PurchaseInfo purchaseInfo, WinningInfo winningInfo);
 }
