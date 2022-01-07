@@ -1,7 +1,9 @@
 package controller;
 
+import model.lotto.DefinedLottoGenerator;
 import model.lotto.Lotto;
 import model.lotto.LottoRecipe;
+import model.lotto.RandomLottoGenerator;
 import view.UserInput;
 import view.UserOutput;
 
@@ -26,7 +28,7 @@ public class SellLottoController {
     private static List<Lotto> buyLottosByAuto(int numberOfRandomLotto) {
         return IntStream
                 .range(0, numberOfRandomLotto)
-                .mapToObj(index -> Lotto.getRandomLotto())
+                .mapToObj(index -> new Lotto(RandomLottoGenerator.generate()))
                 .collect(Collectors.toList());
     }
 
@@ -39,7 +41,7 @@ public class SellLottoController {
     }
 
     private static Lotto getLottoByManual(List<Integer> numbers) {
-        return Lotto.getDefinedLotto(numbers);
+        return new Lotto(DefinedLottoGenerator.generate(numbers));
     }
 
     private static int calculateNumberOfLotto(int money) {

@@ -2,52 +2,21 @@ package model.lotto;
 
 import model.lotto.number.LottoNumber;
 import utility.NullChecker;
-import utility.RandomSeed;
 
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Lotto {
     public static final int LOTTO_PRICE = 1000;
     public static final int LENGTH_OF_NUMBERS = 6;
-    private static final List<LottoNumber> LOTTO_NUMBERS;
 
     private final List<LottoNumber> lottoNumbers;
 
-    static {
-        LOTTO_NUMBERS = getLegalNumbers();
-    }
-
-    private Lotto(List<LottoNumber> lottoNumbers) {
+    public Lotto(List<LottoNumber> lottoNumbers) {
         checkNumbers(lottoNumbers);
 
         this.lottoNumbers = lottoNumbers;
-    }
-
-    public static Lotto getRandomLotto() {
-        return new Lotto(generateRandomNumbers());
-    }
-
-    public static Lotto getDefinedLotto(List<Integer> definedLottoNumbers) {
-        NullChecker.checkNotNull(definedLottoNumbers);
-
-        return new Lotto(definedLottoNumbers.stream().map(LottoNumber::valueOf).collect(Collectors.toList()));
-    }
-
-    private static List<LottoNumber> getLegalNumbers() {
-        return IntStream
-                .rangeClosed(LottoNumber.START_NUMBER, LottoNumber.FINAL_NUMBER)
-                .mapToObj(LottoNumber::valueOf)
-                .collect(Collectors.toList());
-    }
-
-    private static List<LottoNumber> generateRandomNumbers() {
-        List<LottoNumber> targetLottoNumbers = new ArrayList<>(LOTTO_NUMBERS);
-        Collections.shuffle(targetLottoNumbers, RandomSeed.getRandom());
-        targetLottoNumbers = new ArrayList<>(targetLottoNumbers.subList(0, 6));
-        Collections.sort(targetLottoNumbers);
-        return targetLottoNumbers;
     }
 
     public int contain(Lotto lotto) {
