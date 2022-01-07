@@ -15,6 +15,22 @@ public class LottoResult {
         }
     }
 
+    public int getTotalReturn() {
+        int totalReturn = 0;
+        for (Rank rank : Rank.values()) {
+            totalReturn += this.getCountOf(rank) * rank.getWinningMoney();
+        }
+        return totalReturn;
+    }
+
+    public void addResult(int numMatch, boolean matchBonus) {
+        Rank rank = Rank.valueOf(numMatch, matchBonus);
+
+        if (rank != null) {
+            this.increaseCountOfRank(rank);
+        }
+    }
+
     public void increaseCountOfRank(Rank rank) {
         if (countsOfRank.keySet().contains(rank)) {
             countsOfRank.put(rank, countsOfRank.get(rank) + 1);
@@ -22,7 +38,7 @@ public class LottoResult {
     }
 
     public int getCountOf(Rank rank) {
-        if (countsOfRank.keySet().contains(rank)){
+        if (countsOfRank.keySet().contains(rank)) {
             return countsOfRank.get(rank);
         }
         return 0;

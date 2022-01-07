@@ -9,13 +9,13 @@ import java.util.List;
 public class LottoGenerator {
     private static final List<Integer> NUMBERS = new ArrayList<>();
 
-    public LottoGenerator() {
+    static{
         for (int i = 0; i < 45; i++) {
             NUMBERS.add((i + 1));
         }
     }
 
-    public Lotto generateLotto() {
+    public static Lotto generateRandomLotto() {
         List<Integer> numbers = new ArrayList<>();
 
         Collections.shuffle(NUMBERS);

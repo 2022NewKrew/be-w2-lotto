@@ -24,6 +24,18 @@ public class Lotto {
         this(lotto.getNumbers());
     }
 
+    public int howManyMatch(Lotto other) {
+        int count = 0;
+        for (Integer number : this.numbers) {
+            count += other.getNumbers().contains(number) ? 1 : 0;
+        }
+        return count;
+    }
+
+    public boolean contains(Integer number){
+        return this.numbers.contains(number);
+    }
+
     public List<Integer> getNumbers() {
         return this.numbers;
     }
