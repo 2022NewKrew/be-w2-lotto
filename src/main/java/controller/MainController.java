@@ -3,13 +3,14 @@ package controller;
 import config.AppConfig;
 import domain.Lotto;
 import domain.LottoStatistic;
-import repository.LottoRepository;
+import repository.LottoStatisticRepository;
 import service.LottoService;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -20,12 +21,12 @@ import static spark.Spark.*;
 
 public class MainController {
     private final LottoService lottoService;
-    private final LottoRepository lottoRepository;
+    private final LottoStatisticRepository lottoStatisticRepository;
 
     public MainController() {
         AppConfig appConfig = new AppConfig();
         lottoService = appConfig.lottoService();
-        lottoRepository = appConfig.lottoRepository();
+        lottoStatisticRepository = appConfig.lottoStatisticRepository();
     }
 
     public void run() {
@@ -35,7 +36,7 @@ public class MainController {
         post("/lottoWinning", this::lottoWinning);
     }
 
-    private String lottoWinning(Request req, Response res) {
+    private String lottoWinning(Request req, Response res) throws SQLException {
         Long id = Long.valueOf(req.queryParams("id").trim());
         String winningNumbersString = req.queryParams("winningNumbers");
 
@@ -43,7 +44,7 @@ public class MainController {
 
         int winningBonusNumber = Integer.parseInt(req.queryParams("winningBonusNumber"));
 
-        LottoStatistic lottoStatistic = lottoRepository.findOne(id);
+        LottoStatistic lottoStatistic = lottoService.findLottoStatistic(id);
 
         lottoStatistic.updateStatus(winningNumbers, winningBonusNumber);
 
@@ -57,7 +58,7 @@ public class MainController {
         return render("lotto_form.html");
     }
 
-    private String createLottoForm(Request req, Response res) {
+    private String createLottoForm(Request req, Response res) throws SQLException {
         int purchasePrice = Integer.parseInt(req.queryParams("purchasePrice"));
         int normalLottoCount = Integer.parseInt(req.queryParams("normalLottoCount"));
         int purchaseCount = lottoService.calculateLottoCount(purchasePrice);
@@ -76,7 +77,7 @@ public class MainController {
         }
 
         LottoStatistic lottoStatistics = lottoService.createLottoStatistic(purchaseCount, normalLottoCount, autoLottoCount, lottoList);
-        Long id = lottoRepository.save(lottoStatistics);
+        Long id =  lottoService.saveLottoStatistic(lottoStatistics);
         Map<String, Object> model = new HashMap<>();
 
         model.put("id", id);

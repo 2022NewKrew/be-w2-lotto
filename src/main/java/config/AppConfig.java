@@ -1,7 +1,6 @@
 package config;
 
-import repository.LottoRepository;
-import repository.LottoRepositoryInMemory;
+import repository.*;
 import service.LottoService;
 import service.LottoServiceImpl;
 
@@ -11,10 +10,14 @@ import service.LottoServiceImpl;
 public class AppConfig {
 
     public LottoRepository lottoRepository() {
-        return new LottoRepositoryInMemory();
+        return new LottoRepositoryJdbcH2();
     }
 
     public LottoService lottoService() {
-        return new LottoServiceImpl(lottoRepository());
+        return new LottoServiceImpl(lottoStatisticRepository(), lottoRepository());
+    }
+
+    public LottoStatisticRepository lottoStatisticRepository() {
+        return new LottoStatisticRepositoryJdbcH2();
     }
 }
