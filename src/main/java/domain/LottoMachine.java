@@ -1,8 +1,8 @@
 package domain;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import view.InputView;
+
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -16,22 +16,31 @@ public class LottoMachine {
             .boxed()
             .collect(Collectors.toList());
 
-    public LottoRepository createAutoLottos(int purchasedLottoNumbers) {
-        List<Lotto> autuLottos = Stream.generate(this::createAutoLotto)
+    public LottoRepository getAllLottos(List<Lotto> autoLottos, List<Lotto> manualLottos) {
+        List<Lotto> allLottos = new ArrayList<>();
+        allLottos.addAll(manualLottos);
+        allLottos.addAll(autoLottos);
+        return new LottoRepository(allLottos);
+    }
+
+    public List<Lotto> createAutoLottos(int purchasedLottoNumbers) {
+        return Stream.generate(this::createAutoLotto)
                 .limit(purchasedLottoNumbers)
                 .collect(Collectors.toList());
-        return new LottoRepository(autuLottos);
     }
 
     private Lotto createAutoLotto() {
         return new Lotto(createAutoLottoNumber());
      }
 
-    private List<Integer> createAutoLottoNumber() {
+    private Set<Integer> createAutoLottoNumber() {
         Collections.shuffle(LOTTO_BALLS);
         return LOTTO_BALLS.stream()
                 .limit(PICK_LOTTO)
-                .sorted()
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
+    }
+
+    public List<Lotto> createManualLottos(int manualQuantity) {
+        return InputView.manualNumbers(manualQuantity);
     }
 }

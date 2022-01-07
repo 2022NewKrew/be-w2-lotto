@@ -4,23 +4,24 @@ import domain.*;
 import view.InputView;
 import view.OutputView;
 
-import java.util.Map;
+import java.util.List;
 
 public class LottoGame {
     public void run() {
 
         int purchasedAmount = InputView.purchaseAmount();
+        int manualQuantity = InputView.purchaseManualLNumber();
 
         LottoMachine lottoMachine = new LottoMachine();
-        LottoRepository autoLottos = lottoMachine.createAutoLottos(LottoCashier.buyLottos(purchasedAmount));
+        LottoBank lottoBank = new LottoBank();
+        List<Lotto> autoLottos = lottoMachine.createAutoLottos(lottoBank.buyLottos(purchasedAmount, manualQuantity));
+        List<Lotto> manualLottos = lottoMachine.createManualLottos(manualQuantity);
+        LottoRepository lottoRepository = lottoMachine.getAllLottos(autoLottos, manualLottos);
 
-        OutputView.printAutoLottos(autoLottos);
-        LottoBonus inputLastWeekWinNumber = InputView.bonusNumber();
-//        Integer bonusNumber = InputView.bonusNumber();
+        OutputView.printAllLottos(lottoRepository, manualQuantity);
+        LottoWinningNumber inputLastWeekWinNumber = InputView.bonusNumber();
 
-        Map<LottoRank, Integer> lottoRankResult = LottoRankMatch.createResult(autoLottos, inputLastWeekWinNumber);
-
-        OutputView.printProfit(lottoRankResult, purchasedAmount);
-
+        LottoRankMatch lottoRankMatch = LottoRankMatch.createResult(lottoRepository, inputLastWeekWinNumber);
+        OutputView.printProfit(lottoRankMatch, lottoBank.getProfitRate(lottoRankMatch, purchasedAmount));
     }
 }

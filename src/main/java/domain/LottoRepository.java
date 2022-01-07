@@ -10,6 +10,10 @@ public class LottoRepository {
         this.lottos = Collections.unmodifiableList(lottos);
     }
 
+    public int getLottoRepositorySize() {
+        return lottos.size();
+    }
+
     public List<Lotto> getLottos() {
         return lottos;
     }
