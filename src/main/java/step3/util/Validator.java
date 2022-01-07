@@ -2,7 +2,9 @@ package step3.util;
 
 import step3.exception.LackOfLottoInputException;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Validator {
 
@@ -19,6 +21,16 @@ public class Validator {
     public static List<Integer> SIX_NUMBER_LIST(List<Integer> numbers){
         if(numbers.size() != 6) throw new NumberFormatException("6개의 숫자를 입력해주세요.");
         return numbers;
+    }
+
+    public static List<Integer> DB_LOTTO_CONVERT(String strList){
+        strList = strList.replace("[", "");
+        strList = strList.replace("]", "");
+        List<String> list2 = Arrays.asList(strList.split(","));
+        return list2.stream()
+                .map(String::trim)
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
     }
 
     public static List<List<Integer>> INSUFFICIENCY_MANUAL_LOTTO(int numberOfLotto, List<List<Integer>> lottoList){
