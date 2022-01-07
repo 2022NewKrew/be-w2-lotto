@@ -1,11 +1,11 @@
 package lotto;
 
-import lotto.view.Game;
+import lotto.domain.LotteryGameManager;
 
 public class LotteryMain {
 
     public static void main(String[] args) {
-        Game game = new Game();
-        game.run();
+        LotteryGameManager gameManager = new LotteryGameManager();
+        gameManager.run();
     }
 }
