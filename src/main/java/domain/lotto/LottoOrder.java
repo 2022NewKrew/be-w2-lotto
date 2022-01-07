@@ -33,7 +33,9 @@ public class LottoOrder {
 
     private void validateLottoNumberSize(List<Integer> numbers) {
         if (numbers.size() != MAX_LOTTO_COUNT) {
-            throw new IllegalArgumentException("[에러] 로또 번호는 반드시 6개를 입력해야 합니다.");
+            throw new IllegalArgumentException(
+                    String.format("[에러] 로또 번호는 반드시 %s개를 입력해야 합니다.", MAX_LOTTO_COUNT)
+            );
         }
     }
 
@@ -44,12 +46,8 @@ public class LottoOrder {
         }
     }
 
-    public Lotto toLotto() {
-        return LottoGenerator.generateOneLotto(lottoNumbers);
+    public List<Integer> getLottoNumbers() {
+        return lottoNumbers;
     }
 
-    public WinningLotto toWinningLotto(int bonusNumber) {
-        validateLottoBoundary(bonusNumber);
-        return LottoGenerator.generateWinningLotto(lottoNumbers, bonusNumber);
-    }
 }
