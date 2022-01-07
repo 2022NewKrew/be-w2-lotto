@@ -23,6 +23,5 @@ public class LottoGame {
 
         LottoRankMatch lottoRankMatch = LottoRankMatch.createResult(lottoRepository, inputLastWeekWinNumber);
         OutputView.printProfit(lottoRankMatch, lottoBank.getProfitRate(lottoRankMatch, purchasedAmount));
-
     }
 }

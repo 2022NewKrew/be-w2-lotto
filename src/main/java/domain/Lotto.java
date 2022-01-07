@@ -4,7 +4,9 @@ import exception.DuplicatedLottoNumberException;
 import exception.InvalidLottoLengthException;
 import exception.InvalidLottoNumberException;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Lotto {
     private final Set<Integer> lotto;

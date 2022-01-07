@@ -2,7 +2,6 @@ package domain;
 
 import exception.InvalidLottoNumberException;
 
-import java.util.List;
 import java.util.Set;
 
 public class LottoWinningNumber extends Lotto {
