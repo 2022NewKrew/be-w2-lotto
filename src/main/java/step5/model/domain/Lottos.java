@@ -5,25 +5,27 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Lottos implements Iterable<Lotto> {
-    private final List<Lotto> lottos;
+    private final List<Lotto> lottos = new ArrayList<>();
 
     public Lottos(int lottosQuantity) {
-        this.lottos = new ArrayList<>();
         makeLottos(lottosQuantity);
     }
 
     public Lottos(List<Lotto> manualLottos, int autoLottosQuantity) {
-        this.lottos = new ArrayList<>();
         addLottos(manualLottos);
         makeLottos(autoLottosQuantity);
     }
 
-    public Lottos() {
-        this.lottos = new ArrayList<>();
-    }
+    public Lottos() {}
 
     private void addLottos(List<Lotto> lottosForAdd) {
         this.lottos.addAll(lottosForAdd);
+    }
+
+    public void addLottos(Lottos newLottos) {
+        for (Lotto lotto : newLottos) {
+            this.lottos.add(lotto);
+        }
     }
 
     public void addLotto(Lotto lottoForAdd) {
@@ -49,10 +51,10 @@ public class Lottos implements Iterable<Lotto> {
         StringBuilder sb = new StringBuilder();
 
         for (Lotto lotto : this.lottos) {
-            sb.append(lotto.toString());
+            sb.append(lotto.toString()).append("\n");
         }
 
-        sb.setLength(sb.length() - 1);
+        sb.setLength(sb.length() >= 1 ? sb.length() - 1 : 0);
 
         return sb.toString();
     }

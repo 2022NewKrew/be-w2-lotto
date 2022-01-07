@@ -21,8 +21,6 @@ public class LottoController {
     private final LottosService lottosService = LottosServiceImpl.getInstance();
     private final MatchesService matchesService = MatchesServiceImpl.getInstance();
 
-    private Lottos lottos;
-
     private LottoController() {}
 
     public static LottoController getInstance() {
@@ -34,8 +32,10 @@ public class LottoController {
         staticFileLocation("/static");
         exceptionHandle();
         index();
-        buyLotto();
-        matchLotto();
+        buyLottos();
+        showLottos();
+        matchLottos();
+        matchedLottos();
     }
 
     private void exceptionHandle() {
@@ -52,11 +52,17 @@ public class LottoController {
         get("/", (request, response) -> "index.html");
     }
 
-    private void buyLotto() {
-        post("/buyLotto", (request, response) -> {
+    private void buyLottos() {
+        post("/buyLottos", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-            lottos = lottosService.makeLottos(request.queryParams("moneyForBuy"),
+            Lottos lottos = lottosService.selectAllLottosFromRepository();
+
+            Lottos newLottos = lottosService.makeLottos(request.queryParams("moneyForBuy"),
                                             request.queryParams("manualLottos"));
+
+            lottosService.insertLottosToRepository(newLottos);
+
+            lottos.addLottos(newLottos);
 
             model.put("lottosQuantity", lottos.size());
             model.put("lottos", lottos);
@@ -64,11 +70,39 @@ public class LottoController {
         });
     }
 
-    private void matchLotto() {
-        post("/matchLotto", (request, response) -> {
+    private void showLottos() {
+        get("/show-lottos", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
+            Lottos lottos = lottosService.selectAllLottosFromRepository();
+
+            model.put("lottosQuantity", lottos.size());
+            model.put("lottos", lottos);
+            return render(model, "show.html");
+        });
+    }
+
+    private void matchLottos() {
+        post("/matchLottos", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+
+            Lottos lottos = lottosService.selectAllLottosFromRepository();
+
             Matches matches = matchesService.startMatch(lottos, request.queryParams("result"),
                                                 request.queryParams("bonusNumber"));
+
+            matchesService.updateMatchesInRepository(matches);
+
+            model.put("matchResults", matches);
+            model.put("totalRateOfReturn", matches.calcTotalRateOfReturn(lottos));
+            return render(model, "result.html");
+        });
+    }
+
+    private void matchedLottos() {
+        get("/matched-lottos", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            Lottos lottos = lottosService.selectAllLottosFromRepository();
+            Matches matches = matchesService.selectAllMatchesFromRepository();
 
             model.put("matchResults", matches);
             model.put("totalRateOfReturn", matches.calcTotalRateOfReturn(lottos));

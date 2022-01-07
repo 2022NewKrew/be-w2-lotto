@@ -15,7 +15,7 @@ public class MatchesRepositoryImpl implements MatchesRepository {
     private final JdbcDataSource ds = new JdbcDataSource();
 
     private MatchesRepositoryImpl() {
-        ds.setURL("jdbc:h2:~/lottos");
+        ds.setURL("jdbc:h2:tcp://localhost/~/lottos");
         ds.setUser("myles.nah");
     }
 
@@ -37,7 +37,8 @@ public class MatchesRepositoryImpl implements MatchesRepository {
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                matches.replaceInMatches(Rank.valueOf(rs.getString(1)), rs.getInt(2));
+                matches.replaceInMatches(Rank.valueOfByRankStr(rs.getString(1)),
+                        rs.getInt(2));
             }
 
             return matches;
@@ -50,18 +51,22 @@ public class MatchesRepositoryImpl implements MatchesRepository {
 
     @Override
     public void updateMatches(Matches matches) {
-        String sql = "update matches set rank = ?, count = ?";
+        String sql = "update matches set count = ? where rank = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
             conn = ds.getConnection();
             pstmt = conn.prepareStatement(sql);
+            conn.setAutoCommit(false);
 
             for (Map.Entry<Rank, Integer> entry : matches.entrySet()) {
-                pstmt.setString(1, entry.getKey().getRankStr());
-                pstmt.setInt(2, entry.getValue());
-                pstmt.executeUpdate();
+                pstmt.setInt(1, entry.getValue());
+                pstmt.setString(2, entry.getKey().getRankStr());
+                pstmt.addBatch();
             }
+
+            pstmt.executeBatch();
+            conn.commit();
         } catch (Exception e) {
             throw new IllegalStateException(e);
         } finally {

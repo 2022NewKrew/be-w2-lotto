@@ -42,13 +42,4 @@ public interface LottosService {
 
         return lottosQuantity - manualLottos.size();
     }
-
-    default Matches startMatch(Lottos lottos, String resultStr, String bonusNumberStr) {
-        Result result = new Result(resultStr);
-        BonusNumber bonusNumber = new BonusNumber(Integer.parseInt(bonusNumberStr), result);
-        Matches matches = new Matches();
-        matches.matchLottosWithResult(lottos, result, bonusNumber);
-
-        return matches;
-    }
 }

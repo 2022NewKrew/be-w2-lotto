@@ -14,7 +14,7 @@ public class LottosRepositoryImpl implements LottosRepository {
     private final JdbcDataSource ds = new JdbcDataSource();
 
     private LottosRepositoryImpl() {
-        ds.setURL("jdbc:h2:~/lottos");
+        ds.setURL("jdbc:h2:tcp://localhost/~/lottos");
         ds.setUser("myles.nah");
     }
 
@@ -55,11 +55,15 @@ public class LottosRepositoryImpl implements LottosRepository {
         try {
             conn = ds.getConnection();
             pstmt = conn.prepareStatement(sql);
+            conn.setAutoCommit(false);
 
             for (Lotto lotto : lottos) {
                 pstmt.setString(1, lotto.toString());
-                pstmt.executeUpdate();
+                pstmt.addBatch();
             }
+
+            pstmt.executeBatch();
+            conn.commit();
         } catch (Exception e) {
             throw new IllegalStateException(e);
         } finally {

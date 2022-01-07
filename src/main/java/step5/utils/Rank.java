@@ -30,7 +30,7 @@ public enum Rank {
         return this.winningMoney;
     }
 
-    public static Rank valueOf(int countOfMatch, boolean matchBonus) {
+    public static Rank valueOfByCountOfMatch(int countOfMatch, boolean matchBonus) {
         if (countOfMatch == SECOND.countOfMatch) {
             return matchBonus ? SECOND : THIRD;
         }
@@ -41,7 +41,7 @@ public enum Rank {
                 .orElse(OTHER);
     }
 
-    public static Rank valueOf(String rankStr, boolean matchBonus) {
+    public static Rank valueOfByRankStr(String rankStr) {
         return Arrays.stream(values())
                 .filter(rank -> rank.rankStr.equals(rankStr))
                 .findFirst()

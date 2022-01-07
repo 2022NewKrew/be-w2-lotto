@@ -21,7 +21,7 @@ public class Matches implements Iterable<String> {
     public void matchLottosWithResult(Lottos lottos, Result result, BonusNumber bonusNumber) {
         for (int i = 0, size = lottos.size(); i < size; i++) {
             Lotto lotto = lottos.lottoOf(i);
-            Rank rank = Rank.valueOf(result.matchWithLotto(lotto),
+            Rank rank = Rank.valueOfByCountOfMatch(result.matchWithLotto(lotto),
                     bonusNumber.matchWithLotto(lotto));
 
             addInMatches(rank);

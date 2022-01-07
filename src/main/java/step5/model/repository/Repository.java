@@ -37,13 +37,13 @@ public interface Repository {
     }
 
     default void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {
-        closeConnection(conn);
-        closePreparedStatement(pstmt);
         closeResultSet(rs);
+        closePreparedStatement(pstmt);
+        closeConnection(conn);
     }
 
     default void close(Connection conn, PreparedStatement pstmt) {
-        closeConnection(conn);
         closePreparedStatement(pstmt);
+        closeConnection(conn);
     }
 }
