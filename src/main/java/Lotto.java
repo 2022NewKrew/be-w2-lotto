@@ -1,4 +1,4 @@
-import controller.LottoController;
+import business.controller.LottoController;
 
 public class Lotto {
 
