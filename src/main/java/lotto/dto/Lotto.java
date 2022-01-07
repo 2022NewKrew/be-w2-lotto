@@ -2,18 +2,32 @@ package lotto.dto;
 
 import lotto.constant.ExceptionMessage;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-
-import static lotto.constant.Lotto.*;
-import static lotto.util.LottoGenerator.getRandomNumbers;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Lotto {
+    private static final int MIN_LOTTO_NUMBER = 1;
+    private static final int MAX_LOTTO_NUMBER = 45;
+    private static final int COUNT_OF_LOTTO_NUMBER = 6;
+
+    private static final List<Integer> createNumbers = IntStream
+            .rangeClosed(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER)
+            .boxed()
+            .collect(Collectors.toList());
+
 
     private final List<Integer> numbers;
 
     public Lotto() {
         this(getRandomNumbers());
+    }
+
+    private static List<Integer> getRandomNumbers() {
+        Collections.shuffle(createNumbers);
+        return List.copyOf(createNumbers.subList(0, COUNT_OF_LOTTO_NUMBER));
     }
 
     public Lotto(List<Integer> numbers) {
@@ -28,9 +42,9 @@ public class Lotto {
     }
 
     private void checkCreateSize(List<Integer> numbers) {
-        if(numbers.size() != PICK_SIZE.getValue()) {
+        if(numbers.size() != COUNT_OF_LOTTO_NUMBER) {
             throw new IllegalArgumentException(
-                    String.format(ExceptionMessage.INVALID_CREATE_LOTTO_SIZE.getMessage(), PICK_SIZE.getValue())
+                    String.format(ExceptionMessage.INVALID_CREATE_LOTTO_SIZE.getMessage(), COUNT_OF_LOTTO_NUMBER)
             );
         }
     }
@@ -42,21 +56,21 @@ public class Lotto {
     }
 
     private void checkNumberBound(Integer number) {
-        if(!(MIN_NUM.getValue() <= number) && (number <= MAX_NUM.getValue())) {
+        if(!(MIN_LOTTO_NUMBER <= number) && (number <= MAX_LOTTO_NUMBER)) {
             throw new IllegalArgumentException(
-                    String.format(ExceptionMessage.INVALID_NUMBER_BOUND.getMessage(), MIN_NUM.getValue(), MAX_NUM.getValue())
+                    String.format(ExceptionMessage.INVALID_NUMBER_BOUND.getMessage(), MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER)
             );
         }
     }
 
     private void checkDuplicatedNumbers(List<Integer> numbers) {
-        if(new HashSet<>(numbers).size() < PICK_SIZE.getValue()) {
+        if(new HashSet<>(numbers).size() < COUNT_OF_LOTTO_NUMBER) {
             throw new IllegalArgumentException(ExceptionMessage.DUPLICATED_NUMBERS.getMessage());
         }
     }
 
 
     public List<Integer> getNumbers() {
-        return numbers;
+        return Collections.unmodifiableList(numbers);
     }
 }

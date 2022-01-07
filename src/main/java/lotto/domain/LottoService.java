@@ -1,10 +1,8 @@
 package lotto.domain;
 
-import lotto.constant.Lotto;
 import lotto.constant.Rank;
 import lotto.dto.LottoGameDto;
 import lotto.dto.LottoPurchaseDto;
-import lotto.util.LottoGenerator;
 
 import java.util.*;
 
@@ -16,7 +14,7 @@ public class LottoService {
         List<LottoGameDto> lottoGames = new ArrayList<>();
 
         for(int i = 0; i < purchaseGameCnt; i++) {
-            lottoGames.add(new LottoGameDto(LottoGenerator.getRandomNumbers()));
+//            lottoGames.add(new LottoGameDto(LottoGenerator.getRandomNumbers()));
         }
         return new LottoPurchaseDto(money, purchaseGameCnt, lottoGames);
     }
