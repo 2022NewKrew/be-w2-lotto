@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
 
 import java.util.Comparator;
-import java.util.Random;
 import java.util.Set;
 import java.util.function.BiConsumer;
 
@@ -39,11 +38,11 @@ class ResultCounterTest {
 
         InOrder inOrder = inOrder(consumer);
         inOrder.verify(consumer).accept(LottoResult.FIFTH, 1);
-        inOrder.verify(consumer).accept(LottoResult.FIRST, 1);
+        inOrder.verify(consumer).accept(LottoResult.FIRST, 0);
         inOrder.verify(consumer).accept(LottoResult.FOURTH, 1);
         inOrder.verify(consumer).accept(LottoResult.LOSE, 6);
-        inOrder.verify(consumer).accept(LottoResult.SECOND, 1);
-        inOrder.verify(consumer).accept(LottoResult.THIRD, 0);
+        inOrder.verify(consumer).accept(LottoResult.SECOND, 0);
+        inOrder.verify(consumer).accept(LottoResult.THIRD, 1);
     }
 
     @Test
@@ -53,14 +52,14 @@ class ResultCounterTest {
 
         int result = subject.getTotalGain();
 
-        assertEquals(result, 2030055000);
+        assertEquals(result, 1555000);
     }
 
     private void initialize(ResultCounter counter, int count) {
-        for (int i = 0; i < count; i++) {
+        for (int i = 1; i < count; i++) {
             int j = i * 2;
             LottoTicket ticket = new LottoTicket(Set.of(i, i + 1, i + 2, i + 3, i + 4, i + 5));
-            LottoRecord record = new LottoRecord(Set.of(j, j + 1, j + 2, j + 3, j + 4, j + 5), j - 1);
+            LottoRecord record = new LottoRecord(Set.of(j, j + 1, j + 2, j + 3, j + 4, j + 5), j + 6);
             counter.count(ticket, record);
         }
     }

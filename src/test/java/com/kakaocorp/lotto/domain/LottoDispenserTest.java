@@ -1,15 +1,16 @@
 package com.kakaocorp.lotto.domain;
 
 import com.kakaocorp.lotto.model.LottoTicket;
+import com.kakaocorp.lotto.validation.LessThanMinimumException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class LottoDispenserTest {
 
@@ -68,5 +69,12 @@ class LottoDispenserTest {
         List<LottoTicket> result = subject.purchase(count * PRICE, manualTickets);
 
         assertEquals(count, result.size());
+    }
+
+    @Test
+    void purchase_cannotAffordOne() {
+        Executable body = () -> subject.purchase(PRICE - 1, List.of());
+
+        assertThrowsExactly(LessThanMinimumException.class, body);
     }
 }

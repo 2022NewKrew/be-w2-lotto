@@ -1,5 +1,7 @@
 package com.kakaocorp.lotto.model;
 
+import com.kakaocorp.lotto.validation.IntCollectionValidator;
+
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -15,6 +17,7 @@ public class LottoTicket {
 
     public LottoTicket(Set<Integer> numbers) {
         this.numbers = numbers;
+        validate();
     }
 
     public static LottoTicket from(Random random) {
@@ -48,5 +51,14 @@ public class LottoTicket {
     @Override
     public int hashCode() {
         return Objects.hash(numbers);
+    }
+
+    @SuppressWarnings("UnnecessaryLocalVariable")
+    private void validate() {
+        int expectedSize = LottoTicket.NUMBER_COUNT;
+        int minimum = LottoTicket.MIN_NUMBER;
+        int maximum = LottoTicket.MAX_NUMBER;
+        IntCollectionValidator numbersValidator = new IntCollectionValidator(expectedSize, minimum, maximum);
+        numbersValidator.validate(numbers);
     }
 }

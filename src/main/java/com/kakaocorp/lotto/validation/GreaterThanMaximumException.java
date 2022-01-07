@@ -1,10 +1,10 @@
 package com.kakaocorp.lotto.validation;
 
-public class MoreThanMaximumException extends IllegalArgumentException {
+public class GreaterThanMaximumException extends IllegalArgumentException {
 
     private final int maximum;
 
-    public MoreThanMaximumException(int maximum) {
+    public GreaterThanMaximumException(int maximum) {
         this.maximum = maximum;
     }
 
