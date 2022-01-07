@@ -10,6 +10,8 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.assertThatNoException;
+
 class LottoWinningsTest {
 
     @ParameterizedTest
@@ -26,6 +28,7 @@ class LottoWinningsTest {
                 Arguments.of(new LottoNumbers(new String[]{ "1", "2", "3", "4", "5", "6" }), null)
                 );
     }
+
     @ParameterizedTest
     @MethodSource("argsForConstructorLottoNumbersContainBonusNumberFailure")
     @DisplayName("생성자에 LottoNumbers 내 존재하는 번호가 bonusNumber에 전달되면 예외를 발생시킨다")
@@ -43,6 +46,21 @@ class LottoWinningsTest {
                 Arguments.of(lottoNumbers, new LottoNumber(4)),
                 Arguments.of(lottoNumbers, new LottoNumber(5)),
                 Arguments.of(lottoNumbers, new LottoNumber(6))
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("argsForConstructorSuccess")
+    @DisplayName("생성자에 중복 없이 번호 6 + 1개가 전달되면 정상적으로 객체를 생성한다")
+    public void testConstructorSuccess(LottoNumbers lottoNumbers, LottoNumber bonusNumber) {
+        assertThatNoException().isThrownBy(() -> new LottoWinnings(lottoNumbers, bonusNumber));
+    }
+
+    public static Stream<Arguments> argsForConstructorSuccess() {
+        return Stream.of(
+                Arguments.of(new LottoNumbers(new String[]{ "1", "2", "3", "4", "5", "6" }), new LottoNumber(7)),
+                Arguments.of(new LottoNumbers(new String[]{ "30", "1", "22", "41", "15", "36" }), new LottoNumber(12)),
+                Arguments.of(new LottoNumbers(new String[]{ "41", "42", "43", "44", "45", "40" }), new LottoNumber(1))
         );
     }
 }
