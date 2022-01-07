@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 public class InputView {
     private static final String INPUT_PURCHASE_AMOUNT = "구입금액을 입력해 주세요.";
-    private static final int LOTTO_COST = 1000;
     private static final String INPUT_LOTTO_MANUAL_NUMBER = "수동으로 구매할 로또 수를 입력해 주세요.";
     private static final String INPUT_LOTTO_MANUAL_LOTTO_NUMBERS = "수동으로 구매할 번호를 입력해 주세요.";
     private static final String INPUT_LAST_WEEK_WIN_NUMBER = "지난 주 당험 번호를 입력해 주세요.";
@@ -24,17 +23,17 @@ public class InputView {
     }
 
     public static int purchaseManualLNumber() {
-        System.out.println(INPUT_LOTTO_MANUAL_NUMBER);
+        System.out.println("\n" + INPUT_LOTTO_MANUAL_NUMBER);
         return scanner.nextInt();
     }
 
     public static Lotto manualNumbers() {
-        System.out.println(INPUT_LOTTO_MANUAL_LOTTO_NUMBERS);
+        System.out.println("\n" + INPUT_LOTTO_MANUAL_LOTTO_NUMBERS);
         return inputNumbers();
     }
 
     public static Lotto lastWeekNumbers() {
-        System.out.println(INPUT_LAST_WEEK_WIN_NUMBER);
+        System.out.println("\n" + INPUT_LAST_WEEK_WIN_NUMBER);
         return inputNumbers();
     }
 
@@ -48,7 +47,7 @@ public class InputView {
 
     public static LottoWinningNumber bonusNumber() {
         Lotto withoutBonus = lastWeekNumbers();
-        System.out.println(INPUT_BONUS_NUMBER);
+        System.out.println("\n" + INPUT_BONUS_NUMBER);
         int bonus = scanner.nextInt();
         return new LottoWinningNumber(withoutBonus.getLotto(), bonus);
     }

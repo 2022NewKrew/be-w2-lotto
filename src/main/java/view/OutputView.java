@@ -19,7 +19,7 @@ public class OutputView {
     private static final String TOTAL_PROFIT_RATE = "총 수익률은 %.2f%s 입니다.";
 
     public static void printAllLottos(LottoRepository allLottos, Integer manualQuantity) {
-        System.out.println(String.format(NUMBERS_OF_BOUGHT, manualQuantity, allLottos.getLottoRepositorySize() - manualQuantity));
+        System.out.println(String.format("\n" + NUMBERS_OF_BOUGHT, manualQuantity, allLottos.getLottoRepositorySize() - manualQuantity));
         for (Lotto autoLotto : allLottos.getLottos()) {
             List<Integer> lottoNumbers = new ArrayList<>(List.copyOf(autoLotto.getLotto()));
             Collections.sort(lottoNumbers);
@@ -28,8 +28,7 @@ public class OutputView {
     }
 
     public static void printProfit(LottoRankMatch lottoRankMatch, double profitRate) {
-        System.out.println();
-        System.out.println(STATISTICS);
+        System.out.println("\n" + STATISTICS);
         System.out.println(DASH);
         for (Map.Entry<LottoRank, Integer> resultIndex : lottoRankMatch.getLottoResult().entrySet()) {
             String haveBonusBall = (resultIndex.getKey().getMoney() == 30_000_000) ? SECOND_PRICE_ADDITION_STRING : " ";
