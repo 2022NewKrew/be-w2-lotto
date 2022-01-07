@@ -15,6 +15,7 @@ public class LottoGame {
         LottoMachine lottoMachine = new LottoMachine();
         LottoBank lottoBank = new LottoBank();
         List<Lotto> autoLottos = lottoMachine.createAutoLottos(lottoBank.buyLottos(purchasedAmount, manualQuantity));
+        List<Lotto> manualLottos = lottoMachine.createManualLottos(manualQuantity);
 
         OutputView.printAutoLottos(autoLottos);
         LottoWinningNumber inputLastWeekWinNumber = InputView.bonusNumber();
