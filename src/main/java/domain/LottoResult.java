@@ -4,18 +4,21 @@ import enums.Prize;
 import exceptions.InvalidBonusNumber;
 import exceptions.InvalidLastWeekWinningNumber;
 import exceptions.InvalidPurchaseAmount;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import messages.ErrorMessage;
 import validation.Validation;
 
-import java.util.*;
-
 public class LottoResult {
-    private final Set<Integer> lastWeekWinningNumbers;
-    private final int bonusNumber;
     private static final int NUMBER_OF_LOTTERY_NUMBERS = 6;
     private static final int MIN_LOTTO_NUMBER = 1;
     private static final int MAX_LOTTO_NUMBER = 45;
     private static final int INITIALIZE_ZERO = 0;
+    private final Set<Integer> lastWeekWinningNumbers;
+    private final int bonusNumber;
 
     private void checkLastWeekWinningNumbers(Set<Integer> lastWeekWinningNumbers) {
         if (lastWeekWinningNumbers == null)

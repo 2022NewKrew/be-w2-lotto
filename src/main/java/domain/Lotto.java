@@ -1,18 +1,17 @@
 package domain;
 
 import exceptions.InvalidLastWeekWinningNumber;
-import messages.ErrorMessage;
-import validation.Validation;
-
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import messages.ErrorMessage;
+import validation.Validation;
 
 public class Lotto {
-    private final Set<Integer> numbers;
     private static final int NUMBER_OF_LOTTERY_NUMBERS = 6;
     private static final int MIN_LOTTO_NUMBER = 1;
     private static final int MAX_LOTTO_NUMBER = 45;
+    private final Set<Integer> numbers;
 
     Lotto(Set<Integer> numbers) {
         if (numbers == null)
