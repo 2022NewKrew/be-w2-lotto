@@ -9,11 +9,10 @@ import java.util.stream.Stream;
 
 public class RandomLottoNumbersGenerator implements LottoNumbersGenerator {
 
-    public static final List<LottoNumber> numbers = new ArrayList<>();
+    private static final List<Integer> numbers = new ArrayList<>();
 
     static {
         IntStream.range(Constants.MIN_NUMBER_RANGE, Constants.MAX_NUMBER_RANGE)
-                .mapToObj(LottoNumber::of)
                 .forEach(numbers::add);
     }
 
@@ -22,6 +21,8 @@ public class RandomLottoNumbersGenerator implements LottoNumbersGenerator {
         Collections.shuffle(numbers);
         return new LottoNumbers(numbers.stream()
                 .limit(Constants.LOTTO_NUMBER_SIZE)
+                .sorted()
+                .map(LottoNumber::of)
                 .collect(Collectors.toUnmodifiableList()));
     }
 }
