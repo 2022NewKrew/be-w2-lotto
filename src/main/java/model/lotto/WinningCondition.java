@@ -13,7 +13,7 @@ public class WinningCondition {
         this.bonusNumber = bonusNumber;
     }
 
-    public LottoRank compareTo(Lotto lotto) {
+    public LottoRank confirmLotto(Lotto lotto) {
         return LottoRank.convertToLottoRank(winningLotto.contain(lotto), lotto.contain(bonusNumber));
     }
 

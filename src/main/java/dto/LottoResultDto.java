@@ -1,20 +1,22 @@
 package dto;
 
+import model.lotto.LottoRank;
+
 import java.util.Collections;
 import java.util.Map;
 
 public class LottoResultDto {
-    private final Map<Integer, Integer> result;
+    private final Map<LottoRank, Integer> result;
 
-    public LottoResultDto(Map<Integer, Integer> result) {
+    public LottoResultDto(Map<LottoRank, Integer> result) {
         this.result = Collections.unmodifiableMap(result);
     }
 
-    public Integer get(int key) {
-        return result.get(key);
+    public int get(int rank) {
+        return result.get(LottoRank.findLottoRankByRank(rank));
     }
 
-    public boolean containsKey(int key) {
-        return result.containsKey(key);
+    public boolean contains(int rank) {
+        return result.containsKey(LottoRank.findLottoRankByRank(rank));
     }
 }

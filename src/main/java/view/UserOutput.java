@@ -32,17 +32,13 @@ public class UserOutput {
     }
 
     private static void printResultByLottoRank(LottoRankDto lottoRankDto, LottoResultDto lottoResultDto) {
-        System.out.println(getFormattedString(lottoRankDto, lottoResultDto));
+        System.out.println(getResultFormat(lottoRankDto, lottoResultDto.get(lottoRankDto.getRank()), lottoRankDto.getNeedBonusNumber()));
     }
 
-    private static String getFormattedString(LottoRankDto lottoRankDto, LottoResultDto lottoResultDto) {
-        if (lottoResultDto.containsKey(lottoRankDto.getReward())) {
-            return getResultFormat(lottoRankDto.getMatchNumber(), lottoRankDto.getReward(), lottoResultDto.get(lottoRankDto.getReward()));
+    private static String getResultFormat(LottoRankDto lottoRankDto, int numberOfMatchTicket, boolean needBonusNumber) {
+        if (needBonusNumber) {
+            return String.format("%d개 일치, 보너스 볼 일치 (%d) - %d개", lottoRankDto.getMatchNumber(), lottoRankDto.getReward(), numberOfMatchTicket);
         }
-        return getResultFormat(lottoRankDto.getMatchNumber(), lottoRankDto.getReward(), 0);
-    }
-
-    private static String getResultFormat(int matchingNumber, int reward, int numberOfMatchTicket) {
-        return String.format("%d개 일치(%d) - %d개", matchingNumber, reward, numberOfMatchTicket);
+        return String.format("%d개 일치 (%d) - %d개", lottoRankDto.getMatchNumber(), lottoRankDto.getReward(), numberOfMatchTicket);
     }
 }

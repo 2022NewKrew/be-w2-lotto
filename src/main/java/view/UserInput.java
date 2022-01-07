@@ -59,7 +59,11 @@ public class UserInput {
 
     private static List<Integer> getLotto() {
         try {
-            return Arrays.stream(scanner.nextLine().split(", ")).mapToInt(Integer::parseInt).boxed().collect(Collectors.toList());
+            return Arrays
+                    .stream(scanner.nextLine().split(", "))
+                    .mapToInt(Integer::parseInt)
+                    .boxed()
+                    .collect(Collectors.toList());
         } catch (NumberFormatException exception) {
             throw new IllegalArgumentException("[ERROR] 올바른 형식의 번호를 입력해주세요. (당첨번호는 정수를 입력해주세요)");
         }

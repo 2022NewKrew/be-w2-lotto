@@ -22,7 +22,7 @@ public class LottoTest {
         //Give
         //When
         //Then
-        assertThatCode(() -> Lotto.getDefinedLotto(legalLottoNumbers))
+        assertThatCode(() -> new Lotto(DefinedLottoGenerator.generate(legalLottoNumbers)))
                 .doesNotThrowAnyException();
     }
 
@@ -33,7 +33,7 @@ public class LottoTest {
         //Give
         //When
         //Then
-        assertThatThrownBy(() -> Lotto.getDefinedLotto(illegalLottoNumbers))
+        assertThatThrownBy(() -> new Lotto(DefinedLottoGenerator.generate(illegalLottoNumbers)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -44,7 +44,7 @@ public class LottoTest {
         //Give
         //When
         //Then
-        assertThatThrownBy(() -> Lotto.getDefinedLotto(illegalLottoNumbers))
+        assertThatThrownBy(() -> new Lotto(DefinedLottoGenerator.generate(illegalLottoNumbers)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -54,7 +54,7 @@ public class LottoTest {
         //Give
         //When
         //Then
-        assertThatCode(Lotto::getRandomLotto)
+        assertThatCode(() -> new Lotto(RandomLottoGenerator.generate()))
                 .doesNotThrowAnyException();
     }
 
@@ -63,8 +63,8 @@ public class LottoTest {
     @MethodSource("getTestNumbers")
     void countDuplicateNumberWith(List<Integer> testList1, List<Integer> testList2, int expectedNumber) {
         //Give
-        Lotto testLotto1 = Lotto.getDefinedLotto(testList1);
-        Lotto testLotto2 = Lotto.getDefinedLotto(testList2);
+        Lotto testLotto1 = new Lotto(DefinedLottoGenerator.generate(testList1));
+        Lotto testLotto2 = new Lotto(DefinedLottoGenerator.generate(testList2));
         //When
         int result = testLotto1.contain(testLotto2);
         //Then

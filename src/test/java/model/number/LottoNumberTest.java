@@ -2,7 +2,6 @@ package model.number;
 
 import model.lotto.number.LottoNumber;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -33,7 +32,7 @@ class LottoNumberTest {
                 .doesNotThrowAnyException();
     }
 
-    @DisplayName("")
+    @DisplayName("Integer를 LottoNumber로 변환한 후 다시 Integer로 변환했을 때, 초기값과 변환값이 같다.")
     @ParameterizedTest
     @ValueSource(ints = {1, 2, 3, 4, 5, 6})
     void convertTest(int target) {
