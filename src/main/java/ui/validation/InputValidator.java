@@ -27,7 +27,7 @@ public class InputValidator {
         }
     }
 
-    public void validateLotteryCount(long value, long limit) throws IllegalArgumentException {
+    public void validateLotteryCount(int value, int limit) throws IllegalArgumentException {
         if (value < 0 || value > limit) {
             throw new IllegalArgumentException(String.format("0에서 %d 사이의 숫자만 입력 가능합니다.", limit));
         }
