@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class LottoMachine {
-    private final RandomMaker randomMaker = new RandomMaker();
+    private static final RandomMaker RANDOM_MAKER = new RandomMaker();
     private static final int NUMBER_OF_LOTTERY_NUMBERS = 6;
     private static final int MIN_LOTTO_NUMBER = 1;
     private static final int MAX_LOTTO_NUMBER = 45;
@@ -37,7 +37,7 @@ public class LottoMachine {
         Set<Integer> numbers = new HashSet<>();
 
         while (numbers.size() < NUMBER_OF_LOTTERY_NUMBERS) {
-            numbers.add(randomMaker.getRandomNumber(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER));
+            numbers.add(RANDOM_MAKER.getRandomNumber(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER));
         }
         return new Lotto(numbers);
     }
