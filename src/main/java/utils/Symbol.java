@@ -1,6 +1,10 @@
 package utils;
 
 public class Symbol {
+    private Symbol() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static final int MIN_LOTTO_RANGE = 1;
     public static final int MAX_LOTTO_RANGE = 45;
     public static final int LOTTO_SIZE = 6;

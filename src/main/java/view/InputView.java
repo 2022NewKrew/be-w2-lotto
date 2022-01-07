@@ -46,7 +46,7 @@ public class InputView {
     public WinningLotto getWinningLotto() {
         System.out.println("\n" + LAST_WEEK_WINNING_NUMBER_MESSAGE);
         Lotto winningLotto = getManualLotto();
-        Number bonusNumber = getBonusNumber(winningLotto);
+        Number bonusNumber = getBonusNumber();
         return new WinningLottoManual(winningLotto, bonusNumber);
     }
 
@@ -57,17 +57,16 @@ public class InputView {
 
     public List<Number> getNumberList() {
         String str = sc.nextLine();
-        List<Number> numberList = Arrays.stream(str.split(COMMA))
+        return Arrays.stream(str.split(COMMA))
                 .filter(s -> !s.isEmpty())
                 .map(String::trim)
                 .mapToInt(Integer::parseInt)
                 .distinct()
                 .mapToObj(Number::new)
                 .collect(Collectors.toList());
-        return numberList;
     }
 
-    public Number getBonusNumber(Lotto winningLotto) {
+    public Number getBonusNumber() {
         System.out.println("\n" + BONUS_NUMBER_MESSAGE);
         int bonusNumber = sc.nextInt();
         sc.nextLine();

@@ -39,8 +39,7 @@ public class ResultService {
     }
 
     public int isSameRank(Rank a, Rank b) {
-        int sameCount = (a.equals(b)) ? 1 : 0;
-        return sameCount;
+        return (a.equals(b)) ? 1 : 0;
     }
 
     public int getProfit() {

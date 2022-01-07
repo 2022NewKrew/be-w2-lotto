@@ -25,8 +25,7 @@ public class Lotto {
 
     @Override
     public String toString() {
-        String lotto = Arrays.toString(numberList.toArray());
-        return lotto;
+        return Arrays.toString(numberList.toArray());
     }
 
     public List<Number> getNumberList() {
@@ -43,9 +42,7 @@ public class Lotto {
     }
 
     public int isHit(Number bonusNumber) {
-        int hit = (numberList.contains(bonusNumber)) ? 1 : 0;
-        return hit;
+        return (numberList.contains(bonusNumber)) ? 1 : 0;
     }
-
 
 }

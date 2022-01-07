@@ -9,9 +9,6 @@ import java.util.List;
 import static utils.Symbol.REWARD_MESSAGE;
 
 public class OutputView {
-    public OutputView() {
-
-    }
 
     public void printPurchaseLottoList(List<Lotto> lottos, int manualLottoCount) {
         int automaticLottoCount = lottos.size() - manualLottoCount;
