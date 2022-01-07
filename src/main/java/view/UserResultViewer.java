@@ -7,7 +7,7 @@ public class UserResultViewer {
     private UserResultViewer() {
     }
 
-    public static void viewResult(LottoResult lottoResult) {
+    public static void view(LottoResult lottoResult) {
         System.out.println("당첨 통계\n---------");
         RankInfo.valuesStream()
                 .map(rankInfo -> rankInfo.getViewFormat(lottoResult.getResult(rankInfo)))

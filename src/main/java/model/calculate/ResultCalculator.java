@@ -6,9 +6,9 @@ import parameters.UserLottoLines;
 
 import java.util.List;
 
-public class CalculateResult {
-    private CalculateResult() {
-        
+public class ResultCalculator {
+    private ResultCalculator() {
+
     }
 
     public static LottoResult getLottoResult(UserLottoLines userLottoLines, List<Integer> winningNumbers, int bonus) {

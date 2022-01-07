@@ -6,4 +6,5 @@ public class LottoRule {
     public static final int MAX_LOTTO_NUMBER = 45;
     public static final int PRICE_PER_LOTTO = 1000;
     public static final String IS_NUMERIC = "[0-9]{1,}";
+    public static final String WHITE_SPACE = "\\s+";
 }
