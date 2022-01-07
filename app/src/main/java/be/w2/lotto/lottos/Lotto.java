@@ -21,15 +21,12 @@ public class Lotto {
     }
 
     private void checkForRedundancy(List<LottoNumber> lottoNumbers) {
-        Set<LottoNumber> lottoNumberSet = new HashSet<>();
-        for (LottoNumber lottoNumber : lottoNumbers) {
-            checkIsAlreadyContainByAddToSet(lottoNumberSet, lottoNumber);
-        }
+        Set<LottoNumber> lottoNumberSet = new HashSet<>(lottoNumbers);
+        checkForRedundancyBySizeOfSetAndList(lottoNumberSet, lottoNumbers);
     }
 
-    private void checkIsAlreadyContainByAddToSet(Set<LottoNumber> lottoNumberSet, LottoNumber lottoNumber) {
-        boolean isAlreadyContain = !lottoNumberSet.add(lottoNumber);
-        if (isAlreadyContain) {
+    private void checkForRedundancyBySizeOfSetAndList(Set<LottoNumber> lottoNumberSet, List<LottoNumber> lottoNumbers) {
+        if (lottoNumberSet.size() != lottoNumbers.size()) {
             throw new LottoNumberDuplicationFoundedException(ErrorMessage.LOTTO_NUMBER_DUPLICATION_FOUNDED);
         }
     }
