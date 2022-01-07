@@ -17,6 +17,7 @@ public class MemLottoSheetRepository implements LottoSheetRepository {
     // userId 발급을 위한 키 (Auto Increment 같은) 유저 id 테이블을 만들지 않아서 임시로..
     private static Long ID_KEY = 0L;
 
+    // DB 정보를 가지는 객체
     private final DataSource dataSource;
 
     public MemLottoSheetRepository(DataSource dataSource) {
@@ -26,6 +27,7 @@ public class MemLottoSheetRepository implements LottoSheetRepository {
 
     @Override
     public LottoSheetWithId save(LottoSheetWithId lottoSheet) {
+        // userId 와 Lotto의 toString([1, 2, 3, 4, 5, 6])을 저장
         String sql = "insert into lotto(userId, lotto) values(?, ?)";
 
         Connection conn = null;
@@ -53,14 +55,15 @@ public class MemLottoSheetRepository implements LottoSheetRepository {
         return lottoSheet;
     }
 
+    // 로또 결과 저장 로직 미구현..
     public LottoSheetWithId update(LottoResultDto lottoResultDto){
         String sql = "UPDATE lotto SET result = ? where (id = ? and numbers = ?)";
-
         return null;
     }
 
     @Override
     public LottoSheetWithId findByUserId(Long userId) {
+        // userId 로 다수의 Lotto 개를 가져와 기존에 처리(저장)하던 LottoSheetWithId를 생성
         String sql = "select * from lotto where userId = ?";
 
         Connection conn = null;
@@ -127,6 +130,7 @@ public class MemLottoSheetRepository implements LottoSheetRepository {
         DataSourceUtils.releaseConnection(conn, dataSource);
     }
 
+    // Lotto 테이블 생성 DDL
     private void loadLottoTable() {
         Connection conn = null;
         Statement statement = null;
@@ -139,13 +143,10 @@ public class MemLottoSheetRepository implements LottoSheetRepository {
                 "result VARCHAR(50) " +
                 ");";
 
-        try{
+        try {
             conn = getConnection();
             statement = conn.createStatement();
             statement.execute(sql);
-
-            statement.execute(sql);
-
             statement.close();
             DataSourceUtils.releaseConnection(conn, dataSource);
         } catch (SQLException e) {

@@ -18,6 +18,7 @@ public class DataSource {
         this.PASSWORD = properties.getProperty("password");
     }
 
+    // resources 의 DB.properties 파일에서 DB 정보를 읽어옴
     private Properties loadProperties() {
         String resource = "DB.properties";
         Properties properties = new Properties();

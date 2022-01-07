@@ -20,7 +20,7 @@ public class LottoWebApplication {
     public LottoWebApplication() {
         // LottoSheet(로또 번호 모음) 저장
         this.lottoSheetRepository = new LottoSheetMemoryRepository();
-        // LottoSheet 생성 담당
+        // LottoSheet 생성 담당 - 기존 Issuer 를 상속하여 ManualLotto 가 담긴 LottoConfig 객체를 처리할 수 있도록 함
         this.lottoSheetIssuer = new AutoAndManualLottoSheetIssuer(lottoSheetRepository);
         // LottoSheet과 WinningLotto(당첨 번호)로 결과 생성
         this.lottoResultGenerator = new LottoResultGeneratorImpl();
