@@ -1,11 +1,20 @@
 package domain;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
-import static domain.Constants.MAX_NUMBER;
-import static domain.Constants.MIN_NUMBER;
+import static domain.Constants.*;
 
 public class LottoNumber {
+    private static final Map<Integer, LottoNumber> cache = new HashMap<>();
+
+    static {
+        for(int i= MIN_NUMBER; i<=MAX_NUMBER; i++){
+            cache.put(i, LottoNumber.of(i));
+        }
+    }
 
     private final int number;
 
@@ -15,7 +24,11 @@ public class LottoNumber {
     }
 
     public static LottoNumber of(int number){
-        return new LottoNumber(number);
+        LottoNumber lottoNumber = cache.get(number);
+
+        if(Objects.isNull(lottoNumber)) lottoNumber = new LottoNumber(number);
+
+        return lottoNumber;
     }
 
     private void validateNumber(int number){
