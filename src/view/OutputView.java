@@ -20,8 +20,8 @@ public class OutputView {
 
     private OutputView () { }
 
-    public void printNumberOfBuy(int numberOfManul, int numberOfBuy) {
-        System.out.printf(BUYING_FORMAT, numberOfManul, numberOfBuy);
+    public void printNumberOfBuy(int numberOfManul, int numberOfAuto) {
+        System.out.printf(BUYING_FORMAT, numberOfManul, numberOfAuto);
     }
 
     public void printLottoList(List<Lotto> lottoList) {
