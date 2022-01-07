@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static be.w2.lotto.common.exception.ExceptionMessages.BONUS_NUMBER_DUPLICATION_NOT_ALLOWED_EXCEPTION;
+import static be.w2.lotto.common.exception.LottoNumberDuplicationNotAllowedException.LOTTO_NUMBERS_DUPLICATION_NOT_ALLOWED_EXCEPTION;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
@@ -43,7 +43,7 @@ class BonusNumberTest {
         // then
         assertThatThrownBy(actual)
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage(BONUS_NUMBER_DUPLICATION_NOT_ALLOWED_EXCEPTION);
+                .hasMessage(LOTTO_NUMBERS_DUPLICATION_NOT_ALLOWED_EXCEPTION);
     }
 
     @Test
