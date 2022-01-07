@@ -17,6 +17,6 @@ public class PurchaseLottoOutputService {
         for (Lotto lotto : lottoList) {
             lottoStringList.add(lotto.toString());
         }
-        OutputView.printPurchasedLottoListString(lottoStringList);
+        OutputView.printPurchasedLottoStringList(lottoStringList);
     }
 }

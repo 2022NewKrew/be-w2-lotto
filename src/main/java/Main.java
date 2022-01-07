@@ -1,4 +1,5 @@
 import VO.PurchaseVO;
+import VO.StatsVO;
 import VO.WinningLottoVO;
 import controller.InputController;
 import controller.OutputController;
@@ -15,8 +16,6 @@ public class Main {
     private final static PurchaseController purchaseController = new PurchaseController();
     private final static StatsController statsController = new StatsController();
 
-    //private final static LottoController lottoController = new LottoController();
-
     private static PurchaseVO purchaseVO;
     private static List<Lotto> lottoList = new ArrayList<>();
     private static WinningLottoVO winningLottoVO;
@@ -29,7 +28,6 @@ public class Main {
         getWinningLottoInput();
         calculateStats();
         printStats();
-        //lottoController.runLotto();
     }
 
     private static void getPurchaseInput() {
@@ -52,10 +50,10 @@ public class Main {
     }
 
     private static void calculateStats() {
-
+        statsVO = statsController.calculateStats(lottoList, winningLottoVO.getWinningLottoString(), winningLottoVO.getBonusNumber());
     }
 
     private static void printStats() {
-
+        outputController.printStats(statsVO.getStats(), purchaseVO.getMoney(), statsVO.getTotalPrizeMoney());
     }
 }

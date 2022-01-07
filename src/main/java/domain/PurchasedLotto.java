@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.Collections;
 import java.util.List;
 
 public class PurchasedLotto implements Lotto {
@@ -14,6 +13,9 @@ public class PurchasedLotto implements Lotto {
     public List<Integer> getNumbers() {
         return numbers;
     }
+
+    @Override
+    public int getBonusNumber() { return 0; }
 
     @Override
     public String toString() {
