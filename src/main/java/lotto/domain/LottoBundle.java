@@ -17,6 +17,9 @@ public class LottoBundle {
     private final int manualLottoCount;
     private final List<Lotto> lottos;
 
+    /**
+     * 콘솔 UI 사용 생성자
+     */
     public LottoBundle(int purchaseAmount, int manualLottoCount) {
         Validator.validatePurchaseAmount(purchaseAmount);
 
@@ -28,16 +31,26 @@ public class LottoBundle {
         generateLottos();
     }
 
+    /**
+     * 웹 UI 사용 생성자
+     */
     public LottoBundle(int purchaseAmount, String manualLottoString) {
         Validator.validatePurchaseAmount(purchaseAmount);
         this.lottoCount = purchaseAmount / Constants.LOTTO_PRICE;
 
-        String[] manualNumbers = manualLottoString.split("\r?\n");
+        String[] manualNumbers = createManualNumbers(manualLottoString);
         this.manualLottoCount = manualNumbers.length;
         Validator.validateManualLottoCount(lottoCount, manualLottoCount);
 
         lottos = new ArrayList<>();
         generateLottosWeb(manualNumbers);
+    }
+
+    private String[] createManualNumbers(String manualLottoString) {
+        if (manualLottoString.isBlank()) {
+            return new String[0];
+        }
+        return manualLottoString.split("\r?\n");
     }
 
     private void generateLottos() {
@@ -53,7 +66,7 @@ public class LottoBundle {
     }
 
     private void generateLottosWeb(String[] manualNumberStrings) {
-        for(String numberString : manualNumberStrings) {
+        for (String numberString : manualNumberStrings) {
             lottos.add(new Lotto(createManualLotto(numberString)));
         }
 

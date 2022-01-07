@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -9,9 +10,9 @@ import java.util.List;
  */
 public class LottoResult {
     private final List<String> message;
-    private final float totalRateOfReturn;
+    private final BigDecimal totalRateOfReturn;
 
-    public LottoResult(List<String> message, float totalRateOfReturn) {
+    public LottoResult(List<String> message, BigDecimal totalRateOfReturn) {
         this.message = message;
         this.totalRateOfReturn = totalRateOfReturn;
     }
@@ -20,7 +21,7 @@ public class LottoResult {
         return message;
     }
 
-    public float getTotalRateOfReturn() {
+    public BigDecimal getTotalRateOfReturn() {
         return totalRateOfReturn;
     }
 }

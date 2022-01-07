@@ -1,17 +1,16 @@
 package lotto;
 
-import lotto.domain.*;
+import lotto.domain.LottoBundle;
+import lotto.domain.LottoGame;
+import lotto.domain.LottoResult;
+import lotto.domain.WinningLotto;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static spark.Spark.*;
-import static spark.Spark.post;
 
 /**
  * Created by melodist
