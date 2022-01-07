@@ -1,16 +1,15 @@
 package domain;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class WinningLotto extends Lotto {
+public class WinningLotto extends LottoTicket {
 
     private int bonusNumber;
 
-    public WinningLotto(List<Integer> stringToList, int bonusNumber) {
-        super(stringToList);
+    public WinningLotto(List<Integer> winningNumbers, int bonusNumber) {
+        createNum(winningNumbers);
         this.bonusNumber = bonusNumber;
     }
 
