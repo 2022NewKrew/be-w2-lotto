@@ -11,11 +11,13 @@ import java.util.List;
 public class LottoGameController {
 
     private final LottoInputService lottoInputService;
-    private final LottoService lottoService;
+    private final LottoGenerateService lottoGenerateService;
+    private final LottoCalculateService lottoCalculateService;
 
     public LottoGameController() {
         this.lottoInputService = new LottoInputService();
-        this.lottoService = new LottoService();
+        this.lottoGenerateService = new LottoGenerateService();
+        this.lottoCalculateService = new LottoCalculateService();
     }
 
     public String index(Request request, Response response) {
@@ -28,7 +30,8 @@ public class LottoGameController {
 
         int money = lottoInputService.getIntegerFromString(inputMoney);
         List<LottoOrder> manualLottoOrders = lottoInputService.getManualLottoRequests(inputManualRequests);
-        List<Lotto> lottos = lottoService.createLotto(money, manualLottoOrders);
+        LottoGameInfo lottoGameInfo = new LottoGameInfo(money, manualLottoOrders);
+        List<Lotto> lottos = lottoGenerateService.createLottos(lottoGameInfo);
 
         request.session().attribute("lottos", lottos);
         return render(new LottoCreateResponse(lottos), "/show.html");
@@ -39,15 +42,16 @@ public class LottoGameController {
         String bonusNumber = request.queryParams("bonusNumber");
 
         int bonusLottoNumber = lottoInputService.getIntegerFromString(bonusNumber);
-        LottoOrder lottoOrder = lottoInputService.parseLottoRequest(winningNumber);
-        WinningLotto winningLotto = lottoOrder.toWinningLotto(bonusLottoNumber);
+        LottoOrder winningLottoOrder = lottoInputService.parseLottoRequest(winningNumber);
+        WinningLotto winningLotto = lottoGenerateService.createWinningLotto(winningLottoOrder, bonusLottoNumber);
 
         List<Lotto> lottos = request.session().attribute("lottos");
-        LottoTotalResult totalResult = LottoCalculator.calculate(lottos, winningLotto);
-        return render(new LottoResultResponse(totalResult), "/result.html");
+        LottoTotalResult totalResult = lottoCalculateService.calculate(lottos, winningLotto);
+        return render(totalResult.toResponse(), "/result.html");
     }
 
     private static String render(Object model, String templatePath) {
         return new HandlebarsTemplateEngine().render(new ModelAndView(model, templatePath));
     }
 }
+

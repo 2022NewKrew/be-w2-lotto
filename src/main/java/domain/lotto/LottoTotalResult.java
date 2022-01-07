@@ -1,9 +1,9 @@
 package domain.lotto;
 
 import domain.prize.Prize;
+import dto.LottoResultResponse;
 
 import java.util.*;
-
 import static java.util.stream.Collectors.*;
 
 public class LottoTotalResult {
@@ -24,12 +24,23 @@ public class LottoTotalResult {
         return (totalEarning - inputMoney) / (double) inputMoney * 100;
     }
 
-    public double getEarningRatio() {
-        return earningRatio;
+    public LottoResultResponse toResponse() {
+        Map<Prize, Long> totalResultMap = lottoResults.stream()
+                .collect(groupingBy(LottoResult::getPrizeType, counting()));
+
+        List<String> message = Prize.getTypeList().stream()
+                .map(p -> getResultString(p, totalResultMap.getOrDefault(p, 0L)))
+                .collect(toList());
+        String totalRateOfReturn = String.format("%.2f", earningRatio);
+
+        return new LottoResultResponse(message, totalRateOfReturn);
     }
 
-    public Map<Prize, Long> getLottoTotalResultMap() {
-        return lottoResults.stream()
-                .collect(groupingBy(LottoResult::getPrizeType, counting()));
+    private String getResultString(Prize prize, long prizeCount) {
+        if (prize.isMatchedBonus()) {
+            return String.format("%s개 일치, 보너스 볼 일치(%s원)- %s개", prize.getMatchedNum(), prize.getPrizeMoney(), prizeCount);
+        }
+        return String.format("%s개 일치 (%s원)- %s개", prize.getMatchedNum(), prize.getPrizeMoney(), prizeCount);
     }
 }
+
