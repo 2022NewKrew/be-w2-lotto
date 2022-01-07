@@ -7,26 +7,14 @@ public class Result {
     private final boolean bonus;
     private Rank resultRank;
 
-    public Result(int hitCount, Boolean hitBonus) {
+    public Result(int hitCount, boolean bonus) {
         this.hitCount = hitCount;
-        this.bonus = hitBonus;
+        this.bonus = bonus;
         getRank();
     }
 
     public void getRank() {
-        Rank[] ranks = Rank.values();
-        for (Rank rank : ranks) {
-            isHitRank(rank, hitCount);
-        }
-        if (resultRank.equals(Rank.THIRD) && bonus) {
-            resultRank = Rank.SECOND;
-        }
-    }
-
-    public void isHitRank(Rank rank, int hitCount) {
-        if (rank.getCountOfMatch() == hitCount) {
-            this.resultRank = rank;
-        }
+        this.resultRank = Rank.getRank(hitCount, bonus);
     }
 
     public Rank getResultRank() {
