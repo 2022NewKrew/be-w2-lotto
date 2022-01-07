@@ -1,13 +1,18 @@
-package lotto;
+package lotto.controller;
 
 
 import lotto.domain.*;
+import lotto.util.LottoRank;
 import lotto.view.ViewLotto;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class LottoGame {
+
+/**
+ * 전반적인 로또 게임을 진행하는 클래스
+ */
+public class LottoController {
     private LottoPaper lp;
     private List<Integer> preWeekNumber;
     private int bonusNumber;
@@ -19,9 +24,12 @@ public class LottoGame {
             1, 0
     ));
 
-    public LottoGame() {}
+    public LottoController() {}
 
 
+    /**
+     * 로또 게임을 진행하는 메소드
+     */
     public void proceed(){
         LottoPaper emptyLottoPaper = new LottoPaper();
 
@@ -41,8 +49,11 @@ public class LottoGame {
         ViewLotto.printPriceRatio(calculatePrize(lp.inputPrice));
     }
 
+    /**
+     * 각각의 로또 줄을 확인하며, 일치하는 번호 수, 보너스 볼 당첨 여부를 파악하여 업데이트하는 메소드
+     */
     private void searchResult(){
-        for(LottoNumber ln : lp.lottoNumbers){
+        for(LottoNumbers ln : lp.lottoNumbers){
             int countOfMatch = intersection(ln.getNumbers());
             boolean matchBonus = ln.getNumbers().contains(bonusNumber);
             LottoRank lr = LottoRank.valueOf(countOfMatch, matchBonus);
@@ -50,6 +61,10 @@ public class LottoGame {
         }
     }
 
+    /**
+     * 확인된 랭크에 당첨 횟수를 추가하는 메소드
+     * @param lr 확인된 LottoRank
+     */
     private void updateRank(LottoRank lr){
         if(lr != null){
             int rankIdx = lr.getResultRank();
@@ -57,6 +72,12 @@ public class LottoGame {
         }
     }
 
+
+    /**
+     * 교집합을 통해 일치하는 숫자 수를 확인하는 메소드
+     * @param lottoPaper 로또 한 줄
+     * @return 당첨 번호와 일치하는 숫자 수
+     */
     private int intersection(List<Integer> lottoPaper){
         Set<Integer> intSet = lottoPaper.stream()
                 .distinct()
@@ -65,6 +86,11 @@ public class LottoGame {
         return intSet.size();
     }
 
+    /**
+     * 수익률을 계산하는 메소드
+     * @param inputPrice 구매 금액
+     * @return 수익률
+     */
     private long calculatePrize(int inputPrice){
         long sum = 0;
         for(LottoRank lr : LottoRank.values()){

@@ -106,27 +106,23 @@
 
 --------
 
-## STEP 3 추가 & 수정 사항
+## STEP 4 추가 & 수정 사항
 
-- `LottoPaper` 생성
-  - 데이터를 주고 받는 과정에서, `LottoPaper`라는 클래스의 객체를 주고 받도록 전반적인 코드를 변화시켰습니다.
-- `Input` 코드 추가 & 변경
-  - 수동 입력을 위한 `ManualInput`, `ManualNumberInput` 생성
-  - `SingleInput` 과 하위 클래스 변경
-    - 전반적으로 중복되는 코드가 있어, `SingleInput`에서 생성자를 활용하고 출력문은 하위 클래스에서 적용하는 방식으로 변경하였습니다.
-- `LottoGenerate.generateLotto` 변경
-  - 수동 입력을 받는 과정을 위한 `.manualGenerate`과 자동 입력을 위한 `.autoGenerate`으로 분리하여 구현하였습니다.
-- `LottoNumber` 생성자 추가
-  - 수동 번호 입력을 받는 경우, 해당 값을 바로 저장하는 형태를 추가하였습니다.
-- `LottoGame.calculatePrize` 자료형 변경
-  - 1등을 하는 경우, 입력 값이 너무 커서 수익률이 음수로 나타나는 경우를 자료형을 바꿔 수정하였습니다.
+- Controller 분리
+  - 콘솔을 위한 `LottoController`, 웹을 위한 `LottoWebController`로 분리
+- 웹 UI 적용을 위한 추가적인 작업 진행
+  - gradle 에 spark 관련 dependency 추가
+  - 브라우저를 위한 templates와 html 템플릿들 추
+- Input 을 받아오는 과정이 변화함에 따라 오버로딩을 통해 웹에서도 활용할 수 있도록 개선
+- `LottoWebController` 생성
+  - URL 에 따라 맞는 요청을 동작하게 하는 클래스
+  - 데이터를 html 파일에 전달 후 응답
+- `LottoResult` 생성
+  - `result.html` 에서 나타내고자 하는 형태를 구현하기 위해 추가적인 클래스 구현
+  - 결과 통계를 계산하는 메소드, 수익률을 계산하는 메소드
 
 <br>
 
 ## 이후 계획
 
-- ~~1단계에서 `Map`으로 받아오던 데이터 `enum`으로 변경~~
-- ~~2단계 진행~~
-- ~~로또 종이를 위한 클래스를 따로 생성하여 적용 예정~~
-- 3단계 진행
-- 예외처리 & 테스트 적용
+- 코드 리팩토링
