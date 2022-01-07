@@ -11,14 +11,16 @@ import java.util.List;
 import java.util.Map;
 
 public class OutputView {
+    private static final String NUMBERS_OF_BOUGHT = "수동으로 %d장, 자동으로 %d개를 구매했습니다.";
     private static final String STATISTICS = "당첨 통계";
     private static final String DASH = "-----------";
     private static final String NUM_OF_MATCHED = "%d개 일치%s(%d원)- %d개";
     private static final String SECOND_PRICE_ADDITION_STRING = ", 보너스 볼 일치";
     private static final String TOTAL_PROFIT_RATE = "총 수익률은 %.2f%s 입니다.";
 
-    public static void printAutoLottos(LottoRepository autoLottos) {
-        for (Lotto autoLotto : autoLottos.getLottos()) {
+    public static void printAllLottos(LottoRepository allLottos, Integer manualQuantity) {
+        System.out.println(String.format(NUMBERS_OF_BOUGHT, manualQuantity, allLottos.getLottoRepositorySize()));
+        for (Lotto autoLotto : allLottos.getLottos()) {
             List<Integer> lottoNumbers = new ArrayList<>(List.copyOf(autoLotto.getLotto()));
             Collections.sort(lottoNumbers);
             System.out.println(lottoNumbers);

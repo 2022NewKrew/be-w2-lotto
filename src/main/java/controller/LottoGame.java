@@ -18,7 +18,7 @@ public class LottoGame {
         List<Lotto> manualLottos = lottoMachine.createManualLottos(manualQuantity);
         LottoRepository lottoRepository = lottoMachine.getAllLottos(autoLottos, manualLottos);
 
-        OutputView.printAutoLottos(lottoRepository);
+        OutputView.printAllLottos(lottoRepository, manualQuantity);
         LottoWinningNumber inputLastWeekWinNumber = InputView.bonusNumber();
 
         LottoRankMatch lottoRankMatch = LottoRankMatch.createResult(lottoRepository, inputLastWeekWinNumber);
