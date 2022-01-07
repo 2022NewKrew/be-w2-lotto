@@ -1,7 +1,5 @@
 package com.kakao.lotto.model;
 
-import com.kakao.lotto.view.UserLottoInput;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,9 +25,7 @@ public class UserLotto {
 
         tempCreatedNumber.addAll(collectLottos(userLottoInput.getNumberOfAutoNumber()));
 
-        lottoNumbers = tempCreatedNumber.stream()
-                .map(LottoNumber::toUnmodifiableList)
-                .collect(Collectors.toUnmodifiableList());
+        lottoNumbers = tempCreatedNumber;
         numOfCustomLotto = userLottoInput.getNumberOfAllNumber() - userLottoInput.getNumberOfAutoNumber();
     }
 

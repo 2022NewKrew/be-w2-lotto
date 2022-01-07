@@ -1,7 +1,6 @@
 package com.kakao.lotto.model;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,11 +17,11 @@ public class LottoNumber {
     }
 
     public LottoNumber(int[] lottonumber){
-        this.lottonumber = Arrays.stream(lottonumber).boxed().collect(Collectors.toSet());
+        this.lottonumber = Arrays.stream(lottonumber).boxed().collect(Collectors.toUnmodifiableSet());
     }
 
     public LottoNumber(String lottoNumberString){
-        this.lottonumber = Arrays.stream(lottoNumberString.split(",")).map(String::trim).map(Integer::parseInt).collect(Collectors.toSet());
+        this.lottonumber = Arrays.stream(lottoNumberString.split(",")).map(String::trim).map(Integer::parseInt).collect(Collectors.toUnmodifiableSet());
     }
 
     public int size(){
@@ -31,10 +30,6 @@ public class LottoNumber {
 
     public Set<Integer> getAll(){
         return lottonumber;
-    }
-
-    public LottoNumber toUnmodifiableList(){
-        return new LottoNumber(Collections.unmodifiableSet(lottonumber));
     }
 
     @Override

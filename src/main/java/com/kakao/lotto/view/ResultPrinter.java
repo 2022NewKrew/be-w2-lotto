@@ -69,13 +69,14 @@ public class ResultPrinter {
         System.out.println(ConstStringSpace.SHOW_STAT);
         System.out.println(ConstStringSpace.HOR_LINE);
 
-        for (LottoResultState state : result.keySet()) {
-            String printString = (state == LottoResultState.SECOND) ?
-                    String.format(ConstStringSpace.RESULT_STRING, state.getNumOfMatchs(), ConstStringSpace.SECOND_PRICE_ADDITION_STRING, state.getPrice(), result.get(state)) : String.format(ConstStringSpace.RESULT_STRING, state.getNumOfMatchs(), " ", state.getPrice(), result.get(state));
+        for (Map.Entry<LottoResultState, Integer> entry : result.entrySet()) {
+            String additionString = entry.getKey() == LottoResultState.SECOND ? ConstStringSpace.SECOND_PRICE_ADDITION_STRING : " ";
+
+            String printString = String.format(ConstStringSpace.RESULT_STRING, entry.getKey().getNumOfMatchs(), additionString, entry.getKey().getPrice(), entry.getValue());
 
             System.out.println(printString);
 
-            sum += state.getPrice() * result.get(state);
+            sum += entry.getKey().getPrice() * entry.getValue();
         }
 
         printProfitRate(sum, buyLottoNumbers.size() * ConstLottoConfig.LOTTO_PRICE);
@@ -85,9 +86,10 @@ public class ResultPrinter {
         Map<Integer, String> tempMap = new HashMap<>();
 
         int i = 0;
-        for (LottoResultState state : result.keySet()) {
-            String printString = (state == LottoResultState.SECOND) ?
-                    String.format(ConstStringSpace.RESULT_STRING, state.getNumOfMatchs(), ConstStringSpace.SECOND_PRICE_ADDITION_STRING, state.getPrice(), result.get(state)) : String.format(ConstStringSpace.RESULT_STRING, state.getNumOfMatchs(), " ", state.getPrice(), result.get(state));
+        for (Map.Entry<LottoResultState, Integer> entry : result.entrySet()) {
+            String additionString = entry.getKey() == LottoResultState.SECOND ? ConstStringSpace.SECOND_PRICE_ADDITION_STRING : " ";
+
+            String printString = String.format(ConstStringSpace.RESULT_STRING, entry.getKey().getNumOfMatchs(), additionString, entry.getKey().getPrice(), entry.getValue());
 
             tempMap.put(i++, printString);
         }

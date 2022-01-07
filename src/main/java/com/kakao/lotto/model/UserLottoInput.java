@@ -1,7 +1,7 @@
-package com.kakao.lotto.view;
+package com.kakao.lotto.model;
 
-import com.kakao.lotto.model.ConstLottoConfig;
-import com.kakao.lotto.model.LottoNumber;
+import com.kakao.lotto.view.ChangeVaildInput;
+import com.kakao.lotto.view.ConstStringSpace;
 
 import java.util.ArrayList;
 import java.util.Arrays;

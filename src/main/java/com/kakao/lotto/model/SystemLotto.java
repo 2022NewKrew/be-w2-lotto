@@ -1,7 +1,5 @@
 package com.kakao.lotto.model;
 
-import com.kakao.lotto.view.PreLottoResultInput;
-
 import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.Collectors;
