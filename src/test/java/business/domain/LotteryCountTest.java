@@ -23,6 +23,13 @@ public class LotteryCountTest {
 
     @ParameterizedTest
     @ValueSource(ints = {0, 1, Integer.MAX_VALUE})
+    void constructor_ValidParam_ReturnsCorrectObject(int parameter) {
+        LotteryCount given = new LotteryCount(parameter);
+        assertThat(given.getValue()).isEqualTo(parameter);
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {0, 1, Integer.MAX_VALUE})
     void equals_ValueIsSame_ReturnsTrue(int parameter) {
         LotteryCount it = new LotteryCount(parameter);
         LotteryCount that = new LotteryCount(parameter);
