@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/*
- ** 실제 개별 복권 한 줄에 해당하는 클래스
+/**
+ * 실제 개별 복권 한 줄에 해당하는 클래스
  */
 public class LottoTicket {
 
-    private List<Integer> numbers;
+    private final List<Integer> numbers;
 
     public LottoTicket(Lotto lotto, InputChecker checker, List<Integer> numbers) {
         checker.checkTicketNumber(lotto, numbers);
@@ -29,7 +29,8 @@ public class LottoTicket {
         return numbers.contains(bonusNumber);
     }
 
-    public String listToString() {
+    @Override
+    public String toString() {
         return numbers.toString();
     }
 }
