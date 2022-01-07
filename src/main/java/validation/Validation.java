@@ -15,7 +15,7 @@ public class Validation {
         condition(object.size() == length, runtimeException);
     }
 
-    public static <T> void notHave(Set<T> object, T another, RuntimeException runtimeException) {
+    public static <T> void notContains(Set<T> object, T another, RuntimeException runtimeException) {
         condition(!object.contains(another), runtimeException);
     }
 

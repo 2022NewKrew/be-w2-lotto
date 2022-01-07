@@ -30,7 +30,7 @@ public class LottoResult {
     private void checkBonusNumber(Set<Integer> lastWeekWinningNumbers, int bonusNumber) {
         Validation.notLessThanLong(bonusNumber, MIN_LOTTO_NUMBER, new InvalidBonusNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
         Validation.notMoreThanLong(bonusNumber, MAX_LOTTO_NUMBER, new InvalidBonusNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
-        Validation.notHave(lastWeekWinningNumbers, bonusNumber, new InvalidBonusNumber(ErrorMessage.DUPLICATE_BONUS_NUMBER.getMessage()));
+        Validation.notContains(lastWeekWinningNumbers, bonusNumber, new InvalidBonusNumber(ErrorMessage.DUPLICATE_BONUS_NUMBER.getMessage()));
     }
 
     public LottoResult(Set<Integer> lastWeekWinningNumbers, int bonusNumber) {
