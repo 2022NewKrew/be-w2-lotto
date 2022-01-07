@@ -23,7 +23,7 @@ public class LottoMachine {
     public LottoMachine() {
     }
 
-    public List<Lotto> buySeveralLotto(long purchaseAmount) {
+    public List<Lotto> buyLottos(long purchaseAmount) {
         Validation.notLessThanLong(purchaseAmount, MIN_PRISE, new InvalidPurchaseAmount(ErrorMessage.NEGATIVE_PURCHASE_AMOUNT.getMessage()));
         Validation.notMoreThanLong(purchaseAmount, MAX_PRISE, new InvalidPurchaseAmount(ErrorMessage.MAX_PURCHASE_AMOUNT.getMessage()));
 
