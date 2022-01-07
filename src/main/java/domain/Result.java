@@ -11,8 +11,8 @@ public class Result {
         validateCount(count);
     }
 
-    private void validateCount(int count){
-       if(count<0) throw new IllegalArgumentException();
+    private void validateCount(int count) {
+        if (count < 0) throw new IllegalArgumentException();
     }
 
     public Rank getRank() {

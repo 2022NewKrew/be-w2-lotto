@@ -16,16 +16,16 @@ public class LottoNumbers {
         this.numbers = lottoNumbers;
     }
 
-    private void validateSize(List<LottoNumber> lottoNumbers){
-        if(lottoNumbers.size() != LOTTO_NUMBER_SIZE) throw new IllegalArgumentException();
+    private void validateSize(List<LottoNumber> lottoNumbers) {
+        if (lottoNumbers.size() != LOTTO_NUMBER_SIZE) throw new IllegalArgumentException();
     }
 
-    private void validateDuplicate(List<LottoNumber> lottoNumbers){
+    private void validateDuplicate(List<LottoNumber> lottoNumbers) {
         int count = (int) lottoNumbers.stream()
                 .distinct()
                 .count();
 
-        if(count!= LOTTO_NUMBER_SIZE) throw new IllegalArgumentException();
+        if (count != LOTTO_NUMBER_SIZE) throw new IllegalArgumentException();
     }
 
     public List<LottoNumber> getLottoNumbers() {
