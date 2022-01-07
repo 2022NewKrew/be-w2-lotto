@@ -1,11 +1,5 @@
 package step5.model.repository;
 
-import org.h2.jdbcx.JdbcDataSource;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,5 +34,16 @@ public interface Repository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    default void close(Connection conn, PreparedStatement pstmt, ResultSet rs) {
+        closeConnection(conn);
+        closePreparedStatement(pstmt);
+        closeResultSet(rs);
+    }
+
+    default void close(Connection conn, PreparedStatement pstmt) {
+        closeConnection(conn);
+        closePreparedStatement(pstmt);
     }
 }

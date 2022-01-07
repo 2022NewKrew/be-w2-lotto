@@ -4,5 +4,5 @@ import step5.model.domain.Matches;
 
 public interface MatchesRepository extends Repository {
     Matches selectAllMatches();
-    boolean insertMatches();
+    void updateMatches(Matches matches);
 }

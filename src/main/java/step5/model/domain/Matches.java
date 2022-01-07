@@ -2,10 +2,7 @@ package step5.model.domain;
 
 import step5.utils.Rank;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -37,6 +34,12 @@ public class Matches implements Iterable<String> {
         }
     }
 
+    public void replaceInMatches(Rank rank, int count) {
+        if (rank != Rank.OTHER) {
+            this.matches.put(rank, count);
+        }
+    }
+
     public int calcTotalRateOfReturn(Lottos lottos) {
         int usedMoney = lottos.size() * LOTTO_PRICE;
         return (int) Math.round(((double) (calcTotalWinningMoney() - usedMoney) / usedMoney) * 100);
@@ -47,6 +50,10 @@ public class Matches implements Iterable<String> {
                 .reduce(0L,
                         (total, entry) -> total + (long) entry.getValue() * entry.getKey().getWinningMoney(),
                         Long::sum);
+    }
+
+    public Set<Map.Entry<Rank, Integer>> entrySet() {
+        return this.matches.entrySet();
     }
 
     @Override

@@ -1,34 +1,35 @@
 package step5.model.repository;
 
 import org.h2.jdbcx.JdbcDataSource;
-import step5.model.domain.Lotto;
-import step5.model.domain.Lottos;
+import step5.model.domain.Matches;
+import step5.utils.Rank;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Map;
 
-public class LottosRepositoryImpl implements LottosRepository {
-    private static final LottosRepository INSTANCE = new LottosRepositoryImpl();
+public class MatchesRepositoryImpl implements MatchesRepository {
+    private static final MatchesRepository INSTANCE = new MatchesRepositoryImpl();
 
     private final JdbcDataSource ds = new JdbcDataSource();
 
-    private LottosRepositoryImpl() {
+    private MatchesRepositoryImpl() {
         ds.setURL("jdbc:h2:~/lottos");
         ds.setUser("myles.nah");
     }
 
-    public static LottosRepository getInstance() {
+    public static MatchesRepository getInstance() {
         return INSTANCE;
     }
 
     @Override
-    public Lottos selectAllLottos() {
-        String sql = "select numbers from lottos";
+    public Matches selectAllMatches() {
+        String sql = "select rank, count from matches";
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        Lottos lottos = new Lottos();
+        Matches matches = new Matches();
 
         try {
             conn = ds.getConnection();
@@ -36,10 +37,10 @@ public class LottosRepositoryImpl implements LottosRepository {
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                lottos.addLotto(new Lotto(rs.getString(1)));
+                matches.replaceInMatches(Rank.valueOf(rs.getString(1)), rs.getInt(2));
             }
 
-            return lottos;
+            return matches;
         } catch (Exception e) {
             throw new IllegalStateException(e);
         } finally {
@@ -48,16 +49,17 @@ public class LottosRepositoryImpl implements LottosRepository {
     }
 
     @Override
-    public void insertLottos(Lottos lottos) {
-        String sql = "insert into lottos(numbers) values(?)";
+    public void updateMatches(Matches matches) {
+        String sql = "update matches set rank = ?, count = ?";
         Connection conn = null;
         PreparedStatement pstmt = null;
         try {
             conn = ds.getConnection();
             pstmt = conn.prepareStatement(sql);
 
-            for (Lotto lotto : lottos) {
-                pstmt.setString(1, lotto.toString());
+            for (Map.Entry<Rank, Integer> entry : matches.entrySet()) {
+                pstmt.setString(1, entry.getKey().getRankStr());
+                pstmt.setInt(2, entry.getValue());
                 pstmt.executeUpdate();
             }
         } catch (Exception e) {

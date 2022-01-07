@@ -4,6 +4,7 @@ import step5.controller.LottoController;
 
 public class Main {
     public static void main(String[] args) {
-        LottoController.startService();
+        LottoController lottoController = LottoController.getInstance();
+        lottoController.startService();
     }
 }
