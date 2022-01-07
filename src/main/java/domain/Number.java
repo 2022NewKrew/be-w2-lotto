@@ -3,11 +3,20 @@ package domain;
 
 import java.util.Objects;
 
+import static utils.Symbol.*;
+
 public class Number implements Comparable<Number> {
-    private int num;
+    private final int num;
 
     public Number(int num) {
+        isValidNumber(num);
         this.num = num;
+    }
+
+    public void isValidNumber(int num) {
+        if (!(MIN_LOTTO_RANGE <= num && num <= MAX_LOTTO_RANGE)) {
+            throw new IllegalArgumentException(INVALID_NUMBER_RANGE);
+        }
     }
 
     public int getNum() {

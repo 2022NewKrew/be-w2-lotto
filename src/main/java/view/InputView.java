@@ -9,16 +9,12 @@ import validation.Validator;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static utils.Symbol.*;
 
 public class InputView {
-    private static Scanner sc = new Scanner(System.in);
-    private static Validator validator = new Validator();
-
-    public InputView() {
-    }
+    private static final Scanner sc = new Scanner(System.in);
+    private static final Validator validator = new Validator();
 
     public int getPurchaseAmount() throws InvalidInputException {
         System.out.println(PURCHASE_AMOUNT_MESSAGE);
@@ -33,7 +29,7 @@ public class InputView {
     }
 
     public int getManualLottoCount(int purchaseAmount) throws InvalidInputException {
-        System.out.println("\n" + MANNUAL_COUNT_MESSAGE);
+        System.out.println("\n" + MANUAL_COUNT_MESSAGE);
         try {
             int manualLottoCount = sc.nextInt();
             sc.nextLine();
@@ -42,41 +38,45 @@ public class InputView {
         } catch (InputMismatchException e) {
             throw new InvalidInputException();
         }
-
     }
 
-    public WinningLotto getWinningLotto() throws InvalidInputException {
-        Lotto winningLotto = getManualLotto(LAST_WEEK_WINNING_NUMBER_MESSAGE);
-        Number bonusNumber = getBonusNumber(winningLotto);
+    public WinningLotto getWinningLotto() {
+        System.out.println("\n" + LAST_WEEK_WINNING_NUMBER_MESSAGE);
+        Lotto winningLotto = getManualLotto();
+        Number bonusNumber = getBonusNumber();
         return new WinningLottoManual(winningLotto, bonusNumber);
     }
 
-    public Lotto getManualLotto(String message) throws InvalidInputException {
-        List<Number> inputNumberList = getNumberList(message);
-        ArrayList<Number> inputNumberArrayList = new ArrayList<Number>();
-        inputNumberArrayList.addAll(inputNumberList);
-        return new Lotto(inputNumberArrayList);
+    public List<Lotto> getManualLottoList(int manualLottoCount) {
+        System.out.println("\n" + MANUAL_INPUT_MESSAGE);
+        List<Lotto> manualLottolist = new ArrayList<>();
+        for (int i = 0; i < manualLottoCount; i++) {
+            manualLottolist.add(getManualLotto());
+        }
+        return manualLottolist;
     }
 
-    public List<Number> getNumberList(String Message) throws InvalidInputException {
-        System.out.println("\n" + Message);
+    public Lotto getManualLotto() {
+        List<Number> inputNumberList = getNumberList();
+        return new Lotto(inputNumberList);
+    }
+
+    public List<Number> getNumberList() {
         String str = sc.nextLine();
-        List<Number> numberList = Arrays.stream(str.split(COMMA))
+        return Arrays.stream(str.split(COMMA))
                 .filter(s -> !s.isEmpty())
                 .map(String::trim)
                 .mapToInt(Integer::parseInt)
                 .distinct()
-                .mapToObj(n -> new Number(n))
+                .mapToObj(Number::new)
                 .collect(Collectors.toList());
-        validator.isValidNumberList(numberList);
-        return numberList;
     }
 
-    public Number getBonusNumber(Lotto winningLotto) throws InvalidInputException {
+    public Number getBonusNumber() {
         System.out.println("\n" + BONUS_NUMBER_MESSAGE);
         int bonusNumber = sc.nextInt();
         sc.nextLine();
-        validator.isValidBonusNumber(winningLotto, bonusNumber);
         return new Number(bonusNumber);
     }
+
 }

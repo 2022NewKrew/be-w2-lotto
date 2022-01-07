@@ -1,21 +1,16 @@
 package view;
 
 import domain.Lotto;
-import domain.Result;
 import enums.Rank;
 import service.ResultService;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import static utils.Symbol.LOTTO_PRICE;
 import static utils.Symbol.REWARD_MESSAGE;
 
 public class OutputView {
-    public OutputView() {
 
-    }
-
-    public void printPurchaseLottoList(ArrayList<Lotto> lottos, int manualLottoCount) {
+    public void printPurchaseLottoList(List<Lotto> lottos, int manualLottoCount) {
         int automaticLottoCount = lottos.size() - manualLottoCount;
         System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.%n", manualLottoCount, automaticLottoCount);
         for (Lotto lotto : lottos) {

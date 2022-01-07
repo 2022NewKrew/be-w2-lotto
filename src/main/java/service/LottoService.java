@@ -4,20 +4,22 @@ import domain.Lotto;
 import exception.InvalidInputException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static utils.Symbol.LOTTO_PRICE;
 
 public class LottoService {
-    private ArrayList<Lotto> lottoList = new ArrayList<>();
+    private List<Lotto> lottoList = new ArrayList<>();
+    private static final AutomaticGenerator automaticGenerator = new AutomaticGenerator();
 
-    public LottoService(int purchaseAmount, int manualLottoCount) throws InvalidInputException {
+    public LottoService(int purchaseAmount, List<Lotto> manualLottoList) throws InvalidInputException {
+        int manualLottoCount = manualLottoList.size();
         int automaticLottoCount = purchaseAmount / LOTTO_PRICE - manualLottoCount;
-        ManualGenerator manualGenerator = new ManualGenerator();
-        AutomaticGenerator automaticGenerator = new AutomaticGenerator();
+        generateLottoList(automaticLottoCount, manualLottoList);
+    }
 
-        for (int i = 0; i < manualLottoCount; i++) {
-            lottoList.add(generate(manualGenerator));
-        }
+    public void generateLottoList(int automaticLottoCount, List<Lotto> manualLottoList) throws InvalidInputException {
+        lottoList.addAll(manualLottoList);
         for (int i = 0; i < automaticLottoCount; i++) {
             lottoList.add(generate(automaticGenerator));
         }
@@ -27,7 +29,7 @@ public class LottoService {
         return lottoGenerator.generate();
     }
 
-    public ArrayList<Lotto> getLottos() {
+    public List<Lotto> getLottos() {
         return lottoList;
     }
 }

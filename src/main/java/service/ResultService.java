@@ -7,17 +7,18 @@ import domain.WinningLotto;
 import enums.Rank;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static utils.Symbol.LOTTO_PRICE;
 
 public class ResultService {
-    ArrayList<Result> results;
+    List<Result> results;
 
     public ResultService() {
         results = new ArrayList<>();
     }
 
-    public void generateResult(ArrayList<Lotto> lottoList, WinningLotto winningLotto) {
+    public void generateResult(List<Lotto> lottoList, WinningLotto winningLotto) {
         for (Lotto lotto : lottoList) {
             int count = lotto.getHitCount(winningLotto.getLotto());
             Number bonusNumber = winningLotto.getBonusNumber();
@@ -38,8 +39,7 @@ public class ResultService {
     }
 
     public int isSameRank(Rank a, Rank b) {
-        int sameCount = (a.equals(b)) ? 1 : 0;
-        return sameCount;
+        return (a.equals(b)) ? 1 : 0;
     }
 
     public int getProfit() {

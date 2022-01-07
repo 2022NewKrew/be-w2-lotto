@@ -41,3 +41,15 @@
 - stream을 처음 써보았는데 코드를 깔끔하게 정리해주는 느낌을 받았고, 좀 더 공부해봐야겠습니다.
 - exception을 practice를 찾아 적용해 보았는데 이런식으로 활용하는게 최선인지 궁금합니다.
 - option + command + L 을 누르면 코드가 깔끔히 정렬된다!
+
+# reviewfix
+- [x] 사용하지 않는 import 정리
+- [x] Main클래스의 try catch보다는 명확한 exception throw로 변경
+- [x] exception을 위로 전달하는 방식 -> 해당 exception 위치에서 바로 throw하는 방식으로 변경
+- [x] LottoService 클래스 생성자 간소화
+- [x] Stream사용시 생성자 사용법 변경
+- [x] MannualGenerator 클래스의 생성자에서 inputview 사용 지양
+- [x] ArrayList사용 -> List사용
+- [x] domain(Number, WinningLottoMannual) validation 검증은 Number클래스에서 하기
+- [x] Result의 Rank 측정을 Enum클래스로 위임
+- [x] final이 가능한 변수는 모두 적용시켜주기
