@@ -1,8 +1,8 @@
-package view;
+package view.console;
 
-import dto.YieldDto;
-import dto.LottoResultDto;
-import dto.LottoResultsDto;
+import view.console.dto.YieldDto;
+import view.console.dto.LottoResultDto;
+import view.console.dto.LottoResultsDto;
 
 import java.util.List;
 

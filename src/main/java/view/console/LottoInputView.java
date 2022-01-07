@@ -1,17 +1,15 @@
-package view;
+package view.console;
 
-import domain.LottoTicket;
 import domain.lottonumber.BasicNumber;
 import domain.lottonumber.BonusNumber;
 import domain.lottonumber.LottoNumber;
 import exception.NegativeException;
+import view.console.dto.lottoticket.LottoTicketInputDto;
+import view.console.dto.lottoticket.LottoTicketsInputDto;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
 public class LottoInputView {
 
@@ -34,7 +32,7 @@ public class LottoInputView {
 
     private List<LottoNumber> inputWinningBasicNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-        return Stream.of(sc.nextLine().split(","))
+        return Arrays.stream(sc.nextLine().split(","))
                 .map(Integer::parseInt)
                 .map(BasicNumber::new)
                 .collect(Collectors.toList());
@@ -54,28 +52,24 @@ public class LottoInputView {
         return numberOfManualLottoTicket;
     }
 
-    public List<LottoTicket> inputManualLottoTickets(int numberOfManualLottoTicket) {
-        if(numberOfManualLottoTicket>0) {
-            System.out.println("수동으로 구매할 번호를 입력해 주세요.");
-            return createManualLottoTickets(numberOfManualLottoTicket);
+    public Optional<LottoTicketsInputDto> inputManualLottoTickets(int numberOfManualLottoTicket) {
+        if (numberOfManualLottoTicket <= 0) {
+            return Optional.empty();
         }
-        return Collections.emptyList();
+
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        return Optional.of(new LottoTicketsInputDto(IntStream.range(0, numberOfManualLottoTicket)
+                .mapToObj(this::inputManualLottoTicket)
+                .collect(Collectors.toUnmodifiableList())));
     }
 
-    private List<LottoTicket> createManualLottoTickets(int numberOfManualLottoTicket) {
-        List<LottoTicket> lottoTickets = new ArrayList<>();
-        for (int i = 0; i < numberOfManualLottoTicket; i++) {
-            lottoTickets.add(createManualLottoTicket());
-        }
-        return lottoTickets;
-    }
-
-    private LottoTicket createManualLottoTicket() {
+    public LottoTicketInputDto inputManualLottoTicket(int numberOfManualLottoTicket) {
         List<String> splitManualLottoNumbers = List.of(sc.nextLine().split(","));
         List<LottoNumber> lottoNumbers = splitManualLottoNumbers.stream()
                 .map(Integer::parseInt)
                 .map(BasicNumber::new)
                 .collect(Collectors.toUnmodifiableList());
-        return new LottoTicket(lottoNumbers);
+
+        return new LottoTicketInputDto(lottoNumbers);
     }
 }
