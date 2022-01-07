@@ -1,34 +1,33 @@
-package application;
-
-import domain.Lotto;
-import domain.MatchStatus;
-import domain.WinningLotto;
+package domain;
 
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-public class LottoResultManager {
+public class LottoResult {
     private final WinningLotto winningLotto;
     private final List<Lotto> userLottoList;
-    private final Map<MatchStatus, Integer> matchingResult;
+    private final Map<MatchStatus, Integer> matchingResult = new EnumMap<>(MatchStatus.class);
 
-    public LottoResultManager(WinningLotto winningLotto, List<Lotto> userLottoList) {
+    public LottoResult(WinningLotto winningLotto, List<Lotto> userLottoList) {
         this.winningLotto = winningLotto;
         this.userLottoList = userLottoList;
-        this.matchingResult = new EnumMap<>(MatchStatus.class);
+        calculateMatchingResult();
+    }
+
+    private void calculateMatchingResult() {
         for (var e: MatchStatus.values()) {
             matchingResult.put(e, 0);
         }
-    }
-
-    public Map<MatchStatus, Integer> getMatchingResult() {
         for (Lotto lotto: userLottoList) {
             int matchCount = winningLotto.checkNumberOfWinning(lotto);
             boolean isBonusMatched = winningLotto.checkBonusBallMatched(lotto);
             reflectScore(matchCount, isBonusMatched);
         }
-        return matchingResult;
+    }
+
+    public int getCountByMatchResult(MatchStatus status) {
+        return matchingResult.get(status);
     }
 
     private void reflectScore(int matchCount, boolean isBonusMatched) {

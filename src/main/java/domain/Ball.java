@@ -1,7 +1,5 @@
 package domain;
 
-import validator.LottoValidator;
-
 import java.util.Objects;
 
 public class Ball {
@@ -9,9 +7,19 @@ public class Ball {
     public static final int MAX_LOTTO_NUMBER = 45;
     private final int number;
 
-    public Ball(int number) {
-        LottoValidator.assertValidNumber(number);
+    private Ball(int number) {
+        assertValidNumber(number);
         this.number = number;
+    }
+
+    public static Ball create(int number) {
+        return new Ball(number);
+    }
+
+    private void assertValidNumber(int number) throws IllegalArgumentException {
+        if (number < Ball.MIN_LOTTO_NUMBER || number > Ball.MAX_LOTTO_NUMBER) {
+            throw new IllegalArgumentException();
+        }
     }
 
     public int getNumber() {

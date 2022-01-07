@@ -10,15 +10,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class LottoTest {
-    private final Lotto lotto = new Lotto(createBallList(List.of(1, 2, 3, 4, 5, 6)));
-
-    private Ball createBall(int number) {
-        return new Ball(number);
-    }
+    private final Lotto lotto = Lotto.create(createBallList(List.of(1, 2, 3, 4, 5, 6)));
     
     private List<Ball> createBallList(List<Integer> list) {
         return list.stream()
-                .map(Ball::new)
+                .map(Ball::create)
                 .collect(Collectors.toList());
     }
 
@@ -36,7 +32,7 @@ class LottoTest {
     void assertBallsNumberInvalid() {
         List<Ball> invalidBallList = createBallList(List.of(1, 2, 3, 4, 5));
 
-        assertThrows(IllegalArgumentException.class, () -> new Lotto(invalidBallList));
+        assertThrows(IllegalArgumentException.class, () -> Lotto.create(invalidBallList));
     }
 
     @DisplayName("중복된 숫자가 있으면 에러 발생")
@@ -44,14 +40,14 @@ class LottoTest {
     void assertDuplicatedNumber() {
         List<Ball> invalidBallList = createBallList(List.of(1, 2, 3, 4, 5, 5));
 
-        assertThrows(IllegalArgumentException.class, () -> new Lotto(invalidBallList));
+        assertThrows(IllegalArgumentException.class, () -> Lotto.create(invalidBallList));
     }
     
     @DisplayName("특정 숫자를 포함하고 있는지 검증")
     @Test
     void isContainBall() {
-        Ball includingBall = createBall(1);
-        Ball notIncludingBall = createBall(45);
+        Ball includingBall = Ball.create(1);
+        Ball notIncludingBall = Ball.create(45);
 
         boolean contain = lotto.containBall(includingBall);
         boolean notContain = lotto.containBall(notIncludingBall);

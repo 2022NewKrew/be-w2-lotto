@@ -1,19 +1,34 @@
 package domain;
 
-import validator.LottoValidator;
-
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 public class WinningLotto {
     private final List<Ball> balls;
     private final Ball bonusBall;
 
-    public WinningLotto(List<Ball> balls, Ball bonusBall) {
-        LottoValidator.assertValidBalls(balls);
-        LottoValidator.assertValidBonusBall(balls, bonusBall);
+    private WinningLotto(List<Ball> balls, Ball bonusBall) {
+        assertValidBalls(balls);
+        assertValidBonusBall(balls, bonusBall);
         this.balls = balls;
         this.bonusBall = bonusBall;
+    }
+
+    public static WinningLotto create(List<Ball> balls, Ball bonusBall) {
+        return new WinningLotto(balls, bonusBall);
+    }
+
+    private void assertValidBalls(List<Ball> balls) throws IllegalArgumentException {
+        if (new HashSet<>(balls).size() != Lotto.NUMBER_OF_BALLS) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private void assertValidBonusBall(List<Ball> balls, Ball bonusBall) throws IllegalArgumentException {
+        if (balls.stream().anyMatch(e -> e.getNumber() == bonusBall.getNumber())) {
+            throw new IllegalArgumentException();
+        }
     }
 
     public List<Ball> getBalls() {
