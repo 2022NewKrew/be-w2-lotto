@@ -40,8 +40,8 @@ public class LottoPack {
         return stringBuilder.toString();
     }
 
-    public RankingPack makeRankingPack(Lotto prize,int bonus) {
-        return new RankingPack(lottoList.stream().map(lotto -> Match.makeLottoRank(lotto, prize, bonus)).collect(Collectors.toList()));
+    public RankingPack makeRankingPack(Lotto winningLottoTicket,int bonus) {
+        return new RankingPack(lottoList.stream().map(lotto -> Match.makeLottoRank(lotto, winningLottoTicket, bonus)).collect(Collectors.toList()));
     }
 
 
