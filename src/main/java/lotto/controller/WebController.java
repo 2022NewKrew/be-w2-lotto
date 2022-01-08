@@ -72,8 +72,6 @@ public class WebController {
         double yield = lottoOutputPrinterOnWeb.getYield();
         LottosResult lottosResult = new LottosResult(message, yield);
         model.put("lottosResult", lottosResult);
-        System.out.println(message);
-        System.out.println(yield);
 
         init();
 
