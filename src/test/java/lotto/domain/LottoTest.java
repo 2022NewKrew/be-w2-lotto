@@ -1,8 +1,8 @@
 package lotto.domain;
 
 import static lotto.domain.Lotto.NUM_OF_LOTTO_NUMBERS_IN_LOTTO;
-import static lotto.view.LottoOutputPrinter.CHECK_DUPLICATION_MESSAGE;
-import static lotto.view.LottoOutputPrinter.CHECK_NUM_OF_LOTTO_NUMBERS;
+import static lotto.view.LottoOutputPrinterOnConsole.CHECK_DUPLICATION_MESSAGE;
+import static lotto.view.LottoOutputPrinterOnConsole.CHECK_NUM_OF_LOTTO_NUMBERS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

@@ -1,6 +1,6 @@
 package lotto.domain;
 
-import static lotto.LottoSimulator.SEPARATOR;
+import static lotto.controller.LottoSimulator.SEPARATOR;
 
 import java.util.Arrays;
 import java.util.List;

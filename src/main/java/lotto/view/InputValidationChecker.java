@@ -1,6 +1,6 @@
 package lotto.view;
 
-import static lotto.LottoSimulator.LOTTO_PRICE;
+import static lotto.controller.LottoSimulator.LOTTO_PRICE;
 
 public class InputValidationChecker {
 

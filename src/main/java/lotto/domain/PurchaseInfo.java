@@ -1,6 +1,6 @@
 package lotto.domain;
 
-import static lotto.LottoSimulator.LOTTO_PRICE;
+import static lotto.controller.LottoSimulator.LOTTO_PRICE;
 
 import java.util.Collections;
 import java.util.List;

@@ -1,6 +1,6 @@
 package lotto.domain;
 
-import static lotto.view.LottoOutputPrinter.CHECK_LOTTO_NUMBER_MESSAGE;
+import static lotto.view.LottoOutputPrinterOnConsole.CHECK_LOTTO_NUMBER_MESSAGE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
