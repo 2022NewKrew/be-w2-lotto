@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LastWeekNumberBundleTest {
 
-    List<Integer> lastWeekLottoNumberList = List.of(1,2,3,4,5,6);
+    LastWeekLottoNumberList lastWeekLottoNumberList = new LastWeekLottoNumberList("1,2,3,4,5,6");
     int bonusBall = 7;
 
     LastWeekNumberBundle lastWeekNumber = new LastWeekNumberBundle(lastWeekLottoNumberList,bonusBall);

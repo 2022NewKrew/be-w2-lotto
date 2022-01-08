@@ -22,9 +22,12 @@ public class WinningState {
     }
 
     @Override
-    public boolean equals(Object winningState) {
-        if (winningState instanceof WinningState) {
-            return this.lottoCorrectCnt == ((WinningState) winningState).lottoCorrectCnt && (((WinningState) winningState).isBonus.equals(BonusState.NO_MATTER)) || this.isBonus == ((WinningState) winningState).isBonus;
+    public boolean equals(Object o) {
+        if (o instanceof WinningState) {
+            WinningState winningState = (WinningState) o;
+            return this.lottoCorrectCnt == winningState.lottoCorrectCnt
+                    && ((winningState.isBonus.equals(BonusState.NO_MATTER)
+                    || winningState.isBonus == this.isBonus));
         }
         return false;
     }
