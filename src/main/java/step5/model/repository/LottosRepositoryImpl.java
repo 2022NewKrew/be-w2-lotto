@@ -3,6 +3,7 @@ package step5.model.repository;
 import org.h2.jdbcx.JdbcDataSource;
 import step5.model.domain.Lotto;
 import step5.model.domain.Lottos;
+import step5.utils.exception.RepositoryException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,7 +42,7 @@ public class LottosRepositoryImpl implements LottosRepository {
 
             return lottos;
         } catch (Exception e) {
-            throw new IllegalStateException(e);
+            throw new RepositoryException("DB에 저장된 로또 번호들을 들고 오는 과정에서 오류가 발생했습니다.");
         } finally {
             close(conn, pstmt, rs);
         }
@@ -65,7 +66,7 @@ public class LottosRepositoryImpl implements LottosRepository {
             pstmt.executeBatch();
             conn.commit();
         } catch (Exception e) {
-            throw new IllegalStateException(e);
+            throw new RepositoryException("로또 번호를 DB에 저장하는 과정에서 오류가 발생했습니다.");
         } finally {
             close(conn, pstmt);
         }

@@ -3,6 +3,7 @@ package step5.model.repository;
 import org.h2.jdbcx.JdbcDataSource;
 import step5.model.domain.Matches;
 import step5.utils.Rank;
+import step5.utils.exception.RepositoryException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -43,7 +44,7 @@ public class MatchesRepositoryImpl implements MatchesRepository {
 
             return matches;
         } catch (Exception e) {
-            throw new IllegalStateException(e);
+            throw new RepositoryException("구매한 로또와 당첨 번호를 비교한 모든 결과를 DB에서 가져오는데 오류가 발생했습니다.");
         } finally {
             close(conn, pstmt, rs);
         }
@@ -68,7 +69,7 @@ public class MatchesRepositoryImpl implements MatchesRepository {
             pstmt.executeBatch();
             conn.commit();
         } catch (Exception e) {
-            throw new IllegalStateException(e);
+            throw new RepositoryException("구매한 로또와 당첨 번호를 비교한 모든 결과를 DB에 갱신하는데 오류가 발생했습니다.");
         } finally {
             close(conn, pstmt);
         }

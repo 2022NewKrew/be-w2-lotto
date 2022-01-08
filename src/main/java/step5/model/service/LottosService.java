@@ -42,4 +42,14 @@ public interface LottosService {
 
         return lottosQuantity - manualLottos.size();
     }
+
+    default Lottos joinLottosBetweenRepoAndInserted(String moneyForBuy, String manualLottos) {
+        Lottos lottos = selectAllLottosFromRepository();
+        Lottos newLottos = makeLottos(moneyForBuy, manualLottos);
+
+        insertLottosToRepository(newLottos);
+        lottos.addLottos(newLottos);
+
+        return lottos;
+    }
 }

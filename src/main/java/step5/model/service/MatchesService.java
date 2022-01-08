@@ -17,4 +17,11 @@ public interface MatchesService {
 
         return matches;
     }
+
+    default Matches updateMatchesWithAllLottos(Lottos lottos, String resultStr, String bonusNumberStr) {
+        Matches matches = startMatch(lottos, resultStr, bonusNumberStr);
+        updateMatchesInRepository(matches);
+
+        return matches;
+    }
 }
