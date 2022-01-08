@@ -184,3 +184,42 @@
 - 예외가 발생하면 `error.html`에 메시지를 보내도록 처리
 ### 실행 결과
 ![lotto_step4](img/lotto_step4.gif)
+---
+## 5단계 ([링크](https://lucas.codesquad.kr/2022-kakao/course/%EC%9B%B9%EB%B0%B1%EC%97%94%EB%93%9C/Lotto/(%EC%84%A0%ED%83%9D)-%EB%A1%9C%EB%98%90-5-%EB%8B%A8%EA%B3%84---DB-%EC%A0%81%EC%9A%A9))
+### 기능 요구사항
+- 사용자가 구매한 로또 데이터를 DB에 저장한다.
+- 사용자가 구매한 로또와 당첨 번호를 비교한 결과를 DB에 저장한다.
+- 데이터베이스는 간단히 내장형 DB인 H2를 사용한다.
+### 상세 구현사항
+- MVC 패턴을 위해 패키지 분리를 새롭게 진행
+  - controller: 클라이언트의 요청을 받는 클래스들
+  - model
+    - domain: DTO 관련 클래스들
+    - repository: DB와의 연동 및 쿼리 실행 클래스들
+    - service: 핵심 로직 클래스들
+  - utils
+    - exceptions: 직접 정의한 예외들을 위한 클래스들
+- H2 DB 사용 및 테이블 생성
+  - **LOTTOS**: 구매한 로또들의 번호들을 저장하는 테이블
+    - ID (Primary Key): ID 값, INT형, 자동 증가, 사실 상 사용하지 않음
+    - NUMBERS: 로또 번호들, VARCHAR형
+  - **MATCHES**: 저장된 로또 번호들과 당첨 번호를 비교한 결과들을 저장하는 테이블
+    - RANK (Primary Key): 각 Rank의 이름, VARCHAR형 ('first', 'second', ...)
+    - COUNT: 당첨 횟수, INT형
+  - 테이블 생성 및 초기화 쿼리문 → /resources/res/lottos.sql에 저장
+- DB에 접근하기 위한 클래스들 정의
+  - `Repository` 인터페이스 정의, `default` 메소드를 통해 공통으로 사용하는 자원 반환 메소드들 구현
+  - `Repository` 인터페이스를 상속받는 두 인터페이스 정의, DB에 접근하는 로직의 확장성을 위함
+    - `LottosRepository`, `MatchesRepository`
+    - 각각을 구현하는 클래스를 정의하여 **LOTTOS**, **MATCHES** 테이블에 대한 쿼리 실행 로직 구현
+- 핵심 로직을 담는 클래스들을 새롭게 정의
+  - `LottosService`, `MatchesService` 두 인터페이스 정의, 확장성을 위함
+  - `default` 메소드를 통해 기존 핵심 로직들을 구현
+  - 각각을 구현하는 클래스를 정의하여 DB에 접근하여 처리하는 로직들을 위한 메소드들 재정의 및 구현
+- 로또 번호를 구매하면 기존 DB에 구매했던 로또 번호들과 합쳐져서 DB에 저장
+- 당첨 결과 또한 누적되어 DB에 저장
+### 실행 결과
+#### 첫 실행 및 추가 구매 확인
+![lotto_step5_flow](img/lotto_step5_flow.gif)
+#### DB에 저장된 내용만 가져오기
+![lotto_step5_db](img/lotto_step5_db.gif)
