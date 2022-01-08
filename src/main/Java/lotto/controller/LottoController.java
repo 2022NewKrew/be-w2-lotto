@@ -3,6 +3,7 @@ package lotto.controller;
 import lotto.domain.winningstats.WinningStats;
 import lotto.domain.winningstats.lastweeknumberBundle.LastWeekLottoNumberList;
 import lotto.domain.winningstats.lottobundle.LottoBundle;
+import lotto.domain.winningstats.lottobundle.LottoList;
 import lotto.view.ConsoleInputView;
 import lotto.view.ConsoleOutputView;
 
@@ -13,13 +14,20 @@ public class LottoController {
 
     public LottoBundle purchaseLottoBundleInView() {
         int lottoPurchaseMoney = ConsoleInputView.getLottoPurchaseMoney();
-        LottoBundle lottoBundle = new LottoBundle(lottoPurchaseMoney);
+        LottoBundle lottoBundle = new LottoBundle(
+                lottoPurchaseMoney,
+                purchaseManualLotto()
+        );
         printLottoBundle(lottoBundle);
         return lottoBundle;
     }
+    private String purchaseManualLotto(){
+        long manualLottoCount = ConsoleInputView.getManualCount();
+        return ConsoleInputView.getManualLottoNumbers(manualLottoCount);
+    }
 
     public void printLottoBundle(LottoBundle lottoBundle) {
-        ConsoleOutputView.printLottoCount(lottoBundle.getCount());
+        ConsoleOutputView.printLottoCount(lottoBundle.getAutoCount(),lottoBundle.getManualLottoCount());
         ConsoleOutputView.printLottoBundle(lottoBundle);
     }
 

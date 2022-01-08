@@ -22,7 +22,7 @@ class LottoBundleTest {
 
     @Test
     void getLottoList() {
-        assertEquals(lottoBundle.getLottoList().size(), 4);
+        assertEquals(lottoBundle.getAllLottoList().size(), 4);
     }
 
     @Test

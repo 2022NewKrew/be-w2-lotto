@@ -2,19 +2,31 @@ package lotto.domain.winningstats.lottobundle;
 
 import lotto.domain.winningstats.lottobundle.lottoticket.Lotto;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class LottoList {
     private static final String LINE_SEPARATOR = System.lineSeparator();
-    final List<Lotto> lottoList;
+    private final List<Lotto> lottoList;
+
+    public LottoList(List<Lotto> lottoList) {
+        this.lottoList = lottoList;
+    }
 
     public LottoList(long count) {
         List<Lotto> lottoListTemp = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             Lotto lotto = new Lotto();
+            lottoListTemp.add(lotto);
+        }
+        lottoList = Collections.unmodifiableList(lottoListTemp);
+    }
+
+    public LottoList(String manualLottoNumbers){
+        List<Lotto> lottoListTemp = new ArrayList<>();
+        for (String manualLottoNumber : manualLottoNumbers.split(LINE_SEPARATOR)) {
+            Lotto lotto = new Lotto(manualLottoNumber);
             lottoListTemp.add(lotto);
         }
         lottoList = Collections.unmodifiableList(lottoListTemp);
@@ -33,7 +45,16 @@ public class LottoList {
         return lottoList.size();
     }
 
+    public void add(Lotto lotto){
+        lottoList.add(lotto);
+    }
+
     public Iterator<Lotto> getIterator() {
         return lottoList.iterator();
+    }
+
+    public LottoList concat(LottoList other) {
+        List<Lotto> allLottoList = Stream.concat(this.lottoList.stream(),other.lottoList.stream()).collect(Collectors.toList());
+        return new LottoList(allLottoList);
     }
 }
