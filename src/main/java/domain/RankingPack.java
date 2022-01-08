@@ -23,7 +23,7 @@ public class RankingPack {
     }
 
     private long calculatePrize() {
-        return rankingList.stream().map(Ranking::getWiningPrize).reduce(Long::sum).get();
+        return rankingList.stream().map(Ranking::getWiningPrize).reduce(Long::sum).orElse(0L);
     }
 
 }

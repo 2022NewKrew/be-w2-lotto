@@ -1,9 +1,6 @@
 package controller;
 
-import domain.Generator.AutoLottoGenerator;
-import domain.Lotto;
 import domain.LottoPack;
-import view.LottoInput;
 import view.LottoOutput;
 
 import java.util.List;

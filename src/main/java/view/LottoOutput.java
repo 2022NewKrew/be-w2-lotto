@@ -4,6 +4,10 @@ import domain.LottoPack;
 import domain.WinningStats;
 
 public class LottoOutput {
+    private LottoOutput() {
+
+    }
+
     public static final String PRIZE_STR_FORMAT = "%s (%d원)- %d 개";
 
     public static void printLottoPack(LottoPack lottoPack) {

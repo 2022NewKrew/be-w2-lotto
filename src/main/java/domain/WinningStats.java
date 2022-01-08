@@ -1,6 +1,5 @@
 package domain;
 
-import controller.BuyLotto;
 import view.LottoOutput;
 
 import java.util.Map;
@@ -21,7 +20,8 @@ public class WinningStats {
     }
 
     public void printMap() {
-        prizeMap.forEach((ranking, count) -> System.out.printf((LottoOutput.PRIZE_STR_FORMAT) + "%n", ranking.getMatchCount(), ranking.getWiningPrize(), count));
+        prizeMap.forEach((ranking, count) ->
+                System.out.printf((LottoOutput.PRIZE_STR_FORMAT) + "%n", ranking.getMatchCount(), ranking.getWiningPrize(), count));
     }
 
     public double getTotalIncome(int buyPrice) {

@@ -8,13 +8,13 @@ import java.util.List;
 public class LottoBox {
     private static final int LOTTO_NUM_MAX = 45;
     private static final int LOTTO_NUM_MIN = 1;
-    private final List<Integer> lottoList = new ArrayList<>();
+    private List<Integer> lottoList = new ArrayList<>();
 
     private LottoBox() {
         for (int i = LOTTO_NUM_MIN; i <= LOTTO_NUM_MAX; i++) {
             lottoList.add(i);
         }
-        Collections.unmodifiableList(lottoList);
+        lottoList = Collections.unmodifiableList(lottoList);
     }
 
     private static class InnerInstanceClass {

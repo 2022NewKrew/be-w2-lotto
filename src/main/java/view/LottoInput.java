@@ -6,6 +6,9 @@ import domain.LottoPack;
 import java.util.Scanner;
 
 public class LottoInput {
+    private LottoInput() {
+    }
+
     private static final Scanner sc = new Scanner(System.in);
 
     public static LottoPack inputBuyLottoPrize() {
@@ -18,7 +21,8 @@ public class LottoInput {
         sc.nextLine();
         return sc.nextLine();
     }
-    public static int inputBonusBall(){
+
+    public static int inputBonusBall() {
         System.out.println("보너스 볼을 입력해 주세요.");
         return sc.nextInt();
     }
