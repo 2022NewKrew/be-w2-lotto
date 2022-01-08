@@ -1,6 +1,6 @@
 package lotto.domain;
 
-import static lotto.view.LottoOutputPrinter.CHECK_DUPLICATION_MESSAGE;
+import static lotto.view.LottoOutputPrinterOnConsole.CHECK_DUPLICATION_MESSAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import lotto.DuplicationException;
+import lotto.exception.DuplicationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

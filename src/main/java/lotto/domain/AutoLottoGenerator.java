@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
-import lotto.DuplicationException;
-import lotto.NumOfLottoNumbersMismatchException;
+import lotto.exception.DuplicationException;
+import lotto.exception.NumOfLottoNumbersMismatchException;
 import org.jetbrains.annotations.NotNull;
 
 public class AutoLottoGenerator implements LottoGenerator {

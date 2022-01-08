@@ -1,7 +1,7 @@
 package lotto.domain;
 
 import java.util.Objects;
-import lotto.IllegalLottoNumberException;
+import lotto.exception.IllegalLottoNumberException;
 import org.jetbrains.annotations.NotNull;
 
 public class LottoNumber implements Comparable<LottoNumber> {
@@ -46,5 +46,10 @@ public class LottoNumber implements Comparable<LottoNumber> {
     @Override
     public int hashCode() {
         return Objects.hash(number);
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(number);
     }
 }

@@ -1,4 +1,4 @@
-package lotto;
+package lotto.controller;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -12,8 +12,13 @@ import lotto.domain.PurchaseInfo;
 import lotto.domain.PurchasedLottos;
 import lotto.domain.WinningLotto;
 import lotto.domain.WinningResult;
+import lotto.exception.DuplicationException;
+import lotto.exception.IllegalLottoNumberException;
+import lotto.exception.NumOfLottoNumbersMismatchException;
 import lotto.view.LottoInputScanner;
+import lotto.view.LottoInputScannerOnWeb;
 import lotto.view.LottoOutputPrinter;
+import lotto.view.LottoOutputPrinterOnWeb;
 import org.jetbrains.annotations.NotNull;
 
 public class LottoSimulator {
@@ -31,13 +36,7 @@ public class LottoSimulator {
         this.lottoOutputPrinter = lottoOutputPrinter;
     }
 
-    public static void main(String[] args) {
-        LottoSimulator lottoSimulator = new LottoSimulator(new LottoInputScanner(),
-            new LottoOutputPrinter());
-        lottoSimulator.start();
-    }
-
-    private void start() {
+    public void start() {
         long purchaseAmount = getPurchaseAmount();
         if (purchaseAmount == NOT_PURCHASE) {
             return;
@@ -82,7 +81,7 @@ public class LottoSimulator {
         }
     }
 
-    private @NotNull PurchasedLottos purchaseLotto(@NotNull PurchaseInfo purchaseInfo)
+    PurchasedLottos purchaseLotto(@NotNull PurchaseInfo purchaseInfo)
         throws IllegalLottoNumberException, DuplicationException, NumOfLottoNumbersMismatchException {
         long numOfManualLottos = purchaseInfo.getNumOfManualLottos();
         List<Lotto> purchasedLottoList = getPurchasedLottoList(purchaseInfo);
@@ -103,7 +102,7 @@ public class LottoSimulator {
         return purchasedLottoList;
     }
 
-    private @NotNull WinningLotto getWinningInfo() {
+    public @NotNull WinningLotto getWinningInfo() {
         lottoOutputPrinter.printDescription("\n지난주 당첨 정보를 입력해 주세요.\n");
         try {
             List<LottoNumber> winningLottoNumberList = lottoInputScanner.getWinningLottoNumberList();
@@ -116,11 +115,19 @@ public class LottoSimulator {
         }
     }
 
-    private void printWinningStat(long purchaseAmount, @NotNull PurchasedLottos purchasedLottos,
+    public void printWinningStat(long purchaseAmount, @NotNull PurchasedLottos purchasedLottos,
         WinningLotto winningLotto) {
         WinningResult winningResult = WinningResult.winningResultOf(winningLotto, purchasedLottos);
         double yield = winningResult.getYield(purchaseAmount);
         lottoOutputPrinter.printWinningResultPrinter(winningResult);
         lottoOutputPrinter.printWinningYield(yield);
+    }
+
+    public LottoInputScannerOnWeb getLottoInputScanner() {
+        return (LottoInputScannerOnWeb) lottoInputScanner;
+    }
+
+    public LottoOutputPrinterOnWeb getLottoOutputPrinter() {
+        return (LottoOutputPrinterOnWeb) lottoOutputPrinter;
     }
 }
