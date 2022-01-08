@@ -8,9 +8,9 @@ public enum Ranking implements Comparable<Ranking> {
     SIX_SECOND("5개 일치, 보너스 볼 일치", 30000000),
     SIX("6개 일치", 2000000000);
     private final String matchCount;
-    private final int winingPrize;
+    private final long winingPrize;
 
-    Ranking(String matchCount, int winingPrize) {
+    Ranking(String matchCount, long winingPrize) {
         this.matchCount = matchCount;
         this.winingPrize = winingPrize;
     }
@@ -19,7 +19,7 @@ public enum Ranking implements Comparable<Ranking> {
         return matchCount;
     }
 
-    public int getWiningPrize() {
+    public long getWiningPrize() {
         return winingPrize;
     }
 }

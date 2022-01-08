@@ -18,12 +18,12 @@ public class RankingPack {
         return winningStats;
     }
 
-    private int calculateRanking(Ranking targetRank) {
-        return (int) rankingList.stream().filter(ranking -> ranking == targetRank).count();
+    private long calculateRanking(Ranking targetRank) {
+        return rankingList.stream().filter(ranking -> ranking == targetRank).count();
     }
 
-    private int calculatePrize() {
-        return rankingList.stream().map(Ranking::getWiningPrize).reduce(Integer::sum).get();
+    private long calculatePrize() {
+        return rankingList.stream().map(Ranking::getWiningPrize).reduce(Long::sum).get();
     }
 
 }
