@@ -31,7 +31,6 @@ public class LottoController {
         port(8080);
         staticFileLocation("/static");
         exceptionHandle();
-        index();
         buyLottos();
         showLottos();
         matchLottos();
@@ -46,10 +45,6 @@ public class LottoController {
             model.put("exceptionMsg", exception.getMessage());
             response.body(render(model, "error.html"));
         });
-    }
-
-    private void index() {
-        get("/lotto", (request, response) -> "index.html");
     }
 
     private void buyLottos() {
