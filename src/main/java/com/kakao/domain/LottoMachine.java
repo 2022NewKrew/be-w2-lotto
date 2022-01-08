@@ -2,6 +2,7 @@ package com.kakao.domain;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class LottoMachine {
 
@@ -15,8 +16,8 @@ public class LottoMachine {
     }
 
     private List<Lotto> buyAutoLottos(int lottoCount) {
-        return Arrays.stream(new Lotto[lottoCount])
-                .map(lotto -> new Lotto())
+        return Stream.generate(Lotto::new)
+                .limit(lottoCount)
                 .collect(Collectors.toList());
     }
 

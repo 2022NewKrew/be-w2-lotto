@@ -17,7 +17,7 @@ public class Lotto {
         makeCustomLotto(lottoNumbers);
     }
 
-    public List<Integer> getLottoNumber() { return lottoNumbers; }
+    public List<Integer> getLottoNumbers() { return lottoNumbers; }
 
     public LottoType getType() { return lottoType; }
 
