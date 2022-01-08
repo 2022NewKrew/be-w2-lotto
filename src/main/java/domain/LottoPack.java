@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class LottoPack {
-    private static final List<Lotto> lottoList = new ArrayList<>();
+    private final List<Lotto> lottoList;
     private static final int LottoPrice = 1000;
 
     public int getBuyPrice() {
@@ -19,23 +19,20 @@ public class LottoPack {
 
     public LottoPack(int buyPrice) {
         this.buyPrice = buyPrice;
-        makeLottoList();
-    }
-
-    public void makeLottoList() {
+        List<Lotto> lottoListTemp = new ArrayList<>();
         int numberOfLotto = buyPrice / LottoPrice;
         AutoLottoGenerator autoLottoGenerator = new AutoLottoGenerator();
         for (int i = 0; i < numberOfLotto; i++) {
-            lottoList.add(autoLottoGenerator.generateLotto());
+            lottoListTemp.add(autoLottoGenerator.generateLotto());
         }
-        Collections.unmodifiableList(lottoList);
+        lottoList = Collections.unmodifiableList(lottoListTemp);
     }
 
 
     public String printLottoPack() {
         StringBuilder stringBuilder = new StringBuilder();
         lottoList.forEach(e ->
-                stringBuilder.append(e + "\n")
+                stringBuilder.append(e).append("\n")
         );
         return stringBuilder.toString();
     }

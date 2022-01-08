@@ -6,16 +6,17 @@ import java.util.List;
 
 public class Lotto {
 
-    private final List<Integer> numbers = new ArrayList<>();
+    private final List<Integer> numbers;
 
-    private Lotto(){}
-    public Lotto(List<Integer> numbers) {
-        sortAndAdd(numbers);
+    public Lotto(List<Integer> rawNumbers) {
+        numbers = sortAndAdd(rawNumbers);
     }
 
-    void sortAndAdd(List<Integer> rawNumbers) {
+    private List<Integer> sortAndAdd(List<Integer> rawNumbers) {
+        List<Integer> tempNumbers = new ArrayList<>();
         Collections.sort(rawNumbers);
-        numbers.addAll(rawNumbers);
+        tempNumbers.addAll(rawNumbers);
+        return Collections.unmodifiableList(tempNumbers);
     }
 
     public int countNumbersMatch(Lotto prize) {
