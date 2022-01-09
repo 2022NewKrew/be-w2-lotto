@@ -8,7 +8,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 class LottoTest {
 
@@ -38,16 +37,6 @@ class LottoTest {
     @DisplayName("[실패] 로또 개수가 6개가 아닐 때 InvalidLastWeekWinningNumber를 던져야 한다")
     void Lotto_Failed_By_InvalidLottoNumberLength() {
         Set<Integer> numbers = Set.of(1, 2, 3, 4, 5);
-
-        Assertions.assertThrows(InvalidLastWeekWinningNumber.class,
-                () -> new Lotto(numbers));
-    }
-
-    @DisplayName("[실패] 범위를 벗어나는 숫자가 들어오면 InvalidLastWeekWinningNumber를 던져야 한다")
-    @ParameterizedTest(name = "{0} 들어오는 경우")
-    @ValueSource(ints = {0, 46, -1})
-    void Lotto_Failed_By_(int invalidNumber) {
-        Set<Integer> numbers = Set.of(1, 2, 3, 4, 5, invalidNumber);
 
         Assertions.assertThrows(InvalidLastWeekWinningNumber.class,
                 () -> new Lotto(numbers));
