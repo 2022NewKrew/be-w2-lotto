@@ -2,7 +2,7 @@ package lotto.application;
 
 import lotto.controller.LottoController;
 import lotto.result.LottoResult;
-import lotto.dto.LottoDto;
+import lotto.vo.LottoVO;
 import lotto.view.LottoView;
 
 import java.util.List;
@@ -11,7 +11,7 @@ public class LottoApplication {
     public static void run(){
         LottoController lottoController = new LottoController();
 
-        List<LottoDto> lottos = lottoController.purchaseLottos(LottoView.inputPurchaseAmount(System.in));
+        List<LottoVO> lottos = lottoController.purchaseLottos(LottoView.inputPurchaseAmount(System.in));
 
         List<Integer> lastWeekLottoNumbers = LottoView.inputLastWeekLottoNumbers(System.in);
 

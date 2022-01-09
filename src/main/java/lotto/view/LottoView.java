@@ -1,6 +1,6 @@
 package lotto.view;
 
-import lotto.dto.LottoDto;
+import lotto.vo.LottoVO;
 import lotto.result.LottoResult;
 
 import java.io.InputStream;
@@ -11,12 +11,12 @@ public class LottoView {
     public static int inputPurchaseAmount(InputStream inputStream) {
         System.out.println("구입금액을 입력해 주세요.");
         Scanner scanner = new Scanner(inputStream);
-        return Integer.parseInt(scanner.next()) / LottoDto.LOTTO_PRICE;
+        return Integer.parseInt(scanner.next()) / LottoVO.LOTTO_PRICE;
     }
 
-    public void outputPurchaseResult(List<LottoDto> lottos) {
+    public void outputPurchaseResult(List<LottoVO> lottos) {
         System.out.println(lottos.size() + "개를 구매했습니다.");
-        for (LottoDto lotto : lottos) {
+        for (LottoVO lotto : lottos) {
             System.out.println(lotto.getNumbers().toString());
         }
     }
@@ -25,7 +25,7 @@ public class LottoView {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         List<Integer> lastWeekLottoNumbers = new ArrayList<>();
         Scanner scanner = new Scanner(inputStream);
-        for (int i = 0; i < LottoDto.NUMBERS_SIZE; i++) {
+        for (int i = 0; i < LottoVO.NUMBERS_SIZE; i++) {
             lastWeekLottoNumbers.add(Integer.parseInt(scanner.next().replace(",","").strip()));
         }
         lastWeekLottoNumbers.sort(Comparator.naturalOrder());
@@ -52,7 +52,7 @@ public class LottoView {
             if (lottoResult.isCheckBonusBall()) System.out.print("보너스 볼 일치");
             System.out.printf("(%d원)- %d개\n", reward, count);
         }
-        long totalLoss = (long)LottoDto.LOTTO_PRICE * lottoResults.size();
+        long totalLoss = (long) LottoVO.LOTTO_PRICE * lottoResults.size();
         System.out.printf("총 수익률은 %.2f%%입니다.", ((double) totalProfit / (double) totalLoss - 1) * 100);
     }
 }

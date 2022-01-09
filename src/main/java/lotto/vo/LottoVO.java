@@ -1,11 +1,11 @@
-package lotto.dto;
+package lotto.vo;
 
 import lotto.domain.Lotto;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class LottoDto {
+public class LottoVO {
 
     public final static int MIN_NUMBER = 1;
     public final static int MAX_NUMBER = 45;
@@ -14,7 +14,7 @@ public class LottoDto {
 
     private final List<Integer> numbers;
 
-    public LottoDto(Lotto lotto) {
+    public LottoVO(Lotto lotto) {
         numbers = new ArrayList<>(lotto.getNumbers().orElseThrow());
     }
 

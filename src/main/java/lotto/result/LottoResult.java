@@ -1,6 +1,6 @@
 package lotto.result;
 
-import lotto.dto.LottoDto;
+import lotto.vo.LottoVO;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,9 +45,9 @@ public enum LottoResult {
                 .collect(Collectors.toList()).get(0);
     }
 
-    public static List<LottoResult> createLottoResults(List<LottoDto> lottos, List<Integer> lastWeekLottoNumbers, int bonusBall) {
+    public static List<LottoResult> createLottoResults(List<LottoVO> lottos, List<Integer> lastWeekLottoNumbers, int bonusBall) {
         List<LottoResult> lottoResults = new ArrayList<>();
-        for (LottoDto lotto : lottos) {
+        for (LottoVO lotto : lottos) {
             int matchCount = (int) lotto.getNumbers().stream()
                     .filter(lastWeekLottoNumbers::contains).count();
             boolean isBonusBall = lotto.getNumbers().contains(bonusBall);

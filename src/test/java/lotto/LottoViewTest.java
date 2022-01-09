@@ -1,7 +1,7 @@
 package lotto;
 
 import lotto.domain.Lotto;
-import lotto.dto.LottoDto;
+import lotto.vo.LottoVO;
 import lotto.result.LottoResult;
 import lotto.view.LottoView;
 import org.junit.jupiter.api.Test;
@@ -29,22 +29,22 @@ class LottoViewTest {
     @Test
     void outputPurchaseResult() {
         LottoView lottoView = new LottoView();
-        List<LottoDto> lottos = new ArrayList<>();
+        List<LottoVO> lottos = new ArrayList<>();
         for (int i = 0; i < 10; i++){
             Lotto lotto = new Lotto();
             lotto.generateNumbers();
-            lottos.add(new LottoDto(lotto));
+            lottos.add(new LottoVO(lotto));
         }
         lottoView.outputPurchaseResult(lottos);
     }
 
     @Test
     void outputLottoResult() {
-        List<LottoDto> lottos = new ArrayList<>();
+        List<LottoVO> lottos = new ArrayList<>();
         for (int i = 0; i < 10; i++){
             Lotto lotto = new Lotto();
             lotto.generateNumbers();
-            lottos.add(new LottoDto(lotto));
+            lottos.add(new LottoVO(lotto));
         }
         List<Integer> lastWeekLottoNumbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
         List<LottoResult> lottoResults = LottoResult.createLottoResults(lottos, lastWeekLottoNumbers, 7);
