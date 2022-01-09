@@ -24,7 +24,7 @@ public class LottoApplication {
         List<List<Integer>> userNumbers = LottoView.inputPurchaseByUserNumbers(System.in);
 
         // 자동 구매
-        List<LottoVO> autoLottos = lottoController.purchaseLottos(purchaseCount);
+        List<LottoVO> autoLottos = lottoController.purchaseLottos(purchaseCount - userNumbers.size());
 
         // 수동 구매
         List<LottoVO> manualLottos = lottoController.purchaseLottoByUserNumbers(userNumbers);
