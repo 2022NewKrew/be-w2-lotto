@@ -2,7 +2,7 @@ package lotto;
 
 import lotto.domain.Lotto;
 import lotto.vo.LottoVO;
-import lotto.result.LottoResult;
+import lotto.result.LottoRank;
 import lotto.view.LottoView;
 import org.junit.jupiter.api.Test;
 
@@ -44,7 +44,7 @@ class LottoViewTest {
             lottos.add(new LottoVO(lotto));
         }
         List<Integer> lastWeekLottoNumbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
-        List<LottoResult> lottoResults = LottoResult.createLottoResults(lottos, lastWeekLottoNumbers, 7);
-        LottoView.outputLottoResult(lottoResults);
+        List<LottoRank> lottoRanks = LottoRank.createLottoResults(lottos, lastWeekLottoNumbers, 7);
+        LottoView.outputLottoResult(lottoRanks);
     }
 }

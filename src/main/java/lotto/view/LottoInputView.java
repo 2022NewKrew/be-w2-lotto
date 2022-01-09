@@ -1,8 +1,6 @@
 package lotto.view;
 
 import lotto.configure.LottoConfigure;
-import lotto.result.LottoResult;
-import lotto.vo.LottoVO;
 
 import java.io.InputStream;
 import java.util.*;

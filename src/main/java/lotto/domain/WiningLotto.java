@@ -1,6 +1,6 @@
 package lotto.domain;
 
-import lotto.result.LottoResult;
+import lotto.result.LottoRank;
 
 import java.util.List;
 
@@ -13,14 +13,14 @@ public class WiningLotto extends Lotto{
         this.bonusNumber = bonusNumber;
     }
 
-    public LottoResult matchLotto(Lotto lotto){
+    public LottoRank matchLotto(Lotto lotto){
         int matchCount = 0;
         boolean isBonusBall = false;
         for (int number : lotto.getNumbers().get()){
             if (contains(number)) matchCount += 1;
             isBonusBall |= bonusNumber == number;
         }
-        return LottoResult.valueOf(matchCount, isBonusBall);
+        return LottoRank.valueOf(matchCount, isBonusBall);
     }
 
 }
