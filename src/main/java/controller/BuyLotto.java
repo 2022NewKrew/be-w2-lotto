@@ -1,26 +1,37 @@
 package controller;
 
 import domain.Lotto;
+import domain.LottoBundle;
 import domain.LottoPack;
+import view.LottoInput;
 import view.LottoOutput;
 
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class BuyLotto {
-    public static int buyPrice = 0;
-    public static final int LottoPrice = 1000;
-    public static final LottoPack lottoPack = new LottoPack();
-    public BuyLotto(int buyPrice){
-        buy(buyPrice);
-        printLottoPack();
+    public BuyLotto() {
+
     }
 
-    public void buy(int buyPrice){
-        BuyLotto.buyPrice = buyPrice;
-        int numberOfLotto = buyPrice / LottoPrice;
-        for (int i = 0; i < numberOfLotto; i++) {
-            lottoPack.add(new Lotto());
-        }
+    public static LottoPack buy(int buyPrice) {
+        LottoBundle manualLottoBundle = makeManual();
+        int manualCount = manualLottoBundle.getCount();
+        LottoBundle autoLottoBundle = new LottoBundle(LottoPack.getAutoCount(buyPrice, manualCount));
+        return new LottoPack(buyPrice, manualCount, manualLottoBundle.concat(autoLottoBundle));
     }
-    private void printLottoPack(){
+
+    private static LottoBundle makeManual() {
+        int manualCount = LottoInput.inputManualCount();
+        String manualLottoString = LottoInput.inputManualLotto(manualCount);
+        return new LottoBundle(
+                Stream.of(manualLottoString.split("\n")).map(
+                                Lotto::new).
+                        collect(Collectors.toList()));
+    }
+
+
+    public static void printLottoPack(LottoPack lottoPack) {
         LottoOutput.printLottoPack(lottoPack);
     }
 

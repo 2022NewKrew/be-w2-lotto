@@ -1,25 +1,34 @@
 package domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class LottoPack {
-    private static final List<Lotto> lottoList = new ArrayList<>();
-    public LottoPack(){
+    private final LottoBundle lottoList;
+    private static final int LOTTO_PRICE = 1000;
+    private final int buyPrice;
+    private final int manualCount;
+    private final int autoCount;
 
-    }
-    public void add(Lotto lotto){
-        lottoList.add(lotto);
-    }
-
-
-    public void printLottoPack() {
-        lottoList.forEach(e -> System.out.print(e+"\n"));
+    public int getBuyPrice() {
+        return buyPrice;
     }
 
-    public RankingPack makeRankingPack(Lotto prize){
-        return new RankingPack(lottoList.stream().map(lotto -> Match.makeLottoRank(lotto,prize)).collect(Collectors.toList()));
+    public LottoPack(int buyPrice, int manualCount, LottoBundle lottoBundle) {
+        this.buyPrice = buyPrice;
+        this.autoCount = buyPrice / LOTTO_PRICE - manualCount;
+        this.manualCount = manualCount;
+        lottoList = lottoBundle;
+    }
+
+    public static int getAutoCount(int buyPrice, int manualCount) {
+        return buyPrice / LOTTO_PRICE - manualCount;
+    }
+
+    public String printLottoPack() {
+        return String.format("수동으로 %d장, 자동으로 %d 개를 구매했습니다.\n", manualCount, autoCount) +
+                lottoList.printBundle();
+    }
+
+    public RankingPack makeRankingPack(Lotto winningLottoTicket, int bonus) {
+        return new RankingPack(lottoList.makeRankingPack(winningLottoTicket, bonus));
     }
 
 
