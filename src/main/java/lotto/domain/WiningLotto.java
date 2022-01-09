@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import lotto.configure.LottoConfigure;
 import lotto.result.LottoRank;
 
 import java.util.List;
@@ -11,6 +12,12 @@ public class WiningLotto extends Lotto{
     public WiningLotto(List<Integer> numbers, int bonusNumber) {
         super(numbers);
         this.bonusNumber = bonusNumber;
+
+    }
+
+    public void validate(){
+        super.validate();
+        if (contains(bonusNumber)) throw new IllegalArgumentException();
     }
 
     public LottoRank matchLotto(Lotto lotto){
