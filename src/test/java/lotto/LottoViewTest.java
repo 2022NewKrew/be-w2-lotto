@@ -28,14 +28,13 @@ class LottoViewTest {
 
     @Test
     void outputPurchaseResult() {
-        LottoView lottoView = new LottoView();
         List<LottoVO> lottos = new ArrayList<>();
         for (int i = 0; i < 10; i++){
             Lotto lotto = new Lotto();
             lotto.generateNumbers();
             lottos.add(new LottoVO(lotto));
         }
-        lottoView.outputPurchaseResult(lottos);
+        LottoView.outputPurchaseResult(lottos);
     }
 
     @Test

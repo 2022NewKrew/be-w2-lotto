@@ -9,11 +9,13 @@ import java.util.*;
 
 public class LottoView {
 
+    private LottoView() {}
+
     public static int inputPurchaseAmount(InputStream inputStream) {
         return LottoInputView.inputPurchaseAmount(inputStream);
     }
 
-    public void outputPurchaseResult(List<LottoVO> lottos) {
+    public static void outputPurchaseResult(List<LottoVO> lottos) {
         LottoOutputView.outputPurchaseResult(lottos);
     }
 
