@@ -1,12 +1,8 @@
 package lotto.view;
 
-import lotto.domain.LottoCollection;
-import lotto.domain.LottoPurchaseInfo;
-import lotto.domain.WinningLotto;
+import lotto.domain.*;
 import lotto.util.InputUtil;
 import lotto.util.OutputUtil;
-
-import java.util.List;
 
 public class LottoShop {
 
@@ -18,9 +14,10 @@ public class LottoShop {
         OutputUtil.printLottoCollection(lottoCollection);
 
         WinningLotto winningLotto = new WinningLotto(inputUtil.inputWinningNumbers());
+        RankCollection rankCollection = RankCollection.of(lottoCollection, winningLotto);
 
-
-
+        LottoStatistics lottoStatistics = LottoStatistics.of(rankCollection, purchaseInfo);
+        OutputUtil.printStatistics(lottoStatistics);
 
     };
 }

@@ -2,10 +2,7 @@ package lotto.domain;
 
 import lotto.constant.ExceptionMessage;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -80,6 +77,9 @@ public class Lotto {
         return Collections.unmodifiableList(numbers);
     }
 
+    public Set<Integer> getSetNumbers() {
+        return new HashSet<>(numbers);
+    }
     @Override
     public String toString() {
         return numbers.toString();

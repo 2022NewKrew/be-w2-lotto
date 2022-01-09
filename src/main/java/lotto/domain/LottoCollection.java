@@ -7,15 +7,23 @@ import java.util.List;
 public class LottoCollection {
     private final List<Lotto> lottoCollection;
 
-    public LottoCollection(int countOfLotto) {
-        this(countOfLotto, new ArrayList<>());
+    public LottoCollection(List<Lotto> lottoCollection) { this(0, lottoCollection);}
+
+    public LottoCollection(int countOfRandomLotto) {
+        this(countOfRandomLotto, new ArrayList<>());
     }
 
-    public LottoCollection(int countOfLotto, List<Lotto> lottoCollection) {
-        checkNaturalNumber(countOfLotto);
+    public LottoCollection(int countOfRandomLotto, List<Lotto> lottoCollection) {
         this.lottoCollection = lottoCollection;
-        for(int i = 0; i < countOfLotto; i++) {
-            lottoCollection.add(new Lotto());
+        if(countOfRandomLotto > 0) {
+            createRandomLotto(countOfRandomLotto);
+        }
+    }
+
+    private void createRandomLotto(int countOfRandomLotto) {
+        checkNaturalNumber(countOfRandomLotto);
+        for(int i = 0; i < countOfRandomLotto; i++) {
+            this.lottoCollection.add(new Lotto());
         }
     }
 
