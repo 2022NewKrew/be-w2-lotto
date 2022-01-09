@@ -37,7 +37,7 @@ public class InputUtil {
         }
     }
 
-    public List<Integer> inputWinningNumber() {
+    public List<Integer> inputWinningNumbers() {
         System.out.println(INPUT_WINNING_NUMBERS.getMessage());
         try {
             List<Integer> winningNumbers = Arrays.stream(sc.nextLine().split(DELIMITER))

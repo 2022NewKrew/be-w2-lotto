@@ -31,7 +31,7 @@ class InputUtilTest {
     void test3() {
         InputUtil inputUtil = new InputUtil("1a,2a,3,4,5,6");
         assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> inputUtil.inputWinningNumber());
+                .isThrownBy(() -> inputUtil.inputWinningNumbers());
     }
 
     @Test
@@ -39,7 +39,7 @@ class InputUtilTest {
     void test4() {
         InputUtil inputUtil = new InputUtil("1,2,3,4,5");
         assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> inputUtil.inputWinningNumber());
+                .isThrownBy(() -> inputUtil.inputWinningNumbers());
     }
 
     @Test
@@ -47,7 +47,7 @@ class InputUtilTest {
     void test5() {
         InputUtil inputUtil = new InputUtil("1,1,2,3,4,5");
         assertThatExceptionOfType(IllegalArgumentException.class)
-                .isThrownBy(() -> inputUtil.inputWinningNumber());
+                .isThrownBy(() -> inputUtil.inputWinningNumbers());
     }
 
 }

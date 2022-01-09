@@ -2,6 +2,7 @@ package lotto.domain;
 
 import lotto.constant.ExceptionMessage;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.stream.IntStream;
 public class Lotto {
     private static final int MIN_LOTTO_NUMBER = 1;
     private static final int MAX_LOTTO_NUMBER = 45;
-    private static final int COUNT_OF_LOTTO_NUMBER = 6;
+    protected static final int COUNT_OF_LOTTO_NUMBER = 6;
 
     private static final List<Integer> createNumbers = IntStream
             .rangeClosed(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER)
@@ -27,7 +28,12 @@ public class Lotto {
 
     private static List<Integer> getRandomNumbers() {
         Collections.shuffle(createNumbers);
-        return List.copyOf(createNumbers.subList(0, COUNT_OF_LOTTO_NUMBER));
+        List<Integer> createdNumbers = new ArrayList<>();
+        for (Integer number : (createNumbers.subList(0, COUNT_OF_LOTTO_NUMBER))) {
+            createdNumbers.add(number);
+        }
+        Collections.sort(createdNumbers);
+        return createdNumbers;
     }
 
     public Lotto(List<Integer> numbers) {
@@ -72,5 +78,10 @@ public class Lotto {
 
     public List<Integer> getNumbers() {
         return Collections.unmodifiableList(numbers);
+    }
+
+    @Override
+    public String toString() {
+        return numbers.toString();
     }
 }
