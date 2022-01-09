@@ -2,6 +2,7 @@ package lotto.controller;
 
 import lotto.domain.Lotto;
 import lotto.result.LottoRank;
+import lotto.result.LottoResult;
 import lotto.service.LottoService;
 import lotto.vo.LottoVO;
 
@@ -27,8 +28,8 @@ public class LottoController {
                 .stream().map(LottoVO::new).collect(Collectors.toList());
     }
 
-    public Map<LottoRank, Integer> createLottoResults(List<LottoVO> lottos, List<Integer> lastWeekLottoNumbers, int bonusBall) {
-        return lottoService.createLottoResults(lottos.stream().map(lottoVO -> new Lotto(lottoVO.getNumbers())).collect(Collectors.toList()), lastWeekLottoNumbers, bonusBall);
+    public LottoResult createLottoResult(List<LottoVO> lottos, List<Integer> lastWeekLottoNumbers, int bonusBall) {
+        return lottoService.createLottoResult(lottos.stream().map(lottoVO -> new Lotto(lottoVO.getNumbers())).collect(Collectors.toList()), lastWeekLottoNumbers, bonusBall);
     }
 
 }
