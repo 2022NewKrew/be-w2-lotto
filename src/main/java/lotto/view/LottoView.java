@@ -19,8 +19,8 @@ public class LottoView {
         return LottoInputView.inputPurchaseByUserNumbers(inputStream);
     }
 
-    public static void outputPurchaseResult(List<LottoVO> lottos) {
-        LottoOutputView.outputPurchaseResult(lottos);
+    public static void outputPurchaseResult(List<LottoVO> manualLottos, List<LottoVO> autoLottos) {
+        LottoOutputView.outputPurchaseResult(manualLottos, autoLottos);
     }
 
     public static List<Integer> inputLastWeekLottoNumbers(InputStream inputStream) {

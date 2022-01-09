@@ -9,9 +9,12 @@ import java.util.List;
 
 public class LottoOutputView {
 
-    public static void outputPurchaseResult(List<LottoVO> lottos) {
-        System.out.println(lottos.size() + "개를 구매했습니다.");
-        for (LottoVO lotto : lottos) {
+    public static void outputPurchaseResult(List<LottoVO> manualLottos, List<LottoVO> autoLottos) {
+        System.out.println("수동으로 " + manualLottos.size() + "장, 자동으로 " + autoLottos.size() + "개를 구매했습니다.");
+        for (LottoVO lotto : manualLottos) {
+            System.out.println(lotto.getNumbers().toString());
+        }
+        for (LottoVO lotto : autoLottos) {
             System.out.println(lotto.getNumbers().toString());
         }
     }

@@ -33,7 +33,7 @@ class LottoViewTest {
             Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
             lottos.add(new LottoVO(lotto));
         }
-        LottoView.outputPurchaseResult(lottos);
+        LottoView.outputPurchaseResult(lottos.subList(0,5), lottos.subList(5,10));
     }
 
     @Test
