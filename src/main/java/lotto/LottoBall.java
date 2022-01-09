@@ -8,4 +8,8 @@ public enum LottoBall {
     public String toString() {
         return Integer.toString(this.ordinal() + 1);
     }
+
+    public int getNumber() {
+        return this.ordinal() + 1;
+    }
 }

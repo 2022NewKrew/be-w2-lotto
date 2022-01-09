@@ -38,6 +38,8 @@ public class RankCount {
         return rankCounts.get(4);
     }
 
+    public int getRankCount(int i) { return rankCounts.get(i); }
+
     private void increaseRankCounts(int i) {
         rankCounts.set(i, rankCounts.get(i) + 1);
     }
