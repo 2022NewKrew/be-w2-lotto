@@ -22,4 +22,9 @@ public class LottoController {
         return lottos;
     }
 
+    public List<LottoVO> purchaseLottoByUserNumbers(List<List<Integer>> userNumbers){
+        return lottoService.purchaseLottoByUserNumbers(userNumbers)
+                .stream().map(LottoVO::new).collect(Collectors.toList());
+    }
+
 }
