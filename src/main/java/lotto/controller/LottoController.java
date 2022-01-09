@@ -10,17 +10,15 @@ import java.util.stream.Collectors;
 public class LottoController {
 
     private final LottoService lottoService;
-    private final LottoView lottoView;
 
-    public LottoController() {
-        lottoService = new LottoService();
-        lottoView = new LottoView();
+    public LottoController(LottoService lottoService) {
+        this.lottoService = lottoService;
     }
 
     public List<LottoVO> purchaseLottos(int count) {
         List<LottoVO> lottos = lottoService.purchaseLottos(count)
                 .stream().map(LottoVO::new).collect(Collectors.toList());
-        lottoView.outputPurchaseResult(lottos);
+        LottoView.outputPurchaseResult(lottos);
         return lottos;
     }
 
