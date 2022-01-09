@@ -1,6 +1,5 @@
 package domain;
 
-import enums.LottoConstants;
 import exceptions.InvalidLastWeekWinningNumber;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,13 +9,14 @@ import validation.Validation;
 
 public class LottoTicket {
 
+    private static final int NUMBER_OF_LOTTERY_NUMBERS = 6;
     private final Set<LottoNumber> numbers;
 
     LottoTicket(Set<Integer> intNumbers) {
         if (intNumbers == null) {
             throw new IllegalArgumentException();
         }
-        Validation.sizeShouldBe(intNumbers, LottoConstants.NUMBER_OF_LOTTERY_NUMBERS.get(),
+        Validation.sizeShouldBe(intNumbers, NUMBER_OF_LOTTERY_NUMBERS,
                 () -> new InvalidLastWeekWinningNumber(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
         numbers = intNumbers.stream().map(LottoNumber::from).collect(Collectors.toUnmodifiableSet());
     }

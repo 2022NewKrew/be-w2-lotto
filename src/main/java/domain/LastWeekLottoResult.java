@@ -1,6 +1,5 @@
 package domain;
 
-import enums.LottoConstants;
 import enums.Prize;
 import exceptions.InvalidBonusNumber;
 import exceptions.InvalidLastWeekWinningNumber;
@@ -14,6 +13,7 @@ import validation.Validation;
 public class LastWeekLottoResult {
 
     private static final int INITIALIZE_ZERO = 0;
+    private static final int NUMBER_OF_LOTTERY_NUMBERS = 6;
     private final Set<LottoNumber> lastWeekWinningNumbers;
     private final LottoNumber bonusNumber;
 
@@ -21,7 +21,7 @@ public class LastWeekLottoResult {
         if (lastWeekWinningNumbers == null) {
             throw new IllegalArgumentException();
         }
-        Validation.sizeShouldBe(lastWeekWinningNumbers, LottoConstants.NUMBER_OF_LOTTERY_NUMBERS.get(),
+        Validation.sizeShouldBe(lastWeekWinningNumbers, NUMBER_OF_LOTTERY_NUMBERS,
                 () -> new InvalidLastWeekWinningNumber(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
         Validation.notContains(lastWeekWinningNumbers, bonusNumber,
                 () -> new InvalidBonusNumber(ErrorMessage.DUPLICATE_BONUS_NUMBER.getMessage()));

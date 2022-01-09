@@ -1,6 +1,5 @@
 package domain;
 
-import enums.LottoConstants;
 import exceptions.InvalidPurchaseAmount;
 import java.util.HashSet;
 import java.util.List;
@@ -13,6 +12,9 @@ import validation.Validation;
 
 public class LottoMachine {
 
+    private static final int MIN_LOTTO_NUMBER = 1;
+    private static final int MAX_LOTTO_NUMBER = 45;
+    private static final int NUMBER_OF_LOTTERY_NUMBERS = 6;
     private static final int LOTTO_PRICE = 1000;
     private static final int MIN_PRISE = 0;
     private static final int MAX_PRISE = 1_000_000_000;
@@ -36,9 +38,8 @@ public class LottoMachine {
     private LottoTicket buy() {
         Set<Integer> numbers = new HashSet<>();
 
-        while (numbers.size() < LottoConstants.NUMBER_OF_LOTTERY_NUMBERS.get()) {
-            numbers.add(RANDOM_MAKER.getRandomNumber(LottoConstants.MIN_LOTTO_NUMBER.get(),
-                    LottoConstants.MAX_LOTTO_NUMBER.get()));
+        while (numbers.size() < NUMBER_OF_LOTTERY_NUMBERS) {
+            numbers.add(RANDOM_MAKER.getRandomNumber(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER));
         }
         return new LottoTicket(numbers);
     }

@@ -1,6 +1,5 @@
 package domain;
 
-import enums.LottoConstants;
 import exceptions.InvalidLottoNumber;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,20 +10,22 @@ import validation.Validation;
 
 public class LottoNumber implements Comparable<LottoNumber> {
 
-    private static Map<Integer, LottoNumber> lottoNumberCache = new HashMap<>();
+    private static final int MIN_LOTTO_NUMBER = 1;
+    private static final int MAX_LOTTO_NUMBER = 45;
+    private static final Map<Integer, LottoNumber> LOTTO_NUMBER_CACHE = new HashMap<>();
 
     static {
-        IntStream.range(LottoConstants.MIN_LOTTO_NUMBER.get(), LottoConstants.MAX_LOTTO_NUMBER.get() + 1)
-                .forEach(i -> lottoNumberCache.put(i, new LottoNumber(i)));
+        IntStream.range(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER + 1)
+                .forEach(i -> LOTTO_NUMBER_CACHE.put(i, new LottoNumber(i)));
     }
 
     public static LottoNumber from(int number) {
-        Validation.notLessThanLong(number, LottoConstants.MIN_LOTTO_NUMBER.get(),
+        Validation.notLessThanLong(number, MIN_LOTTO_NUMBER,
                 () -> new InvalidLottoNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
-        Validation.notMoreThanLong(number, LottoConstants.MAX_LOTTO_NUMBER.get(),
+        Validation.notMoreThanLong(number, MAX_LOTTO_NUMBER,
                 () -> new InvalidLottoNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
-        if (lottoNumberCache.containsKey(number)) {
-            return lottoNumberCache.get(number);
+        if (LOTTO_NUMBER_CACHE.containsKey(number)) {
+            return LOTTO_NUMBER_CACHE.get(number);
         }
         return new LottoNumber(number);
     }
