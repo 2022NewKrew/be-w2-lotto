@@ -21,7 +21,7 @@ public class LottoMachine {
     public LottoMachine() {
     }
 
-    public List<Lotto> buyLottos(long purchaseAmount) {
+    public List<LottoTicket> buyLottos(long purchaseAmount) {
         Validation.notLessThanLong(purchaseAmount, MIN_PRISE,
                 () -> new InvalidPurchaseAmount(ErrorMessage.NEGATIVE_PURCHASE_AMOUNT.getMessage()));
         Validation.notMoreThanLong(purchaseAmount, MAX_PRISE,
@@ -33,13 +33,13 @@ public class LottoMachine {
                 .collect(Collectors.toList());
     }
 
-    private Lotto buy() {
+    private LottoTicket buy() {
         Set<Integer> numbers = new HashSet<>();
 
         while (numbers.size() < LottoConstants.NUMBER_OF_LOTTERY_NUMBERS.get()) {
             numbers.add(RANDOM_MAKER.getRandomNumber(LottoConstants.MIN_LOTTO_NUMBER.get(),
                     LottoConstants.MAX_LOTTO_NUMBER.get()));
         }
-        return new Lotto(numbers);
+        return new LottoTicket(numbers);
     }
 }

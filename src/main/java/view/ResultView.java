@@ -1,7 +1,7 @@
 package view;
 
-import domain.Lotto;
 import domain.LottoNumber;
+import domain.LottoTicket;
 import enums.Prize;
 import java.util.EnumMap;
 import java.util.List;
@@ -12,17 +12,17 @@ import messages.GameMessage;
 
 public class ResultView {
 
-    private static void printLotto(Lotto lotto) {
-        Set<LottoNumber> numbers = lotto.numbers();
+    private static void printLotto(LottoTicket lottoTicket) {
+        Set<LottoNumber> numbers = lottoTicket.numbers();
         List<String> printNumList =
                 numbers.stream().sorted().map((lottoNumber) -> Objects.toString(lottoNumber.get())).collect(Collectors.toList());
 
         System.out.println("[" + String.join(", ", printNumList) + "]");
     }
 
-    public static void printLottoList(List<Lotto> lottoList) {
-        for (Lotto lotto : lottoList) {
-            printLotto(lotto);
+    public static void printLottoList(List<LottoTicket> lottoTicketList) {
+        for (LottoTicket lottoTicket : lottoTicketList) {
+            printLotto(lottoTicket);
         }
     }
 

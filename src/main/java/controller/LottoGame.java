@@ -1,9 +1,9 @@
 package controller;
 
 import domain.LastWeekLottoResult;
-import domain.Lotto;
 import domain.LottoMachine;
 import domain.LottoStatistics;
+import domain.LottoTicket;
 import java.util.List;
 import java.util.Set;
 import view.InputView;
@@ -19,14 +19,14 @@ public class LottoGame {
     public static void start() {
         long purchaseAmount = removeChange(InputView.inputPurchaseAmount());
         LottoMachine lottoMachine = new LottoMachine();
-        List<Lotto> lottoList = lottoMachine.buyLottos(purchaseAmount);
-        ResultView.printLottoList(lottoList);
+        List<LottoTicket> lottoTicketList = lottoMachine.buyLottos(purchaseAmount);
+        ResultView.printLottoList(lottoTicketList);
 
         Set<Integer> lastWeekWinningNumbers = InputView.inputLastWeekWinningNumber();
         int bonusNumber = InputView.inputBonusNumber();
         LastWeekLottoResult lottoResult = new LastWeekLottoResult(lastWeekWinningNumbers, bonusNumber);
-        ResultView.printLottoResult(lottoResult.winningLottoCount(lottoList));
-        LottoStatistics lottoStatistics = new LottoStatistics(lottoResult.winningLottoCount(lottoList));
+        ResultView.printLottoResult(lottoResult.winningLottoCount(lottoTicketList));
+        LottoStatistics lottoStatistics = new LottoStatistics(lottoResult.winningLottoCount(lottoTicketList));
         ResultView.printRateOfReturn(lottoStatistics.rateOfReturn(purchaseAmount));
     }
 }

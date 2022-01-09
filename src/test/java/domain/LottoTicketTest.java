@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-class LottoTest {
+class LottoTicketTest {
 
     static Set<LottoNumber> winningNumbers;
 
@@ -23,14 +23,14 @@ class LottoTest {
     void Lotto() {
         Set<Integer> numbers = Set.of(1, 2, 3, 4, 5, 6);
 
-        new Lotto(numbers);
+        new LottoTicket(numbers);
     }
 
     @Test
     @DisplayName("[실패] 생성자에 null을 넣을 시 IllegalArgumentException을 던져야 한다")
     void Lotto_Failed_By_Null() {
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> new Lotto(null));
+                () -> new LottoTicket(null));
     }
 
     @Test
@@ -39,7 +39,7 @@ class LottoTest {
         Set<Integer> numbers = Set.of(1, 2, 3, 4, 5);
 
         Assertions.assertThrows(InvalidLastWeekWinningNumber.class,
-                () -> new Lotto(numbers));
+                () -> new LottoTicket(numbers));
     }
 
     @DisplayName("[성공] checkMatchCount가 정상적으로 동작한다 ")
@@ -48,9 +48,9 @@ class LottoTest {
             "1, 2, 10, 11, 12, 13, 2", "1, 10, 11, 12, 13, 14, 1"})
     void checkMatchCount(int n1, int n2, int n3, int n4, int n5, int n6, int result) {
         Set<Integer> numbers = Set.of(n1, n2, n3, n4, n5, n6);
-        Lotto lotto = new Lotto(numbers);
+        LottoTicket lottoTicket = new LottoTicket(numbers);
 
-        Assertions.assertEquals(result, lotto.matchCount(winningNumbers));
+        Assertions.assertEquals(result, lottoTicket.matchCount(winningNumbers));
     }
 
     static void createWinningNumbers() {

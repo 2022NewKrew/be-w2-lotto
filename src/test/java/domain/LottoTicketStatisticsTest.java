@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class LottoStatisticsTest {
+class LottoTicketStatisticsTest {
 
     @Test
     @DisplayName("[성공] LottoStatistics 객체를 생성한다")

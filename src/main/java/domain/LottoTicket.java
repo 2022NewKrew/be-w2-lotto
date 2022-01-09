@@ -8,11 +8,11 @@ import java.util.stream.Collectors;
 import messages.ErrorMessage;
 import validation.Validation;
 
-public class Lotto {
+public class LottoTicket {
 
     private final Set<LottoNumber> numbers;
 
-    Lotto(Set<Integer> intNumbers) {
+    LottoTicket(Set<Integer> intNumbers) {
         if (intNumbers == null) {
             throw new IllegalArgumentException();
         }
