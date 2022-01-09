@@ -1,6 +1,7 @@
 package lotto.request;
 
 import lotto.configure.LottoConfigure;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -8,25 +9,25 @@ public class PurchaseRequest {
 
     private int money;
 
-    private List<String> requestManulLottos;
+    private List<List<Integer>> requestManulLottos;
+
+    public PurchaseRequest(int money, @NotNull List<List<Integer>> requestManulLottos) {
+        if (money <= 0) throw new IllegalArgumentException();
+        this.money = money;
+        if (requestManulLottos.size() * LottoConfigure.LOTTO_PRICE <= money ) throw new IllegalArgumentException();
+        this.requestManulLottos = requestManulLottos;
+    }
 
     public int getMoney() {
         return money;
     }
 
-    public void setMoney(int money) {
-        this.money = money;
-    }
-
-    public List<String> getRequestManulLottos() {
+    public List<List<Integer>> getRequestManulLottos() {
         return requestManulLottos;
     }
 
-    public void setRequestManulLottos(List<String> requestManulLottos) {
-        this.requestManulLottos = requestManulLottos;
-    }
 
     public int purchasableLottoCount() {
-        return money / LottoConfigure.LOTTO_PRICE;
+        return money / LottoConfigure.LOTTO_PRICE - requestManulLottos.size();
     }
 }
