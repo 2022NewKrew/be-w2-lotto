@@ -16,10 +16,8 @@ public class LottoController {
     }
 
     public List<LottoVO> purchaseLottos(int count) {
-        List<LottoVO> lottos = lottoService.purchaseLottos(count)
+        return lottoService.purchaseLottos(count)
                 .stream().map(LottoVO::new).collect(Collectors.toList());
-        LottoView.outputPurchaseResult(lottos);
-        return lottos;
     }
 
     public List<LottoVO> purchaseLottoByUserNumbers(List<List<Integer>> userNumbers){
