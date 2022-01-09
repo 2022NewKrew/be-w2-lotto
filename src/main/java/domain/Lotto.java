@@ -10,6 +10,8 @@ import java.util.Set;
 
 public class Lotto {
     private final Set<Integer> lotto;
+    private final Integer MINIMUM_LOTTO_NUMBER = 1;
+    private final Integer MAXIMUM_LOTTO_NUMBER = 45;
 
     public Lotto(Set<Integer> lotto) {
         validateDuplicateNumber(lotto);
@@ -36,7 +38,7 @@ public class Lotto {
 
     private void validateInvalidNumber(Set<Integer> lotto) {
         boolean invalidRangeNumber = lotto.stream()
-                .anyMatch(i -> i > 45 || i < 1);
+                .anyMatch(i -> i > MAXIMUM_LOTTO_NUMBER || i < MINIMUM_LOTTO_NUMBER);
 
         if (invalidRangeNumber) {
             throw new InvalidLottoNumberException(InvalidLottoNumberException.INVALID_RANGE_NUMBER);
