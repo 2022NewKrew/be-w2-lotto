@@ -1,9 +1,8 @@
 package lotto.controller;
 
 import lotto.domain.winningstats.WinningStats;
-import lotto.domain.winningstats.lastweeknumberBundle.LastWeekLottoNumberList;
 import lotto.domain.winningstats.lottobundle.LottoBundle;
-import lotto.domain.winningstats.lottobundle.LottoList;
+import lotto.domain.winningstats.lottobundle.lottoticket.Lotto;
 import lotto.view.ConsoleInputView;
 import lotto.view.ConsoleOutputView;
 
@@ -31,15 +30,15 @@ public class LottoController {
         ConsoleOutputView.printLottoBundle(lottoBundle);
     }
 
-    public LastWeekLottoNumberList getLastWeekLottoNumberList() {
+    public Lotto getLastWeekWinLotto() {
         String lastWeekLottoNumbers = ConsoleInputView.getLastWeekLottoNumbers();
-        return new LastWeekLottoNumberList(lastWeekLottoNumbers);
+        return new Lotto(lastWeekLottoNumbers);
     }
 
     public WinningStats constructWinningStats(LottoBundle lottoBundle) {
-        LastWeekLottoNumberList lastWeekLottoNumberList = getLastWeekLottoNumberList();
+        Lotto lastWeekWinLotto = getLastWeekWinLotto();
         int bonusBall = getBonusBall();
-        return new WinningStats(lottoBundle, lastWeekLottoNumberList, bonusBall);
+        return new WinningStats(lottoBundle, lastWeekWinLotto, bonusBall);
     }
 
     public void printWinningStats(WinningStats winningStats) {

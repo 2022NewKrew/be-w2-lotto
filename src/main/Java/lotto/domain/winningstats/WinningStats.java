@@ -1,7 +1,6 @@
 package lotto.domain.winningstats;
 
-import lotto.domain.winningstats.lastweeknumberBundle.LastWeekLottoNumberList;
-import lotto.domain.winningstats.lastweeknumberBundle.LastWeekNumberBundle;
+import lotto.domain.winningstats.lottobundle.LastWeekNumberBundle;
 import lotto.domain.winningstats.lottobundle.LottoList;
 import lotto.domain.winningstats.lottobundle.lottoticket.Lotto;
 import lotto.domain.winningstats.lottobundle.LottoBundle;
@@ -10,17 +9,16 @@ import lotto.domain.winningstats.winningprice.WinningPrice;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 public class WinningStats {
     private final HashMap<WinningState, WinningPrice> winningPriceHashMap;
     private final LottoBundle lottoBundle;
-    private final LastWeekNumberBundle lastWeekNumber;
+    private final LastWeekNumberBundle lastWeekWinLotto;
 
-    public WinningStats(LottoBundle lottoBundle, LastWeekLottoNumberList lastWeekLottoNumberList, int bonusBall) {
+    public WinningStats(LottoBundle lottoBundle, Lotto lastWeekWinLotto, int bonusBall) {
         this.lottoBundle = lottoBundle;
         this.winningPriceHashMap = new HashMap<>();
-        this.lastWeekNumber = new LastWeekNumberBundle(lastWeekLottoNumberList, bonusBall);
+        this.lastWeekWinLotto = new LastWeekNumberBundle(lastWeekWinLotto, bonusBall);
         setWinningPriceHashMap();
         addCountInWinningPriceHashMapAllLotto();
     }
@@ -55,7 +53,7 @@ public class WinningStats {
     }
 
     private boolean isBonusBall(Lotto lotto) {
-        return lotto.getLottoNumberList().contains(lastWeekNumber.getBonusBall());
+        return lotto.contains(lastWeekWinLotto.getBonusBall());
     }
 
     private void addCountInWinningPrice(int lottoCorrectCount, boolean isBonusBallInLotto) {
@@ -66,9 +64,7 @@ public class WinningStats {
 
     private int getLottoCorrectCount(Lotto lotto) {
         int correctCount = 0;
-        List<Integer> lottoNumberList = lotto.getLottoNumberList();
-        for (int lottoNumber : lottoNumberList)
-            correctCount += lastWeekNumber.addOneIfContains(lottoNumber);
+        correctCount += lotto.getCorrectCount(lastWeekWinLotto);
         return correctCount;
     }
 

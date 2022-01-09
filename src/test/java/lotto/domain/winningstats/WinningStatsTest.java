@@ -1,7 +1,7 @@
 package lotto.domain.winningstats;
 
-import lotto.domain.winningstats.lastweeknumberBundle.LastWeekLottoNumberList;
 import lotto.domain.winningstats.lottobundle.LottoBundle;
+import lotto.domain.winningstats.lottobundle.lottoticket.Lotto;
 import org.junit.jupiter.api.Test;
 
 class WinningStatsTest {
@@ -9,9 +9,10 @@ class WinningStatsTest {
     @Test
     void printWinningStats() {
 
-        int lottoPurchaseMoney = 4500;
-        LottoBundle lottoBundle = new LottoBundle(lottoPurchaseMoney);
-        LastWeekLottoNumberList lastWeekLottoNumberList = new LastWeekLottoNumberList("1,2,3,4,5,6");
+        long lottoPurchaseMoney = 4000;
+        String manualLottoNumbers = "1,2,3,4,5,6" + System.lineSeparator() + "2,3,4,5,6,7";
+        LottoBundle lottoBundle = new LottoBundle(lottoPurchaseMoney,manualLottoNumbers);
+        Lotto lastWeekLottoNumberList = new Lotto("1,2,3,4,5,6");
         int bonusBall = 7;
 
         WinningStats winningStats = new WinningStats(lottoBundle, lastWeekLottoNumberList,bonusBall);

@@ -1,33 +1,34 @@
 package lotto.domain.winningstats.lottobundle.lottoticket;
 
+import lotto.domain.winningstats.lottobundle.LastWeekNumberBundle;
+
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Lotto {
     private static final String SEPARATER = ",";
-    private static final int START_NUMBER = 1;
-    private static final int END_NUMBER = 45;
-    private static final int COUNT_IN_LOTTO_TICKET = 6;
-    private static final List<Integer> allLottoNumberList = IntStream.range(START_NUMBER, END_NUMBER + 1).boxed().collect(Collectors.toList());
-    private final List<Integer> lottoNumberList;
+    private final List<Integer> lottoTicket;
 
     public Lotto() {
-        Collections.shuffle(allLottoNumberList);
-        List<Integer> lottoNumberListUnsorted = new ArrayList<>(allLottoNumberList).subList(0, COUNT_IN_LOTTO_TICKET);
-        Collections.sort(lottoNumberListUnsorted);
-        lottoNumberList = Collections.unmodifiableList(lottoNumberListUnsorted);
+        lottoTicket = Collections.unmodifiableList(AllLottoNumberList.createAutoLottoTicket());
     }
 
     public Lotto(String lottoNumbers){
-        lottoNumberList = Arrays.stream(lottoNumbers.split(SEPARATER)).map(Integer::parseInt).collect(Collectors.toList());
-    }
-
-    public List<Integer> getLottoNumberList() {
-        return lottoNumberList;
+        lottoTicket = Arrays.stream(lottoNumbers.split(SEPARATER)).map(Integer::parseInt).collect(Collectors.toList());
     }
 
     public String printLotto() {
-        return String.valueOf(lottoNumberList);
+        return String.valueOf(lottoTicket);
+    }
+
+    public boolean contains(int lottoNumber) {
+        return lottoTicket.contains(lottoNumber);
+    }
+
+    public int getCorrectCount(LastWeekNumberBundle lastWeekNumber) {
+        int correctCount = 0;
+        for(int lottoNumber : lottoTicket)
+            correctCount += lastWeekNumber.addOneIfContains(lottoNumber);
+        return correctCount;
     }
 }

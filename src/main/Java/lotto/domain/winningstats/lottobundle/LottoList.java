@@ -45,10 +45,6 @@ public class LottoList {
         return lottoList.size();
     }
 
-    public void add(Lotto lotto){
-        lottoList.add(lotto);
-    }
-
     public Iterator<Lotto> getIterator() {
         return lottoList.iterator();
     }
