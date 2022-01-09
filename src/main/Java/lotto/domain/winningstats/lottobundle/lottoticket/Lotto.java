@@ -1,28 +1,45 @@
 package lotto.domain.winningstats.lottobundle.lottoticket;
 
+import lotto.domain.winningstats.lottobundle.LastWeekNumberBundle;
+import lotto.exception.IllegalManualLottoInputException;
+
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Lotto {
-    private static final int START_NUMBER = 1;
-    private static final int END_NUMBER = 45;
-    private static final int COUNT_IN_LOTTO_TICKET = 6;
-    private static final List<Integer> allLottoNumberList = IntStream.range(START_NUMBER, END_NUMBER + 1).boxed().collect(Collectors.toList());
-    private final List<Integer> lottoNumberList;
+    private static final String SEPARATOR = ",";
+    private final List<Integer> lottoTicket;
 
     public Lotto() {
-        Collections.shuffle(allLottoNumberList);
-        List<Integer> lottoNumberListUnsorted = new ArrayList<>(allLottoNumberList).subList(0, COUNT_IN_LOTTO_TICKET);
-        Collections.sort(lottoNumberListUnsorted);
-        lottoNumberList = Collections.unmodifiableList(lottoNumberListUnsorted);
+        lottoTicket = Collections.unmodifiableList(AllLottoNumberList.createAutoLottoTicket());
     }
 
-    public List<Integer> getLottoNumberList() {
-        return lottoNumberList;
+    public Lotto(String lottoNumbers) {
+        final int LOTTO_TICKET_SIZE = 6;
+        lottoTicket = Arrays.stream(lottoNumbers.split(SEPARATOR)).map(Integer::parseInt).collect(Collectors.toList());
+        if (lottoTicket.size() != LOTTO_TICKET_SIZE) {
+            throw new IllegalManualLottoInputException("로또 번호의 숫자의 수가 " + LOTTO_TICKET_SIZE + "개가 아닙니다.");
+        }
+        if (lottoTicket.stream().distinct().count() != lottoTicket.size()) {
+            throw new IllegalManualLottoInputException("입력한 로또 번호에 중복된 숫자가 존재합니다.");
+        }
+        if (lottoTicket.stream().filter(lottoNumber -> lottoNumber >= 1 && lottoNumber <= 45).count() != 6) {
+            throw new IllegalManualLottoInputException("1~45 범위에 있지 않은 수를 입력했습니다.");
+        }
     }
 
     public String printLotto() {
-        return String.valueOf(lottoNumberList);
+        return String.valueOf(lottoTicket);
+    }
+
+    public boolean contains(int lottoNumber) {
+        return lottoTicket.contains(lottoNumber);
+    }
+
+    public int getCorrectCount(LastWeekNumberBundle lastWeekNumber) {
+        int correctCount = 0;
+        for (int lottoNumber : lottoTicket)
+            correctCount += lastWeekNumber.addOneIfContains(lottoNumber);
+        return correctCount;
     }
 }

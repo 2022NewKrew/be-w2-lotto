@@ -1,44 +1,45 @@
 package lotto.domain.winningstats.lottobundle;
 
-import lotto.domain.winningstats.lottobundle.lottoticket.Lotto;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import lotto.exception.IllegalManualLottoInputException;
 
 public class LottoBundle {
-    private static final String SEPARATOR = "\n";
-    private final long totalMoney;
-    private final List<Lotto> lottoList;
+    private final long lottoPurchaseMoney;
+    private final LottoList lottoList;
+    private final LottoList autoLottoList;
+    private final long manualLottoCount;
+    private final int lottoPrice;
 
-    public LottoBundle(long totalMoney) {
-        List<Lotto> lottoListTemp;
-        this.totalMoney = totalMoney;
-        lottoListTemp = new ArrayList<>();
-        long count = getCount();
-
-        for (int i = 0; i < count; i++) {
-            Lotto lotto = new Lotto();
-            lottoListTemp.add(lotto);
-        }
-        this.lottoList = Collections.unmodifiableList(lottoListTemp);
+    public LottoBundle(long lottoPurchaseMoney, String manualLottoNumbers, int lottoPrice) throws IllegalManualLottoInputException {
+        long autoCount;
+        this.lottoPurchaseMoney = lottoPurchaseMoney;
+        LottoList manualLottoList = new LottoList(manualLottoNumbers);
+        manualLottoCount = manualLottoList.size();
+        this.lottoPrice = lottoPrice;
+        autoCount = getAutoCount();
+        autoLottoList = new LottoList(autoCount);
+        this.lottoList = manualLottoList.concat(autoLottoList);
     }
 
-    public long getCount() {
-        final long LOTTO_PRICE = 1000;
-        return totalMoney / LOTTO_PRICE;
+    public long getManualLottoCount() {
+        return manualLottoCount;
     }
 
-    public List<Lotto> getLottoList() {
+    public long getAutoCount() {
+        long autoCount = lottoPurchaseMoney / this.lottoPrice - manualLottoCount;
+        if (autoCount < 0)
+            throw new IllegalManualLottoInputException("수동으로 구매하고자 하는 수량이 총 금액보다 많습니다.");
+        return autoCount;
+    }
+
+    public long getLottoPurchaseMoney() {
+        return lottoPurchaseMoney;
+    }
+
+    public LottoList getLottoList() {
         return lottoList;
     }
 
-    public String printLottoBundle() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (Lotto lotto : lottoList) {
-            stringBuilder.append(lotto.printLotto());
-            stringBuilder.append(SEPARATOR);
-        }
-        return stringBuilder.toString();
+    public String printAutoLottoList() {
+        return autoLottoList.printLottoList();
     }
 }

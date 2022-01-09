@@ -1,25 +1,24 @@
 package lotto.domain.winningstats;
 
-import lotto.domain.winningstats.lastweeknumber.LastWeekNumber;
+import lotto.domain.winningstats.lottobundle.LastWeekNumberBundle;
+import lotto.domain.winningstats.lottobundle.LottoList;
 import lotto.domain.winningstats.lottobundle.lottoticket.Lotto;
 import lotto.domain.winningstats.lottobundle.LottoBundle;
 import lotto.domain.winningstats.winningstate.WinningState;
 import lotto.domain.winningstats.winningprice.WinningPrice;
 
 import java.util.HashMap;
-import java.util.List;
+import java.util.Iterator;
 
 public class WinningStats {
     private final HashMap<WinningState, WinningPrice> winningPriceHashMap;
     private final LottoBundle lottoBundle;
-    private final int lottoPurchaseMoney;
-    private final LastWeekNumber lastWeekNumber;
+    private final LastWeekNumberBundle lastWeekWinLotto;
 
-    public WinningStats(LottoBundle lottoBundle, List<Integer> lastWeekLottoNumberList, int lottoPurchaseMoney, int bonusBall) {
+    public WinningStats(LottoBundle lottoBundle, Lotto lastWeekWinLotto, int bonusBall) {
         this.lottoBundle = lottoBundle;
-        this.lottoPurchaseMoney = lottoPurchaseMoney;
         this.winningPriceHashMap = new HashMap<>();
-        this.lastWeekNumber = new LastWeekNumber(lastWeekLottoNumberList, bonusBall);
+        this.lastWeekWinLotto = new LastWeekNumberBundle(lastWeekWinLotto, bonusBall);
         setWinningPriceHashMap();
         addCountInWinningPriceHashMapAllLotto();
     }
@@ -33,7 +32,7 @@ public class WinningStats {
     }
 
     private double getProfitRatePercent() {
-        return ((getProfit() - lottoPurchaseMoney) * 100) / lottoPurchaseMoney;
+        return ((getProfit() - lottoBundle.getLottoPurchaseMoney()) * 100) / lottoBundle.getLottoPurchaseMoney();
     }
 
     private long getProfit() {
@@ -45,14 +44,16 @@ public class WinningStats {
     }
 
     private void addCountInWinningPriceHashMapAllLotto() {
-        List<Lotto> LottoList = this.lottoBundle.getLottoList();
-        for (Lotto lotto : LottoList) {
+        LottoList lottoList = this.lottoBundle.getLottoList();
+        Iterator<Lotto> lottoIterator = lottoList.getIterator();
+        while (lottoIterator.hasNext()) {
+            Lotto lotto = lottoIterator.next();
             addCountInWinningPrice(getLottoCorrectCount(lotto), isBonusBall(lotto));
         }
     }
 
     private boolean isBonusBall(Lotto lotto) {
-        return lotto.getLottoNumberList().contains(lastWeekNumber.getBonusBall());
+        return lotto.contains(lastWeekWinLotto.getBonusBall());
     }
 
     private void addCountInWinningPrice(int lottoCorrectCount, boolean isBonusBallInLotto) {
@@ -63,9 +64,7 @@ public class WinningStats {
 
     private int getLottoCorrectCount(Lotto lotto) {
         int correctCount = 0;
-        List<Integer> lottoNumberList = lotto.getLottoNumberList();
-        for (int lottoNumber : lottoNumberList)
-            correctCount += lastWeekNumber.addOneIfContains(lottoNumber);
+        correctCount += lotto.getCorrectCount(lastWeekWinLotto);
         return correctCount;
     }
 

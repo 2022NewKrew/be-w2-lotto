@@ -1,53 +1,77 @@
 package lotto.controller;
 
-import lotto.domain.LottoDTO;
+import lotto.exception.IllegalManualLottoInputException;
+import lotto.exception.IllegalPurchaseMoneyException;
 import lotto.domain.winningstats.WinningStats;
 import lotto.domain.winningstats.lottobundle.LottoBundle;
+import lotto.domain.winningstats.lottobundle.lottoticket.Lotto;
 import lotto.view.ConsoleInputView;
 import lotto.view.ConsoleOutputView;
 
-import java.util.List;
-
 public class LottoController {
-
-    private LottoBundle lottoBundle;
-    private WinningStats winningStats;
-    private int lottoPurchaseMoney;
-    List<Integer> lastWeekLottoNumberList;
-    private int bonusBall;
 
     public LottoController() {
     }
 
-    public void purchaseLottoBundleInView() {
-        int lottoPurchaseMoney = ConsoleInputView.getLottoPurchaseMoney();
-        constructLottoBundle(lottoPurchaseMoney);
+    public LottoBundle purchaseLottoBundleInView() {
+        final int LOTTO_PRICE = 1000;
+        int lottoPurchaseMoney;
+        LottoBundle lottoBundle;
+
+        while (true) {
+            try {
+                lottoPurchaseMoney = ConsoleInputView.getLottoPurchaseMoney(LOTTO_PRICE);
+                break;
+            } catch (IllegalPurchaseMoneyException e) {
+                ConsoleOutputView.printError(e);
+                ConsoleOutputView.printReInputMessage();
+            }
+        }
+        while (true) {
+            try {
+                lottoBundle = new LottoBundle(
+                        lottoPurchaseMoney,
+                        purchaseManualLotto(),
+                        LOTTO_PRICE
+                );
+                break;
+            } catch (IllegalManualLottoInputException e) {
+                ConsoleOutputView.printError(e);
+                ConsoleOutputView.printReInputMessage();
+            }
+        }
+
+        printLottoBundle(lottoBundle);
+        return lottoBundle;
     }
 
-    private void constructLottoBundle(int lottoPurchaseMoney) {
-        this.lottoPurchaseMoney = lottoPurchaseMoney;
-        this.lottoBundle = new LottoBundle(lottoPurchaseMoney);
+    private String purchaseManualLotto() throws IllegalManualLottoInputException {
+        long manualLottoCount = ConsoleInputView.getManualCount();
+        return ConsoleInputView.getManualLottoNumbers(manualLottoCount);
     }
 
-    public void printLottoBundle() {
-        ConsoleOutputView.printLottoCount(lottoBundle.getCount());
+    public void printLottoBundle(LottoBundle lottoBundle) {
+        ConsoleOutputView.printLottoCount(lottoBundle.getAutoCount(), lottoBundle.getManualLottoCount());
         ConsoleOutputView.printLottoBundle(lottoBundle);
     }
 
-    public void getLastWeekLottoNumberList() {
-        this.lastWeekLottoNumberList = LottoDTO.getLastWeekLottoNumberList(ConsoleInputView.getLastWeekLottoNumbers());
+    public Lotto getLastWeekWinLotto() {
+        String lastWeekLottoNumbers = ConsoleInputView.getLastWeekLottoNumbers();
+        return new Lotto(lastWeekLottoNumbers);
     }
 
-    public void constructWinningStats() {
-        this.winningStats = new WinningStats(lottoBundle, lastWeekLottoNumberList, lottoPurchaseMoney, bonusBall);
+    public WinningStats constructWinningStats(LottoBundle lottoBundle) {
+        Lotto lastWeekWinLotto = getLastWeekWinLotto();
+        int bonusBall = getBonusBall();
+        return new WinningStats(lottoBundle, lastWeekWinLotto, bonusBall);
     }
 
-    public void printWinningStats() {
+    public void printWinningStats(WinningStats winningStats) {
         ConsoleOutputView.printWinningStats(winningStats);
     }
 
-    public void getBonusBall() {
+    public int getBonusBall() {
         String bonusBall = ConsoleInputView.getBonusBall();
-        this.bonusBall = Integer.parseInt(bonusBall);
+        return Integer.parseInt(bonusBall);
     }
 }
