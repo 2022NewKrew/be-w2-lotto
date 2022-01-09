@@ -1,4 +1,8 @@
-package lotto;
+package lotto.controller;
+
+import lotto.service.LottoService;
+import lotto.view.LottoView;
+import lotto.dto.LottoDto;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,5 +1,7 @@
 package lotto;
 
+import lotto.controller.LottoController;
+import lotto.dto.LottoDto;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

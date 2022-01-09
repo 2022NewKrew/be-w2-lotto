@@ -1,4 +1,7 @@
-package lotto;
+package lotto.view;
+
+import lotto.dto.LottoDto;
+import lotto.result.LottoResult;
 
 import java.io.InputStream;
 import java.util.*;

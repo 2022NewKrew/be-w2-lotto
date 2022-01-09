@@ -1,4 +1,6 @@
-package lotto;
+package lotto.result;
+
+import lotto.dto.LottoDto;
 
 import java.util.ArrayList;
 import java.util.Arrays;
