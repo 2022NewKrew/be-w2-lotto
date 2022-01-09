@@ -15,6 +15,10 @@ public class LottoView {
         return LottoInputView.inputPurchaseAmount(inputStream);
     }
 
+    public static List<List<Integer>> inputPurchaseByUserNumbers(InputStream inputStream) {
+        return LottoInputView.inputPurchaseByUserNumbers(inputStream);
+    }
+
     public static void outputPurchaseResult(List<LottoVO> lottos) {
         LottoOutputView.outputPurchaseResult(lottos);
     }
@@ -30,4 +34,5 @@ public class LottoView {
     public static void outputLottoResult(List<LottoResult> lottoResults) {
         LottoOutputView.outputLottoResult(lottoResults);
     }
+
 }
