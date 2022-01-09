@@ -18,11 +18,12 @@ public class LottoGame {
 
     public static void start() {
         long purchaseAmount = removeChange(InputView.inputPurchaseAmount());
+        List<Set<Integer>> manualNumbers = InputView.inputManualNumbers();
         LottoMachine lottoMachine = new LottoMachine();
         List<LottoTicket> lottoTicketList = lottoMachine.buyLottos(purchaseAmount);
         ResultView.printLottoList(lottoTicketList);
 
-        Set<Integer> lastWeekWinningNumbers = InputView.inputLastWeekWinningNumber();
+        Set<Integer> lastWeekWinningNumbers = InputView.inputLastWeekWinningNumbers();
         int bonusNumber = InputView.inputBonusNumber();
         LastWeekLottoResult lottoResult = new LastWeekLottoResult(lastWeekWinningNumbers, bonusNumber);
         ResultView.printLottoResult(lottoResult.winningLottoCount(lottoTicketList));
