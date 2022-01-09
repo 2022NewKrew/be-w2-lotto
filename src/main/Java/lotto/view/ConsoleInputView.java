@@ -1,5 +1,6 @@
 package lotto.view;
 
+import lotto.exception.IllegalManualLottoInputException;
 import lotto.exception.IllegalPurchaseMoneyException;
 
 import java.util.*;

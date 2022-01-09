@@ -1,12 +1,14 @@
 package lotto.controller;
 
-import lotto.exception.IllegalManualLottoCountException;
+import lotto.exception.IllegalManualLottoInputException;
 import lotto.exception.IllegalPurchaseMoneyException;
 import lotto.domain.winningstats.WinningStats;
 import lotto.domain.winningstats.lottobundle.LottoBundle;
 import lotto.domain.winningstats.lottobundle.lottoticket.Lotto;
 import lotto.view.ConsoleInputView;
 import lotto.view.ConsoleOutputView;
+
+import java.util.InputMismatchException;
 
 public class LottoController {
 
@@ -35,7 +37,7 @@ public class LottoController {
                         LOTTO_PRICE
                 );
                 break;
-            } catch (IllegalManualLottoCountException e) {
+            } catch (IllegalManualLottoInputException e) {
                 ConsoleOutputView.printError(e);
                 ConsoleOutputView.printReInputMessage();
             }
@@ -45,7 +47,7 @@ public class LottoController {
         return lottoBundle;
     }
 
-    private String purchaseManualLotto() {
+    private String purchaseManualLotto() throws InputMismatchException{
         long manualLottoCount = ConsoleInputView.getManualCount();
         return ConsoleInputView.getManualLottoNumbers(manualLottoCount);
     }

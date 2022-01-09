@@ -1,6 +1,7 @@
 package lotto.domain.winningstats.lottobundle;
 
 import lotto.domain.winningstats.lottobundle.lottoticket.Lotto;
+import lotto.exception.IllegalManualLottoInputException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -23,7 +24,7 @@ public class LottoList {
         lottoList = Collections.unmodifiableList(lottoListTemp);
     }
 
-    public LottoList(String manualLottoNumbers){
+    public LottoList(String manualLottoNumbers) throws IllegalManualLottoInputException {
         List<Lotto> lottoListTemp = new ArrayList<>();
         for (String manualLottoNumber : manualLottoNumbers.split(LINE_SEPARATOR)) {
             Lotto lotto = new Lotto(manualLottoNumber);
