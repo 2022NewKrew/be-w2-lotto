@@ -1,44 +1,34 @@
 package domain;
 
-import domain.Generator.AutoLottoGenerator;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class LottoPack {
-    private final List<Lotto> lottoList;
-    private static final int LottoPrice = 1000;
+    private final LottoBundle lottoList;
+    private static final int LOTTO_PRICE = 1000;
+    private final int buyPrice;
+    private final int manualCount;
+    private final int autoCount;
 
     public int getBuyPrice() {
         return buyPrice;
     }
 
-    private final int buyPrice;
-
-    public LottoPack(int buyPrice) {
+    public LottoPack(int buyPrice, int manualCount, LottoBundle lottoBundle) {
         this.buyPrice = buyPrice;
-        List<Lotto> lottoListTemp = new ArrayList<>();
-        int numberOfLotto = buyPrice / LottoPrice;
-        AutoLottoGenerator autoLottoGenerator = new AutoLottoGenerator();
-        for (int i = 0; i < numberOfLotto; i++) {
-            lottoListTemp.add(autoLottoGenerator.generateLotto());
-        }
-        lottoList = Collections.unmodifiableList(lottoListTemp);
+        this.autoCount = buyPrice / LOTTO_PRICE - manualCount;
+        this.manualCount = manualCount;
+        lottoList = lottoBundle;
     }
 
+    public static int getAutoCount(int buyPrice, int manualCount) {
+        return buyPrice / LOTTO_PRICE - manualCount;
+    }
 
     public String printLottoPack() {
-        StringBuilder stringBuilder = new StringBuilder();
-        lottoList.forEach(e ->
-                stringBuilder.append(e).append("\n")
-        );
-        return stringBuilder.toString();
+        return String.format("수동으로 %d장, 자동으로 %d 개를 구매했습니다.\n", autoCount, manualCount) +
+                lottoList.printBundle();
     }
 
-    public RankingPack makeRankingPack(Lotto winningLottoTicket,int bonus) {
-        return new RankingPack(lottoList.stream().map(lotto -> Match.makeLottoRank(lotto, winningLottoTicket, bonus)).collect(Collectors.toList()));
+    public RankingPack makeRankingPack(Lotto winningLottoTicket, int bonus) {
+        return new RankingPack(lottoList.makeRankingPack(winningLottoTicket, bonus));
     }
 
 
