@@ -1,5 +1,8 @@
 package lotto;
 
+import lotto.controller.LottoController;
+import lotto.service.LottoService;
+import lotto.vo.LottoVO;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -10,8 +13,9 @@ class LottoControllerTest {
 
     @Test
     void purchaseLottos() {
-        LottoController lottoController = new LottoController();
-        List<LottoDto> lottos = lottoController.purchaseLottos(10);
+        LottoService lottoService = new LottoService();
+        LottoController lottoController = new LottoController(lottoService);
+        List<LottoVO> lottos = lottoController.purchaseLottos(10);
         assertEquals(10, lottos.size());
     }
 }
