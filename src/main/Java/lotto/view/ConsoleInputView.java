@@ -25,9 +25,17 @@ public class ConsoleInputView{
         return sc.next();
     }
 
-    public static long getManualCount(){
+    public static long getManualCount() throws IllegalManualLottoInputException{
         System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
-        return sc.nextLong();
+        String manualCountInput = sc.next();
+        long manualCount=0;
+        try{
+            manualCount = Long.parseLong(manualCountInput.strip());
+        }
+        catch (NumberFormatException e){
+            throw new IllegalManualLottoInputException();
+        }
+        return manualCount;
     }
 
     public static String getBonusBall() {

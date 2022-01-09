@@ -7,22 +7,22 @@ import static org.junit.jupiter.api.Assertions.*;
 class WinningStateTest {
 
     int lottoCorrectCnt = 4;
-    WinningState.BonusState isBonus;
 
-    WinningState winningState = new WinningState(lottoCorrectCnt,true);
+    WinningState winningState = new WinningState(lottoCorrectCnt, true);
+
     @Test
     void testEquals() {
 
-        assertEquals(winningState,new WinningState(lottoCorrectCnt));
+        assertEquals(winningState, new WinningState(lottoCorrectCnt));
 
-        WinningState winningState1 = new WinningState(lottoCorrectCnt,false);
+        WinningState winningState1 = new WinningState(lottoCorrectCnt, false);
 
-        assertEquals(winningState1,new WinningState(lottoCorrectCnt));
+        assertEquals(winningState1, new WinningState(lottoCorrectCnt));
 
     }
 
     @Test
     void testHashCode() {
-        assertEquals(winningState.hashCode(),lottoCorrectCnt);
+        assertEquals(winningState.hashCode(), lottoCorrectCnt);
     }
 }

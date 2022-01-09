@@ -7,21 +7,24 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Lotto {
-    private static final String SEPARATER = ",";
+    private static final String SEPARATOR = ",";
     private final List<Integer> lottoTicket;
 
     public Lotto() {
         lottoTicket = Collections.unmodifiableList(AllLottoNumberList.createAutoLottoTicket());
     }
 
-    public Lotto(String lottoNumbers){
+    public Lotto(String lottoNumbers) {
         final int LOTTO_TICKET_SIZE = 6;
-        lottoTicket = Arrays.stream(lottoNumbers.split(SEPARATER)).map(Integer::parseInt).collect(Collectors.toList());
-        if(lottoTicket.size()!=LOTTO_TICKET_SIZE){
-            throw new IllegalManualLottoInputException("로또 번호의 숫자의 수가 "+LOTTO_TICKET_SIZE+"개가 아닙니다.");
+        lottoTicket = Arrays.stream(lottoNumbers.split(SEPARATOR)).map(Integer::parseInt).collect(Collectors.toList());
+        if (lottoTicket.size() != LOTTO_TICKET_SIZE) {
+            throw new IllegalManualLottoInputException("로또 번호의 숫자의 수가 " + LOTTO_TICKET_SIZE + "개가 아닙니다.");
         }
-        if(lottoTicket.stream().distinct().count() != lottoTicket.size()){
+        if (lottoTicket.stream().distinct().count() != lottoTicket.size()) {
             throw new IllegalManualLottoInputException("입력한 로또 번호에 중복된 숫자가 존재합니다.");
+        }
+        if (lottoTicket.stream().filter(lottoNumber -> lottoNumber >= 1 && lottoNumber <= 45).count() != 6) {
+            throw new IllegalManualLottoInputException("1~45 범위에 있지 않은 수를 입력했습니다.");
         }
     }
 
@@ -35,7 +38,7 @@ public class Lotto {
 
     public int getCorrectCount(LastWeekNumberBundle lastWeekNumber) {
         int correctCount = 0;
-        for(int lottoNumber : lottoTicket)
+        for (int lottoNumber : lottoTicket)
             correctCount += lastWeekNumber.addOneIfContains(lottoNumber);
         return correctCount;
     }

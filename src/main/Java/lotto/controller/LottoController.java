@@ -8,8 +8,6 @@ import lotto.domain.winningstats.lottobundle.lottoticket.Lotto;
 import lotto.view.ConsoleInputView;
 import lotto.view.ConsoleOutputView;
 
-import java.util.InputMismatchException;
-
 public class LottoController {
 
     public LottoController() {
@@ -47,7 +45,7 @@ public class LottoController {
         return lottoBundle;
     }
 
-    private String purchaseManualLotto() throws InputMismatchException{
+    private String purchaseManualLotto() throws IllegalManualLottoInputException {
         long manualLottoCount = ConsoleInputView.getManualCount();
         return ConsoleInputView.getManualLottoNumbers(manualLottoCount);
     }

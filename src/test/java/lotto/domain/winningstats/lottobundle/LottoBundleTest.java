@@ -30,4 +30,9 @@ class LottoBundleTest {
     @Test
     void printLottoBundle() {
     }
+
+    @Test
+    void getManualLottoCount(){
+        assertEquals(lottoBundle.getManualLottoCount(),2);
+    }
 }

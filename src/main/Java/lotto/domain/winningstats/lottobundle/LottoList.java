@@ -51,7 +51,7 @@ public class LottoList {
     }
 
     public LottoList concat(LottoList other) {
-        List<Lotto> allLottoList = Stream.concat(this.lottoList.stream(),other.lottoList.stream()).collect(Collectors.toList());
+        List<Lotto> allLottoList = Stream.concat(this.lottoList.stream(), other.lottoList.stream()).collect(Collectors.toList());
         return new LottoList(allLottoList);
     }
 }
