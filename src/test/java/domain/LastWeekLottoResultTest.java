@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class LottoResultTest {
+class LastWeekLottoResultTest {
 
     static Set<Integer> winningNumbers;
 
@@ -36,27 +36,13 @@ class LottoResultTest {
         winningLottoCount_Answer.put(Prize.BONUS, 1);
         winningLottoCount_Answer.put(Prize.SIX, 1);
         int bonusNumber = 7;
-        LottoResult lottoResult = new LottoResult(winningNumbers, bonusNumber);
+        LastWeekLottoResult lottoResult = new LastWeekLottoResult(winningNumbers, bonusNumber);
 
         EnumMap<Prize, Integer> winningLottoCount = lottoResult.winningLottoCount(lottoList);
 
         winningLottoCount_Answer.forEach((key, value) -> {
             Assertions.assertEquals(value, winningLottoCount.get(key));
         });
-    }
-
-    @Test
-    @DisplayName("[성공] 수익률을 올바르게 계산한다")
-    void rateOfReturn() {
-        long purchaseAmount = 14000;
-        double rateOfReturn_Answer = -64.28571428571429;
-        int bonusNumber = 7;
-        LottoResult lottoResult = new LottoResult(winningNumbers, bonusNumber);
-        List<Lotto> lottoList = List.of(createLottoNumbers(1, 2, 3, 10, 11, 12));
-
-        double rateOfReturn = lottoResult.rateOfReturn(purchaseAmount, lottoList);
-
-        Assertions.assertEquals(rateOfReturn, rateOfReturn_Answer);
     }
 
     Lotto createLottoNumbers(int n1, int n2, int n3, int n4, int n5, int n6) {

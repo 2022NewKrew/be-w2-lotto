@@ -1,0 +1,26 @@
+package domain;
+
+import enums.Prize;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
+
+public class LottoStatistics {
+
+    private final EnumMap<Prize, Integer> winningLottoCount;
+
+    public LottoStatistics(EnumMap<Prize, Integer> winningLottoCount) {
+        this.winningLottoCount = winningLottoCount;
+    }
+
+    public double rateOfReturn(long purchaseAmount, List<Lotto> lottoList) {
+        long totalEarn = 0;
+
+        for (Map.Entry<Prize, Integer> entry : winningLottoCount.entrySet()) {
+            totalEarn += entry.getKey().getMoney() * entry.getValue();
+        }
+
+        // (평가금액 - 원금) / 원금 * 100
+        return (totalEarn - purchaseAmount) / (double) purchaseAmount * 100.0d;
+    }
+}
