@@ -14,7 +14,7 @@ public class PurchaseRequest {
     public PurchaseRequest(int money, @NotNull List<List<Integer>> requestManulLottos) {
         if (money <= 0) throw new IllegalArgumentException();
         this.money = money;
-        if (requestManulLottos.size() * LottoConfigure.LOTTO_PRICE <= money ) throw new IllegalArgumentException();
+        if (requestManulLottos.size() * LottoConfigure.LOTTO_PRICE > money ) throw new IllegalArgumentException();
         this.requestManulLottos = requestManulLottos;
     }
 
