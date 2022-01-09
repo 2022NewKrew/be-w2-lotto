@@ -43,16 +43,16 @@ public class InputView {
 
     public static Lotto inputNumbers() {
         String numbersBeforeDefined = scanner.next();
-        Set<Integer> numbersAfterDefined = Arrays.stream(numbersBeforeDefined.split(","))
+        Set<Integer> manualNumbers = Arrays.stream(numbersBeforeDefined.split(","))
                 .map(Integer::parseInt)
                 .collect(Collectors.toSet());
-        return new Lotto(numbersAfterDefined);
+        return new Lotto(manualNumbers);
     }
 
     public static LottoWinningNumber bonusNumber() {
-        Lotto withoutBonus = lastWeekNumbers();
+        Lotto lotto = lastWeekNumbers();
         System.out.println("\n" + INPUT_BONUS_NUMBER);
         int bonus = scanner.nextInt();
-        return new LottoWinningNumber(withoutBonus.getLotto(), bonus);
+        return new LottoWinningNumber(lotto.getLotto(), bonus);
     }
 }

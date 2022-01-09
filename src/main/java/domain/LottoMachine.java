@@ -39,8 +39,4 @@ public class LottoMachine {
                 .limit(PICK_LOTTO)
                 .collect(Collectors.toSet());
     }
-
-    public List<Lotto> createManualLottos(int manualQuantity) {
-        return InputView.manualNumbers(manualQuantity);
-    }
 }
