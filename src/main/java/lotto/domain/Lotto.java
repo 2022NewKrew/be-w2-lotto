@@ -2,6 +2,7 @@ package lotto.domain;
 
 import lotto.configure.LottoConfigure;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +12,7 @@ public class Lotto {
     private List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
-        this.numbers = numbers;
+        this.numbers = new ArrayList<>(numbers);
         validate();
     }
 
@@ -25,6 +26,5 @@ public class Lotto {
             if (numbers.get(i) < LottoConfigure.MIN_NUMBER || LottoConfigure.MAX_NUMBER < numbers.get(i)) throw new IllegalArgumentException();
         }
     }
-
 
 }
