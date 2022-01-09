@@ -2,7 +2,6 @@ package domain;
 
 import enums.Prize;
 import java.util.EnumMap;
-import java.util.List;
 import java.util.Map;
 
 public class LottoStatistics {
@@ -16,7 +15,7 @@ public class LottoStatistics {
         this.winningLottoCount = winningLottoCount;
     }
 
-    public double rateOfReturn(long purchaseAmount, List<Lotto> lottoList) {
+    public double rateOfReturn(long purchaseAmount) {
         long totalEarn = 0;
 
         for (Map.Entry<Prize, Integer> entry : winningLottoCount.entrySet()) {
