@@ -1,8 +1,5 @@
 package view;
 
-import domain.Lotto;
-import domain.LottoWinningNumber;
-
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;

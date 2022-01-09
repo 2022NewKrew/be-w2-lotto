@@ -2,8 +2,6 @@ package domain;
 
 import exception.InvalidPurchaseAmount;
 
-import java.util.Map;
-
 public class LottoBank {
     private static final int MINIMUM_PURCHASE_AMOUNT = 1;
     private static final int MAXIMUM_PURCHASE_AMOUNT = 100;

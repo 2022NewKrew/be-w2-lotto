@@ -1,7 +1,5 @@
 package domain;
 
-import view.InputView;
-
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
