@@ -13,8 +13,10 @@ public class PrintLotto {
 
     private static int money = 0;
     private static LottoMachine lottoMachine = new LottoMachine();
+    private static final DBController dbController = new DBController();
 
     public static void runServer() {
+        dbController.createTables();
         port(8080);
         staticFiles.location("/");
         post("buyLotto", PrintLotto::postBuyLotto);
@@ -30,6 +32,7 @@ public class PrintLotto {
             lottoMachine = new LottoMachine();
             lottoMachine.addManualLottos(manualLottos);
             lottoMachine.buyLotto(money - manualLottos.size() * 1000);
+            dbController.insertAllLottos(lottoMachine.getAllLottos());
 
             Map<String, Object> model = new HashMap<>();
             model.put("lottosSize", lottoMachine.getAllLottos().size());
@@ -45,6 +48,7 @@ public class PrintLotto {
     private static String postMatchLotto(spark.Request request, spark.Response response) {
         WinningLotto winningLotto = new WinningLotto(splitNumbers(request.queryParams("winningNumber")), LottoBall.values()[Integer.parseInt(request.queryParams("bonusNumber"))-1]);
         RankCount rankCount = lottoMachine.getRankCount(winningLotto);
+        dbController.insertRankCount(rankCount);
 
         Map<String, List<String>> message = Collections.singletonMap("message",
                 Arrays.asList(
@@ -58,6 +62,9 @@ public class PrintLotto {
         Map<String, Object> model = new HashMap<>();
         model.put("lottosResult", message);
         model.put("totalRateOfReturn", (calcProfit(rankCount) - money)  * 100 / money);
+
+        dbController.printLottoTable();
+        dbController.printWinningTable();
 
         return render(model, "/result.html");
     }
