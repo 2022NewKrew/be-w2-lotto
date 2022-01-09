@@ -2,6 +2,7 @@ package domain;
 
 import exceptions.InvalidBonusNumber;
 import exceptions.InvalidLastWeekWinningNumber;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Set;
@@ -62,13 +63,15 @@ class LastWeekLottoResultTestTicket {
     @Test
     @DisplayName("[성공] 일치하는 로또 번호를 올바르게 계산한다")
     void winningLottoCount() {
-        List<LottoTicket> lottoTicketList = List.of(createLottoNumbers(1, 2, 10, 11, 12, 13),
+        List<LottoTicket> manualTicket = List.of(createLottoNumbers(1, 2, 10, 11, 12, 13),
                 createLottoNumbers(1, 2, 3, 10, 11, 12),
                 createLottoNumbers(1, 2, 3, 4, 10, 11),
                 createLottoNumbers(1, 2, 3, 4, 10, 7),
                 createLottoNumbers(1, 2, 3, 4, 5, 10),
                 createLottoNumbers(1, 2, 3, 4, 5, 7),
                 createLottoNumbers(1, 2, 3, 4, 5, 6));
+        List<LottoTicket> randomTicket = new ArrayList<>();
+        LottoTickets lottoTickets = new LottoTickets(manualTicket, randomTicket);
         EnumMap<Prize, Integer> winningLottoCount_Answer = new EnumMap<>(Prize.class);
         winningLottoCount_Answer.put(Prize.MISS, 1);
         winningLottoCount_Answer.put(Prize.THREE, 1);
@@ -79,7 +82,7 @@ class LastWeekLottoResultTestTicket {
         int bonusNumber = 7;
         LastWeekLottoResult lottoResult = new LastWeekLottoResult(winningNumbers, bonusNumber);
 
-        EnumMap<Prize, Integer> winningLottoCount = lottoResult.winningLottoCount(lottoTicketList);
+        EnumMap<Prize, Integer> winningLottoCount = lottoResult.winningLottoCount(lottoTickets);
 
         winningLottoCount_Answer.forEach((key, value) -> {
             Assertions.assertEquals(value, winningLottoCount.get(key));

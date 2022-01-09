@@ -36,11 +36,12 @@ public class LastWeekLottoResult {
         }
     }
 
-    public EnumMap<Prize, Integer> winningLottoCount(List<LottoTicket> lottoTicketList) {
+    public EnumMap<Prize, Integer> winningLottoCount(LottoTickets lottoTicketList) {
         EnumMap<Prize, Integer> lottoResult = new EnumMap<>(Prize.class);
 
         initializeMap(lottoResult);
-        for (LottoTicket lottoTicket : lottoTicketList) {
+        List<LottoTicket> totalTickets = lottoTicketList.totalTickets();
+        for (LottoTicket lottoTicket : totalTickets) {
             int matchCount = lottoTicket.matchCount(lastWeekWinningNumbers);
             Prize key = Prize.valueOf(matchCount, lottoTicket.contains(bonusNumber));
             int value = lottoResult.get(Prize.valueOf(matchCount, lottoTicket.contains(bonusNumber))) + 1;

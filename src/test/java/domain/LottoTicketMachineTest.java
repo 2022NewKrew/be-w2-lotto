@@ -1,6 +1,8 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,10 +15,11 @@ class LottoTicketMachineTest {
         int purchaseAmount = 200000;
         int NumberOfLotteryNumbers = 6;
         LottoMachine lottoMachine = new LottoMachine();
+        List<Set<Integer>> manualNumbers = new ArrayList<>();
 
-        List<LottoTicket> lottoTicketListResult = lottoMachine.buyLottos(purchaseAmount);
+        LottoTickets lottoTicketListResult = lottoMachine.buyLottoTickets(purchaseAmount, manualNumbers);
 
-        lottoTicketListResult.forEach((lotto) -> {
+        lottoTicketListResult.totalTickets().forEach((lotto) -> {
             Assertions.assertEquals(lotto.numbers().size(), NumberOfLotteryNumbers);
         });
     }

@@ -3,7 +3,7 @@ package controller;
 import domain.LastWeekLottoResult;
 import domain.LottoMachine;
 import domain.LottoStatistics;
-import domain.LottoTicket;
+import domain.LottoTickets;
 import java.util.List;
 import java.util.Set;
 import view.InputView;
@@ -20,7 +20,7 @@ public class LottoGame {
         long purchaseAmount = removeChange(InputView.inputPurchaseAmount());
         List<Set<Integer>> manualNumbers = InputView.inputManualNumbers();
         LottoMachine lottoMachine = new LottoMachine();
-        List<LottoTicket> lottoTicketList = lottoMachine.buyLottos(purchaseAmount);
+        LottoTickets lottoTicketList = lottoMachine.buyLottoTickets(purchaseAmount, manualNumbers);
         ResultView.printLottoList(lottoTicketList);
 
         Set<Integer> lastWeekWinningNumbers = InputView.inputLastWeekWinningNumbers();

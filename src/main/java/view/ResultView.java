@@ -2,6 +2,7 @@ package view;
 
 import domain.LottoNumber;
 import domain.LottoTicket;
+import domain.LottoTickets;
 import domain.Prize;
 import java.util.EnumMap;
 import java.util.List;
@@ -20,8 +21,9 @@ public class ResultView {
         System.out.println("[" + String.join(", ", printNumList) + "]");
     }
 
-    public static void printLottoList(List<LottoTicket> lottoTicketList) {
-        for (LottoTicket lottoTicket : lottoTicketList) {
+    public static void printLottoList(LottoTickets lottoTicketList) {
+        List<LottoTicket> totalTickets = lottoTicketList.totalTickets();
+        for (LottoTicket lottoTicket : totalTickets) {
             printLotto(lottoTicket);
         }
     }
