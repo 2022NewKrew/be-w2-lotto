@@ -26,6 +26,10 @@ public class LottoResult {
         return resultMap;
     }
 
+    public int getRankCount(LottoRank rank) {
+        return resultMap.get(rank);
+    }
+
     public int getTotalLottoCount() {
         return totalLottoCount;
     }
@@ -36,6 +40,11 @@ public class LottoResult {
 
     public int getTotalReward() {
         return totalReward;
+    }
+
+    public double geYield() {
+        if (totalPurchaseAmount == 0) return 0.0;
+        return (double)(totalReward - totalPurchaseAmount)/(double)totalPurchaseAmount * 100;
     }
 
     public void putLottoRank(LottoRank lottoRank){

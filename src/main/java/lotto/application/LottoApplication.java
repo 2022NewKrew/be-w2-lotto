@@ -2,6 +2,7 @@ package lotto.application;
 
 import lotto.controller.LottoController;
 import lotto.result.LottoRank;
+import lotto.result.LottoResult;
 import lotto.service.LottoService;
 import lotto.vo.LottoVO;
 import lotto.view.LottoView;
@@ -40,8 +41,8 @@ public class LottoApplication {
         // 당점 결과 출력
         List<LottoVO> lottos = Stream.concat(autoLottos.stream(), manualLottos.stream())
                 .collect(Collectors.toList());
-        List<LottoRank> lottoResults = LottoRank.createLottoResults(lottos, lastWeekLottoNumbers, bonusBall);
+        LottoResult lottoResult = lottoController.createLottoResult(lottos, lastWeekLottoNumbers, bonusBall);
 
-        LottoView.outputLottoResult(lottoResults);
+        LottoView.outputLottoResult(lottoResult);
     }
 }

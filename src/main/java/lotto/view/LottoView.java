@@ -1,5 +1,6 @@
 package lotto.view;
 
+import lotto.result.LottoResult;
 import lotto.vo.LottoVO;
 import lotto.result.LottoRank;
 
@@ -30,8 +31,8 @@ public class LottoView {
         return LottoInputView.inputBonusBall(inputStream);
     }
 
-    public static void outputLottoResult(List<LottoRank> lottoRanks) {
-        LottoOutputView.outputLottoResult(lottoRanks);
+    public static void outputLottoResult(LottoResult lottoResult){
+        LottoOutputView.outputLottoResult(lottoResult);
     }
 
 }
