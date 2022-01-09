@@ -30,8 +30,7 @@ class LottoViewTest {
     void outputPurchaseResult() {
         List<LottoVO> lottos = new ArrayList<>();
         for (int i = 0; i < 10; i++){
-            Lotto lotto = new Lotto();
-            lotto.generateNumbers();
+            Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
             lottos.add(new LottoVO(lotto));
         }
         LottoView.outputPurchaseResult(lottos);
@@ -41,8 +40,7 @@ class LottoViewTest {
     void outputLottoResult() {
         List<LottoVO> lottos = new ArrayList<>();
         for (int i = 0; i < 10; i++){
-            Lotto lotto = new Lotto();
-            lotto.generateNumbers();
+            Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
             lottos.add(new LottoVO(lotto));
         }
         List<Integer> lastWeekLottoNumbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
