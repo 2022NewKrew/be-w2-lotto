@@ -16,6 +16,10 @@ public class LottoManualGenerator implements LottoGenerator {
         this.userNumbers = userNumbers.stream().collect(Collectors.toList());
     }
 
+    public List<Integer> getUserNumbers() {
+        return userNumbers;
+    }
+
     @Override
     public Lotto generateLotto() {
         return new Lotto(userNumbers);
