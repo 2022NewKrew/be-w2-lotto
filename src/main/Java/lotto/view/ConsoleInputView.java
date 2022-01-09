@@ -1,13 +1,22 @@
 package lotto.view;
 
+import lotto.exception.IllegalPurchaseMoneyException;
+
 import java.util.*;
 
-public class ConsoleInputView {
+public class ConsoleInputView{
     private static final Scanner sc = new Scanner(System.in);
 
-    public static int getLottoPurchaseMoney() {
+    public static int getLottoPurchaseMoney (int lottoPrice){
         System.out.println("구입금액을 입력해 주세요.");
-        return sc.nextInt();
+        int purchasePrice = sc.nextInt();
+
+        if(purchasePrice%lottoPrice!=0)
+            throw new IllegalPurchaseMoneyException(lottoPrice+"의 배수로 입력하지 않았습니다.");
+        if(purchasePrice<=0)
+            throw new IllegalPurchaseMoneyException("0 이하의 값을 입력했습니다.");
+
+        return purchasePrice;
     }
 
     public static String getLastWeekLottoNumbers() {

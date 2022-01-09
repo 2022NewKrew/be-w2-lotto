@@ -1,5 +1,7 @@
 package lotto.controller;
 
+import lotto.exception.IllegalManualLottoCountException;
+import lotto.exception.IllegalPurchaseMoneyException;
 import lotto.domain.winningstats.WinningStats;
 import lotto.domain.winningstats.lottobundle.LottoBundle;
 import lotto.domain.winningstats.lottobundle.lottoticket.Lotto;
@@ -12,21 +14,44 @@ public class LottoController {
     }
 
     public LottoBundle purchaseLottoBundleInView() {
-        int lottoPurchaseMoney = ConsoleInputView.getLottoPurchaseMoney();
-        LottoBundle lottoBundle = new LottoBundle(
-                lottoPurchaseMoney,
-                purchaseManualLotto()
-        );
+        final int LOTTO_PRICE = 1000;
+        int lottoPurchaseMoney;
+        LottoBundle lottoBundle;
+
+        while (true) {
+            try {
+                lottoPurchaseMoney = ConsoleInputView.getLottoPurchaseMoney(LOTTO_PRICE);
+                break;
+            } catch (IllegalPurchaseMoneyException e) {
+                ConsoleOutputView.printError(e);
+                ConsoleOutputView.printReInputMessage();
+            }
+        }
+        while (true) {
+            try {
+                lottoBundle = new LottoBundle(
+                        lottoPurchaseMoney,
+                        purchaseManualLotto(),
+                        LOTTO_PRICE
+                );
+                break;
+            } catch (IllegalManualLottoCountException e) {
+                ConsoleOutputView.printError(e);
+                ConsoleOutputView.printReInputMessage();
+            }
+        }
+
         printLottoBundle(lottoBundle);
         return lottoBundle;
     }
-    private String purchaseManualLotto(){
+
+    private String purchaseManualLotto() {
         long manualLottoCount = ConsoleInputView.getManualCount();
         return ConsoleInputView.getManualLottoNumbers(manualLottoCount);
     }
 
     public void printLottoBundle(LottoBundle lottoBundle) {
-        ConsoleOutputView.printLottoCount(lottoBundle.getAutoCount(),lottoBundle.getManualLottoCount());
+        ConsoleOutputView.printLottoCount(lottoBundle.getAutoCount(), lottoBundle.getManualLottoCount());
         ConsoleOutputView.printLottoBundle(lottoBundle);
     }
 

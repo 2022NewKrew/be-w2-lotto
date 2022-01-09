@@ -1,18 +1,22 @@
 package lotto.domain.winningstats.lottobundle;
 
 import lotto.domain.winningstats.lottobundle.lottoticket.Lotto;
+import lotto.exception.IllegalManualLottoCountException;
+import lotto.exception.IllegalPurchaseMoneyException;
 
 public class LottoBundle {
     private final long lottoPurchaseMoney;
     private final LottoList lottoList;
     private final LottoList autoLottoList;
     private final long manualLottoCount;
+    private final int lottoPrice;
 
-    public LottoBundle(long lottoPurchaseMoney,String manualLottoNumbers) {
+    public LottoBundle(long lottoPurchaseMoney,String manualLottoNumbers,int lottoPrice) {
         long autoCount;
         this.lottoPurchaseMoney = lottoPurchaseMoney;
         LottoList manualLottoList = new LottoList(manualLottoNumbers);
         manualLottoCount = manualLottoList.size();
+        this.lottoPrice = lottoPrice;
         autoCount = getAutoCount();
         autoLottoList = new LottoList(autoCount);
         this.lottoList = manualLottoList.concat(autoLottoList);
@@ -23,8 +27,10 @@ public class LottoBundle {
     }
 
     public long getAutoCount() {
-        final long LOTTO_PRICE = 1000;
-        return lottoPurchaseMoney / LOTTO_PRICE - manualLottoCount;
+        long autoCount = lottoPurchaseMoney / this.lottoPrice - manualLottoCount;
+        if(autoCount<0)
+            throw new IllegalManualLottoCountException("수동으로 구매하고자 하는 수량이 총 금액보다 많습니다.");
+        return autoCount;
     }
 
     public long getLottoPurchaseMoney() {
