@@ -1,6 +1,8 @@
 package lotto.application;
 
 import lotto.controller.LottoController;
+import lotto.request.PurchaseRequest;
+import lotto.request.ResultRequest;
 import lotto.result.LottoRank;
 import lotto.result.LottoResult;
 import lotto.service.LottoService;
@@ -17,32 +19,16 @@ public class LottoApplication {
         LottoService lottoService = new LottoService();
         LottoController lottoController = new LottoController(lottoService);
 
-        // 구매금액 입력
-        int purchaseCount = LottoView.inputPurchaseAmount(System.in);
+        // PurchaseRequest 생성 (구매금액 & 수동 구매 정보 입력)
+        PurchaseRequest purchaseRequest = new PurchaseRequest(LottoView.inputPurchaseAmount(System.in), LottoView.inputPurchaseByUserNumbers(System.in));
 
-        // 수동 구매 정보 입력
-        List<List<Integer>> userNumbers = LottoView.inputPurchaseByUserNumbers(System.in);
+        // 로또 구매 & 결과 출력 (자동 구매 & 수동 구매)
+        List<LottoVO> lottos = lottoController.purchaseLotto(purchaseRequest);
 
-        // 자동 구매
-        List<LottoVO> autoLottos = lottoController.purchaseLottos(purchaseCount - userNumbers.size());
+        // ResultRequest 생성 (지난 주 당첨 번호 & 보너스 번호 입력)
+        ResultRequest resultRequest = new ResultRequest(lottos, LottoView.inputLastWeekLottoNumbers(System.in), LottoView.inputBonusBall(System.in));
 
-        // 수동 구매
-        List<LottoVO> manualLottos = lottoController.purchaseLottoByUserNumbers(userNumbers);
-
-        // 구매 결과 출력
-        LottoView.outputPurchaseResult(manualLottos, autoLottos);
-
-        // 지난 주 당첨 번호 입력
-        List<Integer> lastWeekLottoNumbers = LottoView.inputLastWeekLottoNumbers(System.in);
-
-        // 지난 주 당첨 보너스 번호 입력
-        int bonusBall = LottoView.inputBonusBall(System.in);
-
-        // 당첨 결과 출력
-        List<LottoVO> lottos = Stream.concat(autoLottos.stream(), manualLottos.stream())
-                .collect(Collectors.toList());
-        LottoResult lottoResult = lottoController.createLottoResult(lottos, lastWeekLottoNumbers, bonusBall);
-
-        LottoView.outputLottoResult(lottoResult);
+        // 당첨 확인 & 결과 출력
+        lottoController.createLottoResult(resultRequest);
     }
 }

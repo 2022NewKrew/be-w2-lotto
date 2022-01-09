@@ -3,13 +3,12 @@ package lotto.controller;
 import lotto.domain.Lotto;
 import lotto.request.PurchaseRequest;
 import lotto.request.ResultRequest;
-import lotto.result.LottoRank;
 import lotto.result.LottoResult;
 import lotto.service.LottoService;
+import lotto.view.LottoView;
 import lotto.vo.LottoVO;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -34,6 +33,7 @@ public class LottoController {
     public List<LottoVO> purchaseLotto(PurchaseRequest purchaseRequest) {
         List<LottoVO> autoLottos = purchaseLottos(purchaseRequest.purchasableLottoCount());
         List<LottoVO> manualLottos = purchaseLottoByUserNumbers(purchaseRequest.getRequestManulLottos());
+        LottoView.outputPurchaseResult(manualLottos, autoLottos);
         return Stream.concat(autoLottos.stream(), manualLottos.stream()).collect(Collectors.toList());
     }
 
@@ -41,8 +41,8 @@ public class LottoController {
         return lottoService.createLottoResult(lottos.stream().map(lottoVO -> new Lotto(lottoVO.getNumbers())).collect(Collectors.toList()), lastWeekLottoNumbers, bonusBall);
     }
 
-    public LottoResult createLottoResult(ResultRequest resultRequest) {
-        return createLottoResult(resultRequest.getLottos(), resultRequest.getLastWeekLottoNumbers(), resultRequest.getBonusBall());
+    public void createLottoResult(ResultRequest resultRequest) {
+        LottoView.outputLottoResult(createLottoResult(resultRequest.getLottos(), resultRequest.getLastWeekLottoNumbers(), resultRequest.getBonusBall()));
     }
 
 }

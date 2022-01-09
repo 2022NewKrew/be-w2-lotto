@@ -13,21 +13,21 @@ public class ResultRequest {
 
     private int bonusBall;
 
+    public ResultRequest(List<LottoVO> lottos, List<Integer> lastWeekLottoNumbers, int bonusBall) {
+        this.lottos = lottos;
+        this.lastWeekLottoNumbers = lastWeekLottoNumbers;
+        this.bonusBall = bonusBall;
+    }
+
     public List<LottoVO> getLottos() {
         return lottos;
     }
 
-    public void setLottos(List<LottoVO> lottos) {
-        this.lottos = lottos;
-    }
 
     public List<Integer> getLastWeekLottoNumbers() {
         return lastWeekLottoNumbers;
     }
 
-    public void setLastWeekLottoNumbers(List<Integer> lastWeekLottoNumbers) {
-        this.lastWeekLottoNumbers = lastWeekLottoNumbers;
-    }
 
     public int getBonusBall() {
         return bonusBall;
