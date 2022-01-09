@@ -26,9 +26,9 @@ public class LastWeekLottoResult {
         Validation.notContains(lastWeekWinningNumbers, bonusNumber,
                 () -> new InvalidBonusNumber(ErrorMessage.DUPLICATE_BONUS_NUMBER.getMessage()));
 
-        this.lastWeekWinningNumbers = lastWeekWinningNumbers.stream().map(LottoNumber::new)
+        this.lastWeekWinningNumbers = lastWeekWinningNumbers.stream().map(LottoNumber::from)
                 .collect(Collectors.toUnmodifiableSet());
-        this.bonusNumber = new LottoNumber(bonusNumber);
+        this.bonusNumber = LottoNumber.from(bonusNumber);
     }
 
     private void initializeMap(EnumMap<Prize, Integer> lottoResult) {

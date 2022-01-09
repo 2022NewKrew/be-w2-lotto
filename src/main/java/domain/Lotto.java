@@ -18,7 +18,7 @@ public class Lotto {
         }
         Validation.sizeShouldBe(intNumbers, LottoConstants.NUMBER_OF_LOTTERY_NUMBERS.get(),
                 () -> new InvalidLastWeekWinningNumber(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
-        numbers = intNumbers.stream().map(LottoNumber::new).collect(Collectors.toUnmodifiableSet());
+        numbers = intNumbers.stream().map(LottoNumber::from).collect(Collectors.toUnmodifiableSet());
     }
 
     public Set<LottoNumber> numbers() {

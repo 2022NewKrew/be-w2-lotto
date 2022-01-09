@@ -1,6 +1,6 @@
 package domain;
 
-import exceptions.InvalidLastWeekWinningNumber;
+import exceptions.InvalidLottoNumber;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,15 +14,15 @@ class LottoNumberTest {
     void LottoNumber() {
         int number = 1;
 
-        new LottoNumber(number);
+        LottoNumber.from(number);
     }
 
     @DisplayName("[실패] 범위를 벗어나는 숫자가 들어오면 InvalidLottoNumber를 던져야 한다")
     @ParameterizedTest(name = "{0} 들어오는 경우")
     @ValueSource(ints = {0, 46, -1})
     void LottoNumber_Failed_By_(int invalidNumber) {
-        Assertions.assertThrows(InvalidLastWeekWinningNumber.class,
-                () -> new LottoNumber(invalidNumber));
+        Assertions.assertThrows(InvalidLottoNumber.class,
+                () -> LottoNumber.from(invalidNumber));
     }
 
     @Test
@@ -30,7 +30,7 @@ class LottoNumberTest {
     void get() {
         int number = 1;
 
-        LottoNumber lottoNumber = new LottoNumber(number);
+        LottoNumber lottoNumber = LottoNumber.from(number);
 
         Assertions.assertEquals(number, lottoNumber.get());
     }
