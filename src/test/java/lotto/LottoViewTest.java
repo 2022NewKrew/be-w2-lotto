@@ -1,6 +1,9 @@
 package lotto;
 
+import lotto.controller.LottoController;
 import lotto.domain.Lotto;
+import lotto.result.LottoResult;
+import lotto.service.LottoService;
 import lotto.vo.LottoVO;
 import lotto.result.LottoRank;
 import lotto.view.LottoView;
@@ -38,13 +41,15 @@ class LottoViewTest {
 
     @Test
     void outputLottoResult() {
+        LottoService lottoService = new LottoService();
+        LottoController lottoController = new LottoController(lottoService);
         List<LottoVO> lottos = new ArrayList<>();
         for (int i = 0; i < 10; i++){
             Lotto lotto = new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6));
             lottos.add(new LottoVO(lotto));
         }
         List<Integer> lastWeekLottoNumbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
-        List<LottoRank> lottoRanks = LottoRank.createLottoResults(lottos, lastWeekLottoNumbers, 7);
+        LottoResult lottoRanks = lottoController.createLottoResult(lottos, lastWeekLottoNumbers, 7);
         LottoView.outputLottoResult(lottoRanks);
     }
 }
