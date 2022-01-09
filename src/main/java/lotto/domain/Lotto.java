@@ -21,7 +21,7 @@ public class Lotto {
     }
 
     private void validate(){
-        if (numbers.size() != LottoConfigure.NUMBERS_SIZE) throw new IllegalArgumentException();
+        if (numbers.stream().distinct().count() != LottoConfigure.NUMBERS_SIZE) throw new IllegalArgumentException();
         for (int i = 0; i < LottoConfigure.NUMBERS_SIZE; i++){
             if (numbers.get(i) < LottoConfigure.MIN_NUMBER || LottoConfigure.MAX_NUMBER < numbers.get(i)) throw new IllegalArgumentException();
         }
