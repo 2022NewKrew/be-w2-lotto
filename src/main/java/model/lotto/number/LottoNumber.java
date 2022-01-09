@@ -1,5 +1,8 @@
 package model.lotto.number;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LottoNumber implements Comparable<LottoNumber> {
     public static final int START_NUMBER = 1;
     public static final int FINAL_NUMBER = 45;
@@ -36,12 +39,12 @@ public class LottoNumber implements Comparable<LottoNumber> {
     }
 
     private static class LottoNumberCache {
-        private static final LottoNumber[] cache;
+        private static final List<LottoNumber> cache;
 
         static {
-            cache = new LottoNumber[LottoNumber.FINAL_NUMBER - LottoNumber.START_NUMBER + 1];
+            cache = new ArrayList<>(LottoNumber.FINAL_NUMBER - LottoNumber.START_NUMBER + 1);
             for (int i = 0; i < LottoNumber.FINAL_NUMBER - LottoNumber.START_NUMBER + 1; i++) {
-                cache[i] = new LottoNumber(i + LottoNumber.START_NUMBER);
+                cache.set(i, new LottoNumber(i + LottoNumber.START_NUMBER));
             }
         }
     }
@@ -49,7 +52,7 @@ public class LottoNumber implements Comparable<LottoNumber> {
     public static LottoNumber valueOf(int lottoNumber) {
         checkNumber(lottoNumber);
 
-        return LottoNumberCache.cache[lottoNumber - LottoNumber.START_NUMBER];
+        return LottoNumberCache.cache.get(lottoNumber - LottoNumber.START_NUMBER);
     }
 
     @Override

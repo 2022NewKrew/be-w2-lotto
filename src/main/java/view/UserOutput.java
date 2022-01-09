@@ -1,7 +1,7 @@
 package view;
 
-import dto.LottoRankDto;
-import dto.LottoResultDto;
+import dto.LottoRecipeDto;
+import dto.LottoResultEntryDto;
 import dto.LottoResultRevenuePercentDto;
 import dto.LottosDto;
 
@@ -19,26 +19,38 @@ public class UserOutput {
         System.out.println("총 수익률은 " + revenuePercentDto.getRevenuePercent() + "% 입니다.");
     }
 
-    public static void printHistory(List<LottoRankDto> lottoRanks, LottoResultDto result) {
+    public static void printHistory(List<LottoResultEntryDto> results, int startIndex) {
         System.out.println("당첨 통계");
         System.out.println("----------");
-        for (LottoRankDto lottoRankDto : lottoRanks) {
-            printResultByLottoRank(lottoRankDto, result);
+        for (int i = startIndex; i < results.size(); i++) {
+            printResultByLottoRank(results.get(i));
         }
     }
 
-    public static void printBuyMessage(int numberOfManualLotto, int numberOfAutoLotto) {
-        System.out.printf("수동으로 %d장, 자동으로 %d장을 구매했습니다.\n", numberOfManualLotto, numberOfAutoLotto);
+    public static void printBuyMessage(LottoRecipeDto lottoRecipeDto) {
+        System.out.printf("수동으로 %d장, 자동으로 %d장을 구매했습니다.\n", lottoRecipeDto.getNumberOfManualLotto(), lottoRecipeDto.getNumberOfRandomLotto());
     }
 
-    private static void printResultByLottoRank(LottoRankDto lottoRankDto, LottoResultDto lottoResultDto) {
-        System.out.println(getResultFormat(lottoRankDto, lottoResultDto.get(lottoRankDto.getRank()), lottoRankDto.getNeedBonusNumber()));
+    private static void printResultByLottoRank(LottoResultEntryDto lottoResultEntryDto) {
+        System.out.println(getResultFormat(lottoResultEntryDto));
     }
 
-    private static String getResultFormat(LottoRankDto lottoRankDto, int numberOfMatchTicket, boolean needBonusNumber) {
-        if (needBonusNumber) {
-            return String.format("%d개 일치, 보너스 볼 일치 (%d) - %d개", lottoRankDto.getMatchNumber(), lottoRankDto.getReward(), numberOfMatchTicket);
+    private static String getResultFormat(LottoResultEntryDto lottoResultEntryDto) {
+        if (lottoResultEntryDto.isNeedBonusNumber()) {
+            return String
+                    .format(
+                            "%d개 일치, 보너스 볼 일치 (%d) - %d개",
+                            lottoResultEntryDto.getMatchNumber(),
+                            lottoResultEntryDto.getReward(),
+                            lottoResultEntryDto.getValue()
+                    );
         }
-        return String.format("%d개 일치 (%d) - %d개", lottoRankDto.getMatchNumber(), lottoRankDto.getReward(), numberOfMatchTicket);
+        return String
+                .format(
+                        "%d개 일치 (%d) - %d개",
+                        lottoResultEntryDto.getMatchNumber(),
+                        lottoResultEntryDto.getReward(),
+                        lottoResultEntryDto.getValue()
+                );
     }
 }

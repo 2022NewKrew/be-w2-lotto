@@ -1,4 +1,4 @@
-package model.lotto;
+package model.lotto.strategy;
 
 import model.lotto.number.LottoNumber;
 import utility.RandomSeed;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class RandomLottoGenerator {
+public class RandomGenerateStrategy implements GenerateLottoStrategy {
     private static final List<LottoNumber> LOTTO_NUMBERS;
 
     static {
@@ -23,15 +23,15 @@ public class RandomLottoGenerator {
                 .collect(Collectors.toList());
     }
 
-    public static List<LottoNumber> generate() {
+    public List<LottoNumber> generate() {
         return generateRandomNumbers();
     }
 
-    private static List<LottoNumber> generateRandomNumbers() {
+    private List<LottoNumber> generateRandomNumbers() {
         List<LottoNumber> targetLottoNumbers = new ArrayList<>(LOTTO_NUMBERS);
         Collections.shuffle(targetLottoNumbers, RandomSeed.getRandom());
         targetLottoNumbers = new ArrayList<>(targetLottoNumbers.subList(0, 6));
         Collections.sort(targetLottoNumbers);
-        return targetLottoNumbers;
+        return Collections.unmodifiableList(targetLottoNumbers);
     }
 }

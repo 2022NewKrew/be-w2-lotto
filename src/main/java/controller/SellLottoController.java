@@ -1,9 +1,10 @@
 package controller;
 
-import model.lotto.DefinedLottoGenerator;
+import dto.LottoRecipeDto;
 import model.lotto.Lotto;
 import model.lotto.LottoRecipe;
-import model.lotto.RandomLottoGenerator;
+import model.lotto.strategy.DefinedGenerateStrategy;
+import model.lotto.strategy.RandomGenerateStrategy;
 import view.UserInput;
 import view.UserOutput;
 
@@ -21,14 +22,14 @@ public class SellLottoController {
         lottos.addAll(buyLottosByManual(lottoRecipe.getNumberOfManualLotto()));
         lottos.addAll(buyLottosByAuto(lottoRecipe.getNumberOfRandomLotto()));
 
-        UserOutput.printBuyMessage(lottoRecipe.getNumberOfManualLotto(), lottoRecipe.getNumberOfRandomLotto());
+        UserOutput.printBuyMessage(new LottoRecipeDto(lottoRecipe));
         return lottos;
     }
 
     private static List<Lotto> buyLottosByAuto(int numberOfRandomLotto) {
         return IntStream
                 .range(0, numberOfRandomLotto)
-                .mapToObj(index -> new Lotto(RandomLottoGenerator.generate()))
+                .mapToObj(index -> new Lotto(new RandomGenerateStrategy()))
                 .collect(Collectors.toList());
     }
 
@@ -41,7 +42,7 @@ public class SellLottoController {
     }
 
     private static Lotto getLottoByManual(List<Integer> numbers) {
-        return new Lotto(DefinedLottoGenerator.generate(numbers));
+        return new Lotto(new DefinedGenerateStrategy(numbers));
     }
 
     private static int calculateNumberOfLotto(int money) {

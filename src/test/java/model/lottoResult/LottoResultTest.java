@@ -1,10 +1,10 @@
 package model.lottoResult;
 
-import model.lotto.DefinedLottoGenerator;
 import model.lotto.Lotto;
 import model.lotto.LottoRank;
 import model.lotto.number.LottoNumber;
 import model.lotto.result.LottoResult;
+import model.lotto.strategy.DefinedGenerateStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -31,7 +31,7 @@ class LottoResultTest {
     @DisplayName("로또를 살 금액과 당첨 번호를 가지고 결과를 계산했을 때 기대한 총 수익과 생성된 총 수익이 같다.")
     @ParameterizedTest
     @MethodSource("getResultArguments")
-    void getResult(Lotto winningLotto, LottoNumber bonusNumber, Map<Integer, Integer> expectedEarn) {
+    void getResult(Lotto winningLotto, LottoNumber bonusNumber, Map<LottoRank, Integer> expectedEarn) {
         //Give
         List<Lotto> lottos = getTestLottos();
         //When
@@ -57,7 +57,7 @@ class LottoResultTest {
     static Stream<Arguments> getResultArguments() {
         return Stream.of(
                 Arguments.of(
-                        new Lotto(DefinedLottoGenerator.generate(Arrays.asList(1, 2, 3, 4, 5, 6))),
+                        new Lotto(new DefinedGenerateStrategy(Arrays.asList(1, 2, 3, 4, 5, 6))),
                         LottoNumber.valueOf(7),
                         Map.of(
                                 LottoRank.FAIL, 3,
@@ -69,7 +69,7 @@ class LottoResultTest {
                         )
                 ),
                 Arguments.of(
-                        new Lotto(DefinedLottoGenerator.generate(Arrays.asList(11, 12, 13, 14, 15, 16))),
+                        new Lotto(new DefinedGenerateStrategy(Arrays.asList(11, 12, 13, 14, 15, 16))),
                         LottoNumber.valueOf(7),
                         Map.of(
                                 LottoRank.FAIL, 4,
@@ -85,22 +85,22 @@ class LottoResultTest {
 
     static Stream<Arguments> getRevenuePercents() {
         return Stream.of(
-                Arguments.of(new Lotto(DefinedLottoGenerator.generate(Arrays.asList(1, 2, 3, 4, 5, 6))), LottoNumber.valueOf(7), 25394437),
-                Arguments.of(new Lotto(DefinedLottoGenerator.generate(Arrays.asList(11, 12, 13, 14, 15, 16))), LottoNumber.valueOf(7), 25019437)
+                Arguments.of(new Lotto(new DefinedGenerateStrategy(Arrays.asList(1, 2, 3, 4, 5, 6))), LottoNumber.valueOf(7), 25394437),
+                Arguments.of(new Lotto(new DefinedGenerateStrategy(Arrays.asList(11, 12, 13, 14, 15, 16))), LottoNumber.valueOf(7), 25019437)
         );
     }
 
     List<Lotto> getTestLottos() {
         List<Lotto> results = new ArrayList<>();
 
-        results.add(new Lotto(DefinedLottoGenerator.generate(Arrays.asList(11, 12, 13, 14, 15, 16))));
-        results.add(new Lotto(DefinedLottoGenerator.generate(Arrays.asList(1, 12, 13, 14, 15, 16))));
-        results.add(new Lotto(DefinedLottoGenerator.generate(Arrays.asList(1, 2, 13, 14, 15, 16))));
-        results.add(new Lotto(DefinedLottoGenerator.generate(Arrays.asList(1, 2, 3, 14, 15, 16))));
-        results.add(new Lotto(DefinedLottoGenerator.generate(Arrays.asList(1, 2, 3, 4, 15, 16))));
-        results.add(new Lotto(DefinedLottoGenerator.generate(Arrays.asList(1, 2, 3, 4, 5, 16))));
-        results.add(new Lotto(DefinedLottoGenerator.generate(Arrays.asList(1, 2, 3, 4, 5, 7))));
-        results.add(new Lotto(DefinedLottoGenerator.generate(Arrays.asList(1, 2, 3, 4, 5, 6))));
+        results.add(new Lotto(new DefinedGenerateStrategy(Arrays.asList(11, 12, 13, 14, 15, 16))));
+        results.add(new Lotto(new DefinedGenerateStrategy(Arrays.asList(1, 12, 13, 14, 15, 16))));
+        results.add(new Lotto(new DefinedGenerateStrategy(Arrays.asList(1, 2, 13, 14, 15, 16))));
+        results.add(new Lotto(new DefinedGenerateStrategy(Arrays.asList(1, 2, 3, 14, 15, 16))));
+        results.add(new Lotto(new DefinedGenerateStrategy(Arrays.asList(1, 2, 3, 4, 15, 16))));
+        results.add(new Lotto(new DefinedGenerateStrategy(Arrays.asList(1, 2, 3, 4, 5, 16))));
+        results.add(new Lotto(new DefinedGenerateStrategy(Arrays.asList(1, 2, 3, 4, 5, 7))));
+        results.add(new Lotto(new DefinedGenerateStrategy(Arrays.asList(1, 2, 3, 4, 5, 6))));
 
         return results;
     }
