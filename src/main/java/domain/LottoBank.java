@@ -14,14 +14,6 @@ public class LottoBank {
         return (purchasedAmount / LOTTO_PRICE) - manualQuantity;
     }
 
-    public double getProfitRate(LottoRankMatch lottoRankMatch, int purchasedAmount) {
-        double profit = 0.0;
-        for (Map.Entry<LottoRank, Integer> resultIndex : lottoRankMatch.getLottoResult().entrySet()) {
-            profit += (resultIndex.getKey().getMoney() * resultIndex.getValue());
-        }
-        return (profit - purchasedAmount) / purchasedAmount * 100;
-    }
-
     private static void validatePurchaseAmount(int purchasedAmount, int manualQuantity) {
         if ((purchasedAmount/LOTTO_PRICE) < MINIMUM_PURCHASE_AMOUNT) {
             throw new InvalidPurchaseAmount(InvalidPurchaseAmount.MINIMUM_PURCHASE_AMOUNT);

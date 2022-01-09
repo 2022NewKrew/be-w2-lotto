@@ -21,7 +21,8 @@ public class LottoGame {
         OutputView.printAllLottos(lottoRepository, manualQuantity);
         LottoWinningNumber inputLastWeekWinNumber = InputView.bonusNumber();
 
+        LottoYield lottoYield = new LottoYield();
         LottoRankMatch lottoRankMatch = LottoRankMatch.createResult(lottoRepository, inputLastWeekWinNumber);
-        OutputView.printProfit(lottoRankMatch, lottoBank.getProfitRate(lottoRankMatch, purchasedAmount));
+        OutputView.printProfit(lottoRankMatch, lottoYield.getProfitRate(lottoRankMatch, purchasedAmount));
     }
 }
