@@ -39,4 +39,11 @@ public class LottoMachine {
                 .limit(PICK_LOTTO)
                 .collect(Collectors.toSet());
     }
+
+    public List<Lotto> createManualLottos(List<Set<Integer>> manualStrings) {
+        List<Lotto> manualLottos = new ArrayList<>();
+
+        manualStrings.forEach(i -> manualLottos.add(new Lotto(i)));
+        return manualLottos;
+    }
 }

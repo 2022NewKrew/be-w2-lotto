@@ -25,34 +25,31 @@ public class InputView {
         return scanner.nextInt();
     }
 
-    public static List<Lotto> manualNumbers(int manualQuantity) {
+    public static List<Set<Integer>> manualNumbers(int manualQuantity) {
         if (manualQuantity > 0) {
             System.out.println("\n" + INPUT_LOTTO_MANUAL_LOTTO_NUMBERS);
         }
-        List<Lotto> manualLottos = new ArrayList<>();
+        List<Set<Integer>> manualLottos = new ArrayList<>();
         IntStream.range(0, manualQuantity).forEach(manualIndex -> {
             manualLottos.add(inputNumbers());
         });
         return manualLottos;
     }
 
-    public static Lotto lastWeekNumbers() {
+    public static Set<Integer> lastWeekNumbers() {
         System.out.println("\n" + INPUT_LAST_WEEK_WIN_NUMBER);
         return inputNumbers();
     }
 
-    public static Lotto inputNumbers() {
+    public static Set<Integer> inputNumbers() {
         String numbersBeforeDefined = scanner.next();
-        Set<Integer> manualNumbers = Arrays.stream(numbersBeforeDefined.split(","))
+        return Arrays.stream(numbersBeforeDefined.split(","))
                 .map(Integer::parseInt)
                 .collect(Collectors.toSet());
-        return new Lotto(manualNumbers);
     }
 
-    public static LottoWinningNumber bonusNumber() {
-        Lotto lotto = lastWeekNumbers();
+    public static Integer bonusNumber() {
         System.out.println("\n" + INPUT_BONUS_NUMBER);
-        int bonus = scanner.nextInt();
-        return new LottoWinningNumber(lotto.getLotto(), bonus);
+        return scanner.nextInt();
     }
 }

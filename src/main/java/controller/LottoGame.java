@@ -16,14 +16,17 @@ public class LottoGame {
         LottoMachine lottoMachine = new LottoMachine();
         LottoBank lottoBank = new LottoBank();
         List<Lotto> autoLottos = lottoMachine.createAutoLottos(lottoBank.buyLottos(purchasedAmount, manualQuantity));
-        List<Lotto> manualLottos = InputView.manualNumbers(manualQuantity);
+        List<Set<Integer>> manualStrings = InputView.manualNumbers(manualQuantity);
+        List<Lotto> manualLottos = lottoMachine.createManualLottos(manualStrings);
         LottoRepository lottoRepository = lottoMachine.getAllLottos(autoLottos, manualLottos);
 
         OutputView.printAllLottos(lottoRepository, manualQuantity);
-        LottoWinningNumber inputLastWeekWinNumber = InputView.bonusNumber();
+        Set<Integer> lastWeekWinNumber = InputView.lastWeekNumbers();
+        Integer bonusBallNumber = InputView.bonusNumber();
+        LottoWinningNumber lottoWinningNumber = new LottoWinningNumber(lastWeekWinNumber, bonusBallNumber);
 
         LottoYield lottoYield = new LottoYield();
-        LottoRankMatch lottoRankMatch = LottoRankMatch.createResult(lottoRepository, inputLastWeekWinNumber);
+        LottoRankMatch lottoRankMatch = LottoRankMatch.createResult(lottoRepository, lottoWinningNumber);
         OutputView.printProfit(lottoRankMatch, lottoYield.getProfitRate(lottoRankMatch, purchasedAmount));
     }
 }
