@@ -1,6 +1,8 @@
 package domain;
 
 import enums.Prize;
+import exceptions.InvalidBonusNumber;
+import exceptions.InvalidLastWeekWinningNumber;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Set;
@@ -16,6 +18,46 @@ class LastWeekLottoResultTest {
     @BeforeAll
     static void setUp() {
         createWinningNumbers();
+    }
+
+
+    @Test
+    @DisplayName("[성공] LastWeekLottoResult 객체를 생성한다")
+    void Lotto() {
+        Set<Integer> lastWeekWinningNumbers = Set.of(1, 2, 3, 4, 5, 6);
+        int bonusNumber = 7;
+
+        new LastWeekLottoResult(lastWeekWinningNumbers, bonusNumber);
+    }
+
+    @Test
+    @DisplayName("[실패] 지난주 당첨 번호에 null이 들어올 때 IllegalArgumentException 던져야 한다")
+    void Lotto_Failed_By_Null() {
+        Set<Integer> lastWeekWinningNumbers = null;
+        int bonusNumber = 7;
+
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> new LastWeekLottoResult(lastWeekWinningNumbers, bonusNumber));
+    }
+
+    @Test
+    @DisplayName("[실패] 지난주 당첨 번호가 6개가 아닐 때 InvalidLastWeekWinningNumber를 던져야 한다")
+    void Lotto_Failed_By_InvalidLottoNumberLength() {
+        Set<Integer> lastWeekWinningNumbers = Set.of(1, 2, 3, 4, 5);
+        int bonusNumber = 7;
+
+        Assertions.assertThrows(InvalidLastWeekWinningNumber.class,
+                () -> new LastWeekLottoResult(lastWeekWinningNumbers, bonusNumber));
+    }
+
+    @Test
+    @DisplayName("[실패] 보너스 번호가 지난 주 당첨 번호와 중복될 때 InvalidBonusNumber 던져야 한다")
+    void Lotto_Failed_By_DuplicateBonusNumber() {
+        Set<Integer> lastWeekWinningNumbers = Set.of(1, 2, 3, 4, 5, 6);
+        int bonusNumber = 6;
+
+        Assertions.assertThrows(InvalidBonusNumber.class,
+                () -> new LastWeekLottoResult(lastWeekWinningNumbers, bonusNumber));
     }
 
     @Test

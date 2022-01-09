@@ -3,7 +3,7 @@ package domain;
 import enums.LottoConstants;
 import enums.Prize;
 import exceptions.InvalidBonusNumber;
-import exceptions.InvalidPurchaseAmount;
+import exceptions.InvalidLastWeekWinningNumber;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Set;
@@ -22,7 +22,7 @@ public class LastWeekLottoResult {
             throw new IllegalArgumentException();
         }
         Validation.sizeShouldBe(lastWeekWinningNumbers, LottoConstants.NUMBER_OF_LOTTERY_NUMBERS.get(),
-                () -> new InvalidPurchaseAmount(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
+                () -> new InvalidLastWeekWinningNumber(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
         Validation.notContains(lastWeekWinningNumbers, bonusNumber,
                 () -> new InvalidBonusNumber(ErrorMessage.DUPLICATE_BONUS_NUMBER.getMessage()));
 
