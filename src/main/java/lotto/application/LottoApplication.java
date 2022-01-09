@@ -38,7 +38,7 @@ public class LottoApplication {
         // 지난 주 당첨 보너스 번호 입력
         int bonusBall = LottoView.inputBonusBall(System.in);
 
-        // 당점 결과 출력
+        // 당첨 결과 출력
         List<LottoVO> lottos = Stream.concat(autoLottos.stream(), manualLottos.stream())
                 .collect(Collectors.toList());
         LottoResult lottoResult = lottoController.createLottoResult(lottos, lastWeekLottoNumbers, bonusBall);
