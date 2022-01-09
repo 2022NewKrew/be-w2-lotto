@@ -26,7 +26,6 @@ public class Lotto {
     public int countNumbersMatch(Lotto prize) {
         return (int) this.numbers.stream().filter(prize::contains).count();
     }
-
     public boolean contains(int num) {
         return numbers.contains(num);
     }

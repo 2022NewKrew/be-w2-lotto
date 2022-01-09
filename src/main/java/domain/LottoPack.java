@@ -23,7 +23,7 @@ public class LottoPack {
     }
 
     public String printLottoPack() {
-        return String.format("수동으로 %d장, 자동으로 %d 개를 구매했습니다.\n", autoCount, manualCount) +
+        return String.format("수동으로 %d장, 자동으로 %d 개를 구매했습니다.\n", manualCount, autoCount) +
                 lottoList.printBundle();
     }
 
