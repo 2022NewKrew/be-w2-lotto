@@ -1,7 +1,6 @@
 package controller;
 
-import dto.LottoRankDto;
-import dto.LottoResultDto;
+import dto.LottoResultEntryDto;
 import dto.LottoResultRevenuePercentDto;
 import dto.LottosDto;
 import model.lotto.Lotto;
@@ -12,8 +11,8 @@ import view.UserInput;
 import view.UserOutput;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class LottoController {
@@ -24,7 +23,7 @@ public class LottoController {
         List<Lotto> lottos = SellLottoController.buyLottos(UserInput.getMoney());
         UserOutput.printLotto(new LottosDto(getLottoNumbers(lottos)));
         LottoResult lottoResult = MatchLottoController.matchingResult(lottos);
-        UserOutput.printHistory(getValidLottoResult(), new LottoResultDto(lottoResult.getResult()));
+        UserOutput.printHistory(resultMapToEntryList(lottoResult.getResult()), START_NUMBER_PRESENT);
         UserOutput.printRevenueRate(new LottoResultRevenuePercentDto(lottoResult.getRevenuePercent()));
     }
 
@@ -44,11 +43,11 @@ public class LottoController {
                 .collect(Collectors.toList());
     }
 
-    private static List<LottoRankDto> getValidLottoResult() {
-        return Arrays
-                .stream(LottoRank.values())
-                .skip(START_NUMBER_PRESENT)
-                .map(LottoRankDto::new)
+    private static List<LottoResultEntryDto> resultMapToEntryList(Map<LottoRank, Integer> result) {
+        return result
+                .entrySet()
+                .stream()
+                .map(LottoResultEntryDto::new)
                 .collect(Collectors.toList());
     }
 }

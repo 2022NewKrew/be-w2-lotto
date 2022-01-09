@@ -1,5 +1,7 @@
 package model.lotto;
 
+import model.lotto.strategy.DefinedGenerateStrategy;
+import model.lotto.strategy.RandomGenerateStrategy;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -22,7 +24,7 @@ public class LottoTest {
         //Give
         //When
         //Then
-        assertThatCode(() -> new Lotto(DefinedLottoGenerator.generate(legalLottoNumbers)))
+        assertThatCode(() -> new Lotto(new DefinedGenerateStrategy(legalLottoNumbers)))
                 .doesNotThrowAnyException();
     }
 
@@ -33,7 +35,7 @@ public class LottoTest {
         //Give
         //When
         //Then
-        assertThatThrownBy(() -> new Lotto(DefinedLottoGenerator.generate(illegalLottoNumbers)))
+        assertThatThrownBy(() -> new Lotto(new DefinedGenerateStrategy(illegalLottoNumbers)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -44,7 +46,7 @@ public class LottoTest {
         //Give
         //When
         //Then
-        assertThatThrownBy(() -> new Lotto(DefinedLottoGenerator.generate(illegalLottoNumbers)))
+        assertThatThrownBy(() -> new Lotto(new DefinedGenerateStrategy(illegalLottoNumbers)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -54,7 +56,7 @@ public class LottoTest {
         //Give
         //When
         //Then
-        assertThatCode(() -> new Lotto(RandomLottoGenerator.generate()))
+        assertThatCode(() -> new Lotto(new RandomGenerateStrategy()))
                 .doesNotThrowAnyException();
     }
 
@@ -63,8 +65,8 @@ public class LottoTest {
     @MethodSource("getTestNumbers")
     void countDuplicateNumberWith(List<Integer> testList1, List<Integer> testList2, int expectedNumber) {
         //Give
-        Lotto testLotto1 = new Lotto(DefinedLottoGenerator.generate(testList1));
-        Lotto testLotto2 = new Lotto(DefinedLottoGenerator.generate(testList2));
+        Lotto testLotto1 = new Lotto(new DefinedGenerateStrategy(testList1));
+        Lotto testLotto2 = new Lotto(new DefinedGenerateStrategy(testList2));
         //When
         int result = testLotto1.contain(testLotto2);
         //Then

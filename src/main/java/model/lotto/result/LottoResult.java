@@ -5,7 +5,7 @@ import model.lotto.LottoRank;
 import model.lotto.WinningCondition;
 import model.lotto.number.LottoNumber;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,7 +26,7 @@ public class LottoResult {
     }
 
     private Map<LottoRank, Integer> resultToMap(List<LottoRank> results) {
-        Map<LottoRank, Integer> result = new HashMap<>();
+        Map<LottoRank, Integer> result = new EnumMap<>(LottoRank.class);
         for (LottoRank lottoRank : LottoRank.values()) {
             result.put(lottoRank, countOfTargetLottoRank(results, lottoRank));
         }
