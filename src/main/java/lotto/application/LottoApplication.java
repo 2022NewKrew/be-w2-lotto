@@ -1,12 +1,13 @@
 package lotto.application;
 
 import lotto.controller.LottoController;
-import lotto.result.LottoResult;
+import lotto.result.LottoRank;
 import lotto.service.LottoService;
 import lotto.vo.LottoVO;
 import lotto.view.LottoView;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -39,7 +40,7 @@ public class LottoApplication {
         // 당점 결과 출력
         List<LottoVO> lottos = Stream.concat(autoLottos.stream(), manualLottos.stream())
                 .collect(Collectors.toList());
-        List<LottoResult> lottoResults = LottoResult.createLottoResults(lottos, lastWeekLottoNumbers, bonusBall);
+        List<LottoRank> lottoResults = LottoRank.createLottoResults(lottos, lastWeekLottoNumbers, bonusBall);
 
         LottoView.outputLottoResult(lottoResults);
     }

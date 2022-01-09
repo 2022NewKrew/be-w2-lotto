@@ -6,8 +6,7 @@ import lotto.domain.generator.LottoAutoGenerator;
 import lotto.domain.generator.LottoGenerator;
 import lotto.domain.generator.LottoManualGenerator;
 import lotto.domain.generator.WinningLottoGenerator;
-import lotto.result.LottoResult;
-import lotto.vo.LottoVO;
+import lotto.result.LottoRank;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,11 +43,11 @@ public class LottoService {
         return lottos;
     }
 
-    public Map<LottoResult, Integer> createLottoResults(List<Lotto> lottos, List<Integer> lastWeekLottoNumbers, int bonusBall) {
-        Map<LottoResult, Integer> results = new HashMap<>();
+    public Map<LottoRank, Integer> createLottoResults(List<Lotto> lottos, List<Integer> lastWeekLottoNumbers, int bonusBall) {
+        Map<LottoRank, Integer> results = new HashMap<>();
         WiningLotto winingLotto = (WiningLotto)getLottoGenerator(lastWeekLottoNumbers, bonusBall).generateLotto();
         for (Lotto lotto : lottos){
-            LottoResult result = winingLotto.matchLotto(lotto);
+            LottoRank result = winingLotto.matchLotto(lotto);
             results.put(result, results.get(results) + 1);
         }
         return results;
