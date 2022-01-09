@@ -10,6 +10,9 @@ public class LottoStatistics {
     private final EnumMap<Prize, Integer> winningLottoCount;
 
     public LottoStatistics(EnumMap<Prize, Integer> winningLottoCount) {
+        if (winningLottoCount == null) {
+            throw new IllegalArgumentException();
+        }
         this.winningLottoCount = winningLottoCount;
     }
 
