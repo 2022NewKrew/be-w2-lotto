@@ -19,14 +19,15 @@ public class LottoOutputView {
     }
 
     public static void outputLottoResult(LottoResult lottoResult) {
-        System.out.println("당첨 통계");
-        System.out.println("---------");
+        lottoResult.addMessage("당첨 통계\n");
+        lottoResult.addMessage("---------\n");
         for (LottoRank rank : LottoRank.values()) {
             if (rank.getCountOfMatch() < 3) continue;
-            System.out.printf("%d개 일치 ", rank.getCountOfMatch());
-            if (rank.isCheckBonusBall()) System.out.print("보너스 볼 일치");
-            System.out.printf("(%d원)- %d개\n", rank.getWinningMoney(), lottoResult.getRankCount(rank));
+            lottoResult.addMessage(rank.getCountOfMatch() + "개 일치 ");
+            if (rank.isCheckBonusBall()) lottoResult.addMessage("보너스 볼 일치");
+            lottoResult.addMessage("(" + rank.getWinningMoney() + "원)- " +  lottoResult.getRankCount(rank)+  "개\n");
         }
+        System.out.printf(lottoResult.getMessage());
         System.out.printf("총 수익률은 %.2f%%입니다.", lottoResult.getYield());
     }
 

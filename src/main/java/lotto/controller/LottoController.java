@@ -41,8 +41,10 @@ public class LottoController {
         return lottoService.createLottoResult(lottos.stream().map(lottoVO -> new Lotto(lottoVO.getNumbers())).collect(Collectors.toList()), lastWeekLottoNumbers, bonusBall);
     }
 
-    public void createLottoResult(ResultRequest resultRequest) {
-        LottoView.outputLottoResult(createLottoResult(resultRequest.getLottos(), resultRequest.getLastWeekLottoNumbers(), resultRequest.getBonusBall()));
+    public LottoResult createLottoResult(ResultRequest resultRequest) {
+        LottoResult lottoResult = createLottoResult(resultRequest.getLottos(), resultRequest.getLastWeekLottoNumbers(), resultRequest.getBonusBall());
+        LottoView.outputLottoResult(lottoResult);
+        return lottoResult;
     }
 
 }

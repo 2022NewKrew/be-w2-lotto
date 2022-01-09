@@ -2,8 +2,11 @@ package lotto.result;
 
 import lotto.configure.LottoConfigure;
 
+import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LottoResult {
 
@@ -15,11 +18,16 @@ public class LottoResult {
 
     private int totalReward;
 
+    private String message;
+
+    private String totalRateOfReturn;
+
     public LottoResult() {
         this.resultMap = new HashMap<>();
         for (LottoRank rank : LottoRank.values()) {
             resultMap.put(rank, 0);
         }
+        message = "";
     }
 
     public Map<LottoRank, Integer> getResultMap() {
@@ -30,16 +38,21 @@ public class LottoResult {
         return resultMap.get(rank);
     }
 
-    public int getTotalLottoCount() {
-        return totalLottoCount;
+    public void addMessage(String message) {
+        this.message += message;
     }
 
-    public int getTotalPurchaseAmount() {
-        return totalPurchaseAmount;
+    public String getMessage() {
+        return message;
     }
 
-    public int getTotalReward() {
-        return totalReward;
+    public String getTotalRateOfReturn() {
+        return totalRateOfReturn;
+    }
+
+    public void setTotalRateOfReturn(double rate) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+        totalRateOfReturn = decimalFormat.format(rate);
     }
 
     public double getYield() {
@@ -52,5 +65,6 @@ public class LottoResult {
         totalLottoCount += 1;
         totalPurchaseAmount += LottoConfigure.LOTTO_PRICE;
         totalReward += lottoRank.getWinningMoney();
+        setTotalRateOfReturn(getYield());
     }
 }
