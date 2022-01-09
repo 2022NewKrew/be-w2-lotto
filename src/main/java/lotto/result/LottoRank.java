@@ -44,5 +44,5 @@ public enum LottoRank {
                 .filter(x -> x.countOfMatch == countOfMatch && (!x.checkBonusBall || isBonusBall))
                 .collect(Collectors.toList()).get(0);
     }
-    
+
 }

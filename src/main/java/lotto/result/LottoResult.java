@@ -42,7 +42,7 @@ public class LottoResult {
         return totalReward;
     }
 
-    public double geYield() {
+    public double getYield() {
         if (totalPurchaseAmount == 0) return 0.0;
         return (double)(totalReward - totalPurchaseAmount)/(double)totalPurchaseAmount * 100;
     }

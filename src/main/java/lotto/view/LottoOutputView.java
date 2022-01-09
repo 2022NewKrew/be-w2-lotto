@@ -1,11 +1,9 @@
 package lotto.view;
 
-import lotto.configure.LottoConfigure;
 import lotto.result.LottoRank;
 import lotto.result.LottoResult;
 import lotto.vo.LottoVO;
 
-import java.util.Collections;
 import java.util.List;
 
 public class LottoOutputView {
@@ -29,7 +27,7 @@ public class LottoOutputView {
             if (rank.isCheckBonusBall()) System.out.print("보너스 볼 일치");
             System.out.printf("(%d원)- %d개\n", rank.getWinningMoney(), lottoResult.getRankCount(rank));
         }
-        System.out.printf("총 수익률은 %.2f%%입니다.", lottoResult.geYield());
+        System.out.printf("총 수익률은 %.2f%%입니다.", lottoResult.getYield());
     }
 
 }
