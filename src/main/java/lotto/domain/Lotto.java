@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import lotto.configure.LottoConfigure;
 import lotto.vo.LottoVO;
 
 import java.util.Collections;
@@ -23,10 +24,10 @@ public class Lotto {
 
     public void generateNumbers() {
         List<Integer> candidateNumbers = IntStream
-                .rangeClosed(LottoVO.MIN_NUMBER, LottoVO.MAX_NUMBER)
+                .rangeClosed(LottoConfigure.MIN_NUMBER, LottoConfigure.MAX_NUMBER)
                 .boxed().collect(Collectors.toList());
         Collections.shuffle(candidateNumbers);
-        numbers = candidateNumbers.subList(0, LottoVO.NUMBERS_SIZE);
+        numbers = candidateNumbers.subList(0, LottoConfigure.NUMBERS_SIZE);
         numbers.sort(Comparator.naturalOrder());
     }
 
