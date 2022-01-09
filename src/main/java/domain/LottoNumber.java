@@ -1,7 +1,7 @@
 package domain;
 
 import enums.LottoConstants;
-import exceptions.InvalidLastWeekWinningNumber;
+import exceptions.InvalidLottoNumber;
 import java.util.Objects;
 import messages.ErrorMessage;
 import validation.Validation;
@@ -12,9 +12,9 @@ public class LottoNumber implements Comparable<LottoNumber> {
 
     LottoNumber(int number) {
         Validation.notLessThanLong(number, LottoConstants.MIN_LOTTO_NUMBER.get(),
-                () -> new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
+                () -> new InvalidLottoNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
         Validation.notMoreThanLong(number, LottoConstants.MAX_LOTTO_NUMBER.get(),
-                () -> new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
+                () -> new InvalidLottoNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
 
         this.number = number;
     }
