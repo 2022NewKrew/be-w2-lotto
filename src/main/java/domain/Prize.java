@@ -1,4 +1,4 @@
-package enums;
+package domain;
 
 import java.util.Arrays;
 

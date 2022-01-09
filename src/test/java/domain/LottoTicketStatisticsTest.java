@@ -1,6 +1,5 @@
 package domain;
 
-import enums.Prize;
 import java.util.EnumMap;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

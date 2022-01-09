@@ -1,6 +1,5 @@
 package domain;
 
-import enums.Prize;
 import exceptions.InvalidBonusNumber;
 import exceptions.InvalidLastWeekWinningNumber;
 import java.util.EnumMap;

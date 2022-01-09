@@ -2,7 +2,7 @@ package view;
 
 import domain.LottoNumber;
 import domain.LottoTicket;
-import enums.Prize;
+import domain.Prize;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Objects;
