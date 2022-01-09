@@ -27,7 +27,8 @@ public class LottoRankMatch {
         Map<LottoRank, Integer> lottoResult = initResult();
         for (Lotto autoLotto : autoLottos.getLottos()) {
             LottoRank lottoRank = createLottoRank(autoLotto, inputLastWeekWinNumber.getLotto(), inputLastWeekWinNumber.getBonus());
-            lottoResult.put(lottoRank, lottoResult.get(lottoRank) + 1);
+            lottoResult.compute(lottoRank, (k, v) -> (v == null) ? 0 : v + 1);
+
         }
         lottoResult.remove(LottoRank.MISS);
         return new LottoRankMatch(lottoResult);
