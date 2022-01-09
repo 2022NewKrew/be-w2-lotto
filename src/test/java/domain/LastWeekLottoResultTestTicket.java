@@ -87,7 +87,8 @@ class LastWeekLottoResultTestTicket {
     }
 
     LottoTicket createLottoNumbers(int n1, int n2, int n3, int n4, int n5, int n6) {
-        Set<Integer> lottoNumbers = Set.of(n1, n2, n3, n4, n5, n6);
+        Set<LottoNumber> lottoNumbers = Set.of(LottoNumber.from(n1), LottoNumber.from(n2), LottoNumber.from(n3),
+                LottoNumber.from(n4), LottoNumber.from(n5), LottoNumber.from(n6));
 
         return new LottoTicket(lottoNumbers);
     }

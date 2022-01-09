@@ -12,13 +12,13 @@ public class LottoTicket {
     private static final int NUMBER_OF_LOTTERY_NUMBERS = 6;
     private final Set<LottoNumber> numbers;
 
-    LottoTicket(Set<Integer> intNumbers) {
-        if (intNumbers == null) {
+    LottoTicket(Set<LottoNumber> numbers) {
+        if (numbers == null) {
             throw new IllegalArgumentException();
         }
-        Validation.sizeShouldBe(intNumbers, NUMBER_OF_LOTTERY_NUMBERS,
+        Validation.sizeShouldBe(numbers, NUMBER_OF_LOTTERY_NUMBERS,
                 () -> new InvalidLastWeekWinningNumber(ErrorMessage.SIX_WINNING_NUMBER.getMessage()));
-        numbers = intNumbers.stream().map(LottoNumber::from).collect(Collectors.toUnmodifiableSet());
+        this.numbers = numbers.stream().collect(Collectors.toUnmodifiableSet());
     }
 
     public Set<LottoNumber> numbers() {
