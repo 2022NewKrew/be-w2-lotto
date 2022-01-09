@@ -1,7 +1,6 @@
 package domain;
 
 import exceptions.InvalidLastWeekWinningNumber;
-import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,7 +13,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 class LottoTest {
 
     static Set<LottoNumber> winningNumbers;
-    static int NUMBER_OF_LOTTERY_NUMBERS = 6;
 
     @BeforeAll
     static void setUp() {
@@ -24,13 +22,7 @@ class LottoTest {
     @Test
     @DisplayName("[성공] Lotto 객체를 생성한다")
     void Lotto() {
-        Set<Integer> numbers = new HashSet<>();
-        numbers.add(1);
-        numbers.add(2);
-        numbers.add(3);
-        numbers.add(4);
-        numbers.add(5);
-        numbers.add(6);
+        Set<Integer> numbers = Set.of(1, 2, 3, 4, 5, 6);
 
         new Lotto(numbers);
     }
@@ -45,12 +37,7 @@ class LottoTest {
     @Test
     @DisplayName("[실패] 로또 개수가 6개가 아닐 때 InvalidLastWeekWinningNumber를 던져야 한다")
     void Lotto_Failed_By_InvalidLottoNumberLength() {
-        Set<Integer> numbers = new HashSet<>();
-        numbers.add(1);
-        numbers.add(2);
-        numbers.add(3);
-        numbers.add(4);
-        numbers.add(5);
+        Set<Integer> numbers = Set.of(1, 2, 3, 4, 5);
 
         Assertions.assertThrows(InvalidLastWeekWinningNumber.class,
                 () -> new Lotto(numbers));
@@ -60,13 +47,7 @@ class LottoTest {
     @ParameterizedTest(name = "{0} 들어오는 경우")
     @ValueSource(ints = {0, 46, -1})
     void Lotto_Failed_By_(int invalidNumber) {
-        Set<Integer> numbers = new HashSet<>();
-        numbers.add(1);
-        numbers.add(2);
-        numbers.add(3);
-        numbers.add(4);
-        numbers.add(5);
-        numbers.add(invalidNumber);
+        Set<Integer> numbers = Set.of(1, 2, 3, 4, 5, invalidNumber);
 
         Assertions.assertThrows(InvalidLastWeekWinningNumber.class,
                 () -> new Lotto(numbers));
@@ -77,25 +58,14 @@ class LottoTest {
     @CsvSource({"1, 2, 3, 4, 5, 6, 6", "1, 2, 3, 4, 5, 10, 5", "1, 2, 3, 4, 10, 11, 4", "1, 2, 3, 10, 11, 12, 3",
             "1, 2, 10, 11, 12, 13, 2", "1, 10, 11, 12, 13, 14, 1"})
     void checkMatchCount(int n1, int n2, int n3, int n4, int n5, int n6, int result) {
-        Set<Integer> numbers = new HashSet<>();
-        numbers.add(n1);
-        numbers.add(n2);
-        numbers.add(n3);
-        numbers.add(n4);
-        numbers.add(n5);
-        numbers.add(n6);
+        Set<Integer> numbers = Set.of(n1, n2, n3, n4, n5, n6);
         Lotto lotto = new Lotto(numbers);
 
         Assertions.assertEquals(result, lotto.matchCount(winningNumbers));
     }
 
     static void createWinningNumbers() {
-        winningNumbers = new HashSet<>(NUMBER_OF_LOTTERY_NUMBERS);
-        winningNumbers.add(new LottoNumber(1));
-        winningNumbers.add(new LottoNumber(2));
-        winningNumbers.add(new LottoNumber(3));
-        winningNumbers.add(new LottoNumber(4));
-        winningNumbers.add(new LottoNumber(5));
-        winningNumbers.add(new LottoNumber(6));
+        winningNumbers = Set.of(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3), new LottoNumber(4),
+                new LottoNumber(5), new LottoNumber(6));
     }
 }

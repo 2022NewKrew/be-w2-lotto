@@ -1,6 +1,5 @@
 package validation;
 
-import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -49,13 +48,7 @@ class ValidationTest {
     @Test
     @DisplayName("[성공] lengthShouldBe")
     void lengthShouldBe() {
-        Set<Integer> set = new HashSet<>();
-        set.add(1);
-        set.add(2);
-        set.add(3);
-        set.add(4);
-        set.add(5);
-        set.add(6);
+        Set<Integer> set = Set.of(1, 2, 3, 4, 5, 6);
         int lengthToBe = 6;
 
         Validation.sizeShouldBe(set, lengthToBe, RuntimeException::new);
@@ -64,12 +57,7 @@ class ValidationTest {
     @Test
     @DisplayName("[실패] 로또 개수가 다를시 예외를 던져야 한다")
     void lengthShouldBe_Failed() {
-        Set<Integer> set = new HashSet<>();
-        set.add(1);
-        set.add(2);
-        set.add(3);
-        set.add(4);
-        set.add(5);
+        Set<Integer> set = Set.of(1, 2, 3, 4, 5);
         int lengthToBe = 6;
 
         Assertions.assertThrows(RuntimeException.class,
