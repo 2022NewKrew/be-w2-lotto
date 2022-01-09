@@ -1,4 +1,9 @@
-package lotto;
+package lotto.application;
+
+import lotto.controller.LottoController;
+import lotto.result.LottoResult;
+import lotto.dto.LottoDto;
+import lotto.view.LottoView;
 
 import java.util.List;
 

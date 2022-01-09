@@ -1,5 +1,9 @@
 package lotto;
 
+import lotto.domain.Lotto;
+import lotto.dto.LottoDto;
+import lotto.result.LottoResult;
+import lotto.view.LottoView;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
