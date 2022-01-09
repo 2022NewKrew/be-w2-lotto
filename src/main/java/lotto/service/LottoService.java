@@ -1,12 +1,18 @@
 package lotto.service;
 
 import lotto.domain.Lotto;
+import lotto.domain.WiningLotto;
 import lotto.domain.generator.LottoAutoGenerator;
 import lotto.domain.generator.LottoGenerator;
 import lotto.domain.generator.LottoManualGenerator;
+import lotto.domain.generator.WinningLottoGenerator;
+import lotto.result.LottoResult;
+import lotto.vo.LottoVO;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LottoService {
 
@@ -16,6 +22,10 @@ public class LottoService {
 
     private LottoGenerator getLottoGenerator(List<Integer> userNumber) {
         return new LottoManualGenerator(userNumber);
+    }
+
+    private LottoGenerator getLottoGenerator(List<Integer> userNumber, int bonusBall) {
+        return new WinningLottoGenerator(userNumber, bonusBall);
     }
 
     public List<Lotto> purchaseLottos(int count){
@@ -32,6 +42,16 @@ public class LottoService {
             lottos.add(getLottoGenerator(userNumber).generateLotto());
         }
         return lottos;
+    }
+
+    public Map<LottoResult, Integer> createLottoResults(List<Lotto> lottos, List<Integer> lastWeekLottoNumbers, int bonusBall) {
+        Map<LottoResult, Integer> results = new HashMap<>();
+        WiningLotto winingLotto = (WiningLotto)getLottoGenerator(lastWeekLottoNumbers, bonusBall).generateLotto();
+        for (Lotto lotto : lottos){
+            LottoResult result = winingLotto.matchLotto(lotto);
+            results.put(result, results.get(results) + 1);
+        }
+        return results;
     }
 
 }
