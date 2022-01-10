@@ -1,8 +1,6 @@
 package domain;
 
 import domain.LottoLineStructure.ManualLottoLine;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -12,27 +10,10 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class MyLottoLinesTest {
-    private static MyLottoLines mll;
+    private final MyLottoLines mll = new MyLottoLines();
+    private final MatchStore matchStore = new MatchStore();
 
     private static final int NUM_PER_LINE = 6;
-
-    @BeforeEach
-    void setUp() {
-        mll = new MyLottoLines();
-        MatchScore.initForTest();
-    }
-
-    @Test
-    void getNumLotto() {
-        assertThat(mll.getNumLotto()).isEqualTo(0);
-    }
-
-    @Test
-    void addLotto() {
-        assertThat(mll.getNumLotto()).isEqualTo(0);
-        mll.addLotto(makeSampleLottoLine());
-        assertThat(mll.getNumLotto()).isEqualTo(1);
-    }
 
     @ParameterizedTest
     @ValueSource(ints = {2, 4, 10, 100, 1000})
@@ -41,21 +22,26 @@ class MyLottoLinesTest {
             mll.addLotto(makeSampleLottoLine());
         }
 
-        mll.checkWinning(makeSampleLottoLine().getLottoLine(), makeBonusList());
-        assertThat(mll.getNumLotto()).isEqualTo(numLotto);
+        mll.checkWinning(matchStore, makeSampleLottoLine().getLottoLine(), makeBonusList());
 
-        MatchScore firstWin = MatchScore.findMatchScoreObject(NUM_PER_LINE, 0);
-        assertThat(firstWin.getNumLotto()).isEqualTo(numLotto);
+        int totalNum = 0;
+        for (WinningClassifier grade : WinningClassifier.values()) {
+            totalNum += matchStore.getCnt(grade);
+        }
+        assertThat(totalNum).isEqualTo(numLotto);
+
+        WinningClassifier firstWin = WinningClassifier.findMatchScoreObject(NUM_PER_LINE, 0);
+        assertThat(matchStore.getCnt(firstWin)).isEqualTo(numLotto);
     }
 
     private LottoLine makeSampleLottoLine() {
-        java.util.List<Integer> srcList = new ArrayList<>();
+        java.util.List<String> srcList = new ArrayList<>();
 
         for (int i = 1; i <= NUM_PER_LINE; i++) {
-            srcList.add(i);
+            srcList.add(String.valueOf(i));
         }
 
-        return new ManualLottoLine(srcList);
+        return ManualLottoLine.makeManualLottoLineFromStrLst(srcList);
     }
 
     private List<Integer> makeBonusList() {
