@@ -56,7 +56,8 @@ public class StartController {
         LottoLine ret = ManualLottoLine.makeManualLottoLineFromStrLst(InputView.getManualNumber());
 
         if (ret == null) {
-            OutputView.printManualInputError();;
+            OutputView.printManualInputError();
+            ;
             ret = inputManualLottoLine();
         }
 

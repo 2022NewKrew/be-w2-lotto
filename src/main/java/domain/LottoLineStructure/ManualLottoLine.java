@@ -1,7 +1,6 @@
 package domain.LottoLineStructure;
 
 import domain.LottoLine;
-import domain.WinningLottoLine;
 
 import java.util.*;
 

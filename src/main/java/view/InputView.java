@@ -1,6 +1,9 @@
 package view;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
 public class InputView {
     private static final Scanner sc = new Scanner(System.in);
@@ -15,7 +18,7 @@ public class InputView {
 
     public static int getNumLotto() {
         System.out.println("구입금액을 입력해 주세요.");
-        String payString=sc.next();
+        String payString = sc.next();
         int payAmount;
         try {
             payAmount = Integer.parseInt(payString);

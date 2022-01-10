@@ -11,8 +11,8 @@ public class Main {
         int numManLotto = StartController.inputNumManualLotto(numLotto);
 
         StartController.addManualLottoLines(myLottoLines, numManLotto);
-        StartController.addAutoLottoLines(myLottoLines, numLotto-numManLotto);
-        StartController.printPurchaseSummary(numManLotto, numLotto-numManLotto);
+        StartController.addAutoLottoLines(myLottoLines, numLotto - numManLotto);
+        StartController.printPurchaseSummary(numManLotto, numLotto - numManLotto);
 
         WinningLottoLine winningLottoLine = StartController.makeWinningLine();
 
