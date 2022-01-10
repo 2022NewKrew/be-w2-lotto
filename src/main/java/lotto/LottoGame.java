@@ -15,7 +15,7 @@ public class LottoGame {
     public LottoGame() {
         final LottoGameController lottoGameController = getLottoGameController();
         final InfoDto infoDto = lottoGameController.info();
-        OutputView.printLottoInfo(infoDto);
+        OutputView.printLottoGameInfo(infoDto);
 
     }
 

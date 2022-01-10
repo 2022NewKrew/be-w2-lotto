@@ -8,9 +8,13 @@ import lotto.domain.Lottos;
 public class LottosDto {
 
     private final List<LottoDto> lottoDtos;
+    private final int customLottoCount;
+    private final int autoLottoCount;
 
-    public LottosDto(List<LottoDto> lottoDtos) {
+    public LottosDto(List<LottoDto> lottoDtos, int customLottoCount, int autoLottoCount) {
         this.lottoDtos = lottoDtos;
+        this.customLottoCount = customLottoCount;
+        this.autoLottoCount = autoLottoCount;
     }
 
     public static LottosDto LottosToDto(Lottos lottos) {
@@ -18,10 +22,18 @@ public class LottosDto {
         for (Lotto lotto : lottos.getLottos()) {
             lottoDtos.add(LottoDto.lottoToDto(lotto));
         }
-        return new LottosDto(lottoDtos);
+        return new LottosDto(lottoDtos, lottos.getCustomLottoCount(), lottos.getAutoLottoCount());
     }
 
     public List<LottoDto> getLottoDtos() {
         return lottoDtos;
+    }
+
+    public int getCustomLottoCount() {
+        return customLottoCount;
+    }
+
+    public int getAutoLottoCount() {
+        return autoLottoCount;
     }
 }
