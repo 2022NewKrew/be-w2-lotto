@@ -3,15 +3,27 @@
  */
 package lotto;
 
+import lotto.domain.Lotto;
+import lotto.util.Util;
 import lotto.view.Interface;
 
+import java.util.ArrayList;
+
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
+
+    public static void main(String[] args){
+
+        int moneyToGame = Interface.getPurchaseAmount();
+        ArrayList<Integer> winningNumber;
+
+        Lotto lotto = new Lotto(moneyToGame);
+        Interface.displayPurchaseGames(lotto.getNumberGames());
+
+        winningNumber = Interface.getWinningNumber();
+        Interface.displayCandidateNumber(winningNumber);
+
+        lotto.checkWinning(winningNumber);
+        Interface.displayWinningResults(lotto.getLottoResults());
     }
 
-    public static void main(String[] args) {
-
-
-    }
 }
