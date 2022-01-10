@@ -7,34 +7,33 @@ import lotto.view.OutputView;
 import java.util.List;
 
 public class LottoController {
-    private static Money inputMoney;
-    private static LottoTicketCount ticketCount;
 
-    private LottoController() {
+    private final InputView inputView;
+    private final OutputView outputView;
+
+    public LottoController(InputView inputView, OutputView outputView) {
+        this.inputView = inputView;
+        this.outputView = outputView;
     }
 
-    public static void start(InputView inputView, OutputView outputView) {
-        calculateTicketCount(inputView);
+    public void start() {
+        Money inputMoney = new Money(inputView.getInputPrice());
+        LottoTicketCount totalTicketCount = new LottoTicketCount(inputMoney.getNumberOfTickets(LottoMachine.TICKET_PRICE));
+        LottoTicketCount manualTicketCount = new LottoTicketCount(inputView.getManualTicketCount());
+        LottoTicketCount autoTicketCount = totalTicketCount.sub(manualTicketCount);
 
-        List<String[]> manualLottoNumbers = inputView.getManualLottoNumbers(ticketCount.getManualTicketCount());
-        LottoTickets lottoTickets = LottoMachine.issue(ticketCount, manualLottoNumbers);
+        List<String[]> manualLottoNumbers = inputView.getManualLottoNumbers(manualTicketCount.getCount());
+        LottoTickets lottoTickets = LottoMachine.issue(autoTicketCount, manualTicketCount, manualLottoNumbers);
 
-        outputView.printLottoTicketCount(ticketCount);
+        outputView.printLottoTicketCount(manualTicketCount, autoTicketCount);
         outputView.printLottoTickets(lottoTickets);
 
-        WinningNumbers winningNumbers = createWinningNumbers(inputView);
+        WinningNumbers winningNumbers = createWinningNumbers();
         LottoStatistics lottoStatistics = LottoStatistics.of(winningNumbers, lottoTickets, inputMoney);
         outputView.printLottoStatistics(inputMoney, lottoStatistics);
     }
 
-    private static void calculateTicketCount(InputView inputView) {
-        inputMoney = new Money(inputView.getInputPrice());
-        int totalTicketCount = inputMoney.getNumberOfTickets(LottoMachine.TICKET_PRICE);
-        int manualTicketCount = inputView.getManualTicketCount();
-        ticketCount = new LottoTicketCount(totalTicketCount, manualTicketCount);
-    }
-
-    private static WinningNumbers createWinningNumbers(InputView inputView) {
+    private WinningNumbers createWinningNumbers() {
         String[] inputWinningNumbers = inputView.getWinningNumbers();
         LottoNumbers lottoNumbers = new ManualLottoNumberGenerator().generateLottoNumbers(inputWinningNumbers);
         LottoNumber bonusNumber = LottoNumber.from(inputView.getBonusNumber());
