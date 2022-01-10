@@ -3,6 +3,7 @@ package controller;
 import domain.LottoLine;
 import domain.LottoLineStructure.ManualLottoLine;
 import domain.LottoLineStructure.RandomLottoLine;
+
 import domain.MyLottoLines;
 import domain.WinningLottoLine;
 import view.InputView;

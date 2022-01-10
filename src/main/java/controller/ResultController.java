@@ -1,13 +1,10 @@
 package controller;
 
+
 import DTO.ResultDTO;
 import domain.MatchStore;
 import domain.WinningClassifier;
-import view.OutputView;
 
-import java.util.List;
-
-public class ResultController {
     private ResultController() {
         throw new AssertionError();
     }

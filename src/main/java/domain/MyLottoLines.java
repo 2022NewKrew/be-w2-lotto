@@ -1,5 +1,7 @@
 package domain;
 
+import DTO.NNumber;
+
 import java.util.ArrayList;
 import java.util.List;
 

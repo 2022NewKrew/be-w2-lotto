@@ -1,5 +1,7 @@
 package domain;
 
+import DTO.NNumber;
+
 import java.util.List;
 
 public interface LottoLine {
