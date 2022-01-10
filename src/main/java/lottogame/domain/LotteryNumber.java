@@ -1,5 +1,8 @@
 package lottogame.domain;
 
+import lottogame.exception.ErrorMessage;
+import lottogame.exception.LotteryGameException;
+
 import java.util.Objects;
 
 public class LotteryNumber implements Comparable {
@@ -15,11 +18,11 @@ public class LotteryNumber implements Comparable {
 
     private void validateRange(int lotteryNumber) {
         if (lotteryNumber < MIN_NUMBER) {
-            throw new IllegalArgumentException("로또번호는 1이상 입니다.");
+            throw new LotteryGameException(ErrorMessage.UNDER_MIN_LOTTERY_NUMBER);
         }
 
         if (lotteryNumber > MAX_NUMBER) {
-            throw new IllegalArgumentException("로또번호는 45이하 입니다.");
+            throw new LotteryGameException(ErrorMessage.OVER_MAX_LOTTERY_NUMBER);
         }
     }
 

@@ -1,9 +1,7 @@
 package lottogame.view;
 
-import lottogame.domain.LotteryTicket;
-import lottogame.domain.LotteryTickets;
-import lottogame.domain.Rank;
-import lottogame.domain.Statistics;
+import lottogame.domain.*;
+import lottogame.dto.Statistics;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +21,6 @@ public class OutputView {
 
     public static void print(LotteryTickets lotteryTickets) {
         List<LotteryTicket> tickets = lotteryTickets.getLotteryTickets();
-        print(String.format("%d개를 구매했습니다.", tickets.size()));
         for (var lotteryTicket : tickets) {
             String printNumbers = lotteryTicket
                     .getLotteryNumbers()
@@ -44,7 +41,7 @@ public class OutputView {
         }
     }
 
-    public static void print(int rateOfReturn) {
-        print(String.format("총 수익률은 %d%%입니다.", rateOfReturn));
+    public static void print(RateOfReturn rateOfReturn) {
+        print(String.format("총 수익률은 %d%%입니다.", rateOfReturn.getRateOfReturn()));
     }
 }

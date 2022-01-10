@@ -1,42 +1,38 @@
 package lottogame.domain;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public enum Rank {
-    FIRST(6, 2000000000),
-    SECOND(5, 30000000),
-    THIRD(5, 1500000),
-    FOURTH(4, 50000),
-    FIFTH(3, 5000);
+    FIRST(6, null, 2000000000),
+    SECOND(5, true, 30000000),
+    THIRD(5, false, 1500000),
+    FOURTH(4, null, 50000),
+    FIFTH(3, null, 5000),
+    NO_RANK(0, null, 0);
 
     private int numberOfMatch;
+    private Boolean bonusMatch;
     private int prizeMoney;
 
-    Rank(int numberOfMatch, int prizeMoney) {
+    Rank(int numberOfMatch, Boolean bonusMatch, int prizeMoney) {
         this.numberOfMatch = numberOfMatch;
+        this.bonusMatch = bonusMatch;
         this.prizeMoney = prizeMoney;
     }
 
-    public static Rank valueOf(Integer numberOfMatch, boolean bonusMatch) {
-        List<Rank> matchRanks = Arrays.asList(values()).stream()
-                .filter(rank -> numberOfMatch == rank.numberOfMatch)
-                .collect(Collectors.toList());
-
-        if (matchRanks.size() == 1)
-            return matchRanks.get(0);
-
-        if (matchRanks.size() == 2)
-            return rankByBonusMatch(bonusMatch);
-
-        return null;
+    public static Rank valueOf(int numberOfMatch, boolean bonusMatch) {
+        Rank matched = NO_RANK;
+        for (var rank : values()) {
+            matched = matchRank(numberOfMatch, bonusMatch, rank, matched);
+        }
+        return matched;
     }
 
-    private static Rank rankByBonusMatch(boolean bonusMatch) {
-        if (bonusMatch)
-            return SECOND;
-        return THIRD;
+    private static Rank matchRank(int numberOfMatch, boolean bonusMatch, Rank rank, Rank previousMatched) {
+        boolean isCountMatched = numberOfMatch == rank.numberOfMatch;
+        boolean isBonusMatched = rank.bonusMatch != null && rank.bonusMatch.equals(bonusMatch);
+        if (isCountMatched && (rank.bonusMatch == null || isBonusMatched)) {
+            return rank;
+        }
+        return previousMatched;
     }
 
     public int getNumberOfMatch() {
