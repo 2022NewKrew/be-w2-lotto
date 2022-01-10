@@ -11,7 +11,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 class LottoTicketTest {
 
-    static Set<LottoNumber> winningNumbers;
+    static LottoTicket winningNumbers;
 
     @BeforeAll
     static void setUp() {
@@ -57,7 +57,9 @@ class LottoTicketTest {
     }
 
     static void createWinningNumbers() {
-        winningNumbers = Set.of(LottoNumber.from(1), LottoNumber.from(2), LottoNumber.from(3), LottoNumber.from(4),
+        Set<LottoNumber> numbers = Set.of(LottoNumber.from(1), LottoNumber.from(2), LottoNumber.from(3), LottoNumber.from(4),
                 LottoNumber.from(5), LottoNumber.from(6));
+
+        winningNumbers = new LottoTicket(numbers);
     }
 }

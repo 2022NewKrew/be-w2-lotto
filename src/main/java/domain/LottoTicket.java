@@ -25,8 +25,8 @@ public class LottoTicket {
         return this.numbers;
     }
 
-    public Integer matchCount(Set<LottoNumber> winningNumbers) {
-        Set<LottoNumber> copyWinningNumbers = new HashSet<>(winningNumbers);
+    public Integer matchCount(LottoTicket winningNumbers) {
+        Set<LottoNumber> copyWinningNumbers = new HashSet<>(winningNumbers.numbers());
         copyWinningNumbers.retainAll(numbers);
         return copyWinningNumbers.size();
     }

@@ -13,7 +13,7 @@ public class LastWeekLottoResult {
 
     private static final int INITIALIZE_ZERO = 0;
     private static final int NUMBER_OF_LOTTERY_NUMBERS = 6;
-    private final Set<LottoNumber> lastWeekWinningNumbers;
+    private final LottoTicket lastWeekWinningNumbers;
     private final LottoNumber bonusNumber;
 
     public LastWeekLottoResult(Set<Integer> lastWeekWinningNumbers, int bonusNumber) {
@@ -25,8 +25,8 @@ public class LastWeekLottoResult {
         Validation.notContains(lastWeekWinningNumbers, bonusNumber,
                 () -> new InvalidBonusNumber(ErrorMessage.DUPLICATE_BONUS_NUMBER.getMessage()));
 
-        this.lastWeekWinningNumbers = lastWeekWinningNumbers.stream().map(LottoNumber::from)
-                .collect(Collectors.toUnmodifiableSet());
+        this.lastWeekWinningNumbers = new LottoTicket(
+                lastWeekWinningNumbers.stream().map(LottoNumber::from).collect(Collectors.toSet()));
         this.bonusNumber = LottoNumber.from(bonusNumber);
     }
 

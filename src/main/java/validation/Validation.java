@@ -34,5 +34,4 @@ public class Validation {
             throw supplier.get();
         }
     }
-
 }
