@@ -6,17 +6,16 @@ import java.util.Map;
 import java.util.Set;
 
 public class ConsoleOutputView implements OutputView {
+
     private static final String LOTTO_TICKET_START_DELIMITER = "[";
     private static final String LOTTO_TICKET_END_DELIMITER = "]";
     private static final String LOTTO_NUMBER_SPLIT_DELIMITER = ", ";
     private static final String LOTTO_STATISTICS_TITLE = "당첨 통계";
     private static final String TITLE_END_DELIMITER = "---------";
 
-    public void printLottoTicketCount(LottoTicketCount ticketCount) {
+    public void printLottoTicketCount(LottoTicketCount manualTicketCount, LottoTicketCount autoTicketCount) {
         System.out.println();
-        int manualCount = ticketCount.getManualTicketCount();
-        int autoCount = ticketCount.getAutoTicketCount();
-        System.out.printf("수동으로 %d장, 자동으로 %d장을 구매했습니다.%n", manualCount, autoCount);
+        System.out.printf("수동으로 %d장, 자동으로 %d장을 구매했습니다.%n", manualTicketCount.getCount(), autoTicketCount.getCount());
     }
 
     public void printLottoTickets(LottoTickets lottoTickets) {
@@ -45,7 +44,6 @@ public class ConsoleOutputView implements OutputView {
                 .append(System.lineSeparator())
                 .append(TITLE_END_DELIMITER)
                 .append(System.lineSeparator());
-
 
         Map<LottoResult, Integer> resultMap = lottoStatistics.getResultMap();
         for (Map.Entry<LottoResult, Integer> resultEntry : resultMap.entrySet()) {

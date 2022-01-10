@@ -6,7 +6,7 @@ import lotto.domain.LottoTickets;
 import lotto.domain.Money;
 
 public interface OutputView {
-    void printLottoTicketCount(LottoTicketCount ticketCount);
+    void printLottoTicketCount(LottoTicketCount ticketCount, LottoTicketCount autoTicketCount);
     void printLottoTickets(LottoTickets lottoTickets);
     void printLottoStatistics(Money inputMoney, LottoStatistics lottoStatistics);
 }
