@@ -43,10 +43,9 @@ public class LastWeekLottoResult {
         List<LottoTicket> totalTickets = lottoTicketList.totalTickets();
         for (LottoTicket lottoTicket : totalTickets) {
             int matchCount = lottoTicket.matchCount(lastWeekWinningNumbers);
-            Prize key = Prize.valueOf(matchCount, lottoTicket.contains(bonusNumber));
-            int value = lottoResult.get(Prize.valueOf(matchCount, lottoTicket.contains(bonusNumber))) + 1;
 
-            lottoResult.put(key, value);
+            Prize prize = Prize.valueOf(matchCount, lottoTicket.contains(bonusNumber));
+            lottoResult.compute(prize, (key, val) -> (val == null) ? 1 : val + 1);
         }
         return lottoResult;
     }
