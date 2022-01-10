@@ -12,11 +12,11 @@ class LottoStatisticsTest {
     void LottoStatistics() {
         EnumMap<Prize, Integer> winningLottoCount = new EnumMap<>(Prize.class);
         winningLottoCount.put(Prize.MISS, 1);
-        winningLottoCount.put(Prize.THREE, 1);
-        winningLottoCount.put(Prize.FOUR, 1);
-        winningLottoCount.put(Prize.FIVE, 1);
-        winningLottoCount.put(Prize.BONUS, 1);
-        winningLottoCount.put(Prize.SIX, 1);
+        winningLottoCount.put(Prize.FIFTH, 1);
+        winningLottoCount.put(Prize.THIRD, 1);
+        winningLottoCount.put(Prize.FOURTH, 1);
+        winningLottoCount.put(Prize.SECOND, 1);
+        winningLottoCount.put(Prize.FIRST, 1);
 
         new LottoStatistics(winningLottoCount);
     }
@@ -36,11 +36,11 @@ class LottoStatisticsTest {
         long purchaseAmount = 14000;
         EnumMap<Prize, Integer> winningLottoCount = new EnumMap<>(Prize.class);
         winningLottoCount.put(Prize.MISS, 13);
-        winningLottoCount.put(Prize.THREE, 1);
-        winningLottoCount.put(Prize.FOUR, 0);
-        winningLottoCount.put(Prize.FIVE, 0);
-        winningLottoCount.put(Prize.BONUS, 0);
-        winningLottoCount.put(Prize.SIX, 0);
+        winningLottoCount.put(Prize.FIFTH, 1);
+        winningLottoCount.put(Prize.THIRD, 0);
+        winningLottoCount.put(Prize.FOURTH, 0);
+        winningLottoCount.put(Prize.SECOND, 0);
+        winningLottoCount.put(Prize.FIRST, 0);
         double rateOfReturn_Answer = -64.28571428571429;
         LottoStatistics lottoStatistics = new LottoStatistics(winningLottoCount);
 

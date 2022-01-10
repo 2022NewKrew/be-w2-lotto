@@ -32,7 +32,7 @@ public class ResultView {
         if (key.getMatchCount() == 0) {
             return;
         }
-        if (key.getMatchCount() == Prize.BONUS.getMatchCount() && key.getBonus() == Prize.BONUS.getBonus()) {
+        if (key.getMatchCount() == Prize.SECOND.getMatchCount() && key.getBonus() == Prize.SECOND.getBonus()) {
             System.out.printf("%d개 일치, 보너스 볼 일치(%d원) - %d개\n", key.getMatchCount(), key.getMoney(), value);
             return;
         }

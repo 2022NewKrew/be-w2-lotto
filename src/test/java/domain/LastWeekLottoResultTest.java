@@ -74,11 +74,11 @@ class LastWeekLottoResultTest {
         LottoTickets lottoTickets = new LottoTickets(manualTicket, randomTicket);
         EnumMap<Prize, Integer> winningLottoCount_Answer = new EnumMap<>(Prize.class);
         winningLottoCount_Answer.put(Prize.MISS, 1);
-        winningLottoCount_Answer.put(Prize.THREE, 1);
-        winningLottoCount_Answer.put(Prize.FOUR, 2);
-        winningLottoCount_Answer.put(Prize.FIVE, 1);
-        winningLottoCount_Answer.put(Prize.BONUS, 1);
-        winningLottoCount_Answer.put(Prize.SIX, 1);
+        winningLottoCount_Answer.put(Prize.FIFTH, 1);
+        winningLottoCount_Answer.put(Prize.THIRD, 2);
+        winningLottoCount_Answer.put(Prize.FOURTH, 1);
+        winningLottoCount_Answer.put(Prize.SECOND, 1);
+        winningLottoCount_Answer.put(Prize.FIRST, 1);
         int bonusNumber = 7;
         LastWeekLottoResult lottoResult = new LastWeekLottoResult(winningNumbers, bonusNumber);
 
