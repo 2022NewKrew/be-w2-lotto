@@ -20,7 +20,7 @@ class LottoViewTest {
 
     @Test
     void inputPurchaseAmount() {
-        assertEquals(14, LottoView.inputPurchaseAmount(new ByteArrayInputStream("14000\n".getBytes())));
+        assertEquals(14000, LottoView.inputPurchaseAmount(new ByteArrayInputStream("14000\n".getBytes())));
     }
 
     @Test

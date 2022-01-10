@@ -13,6 +13,11 @@ public class WiningLotto extends Lotto{
         this.bonusNumber = bonusNumber;
     }
 
+    public void validate(){
+        super.validate();
+        if (contains(bonusNumber)) throw new IllegalArgumentException();
+    }
+
     public LottoRank matchLotto(Lotto lotto){
         int matchCount = 0;
         boolean isBonusBall = false;
