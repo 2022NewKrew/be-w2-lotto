@@ -11,8 +11,9 @@ import view.ResultView;
 
 public class LottoGame {
 
+    private static final int LOTTO_PRICE = 1000;
+
     private static long removeChange(long money) {
-        final int LOTTO_PRICE = 1000;
         return money / LOTTO_PRICE * LOTTO_PRICE;
     }
 
@@ -21,6 +22,7 @@ public class LottoGame {
         List<Set<Integer>> manualNumbers = InputView.inputManualNumbers();
         LottoMachine lottoMachine = new LottoMachine();
         LottoTickets lottoTicketList = lottoMachine.buyLottoTickets(purchaseAmount, manualNumbers);
+        ResultView.printTicketCount(manualNumbers.size(), purchaseAmount / LOTTO_PRICE - manualNumbers.size());
         ResultView.printLottoList(lottoTicketList);
 
         Set<Integer> lastWeekWinningNumbers = InputView.inputLastWeekWinningNumbers();

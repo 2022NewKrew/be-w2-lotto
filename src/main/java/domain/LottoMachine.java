@@ -20,7 +20,7 @@ public class LottoMachine {
     public LottoMachine() {
     }
 
-    private List<LottoTicket> buyManualTickets(long count, List<Set<Integer>> manualNumbers) {
+    private List<LottoTicket> buyManualTickets(List<Set<Integer>> manualNumbers) {
         return manualNumbers.stream()
                 .map(manualLottoTicketGenerator::generate)
                 .collect(Collectors.toList());
@@ -39,12 +39,12 @@ public class LottoMachine {
                 () -> new InvalidPurchaseAmount(ErrorMessage.MAX_PURCHASE_AMOUNT.getMessage()));
 
         long lottoCount = purchaseAmount / LOTTO_PRICE;
-        long manualCount = lottoCount - manualNumbers.size();
-        Validation.notLessThanLong(lottoCount, manualCount,
+        long randomCount = lottoCount - manualNumbers.size();
+        Validation.notLessThanLong(lottoCount, manualNumbers.size(),
                 () -> new InvalidManualTicketCount(ErrorMessage.MANUAL_TICKET_EXCEED_PURCHASE_AMOUNT.getMessage()));
 
-        List<LottoTicket> manualTickets = buyManualTickets(manualCount, manualNumbers);
-        List<LottoTicket> randomTickets = buyRandomTickets(lottoCount - manualCount);
+        List<LottoTicket> manualTickets = buyManualTickets(manualNumbers);
+        List<LottoTicket> randomTickets = buyRandomTickets(randomCount);
 
         return new LottoTickets(manualTickets, randomTickets);
     }

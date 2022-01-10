@@ -47,4 +47,8 @@ public class ResultView {
     public static void printRateOfReturn(double rateOfReturn) {
         System.out.printf("총 수익률은 %.2f 입니다.", rateOfReturn);
     }
+
+    public static void printTicketCount(long manualCount, long randomCount) {
+        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.\n", manualCount, randomCount);
+    }
 }
