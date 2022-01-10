@@ -10,7 +10,7 @@ public class Result {
     public Result(int hitCount, boolean bonus) {
         this.hitCount = hitCount;
         this.bonus = bonus;
-        getRank();
+        getRank(); 
     }
 
     public void getRank() {
