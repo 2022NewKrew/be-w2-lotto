@@ -23,20 +23,21 @@ public class LottoRankMatch {
         return lottoResult;
     }
 
-    public static LottoRankMatch createResult(LottoRepository autoLottos, LottoWinningNumber inputLastWeekWinNumber) {
+    public static LottoRankMatch createResult(LottoRepository allLottos, LottoWinningNumber inputLastWeekWinNumber) {
         Map<LottoRank, Integer> lottoResult = initResult();
-        for (Lotto autoLotto : autoLottos.getLottos()) {
+        for (Lotto autoLotto : allLottos.getLottos()) {
             LottoRank lottoRank = createLottoRank(autoLotto, inputLastWeekWinNumber.getLotto(), inputLastWeekWinNumber.getBonus());
-            lottoResult.put(lottoRank, lottoResult.get(lottoRank) + 1);
+            lottoResult.compute(lottoRank, (k, v) -> (v == null) ? 0 : v + 1);
+
         }
         lottoResult.remove(LottoRank.MISS);
         return new LottoRankMatch(lottoResult);
     }
 
-    private static LottoRank createLottoRank(Lotto autoLotto, Set<Integer> inputLastWeekWinNumber, Integer bonusNumber) {
+    private static LottoRank createLottoRank(Lotto allLotto, Set<Integer> inputLastWeekWinNumber, Integer bonusNumber) {
         boolean flag;
-        flag = autoLotto.contains(bonusNumber);
+        flag = allLotto.contains(bonusNumber);
         LottoWinningNumber lottoWinningNumber = new LottoWinningNumber(inputLastWeekWinNumber, bonusNumber);
-        return LottoRank.valueOf(lottoWinningNumber.checkMatchedNumbers(autoLotto, inputLastWeekWinNumber), flag);
+        return LottoRank.valueOf(lottoWinningNumber.checkMatchedNumbers(allLotto, inputLastWeekWinNumber), flag);
     }
 }

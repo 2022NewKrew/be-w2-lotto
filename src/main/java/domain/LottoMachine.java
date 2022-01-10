@@ -1,7 +1,5 @@
 package domain;
 
-import view.InputView;
-
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -40,7 +38,10 @@ public class LottoMachine {
                 .collect(Collectors.toSet());
     }
 
-    public List<Lotto> createManualLottos(int manualQuantity) {
-        return InputView.manualNumbers(manualQuantity);
+    public List<Lotto> createManualLottos(List<Set<Integer>> manualStrings) {
+        List<Lotto> manualLottos = new ArrayList<>();
+
+        manualStrings.forEach(i -> manualLottos.add(new Lotto(i)));
+        return manualLottos;
     }
 }

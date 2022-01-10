@@ -24,7 +24,7 @@ class LottoRankTest {
         // then
         Assertions.assertThat(lottoRank0).isEqualTo(LottoRank.MISS);
         Assertions.assertThat(lottoRank4).isEqualTo(LottoRank.FOUR);
-        Assertions.assertThat(lottoRank5).isEqualTo(LottoRank.FIFTH);
-        Assertions.assertThat(lottoRankBonus5).isEqualTo(LottoRank.FIFTHWITHBONUS);
+        Assertions.assertThat(lottoRank5).isEqualTo(LottoRank.THREE);
+        Assertions.assertThat(lottoRankBonus5).isEqualTo(LottoRank.TWO);
     }
 }
