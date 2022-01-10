@@ -16,7 +16,7 @@ public class LottoInputView {
     public static int inputPurchaseAmount(InputStream inputStream) {
         System.out.println("구입금액을 입력해 주세요.");
         Scanner scanner = new Scanner(inputStream);
-        return Integer.parseInt(scanner.nextLine()) / LottoConfigure.LOTTO_PRICE;
+        return Integer.parseInt(scanner.nextLine());
     }
 
     public static List<List<Integer>> inputPurchaseByUserNumbers(InputStream inputStream) {

@@ -45,14 +45,4 @@ public enum LottoRank {
                 .collect(Collectors.toList()).get(0);
     }
 
-    public static List<LottoRank> createLottoResults(List<LottoVO> lottos, List<Integer> lastWeekLottoNumbers, int bonusBall) {
-        List<LottoRank> lottoRanks = new ArrayList<>();
-        for (LottoVO lotto : lottos) {
-            int matchCount = (int) lotto.getNumbers().stream()
-                    .filter(lastWeekLottoNumbers::contains).count();
-            boolean isBonusBall = lotto.getNumbers().contains(bonusBall);
-            lottoRanks.add(valueOf(matchCount, isBonusBall));
-        }
-        return lottoRanks;
-    }
 }
