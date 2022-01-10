@@ -5,15 +5,17 @@ import java.util.Arrays;
 public enum Prize {
     FIRST(6, 2_000_000_000L, false),
     SECOND(5, 30_000_000L, true),
-    THIRD(4, 50_000L, false),
-    FOURTH(5, 1_500_000L, false),
+    THIRD(5, 1_500_000L, false),
+    FOURTH(4, 50_000L, false),
     FIFTH(3, 5_000L, false),
     MISS(0, 0L, false);
 
     public static Prize valueOf(int matchedNumber, boolean bonus) {
-        boolean checkedBonus = matchedNumber == SECOND.matchCount && bonus;
+        if (matchedNumber == SECOND.matchCount && bonus)
+            return SECOND;
+
         return Arrays.stream(Prize.values())
-                .filter(i -> i.getMatchCount() == matchedNumber && i.getBonus() == checkedBonus)
+                .filter(i -> i.getMatchCount() == matchedNumber && !i.getBonus())
                 .findAny()
                 .orElse(MISS);
     }

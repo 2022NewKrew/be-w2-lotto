@@ -13,8 +13,8 @@ class LottoStatisticsTest {
         EnumMap<Prize, Integer> winningLottoCount = new EnumMap<>(Prize.class);
         winningLottoCount.put(Prize.MISS, 1);
         winningLottoCount.put(Prize.FIFTH, 1);
-        winningLottoCount.put(Prize.THIRD, 1);
         winningLottoCount.put(Prize.FOURTH, 1);
+        winningLottoCount.put(Prize.THIRD, 1);
         winningLottoCount.put(Prize.SECOND, 1);
         winningLottoCount.put(Prize.FIRST, 1);
 
@@ -37,8 +37,8 @@ class LottoStatisticsTest {
         EnumMap<Prize, Integer> winningLottoCount = new EnumMap<>(Prize.class);
         winningLottoCount.put(Prize.MISS, 13);
         winningLottoCount.put(Prize.FIFTH, 1);
-        winningLottoCount.put(Prize.THIRD, 0);
         winningLottoCount.put(Prize.FOURTH, 0);
+        winningLottoCount.put(Prize.THIRD, 0);
         winningLottoCount.put(Prize.SECOND, 0);
         winningLottoCount.put(Prize.FIRST, 0);
         double rateOfReturn_Answer = -64.28571428571429;
