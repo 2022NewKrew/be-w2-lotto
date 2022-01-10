@@ -1,8 +1,6 @@
 package service;
 
-import VO.StatsVO;
 import domain.Lotto;
-import domain.Rank;
 import domain.WinningLotto;
 
 import java.util.*;

@@ -3,7 +3,6 @@ package service;
 import constant.LottoConstants;
 import domain.LottoNumbers;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
