@@ -1,31 +1,35 @@
 package controller;
 
-import domain.Lotto;
+import domain.LastWeekLottoResult;
 import domain.LottoMachine;
-import domain.LottoResult;
+import domain.LottoStatistics;
+import domain.LottoTickets;
+import java.util.List;
+import java.util.Set;
 import view.InputView;
 import view.ResultView;
 
-import java.util.List;
-import java.util.Set;
-
 public class LottoGame {
 
+    private static final int LOTTO_PRICE = 1000;
+
     private static long removeChange(long money) {
-        final int LOTTO_PRICE = 1000;
         return money / LOTTO_PRICE * LOTTO_PRICE;
     }
 
     public static void start() {
         long purchaseAmount = removeChange(InputView.inputPurchaseAmount());
+        List<Set<Integer>> manualNumbers = InputView.inputManualNumbers();
         LottoMachine lottoMachine = new LottoMachine();
-        List<Lotto> lottoList = lottoMachine.buyLottos(purchaseAmount);
-        ResultView.printLottoList(lottoList);
+        LottoTickets lottoTicketList = lottoMachine.buyLottoTickets(purchaseAmount, manualNumbers);
+        ResultView.printTicketCount(manualNumbers.size(), purchaseAmount / LOTTO_PRICE - manualNumbers.size());
+        ResultView.printLottoList(lottoTicketList);
 
-        Set<Integer> lastWeekWinningNumbers = InputView.inputLastWeekWinningNumber();
+        Set<Integer> lastWeekWinningNumbers = InputView.inputLastWeekWinningNumbers();
         int bonusNumber = InputView.inputBonusNumber();
-        LottoResult lottoResult = new LottoResult(lastWeekWinningNumbers, bonusNumber);
-        ResultView.printLottoResult(lottoResult.winningLottoCount(lottoList));
-        ResultView.printRateOfReturn(lottoResult.rateOfReturn(purchaseAmount, lottoList));
+        LastWeekLottoResult lottoResult = new LastWeekLottoResult(lastWeekWinningNumbers, bonusNumber);
+        ResultView.printLottoResult(lottoResult.winningLottoCount(lottoTicketList));
+        LottoStatistics lottoStatistics = new LottoStatistics(lottoResult.winningLottoCount(lottoTicketList));
+        ResultView.printRateOfReturn(lottoStatistics.rateOfReturn(purchaseAmount));
     }
 }

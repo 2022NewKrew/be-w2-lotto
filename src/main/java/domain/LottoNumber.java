@@ -1,21 +1,38 @@
 package domain;
 
-import enums.LottoConstants;
-import exceptions.InvalidLastWeekWinningNumber;
+import exceptions.InvalidLottoNumber;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.IntStream;
 import messages.ErrorMessage;
 import validation.Validation;
 
 public class LottoNumber implements Comparable<LottoNumber> {
 
+    private static final int MIN_LOTTO_NUMBER = 1;
+    private static final int MAX_LOTTO_NUMBER = 45;
+    private static final Map<Integer, LottoNumber> LOTTO_NUMBER_CACHE = new HashMap<>();
+
+    static {
+        IntStream.range(MIN_LOTTO_NUMBER, MAX_LOTTO_NUMBER + 1)
+                .forEach(i -> LOTTO_NUMBER_CACHE.put(i, new LottoNumber(i)));
+    }
+
+    public static LottoNumber from(int number) {
+        Validation.notLessThanLong(number, MIN_LOTTO_NUMBER,
+                () -> new InvalidLottoNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
+        Validation.notMoreThanLong(number, MAX_LOTTO_NUMBER,
+                () -> new InvalidLottoNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
+        if (LOTTO_NUMBER_CACHE.containsKey(number)) {
+            return LOTTO_NUMBER_CACHE.get(number);
+        }
+        return new LottoNumber(number);
+    }
+
     private final int number;
 
-    LottoNumber(int number) {
-        Validation.notLessThanLong(number, LottoConstants.MIN_LOTTO_NUMBER.get(),
-                () -> new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
-        Validation.notMoreThanLong(number, LottoConstants.MAX_LOTTO_NUMBER.get(),
-                () -> new InvalidLastWeekWinningNumber(ErrorMessage.INVALID_LOTTO_NUMBER.getMessage()));
-
+    private LottoNumber(int number) {
         this.number = number;
     }
 

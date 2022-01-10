@@ -1,8 +1,9 @@
 package view;
 
-import domain.Lotto;
 import domain.LottoNumber;
-import enums.Prize;
+import domain.LottoTicket;
+import domain.LottoTickets;
+import domain.Prize;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Objects;
@@ -12,17 +13,18 @@ import messages.GameMessage;
 
 public class ResultView {
 
-    private static void printLotto(Lotto lotto) {
-        Set<LottoNumber> numbers = lotto.numbers();
+    private static void printLotto(LottoTicket lottoTicket) {
+        Set<LottoNumber> numbers = lottoTicket.numbers();
         List<String> printNumList =
                 numbers.stream().sorted().map((lottoNumber) -> Objects.toString(lottoNumber.get())).collect(Collectors.toList());
 
         System.out.println("[" + String.join(", ", printNumList) + "]");
     }
 
-    public static void printLottoList(List<Lotto> lottoList) {
-        for (Lotto lotto : lottoList) {
-            printLotto(lotto);
+    public static void printLottoList(LottoTickets lottoTicketList) {
+        List<LottoTicket> totalTickets = lottoTicketList.totalTickets();
+        for (LottoTicket lottoTicket : totalTickets) {
+            printLotto(lottoTicket);
         }
     }
 
@@ -30,7 +32,7 @@ public class ResultView {
         if (key.getMatchCount() == 0) {
             return;
         }
-        if (key.getMatchCount() == Prize.BONUS.getMatchCount() && key.getBonus() == Prize.BONUS.getBonus()) {
+        if (key.getMatchCount() == Prize.SECOND.getMatchCount() && key.getBonus() == Prize.SECOND.getBonus()) {
             System.out.printf("%d개 일치, 보너스 볼 일치(%d원) - %d개\n", key.getMatchCount(), key.getMoney(), value);
             return;
         }
@@ -44,5 +46,9 @@ public class ResultView {
 
     public static void printRateOfReturn(double rateOfReturn) {
         System.out.printf("총 수익률은 %.2f 입니다.", rateOfReturn);
+    }
+
+    public static void printTicketCount(long manualCount, long randomCount) {
+        System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.\n", manualCount, randomCount);
     }
 }
