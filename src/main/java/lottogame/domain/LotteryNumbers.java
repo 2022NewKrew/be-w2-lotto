@@ -1,5 +1,8 @@
 package lottogame.domain;
 
+import lottogame.exception.ErrorMessage;
+import lottogame.exception.LotteryGameException;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -7,9 +10,9 @@ import java.util.Objects;
 public class LotteryNumbers {
     private static int DEFAULT_LENGTH = 6;
 
-    private List<LotteryNumber> lotteryNumbers;
+    private final List<LotteryNumber> lotteryNumbers;
 
-    LotteryNumbers(List<LotteryNumber> lotteryNumbers) {
+    public LotteryNumbers(List<LotteryNumber> lotteryNumbers) {
         validateIsNull(lotteryNumbers);
         validateExceedDefaultLength(lotteryNumbers);
         validateIsDuplicate(lotteryNumbers);
@@ -19,24 +22,26 @@ public class LotteryNumbers {
 
     private void validateIsNull(List<LotteryNumber> lotteryNumbers) {
         if (lotteryNumbers == null) {
-            throw new IllegalArgumentException("로또번호는 null일 수 없습니다.");
+            throw new LotteryGameException(ErrorMessage.PRAMETER_IS_NULL);
         }
     }
 
     private void validateExceedDefaultLength(List<LotteryNumber> lotteryNumbers) {
         if (lotteryNumbers.size() != DEFAULT_LENGTH) {
-            throw new IllegalArgumentException("로또번호는 6개 입니다.");
+            throw new LotteryGameException(ErrorMessage.NOT_MATCH_LOTTERY_NUMBERS_DEFAULT_LENGTH);
         }
     }
 
     private void validateIsDuplicate(List<LotteryNumber> lotteryNumbers) {
-        if (lotteryNumbers.stream().distinct().count() != DEFAULT_LENGTH) {
-            throw new IllegalArgumentException("로또번호는 중복될 수 없습니다.");
+        int distinctLength = (int) lotteryNumbers.stream().distinct().count();
+        if (distinctLength != DEFAULT_LENGTH) {
+            throw new LotteryGameException(ErrorMessage.DUPLICATE_LOTTERY_NUMBERS);
         }
     }
 
     public int countNumberOfMatch(LotteryNumbers winningNumbers) {
-        return (int) winningNumbers.lotteryNumbers.stream()
+        return (int) winningNumbers.lotteryNumbers
+                .stream()
                 .filter(winningNumber -> isContain(winningNumber))
                 .count();
     }
