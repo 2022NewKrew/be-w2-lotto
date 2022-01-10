@@ -20,7 +20,7 @@ class LottoNumberTest {
     @DisplayName("[실패] 범위를 벗어나는 숫자가 들어오면 InvalidLottoNumber를 던져야 한다")
     @ParameterizedTest(name = "{0} 들어오는 경우")
     @ValueSource(ints = {0, 46, -1})
-    void LottoNumber_Failed_By_(int invalidNumber) {
+    void LottoNumber_Failed_By_InvalidNumber(int invalidNumber) {
         Assertions.assertThrows(InvalidLottoNumber.class,
                 () -> LottoNumber.from(invalidNumber));
     }
