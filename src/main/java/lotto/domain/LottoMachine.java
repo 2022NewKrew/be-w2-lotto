@@ -7,13 +7,15 @@ import java.util.stream.IntStream;
 public class LottoMachine {
 
     public static final int TICKET_PRICE = 1000;
-    private static final LottoNumbersGenerator randomGenerator = new RandomLottoNumberGenerator();
-    private static final LottoNumbersGenerator manualGenerator = new ManualLottoNumberGenerator();
+    private final LottoNumbersGenerator randomGenerator;
+    private final LottoNumbersGenerator manualGenerator;
 
-    private LottoMachine() {
+    public LottoMachine(LottoNumbersGenerator randomGenerator, LottoNumbersGenerator manualGenerator) {
+        this.randomGenerator = randomGenerator;
+        this.manualGenerator = manualGenerator;
     }
 
-    public static LottoTickets issue(LottoTicketCount autoTicketCount, LottoTicketCount manualTicketCount, List<String[]> manualLottoNumbers) {
+    public LottoTickets issue(LottoTicketCount autoTicketCount, LottoTicketCount manualTicketCount, List<String[]> manualLottoNumbers) {
         List<LottoTicket> tickets = IntStream.range(0, manualTicketCount.getCount())
                 .mapToObj(manualLottoNumbers::get)
                 .map(manualGenerator::generateLottoNumbers)
