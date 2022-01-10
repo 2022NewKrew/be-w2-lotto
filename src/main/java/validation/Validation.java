@@ -9,10 +9,6 @@ public class Validation {
         condition(Integer.compare(object, another) >= 0, supplier);
     }
 
-    public static void notMoreThanInt(int object, int another, Supplier<RuntimeException> supplier) {
-        condition(Integer.compare(object, another) <= 0, supplier);
-    }
-
     public static void notLessThanLong(long object, long another, Supplier<RuntimeException> supplier) {
         condition(Long.compare(object, another) >= 0, supplier);
     }
