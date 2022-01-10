@@ -24,7 +24,7 @@ public class ResultController {
         OutputView.printPreResult();
     }
 
-    public static void printYield(long yield) {
+    public static void printYield(float yield) {
         OutputView.printYield(yield);
     }
 

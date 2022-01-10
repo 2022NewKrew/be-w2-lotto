@@ -24,8 +24,13 @@ public class MatchStore {
         return matchDict.get(grade);
     }
 
-    public long getYield() {
-        return getTotalWinPrice() / (getNumLotto() * PRICE_PER_LOTTO) * 100 - 100;
+    public float getYield() {
+        if (getNumLotto() == 0) {
+            return 0.0F;
+        }
+
+        return getTotalWinPrice() / (float) (getNumLotto() * PRICE_PER_LOTTO) * 100 - 100;
+
     }
 
     private long getTotalWinPrice() {

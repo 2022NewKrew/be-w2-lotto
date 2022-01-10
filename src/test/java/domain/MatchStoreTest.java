@@ -38,7 +38,7 @@ class MatchStoreTest {
             matchStore.addMatchResult(grade.getMatchNums(), grade.isMatchBonus() ? 1 : 0);
             totalPrice += grade.getPrice();
             i += 1;
-            expectedYield = (totalPrice / (float) i / LOTTO_FEE) * 100 - 100;
+            expectedYield = (totalPrice / (float) (i * LOTTO_FEE)) * 100 - 100;
             assertThat(matchStore.getYield()).isEqualTo(expectedYield);
         }
     }
