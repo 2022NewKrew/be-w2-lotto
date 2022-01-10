@@ -1,15 +1,12 @@
 package domain;
 
+import static utils.ErrorMessage.INVALID_OVER_BUY_LIMIT;
+import static utils.ErrorMessage.format;
+
 import domain.lottery.LotteryMachine;
 import domain.lotto.Lotto;
-import domain.lotto.LottoWallet;
-import domain.statistics.YieldStatistics;
-import java.io.IOException;
+import domain.lotto.LottoList;
 import java.util.List;
-import view.read.BufferedInputReader;
-import view.read.InputReader;
-import view.write.BufferedOutputWriter;
-import view.write.OutputWriter;
 
 /**
  * 로또 구매, 입출력, 당첨로또 추첨, 통계 리포트 등 로또 흐름을 관리하는 객체
@@ -19,33 +16,33 @@ import view.write.OutputWriter;
  */
 public class LottoManager {
 
-  private final InputReader reader;
-  private final OutputWriter writer;
-  private final LottoWallet wallet;
+  private final LottoList wallet;
   private final LotteryMachine lotteryMachine;
 
   public LottoManager() {
-    this.reader = BufferedInputReader.create();
-    this.writer = BufferedOutputWriter.create();
-    this.wallet = LottoWallet.createEmpty();
+    this.wallet = LottoList.createEmpty();
     this.lotteryMachine = LotteryMachine.createEmpty();
   }
 
 
-  public void run() throws IOException {
-    buyLotto();
-    reportBuyingInformation();
-    setLastWinningNumber();
-    reportWinningStatistics();
+  public LottoList buyLotto(int purchaseAmount, LottoList manuallyBuyLotto) {
+    int availableQuantity = getMaxPurchaseQuantity(purchaseAmount);
+    int manualBuyQuantity = manuallyBuyLotto.size();
+    int randomBuyQuantity = availableQuantity - manualBuyQuantity;
+
+    validCheck(availableQuantity, manualBuyQuantity);
+
+    wallet.addAll(manuallyBuyLotto);
+    wallet.addRandomGenerated(randomBuyQuantity);
+    return wallet;
   }
 
 
-  private void buyLotto() throws IOException {
-    int purchaseAmount = reader.getPurchaseAmount();
-    int availableQuantity = getMaxPurchaseQuantity(purchaseAmount);
-    List<Lotto> manuallyBuyLotto = reader.getManualLottoListToBuy(availableQuantity);
-    wallet.addAll(manuallyBuyLotto);
-    wallet.addRandomGenerated(availableQuantity - manuallyBuyLotto.size());
+  private void validCheck(int availableQuantity, int manualBuyQuantity) {
+    if(availableQuantity - manualBuyQuantity < 0) {
+      throw new IllegalArgumentException(
+          format(INVALID_OVER_BUY_LIMIT, availableQuantity, manualBuyQuantity));
+    }
   }
 
 
@@ -54,20 +51,15 @@ public class LottoManager {
   }
 
 
-  private void reportBuyingInformation() throws IOException {
-    writer.write(wallet);
-  }
+//  private void setLastWinningNumber() throws IOException {
+//    lotteryMachine.generateWinningLottery(reader);
+//  }
 
 
-  private void setLastWinningNumber() throws IOException {
-    lotteryMachine.generateWinningLottery(reader);
-  }
-
-
-  private void reportWinningStatistics() throws IOException {
-    YieldStatistics statistics = YieldStatistics.of(
-        lotteryMachine.getCurrentWinningLottery(), wallet);
-    writer.write(statistics);
-  }
+//  private void reportWinningStatistics() throws IOException {
+//    YieldStatistics statistics = YieldStatistics.of(
+//        lotteryMachine.getCurrentWinningLottery(), wallet);
+//    writer.write(statistics);
+//  }
 
 }

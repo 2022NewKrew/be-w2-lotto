@@ -8,27 +8,42 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * 유저가 구매한 로또들의 집합. 수동입력 추가
+ * 로또들의 집합
  *
  * @author leo.jung
  * @since 1.1
  */
-public class LottoWallet implements Iterable<Lotto> {
+public class LottoList implements Iterable<Lotto> {
 
   private final List<Lotto> lottoHolder;
 
-  private LottoWallet() {
+  private LottoList() {
     this.lottoHolder = new ArrayList<>();
   }
 
 
-  public static LottoWallet createEmpty() {
-    return new LottoWallet();
+  private LottoList(List<Lotto> lottoHolder) {
+    this.lottoHolder = lottoHolder;
   }
 
 
-  public void addAll(List<Lotto> lottoList) {
-    lottoHolder.addAll(lottoList);
+  public static LottoList createEmpty() {
+    return new LottoList();
+  }
+
+
+  public static LottoList of(List<Lotto> lottoHolder) {
+    return new LottoList(lottoHolder);
+  }
+
+
+  public void add(Lotto lotto) {
+    lottoHolder.add(lotto);
+  }
+
+
+  public void addAll(LottoList lottoList) {
+    lottoHolder.addAll(lottoList.lottoHolder);
   }
 
 
@@ -59,22 +74,23 @@ public class LottoWallet implements Iterable<Lotto> {
   }
 
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder('\n'
-        + "수동으로 " + manualGeneratedSize() + "장, "
-        + "자동으로 " + randomGeneratedSize() + "개를 구매했습니다." + '\n'
-    );
-    lottoHolder.forEach(lotto -> sb.append(lotto).append('\n'));
-    sb.append('\n');
-    return sb.toString();
-  }
-
-
   private List<Lotto> generateLottoList(int randomGenerateQuantity) {
     return Stream.generate(Lotto::ofRandom)
         .limit(randomGenerateQuantity)
         .collect(Collectors.toList());
+  }
+
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    lottoHolder.forEach(lotto -> sb.append(lotto).append('\n'));
+    return sb.toString();
+  }
+
+
+  public Stream<Lotto> stream() {
+    return lottoHolder.stream();
   }
 
 
@@ -87,6 +103,11 @@ public class LottoWallet implements Iterable<Lotto> {
   @Override
   public void forEach(Consumer<? super Lotto> action) {
     lottoHolder.forEach(action);
+  }
+
+
+  public List<Lotto> getLottoHolder() {
+    return lottoHolder;
   }
 
 }

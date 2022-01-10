@@ -41,4 +41,13 @@ public final class StringUtils {
     return integersSplitByDelimiter(str, DEFAULT_DELIMITER);
   }
 
+
+  public static List<List<Integer>> doubleParseToByDelimiter(
+      String str, String delimiter1, String delimiter2) {
+    return StringUtils.splitByDelimiter(str, delimiter1)
+        .stream()
+        .map(firstSplit -> integersSplitByDelimiter(firstSplit, delimiter2))
+        .collect(Collectors.toList());
+  }
+
 }

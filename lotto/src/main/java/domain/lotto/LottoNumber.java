@@ -20,7 +20,8 @@ public class LottoNumber implements Comparable<LottoNumber> {
   private final Integer lottoNumber;
 
   private LottoNumber(Integer lottoNumber) {
-    this.lottoNumber = Objects.requireNonNull(lottoNumber, format(NULL_PARAMETER, lottoNumber));
+    this.lottoNumber = Objects.requireNonNull(lottoNumber,
+        format(NULL_PARAMETER, lottoNumber));
     if (isNonLottoNumber(lottoNumber)) {
       throw new IllegalArgumentException(
           format(INVALID_BONUS_NUMBER_RANGE, lottoNumber));
@@ -47,6 +48,11 @@ public class LottoNumber implements Comparable<LottoNumber> {
 
   public boolean isNonLottoNumber(int number) {
     return number > MAX_NUMBER || number < MIN_NUMBER;
+  }
+
+
+  public Integer toInteger() {
+    return lottoNumber;
   }
 
 

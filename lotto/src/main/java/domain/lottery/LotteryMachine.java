@@ -1,8 +1,5 @@
 package domain.lottery;
 
-import java.io.IOException;
-import view.read.InputReader;
-
 /**
  * 당청 로또를 뽑는 모듈, WinningLottery 의 생성과 반환 역할을 한다.
  *
@@ -21,16 +18,6 @@ public class LotteryMachine {
 
   public static LotteryMachine createEmpty() {
     return new LotteryMachine();
-  }
-
-
-  public void generateWinningLottery(InputReader reader) throws IOException {
-    this.winningLotto = reader.getLastWinningLottery();
-  }
-
-
-  public WinningLotto getCurrentWinningLottery() {
-    return winningLotto;
   }
 
 }

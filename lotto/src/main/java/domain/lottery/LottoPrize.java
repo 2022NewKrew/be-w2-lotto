@@ -57,13 +57,4 @@ public enum LottoPrize {
     return reward;
   }
 
-
-  @Override
-  public String toString() {
-    if (needBonusNumber) {
-      return matchCount + "개 일치, 보너스 볼 일치(" + reward + "원)";
-    }
-    return matchCount + "개 일치 (" + reward + "원)";
-  }
-
 }
