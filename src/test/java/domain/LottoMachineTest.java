@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class LottoTicketMachineTest {
+class LottoMachineTest {
 
     @Test
     @DisplayName("[성공] 생성된 로또에는 중복이 없어야 한다")
