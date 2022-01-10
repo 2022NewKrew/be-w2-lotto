@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 class ManualLottoTicketGeneratorTest {
 
     @Test
-    @DisplayName("[성공] LottoNumber 객체를 생성한다")
+    @DisplayName("[성공] 수동 로또를 생성한다")
     void generate() {
         ManualLottoTicketGenerator manualLottoTicketGenerator = new ManualLottoTicketGenerator();
         Set<Integer> lottoNumbers = Set.of(1, 2, 3, 4, 5, 6);
