@@ -7,6 +7,9 @@ public class ManualLottoTicketGenerator implements LottoTicketGenerator {
 
     @Override
     public LottoTicket generate(Set<Integer> lottoNumbers) {
+        if (lottoNumbers == null) {
+            throw new IllegalArgumentException();
+        }
         Set<LottoNumber> numbers = lottoNumbers.stream()
                 .map(LottoNumber::from)
                 .collect(Collectors.toSet());
