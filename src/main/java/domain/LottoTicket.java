@@ -34,4 +34,18 @@ public class LottoTicket {
     public boolean contains(LottoNumber findNumber) {
         return numbers.contains(findNumber);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        LottoTicket that = (LottoTicket) o;
+        if (that.numbers().size() != numbers.size())
+            return false;
+        return numbers.containsAll(that.numbers());
+    }
 }
