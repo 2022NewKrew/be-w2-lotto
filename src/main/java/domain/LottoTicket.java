@@ -44,8 +44,9 @@ public class LottoTicket {
             return false;
         }
         LottoTicket that = (LottoTicket) o;
-        if (that.numbers().size() != numbers.size())
+        if (that.numbers().size() != numbers.size()) {
             return false;
+        }
         return numbers.containsAll(that.numbers());
     }
 }

@@ -27,7 +27,6 @@ public class RandomLottoTicketGenerator implements LottoTicketGenerator {
     @Override
     public LottoTicket generate(Set<Integer> lottoNumbers) {
         Set<LottoNumber> numbers = new HashSet<>();
-
         List<Integer> randomNumbers = generateRandomNumbers();
         for (int randomNumber : randomNumbers) {
             numbers.add(LottoNumber.from(randomNumber));
