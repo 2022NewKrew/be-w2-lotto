@@ -1,5 +1,8 @@
 package domain.statistics;
 
+import static utils.ErrorMessage.INVALID_MATCH_COUNT_NEGATIVE;
+import static utils.ErrorMessage.format;
+
 /**
  * Lotto 와 WinningLottery 간 비교 후 생긴 매칭 정보
  *
@@ -20,7 +23,7 @@ public class MatchInfo {
 
   private void validCheck(int matchCount) {
     if (matchCount < 0) {
-      throw new IllegalArgumentException("matchCount 는 음수가 될 수 없습니다. [입력값 : " + matchCount + "]");
+      throw new IllegalArgumentException(format(INVALID_MATCH_COUNT_NEGATIVE, matchCount));
     }
   }
 

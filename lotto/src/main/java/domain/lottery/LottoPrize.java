@@ -29,8 +29,6 @@ public enum LottoPrize {
   }
 
 
-  //FIXME: get 할 시 Stream 열어서 찾지말고, unmodifiableMap 으로 사전에 static 으로 보관하는 방식 활용해 볼 것.
-  // https://pjh3749.tistory.com/279
   private static Optional<LottoPrize> of(int matchCount, boolean isBonusMatched) {
     return Arrays.stream(LottoPrize.values())
         .filter(lottoPrize -> lottoPrize.isCoincide(matchCount, isBonusMatched))
@@ -57,15 +55,6 @@ public enum LottoPrize {
 
   public int getReward() {
     return reward;
-  }
-
-
-  @Override
-  public String toString() {
-    if (needBonusNumber) {
-      return matchCount + "개 일치, 보너스 볼 일치(" + reward + "원)";
-    }
-    return matchCount + "개 일치 (" + reward + "원)";
   }
 
 }

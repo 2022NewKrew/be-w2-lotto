@@ -3,10 +3,8 @@ package domain.statistics;
 import domain.lottery.LottoPrize;
 import domain.lottery.WinningLotto;
 import domain.lotto.Lotto;
-import domain.lotto.LottoWallet;
-import java.util.ArrayList;
+import domain.lotto.LottoList;
 import java.util.EnumMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -20,9 +18,9 @@ import java.util.Objects;
  */
 public abstract class Statistics {
 
-  private final Map<LottoPrize, List<Lotto>> winningLottoHolder;
+  private final Map<LottoPrize, LottoList> winningLottoHolder;
 
-  protected Statistics(WinningLotto winningLotto, LottoWallet wallet) {
+  protected Statistics(WinningLotto winningLotto, LottoList wallet) {
     this.winningLottoHolder = new EnumMap<>(LottoPrize.class);
     setupHolder();
     setupWinningLottoHolder(Objects.requireNonNull(winningLotto),
@@ -32,12 +30,12 @@ public abstract class Statistics {
 
   private void setupHolder() {
     for (LottoPrize lottoPrize : LottoPrize.values()) {
-      winningLottoHolder.put(lottoPrize, new ArrayList<>());
+      winningLottoHolder.put(lottoPrize, LottoList.createEmpty());
     }
   }
 
 
-  private void setupWinningLottoHolder(WinningLotto winningLotto, LottoWallet wallet) {
+  private void setupWinningLottoHolder(WinningLotto winningLotto, LottoList wallet) {
     for (Lotto candidateLotto : wallet) {
       MatchInfo matchInfo = candidateLotto.compareWith(winningLotto);
       addLottoIfMatched(matchInfo, candidateLotto);
@@ -54,7 +52,7 @@ public abstract class Statistics {
 
 
   private void addLottoIntoHolder(LottoPrize lottoPrize, Lotto lotto) {
-    List<Lotto> matchLottoList = winningLottoHolder.get(lottoPrize);
+    LottoList matchLottoList = winningLottoHolder.get(lottoPrize);
     matchLottoList.add(lotto);
   }
 
@@ -67,30 +65,6 @@ public abstract class Statistics {
           return reward * count;
         })
         .reduce(0, Integer::sum);
-  }
-
-
-  @Override
-  public String toString() {
-    return "\n당첨 통계" + '\n'
-        + "---------" + '\n'
-        + stringifyMatchMap();
-  }
-
-
-  private String stringifyMatchMap() {
-    StringBuilder sb = new StringBuilder();
-    winningLottoHolder.forEach((lottoPrize, count) -> {
-      sb.append(stringify(lottoPrize));
-    });
-    return sb.toString();
-  }
-
-
-  private String stringify(LottoPrize lottoPrize) {
-    List<Lotto> matchLottoList = winningLottoHolder.getOrDefault(lottoPrize, new ArrayList<>());
-    int count = matchLottoList.size();
-    return lottoPrize + " - " + count + "개\n";
   }
 
 }
