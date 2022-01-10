@@ -1,71 +1,89 @@
 package controller;
 
-import DTO.NNumber;
+import domain.LottoLine;
+import domain.LottoLineStructure.ManualLottoLine;
+import domain.LottoLineStructure.RandomLottoLine;
+
 import domain.MyLottoLines;
 import domain.WinningLottoLine;
 import view.InputView;
 import view.OutputView;
 
-import java.util.List;
-
 public class StartController {
-    private final MyLottoLines lottoLines = new MyLottoLines();
-    private WinningLottoLine winningLine = null;
-
-    public StartController() {
-        makeLottoLines();
-        makeWinningLine();
-        while (winningLine == null) {
-            OutputView.printWinningInputError();
-            makeWinningLine();
-        }
-
-        setBonus();
+    private StartController() {
+        throw new AssertionError();
     }
 
-    public MyLottoLines getLottoLines() {
-        return lottoLines;
-    }
-
-    public NNumber getWinningLine() {
-        return NNumber.makeManualNumbers(winningLine.getLottoLine());
-    }
-
-    public NNumber getBonus() {
-        return NNumber.makeManualNumbers(List.of(winningLine.getBonus()));
-    }
-
-    private void makeLottoLines() {
+    public static int inputNumLotto() {
         int numLotto = InputView.getNumLotto();
         while (numLotto == 0) {
             OutputView.printPayInputError();
             numLotto = InputView.getNumLotto();
         }
 
+        return numLotto;
+    }
+
+    public static int inputNumManualLotto(int totalNum) {
+        int numLotto = InputView.getManualNumLotto();
+        while (numLotto < 0 || totalNum < numLotto) {
+            OutputView.printManualNumberError(totalNum);
+            numLotto = InputView.getManualNumLotto();
+        }
+
+        return numLotto;
+    }
+
+    public static void addManualLottoLines(MyLottoLines lottoLines, int numLotto) {
+        OutputView.announceBeforeManualLine();
         for (int i = 0; i < numLotto; i++) {
-            NNumber curLine = NNumber.makeRandomNumbers();
+            LottoLine curLotto = inputManualLottoLine();
 
-            lottoLines.addLotto(curLine);
-            OutputView.printLottoLine(curLine);
+            lottoLines.addLotto(curLotto);
+            OutputView.printLottoLine(curLotto.getPrintLine());
         }
     }
 
-    private void makeWinningLine() {
-        winningLine = null;
-        List<String> strLine = InputView.getWinNumber();
+    public static void addAutoLottoLines(MyLottoLines lottoLines, int numLotto) {
+        for (int i = 0; i < numLotto; i++) {
+            LottoLine curLotto = new RandomLottoLine();
 
-        if (strLine.size() != 6) {
-            return;
+            lottoLines.addLotto(curLotto);
+            OutputView.printLottoLine(curLotto.getPrintLine());
         }
-
-        winningLine = WinningLottoLine.makeWinningLine(strLine);
     }
 
-    private void setBonus() {
+    private static LottoLine inputManualLottoLine() {
+        LottoLine ret = ManualLottoLine.makeManualLottoLineFromStrLst(InputView.getManualNumber());
+
+        if (ret == null) {
+            OutputView.printManualInputError();
+            ;
+            ret = inputManualLottoLine();
+        }
+
+        return ret;
+    }
+
+    public static WinningLottoLine makeWinningLine() {
+        OutputView.announceBeforeWinningLine();
+        LottoLine lottoLine = inputManualLottoLine();
+
+        WinningLottoLine winningLottoLine = new WinningLottoLine(lottoLine);
+        setBonus(winningLottoLine);
+
+        return winningLottoLine;
+    }
+
+    private static void setBonus(WinningLottoLine winningLine) {
         boolean isValid = winningLine.setBonus(InputView.getBonus());
         while (!isValid) {
             OutputView.printBonusInputError();
             isValid = winningLine.setBonus(InputView.getBonus());
         }
+    }
+
+    public static void printPurchaseSummary(int numManLotto, int numAutoLotto) {
+        OutputView.printAutoManualNum(numAutoLotto, numManLotto);
     }
 }

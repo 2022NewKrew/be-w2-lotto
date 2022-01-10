@@ -4,21 +4,14 @@ import DTO.NNumber;
 
 import java.util.List;
 
-public class LottoLine {
-    public List<Integer> lottoLine;
+public interface LottoLine {
+    int MIN_NUM = 1;
+    int MAX_NUM = 45;
+    int NUM_PER_LINE = 6;
 
-    public LottoLine(NNumber paramLottoLine) {
-        lottoLine = paramLottoLine.getNumbers();
-    }
+    int checkWinning(List<Integer> inningNumbers);
 
-    public int checkWinning(NNumber winningNumbers) {
-        List<Integer> winningLine = winningNumbers.getNumbers();
-        int matchNum = 0;
+    List<Integer> getLottoLine();
 
-        for (int num : winningLine) {
-            matchNum += lottoLine.contains(num) ? 1 : 0;
-        }
-
-        return matchNum;
-    }
+    String getPrintLine();
 }

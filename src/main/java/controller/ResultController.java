@@ -1,24 +1,31 @@
 package controller;
 
-import domain.MatchScore;
-import view.OutputView;
 
-import java.util.List;
-
-public class ResultController {
-    private static final Long PRICE_PER_LOTTO = 1000L;
+import DTO.ResultDTO;
+import domain.MatchStore;
+import domain.WinningClassifier;
 
     private ResultController() {
+        throw new AssertionError();
     }
 
-    public static void printResult(int numLotto) {
-        OutputView.printPreResult();
+    public static void printResult(MatchStore matchStore) {
+        List<WinningClassifier> gradeLst = WinningClassifier.getWinObjLst();
 
-        List<MatchScore> msLst = MatchScore.getWinObjLst();
-
-        for (MatchScore ms : msLst) {
-            OutputView.printResult(ms.getMatchNums(), ms.isMatchBonus(), ms.getPrice(), ms.getNumLotto());
+        for (WinningClassifier grade : gradeLst) {
+            OutputView.printResult(makeResultDTOFromGrade(grade, matchStore.getCnt(grade)));
         }
-        OutputView.printYield(MatchScore.getTotalPrice() / (numLotto * PRICE_PER_LOTTO) * 100);
+    }
+
+    public static void printPreResult() {
+        OutputView.printPreResult();
+    }
+
+    public static void printYield(float yield) {
+        OutputView.printYield(yield);
+    }
+
+    public static ResultDTO makeResultDTOFromGrade(WinningClassifier ms, int numLotto) {
+        return new ResultDTO(ms.getMatchNums(), ms.isMatchBonus(), ms.getPrice(), numLotto);
     }
 }
