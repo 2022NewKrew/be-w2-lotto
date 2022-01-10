@@ -5,11 +5,11 @@ import java.util.Scanner;
 public class View {
     private static Scanner scanner = new Scanner(System.in);
 
-    public static void print(Object object) {
+    public void print(Object object) {
         System.out.println(object);
     }
 
-    public static String inputString() {
+    public String inputString() {
         return scanner.nextLine();
     }
 }

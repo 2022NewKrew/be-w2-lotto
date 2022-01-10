@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 public class AutoTicket extends Ticket {
     private static final List<Integer> NUMBER_CANDIDATES
             = IntStream.range(GroundRule.MIN_SELECTION_NUMBER, GroundRule.MAX_SELECTION_NUMBER).boxed().collect(Collectors.toList());
-    public AutoTicket() {
+    AutoTicket() {
         List<Integer> lottoNumbers = this.NUMBER_CANDIDATES;
         Collections.shuffle(lottoNumbers);
         for (int i = 0; i < GroundRule.NUM_OF_SELECTION; i++) {

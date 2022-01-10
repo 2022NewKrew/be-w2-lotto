@@ -1,15 +1,18 @@
 import controller.LotteryController;
 import domain.Buyer;
 import domain.LotteryCentral;
+import view.View;
 
 public class Lottery {
     public static void main(String[] args) {
         Buyer buyer = new Buyer();
         LotteryCentral lotteryCentral = new LotteryCentral();
-        LotteryController controller = new LotteryController(buyer, lotteryCentral);
-        controller.releaseTicketsToBuyer();
+        View view = new View();
+
+        LotteryController controller = new LotteryController(buyer, lotteryCentral, view);
+        controller.serveTicketsToBuyer();
         controller.showTickets();
-        controller.requireWinningTicketInfo();
+        controller.drawLottery();
         controller.makeBuyerToCalculate();
         controller.showStatistics();
     }

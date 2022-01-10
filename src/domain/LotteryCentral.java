@@ -1,8 +1,6 @@
 package domain;
 
-import domain.tickets.AutoTicket;
-import domain.tickets.Ticket;
-import domain.tickets.WinningTicket;
+import domain.tickets.*;
 import view.View;
 
 import java.util.ArrayList;
@@ -11,33 +9,40 @@ import java.util.List;
 // 로또 관리 본부 객체
 // 본부는 구매자에게 자동발매 티켓 지급, 그리고 로또 추첨을 담당한다.
 public class LotteryCentral {
+    private TicketMachine ticketMachine = new TicketMachine();
     private WinningTicket winningTicket;
 
-    // ============================ 자동발매 티켓 지급 ============================
-    // 자동발매 수를 입력받아 티켓들을 생성하여 티켓리스트를 돌려준다.
-    public List<Ticket> releaseAutoTickets(int numOfAutoTickets) {
-        // 발매해서 구매자에게 전달할 자동발매 티켓들을 저장하는 tickets
-        List<Ticket> tickets = new ArrayList<>();
-        // 자동 티켓 발매
+    // ============================ 티켓 꾸러미 Tickets 발행 ============================
+    public Tickets releaseTickets(List<List<Integer>> manualList, int buyerPaid) {
+        Tickets tickets = new Tickets();
+        int numOfManualTickets = manualList.size();
+        int numOfAutoTickets = (int) (buyerPaid - getManualTicketPrice() * numOfManualTickets) / getAutoTicketPrice();
+        // 수동 티켓 발행
+        for (int i = 0; i < numOfManualTickets; i++) {
+            tickets.add(this.ticketMachine.makeManualTicket(manualList.get(i)));
+        }
+        // 자동 티켓 발행
         for (int i = 0; i < numOfAutoTickets; i++) {
-            tickets.add(new AutoTicket());
+            tickets.add(this.ticketMachine.makeAutoTicket());
         }
         return tickets;
     }
 
     // ============================ 로또 추첨 ============================
-    // 당첨 티켓 정보 입력
-    public void inputWinningTicket() {
-        View.print("지난 주 당첨 번호를 입력해 주세요.");
-        List<Integer> winningNumbers = DataFormatting.selectedNumbers();
-        View.print("보너스 볼을 입력해 주세요.");
-        int bonusBall = DataFormatting.stringToInteger(View.inputString());
-        this.winningTicket = new WinningTicket(winningNumbers, bonusBall);
+    public void drawWinningTicket(List<Integer> winningNumbers, int bonusball) {
+        this.winningTicket = new WinningTicket(winningNumbers, bonusball);
     }
 
     public WinningTicket getWinningTicket() {
         return this.winningTicket;
     }
 
+    public int getManualTicketPrice() {
+        return ticketMachine.manualTicket.getPrice();
+    }
+
+    public int getAutoTicketPrice() {
+        return ticketMachine.autoTicket.getPrice();
+    }
 }
 
