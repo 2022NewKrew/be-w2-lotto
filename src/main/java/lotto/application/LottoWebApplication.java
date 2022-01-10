@@ -5,12 +5,14 @@ import lotto.request.PurchaseRequest;
 import lotto.request.ResultRequest;
 import lotto.result.LottoResult;
 import lotto.service.LottoService;
-import lotto.view.LottoView;
 import lotto.vo.LottoVO;
 import spark.ModelAndView;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static spark.Spark.*;
@@ -31,8 +33,8 @@ public class LottoWebApplication {
 
         post("/buyLotto", (req, res) -> {
             int inputMoney = Integer.parseInt(req.queryParams("inputMoney"));
-            List<List<Integer>> manualNumber = Arrays.asList(req.queryParams("manualNumber").split("\r?\n")).stream()
-                    .map(s -> Arrays.asList(s.split(",")).stream()
+            List<List<Integer>> manualNumber = Arrays.stream(req.queryParams("manualNumber").split("\r?\n"))
+                    .map(s -> Arrays.stream(s.split(","))
                             .map(Integer::parseInt).collect(Collectors.toList())).collect(Collectors.toList());
             PurchaseRequest purchaseRequest = new PurchaseRequest(inputMoney, manualNumber);
             List<LottoVO> lottos = lottoController.purchaseLotto(purchaseRequest);

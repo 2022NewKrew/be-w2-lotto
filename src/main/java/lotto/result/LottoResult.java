@@ -14,9 +14,9 @@ public class LottoResult {
 
     private int totalLottoCount;
 
-    private int totalPurchaseAmount;
+    private long totalPurchaseAmount;
 
-    private int totalReward;
+    private long totalReward;
 
     private String message;
 
