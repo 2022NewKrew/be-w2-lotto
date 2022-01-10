@@ -12,8 +12,8 @@ import validation.Validation;
 public class LottoMachine {
 
     private static final int LOTTO_PRICE = 1000;
-    private static final int MIN_PRISE = 0;
-    private static final int MAX_PRISE = 1_000_000_000;
+    private static final int MIN_PRICE = 0;
+    private static final int MAX_PRICE = 1_000_000_000;
     private static final ManualLottoTicketGenerator manualLottoTicketGenerator = new ManualLottoTicketGenerator();
     private static final RandomLottoTicketGenerator randomLottoTicketGenerator = new RandomLottoTicketGenerator();
 
@@ -33,9 +33,9 @@ public class LottoMachine {
     }
 
     public LottoTickets buyLottoTickets(long purchaseAmount, List<Set<Integer>> manualNumbers) {
-        Validation.notLessThanLong(purchaseAmount, MIN_PRISE,
+        Validation.notLessThanLong(purchaseAmount, MIN_PRICE,
                 () -> new InvalidPurchaseAmount(ErrorMessage.NEGATIVE_PURCHASE_AMOUNT.getMessage()));
-        Validation.notMoreThanLong(purchaseAmount, MAX_PRISE,
+        Validation.notMoreThanLong(purchaseAmount, MAX_PRICE,
                 () -> new InvalidPurchaseAmount(ErrorMessage.MAX_PURCHASE_AMOUNT.getMessage()));
 
         long lottoCount = purchaseAmount / LOTTO_PRICE;
