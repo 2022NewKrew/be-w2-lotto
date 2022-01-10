@@ -16,15 +16,16 @@ public class RandomGenerateStrategy implements GenerateLottoStrategy {
         LOTTO_NUMBERS = getLegalNumbers();
     }
 
+    @Override
+    public List<LottoNumber> generate() {
+        return generateRandomNumbers();
+    }
+
     private static List<LottoNumber> getLegalNumbers() {
         return IntStream
                 .rangeClosed(LottoNumber.START_NUMBER, LottoNumber.FINAL_NUMBER)
                 .mapToObj(LottoNumber::valueOf)
                 .collect(Collectors.toList());
-    }
-
-    public List<LottoNumber> generate() {
-        return generateRandomNumbers();
     }
 
     private List<LottoNumber> generateRandomNumbers() {
