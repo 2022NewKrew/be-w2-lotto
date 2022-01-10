@@ -44,7 +44,7 @@ public class LottoNumber implements Comparable<LottoNumber> {
         static {
             cache = new ArrayList<>(LottoNumber.FINAL_NUMBER - LottoNumber.START_NUMBER + 1);
             for (int i = 0; i < LottoNumber.FINAL_NUMBER - LottoNumber.START_NUMBER + 1; i++) {
-                cache.set(i, new LottoNumber(i + LottoNumber.START_NUMBER));
+                cache.add(new LottoNumber(i + LottoNumber.START_NUMBER));
             }
         }
     }
