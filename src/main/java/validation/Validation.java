@@ -1,6 +1,5 @@
 package validation;
 
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -31,6 +30,9 @@ public class Validation {
     }
 
     private static void condition(boolean predicate, Supplier<RuntimeException> supplier) {
-        Optional.ofNullable(predicate ? predicate : null).orElseThrow(supplier);
+        if (!predicate) {
+            throw supplier.get();
+        }
     }
+
 }
