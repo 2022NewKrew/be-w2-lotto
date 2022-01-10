@@ -1,7 +1,5 @@
 package domain;
 
-import domain.tickets.Ticket;
-import domain.tickets.Tickets;
 import exceptions.LackOfMoneyException;
 import exceptions.ListSizeException;
 import exceptions.NumberRangeException;
@@ -15,7 +13,7 @@ import java.util.Set;
 // 입력받은 값에 대해 조건에 부합하는지 검증하고, 예외가 발생한다면 Exception을 catch하여 처리하는 로직
 // 이중 indent를 지양하라는 요구사항 때문에 어쩔수없이 재귀로 view input을 받는 의존성을 가짐
 // 또한 지금 현재로서는 GroundRule이 하나밖에 없기 때문에, 이에 의존하는 모양이지만 향후 여러가지 Rule이 생긴다면 Rule을 받아 이에 따라 처리하면 될 것
-public class ExceptionHandler {
+public class DataVerifier {
     private View view = new View();
 
     // 검증된 입력 스트링으로부터 얻은 정수

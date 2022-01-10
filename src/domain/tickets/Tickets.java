@@ -23,5 +23,6 @@ public class Tickets {
 
     public void add(Ticket ticket) {
         this.tickets.add(ticket);
+        this.totalPrice += ticket.getPrice();
     }
 }

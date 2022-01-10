@@ -25,8 +25,8 @@ public class Buyer {
     private long revenue;
 
     // ============================ 티켓 구매 ============================
-    public void ticketsToMyPocket(Tickets tickets) {
-        this.myTickets = tickets;
+    public void ticketsToMyPocket(Ticket ticket) {
+        this.myTickets.add(ticket);
     }
 
     // ============================ 티켓 구매 ============================

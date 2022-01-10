@@ -1,10 +1,8 @@
 package controller;
 
 import domain.*;
-import domain.tickets.ManualTicket;
 import domain.tickets.Ticket;
 import domain.tickets.Tickets;
-import domain.tickets.WinningTicket;
 import view.View;
 
 import java.util.ArrayList;
@@ -14,7 +12,7 @@ public class LotteryController {
     private Buyer buyer;
     private LotteryCentral lotteryCentral;
     private View view;
-    private ExceptionHandler exceptionHandler = new ExceptionHandler();
+    private DataVerifier exceptionHandler = new DataVerifier();
 
     public LotteryController(Buyer buyer, LotteryCentral lotteryCentral, View view) {
         this.buyer = buyer;
@@ -33,8 +31,10 @@ public class LotteryController {
                 exceptionHandler.verifiedNumofTickets(this.lotteryCentral.getManualTicketPrice(), exceptionHandler.integerFromVerifiedString(view.inputString()), buyerPaid);
         view.print("수동으로 구매할 번호를 입력해 주세요.");
         List<List<Integer>> manualList = getManualList(numOfManualTickets);
-        view.print(manualList.size());
-        buyer.ticketsToMyPocket(lotteryCentral.releaseTickets(manualList, buyerPaid));
+        Tickets tickets = lotteryCentral.releaseTickets(manualList, buyerPaid);
+        for (Ticket ticket : tickets.getTickets()) {
+            buyer.ticketsToMyPocket(ticket);
+        }
     }
 
     private List<List<Integer>> getManualList(int numOfManualTickets) {
