@@ -1,17 +1,19 @@
 package lotto.domain;
 
 import lotto.util.Util;
+import lotto.util.Rank;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.stream.Collectors;
+import java.util.Arrays;
 
 public class Lotto {
 
     private ArrayList<LottoGame> lottoGames;
-    private ArrayList<Integer> matchNumbers = new ArrayList<>(Collections.nCopies(Util.LOTTONUMBERSIZE +1, 0));
     private int numberGames;
     private int moneyToGame;
+
+    private ArrayList<Rank> winningCases = new ArrayList<>(Arrays.asList(Rank.FIRST, Rank.SECOND, Rank.THIRD, Rank.FOURTH, Rank.FIFTH));
 
     public Lotto(int moneyToGame){
         this.lottoGames = new ArrayList<>();
@@ -27,41 +29,40 @@ public class Lotto {
         return money/Util.LOTTOPRICE;
     }
 
-    public void checkWinning(ArrayList<Integer> lastWinningNumbers){
-        LottoGame currentGame;
-        int win;
-        for (int game=0; game < this.numberGames; game++){
-            currentGame = lottoGames.get(game);
-            win = currentGame.compareNumbers(lastWinningNumbers);
-            insertWinNumbers(win);
-        }
+    public void checkWinning(ArrayList<Integer> lastWinningNumbers, int bonusBall){
+        int matchNumber;
+        boolean matchBonus;
 
-        System.out.print(matchNumbers);
+        for (LottoGame lottoGame : lottoGames){
+            matchNumber = lottoGame.compareNumbers(lastWinningNumbers);
+            matchBonus = lottoGame.compareBonusBall(bonusBall);
+            insertWinNumbers(matchNumber, matchBonus);
+        }
     }
 
-    private void insertWinNumbers(int numberMatch){
-        matchNumbers.set(numberMatch, matchNumbers.get(numberMatch)+1);
+    private void insertWinNumbers(int numberMatch, boolean matchBonus){
+        for (Rank rank : winningCases){
+            rank.checkAndCount(numberMatch, matchBonus);
+        }
     }
 
     public int getNumberGames(){
         return this.numberGames;
     }
 
-    public ArrayList<Float> getLottoResults(){
-        ArrayList<Float> lottoResults = new ArrayList<>(matchNumbers.subList(3,7).stream().map(integer -> integer.floatValue()).collect(Collectors.toList()));
-        lottoResults.add(checkWinningRate());
-        return lottoResults;
-    }
-
-    private float checkWinningRate(){
-        int sumPrize;
+    public float checkWinningRate(){
+        int sumPrize = 0;
         float winningRate;
-        sumPrize = matchNumbers.get(3)*Util.MATCH3PRICE +
-                matchNumbers.get(4)*Util.MATCH4PRICE +
-                matchNumbers.get(5)*Util.MATCH5PRICE +
-                matchNumbers.get(6)*Util.MATCH6PRICE;
+
+        for (Rank rank : winningCases){
+            sumPrize = sumPrize + rank.getResultCount()*rank.getWinningMoney();
+        }
         winningRate = (sumPrize-(numberGames*Util.LOTTOPRICE))/(numberGames*Util.LOTTOPRICE);
 
         return winningRate;
+    }
+
+    public ArrayList<Rank> getWinningCases(){
+        return winningCases;
     }
 }

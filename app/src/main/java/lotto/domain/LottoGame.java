@@ -36,4 +36,8 @@ public class LottoGame {
 
         return numberContains;
     }
+
+    public boolean compareBonusBall(int bonusNumber){
+        return candidateNumbers.contains(bonusNumber);
+    }
 }

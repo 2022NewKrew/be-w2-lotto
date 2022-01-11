@@ -1,6 +1,8 @@
 package lotto.view;
 
+import lotto.domain.Lotto;
 import lotto.util.Util;
+import lotto.util.Rank;
 import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
@@ -32,8 +34,12 @@ public class Interface {
         } catch(NumberFormatException e){
             lastLottoNumbers = new ArrayList<>();
         }
-
         return lastLottoNumbers;
+    }
+
+    public static int getBonusNumber(){
+        System.out.println("보너스 볼을 입력해 주세요.");
+        return sc.nextInt();
     }
 
     public static void displayPurchaseGames(int numberLotto){
@@ -47,13 +53,12 @@ public class Interface {
         System.out.print("\n");
     }
 
-    public static void displayWinningResults(ArrayList<Float> lottoResults){
+    public static void displayWinningResults(Lotto lottoResults){
         System.out.println("당첨 통계");
         System.out.println("---------");
-        System.out.println("3개 일치 ("+ Util.MATCH3PRICE +"원)- "+lottoResults.get(0)+"개");
-        System.out.println("4개 일치 ("+ Util.MATCH4PRICE +"원)- "+lottoResults.get(1)+"개");
-        System.out.println("5개 일치 ("+ Util.MATCH5PRICE +"원)- "+lottoResults.get(2)+"개");
-        System.out.println("6개 일치 ("+ Util.MATCH6PRICE +"원)- "+lottoResults.get(3)+"개");
-        System.out.println("총 수익률은 "+lottoResults.get(4)+"%"+"입니다.");
+        for (Rank rank : lottoResults.getWinningCases()){
+            System.out.println(rank.getCountOfMatch()+"개 일치 ("+ rank.getWinningMoney() +"원)- "+rank.getResultCount()+"개");
+        }
+        System.out.println("총 수익률은 "+lottoResults.checkWinningRate()+"%"+"입니다.");
     }
 }

@@ -13,6 +13,7 @@ public class App {
 
     public static void main(String[] args){
 
+        int bonusBall;
         int moneyToGame = Interface.getPurchaseAmount();
         ArrayList<Integer> winningNumber;
 
@@ -22,8 +23,10 @@ public class App {
         winningNumber = Interface.getWinningNumber();
         Interface.displayCandidateNumber(winningNumber);
 
-        lotto.checkWinning(winningNumber);
-        Interface.displayWinningResults(lotto.getLottoResults());
+        bonusBall = Interface.getBonusNumber();
+
+        lotto.checkWinning(winningNumber, bonusBall);
+        Interface.displayWinningResults(lotto);
     }
 
 }

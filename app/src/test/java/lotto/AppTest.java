@@ -3,8 +3,36 @@
  */
 package lotto;
 
+import lotto.domain.Lotto;
+import lotto.view.Interface;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
+
+    @DisplayName("전체 Lotto 테스트")
+    @Test
+    void lottoTest(){
+        int bonusBall;
+        int moneyToGame = 100000;
+        ArrayList<Integer> winningNumber;
+
+        Lotto lotto = new Lotto(moneyToGame);
+        Interface.displayPurchaseGames(lotto.getNumberGames());
+
+        winningNumber = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
+        Interface.displayCandidateNumber(winningNumber);
+
+        bonusBall = 7;
+
+        lotto.checkWinning(winningNumber, bonusBall);
+        Interface.displayWinningResults(lotto);
+    }
+
+
 }
