@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import lotto.model.Lotto;
+import lotto.model.WinningLotto;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,6 +14,9 @@ public class Lottos implements Iterable<Lotto>{
     public Lottos() {
         lottos = new ArrayList<>();
     }
+    public Lottos(List<Lotto> lottos){
+        this.lottos = lottos;
+    }
 
     public void add(Lotto lotto) {
         this.lottos.add(lotto);
@@ -21,6 +25,17 @@ public class Lottos implements Iterable<Lotto>{
     @Override
     public Iterator<Lotto> iterator(){
         return lottos.iterator();
+    }
+
+    public LottoResult match(WinningLotto winningLotto){
+        LottoResult lottoResult = new LottoResult();
+        for(Lotto lotto : this.lottos){
+            int countOfMatch = lotto.howManyMatch(winningLotto);
+            boolean matchBonus = lotto.contains(winningLotto.getBonusNumber());
+
+            lottoResult.addResult(countOfMatch, matchBonus);
+        }
+        return lottoResult;
     }
 
     public String toString() {
