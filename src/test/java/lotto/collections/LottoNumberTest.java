@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 class LottoNumberTest {
 
@@ -50,7 +51,6 @@ class LottoNumberTest {
     @Test
     @DisplayName("로또 숫자 범위 안인 경우 exception 안 날리고 정상 작동하는지 확인")
     void testGeneral() {
-        assertThatThrownBy(()-> new LottoNumber(40))
-                .isNotInstanceOf(Exception.class);
+        assertDoesNotThrow(() -> new LottoNumber(45));
     }
 }
