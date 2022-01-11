@@ -1,6 +1,8 @@
 package lotto.domain;
 
+import lotto.collections.LottoNumber;
 import lotto.dto.MatchNum;
+import lotto.utils.LottoNumberPool;
 import lotto.utils.Rank;
 
 import java.util.ArrayList;
@@ -10,16 +12,16 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Lotto {
-    private static final List<Integer> range = IntStream.range(1, 45).boxed().collect(Collectors.toList());
 
-    public List<Integer> getRandLotto() {
-        Collections.shuffle(range);
-        List<Integer> oneLotto = new ArrayList<>(range.subList(0,6));
+
+    public List<LottoNumber> getRandLotto() {
+        Collections.shuffle(LottoNumberPool.NumberPool);
+        List<LottoNumber> oneLotto = new ArrayList<>(LottoNumberPool.NumberPool.subList(0,6));
         return oneLotto;
     }
 
     //helper function for LottoPack.getResults()
-    public Rank countMatch(List<Integer> nums, MatchNum matchNum){
+    public Rank countMatch(List<LottoNumber> nums, MatchNum matchNum){
         int cnt = 0;
         for (int i : matchNum.getPrevNums()){
             cnt += countMatchPerNum(nums, i);
@@ -30,7 +32,7 @@ public class Lotto {
         return rank;
     }
 
-    private int countMatchPerNum(List<Integer> nums, int i) {
+    private int countMatchPerNum(List<LottoNumber> nums, int i) {
         int cnt = 0;
         if (nums.contains(i)) {
             cnt += 1;

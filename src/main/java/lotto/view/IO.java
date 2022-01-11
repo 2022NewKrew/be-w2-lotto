@@ -1,5 +1,6 @@
 package lotto.view;
 
+import lotto.collections.LottoNumber;
 import lotto.dto.LottoResults;
 import lotto.dto.MatchNum;
 import lotto.utils.Rank;
@@ -53,8 +54,8 @@ public class IO {
         return itemCnt;
     }
 
-    public static void printPurchasedLottos(List<List<Integer>> lottos){
-        for(List<Integer> lotto: lottos){
+    public static void printPurchasedLottos(List<List<LottoNumber>> lottos){
+        for(List<LottoNumber> lotto: lottos){
             System.out.println(Arrays.toString(lotto.toArray()));
         }
     }

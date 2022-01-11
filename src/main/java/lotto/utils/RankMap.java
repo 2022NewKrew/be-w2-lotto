@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-public class RankMap {
+public final class RankMap {
     private static final Map<Rank, Integer> rankMap = new EnumMap<>(Rank.class);
 
     public RankMap(){
