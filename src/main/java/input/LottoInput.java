@@ -32,23 +32,19 @@ public class LottoInput {
             ec.checkLotto(lotto);
             manualLotto.add(lotto);
         }
-
-        if(manualLotto.size() * LottoConst.ONE_LOTTO_PRICE > totalPrice){
-            throw new IllegalArgumentException("금액을 초과했습니다.");
-        }
+        ec.checkOverTotalPrice(manualLotto.size() * LottoConst.ONE_LOTTO_PRICE, totalPrice);
 
         return manualLotto;
     }
 
     public Lotto inputResultLotto(String resultLotto){
-        List<Integer> lottoNumber = Arrays.stream(resultLotto.split(","))
+        Lotto lotto = new Lotto(Arrays.stream(resultLotto.split(","))
                 .map(String::trim)
                 .map(Integer::parseInt)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList())
+        );
 
-        Lotto lotto = new Lotto(lottoNumber);
         ec.checkLotto(lotto);
-
         return lotto;
     }
 

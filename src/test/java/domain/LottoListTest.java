@@ -8,10 +8,10 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LottoListTest {
-    LottoList lottoList;
+    LottoMachine lottoMachine;
     @BeforeEach
     void beforeEach(){
-        lottoList = new LottoList();
+        lottoMachine = new LottoMachine();
     }
 
     @Test
@@ -19,8 +19,8 @@ class LottoListTest {
     void createLottoByPrice(){
         int lottoPrice = 14500;
 
-        lottoList.createAutoLottoList(lottoPrice);
+        lottoMachine.autoLottoList(lottoPrice);
 
-        assertThat(lottoList.getLottoList().size()).isEqualTo(lottoPrice/1000);
+        assertThat(lottoMachine.getLottoList().getCount()).isEqualTo(lottoPrice/1000);
     }
 }

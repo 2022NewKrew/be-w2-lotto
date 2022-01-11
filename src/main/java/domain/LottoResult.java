@@ -1,41 +1,39 @@
 package domain;
 
-import java.util.Collections;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class LottoResult {
     private final LottoList lottoList;
-    private final Lotto resultLottoNumber;
+    private final Lotto resultLotto;
     private final int resultBonusNumber;
-    private final Map<Rank, Integer> lottoResult;
+    private final Map<Rank, Integer> lottoResultMap;
 
-    public LottoResult(LottoList lottoList, Lotto resultLottoNumber, int resultBonusNumber) {
+    public LottoResult(LottoList lottoList, Lotto resultLotto, int resultBonusNumber) {
         this.lottoList = lottoList;
-        this.resultLottoNumber = resultLottoNumber;
+        this.resultLotto = resultLotto;
         this.resultBonusNumber = resultBonusNumber;
-        lottoResult = new TreeMap<>(Collections.reverseOrder());
+        lottoResultMap = new TreeMap<>(Collections.reverseOrder());
 
         for (Rank rank : Rank.values()) {
-            lottoResult.put(rank, 0);
+            lottoResultMap.put(rank, 0);
         }
     }
 
     public Map<Rank, Integer> getLottoResult(){
         for (Lotto lotto : lottoList.getLottoList()) {
             Rank rank = Rank.valueOf(matchLotto(lotto), checkBonusLotto(lotto));
-            lottoResult.put(rank, lottoResult.get(rank)+1);
+            lottoResultMap.put(rank, lottoResultMap.get(rank)+1);
         }
 
-        return lottoResult;
+        return lottoResultMap;
     }
 
     public Double getTotalResultPrice(){
         AtomicLong resultPrice = new AtomicLong(0L);
-        long purchasePrice = lottoList.getLottoPrice();
+        long purchasePrice = (long) lottoList.getCount() * LottoConst.ONE_LOTTO_PRICE;
 
-        lottoResult.forEach((rank, count) ->
+        lottoResultMap.forEach((rank, count) ->
                 resultPrice.addAndGet((long) rank.getWinningMoney() * count));
 
         return (double) (resultPrice.get()-purchasePrice) / purchasePrice * 100;
@@ -43,10 +41,13 @@ public class LottoResult {
 
 
     private int matchLotto(Lotto purchaseLotto){
+        Set<Integer> lottoSet = new HashSet<>(resultLotto.getLotto());
+
         int count = 0;
         for (Integer lottoNumber : purchaseLotto.getLotto()) {
-            count += resultLottoNumber.getLotto().contains(lottoNumber) ? 1 : 0;
+            count += lottoSet.contains(lottoNumber) ? 1 : 0;
         }
+
 
         return count;
     }
