@@ -14,6 +14,7 @@ import lotto.view.LottoWebView;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static spark.Spark.*;
@@ -100,11 +101,11 @@ public class LottoWebApplication implements LottoApplication {
     }
 
     public Lotto parseManualLotto(String str) throws InvalidFormatException {
-        List<Integer> numbers = Arrays.stream(str.trim().split(","))
+        Set<Integer> numbers = Arrays.stream(str.trim().split(","))
                 .map(String::trim)
                 .map(Integer::parseInt)
                 .distinct()
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
 
         ExceptionCheck.validateLottoNumbers(numbers);
 

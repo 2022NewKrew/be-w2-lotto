@@ -4,10 +4,11 @@ import lotto.VO.InvalidFormatException;
 import lotto.model.Lotto;
 
 import java.util.List;
+import java.util.Set;
 
 public class ExceptionCheck {
 
-    public static void validateLottoNumbers(List<Integer> numbers) throws InvalidFormatException {
+    public static void validateLottoNumbers(Set<Integer> numbers) throws InvalidFormatException {
         if (numbers.size() != Lotto.N_NUMBERS) {
             throw new InvalidFormatException("6개의 숫자를 입력하세요.");
         }

@@ -14,6 +14,7 @@ import lotto.view.LottoView;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class LottoConsoleApplication implements LottoApplication {
@@ -105,11 +106,11 @@ public class LottoConsoleApplication implements LottoApplication {
     }
 
     public Lotto inputLotto() throws InvalidFormatException {
-        List<Integer> numbers = Arrays.stream(SCANNER.nextLine().trim().split(","))
+        Set<Integer> numbers = Arrays.stream(SCANNER.nextLine().trim().split(","))
                 .map(String::trim)
                 .map(Integer::parseInt)
                 .distinct()
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
 
         ExceptionCheck.validateLottoNumbers(numbers);
 

@@ -1,7 +1,6 @@
 package lotto.model;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 
 
 public class Lotto {
@@ -10,14 +9,13 @@ public class Lotto {
     public static final int MIN_NUMBER = 1;
     public static final int MAX_NUMBER = 45;
 
-    private final List<Integer> numbers;
+    private final Set<Integer> numbers;
 
-    public Lotto(List<Integer> numbers) {
+    public Lotto(Set<Integer> numbers) {
         if (numbers.size() != N_NUMBERS)
             throw new IllegalArgumentException();
 
         this.numbers = numbers;
-        Collections.sort(numbers);
     }
 
     public Lotto(Lotto lotto) {
@@ -36,7 +34,7 @@ public class Lotto {
         return this.numbers.contains(number);
     }
 
-    public List<Integer> getNumbers() {
+    public Set<Integer> getNumbers() {
         return this.numbers;
     }
 
