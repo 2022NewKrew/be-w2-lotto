@@ -9,15 +9,13 @@ import java.util.Arrays;
 
 public class Lotto {
 
-    private ArrayList<LottoGame> lottoGames;
-    private int numberGames;
-    private int moneyToGame;
+    final private ArrayList<LottoGame> lottoGames;
+    final private int numberGames;
 
     private ArrayList<Rank> winningCases = new ArrayList<>(Arrays.asList(Rank.FIRST, Rank.SECOND, Rank.THIRD, Rank.FOURTH, Rank.FIFTH));
 
     public Lotto(int moneyToGame){
         this.lottoGames = new ArrayList<>();
-        this.moneyToGame = moneyToGame;
         this.numberGames = calNumberGames(moneyToGame);
 
         for (int game=0;game < this.numberGames; game++){
@@ -64,5 +62,13 @@ public class Lotto {
 
     public ArrayList<Rank> getWinningCases(){
         return winningCases;
+    }
+
+    public ArrayList<ArrayList> getLottoGames(){
+        ArrayList<ArrayList> lottoGamesNumbers = new ArrayList<>();
+        for (LottoGame lottoGame: lottoGames){
+            lottoGamesNumbers.add(lottoGame.getCandidateNumbers());
+        }
+        return lottoGamesNumbers;
     }
 }
