@@ -16,7 +16,7 @@ import static lotto.view.Reader.enterManualInfo;
 public class Main {
     private static int purchase(){
         int amount = Reader.enterPurchaseAmount();
-        int totalCnt = Printer.printAndGetAmount(amount);
+        int totalCnt = Printer.printLottoCnt(amount);
         return totalCnt;
     }
 

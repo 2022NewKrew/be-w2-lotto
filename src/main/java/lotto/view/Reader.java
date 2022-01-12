@@ -3,6 +3,7 @@ package lotto.view;
 import lotto.collections.AnsLottoLine;
 import lotto.collections.LottoLine;
 import lotto.collections.LottoNumber;
+import lotto.domain.LottoPack;
 import lotto.dto.InputLottoConfig;
 
 import java.util.*;
@@ -17,8 +18,11 @@ public class Reader {
     private static final String qManualNums = "수동으로 구매할 번호를 입력해 주세요.";
 
 
-    public static InputLottoConfig enterManualInfo(int totalCnt){
+    public static InputLottoConfig enterManualInfo(int totalCnt) throws InputMismatchException{
         int manualCnt = enterManualLottoCnt();
+        if(manualCnt> totalCnt){
+            throw new InputMismatchException("수동 로또 개수가 전체 구매한 로또 개수보다 클 수 없습니다.");
+        }
         List<LottoLine> lottoLines = enterManualNums(manualCnt);
         return new InputLottoConfig(manualCnt, totalCnt, lottoLines);
     }
@@ -29,9 +33,13 @@ public class Reader {
         return new AnsLottoLine(prevNums, bonusNum);
     }
 
-    public static int enterPurchaseAmount(){
+    public static int enterPurchaseAmount() throws InputMismatchException{
         System.out.println(qPrice);
-        return scanner.nextInt();
+        int purchaseAmount =  scanner.nextInt();
+        if ( purchaseAmount <= LottoPack.LOTTO_PRICE) {
+            throw new InputMismatchException(String.format("구매 최소 금액은 %d원 입니다.", LottoPack.LOTTO_PRICE ));
+        }
+        return purchaseAmount;
     }
 
     private static LottoNumber enterBonusNum(){
@@ -56,9 +64,13 @@ public class Reader {
         return enterLottoLine();
     }
 
-    public static int enterManualLottoCnt() {
+    public static int enterManualLottoCnt() throws InputMismatchException {
         System.out.println(qManualNumCnt);
-        return scanner.nextInt();
+        int manualCnt = scanner.nextInt();
+        if (manualCnt < 0){
+            throw new InputMismatchException("로또 수는 1 이상 이여야 합니다.");
+        }
+        return manualCnt;
     }
 
     public static List<LottoLine> enterManualNums(int manualCnt){

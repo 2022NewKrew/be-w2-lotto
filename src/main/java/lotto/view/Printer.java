@@ -19,10 +19,10 @@ public class Printer {
     private static final String aBuyNums2 = "수동으로 %d장, 자동으로 %d개를 구매했습니다.";
 
 
-    public static int printAndGetAmount(int money){
-        int itemCnt = money / LottoPack.LOTTO_PRICE;
-        System.out.println(String.format(aBuyNums, itemCnt));
-        return itemCnt;
+    public static int printLottoCnt(int money){
+        int lottoCnt = (int) (money / LottoPack.LOTTO_PRICE);
+        System.out.println(String.format(aBuyNums, lottoCnt));
+        return lottoCnt;
     }
 
     public static void printPurchasedLottos(InputLottoConfig inputLottoConfig, List<LottoLine> lottos){
