@@ -16,8 +16,11 @@ public final class LottoNumberPool {
     public static LottoLine getSixNumbers(){
         shuffleNumbers();
         Set<LottoNumber> listToSet = new HashSet<>(NumberPool.subList(0,6));
-        LottoLine oneLottoLine = new LottoLine(listToSet);
-        return oneLottoLine;
+        return new LottoLine(listToSet);
+    }
+
+    public static LottoLine getRandLotto() {
+        return LottoNumberPool.getSixNumbers();
     }
 
     private static void shuffleNumbers(){
