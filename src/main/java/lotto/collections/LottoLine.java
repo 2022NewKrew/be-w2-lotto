@@ -53,8 +53,12 @@ public class LottoLine implements Iterable<LottoNumber>{
 
     @Override
     public String toString() {
+
+        List<LottoNumber> lottos = new ArrayList<>(lottoLine);
+        Collections.sort(lottos);
+
         StringBuilder sb = new StringBuilder();
-        lottoLine.forEach(sb::append);
+        lottos.forEach(sb::append);
         return sb.toString();
     }
 }

@@ -2,8 +2,8 @@ package lotto.collections;
 
 import java.util.Objects;
 
-public class LottoNumber {
-    private int n;
+public class LottoNumber implements Comparable<LottoNumber>{
+    private final int n;
     private static final int UPPER_BOUND=45;
     private static final int LOWER_BOUND=1;
 
@@ -32,6 +32,12 @@ public class LottoNumber {
 
     @Override
     public String toString() {
-        return Integer.toString(this.n);
+        return this.n+" ";
     }
+
+    @Override
+    public int compareTo(LottoNumber other){
+        return Integer.compare(this.n, other.n);
+    }
+
 }
