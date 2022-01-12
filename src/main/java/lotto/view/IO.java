@@ -1,8 +1,9 @@
 package lotto.view;
 
+import lotto.collections.LottoLine;
 import lotto.collections.LottoNumber;
+import lotto.collections.AnsLottoLine;
 import lotto.dto.LottoResults;
-import lotto.dto.MatchNum;
 import lotto.utils.Rank;
 import lotto.utils.RankMap;
 
@@ -29,11 +30,11 @@ public class IO {
         return itemCnt;
     }
 
-    public static MatchNum enterMatchNums(){
-        List<Integer> prevNums = enterPrevNums();
-        int bonusNum = enterBonusNum();
-        MatchNum matchNum = new MatchNum(prevNums, bonusNum);
-        return matchNum;
+    public static AnsLottoLine enterMatchNums(){
+        LottoLine prevNums = enterPrevNums();
+        LottoNumber bonusNum = enterBonusNum();
+        AnsLottoLine ansLottoLine = new AnsLottoLine(prevNums, bonusNum);
+        return ansLottoLine;
     }
 
     private static int enterPurchaseAmount(){
@@ -42,10 +43,10 @@ public class IO {
         return amount;
     }
 
-    private static int enterBonusNum(){
+    private static LottoNumber enterBonusNum(){
         System.out.println(qBonusNum);
         int num = scanner.nextInt();
-        return num;
+        return new LottoNumber(num);
     }
 
     private static int printAndGetAmount(int money){
@@ -54,18 +55,18 @@ public class IO {
         return itemCnt;
     }
 
-    public static void printPurchasedLottos(List<List<LottoNumber>> lottos){
-        for(List<LottoNumber> lotto: lottos){
-            System.out.println(Arrays.toString(lotto.toArray()));
+    public static void printPurchasedLottos(List<LottoLine> lottos){
+        for(LottoLine lotto: lottos){
+            System.out.println(lotto);
         }
     }
 
-    public static List<Integer> enterPrevNums(){
+    public static LottoLine enterPrevNums(){
         System.out.println(qPrevNums);
-        List<Integer> prevNums = new ArrayList<Integer>();
+        LottoLine prevNums = new LottoLine();
 
-        while (prevNums.size()<6 && scanner.hasNextInt()){
-            prevNums.add(scanner.nextInt());
+        while (prevNums.getSize()<6 && scanner.hasNextInt()){
+            prevNums.addNumber(new LottoNumber(scanner.nextInt()));
         }
         return prevNums;
     }

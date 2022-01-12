@@ -1,12 +1,14 @@
 package lotto.collections;
 
+import lotto.utils.Rank;
+
 import java.util.*;
 
-public class LottoLine {
-    private Set<LottoNumber> lottoLine;
+public class LottoLine implements Iterable<LottoNumber>{
+    public Set<LottoNumber> lottoLine;
 
     public LottoLine(){
-        this.lottoLine = new HashSet<>(6);
+        lottoLine = new HashSet<>(6);
     }
 
     public LottoLine(final Set<LottoNumber> lottoLine){
@@ -14,11 +16,25 @@ public class LottoLine {
     }
 
     public Set<LottoNumber> getLottoLine() {
-        return this.lottoLine;
+        return lottoLine;
+    }
+
+    public int getSize(){
+        return lottoLine.size();
     }
 
     public void addNumber(LottoNumber n){
-        this.lottoLine.add(n);
+        lottoLine.add(n);
+    }
+
+
+    public boolean contains(LottoNumber lottoNumber){
+        return lottoLine.contains(lottoNumber);
+    }
+
+    @Override
+    public Iterator<LottoNumber> iterator(){
+        return lottoLine.iterator();
     }
 
     @Override

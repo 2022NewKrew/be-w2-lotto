@@ -1,38 +1,35 @@
 package lotto.domain;
 
-import lotto.collections.LottoNumber;
+import lotto.collections.LottoLine;
+import lotto.collections.AnsLottoLine;
 import lotto.dto.LottoResults;
-import lotto.dto.MatchNum;
 import lotto.utils.Rank;
 import lotto.utils.RankMap;
 
-import javax.crypto.Mac;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 public class LottoPack {
-    private List<List<LottoNumber>> lottos = new ArrayList();
+    private List<LottoLine> lottos = new ArrayList();
     private Lotto lotto = new Lotto();
     private static final int lottoPrice = 1000;
 
     public LottoPack(int nLottos) {
         for(int i=0; i<nLottos;i++){
-            List<LottoNumber> lottoLine = lotto.getRandLotto();
+            LottoLine lottoLine = lotto.getRandLotto();
             lottos.add(lottoLine);
         }
     }
 
-    public List<List<LottoNumber>> getNumList() {
+    public List<LottoLine> getNumList() {
         return this.lottos;
     }
 
-    public LottoResults getResults(MatchNum matchNum) {
+    public LottoResults getResults(AnsLottoLine ansLottoLine) {
         RankMap rankMap = new RankMap();
 
-        for(List<LottoNumber> nums : this.lottos){
-            Rank rank = lotto.countMatch(nums, matchNum);
+        for(LottoLine line : this.lottos){
+            Rank rank = ansLottoLine.countMatch(line);
             rankMap.addCnt(rank);
         }
         int earnRate = this.getEarnRate(rankMap);
