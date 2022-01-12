@@ -3,20 +3,20 @@ package lotto.domain;
 import lotto.collections.LottoLine;
 import lotto.collections.AnsLottoLine;
 import lotto.dto.LottoResults;
+import lotto.utils.LottoNumberPool;
 import lotto.utils.Rank;
-import lotto.utils.RankMap;
+import lotto.collections.RankMap;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LottoPack {
-    private List<LottoLine> lottos = new ArrayList();
-    private Lotto lotto = new Lotto();
-    private static final int lottoPrice = 1000;
+    private final List<LottoLine> lottos = new ArrayList<>();
+    private static final int LOTTO_PRICE = 1000;
 
     public LottoPack(int nLottos) {
         for(int i=0; i<nLottos;i++){
-            LottoLine lottoLine = lotto.getRandLotto();
+            LottoLine lottoLine = LottoNumberPool.getRandLotto();
             lottos.add(lottoLine);
         }
     }
@@ -33,8 +33,7 @@ public class LottoPack {
             rankMap.addCnt(rank);
         }
         int earnRate = this.getEarnRate(rankMap);
-        LottoResults lottoResults = new LottoResults(rankMap, earnRate);
-        return lottoResults;
+        return new LottoResults(rankMap, earnRate);
     }
 
     private int getEarnRate(RankMap rankMap){
@@ -46,7 +45,7 @@ public class LottoPack {
             price += tempPrice * rankMap.getValue(rank);
         }
 
-        return 100*price/(numLottos*this.lottoPrice);
+        return 100*price/(numLottos*LottoPack.LOTTO_PRICE);
 
     }
 

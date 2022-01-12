@@ -7,7 +7,7 @@ public class LottoNumber implements Comparable<LottoNumber>{
     private static final int UPPER_BOUND=45;
     private static final int LOWER_BOUND=1;
 
-    public LottoNumber(int n){
+    public LottoNumber(int n) throws IllegalArgumentException{
         if ( n> UPPER_BOUND ){
             throw new IllegalArgumentException("입력 가능한 최대 로또 번호는 "+ UPPER_BOUND + "입니다.\n");
         }

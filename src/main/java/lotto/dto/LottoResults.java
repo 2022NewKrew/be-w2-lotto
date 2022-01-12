@@ -1,11 +1,6 @@
 package lotto.dto;
 
-import lotto.utils.Rank;
-import lotto.utils.RankMap;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import lotto.collections.RankMap;
 
 public class LottoResults {
     RankMap rankMap;

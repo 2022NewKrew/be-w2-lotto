@@ -1,17 +1,16 @@
 package lotto.collections;
 
-import lotto.utils.Rank;
+import lotto.utils.LottoNumberPool;
 
 import java.util.*;
 
 public class LottoLine implements Iterable<LottoNumber>{
     public Set<LottoNumber> lottoLine;
 
-    public LottoLine(){
-        lottoLine = new HashSet<>(6);
-    }
-
-    public LottoLine(final Set<LottoNumber> lottoLine){
+    public LottoLine(final Set<LottoNumber> lottoLine ) throws IllegalArgumentException{
+        if (lottoLine.size() !=6){
+            throw new IllegalArgumentException("Lotto 번호 개수는 6개 입력해 주세요.\n");
+        }
         this.lottoLine = lottoLine;
     }
 
@@ -19,18 +18,10 @@ public class LottoLine implements Iterable<LottoNumber>{
         return lottoLine;
     }
 
-    public int getSize(){
-        return lottoLine.size();
-    }
-
-    public void addNumber(LottoNumber n){
-        lottoLine.add(n);
-    }
-
-
     public boolean contains(LottoNumber lottoNumber){
         return lottoLine.contains(lottoNumber);
     }
+
 
     @Override
     public Iterator<LottoNumber> iterator(){

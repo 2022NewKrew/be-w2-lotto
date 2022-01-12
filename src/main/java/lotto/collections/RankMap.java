@@ -1,4 +1,6 @@
-package lotto.utils;
+package lotto.collections;
+
+import lotto.utils.Rank;
 
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -6,22 +8,22 @@ import java.util.Map;
 import java.util.Set;
 
 public final class RankMap {
-    private static final Map<Rank, Integer> rankMap = new EnumMap<>(Rank.class);
+    private final Map<Rank, Integer> rankMap = new EnumMap<>(Rank.class);
 
     public RankMap(){
         for(Rank rank: Rank.values()){
             rankMap.put(rank, 0);
         }
     }
-    public static Set<Rank> getKeySet() {
+    public Set<Rank> getKeySet() {
         return rankMap.keySet();
     }
 
-    public static int getValue(Rank rank) {
+    public int getValue(Rank rank) {
         return rankMap.get(rank);
     }
 
-    public static void addCnt(Rank rank){
+    public void addCnt(Rank rank){
         if (rank ==null){
             return;
         }

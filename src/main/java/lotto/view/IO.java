@@ -5,12 +5,12 @@ import lotto.collections.LottoNumber;
 import lotto.collections.AnsLottoLine;
 import lotto.dto.LottoResults;
 import lotto.utils.Rank;
-import lotto.utils.RankMap;
+import lotto.collections.RankMap;
 
 import java.util.*;
 
 public class IO {
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     private static final String qPrice = "구입 금액을 입력해주세요.";
     private static final String qPrevNums = "지난 주 당첨 번호을 입력해주세요. -- 띄어쓰기로 구별 ex) 1 2 3 4 5 6";
@@ -26,21 +26,18 @@ public class IO {
 
     public static int start(){
         int amount = enterPurchaseAmount();
-        int itemCnt = printAndGetAmount(amount);
-        return itemCnt;
+        return printAndGetAmount(amount);
     }
 
     public static AnsLottoLine enterMatchNums(){
         LottoLine prevNums = enterPrevNums();
         LottoNumber bonusNum = enterBonusNum();
-        AnsLottoLine ansLottoLine = new AnsLottoLine(prevNums, bonusNum);
-        return ansLottoLine;
+        return new AnsLottoLine(prevNums, bonusNum);
     }
 
     private static int enterPurchaseAmount(){
         System.out.println(qPrice);
-        int amount = scanner.nextInt();
-        return amount;
+        return scanner.nextInt();
     }
 
     private static LottoNumber enterBonusNum(){
@@ -63,12 +60,13 @@ public class IO {
 
     public static LottoLine enterPrevNums(){
         System.out.println(qPrevNums);
-        LottoLine prevNums = new LottoLine();
+        Set<LottoNumber> temp = new HashSet<>();
 
-        while (prevNums.getSize()<6 && scanner.hasNextInt()){
-            prevNums.addNumber(new LottoNumber(scanner.nextInt()));
+        while (temp.size()<6 && scanner.hasNextInt()){
+            temp.add(new LottoNumber(scanner.nextInt()));
         }
-        return prevNums;
+
+        return new LottoLine(temp);
     }
 
     public static void showResults(LottoResults lottoResults){
@@ -88,7 +86,7 @@ public class IO {
 
 
     private static void showCorrectCntsPerLine(Rank rank, int cnt){
-        if (rank==rank.SECOND){ //bonus number match
+        if (rank == Rank.SECOND){ //bonus number match
             System.out.println(String.format(aResultsBonusMatch, 5, rank.getWinningMoney(), cnt));
             return;
         }
