@@ -5,7 +5,7 @@ import lotto.utils.LottoNumberPool;
 import java.util.*;
 
 public class LottoLine implements Iterable<LottoNumber>{
-    public Set<LottoNumber> lottoLine;
+    public final Set<LottoNumber> lottoLine;
 
     public LottoLine(final Set<LottoNumber> lottoLine ) throws IllegalArgumentException{
         if (lottoLine.size() !=6){

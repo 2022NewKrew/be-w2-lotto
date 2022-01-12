@@ -3,18 +3,14 @@ package lotto.view;
 import lotto.collections.LottoLine;
 import lotto.collections.LottoNumber;
 import lotto.collections.AnsLottoLine;
+import lotto.domain.LottoPack;
 import lotto.dto.LottoResults;
 import lotto.utils.Rank;
 import lotto.collections.RankMap;
 
 import java.util.*;
 
-public class IO {
-    private static final Scanner scanner = new Scanner(System.in);
-
-    private static final String qPrice = "구입 금액을 입력해주세요.";
-    private static final String qPrevNums = "지난 주 당첨 번호을 입력해주세요. -- 띄어쓰기로 구별 ex) 1 2 3 4 5 6";
-    private static final String qBonusNum = "보너스 볼을 입력해 주세요.";
+public class Printer {
 
     private static final String aBuyNums = "%d개를 구매했습니다.";
     private static final String aResults = "당첨통계\n--------";
@@ -22,32 +18,9 @@ public class IO {
     private static final String aResultsBonusMatch = "%d개 일치, 보너스볼 일치 (%d원) - %d개";
     private static final String aEarnRate = "총 수익률은 %d %%입니다.";
 
-    private static final int lottoPrice = 1000;
 
-    public static int start(){
-        int amount = enterPurchaseAmount();
-        return printAndGetAmount(amount);
-    }
-
-    public static AnsLottoLine enterMatchNums(){
-        LottoLine prevNums = enterPrevNums();
-        LottoNumber bonusNum = enterBonusNum();
-        return new AnsLottoLine(prevNums, bonusNum);
-    }
-
-    private static int enterPurchaseAmount(){
-        System.out.println(qPrice);
-        return scanner.nextInt();
-    }
-
-    private static LottoNumber enterBonusNum(){
-        System.out.println(qBonusNum);
-        int num = scanner.nextInt();
-        return new LottoNumber(num);
-    }
-
-    private static int printAndGetAmount(int money){
-        int itemCnt = money/lottoPrice;
+    static int printAndGetAmount(int money){
+        int itemCnt = money / LottoPack.LOTTO_PRICE;
         System.out.println(String.format(aBuyNums, itemCnt));
         return itemCnt;
     }
@@ -58,16 +31,7 @@ public class IO {
         }
     }
 
-    public static LottoLine enterPrevNums(){
-        System.out.println(qPrevNums);
-        Set<LottoNumber> temp = new HashSet<>();
 
-        while (temp.size()<6 && scanner.hasNextInt()){
-            temp.add(new LottoNumber(scanner.nextInt()));
-        }
-
-        return new LottoLine(temp);
-    }
 
     public static void showResults(LottoResults lottoResults){
         RankMap rankMap = lottoResults.getRankMap();

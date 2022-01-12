@@ -12,7 +12,7 @@ import java.util.List;
 
 public class LottoPack {
     private final List<LottoLine> lottos = new ArrayList<>();
-    private static final int LOTTO_PRICE = 1000;
+    public static final int LOTTO_PRICE = 1000;
 
     public LottoPack(int nLottos) {
         for(int i=0; i<nLottos;i++){

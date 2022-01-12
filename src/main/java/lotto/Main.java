@@ -4,25 +4,26 @@ import lotto.collections.LottoLine;
 import lotto.domain.LottoPack;
 import lotto.collections.AnsLottoLine;
 import lotto.dto.LottoResults;
-import lotto.view.IO;
+import lotto.view.Printer;
+import lotto.view.Reader;
 
 import java.util.List;
 
-//멤버 클래스에서 바깥 인스턴스에 접근할 일이 없다면 무조건 static을 붙여서 정적 멤버 클래스로 만들자.
-// cmd + option + m -> 줄 여러개 드래그한후에 단축키 하면 함수 자동 생성해줌.
+
+
 public class Main {
     public static void main(String[] args) {
 
-        int itemCnt = IO.start();
+        int itemCnt = Reader.start();
 
         LottoPack lottoPack = new LottoPack(itemCnt);
         List<LottoLine> lottoNums = lottoPack.getNumList();
 
-        IO.printPurchasedLottos(lottoNums);
+        Printer.printPurchasedLottos(lottoNums);
 
-        AnsLottoLine matchNum =IO.enterMatchNums();
-        LottoResults lottoResults = lottoPack.getResults(matchNum); // -> 추후 test, earnRate, prevNum
-        IO.showResults(lottoResults);
+        AnsLottoLine matchNum = Reader.enterMatchNums();
+        LottoResults lottoResults = lottoPack.getResults(matchNum);
+        Printer.showResults(lottoResults);
 
     }
 }
