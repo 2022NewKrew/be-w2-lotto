@@ -1,9 +1,8 @@
 package lotto.view;
 
 import lotto.collections.LottoLine;
-import lotto.collections.LottoNumber;
-import lotto.collections.AnsLottoLine;
 import lotto.domain.LottoPack;
+import lotto.dto.InputLottoConfig;
 import lotto.dto.LottoResults;
 import lotto.utils.Rank;
 import lotto.collections.RankMap;
@@ -17,15 +16,22 @@ public class Printer {
     private static final String aResultsPerNum = "%d개 일치 (%d원) - %d개";
     private static final String aResultsBonusMatch = "%d개 일치, 보너스볼 일치 (%d원) - %d개";
     private static final String aEarnRate = "총 수익률은 %d %%입니다.";
+    private static final String aBuyNums2 = "수동으로 %d장, 자동으로 %d개를 구매했습니다.";
 
 
-    static int printAndGetAmount(int money){
+    public static int printAndGetAmount(int money){
         int itemCnt = money / LottoPack.LOTTO_PRICE;
         System.out.println(String.format(aBuyNums, itemCnt));
         return itemCnt;
     }
 
-    public static void printPurchasedLottos(List<LottoLine> lottos){
+    public static void printPurchasedLottos(InputLottoConfig inputLottoConfig, List<LottoLine> lottos){
+        int manualCnt = inputLottoConfig.getManualLottoCnt();
+        int totalCnt = inputLottoConfig.getTotalLottoCnt();
+        int autoCnt = totalCnt - manualCnt;
+
+        System.out.println(String.format(aBuyNums2, manualCnt,autoCnt));
+
         for(LottoLine lotto: lottos){
             System.out.println(lotto);
         }

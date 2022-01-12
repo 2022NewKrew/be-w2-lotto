@@ -3,25 +3,36 @@ package lotto.domain;
 import lotto.collections.LottoLine;
 import lotto.collections.AnsLottoLine;
 import lotto.dto.LottoResults;
+import lotto.dto.InputLottoConfig;
 import lotto.utils.LottoNumberPool;
 import lotto.utils.Rank;
 import lotto.collections.RankMap;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LottoPack {
-    private final List<LottoLine> lottos = new ArrayList<>();
+    private final List<LottoLine> lottos;
+
     public static final int LOTTO_PRICE = 1000;
 
-    public LottoPack(int nLottos) {
+    public LottoPack(InputLottoConfig lottoConfig){
+       int totalCnt = lottoConfig.getTotalLottoCnt();
+       int manualCnt = lottoConfig.getManualLottoCnt();
+       int autoCnt = totalCnt - manualCnt;
+       List<LottoLine> lottoLines = lottoConfig.getLottoLines();
+       lottos = lottoLines;
+       makeAutoLottoPack(autoCnt);
+    }
+
+
+    private void makeAutoLottoPack(int nLottos) {
         for(int i=0; i<nLottos;i++){
             LottoLine lottoLine = LottoNumberPool.getRandLotto();
             lottos.add(lottoLine);
         }
     }
 
-    public List<LottoLine> getNumList() {
+    public List<LottoLine> getLottos() {
         return this.lottos;
     }
 
