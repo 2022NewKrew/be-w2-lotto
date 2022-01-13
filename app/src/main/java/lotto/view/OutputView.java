@@ -6,8 +6,8 @@ import lotto.util.Rank;
 import java.util.ArrayList;
 
 public class OutputView {
-    public static void displayPurchaseGames(int numberLotto){
-        System.out.println(numberLotto + "개를 구매했습니다.");
+    public static void displayPurchaseGames(int manualNumber, int autoNumber){
+        System.out.println("수동으로 " + manualNumber + "장, 자동으로 " + autoNumber + "개를 구매했습니다.");
     }
 
     public static void displayPurchasedNumbers(ArrayList<ArrayList> lottoGamesNumber){

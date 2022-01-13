@@ -15,19 +15,27 @@ public class InputView {
         return sc.nextInt();
     }
 
-    public static ArrayList inputWinningNumber(){
-        ArrayList<Integer> lastLottoNumbers;
-        List<String> numberLineSplit;
+    public static int inputManualGame(){
+        System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+        return sc.nextInt();
+    }
 
+    public static ArrayList inputWinningNumber(){
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         String numberLine = sc.next();
-        numberLineSplit = Arrays.asList(numberLine.split(","));
-        try{
-            lastLottoNumbers = new ArrayList<Integer>(numberLineSplit.stream().map(s -> Integer.parseInt(s)).collect(Collectors.toList()));
-        } catch(NumberFormatException e){
-            lastLottoNumbers = new ArrayList<>();
+
+        return parseNumberLine(numberLine);
+    }
+
+    public static ArrayList inputManualNumber(int manualGame){
+        ArrayList<ArrayList<Integer>> manualNumbers = new ArrayList<>();
+        String numberLine;
+        System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+        for (int game = 0; game < manualGame; game++){
+            numberLine = sc.next();
+            manualNumbers.add(parseNumberLine(numberLine));
         }
-        return lastLottoNumbers;
+        return manualNumbers;
     }
 
     public static int inputBonusNumber(){
@@ -35,5 +43,12 @@ public class InputView {
         return sc.nextInt();
     }
 
+    private static ArrayList parseNumberLine(String numberLine){
+        ArrayList<Integer> lastLottoNumbers;
+        List<String> numberLineSplit;
 
+        numberLineSplit = Arrays.asList(numberLine.split(","));
+        lastLottoNumbers = new ArrayList<Integer>(numberLineSplit.stream().map(s -> Integer.parseInt(s)).collect(Collectors.toList()));
+        return lastLottoNumbers;
+    }
 }

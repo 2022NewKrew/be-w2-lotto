@@ -15,10 +15,16 @@ public class LottoApp {
 
         int bonusBall;
         int moneyToGame = InputView.inputPurchaseAmount();
+        int manualGame;
         ArrayList<Integer> winningNumber;
+        ArrayList<ArrayList<Integer>> manualNumbers;
+
+        manualGame = InputView.inputManualGame();
+        manualNumbers = InputView.inputManualNumber(manualGame);
 
         Lotto lotto = new Lotto(moneyToGame);
-        OutputView.displayPurchaseGames(lotto.getNumberGames());
+        lotto.inputManualNumbers(manualNumbers);
+        OutputView.displayPurchaseGames(lotto.getManualGames(), lotto.getAutoGames());
         OutputView.displayPurchasedNumbers(lotto.getLottoGames());
 
         winningNumber = InputView.inputWinningNumber();

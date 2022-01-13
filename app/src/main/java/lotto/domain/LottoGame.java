@@ -3,8 +3,10 @@ package lotto.domain;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.Set;
 import lotto.view.InputView;
 import lotto.util.Util;
 
@@ -19,10 +21,18 @@ public class LottoGame {
         candidateNumbers = new ArrayList<>(getShuffledNumbers());
     }
 
+    public LottoGame(ArrayList<Integer> manualCandidateNumbers){
+        candidateNumbers = manualCandidateNumbers;
+        Util.validateNumbersLength(candidateNumbers);
+        Util.validateDuplicate(candidateNumbers);
+    }
+
     private ArrayList<Integer> getShuffledNumbers(){
         Collections.shuffle(generationNumbers);
         return new ArrayList<Integer>(generationNumbers.subList(0,Util.LOTTONUMBERSIZE));
     }
+
+
 
     public int compareNumbers(ArrayList<Integer> lastWinningNumbers){
         int numberContains;
