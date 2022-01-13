@@ -36,6 +36,7 @@ public class LottoGame {
     private ArrayList<Integer> getShuffledNumbers(){
         Collections.shuffle(generationNumbers);
         return new ArrayList<Integer>(generationNumbers.subList(0,Util.LOTTONUMBERSIZE));
+
     }
 
     public int compareNumbers(ArrayList<Integer> lastWinningNumbers){
