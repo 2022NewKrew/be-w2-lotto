@@ -10,7 +10,7 @@ public class OutputView {
         System.out.println("수동으로 " + manualNumber + "장, 자동으로 " + autoNumber + "개를 구매했습니다.");
     }
 
-    public static void displayPurchasedNumbers(ArrayList<ArrayList> lottoGamesNumber){
+    public static void displayPurchasedNumbers(ArrayList<ArrayList<Integer>> lottoGamesNumber){
         for (ArrayList lottoNumbers : lottoGamesNumber){
             displayCandidateNumber(lottoNumbers);
         }

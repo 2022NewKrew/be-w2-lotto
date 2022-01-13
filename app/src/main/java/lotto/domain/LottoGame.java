@@ -27,6 +27,12 @@ public class LottoGame {
         Util.validateDuplicate(candidateNumbers);
     }
 
+    public void setCandidateNumbers(ArrayList<Integer> manualCandidateNumbers){
+        candidateNumbers = manualCandidateNumbers;
+        Util.validateNumbersLength(candidateNumbers);
+        Util.validateDuplicate(candidateNumbers);
+    }
+
     private ArrayList<Integer> getShuffledNumbers(){
         Collections.shuffle(generationNumbers);
         return new ArrayList<Integer>(generationNumbers.subList(0,Util.LOTTONUMBERSIZE));
