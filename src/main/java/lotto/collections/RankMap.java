@@ -2,10 +2,7 @@ package lotto.collections;
 
 import lotto.utils.Rank;
 
-import java.util.EnumMap;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public final class RankMap {
     private final Map<Rank, Integer> rankMap = new EnumMap<>(Rank.class);
@@ -29,5 +26,25 @@ public final class RankMap {
         }
         int value = rankMap.get(rank) +1;
         rankMap.put(rank, value);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RankMap)) return false;
+        RankMap rankMap1 = (RankMap) o;
+        return rankMap.equals(rankMap1.rankMap);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rankMap);
+    }
+
+    @Override
+    public String toString() {
+        return "RankMap{" +
+                "rankMap=" + rankMap +
+                '}';
     }
 }

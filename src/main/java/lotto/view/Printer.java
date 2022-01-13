@@ -41,7 +41,7 @@ public class Printer {
 
     public static void showResults(LottoResults lottoResults){
         RankMap rankMap = lottoResults.getRankMap();
-        int earnRate = lottoResults.getEarnRate();
+        long earnRate = lottoResults.getEarnRate();
         showCorrectCnts(rankMap);
         showEarnRate(earnRate);
     }
@@ -63,7 +63,7 @@ public class Printer {
         System.out.println(String.format(aResultsPerNum, rank.getCountOfMatch(), rank.getWinningMoney(), cnt));
     }
 
-    public static void showEarnRate(int rate){
+    public static void showEarnRate(long rate){
         System.out.println(String.format(aEarnRate, rate));
     }
 }
