@@ -27,9 +27,12 @@ public class Reader {
         return new InputLottoConfig(manualCnt, totalCnt, lottoLines);
     }
 
-    public static AnsLottoLine enterMatchNums(){
+    public static AnsLottoLine enterMatchNums() throws IllegalArgumentException{
         LottoLine prevNums = enterPrevNums();
         LottoNumber bonusNum = enterBonusNum();
+        if (prevNums.contains(bonusNum)){
+            throw new IllegalArgumentException("보너스 번호는 당첨 번호와 중복될 수 없습니다.");
+        }
         return new AnsLottoLine(prevNums, bonusNum);
     }
 
@@ -48,14 +51,18 @@ public class Reader {
         return new LottoNumber(num);
     }
 
-    private static LottoLine enterLottoLine(){
-        Set<LottoNumber> temp = new HashSet<>();
+    private static LottoLine enterLottoLine() throws InputMismatchException{
+        List<LottoNumber> temp = new ArrayList<>();
+        String[] inputNums =  scanner.nextLine().split(" ");
 
-        while (temp.size()<6 && scanner.hasNextInt()){
-            temp.add(new LottoNumber(scanner.nextInt()));
+        for(String n: inputNums){
+            temp.add(new LottoNumber(Integer.parseInt(n)));
+        }
+        if (temp.size()!=6){
+            throw new InputMismatchException("수동 로또 번호는 6개를 입력해야 합니다.");
         }
 
-        return new LottoLine(temp);
+        return new LottoLine(new HashSet<>(temp));
 
     }
 
@@ -64,6 +71,7 @@ public class Reader {
         return enterLottoLine();
     }
 
+    // 수동 로또의 개수 입력
     public static int enterManualLottoCnt() throws InputMismatchException {
         System.out.println(qManualNumCnt);
         int manualCnt = scanner.nextInt();
@@ -73,9 +81,11 @@ public class Reader {
         return manualCnt;
     }
 
+    // 수동 로또 번호 입력
     public static List<LottoLine> enterManualNums(int manualCnt){
         System.out.println(qManualNums);
         List<LottoLine> lines = new ArrayList<>(manualCnt);
+        scanner.nextLine();
 
         for(int i=0;i<manualCnt;i++){
             LottoLine lottoLine = enterLottoLine();
