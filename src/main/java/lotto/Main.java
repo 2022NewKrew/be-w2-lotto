@@ -1,27 +1,36 @@
 package lotto;
 
+import lotto.collections.LottoLine;
 import lotto.domain.LottoPack;
+import lotto.collections.AnsLottoLine;
+import lotto.dto.InputLottoConfig;
 import lotto.dto.LottoResults;
-import lotto.dto.MatchNum;
-import lotto.view.IO;
+import lotto.view.Printer;
+import lotto.view.Reader;
 
-import java.util.Arrays;
 import java.util.List;
 
+import static lotto.view.Reader.enterManualInfo;
+
+
 public class Main {
+    private static int purchase(){
+        int amount = Reader.enterPurchaseAmount();
+        int totalCnt = Printer.printLottoCnt(amount);
+        return totalCnt;
+    }
 
     public static void main(String[] args) {
-        IO io = new IO();
-        int itemCnt = io.start();
 
-        LottoPack lottoPack = new LottoPack(itemCnt);
-        List<List<Integer>> lottoNums = lottoPack.getNumList();
+        int totalLottoCnt = purchase();
+        InputLottoConfig inputLottoConfig = enterManualInfo(totalLottoCnt);
+        LottoPack lottoPack = new LottoPack(inputLottoConfig);
 
-        io.printPurchasedLottos(lottoNums);
+        Printer.printPurchasedLottos(inputLottoConfig, lottoPack.getLottos());
 
-        MatchNum matchNum = io.enterMatchNums();
-        LottoResults lottoResults = lottoPack.getResults(matchNum); // -> 추후 test, earnRate, prevNum
-        io.showResults(lottoResults);
+        AnsLottoLine matchNum = Reader.enterMatchNums();
+        LottoResults lottoResults = lottoPack.getResults(matchNum);
+        Printer.showResults(lottoResults);
 
     }
 }

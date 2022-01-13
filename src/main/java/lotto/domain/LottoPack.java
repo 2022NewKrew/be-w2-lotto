@@ -1,58 +1,76 @@
 package lotto.domain;
 
+import lotto.collections.LottoLine;
+import lotto.collections.AnsLottoLine;
 import lotto.dto.LottoResults;
-import lotto.dto.MatchNum;
+import lotto.dto.InputLottoConfig;
+import lotto.utils.LottoNumberPool;
 import lotto.utils.Rank;
-import lotto.utils.RankMap;
+import lotto.collections.RankMap;
 
-import javax.crypto.Mac;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class LottoPack {
-    private List<List<Integer>> lottos = new ArrayList();
-    private Lotto lotto = new Lotto();
-    private static final int lottoPrice = 1000;
+    private final List<LottoLine> lottos;
 
-    public LottoPack(int nLottos) {
+    public static final int LOTTO_PRICE = 1000;
+
+    public LottoPack(InputLottoConfig lottoConfig){
+       int totalCnt = lottoConfig.getTotalLottoCnt();
+       int manualCnt = lottoConfig.getManualLottoCnt();
+       int autoCnt = totalCnt - manualCnt;
+
+       lottos = lottoConfig.getLottoLines();
+       makeAutoLottoPack(autoCnt);
+    }
+
+
+    private void makeAutoLottoPack(int nLottos) {
         for(int i=0; i<nLottos;i++){
-            List<Integer> lottoNums = lotto.getRandLotto();
-            lottos.add(lottoNums);
+            LottoLine lottoLine = LottoNumberPool.getRandLotto();
+            lottos.add(lottoLine);
         }
     }
 
-    public List<List<Integer>> getNumList() {
+    public List<LottoLine> getLottos() {
         return this.lottos;
     }
 
-    public LottoResults getResults(MatchNum matchNum) {
+    public LottoResults getResults(AnsLottoLine ansLottoLine) {
         RankMap rankMap = new RankMap();
 
-        for(List<Integer> nums : this.lottos){
-            Rank rank = lotto.countMatch(nums, matchNum);
+        for(LottoLine line : this.lottos){
+            Rank rank = ansLottoLine.countMatch(line);
             rankMap.addCnt(rank);
-            System.out.println(rankMap);
         }
-        int earnRate = this.getEarnRate(rankMap);
-        LottoResults lottoResults = new LottoResults(rankMap, earnRate);
-        return lottoResults;
+        long earnRate = this.getEarnRate(rankMap);
+        return new LottoResults(rankMap, earnRate);
     }
 
-    private int getEarnRate(RankMap rankMap){
+    private long getEarnRate(RankMap rankMap){
         int numLottos = this.lottos.size();
-        int price = 0;
+        long price = 0;
 
         for(Rank rank: rankMap.getKeySet()){
             int tempPrice = rank.getWinningMoney();
-            price += tempPrice * rankMap.getValue(rank);
+            price += (long) tempPrice * rankMap.getValue(rank);
         }
 
-        return 100*price/(numLottos*this.lottoPrice);
+        return 100*price/((long) numLottos*LottoPack.LOTTO_PRICE);
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LottoPack)) return false;
+        LottoPack lottoPack = (LottoPack) o;
+        return getLottos().equals(lottoPack.getLottos());
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(getLottos());
+    }
 }
