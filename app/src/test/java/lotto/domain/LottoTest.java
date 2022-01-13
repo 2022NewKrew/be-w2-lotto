@@ -22,4 +22,22 @@ public class LottoTest {
         assert(0 <= tempLotto.compareNumbers(tempWinningNumbers) && tempLotto.compareNumbers(tempWinningNumbers) <= 6);
     }
 
+    @Test
+    void lottoGameManualInputTest(){
+        LottoGame tempLotto = new LottoGame(new ArrayList<>(Arrays.asList(1,2,3,4,5,6)));
+        assert(tempLotto.getCandidateNumbers().containsAll(new ArrayList<>(Arrays.asList(1,2,3,4,5,6))));
+    }
+
+    @Test
+    void lottoGameManualInputNumberTest(){
+        LottoGame tempLotto = new LottoGame(new ArrayList<>(Arrays.asList(1,2,3,4,5,6)));
+        assert(tempLotto.compareNumbers(new ArrayList<>(Arrays.asList(1,2,3,4,5,6))) == 6);
+    }
+
+    @Test
+    void lottoGameCompareBonusBallTest(){
+        LottoGame tempLotto = new LottoGame(new ArrayList<>(Arrays.asList(1,2,3,4,5,6)));
+        assert(tempLotto.compareBonusBall(7) == false);
+    }
+
 }

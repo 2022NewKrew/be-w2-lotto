@@ -32,8 +32,6 @@ public class LottoGame {
         return new ArrayList<Integer>(generationNumbers.subList(0,Util.LOTTONUMBERSIZE));
     }
 
-
-
     public int compareNumbers(ArrayList<Integer> lastWinningNumbers){
         int numberContains;
 

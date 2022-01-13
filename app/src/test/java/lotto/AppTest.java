@@ -22,7 +22,7 @@ class AppTest {
         ArrayList<Integer> winningNumber;
 
         Lotto lotto = new Lotto(moneyToGame);
-        OutputView.displayPurchaseGames(lotto.getNumberGames());
+        OutputView.displayPurchaseGames(lotto.getManualGames(), lotto.getAutoGames());
 
         winningNumber = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
         OutputView.displayCandidateNumber(winningNumber);
