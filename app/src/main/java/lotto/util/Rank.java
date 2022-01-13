@@ -32,8 +32,13 @@ public enum Rank {
     }
 
     public void checkAndCount(int matchNumber, boolean bonus){
-        if (matchNumber == countOfMatch && bonus == bonusMatch){
+        if (matchNumber == countOfMatch && countOfMatch == 5 && bonus == bonusMatch){
             counting();
+            return;
+        }
+        if (matchNumber == countOfMatch){
+            counting();
+            return;
         }
     }
 

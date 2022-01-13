@@ -8,18 +8,14 @@ import java.util.Arrays;
 
 public class LottoTest {
 
-    @DisplayName("Lotto 테스트")
+    @DisplayName("로또 클래스 테스트")
     @Test
-    void lottoGenerateTest(){
-        Lotto tempLotto = new Lotto(3000);
-        assert(tempLotto.getNumberGames() == 3);
-    }
-
-    @Test
-    void lottoGameWinningTest(){
-        LottoGame tempLotto = new LottoGame();
-        ArrayList<Integer> tempWinningNumbers= new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
-        assert(0 <= tempLotto.compareNumbers(tempWinningNumbers) && tempLotto.compareNumbers(tempWinningNumbers) <= 6);
+    void lottoClassTest(){
+        ArrayList<ArrayList<Integer>> manualNumbers = new ArrayList<>(Arrays.asList(new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6))));
+        Lotto lotto = new Lotto(3000);
+        lotto.inputManualNumbers(manualNumbers);
+        ArrayList<ArrayList<Integer>> outputLottoGames = lotto.getLottoGames();
+        assert(outputLottoGames.get(0).containsAll(new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6))));
     }
 
 }

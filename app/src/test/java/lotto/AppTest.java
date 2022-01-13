@@ -4,14 +4,14 @@
 package lotto;
 
 import lotto.domain.Lotto;
-import lotto.view.Interface;
+import lotto.view.InputView;
+import lotto.view.OutputView;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
 
@@ -23,15 +23,14 @@ class AppTest {
         ArrayList<Integer> winningNumber;
 
         Lotto lotto = new Lotto(moneyToGame);
-        Interface.displayPurchaseGames(lotto.getNumberGames());
+        OutputView.displayPurchaseGames(lotto.getManualGames(), lotto.getAutoGames());
 
         winningNumber = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
-        Interface.displayCandidateNumber(winningNumber);
-
+        OutputView.displayCandidateNumber(winningNumber);
         bonusBall = 7;
 
         lotto.checkWinning(winningNumber, bonusBall);
-        Interface.displayWinningResults(lotto);
+        OutputView.displayWinningResults(lotto);
     }
 
 

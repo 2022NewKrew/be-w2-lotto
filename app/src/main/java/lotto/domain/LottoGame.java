@@ -1,28 +1,42 @@
 package lotto.domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.stream.Collectors;
-
-import lotto.view.Interface;
+import java.util.stream.IntStream;
+import java.util.Set;
+import lotto.view.InputView;
 import lotto.util.Util;
 
 public class LottoGame {
 
     private ArrayList<Integer> candidateNumbers;
-
-    public static ArrayList<Integer> getShuffledNumbers(){
-        ArrayList<Integer> candidateNumbers = new ArrayList<>();
-        for (int idx = 1; idx <= 45; idx++){
-            candidateNumbers.add(idx);
-        }
-        Collections.shuffle(candidateNumbers);
-        return new ArrayList<Integer>(candidateNumbers.subList(0,Util.LOTTONUMBERSIZE));
-    }
+    private ArrayList<Integer> generationNumbers = (ArrayList<Integer>) IntStream.rangeClosed(1, 46)
+            .boxed()
+            .collect(Collectors.toList());
 
     public LottoGame(){
         candidateNumbers = new ArrayList<>(getShuffledNumbers());
-        Interface.displayCandidateNumber(candidateNumbers);
+    }
+
+    public LottoGame(ArrayList<Integer> manualCandidateNumbers){
+        candidateNumbers = manualCandidateNumbers;
+        Util.validateNumbersLength(candidateNumbers);
+        Util.validateDuplicate(candidateNumbers);
+    }
+
+    public void setCandidateNumbers(ArrayList<Integer> manualCandidateNumbers){
+        candidateNumbers = manualCandidateNumbers;
+        Util.validateNumbersLength(candidateNumbers);
+        Util.validateDuplicate(candidateNumbers);
+    }
+
+    private ArrayList<Integer> getShuffledNumbers(){
+        Collections.shuffle(generationNumbers);
+        return new ArrayList<Integer>(generationNumbers.subList(0,Util.LOTTONUMBERSIZE));
+
     }
 
     public int compareNumbers(ArrayList<Integer> lastWinningNumbers){
@@ -39,5 +53,9 @@ public class LottoGame {
 
     public boolean compareBonusBall(int bonusNumber){
         return candidateNumbers.contains(bonusNumber);
+    }
+
+    public ArrayList<Integer> getCandidateNumbers(){
+        return candidateNumbers;
     }
 }
