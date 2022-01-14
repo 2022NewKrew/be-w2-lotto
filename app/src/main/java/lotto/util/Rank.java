@@ -36,7 +36,7 @@ public enum Rank {
             counting();
             return;
         }
-        if (matchNumber == countOfMatch){
+        if (matchNumber == countOfMatch && countOfMatch != 5){
             counting();
             return;
         }

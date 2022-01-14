@@ -8,36 +8,37 @@ import java.util.Arrays;
 
 public class LottoGameTest {
 
-    @DisplayName("Lotto 테스트")
+    @DisplayName("LottoGames 테스트")
     @Test
     void lottoGenerateTest(){
-        Lotto tempLotto = new Lotto(3000);
-        assert(tempLotto.getNumberGames() == 3);
+        LottoGames tempLottoGames = LottoGames.of(3000);
+        assert(tempLottoGames.getNumberGames() == 3);
     }
 
     @Test
     void lottoGameWinningTest(){
-        LottoGame tempLotto = new LottoGame();
-        ArrayList<Integer> tempWinningNumbers= new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
+        LottoGame tempLotto = LottoGame.of();
+        ArrayList<LottoNumber> tempWinningNumbers= new ArrayList<>(Arrays.asList(LottoNumber.of(1),LottoNumber.of(2),LottoNumber.of(3),LottoNumber.of(4),LottoNumber.of(5),LottoNumber.of(6)));
         assert(0 <= tempLotto.compareNumbers(tempWinningNumbers) && tempLotto.compareNumbers(tempWinningNumbers) <= 6);
     }
 
     @Test
     void lottoGameManualInputTest(){
-        LottoGame tempLotto = new LottoGame(new ArrayList<>(Arrays.asList(1,2,3,4,5,6)));
+        LottoGame tempLotto = LottoGame.of(new ArrayList<>(Arrays.asList(1,2,3,4,5,6)));
         assert(tempLotto.getCandidateNumbers().containsAll(new ArrayList<>(Arrays.asList(1,2,3,4,5,6))));
     }
 
     @Test
     void lottoGameManualInputNumberTest(){
-        LottoGame tempLotto = new LottoGame(new ArrayList<>(Arrays.asList(1,2,3,4,5,6)));
-        assert(tempLotto.compareNumbers(new ArrayList<>(Arrays.asList(1,2,3,4,5,6))) == 6);
+        LottoGame tempLotto = LottoGame.of();
+        ArrayList<LottoNumber> tempWinningNumbers= new ArrayList<>(Arrays.asList(LottoNumber.of(1),LottoNumber.of(2),LottoNumber.of(3),LottoNumber.of(4),LottoNumber.of(5),LottoNumber.of(6)));
+        assert(tempLotto.compareNumbers(new ArrayList<>(Arrays.asList(LottoNumber.of(1),LottoNumber.of(2),LottoNumber.of(3),LottoNumber.of(4),LottoNumber.of(5),LottoNumber.of(6)))) == 6);
     }
 
     @Test
     void lottoGameCompareBonusBallTest(){
-        LottoGame tempLotto = new LottoGame(new ArrayList<>(Arrays.asList(1,2,3,4,5,6)));
-        assert(tempLotto.compareBonusBall(7) == false);
+        LottoGame tempLotto = LottoGame.of(new ArrayList<>(Arrays.asList(1,2,3,4,5,6)));
+        assert(tempLotto.compareBonusBall(LottoNumber.of(7)) == false);
     }
 
 }
