@@ -20,14 +20,6 @@ public class LottoTicket {
         return new LottoTicket(LottoNumbers.getInstanceByIntList(list));
     }
 
-    public static Money subMoney(Amount amount, Money money) {
-        return money.sub(amount.fullPrice(PRICE));
-    }
-
-    public static Amount calculateAmount(Money money) {
-        return money.calculateAmount(PRICE);
-    }
-
     public boolean contains(LottoNumber lottoNumber) {
         return lottoNumbers.contains(lottoNumber);
     }

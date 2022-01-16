@@ -3,6 +3,7 @@ package be.w2.lotto.Domain;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class LottoTickets {
 
     private List<LottoTicket> lottoTickets;
@@ -13,13 +14,13 @@ public class LottoTickets {
         this.lottoTickets = new ArrayList<>();
     }
 
-    public void addAutoTickets(Money money, LottoMaker lottoMaker) {
-        autoAmount = LottoTicket.calculateAmount(money);
-        lottoTickets.addAll(autoAmount.makeLottoTicket(new RandomTicketGenerator(lottoMaker)));
+    public void addAutoTickets(Money money) {
+        autoAmount = money.calculateAmount(LottoTicket.PRICE);
+        lottoTickets.addAll(autoAmount.makeLottoTicket(new RandomTicketGenerator()));
     }
 
     public Money addManualTickets(List<List<Integer>> inputs, Money money, Amount manualAmount) throws IllegalArgumentException {
-        Money leftMoney = LottoTicket.subMoney(manualAmount, money);
+        Money leftMoney = money.sub(manualAmount.fullPrice(LottoTicket.PRICE));
         this.manualAmount = manualAmount;
         lottoTickets.addAll(manualAmount.makeLottoTicket(new ManualTicketGenerator(inputs, manualAmount)));
         return leftMoney;
@@ -55,9 +56,9 @@ public class LottoTickets {
         return autoAmount.getAmount();
     }
 
-    public List<String> getLottoTicketsForWeb(){
+    public List<String> getLottoTicketsForWeb() {
         List<String> stringList = new ArrayList<>();
-        for(LottoTicket lottoTicket : lottoTickets)
+        for (LottoTicket lottoTicket : lottoTickets)
             stringList.add(lottoTicket.toString());
         return stringList;
     }

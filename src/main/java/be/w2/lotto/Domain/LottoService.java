@@ -5,15 +5,10 @@ import java.util.List;
 
 public class LottoService {
 
-    private LottoMaker lottoMaker;
     private LottoTickets lottoTickets;
     private LottoResult lottoResult;
     private Money money;
     private Amount manualAmount;
-
-    public LottoService() {
-        this.lottoMaker = new LottoMaker();
-    }
 
     public void makeMoney(int moneyInput) {
         this.money = new Money(moneyInput);
@@ -39,7 +34,7 @@ public class LottoService {
     }
 
     private void sellAuto(Money money, LottoTickets lottoTickets) {
-        lottoTickets.addAutoTickets(money, lottoMaker);
+        lottoTickets.addAutoTickets(money);
     }
 
     public void makeLottoResult(List<Integer> answersInput, int bonusNumberInput) {
