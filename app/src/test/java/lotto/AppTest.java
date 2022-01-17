@@ -3,8 +3,8 @@
  */
 package lotto;
 
-import lotto.domain.Lotto;
-import lotto.view.InputView;
+import lotto.domain.LottoGames;
+import lotto.domain.WinningLotto;
 import lotto.view.OutputView;
 
 import org.junit.jupiter.api.DisplayName;
@@ -15,22 +15,23 @@ import java.util.Arrays;
 
 class AppTest {
 
-    @DisplayName("전체 Lotto 테스트")
+    @DisplayName("전체 LottoGames 테스트")
     @Test
     void lottoTest(){
         int bonusBall;
-        int moneyToGame = 100000;
+        int moneyToGame = 3000;
         ArrayList<Integer> winningNumber;
 
-        Lotto lotto = new Lotto(moneyToGame);
-        OutputView.displayPurchaseGames(lotto.getManualGames(), lotto.getAutoGames());
+        LottoGames lottoGames = LottoGames.of(moneyToGame);
+        lottoGames.inputManualNumbers(new ArrayList<ArrayList<Integer>>(Arrays.asList(new ArrayList<Integer>(Arrays.asList(1,2,3,4,5,6)), new ArrayList<Integer>(Arrays.asList(2,3,4,5,6,7)))));
+        OutputView.displayPurchaseGames(lottoGames.getManualGames(), lottoGames.getAutoGames());
 
         winningNumber = new ArrayList<>(Arrays.asList(1,2,3,4,5,6));
-        OutputView.displayCandidateNumber(winningNumber);
-        bonusBall = 7;
+        bonusBall = 8;
 
-        lotto.checkWinning(winningNumber, bonusBall);
-        OutputView.displayWinningResults(lotto);
+        WinningLotto winningLotto = WinningLotto.of(winningNumber, bonusBall);
+        winningLotto.checkWinning(lottoGames.getLottoGames());
+        OutputView.displayWinningResults(winningLotto);
     }
 
 

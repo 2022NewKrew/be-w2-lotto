@@ -3,7 +3,8 @@
  */
 package lotto;
 
-import lotto.domain.Lotto;
+import lotto.domain.LottoGames;
+import lotto.domain.WinningLotto;
 import lotto.view.InputView;
 import lotto.view.OutputView;
 
@@ -13,25 +14,24 @@ public class LottoApp {
 
     public static void main(String[] args){
 
-        int bonusBall;
         int moneyToGame = InputView.inputPurchaseAmount();
-        int manualGame;
         ArrayList<Integer> winningNumber;
         ArrayList<ArrayList<Integer>> manualNumbers;
 
-        manualGame = InputView.inputManualGame();
+        int manualGame = InputView.inputManualGame();
         manualNumbers = InputView.inputManualNumber(manualGame);
 
-        Lotto lotto = new Lotto(moneyToGame);
-        lotto.inputManualNumbers(manualNumbers);
-        OutputView.displayPurchaseGames(lotto.getManualGames(), lotto.getAutoGames());
-        OutputView.displayPurchasedNumbers(lotto.getLottoGames());
+        LottoGames lottoGames = LottoGames.of(moneyToGame);
+        lottoGames.inputManualNumbers(manualNumbers);
+        OutputView.displayPurchaseGames(lottoGames.getManualGames(), lottoGames.getAutoGames());
+        OutputView.displayPurchasedNumbers(lottoGames.getLottoGames());
 
         winningNumber = InputView.inputWinningNumber();
-        bonusBall = InputView.inputBonusNumber();
+        int bonusBall = InputView.inputBonusNumber();
 
-        lotto.checkWinning(winningNumber, bonusBall);
-        OutputView.displayWinningResults(lotto);
+        WinningLotto winningLotto = WinningLotto.of(winningNumber, bonusBall);
+        winningLotto.checkWinning(lottoGames.getLottoGames());
+        OutputView.displayWinningResults(winningLotto);
     }
 
 }
