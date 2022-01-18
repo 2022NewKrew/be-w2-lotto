@@ -6,6 +6,9 @@ import lotto.util.Rank;
 import java.util.ArrayList;
 
 public class OutputView {
+
+    private final static String templateHead = "당첨 통계 \n ---------";
+
     public static void displayPurchaseGames(int manualNumber, int autoNumber){
         System.out.println("수동으로 " + manualNumber + "장, 자동으로 " + autoNumber + "개를 구매했습니다.");
     }
@@ -24,8 +27,7 @@ public class OutputView {
     }
 
     public static void displayWinningResults(WinningLotto winningLotto){
-        System.out.println("당첨 통계");
-        System.out.println("---------");
+        System.out.println(templateHead);
         for (Rank rank : winningLotto.getWinningCases()){
             System.out.println(rank.getCountOfMatch()+"개 일치 ("+ rank.getWinningMoney() +"원)- "+rank.getResultCount()+"개");
         }
