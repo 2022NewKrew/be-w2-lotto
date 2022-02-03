@@ -15,7 +15,16 @@ class LottoInfoServiceTest {
     void setMoneyTest(String input) {
         LottoInfoService lottoInfoService = new LottoInfoService();
 
-        assertThrows(LottoException.class, () ->lottoInfoService.setMoney(input));
+        assertThrows(LottoException.class, () -> lottoInfoService.setMoney(input));
+    }
+
+    @DisplayName("수동 구매 로또 수 입력 잘못 들어올 때")
+    @ValueSource(strings = {"abc", "10000.1", "?", "-100", "10000"})
+    @ParameterizedTest
+    void setAmountManualTest(String input) {
+        LottoInfoService lottoInfoService = new LottoInfoService();
+
+        assertThrows(LottoException.class, () -> lottoInfoService.setAmountManual(input));
     }
 
 }

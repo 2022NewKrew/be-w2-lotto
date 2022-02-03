@@ -5,6 +5,10 @@ public class LottoInfo {
     private int money;
     private int amountOfManual;
 
+    public int getMoney() {
+        return money;
+    }
+
     private LottoInfo() {
     }
 

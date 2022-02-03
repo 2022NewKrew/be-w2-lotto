@@ -15,8 +15,12 @@ public class LottoView {
 
     public String inputMoney() {
         System.out.println(HOW_MONEY);
-        String money = scanner.nextLine();
-        return money;
+        return scanner.nextLine();
+    }
+
+    public String amountManualLotto() {
+        System.out.println(HOW_MANY_MANUAL);
+        return scanner.nextLine();
     }
 
     public void printMessage(String message) {

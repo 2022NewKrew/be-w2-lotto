@@ -1,5 +1,6 @@
 package service;
 
+import domain.validator.AmountManualValidator;
 import domain.validator.MoneyValidator;
 import domain.validator.Validator;
 import exception.LottoException;
@@ -14,5 +15,13 @@ public class LottoInfoService {
 
         int money = Integer.parseInt(input);
         lottoInfoRepository.insertMoney(money);
+    }
+
+    public void setAmountManual(String input) throws LottoException {
+        Validator validator = new AmountManualValidator();
+        validator.validate(input);
+
+        int amountManual = Integer.parseInt(input);
+        lottoInfoRepository.insertAmountManual(amountManual);
     }
 }

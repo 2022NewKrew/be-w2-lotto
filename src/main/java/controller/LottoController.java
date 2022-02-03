@@ -12,7 +12,6 @@ public class LottoController {
     public void inputMoney() {
         try {
             String money = lottoView.inputMoney();
-
             lottoInfoService.setMoney(money);
         } catch (LottoException e) {
             lottoView.printMessage(e.getMessage());
@@ -20,7 +19,15 @@ public class LottoController {
         }
     }
 
-    // 수동 구매 몇개
+    public void amountManualLotto() {
+        try {
+            String amountManual = lottoView.amountManualLotto();
+            lottoInfoService.setAmountManual(amountManual);
+        } catch (LottoException e) {
+            lottoView.printMessage(e.getMessage());
+            amountManualLotto();
+        }
+    }
 
     // 수동 구매할 번호 입력
 
@@ -32,5 +39,6 @@ public class LottoController {
 
     public void run() {
         inputMoney();
+        amountManualLotto();
     }
 }
