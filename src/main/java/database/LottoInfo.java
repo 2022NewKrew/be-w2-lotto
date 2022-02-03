@@ -5,10 +5,6 @@ public class LottoInfo {
     private int money;
     private int amountOfManual;
 
-    public int getMoney() {
-        return money;
-    }
-
     private LottoInfo() {
     }
 
@@ -17,6 +13,14 @@ public class LottoInfo {
             lottoInfo = new LottoInfo();
         }
         return lottoInfo;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public int getAmountOfManual() {
+        return amountOfManual;
     }
 
     public void setMoney(int money) {

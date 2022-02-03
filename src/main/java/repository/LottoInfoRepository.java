@@ -16,4 +16,12 @@ public class LottoInfoRepository {
     public int getMoney() {
         return lottoInfo.getMoney();
     }
+
+    public int getAmountManual() {
+        return lottoInfo.getAmountOfManual();
+    }
+
+    public int getAmountAuto() {
+        return lottoInfo.getMoney() / 1000 - lottoInfo.getAmountOfManual();
+    }
 }

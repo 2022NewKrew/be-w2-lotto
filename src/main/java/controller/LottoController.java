@@ -2,12 +2,17 @@ package controller;
 
 import exception.LottoException;
 import service.LottoInfoService;
+import service.LottoPaperService;
 import view.LottoView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LottoController {
 
     private final LottoView lottoView = new LottoView();
     private final LottoInfoService lottoInfoService = new LottoInfoService();
+    private final LottoPaperService lottoPaperService = new LottoPaperService();
 
     public void inputMoney() {
         try {
@@ -29,7 +34,29 @@ public class LottoController {
         }
     }
 
-    // 수동 구매할 번호 입력
+    public void inputLottoNumbers() {
+        try {
+            int amountManual = lottoInfoService.getAmountManual();
+
+            List<String> lottoNumbers = new ArrayList<>();
+            for (int buy = 0; buy < amountManual; buy++) {
+                String input = lottoView.inputLottoNumbers();
+                lottoNumbers.add(input);
+            }
+            lottoPaperService.setLottoNumbers(lottoNumbers);
+
+        } catch (LottoException e) {
+            lottoView.printMessage(e.getMessage());
+            inputLottoNumbers();
+        }
+    }
+
+    public void showLottoNumbers() {
+        int manual = lottoInfoService.getAmountManual();
+        int auto = lottoInfoService.getAmountAuto();
+        String lottoNumbers = lottoPaperService.getLottoString();
+        lottoView.printLotto(manual, auto, lottoNumbers);
+    }
 
     // 지난 주 당첨 번호 입력
 
@@ -40,5 +67,7 @@ public class LottoController {
     public void run() {
         inputMoney();
         amountManualLotto();
+        inputLottoNumbers();
+        showLottoNumbers();
     }
 }

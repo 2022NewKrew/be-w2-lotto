@@ -24,4 +24,12 @@ public class LottoInfoService {
         int amountManual = Integer.parseInt(input);
         lottoInfoRepository.insertAmountManual(amountManual);
     }
+
+    public int getAmountManual() {
+        return lottoInfoRepository.getAmountManual();
+    }
+
+    public int getAmountAuto() {
+        return lottoInfoRepository.getAmountAuto();
+    }
 }
