@@ -3,6 +3,7 @@ package controller;
 import exception.LottoException;
 import service.LottoInfoService;
 import service.LottoPaperService;
+import service.LottoWinService;
 import view.LottoView;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class LottoController {
     private final LottoView lottoView = new LottoView();
     private final LottoInfoService lottoInfoService = LottoInfoService.getLottoInfoService();
     private final LottoPaperService lottoPaperService = LottoPaperService.getLottoPaperService();
+    private final LottoWinService lottoWinService = LottoWinService.getLottoWinService();
 
     private LottoController() {
     }
@@ -69,9 +71,25 @@ public class LottoController {
         lottoView.printLotto(manual, auto, lottoNumbers);
     }
 
-    // 지난 주 당첨 번호 입력
+    public void inputWinNumbers() {
+        try {
+            String input = lottoView.inputWinNumbers();
+            lottoWinService.setWinNumbers(input);
+        } catch (LottoException e) {
+            lottoView.printMessage(e.getMessage());
+            inputWinNumbers();
+        }
+    }
 
-    // 보너스 번호 입력
+    public void inputBonusNumber() {
+        try {
+            String input = lottoView.inputBonusNumber();
+            lottoWinService.setBonusNumber(input);
+        } catch (LottoException e) {
+            lottoView.printMessage(e.getMessage());
+            inputBonusNumber();
+        }
+    }
 
     // 통계 가져오기
 
@@ -80,5 +98,7 @@ public class LottoController {
         amountManualLotto();
         inputLottoNumbers();
         showLottoNumbers();
+        inputWinNumbers();
+        inputBonusNumber();
     }
 }
