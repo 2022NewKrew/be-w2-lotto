@@ -13,7 +13,7 @@ class LottoInfoServiceTest {
     @ValueSource(strings = {"abc", "10000.1", "?", "-100", "0", "100"})
     @ParameterizedTest
     void setMoneyTest(String input) {
-        LottoInfoService lottoInfoService = new LottoInfoService();
+        LottoInfoService lottoInfoService = LottoInfoService.getLottoInfoService();
 
         assertThrows(LottoException.class, () -> lottoInfoService.setMoney(input));
     }
@@ -22,7 +22,7 @@ class LottoInfoServiceTest {
     @ValueSource(strings = {"abc", "10000.1", "?", "-100", "10000"})
     @ParameterizedTest
     void setAmountManualTest(String input) {
-        LottoInfoService lottoInfoService = new LottoInfoService();
+        LottoInfoService lottoInfoService = LottoInfoService.getLottoInfoService();
 
         assertThrows(LottoException.class, () -> lottoInfoService.setAmountManual(input));
     }

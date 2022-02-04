@@ -18,7 +18,7 @@ class LottoPaperServiceTest {
             "-1, 2, 3, 4, 5, 6"})
     @ParameterizedTest
     void isSixNumbers(String input) {
-        LottoPaperService lottoPaperService = new LottoPaperService();
+        LottoPaperService lottoPaperService = LottoPaperService.getLottoPaperService();
 
         List<String> lottoNumbers = new ArrayList<>();
         lottoNumbers.add(input);

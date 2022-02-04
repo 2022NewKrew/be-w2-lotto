@@ -9,10 +9,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LottoController {
+    private static LottoController lottoController = null;
 
     private final LottoView lottoView = new LottoView();
-    private final LottoInfoService lottoInfoService = new LottoInfoService();
-    private final LottoPaperService lottoPaperService = new LottoPaperService();
+    private final LottoInfoService lottoInfoService = LottoInfoService.getLottoInfoService();
+    private final LottoPaperService lottoPaperService = LottoPaperService.getLottoPaperService();
+
+    private LottoController() {
+    }
+
+    public static LottoController getLottoController() {
+        if (lottoController == null) {
+            lottoController = new LottoController();
+        }
+        return lottoController;
+    }
 
     public void inputMoney() {
         try {

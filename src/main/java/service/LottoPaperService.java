@@ -13,8 +13,19 @@ import java.util.Collections;
 import java.util.List;
 
 public class LottoPaperService {
-    LottoInfoRepository lottoInfoRepository = new LottoInfoRepository();
-    LottoPaperRepository lottoPaperRepository = new LottoPaperRepository();
+    private static LottoPaperService lottoPaperService = null;
+    private final LottoInfoRepository lottoInfoRepository = LottoInfoRepository.getLottoInfoRepository();
+    private final LottoPaperRepository lottoPaperRepository = LottoPaperRepository.getLottoPaperRepository();
+
+    private LottoPaperService() {
+    }
+
+    public static LottoPaperService getLottoPaperService() {
+        if (lottoPaperService == null) {
+            lottoPaperService = new LottoPaperService();
+        }
+        return lottoPaperService;
+    }
 
     public void setLottoNumbers(List<String> lottoNumbers) throws LottoException {
         Validator validator = new LottoNumberValidator();

@@ -4,7 +4,7 @@ import exception.LottoException;
 import repository.LottoInfoRepository;
 
 public class AmountManualValidator extends IntegerValidator implements Validator {
-    LottoInfoRepository lottoInfoRepository = new LottoInfoRepository();
+    LottoInfoRepository lottoInfoRepository = LottoInfoRepository.getLottoInfoRepository();
 
     @Override
     public void validate(String input) throws LottoException {
