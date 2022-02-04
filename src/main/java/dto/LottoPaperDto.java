@@ -24,4 +24,8 @@ public class LottoPaperDto {
 
         return result.toString();
     }
+
+    public List<List<Integer>> getPaper() {
+        return paper;
+    }
 }

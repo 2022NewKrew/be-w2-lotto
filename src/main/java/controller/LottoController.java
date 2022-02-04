@@ -1,6 +1,7 @@
 package controller;
 
 import constant.Message;
+import dto.LottoResultDto;
 import exception.LottoException;
 import service.LottoInfoService;
 import service.LottoPaperService;
@@ -92,7 +93,10 @@ public class LottoController {
         }
     }
 
-    // 통계 가져오기
+    public void showResult() {
+        LottoResultDto result = lottoWinService.getLottoResult();
+        lottoView.printMessage(result.toString());
+    }
 
     public void run() {
         inputMoney();
@@ -101,5 +105,6 @@ public class LottoController {
         showLottoNumbers();
         inputWinNumbers();
         inputBonusNumber();
+        showResult();
     }
 }

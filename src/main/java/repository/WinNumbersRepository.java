@@ -29,4 +29,8 @@ public class WinNumbersRepository {
     public List<Integer> findWinNumbers() {
         return winNumbers.findWinNumbers();
     }
+
+    public Integer findBonusNumber() {
+        return winNumbers.findBonusNumber();
+    }
 }
