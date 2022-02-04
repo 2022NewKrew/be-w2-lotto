@@ -6,5 +6,6 @@ public class Main {
         lottoGame.start();
         //git test step1
         //git test step2
+        //git test step3
     }
 }
