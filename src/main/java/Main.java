@@ -5,5 +5,7 @@ public class Main {
         LottoGame lottoGame = new LottoGame();
         lottoGame.start();
         //git test step1
+        //git test step2
+        //git test step3
     }
 }
