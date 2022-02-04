@@ -1,5 +1,6 @@
 package controller;
 
+import constant.Message;
 import exception.LottoException;
 import service.LottoInfoService;
 import service.LottoPaperService;
@@ -29,7 +30,7 @@ public class LottoController {
 
     public void inputMoney() {
         try {
-            String money = lottoView.inputMoney();
+            String money = lottoView.inputWithMessage(Message.HOW_MONEY);
             lottoInfoService.setMoney(money);
         } catch (LottoException e) {
             lottoView.printMessage(e.getMessage());
@@ -39,7 +40,7 @@ public class LottoController {
 
     public void amountManualLotto() {
         try {
-            String amountManual = lottoView.amountManualLotto();
+            String amountManual = lottoView.inputWithMessage(Message.HOW_MANY_MANUAL);
             lottoInfoService.setAmountManual(amountManual);
         } catch (LottoException e) {
             lottoView.printMessage(e.getMessage());
@@ -53,7 +54,7 @@ public class LottoController {
 
             List<String> lottoNumbers = new ArrayList<>();
             for (int buy = 0; buy < amountManual; buy++) {
-                String input = lottoView.inputLottoNumbers();
+                String input = lottoView.inputWithMessage(Message.ENTER_MANUAL_NUM);
                 lottoNumbers.add(input);
             }
             lottoPaperService.setLottoNumbers(lottoNumbers);
@@ -73,7 +74,7 @@ public class LottoController {
 
     public void inputWinNumbers() {
         try {
-            String input = lottoView.inputWinNumbers();
+            String input = lottoView.inputWithMessage(Message.LAST_WIN_NUM);
             lottoWinService.setWinNumbers(input);
         } catch (LottoException e) {
             lottoView.printMessage(e.getMessage());
@@ -83,7 +84,7 @@ public class LottoController {
 
     public void inputBonusNumber() {
         try {
-            String input = lottoView.inputBonusNumber();
+            String input = lottoView.inputWithMessage(Message.BONUS_NUM);
             lottoWinService.setBonusNumber(input);
         } catch (LottoException e) {
             lottoView.printMessage(e.getMessage());
